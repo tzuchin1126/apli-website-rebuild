@@ -29,6 +29,7 @@
 .join-cards p { margin: 14px 0 0; color: var(--color-muted); line-height: 1.7; }
 .benefits-table { width: 100%; border-collapse: collapse; }
 .benefits-table th, .benefits-table td { padding: 16px; border-bottom: 1px solid var(--color-line); text-align: left; vertical-align: top; }
+.benefits-table thead th { background: var(--color-surface-soft); color: var(--color-muted); font-size: .92rem; }
 .benefits-table th { width: 180px; color: var(--color-ink); }
 .benefits-table td { color: var(--color-muted); line-height: 1.7; }
 @media (max-width: 840px) { .join-intro { grid-template-columns: 1fr; } .join-cards { grid-template-columns: repeat(2, 1fr); } }
