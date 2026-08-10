@@ -13,36 +13,66 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="site-header" aria-label="主要導覽">
-            <div class="site-container site-header__inner">
-                <a class="site-header__brand" asp-area="" asp-page="/Index">亞太國際物流</a>
-                <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
-                    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-                    <span class="sr-only">開啟選單</span>
-                </button>
-                <div id="main-navigation" class="site-header__nav">
-                    <a asp-area="" asp-page="/Index">首頁</a>
-                    <a asp-area="" asp-page="/Privacy">隱私權政策</a>
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="site-header">
+        <div class="site-container site-header__inner">
+            <a class="site-header__brand" asp-area="" asp-page="/Index" aria-label="亞太國際物流首頁">
+                <img src="~/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
+            </a>
+
+            <nav id="main-navigation" class="site-header__nav" aria-label="主選單">
+                <div class="nav-dropdown">
+                    <button class="nav-link" type="button" aria-expanded="false" aria-controls="about-menu">關於我們 <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></button>
+                    <div id="about-menu" class="nav-menu" role="group" aria-label="關於我們子選單">
+                        <span class="nav-menu__title">關於亞太</span>
+                        <a href="/about">公司簡介</a>
+                        <a href="/milestones">公司沿革</a>
+                        <a href="/operational-resources">營運資源</a>
+                    </div>
                 </div>
+                <div class="nav-dropdown">
+                    <button class="nav-link" type="button" aria-expanded="false" aria-controls="services-menu">服務項目 <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></button>
+                    <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
+                        <span class="nav-menu__title">營業項目</span>
+                        <a href="/services#warehousing">倉儲物流</a>
+                        <a href="/services#terminal-handling">貨櫃清洗與維修</a>
+                        <a href="/services#maintenance">機具維修與銷售</a>
+                    </div>
+                </div>
+                <a href="/news">最新消息</a>
+                <a href="/join">人才招募</a>
+                <a href="/affiliates">關係企業</a>
+                <a href="/contact">聯絡我們</a>
+            </nav>
+
+            <div class="site-header__tools" aria-label="快速連結">
+                <a href="/contact" aria-label="聯絡我們"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 17V7A1.5 1.5 0 0 1 4 5.5Z" /><path d="m3.5 7 8.5 6 8.5-6" /></svg></a>
+                <a href="/Index#search" aria-label="搜尋網站內容"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.3" /><path d="m16.2 16.2 5 5" /></svg></a>
             </div>
-        </nav>
+
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">開啟選單</span></button>
+        </div>
     </header>
+
     <div class="site-container">
-        <main role="main">
+        <main id="main-content" role="main">
             @RenderBody()
         </main>
     </div>
 
     <footer class="site-footer">
-        <div class="site-container">
-            <span>&copy; 2026 亞太國際物流股份有限公司</span>
-            <a asp-area="" asp-page="/Privacy">隱私權政策</a>
+        <div class="site-container site-footer__main">
+            <div class="site-footer__brand"><a asp-area="" asp-page="/Index" aria-label="亞太國際物流首頁"><img src="~/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" /></a></div>
+            <nav class="site-footer__nav" aria-label="頁尾導覽">
+                <div class="footer-column"><h2>關於亞太</h2><a href="/about">公司簡介</a><a href="/milestones">公司沿革</a><a href="/operational-resources">營運資源</a></div>
+                <div class="footer-column"><h2>服務項目</h2><a href="/services#warehousing">倉儲物流</a><a href="/services#terminal-handling">貨櫃清洗與維修</a><a href="/services#maintenance">機具維修與銷售</a></div>
+                <div class="footer-column"><h2>快速連結</h2><a href="/news">最新消息</a><a href="/join">人才招募</a><a href="/contact">聯絡我們</a><a asp-area="" asp-page="/Privacy">隱私權政策</a></div>
+            </nav>
         </div>
+        <div class="site-footer__bottom"><div class="site-container"><span>&copy; 2026 亞太國際物流股份有限公司</span><a asp-area="" asp-page="/Privacy">隱私權政策</a></div></div>
     </footer>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
