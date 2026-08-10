@@ -36,12 +36,28 @@
 .philosophy-panels button[aria-expanded="true"] span { max-height: 160px; opacity: 0.9; transform: translateY(0); }
 .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
 
+.about-certifications { padding: clamp(64px, 8vw, 112px) 0; background: var(--color-surface); }
+.about-section-heading--left { justify-items: start; margin-bottom: 40px; text-align: left; }
+.about-section-heading--left h2 { position: relative; }
+.certification-list { position: relative; display: grid; max-width: 1120px; margin: 0 auto; padding: 0 0 0 38px; list-style: none; }
+.certification-list::before { position: absolute; top: 0; bottom: 0; left: 8px; width: 2px; background: var(--color-line); content: ""; }
+.certification-list li { position: relative; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 24px; padding: 0 0 24px 28px; }
+.certification-list li::before { position: absolute; top: 4px; left: -1px; width: 18px; height: 18px; border: 5px solid var(--color-surface); border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); content: ""; }
+.certification-list time { color: var(--color-primary-dark); font-weight: 700; line-height: 1.6; }
+.certification-list p { margin: 0; padding-bottom: 24px; border-bottom: 1px solid var(--color-line); line-height: 1.6; }
+.about-certifications__link { display: inline-flex; margin-top: 32px; margin-left: 38px; }
+.about-certifications__link.button--outline { background: transparent; color: var(--color-primary); }
+.about-certifications__link.button--outline:hover, .about-certifications__link.button--outline:focus-visible { background: var(--color-primary); color: #fff; }
+
 @media (max-width: 840px) {
   .about-profile { grid-template-columns: 1fr; }
   .philosophy-gallery { min-height: 520px; }
   .philosophy-panels { flex-direction: column; }
   .philosophy-panels button { min-height: 160px; border-right: 0; border-bottom: 1px solid rgb(255 255 255 / 42%); }
   .philosophy-panels button:last-child { border-bottom: 0; }
+  .certification-list { padding-left: 28px; }
+  .certification-list li { grid-template-columns: 58px minmax(0, 1fr); gap: 14px; padding-left: 20px; }
+  .about-certifications__link { margin-left: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
