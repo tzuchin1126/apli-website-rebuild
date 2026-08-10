@@ -10,7 +10,7 @@
       tag: item.tag ?? item.Tag,
       title: item.title ?? item.Title,
       published: item.published ?? item.Published
-    })).filter((item) => item.published !== false).slice(0, 3))
+    })).filter((item) => item.published !== false).slice(0, 4))
     .then((items) => {
       list.replaceChildren();
       items.forEach((item) => {
