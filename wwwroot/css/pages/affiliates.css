@@ -19,6 +19,11 @@
 .affiliate-panel p:not(.eyebrow) { margin: 0; color: var(--color-muted); line-height: 1.8; }
 .affiliate-panel ul { display: grid; gap: 10px; margin: 0; padding: 0 0 0 20px; color: var(--color-muted); line-height: 1.7; }
 .affiliate-panel img { width: 100%; aspect-ratio: 4 / 3; border-radius: 10px; object-fit: cover; }
+.affiliate-panel--text { grid-template-columns: minmax(0, 1fr); max-width: 860px; margin-inline: auto; }
+.affiliate-panel--text > div { max-width: 720px; }
+.affiliate-panel--text p.affiliate-tagline { color: var(--color-primary-dark); font-weight: 600; }
+.affiliate-website-link { width: fit-content; color: var(--color-primary-dark); font-weight: 600; }
+.affiliate-website-link:hover, .affiliate-website-link:focus-visible { color: var(--color-primary); }
 .eyebrow { margin: 0; color: var(--color-muted); letter-spacing: .08em; }
 @media (max-width: 840px) { .affiliate-panel { grid-template-columns: 1fr; gap: 32px; } }
 @media (max-width: 760px) { .affiliates-breadcrumb { display: none; } .affiliates-content { padding-top: 48px; padding-bottom: 80px; } .affiliate-tabs { margin-bottom: 32px; } }
