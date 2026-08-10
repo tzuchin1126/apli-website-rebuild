@@ -32,7 +32,9 @@ public class IndexModel(IWebHostEnvironment environment) : PageModel
         public string Date { get; init; } = "";
         public string Tag { get; init; } = "";
         public string Title { get; init; } = "";
+        public string Content { get; init; } = "";
         public string Url { get; init; } = "";
+        public string ImageUrl { get; init; } = "";
         public bool Published { get; init; }
     }
 }

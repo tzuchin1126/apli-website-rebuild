@@ -48,24 +48,12 @@
         @foreach (var item in Model.Items)
         {
             <article class="news-item" data-news-item data-category="@item.Tag" data-year="@item.Date[..4]">
-                @if (!string.IsNullOrWhiteSpace(item.Url))
-                {
-                    <a class="news-row" href="@item.Url">
-                        <span class="news-row__date">@item.Date</span>
-                        <span class="news-row__tag">@item.Tag</span>
-                        <span class="news-row__title">@item.Title</span>
-                        <span class="news-row__icon" aria-hidden="true">›</span>
-                    </a>
-                }
-                else
-                {
-                    <div class="news-row">
-                        <span class="news-row__date">@item.Date</span>
-                        <span class="news-row__tag">@item.Tag</span>
-                        <span class="news-row__title">@item.Title</span>
-                        <span class="news-row__icon" aria-hidden="true">›</span>
-                    </div>
-                }
+                <a class="news-row" href="/news/@item.Id">
+                    <span class="news-row__date">@item.Date</span>
+                    <span class="news-row__tag">@item.Tag</span>
+                    <span class="news-row__title">@item.Title</span>
+                    <span class="news-row__icon" aria-hidden="true">›</span>
+                </a>
             </article>
         }
         <p class="news-empty" data-news-empty hidden>沒有符合條件的最新消息。</p>

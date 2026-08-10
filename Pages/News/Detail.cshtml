@@ -1,0 +1,40 @@
+@page "/news/{id}"
+@model apli_website_rebuild.Pages.News.DetailModel
+@{
+    ViewData["Title"] = Model.Item?.Title ?? "最新消息";
+    ViewData["BodyClass"] = "news-detail-page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/news-detail.css" asp-append-version="true" />
+}
+
+<div class="news-breadcrumb">
+    <div class="site-container"><a asp-page="/Index">首頁</a><span aria-hidden="true">›</span><a asp-page="/News/Index">最新消息</a><span aria-hidden="true">›</span><span aria-current="page">@Model.Item!.Title</span></div>
+</div>
+
+<article class="news-detail site-container">
+    <header class="news-detail__header">
+        <div class="news-detail__meta"><time datetime="@Model.Item.Date">@Model.Item.Date</time><span>@Model.Item.Tag</span></div>
+        <h1>@Model.Item.Title</h1>
+    </header>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Item.ImageUrl))
+    {
+        <img class="news-detail__image" src="@Model.Item.ImageUrl" alt="" />
+    }
+
+    <div class="news-detail__content">
+        @foreach (var paragraph in Model.Item.Content.Split("\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            <p>@paragraph</p>
+        }
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Item.Url))
+    {
+        <p class="news-detail__attachment"><a class="button" href="@Model.Item.Url">查看相關附件</a></p>
+    }
+
+    <a class="news-detail__back" asp-page="/News/Index">← 返回最新消息</a>
+</article>
