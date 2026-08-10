@@ -1,9 +1,37 @@
-.home-page {
-  padding: 64px 0;
-}
-
-.home-page h1,
-.home-page h2 {
-  font-family: var(--font-heading);
-  font-weight: 500;
-}
+.home-page h1, .home-page h2, .home-page h3 { font-family: var(--font-heading); font-weight: 500; }
+.home-hero { position: relative; min-height: clamp(540px, 72vh, 760px); overflow: hidden; background: #173646; }
+.home-hero picture, .home-hero img, .home-hero__overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+.home-hero img { object-fit: cover; object-position: center; }
+.home-hero__overlay { background: linear-gradient(90deg, rgb(0 0 0 / 48%), rgb(0 0 0 / 8%)); }
+.home-hero__content { position: relative; z-index: 1; display: flex; min-height: clamp(540px, 72vh, 760px); flex-direction: column; align-items: flex-start; justify-content: center; color: #fff; }
+.home-hero__content p { margin: 0 0 16px; font-size: clamp(1rem, 1.5vw, 1.35rem); letter-spacing: .12em; }
+.home-hero__content h1 { margin: 0 0 30px; font-size: clamp(2.5rem, 6vw, 5.8rem); line-height: 1.2; letter-spacing: .08em; }
+.home-hero__content h1 span { color: var(--color-primary); }
+.home-hero__content .button { border-color: #fff; color: #fff; }
+.home-hero__content .button:hover { background: var(--color-primary); border-color: var(--color-primary); }
+.home-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 8vw, 120px); align-items: center; padding-top: clamp(80px, 11vw, 160px); padding-bottom: clamp(80px, 11vw, 160px); }
+.home-intro figure { margin: 0; }
+.home-intro figure img { width: 100%; aspect-ratio: 1.15; object-fit: cover; }
+.eyebrow { margin: 0 0 12px; color: var(--color-primary); font-size: .85rem; letter-spacing: .16em; }
+.home-intro h2, .home-services h2, .home-latest h2 { margin: 0 0 24px; font-size: clamp(2rem, 3.5vw, 3.2rem); }
+.home-intro p:not(.eyebrow), .home-services > p:not(.eyebrow) { color: var(--color-muted); line-height: 1.9; }
+.home-text-link, .home-service-grid a { display: inline-flex; margin-top: 20px; color: var(--color-primary); font-weight: 600; text-decoration: none; }
+.home-services { padding-bottom: clamp(80px, 11vw, 160px); }
+.home-services > p:not(.eyebrow) { max-width: 540px; margin-top: 0; }
+.home-service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+.home-service-grid article { overflow: hidden; border: 1px solid var(--color-line); background: #fff; }
+.home-service-grid article > img { width: 100%; aspect-ratio: 1.45; object-fit: cover; }
+.home-service-grid article > div { padding: 24px; }
+.home-service-grid h3 { margin: 0 0 10px; font-size: 1.35rem; }
+.home-service-grid p { min-height: 52px; margin: 0; color: var(--color-muted); line-height: 1.7; }
+.home-service-grid a { font-size: .85rem; letter-spacing: .08em; }
+.home-latest { padding-bottom: 120px; }
+.home-latest__heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+.home-latest h2 { margin-bottom: 0; }
+.home-latest__list { margin-top: 36px; border-top: 1px solid var(--color-line); }
+.home-latest__item { display: grid; grid-template-columns: 150px 130px minmax(0, 1fr) 24px; gap: 16px; align-items: center; min-height: 82px; border-bottom: 1px solid var(--color-line); color: var(--color-ink); text-decoration: none; }
+.home-latest__item:hover, .home-latest__item:focus-visible { color: var(--color-primary); }
+.home-latest__item time, .home-latest__item span { color: var(--color-muted); }
+.home-latest__item strong { color: var(--color-ink); font-weight: 500; }
+.home-latest__empty { padding: 24px 0; color: var(--color-muted); }
+@media (max-width: 760px) { .home-hero, .home-hero__content { min-height: 540px; } .home-intro { grid-template-columns: 1fr; gap: 40px; padding-top: 72px; padding-bottom: 72px; } .home-service-grid { grid-template-columns: 1fr; } .home-latest { padding-bottom: 80px; } .home-latest__heading { align-items: flex-start; flex-direction: column; gap: 10px; } .home-latest__item { grid-template-columns: 1fr 24px; gap: 4px 12px; padding: 16px 0; } .home-latest__item time, .home-latest__item span, .home-latest__item strong { grid-column: 1; } .home-latest__item i { grid-column: 2; grid-row: 1 / span 3; } }
