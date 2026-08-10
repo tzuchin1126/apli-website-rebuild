@@ -1,0 +1,49 @@
+.about-breadcrumb { border-bottom: 1px solid var(--color-line); }
+.about-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: 0.88rem; }
+.about-breadcrumb a { color: var(--color-ink); text-decoration: none; }
+.about-breadcrumb a:hover, .about-breadcrumb a:focus-visible { color: var(--color-primary); }
+
+.about-hero { position: relative; min-height: clamp(360px, 38vw, 560px); overflow: hidden; background: #173646; }
+.about-hero picture, .about-hero img, .about-hero__overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+.about-hero img { object-fit: cover; object-position: center 36%; }
+.about-hero__overlay { background: linear-gradient(180deg, rgb(0 0 0 / 12%), rgb(0 0 0 / 42%)); }
+.about-hero__content { position: relative; z-index: 1; display: grid; min-height: inherit; align-content: center; gap: 36px; color: #fff; }
+.about-hero h1 { margin: 0; font-family: var(--font-heading); font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 400; letter-spacing: 0.08em; }
+.about-hero blockquote { max-width: 900px; margin: 0; font-family: var(--font-heading); font-size: clamp(1.25rem, 2.1vw, 1.8rem); line-height: 1.65; letter-spacing: 0.04em; text-shadow: 0 3px 24px rgb(0 0 0 / 36%); }
+.about-hero cite { display: block; margin-top: 18px; font-size: 0.95rem; font-style: normal; letter-spacing: 0.14em; text-align: right; }
+
+.about-profile { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 96px); align-items: center; padding-top: clamp(64px, 8vw, 112px); padding-bottom: clamp(64px, 8vw, 112px); }
+.about-section-copy { display: grid; gap: 20px; }
+.eyebrow { margin: 0; color: var(--color-muted); font-size: 1rem; letter-spacing: 0.04em; }
+.about-section-copy h2, .about-section-heading h2 { width: fit-content; margin: 0 0 8px; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); font-family: var(--font-heading); font-size: clamp(2rem, 3.2vw, 2.6rem); font-weight: 600; letter-spacing: 0.04em; }
+.about-section-copy p:not(.eyebrow) { margin: 0; color: var(--color-muted); line-height: 1.75; }
+.about-profile figure { aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 18px 42px rgb(15 50 66 / 12%); }
+.about-profile figure img { width: 100%; height: 100%; object-fit: cover; }
+
+.about-philosophy { padding: clamp(64px, 8vw, 112px) 0; background: var(--color-surface-soft); }
+.about-section-heading { display: grid; justify-items: center; gap: 8px; margin-bottom: 40px; text-align: center; }
+.about-section-heading h2 { margin-bottom: 0; }
+.philosophy-gallery { position: relative; display: flex; width: min(100% - 32px, 1280px); min-height: clamp(460px, 60vh, 680px); margin: 0 auto; overflow: hidden; border-radius: 12px; background: #173646; }
+.philosophy-gallery__image, .philosophy-gallery__overlay { position: absolute; inset: 0; background: url('/public/images/index/使命.jpg') center / cover no-repeat; transition: opacity 500ms ease; }
+.philosophy-gallery__image--values { background-image: url('/public/images/about/new.jpg'); opacity: 0; }
+.philosophy-gallery__overlay { background: linear-gradient(0deg, rgb(0 0 0 / 75%), rgb(0 0 0 / 15%)); }
+.philosophy-panels { position: relative; z-index: 1; display: flex; width: 100%; }
+.philosophy-panels button { display: flex; min-width: 0; flex: 1; align-items: center; justify-content: center; padding: clamp(24px, 4vw, 56px); border: 0; border-right: 1px solid rgb(255 255 255 / 42%); background: rgb(0 0 0 / 30%); color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background 500ms ease; }
+.philosophy-panels button:last-child { border-right: 0; }
+.philosophy-panels button[aria-expanded="true"] { flex: 7; background: rgb(0 0 0 / 36%); }
+.philosophy-panels strong { display: grid; gap: 16px; font-family: var(--font-heading); font-size: clamp(1.35rem, 2vw, 2rem); }
+.philosophy-panels span { display: block; max-width: 600px; max-height: 0; overflow: hidden; opacity: 0; transform: translateY(12px); font-size: clamp(0.95rem, 1.1vw, 1.08rem); line-height: 1.75; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
+.philosophy-panels button[aria-expanded="true"] span { max-height: 160px; opacity: 0.9; transform: translateY(0); }
+.philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
+
+@media (max-width: 840px) {
+  .about-profile { grid-template-columns: 1fr; }
+  .philosophy-gallery { min-height: 520px; }
+  .philosophy-panels { flex-direction: column; }
+  .philosophy-panels button { min-height: 160px; border-right: 0; border-bottom: 1px solid rgb(255 255 255 / 42%); }
+  .philosophy-panels button:last-child { border-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .philosophy-gallery__image, .philosophy-panels button, .philosophy-panels span { transition: none; }
+}
