@@ -1,0 +1,77 @@
+@page "/news"
+@model apli_website_rebuild.Pages.News.IndexModel
+@{
+    ViewData["Title"] = "最新消息";
+    ViewData["BodyClass"] = "news-page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/news.css" asp-append-version="true" />
+}
+
+<div class="news-breadcrumb">
+    <div class="site-container"><a asp-page="/Index">首頁</a><span aria-hidden="true">›</span><span aria-current="page">最新消息</span></div>
+</div>
+
+<section class="news-hero" aria-labelledby="news-hero-title">
+    <picture>
+        <source type="image/avif" srcset="/public/images/news/news-hero-port-transport-960.avif 960w, /public/images/news/news-hero-port-transport-1528.avif 1528w" sizes="100vw" />
+        <img src="/public/images/news/news-hero-port-transport.png" alt="" fetchpriority="high" />
+    </picture>
+    <div class="news-hero__overlay" aria-hidden="true"></div>
+    <h1 id="news-hero-title">最新消息</h1>
+</section>
+
+<section class="news-content site-container" aria-labelledby="news-list-title">
+    <h2 id="news-list-title" class="sr-only">最新消息列表</h2>
+    <div class="news-filter" data-news-filter>
+        <div class="news-categories" role="group" aria-label="新聞類別">
+            <button type="button" data-category="" aria-pressed="true">全部</button>
+            @foreach (var category in Model.Categories)
+            {
+                <button type="button" data-category="@category" aria-pressed="false">@category</button>
+            }
+        </div>
+        <label class="news-year">
+            <span>年份</span>
+            <select data-year aria-label="年份">
+                <option value="">全部年份</option>
+                @foreach (var year in Model.Items.Select(item => item.Date[..4]).Distinct())
+                {
+                    <option value="@year">@year</option>
+                }
+            </select>
+        </label>
+    </div>
+
+    <div class="news-list" data-news-list>
+        @foreach (var item in Model.Items)
+        {
+            <article class="news-item" data-news-item data-category="@item.Tag" data-year="@item.Date[..4]">
+                @if (!string.IsNullOrWhiteSpace(item.Url))
+                {
+                    <a class="news-row" href="@item.Url">
+                        <span class="news-row__date">@item.Date</span>
+                        <span class="news-row__tag">@item.Tag</span>
+                        <span class="news-row__title">@item.Title</span>
+                        <span class="news-row__icon" aria-hidden="true">›</span>
+                    </a>
+                }
+                else
+                {
+                    <div class="news-row">
+                        <span class="news-row__date">@item.Date</span>
+                        <span class="news-row__tag">@item.Tag</span>
+                        <span class="news-row__title">@item.Title</span>
+                        <span class="news-row__icon" aria-hidden="true">›</span>
+                    </div>
+                }
+            </article>
+        }
+        <p class="news-empty" data-news-empty hidden>沒有符合條件的最新消息。</p>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/news.js" asp-append-version="true"></script>
+}

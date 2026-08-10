@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="~/css/components/buttons.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/pages/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="@ViewData["BodyClass"]">
     <a class="skip-link" href="#main-content">跳至主要內容</a>
     <header class="site-header">
         <div class="site-container site-header__inner">
@@ -54,11 +55,9 @@
         </div>
     </header>
 
-    <div class="site-container">
-        <main id="main-content" role="main">
-            @RenderBody()
-        </main>
-    </div>
+    <main id="main-content" role="main">
+        @RenderBody()
+    </main>
 
     <footer class="site-footer">
         <div class="site-container site-footer__main">
