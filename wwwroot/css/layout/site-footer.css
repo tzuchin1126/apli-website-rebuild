@@ -1,0 +1,23 @@
+.site-footer {
+  margin-top: 64px;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+}
+
+.site-footer .site-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--color-primary);
+}
+
+@media (max-width: 760px) {
+  .site-footer .site-container {
+    flex-direction: column;
+  }
+}

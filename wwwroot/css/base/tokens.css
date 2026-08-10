@@ -1,0 +1,13 @@
+:root {
+  --color-primary: #f58214;
+  --color-primary-dark: #9e4e17;
+  --color-ink: #222222;
+  --color-muted: #81817e;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f7f7;
+  --color-line: #e3e6e1;
+  --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
+  --font-heading: "Noto Serif TC", "Songti TC", serif;
+  --site-max-width: 1360px;
+  --site-padding: clamp(16px, 2.6vw, 24px);
+}

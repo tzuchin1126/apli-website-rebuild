@@ -1,0 +1,23 @@
+## .NET build output
+bin/
+obj/
+
+## Visual Studio / VS Code / Rider
+.vs/
+.vscode/
+.idea/
+
+## User-specific settings
+*.user
+*.suo
+*.rsuser
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Local secrets and environment files
+appsettings.Local.json
+.env
+.env.*
+!.env.example

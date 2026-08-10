@@ -1,0 +1,4 @@
+.site-container {
+  width: min(100% - (var(--site-padding) * 2), var(--site-max-width));
+  margin-inline: auto;
+}
