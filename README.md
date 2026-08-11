@@ -37,7 +37,7 @@ Release 建置：
 dotnet build -c Release
 ```
 
-員工專區 `/Admin` 的登入帳號不寫入版本庫，啟動前請設定環境變數 `Admin__Username` 與 `Admin__Password`。登入後可管理 `wwwroot/data/news.json` 與 `wwwroot/data/news-categories.json`；帳號未設定時頁面仍可開啟，但登入 API 會拒絕登入。
+員工專區 `/Admin` 的登入帳號不寫入版本庫，啟動前必須設定環境變數 `Admin__Username` 與 `Admin__Password`。應用程式未設定完整帳密時會直接停止啟動；登入後可管理 `wwwroot/data/news.json` 與 `wwwroot/data/news-categories.json`。
 
 JavaScript 語法檢查：
 

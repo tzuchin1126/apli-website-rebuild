@@ -47,9 +47,7 @@
         return;
       }
 
-      message.textContent = response.status === 503
-        ? "員工帳號尚未設定，請聯絡網站管理者。"
-        : response.status === 429
+      message.textContent = response.status === 429
           ? "登入嘗試過於頻繁，請稍後再試。"
           : "帳號或密碼錯誤。";
     } catch {

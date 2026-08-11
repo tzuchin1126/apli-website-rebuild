@@ -12,8 +12,13 @@ using apli_website_rebuild.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var adminUsername = builder.Configuration["Admin:Username"] ?? "";
-var adminPassword = builder.Configuration["Admin:Password"] ?? "";
+var adminUsername = builder.Configuration["Admin:Username"];
+var adminPassword = builder.Configuration["Admin:Password"];
+if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminPassword))
+{
+    throw new InvalidOperationException(
+        "Admin credentials are not configured. Set Admin__Username and Admin__Password.");
+}
 
 builder.Services.AddRazorPages();
 builder.Services
@@ -169,9 +174,6 @@ app.MapRazorPages();
 app.MapPost("/api/admin/login", async (HttpContext context, LoginRequest request, IAntiforgery antiforgery) =>
 {
     await antiforgery.ValidateRequestAsync(context);
-
-    if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminPassword))
-        return Results.StatusCode(StatusCodes.Status503ServiceUnavailable);
 
     var usernameBytes = Encoding.UTF8.GetBytes(request.Username ?? "");
     var expectedUsernameBytes = Encoding.UTF8.GetBytes(adminUsername);
