@@ -48,6 +48,19 @@
 
 ## 已完成紀錄
 
+- [x] 調整 About 靜態頁 Hero 引言版型。
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 內容：隱藏 Hero 標題（保留 `sr-only` h1）、引言置中、開頭加入 `〝`、署名前使用 inline SVG 橘色線，未使用 `::before`。
+  - 驗證：`dotnet build -c Release` 通過；瀏覽器實際驗證 1366x900、390x844，確認標題不可見、引言置中、橘線顯示且手機無水平溢位；未驗證跨瀏覽器、實體裝置與人工無障礙。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 調整 About 公司簡介區塊圖片比例與標題底線。
+  - 範圍：`wwwroot/css/pages/about.css`；同步套用 `/about` Razor 頁面。
+  - 內容：參考首頁「關於亞太」的左右欄配置，將右側公司圖片縮為欄寬 88% 並靠近文字側；標題底線改用首頁「最新消息」的 `h2::after` 寫法與既有 `--color-primary` 變數。
+  - 已驗證：來源 selector、版型與既有 CSS 變數檢查；`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
 - [x] 補回服務頁 Header 缺少的搜尋連結。
   - 範圍：`wwwroot/services.html`。
   - 內容：補回與其他靜態頁一致的 `index.html#search` 搜尋連結與搜尋 SVG；共用 `site-header.css` 樣式不需調整。
