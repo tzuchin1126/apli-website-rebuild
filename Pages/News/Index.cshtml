@@ -13,13 +13,12 @@
     <div class="site-container"><a asp-page="/Index">首頁</a><span aria-hidden="true">›</span><span aria-current="page">最新消息</span></div>
 </div>
 
-<section class="news-hero" aria-labelledby="news-hero-title">
-    <picture>
-        <source type="image/avif" srcset="/public/images/news/news-hero-port-transport-960.avif 960w, /public/images/news/news-hero-port-transport-1528.avif 1528w" sizes="100vw" />
-        <img src="/public/images/news/news-hero-port-transport.png" alt="" fetchpriority="high" />
+<section class="news-hero page-hero" aria-labelledby="news-hero-title">
+    <picture class="page-hero__media">
+        <img class="page-hero__image" src="/public/images/index/67.png" alt="" fetchpriority="high" />
     </picture>
-    <div class="news-hero__overlay" aria-hidden="true"></div>
-    <h1 id="news-hero-title">最新消息</h1>
+    <div class="news-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+    <h1 class="page-hero__title" id="news-hero-title">最新消息</h1>
 </section>
 
 <section class="news-content site-container" aria-labelledby="news-list-title">

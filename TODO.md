@@ -29,10 +29,18 @@
 - [ ] 補齊 `privacy.html` 的正式隱私權政策內容；目前仍有 placeholder，需取得核定文案。
 - [ ] 確認公開頁面是否維持 `wwwroot/*.html`，或逐步移轉為 Razor Pages；未確認前不進行大規模路由重構。
 - [ ] 為首頁補做 390px 與 320px 實際渲染檢查，確認輪播、水平溢位、CTA 裁切與文字換行。
+- [ ] 確認本機 HTTPS 開發憑證與啟動設定；目前新測試程序會因找不到 HTTPS 連接埠產生警告，並在受限 Windows 帳號下連帶觸發 EventLog 權限錯誤。
 - [ ] 完成主要頁面後安排跨瀏覽器、實體裝置與人工無障礙驗收。
 
 ## 已完成紀錄
 
+- [x] 統一非首頁頁面的 Hero 圖片、遮罩、文字與進場動畫。
+  - 共用元件：`wwwroot/css/components/page-hero.css`；遮罩、高度、標題與動畫參數集中於 `wwwroot/css/base/tokens.css`。
+  - 頁面差異：一般頁面使用 25%→40% 淺遮罩，About 引文使用 52%→66% 深遮罩；9 個靜態頁及 About／News Razor 路由改用各頁專屬圖片與裁切變數。
+  - 圖片與動畫：補上 6 秒 Hero 圖片縮放、文字進場與 `prefers-reduced-motion` 停用規則；`Program.cs` 新增 AVIF MIME 對應，避免瀏覽器選用 AVIF 後收到 404。
+  - 已驗證：About 901px 桌機瀏覽器的共用結構、深遮罩、圖片裁切、動畫名稱與內容未溢出；服務頁共用結構；全部 Hero class／素材路徑來源檢查；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：AVIF MIME 修正後的完整逐頁瀏覽器重載、390px／320px 手機渲染、實體裝置、跨瀏覽器與人工無障礙驗收；本機新測試程序受既有 HTTPS 重新導向警告與 Windows EventLog 權限錯誤中斷。
+  - 更新：2026-08-11。狀態：待提交。
 - [x] 建立單一來源共用 Footer，並依舊版規格完成桌機四欄與手機 accordion。
   - 單一來源：`Pages/Shared/_Footer.cshtml`；Razor Layout 直接引用，12 個靜態頁面由 `Program.cs` 伺服器端注入。
   - 行動版：隱私權政策與員工專區只保留在快速連結中，底欄只顯示水平置中的 copyright。
@@ -51,6 +59,7 @@
 
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
+| 2026-08-11 | 非首頁共用 Hero | 建立共用 Hero 元件與深淺遮罩 tokens，換回 9 頁專屬圖片／裁切，補上圖片與文字動畫、reduced-motion 及 AVIF MIME；建置與差異檢查通過，逐頁手機與 MIME 修正後瀏覽器重載待驗證。狀態：待提交。 |
 | 2026-08-11 | 專案文件 | 新增 README、TODO，並將強制同步更新規則寫入 AGENTS.md。Commit：`508f754`。 |
 | 2026-08-11 | 首頁下方區塊 | 完成視覺、輪播與驗證狀態記錄。Commit：`6070bc9`。 |
 | 2026-08-11 | 共用 Footer | 建立單一 Partial、靜態頁伺服器端注入、桌機四欄與手機 accordion。Commit：`6070bc9`。 |

@@ -1,0 +1,121 @@
+.page-hero {
+  --page-hero-overlay: var(--page-hero-overlay-light);
+  position: relative;
+  height: var(--page-hero-height);
+  overflow: hidden;
+  isolation: isolate;
+  background: #173646;
+}
+
+.page-hero__media,
+.page-hero__image,
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page-hero__image {
+  max-width: none;
+  object-fit: cover;
+  object-position: var(--page-hero-image-position, center);
+  transform-origin: var(--page-hero-image-origin, var(--page-hero-image-position, center));
+  animation: page-hero-image-zoom var(--page-hero-image-duration) var(--page-hero-motion-easing) both;
+}
+
+.page-hero__overlay {
+  z-index: 1;
+  background: var(--page-hero-overlay);
+}
+
+.page-hero__title {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  height: 100%;
+  margin: 0;
+  place-items: center;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: var(--page-hero-title-size);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: 0.04em;
+}
+
+.page-hero > .page-hero__title,
+.page-hero__content {
+  animation: page-hero-text-enter var(--page-hero-text-duration) var(--page-hero-motion-easing) 120ms both;
+}
+
+.page-hero--quote {
+  --page-hero-overlay: var(--page-hero-overlay-quote);
+}
+
+.page-hero--quote .page-hero__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 100%;
+  align-content: center;
+  gap: clamp(22px, 3vw, 36px);
+  color: #fff;
+}
+
+.page-hero--quote .page-hero__title {
+  display: block;
+  height: auto;
+}
+
+.page-hero--quote blockquote {
+  max-width: 900px;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+  text-shadow: 0 3px 24px rgb(0 0 0 / 36%);
+}
+
+.page-hero--quote cite {
+  display: block;
+  margin-top: 18px;
+  font-size: 0.95rem;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-align: right;
+}
+
+@keyframes page-hero-image-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(var(--page-hero-image-scale)); }
+}
+
+@keyframes page-hero-text-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .page-hero--quote .page-hero__content {
+    gap: 18px;
+  }
+
+  .page-hero--quote blockquote {
+    font-size: clamp(0.85rem, 4vw, 1rem);
+    line-height: 1.55;
+  }
+
+  .page-hero--quote cite {
+    margin-top: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__image,
+  .page-hero > .page-hero__title,
+  .page-hero__content {
+    animation: none;
+  }
+}

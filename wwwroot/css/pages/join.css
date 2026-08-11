@@ -1,11 +1,8 @@
+.join-page { --page-hero-image-position: center; }
+
 .join-breadcrumb { border-bottom: 1px solid var(--color-line); }
 .join-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: .88rem; }
 .join-breadcrumb a { color: var(--color-ink); text-decoration: none; }
-.join-hero { position: relative; height: clamp(280px, 30vw, 360px); overflow: hidden; background: #173646; }
-.join-hero picture, .join-hero img, .join-hero__overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
-.join-hero img { object-fit: cover; object-position: center 45%; }
-.join-hero__overlay { background: rgb(0 0 0 / 30%); }
-.join-hero h1 { position: relative; z-index: 1; display: grid; height: 100%; margin: 0; place-items: center; color: #fff; font-family: var(--font-heading); font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 400; letter-spacing: .08em; }
 .join-content { padding-top: clamp(48px, 6vw, 80px); padding-bottom: 112px; }
 .join-tabs { display: flex; margin-bottom: 56px; border-bottom: 1px solid var(--color-line); }
 .join-tabs button { flex: 0 0 auto; min-height: 52px; padding: 12px 24px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--color-ink); cursor: pointer; }

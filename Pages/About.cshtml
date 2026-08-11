@@ -10,14 +10,14 @@
 
 <div class="about-breadcrumb"><div class="site-container"><a asp-page="/Index">首頁</a><span aria-hidden="true">›</span><span aria-current="page">關於我們</span></div></div>
 
-<section class="about-hero" aria-labelledby="about-hero-title">
-    <picture>
+<section class="about-hero page-hero page-hero--quote" aria-labelledby="about-hero-title">
+    <picture class="page-hero__media">
         <source type="image/avif" srcset="/public/images/about/about-hero-container-yard-960.avif 960w, /public/images/about/about-hero-container-yard-1920.avif 1920w" sizes="100vw" />
-        <img src="/public/images/about/about-hero-container-yard.jpg" alt="" fetchpriority="high" />
+        <img class="page-hero__image" src="/public/images/about/about-hero-container-yard.jpg" alt="" fetchpriority="high" />
     </picture>
-    <div class="about-hero__overlay" aria-hidden="true"></div>
-    <div class="about-hero__content site-container">
-        <h1 id="about-hero-title">關於我們</h1>
+    <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+    <div class="about-hero__content page-hero__content site-container">
+        <h1 class="page-hero__title" id="about-hero-title">關於我們</h1>
         <blockquote>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。<cite>董事長 黃福田</cite></blockquote>
     </div>
 </section>

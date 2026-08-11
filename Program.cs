@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,7 +75,12 @@ app.Use(async (context, next) =>
 });
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+var staticFileContentTypes = new FileExtensionContentTypeProvider();
+staticFileContentTypes.Mappings[".avif"] = "image/avif";
+app.UseStaticFiles(new StaticFileOptions
+{
+    ContentTypeProvider = staticFileContentTypes
+});
 
 app.UseRouting();
 
