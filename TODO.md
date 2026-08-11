@@ -208,7 +208,14 @@
 
 - [x] 調整公司沿革年份頁籤與事件文字層級。
   - 範圍：`wwwroot/css/pages/milestones.css`。
-  - 內容：年份頁籤統一維持墨色文字，hover 與目前選項僅以橘色下底線表示；縮小頁籤高度與內距，將年份、事件標題與內文的字級、粗細與行高收斂至舊版參考比例；切換年份時加入淡入上移過渡，並支援 `prefers-reduced-motion`。
-  - 已驗證：來源 selector 與舊版文字規格對照、`node --check wwwroot/js/pages/milestones.js`、本次檔案 `git diff --check`。
+  - 內容：年份頁籤統一維持墨色文字，hover 與目前選項僅以橘色下底線表示；年份、事件標題與內文的字級、粗細與行高對齊新版 About 認證時間軸，頁籤高度與內距沿用新版 Join／Affiliates 規則；切換年份時加入淡入上移過渡，並支援 `prefers-reduced-motion`。
+  - 已驗證：新版 `about.css`、`join.css`、`affiliates.css` selector 與數值對照、`node --check wwwroot/js/pages/milestones.js`、本次檔案 `git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。初次提交：`3f23e4b`；新版樣式基準修正另記。
+
+- [x] 更正公司沿革文字與過渡效果的參照基準。
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 內容：撤回舊版數值參照；改以新版 About 認證時間軸的文字層級與新版 Join／Affiliates 的頁籤尺寸為準，過渡時間採新版互動元件一致的 350ms。
+  - 已驗證：新版 `about.css`、`join.css`、`affiliates.css` selector 與數值對照、`node --check wwwroot/js/pages/milestones.js`、本次檔案 `git diff --check`。
   - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
   - 更新：2026-08-11。狀態：本次提交。
