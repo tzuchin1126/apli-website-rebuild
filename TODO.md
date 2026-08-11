@@ -14,6 +14,13 @@
 
 ## 進行中
 
+- [x] 建立員工專區 `/Admin` 登入與最新消息管理頁。
+  - 範圍：`Pages/Admin/Index.cshtml`、`Services/NewsService.cs`、`Program.cs`、`wwwroot/css/pages/admin.css`、`wwwroot/js/pages/admin.js`。
+  - 狀態：已完成原生 CSS/JavaScript 頁面、Cookie 登入、登入限流、CSRF 與消息／分類 CRUD；檔案上傳不在本次範圍。Commit：`48322cb`。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/admin.js`、`git diff --check`、`/Admin` 路由 200、1366px 登入畫面、390px 登入／工作區、登入後 6 筆消息與 3 個分類載入、編輯／清空互動、頁面無水平溢位、瀏覽器 console 無 error/warning。
+  - 未驗證：實際消息儲存／刪除、分類新增／刪除寫入操作；正式環境 HTTPS、實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`48322cb`。
+
 - [ ] 首頁 Hero 下方區塊對齊舊版 — 關於亞太、服務項目、最新消息、經營理念、聯絡 CTA、人才招募 CTA。
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`
   - 狀態：程式與桌機畫面調整完成。Commit：`6070bc9`。
@@ -29,11 +36,17 @@
 - [ ] 補齊 `privacy.html` 的正式隱私權政策內容；目前仍有 placeholder，需取得核定文案。
 - [ ] 確認公開頁面是否維持 `wwwroot/*.html`，或逐步移轉為 Razor Pages；未確認前不進行大規模路由重構。
 - [ ] 為首頁補做 390px 與 320px 實際渲染檢查，確認輪播、水平溢位、CTA 裁切與文字換行。
-- [ ] 確認本機 HTTPS 開發憑證與啟動設定；目前新測試程序會因找不到 HTTPS 連接埠產生警告，並在受限 Windows 帳號下連帶觸發 EventLog 權限錯誤。
+- [ ] 確認正式環境 HTTPS 憑證與部署設定；Development 已維持 HTTP 啟動，不再因找不到 HTTPS 連接埠觸發受限 Windows 帳號的 EventLog 錯誤。
 - [ ] 完成主要頁面後安排跨瀏覽器、實體裝置與人工無障礙驗收。
 
 ## 已完成紀錄
 
+- [x] 補充新視窗與任務交接規則，讓後續工作可從專案文件與 Git 接續，不必攜帶完整舊對話。
+  - 範圍：`AGENTS.md`、`TODO.md`。
+  - 內容：固定啟動檢查、單一頁面／區塊範圍、舊版唯讀參考、Git 權限界線，以及開始實作前強制詢問「主代理＋子代理模式」或「一般模式」；前者由主代理負責子代理分工與最終品質。
+  - 已驗證：文件內容檢查、`git diff --check`。
+  - 未驗證：不涉及程式或瀏覽器畫面。
+  - 更新：2026-08-11。狀態：待提交。
 - [x] 統一非首頁頁面的 Hero 圖片、遮罩、文字與進場動畫。
   - 共用元件：`wwwroot/css/components/page-hero.css`；遮罩、高度、標題與動畫參數集中於 `wwwroot/css/base/tokens.css`。
   - 頁面差異：一般頁面使用 25%→40% 淺遮罩，About 引文使用 52%→66% 深遮罩；9 個靜態頁及 About／News Razor 路由改用各頁專屬圖片與裁切變數。
@@ -59,6 +72,8 @@
 
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
+| 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流與消息／分類 API，帳號密碼改由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、`git diff --check` 通過。Commit：`48322cb`。 |
+| 2026-08-11 | 新視窗交接流程 | 在 `AGENTS.md` 補充以文件與 Git 接續上下文、縮小單次範圍，並強制於實作前詢問「主代理＋子代理模式」或「一般模式」；已完成文件及差異檢查。狀態：待提交。 |
 | 2026-08-11 | 非首頁共用 Hero | 建立共用 Hero 元件與深淺遮罩 tokens，換回 9 頁專屬圖片／裁切，補上圖片與文字動畫、reduced-motion 及 AVIF MIME；建置與差異檢查通過，逐頁手機與 MIME 修正後瀏覽器重載待驗證。Commit：`aa1cab7`。 |
 | 2026-08-11 | 專案文件 | 新增 README、TODO，並將強制同步更新規則寫入 AGENTS.md。Commit：`508f754`。 |
 | 2026-08-11 | 首頁下方區塊 | 完成視覺、輪播與驗證狀態記錄。Commit：`6070bc9`。 |
@@ -77,4 +92,4 @@
 | 2026-08-11 | 首頁經營理念區塊 | 最新消息與經營理念的 `strong` 標題恢復使用內文體；經營理念 icon 改為箭靶、團隊與燈塔；「了解經營理念」改為 `.button--primary`，文字更新為「了解更多」並沿用共用 share icon 與 hover 位移；已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收，實際視覺驗證由使用者確認。Commit：`c0558d0`。 |
 | 2026-08-11 | 首頁經營理念 icon 圖檔 | 移除經營理念區塊自行產生的 SVG，改直接引用 `wwwroot/public/images/icon` 內的 target、team 與 increase PNG；已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收，第三項改用 `icons8-increase-100.png`。Commit：`5a3545d`。 |
 | 2026-08-11 | 首頁聯絡與招募 CTA | 將聯絡我們與人才招募由兩個全滿版區塊合併為單一左右 CTA；預設顯示標題與內容，桌機 hover／鍵盤 focus 時展開分區並顯示按鈕，手機版堆疊並直接顯示按鈕；同步保留圖片縮放、鍵盤 focus 與 reduced-motion 支援。已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收。Commit：`d6e963b`。 |
-| 2026-08-11 | 首頁聯絡與招募 CTA 互動優化 | 參考 Split Landing Page 的 75%／25% hover 展開邏輯；縮小 CTA 高度與文字，明確設定左圖左文、右圖右文；按鈕保留白色邊線與白色文字，改用主要按鈕尺寸及 Phosphor share icon，連結分別導向 `contact.html` 與 `join.html`。已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收。Commit：待提交。 |
+| 2026-08-11 | 首頁聯絡與招募 CTA 互動優化 | 參考 Split Landing Page 的 75%／25% hover 展開邏輯；縮小 CTA 高度與文字，明確設定左圖左文、右圖右文；按鈕保留白色邊線與白色文字，改用主要按鈕尺寸及 Phosphor share icon，連結分別導向 `contact.html` 與 `join.html`。已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收。Commit：`2bb9ef8`。 |

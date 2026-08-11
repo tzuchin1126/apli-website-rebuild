@@ -1,0 +1,149 @@
+@page "/Admin"
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery Antiforgery
+@{
+    Layout = null;
+    var csrfToken = Antiforgery.GetAndStoreTokens(HttpContext).RequestToken
+        ?? throw new InvalidOperationException("無法建立防偽權杖。");
+}
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="@csrfToken" />
+    <title>員工專區 - 亞太國際物流</title>
+    <link rel="stylesheet" href="~/css/base/reset.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/base/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/admin.css" asp-append-version="true" />
+</head>
+<body class="admin-page">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <main id="main-content" class="admin-shell">
+        <section id="loginPanel" class="admin-login" aria-labelledby="login-title">
+            <a class="admin-login__logo" href="/index.html" aria-label="返回亞太國際物流首頁">
+                <img src="/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
+            </a>
+            <div class="admin-login__card">
+                <p class="admin-eyebrow">APLI EMPLOYEE AREA</p>
+                <h1 id="login-title">員工專區</h1>
+                <p class="admin-login__lead">登入後管理官網最新消息。</p>
+                <form id="loginForm" class="admin-form" novalidate>
+                    <label class="admin-field" for="loginUsername">
+                        <span>帳號</span>
+                        <input id="loginUsername" name="username" autocomplete="username" required />
+                    </label>
+                    <label class="admin-field" for="loginPassword">
+                        <span>密碼</span>
+                        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
+                    </label>
+                    <p id="loginMessage" class="admin-message" aria-live="polite"></p>
+                    <button class="admin-button admin-button--primary" type="submit">登入</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="workspace" class="admin-workspace" hidden aria-labelledby="workspace-title">
+            <header class="admin-header">
+                <div>
+                    <p class="admin-eyebrow">APLI EMPLOYEE AREA</p>
+                    <h1 id="workspace-title">最新消息管理後台</h1>
+                </div>
+                <div class="admin-header__actions">
+                    <a class="admin-button admin-button--secondary" href="/index.html">返回官網</a>
+                    <button class="admin-button admin-button--secondary" type="button" id="logoutButton">登出</button>
+                </div>
+            </header>
+
+            <div class="admin-grid">
+                <section class="admin-card admin-card--editor" aria-labelledby="editor-title">
+                    <div class="admin-card__heading">
+                        <p class="admin-eyebrow">NEWS EDITOR</p>
+                        <h2 id="editor-title">新增／編輯消息</h2>
+                    </div>
+                    <form id="newsForm" class="admin-form">
+                        <input id="newsId" type="hidden" />
+                        <input id="newsUrl" type="hidden" />
+                        <input id="newsImageUrl" type="hidden" />
+                        <div class="admin-form__row">
+                            <label class="admin-field" for="newsDate">
+                                <span>官網顯示日期</span>
+                                <input id="newsDate" type="date" required />
+                            </label>
+                            <label class="admin-field" for="newsTag">
+                                <span>分類</span>
+                                <select id="newsTag" required></select>
+                            </label>
+                        </div>
+                        <label class="admin-field" for="newsTitle">
+                            <span>標題</span>
+                            <input id="newsTitle" maxlength="200" required />
+                        </label>
+                        <label class="admin-field" for="newsContent">
+                            <span>內文</span>
+                            <textarea id="newsContent" rows="8" maxlength="50000"></textarea>
+                        </label>
+                        <label class="admin-field" for="newsPublished">
+                            <span>前台狀態</span>
+                            <select id="newsPublished">
+                                <option value="true">發布到前台</option>
+                                <option value="false">後台保留，不顯示於前台</option>
+                            </select>
+                        </label>
+                        <div class="admin-meta" aria-live="polite">
+                            <p>建立時間：<span id="createdAtInfo">儲存後自動紀錄</span></p>
+                            <p>最後修改：<span id="updatedAtInfo">儲存後自動紀錄</span></p>
+                        </div>
+                        <p id="formMessage" class="admin-message" aria-live="polite"></p>
+                        <div class="admin-form__actions">
+                            <button class="admin-button admin-button--primary" type="submit">儲存消息</button>
+                            <button class="admin-button admin-button--secondary" type="button" id="resetButton">清空</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="admin-card" aria-labelledby="category-title">
+                    <div class="admin-card__heading">
+                        <p class="admin-eyebrow">CATEGORIES</p>
+                        <h2 id="category-title">分類管理</h2>
+                    </div>
+                    <form id="categoryForm" class="admin-inline-form">
+                        <label class="sr-only" for="categoryName">分類名稱</label>
+                        <input id="categoryName" placeholder="新增分類" maxlength="50" required />
+                        <button class="admin-button admin-button--primary" type="submit">新增</button>
+                    </form>
+                    <p id="categoryMessage" class="admin-message" aria-live="polite"></p>
+                    <div id="categoryRows" class="admin-category-list"></div>
+                </section>
+            </div>
+
+            <section class="admin-card" aria-labelledby="news-list-title">
+                <div class="admin-card__heading admin-card__heading--row">
+                    <div>
+                        <p class="admin-eyebrow">PUBLISHED NEWS</p>
+                        <h2 id="news-list-title">消息列表</h2>
+                    </div>
+                    <p class="admin-help">建立與修改時間只供後台追蹤。</p>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">日期</th>
+                                <th scope="col">分類</th>
+                                <th scope="col">標題</th>
+                                <th scope="col">狀態</th>
+                                <th scope="col">建立</th>
+                                <th scope="col">修改</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsRows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script src="~/js/pages/admin.js" asp-append-version="true"></script>
+</body>
+</html>
