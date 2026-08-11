@@ -65,6 +65,18 @@
       if (year) label.textContent = year;
     };
 
+    const updateActiveYear = () => {
+      const visibleEvents = events.filter((event) => !event.hidden && !event.classList.contains("is-collapsed"));
+      if (!visibleEvents.length) return;
+
+      const viewportAnchor = window.innerHeight * 0.45;
+      let activeEvent = visibleEvents[0];
+      visibleEvents.forEach((event) => {
+        if (event.getBoundingClientRect().top <= viewportAnchor) activeEvent = event;
+      });
+      setCurrentYear(activeEvent);
+    };
+
     const setToggleLabel = () => {
       if (!toggle) return;
       const labelElement = toggle.querySelector("span");
@@ -98,6 +110,8 @@
         void eventsContainer.offsetHeight;
         olderEvents.forEach((event) => event.classList.add("is-visible"));
       } else {
+        if (wasExpanded) setCurrentYear(recentEvents[recentEvents.length - 1]);
+
         olderEvents.forEach((event) => {
           event.classList.remove("is-visible");
           event.classList.add("is-collapsed");
@@ -118,6 +132,11 @@
           if (!isVisible) toggle.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
         }
       }
+
+      window.requestAnimationFrame(() => {
+        updateActiveYear();
+        updateProgress();
+      });
     };
 
     setCurrentYear(recentEvents[0]);
@@ -143,6 +162,7 @@
       const viewportAnchor = window.innerHeight * 0.45;
       const progress = Math.min(Math.max(viewportAnchor - rect.top, 0), rect.height);
       timeline.style.setProperty("--certification-progress", `${progress}px`);
+      updateActiveYear();
       ticking = false;
     };
     const requestProgressUpdate = () => {
