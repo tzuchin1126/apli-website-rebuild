@@ -21,6 +21,31 @@
 
   const isHomePage = document.body.classList.contains("home-page");
 
+  const normalizePath = (path) => {
+    const normalized = path.replace(/\/+$/, "");
+    return normalized || "/";
+  };
+
+  const currentUrl = new URL(window.location.href);
+  const currentPath = normalizePath(currentUrl.pathname);
+  navigation.querySelectorAll("a").forEach((link) => {
+    const targetUrl = new URL(link.href, document.baseURI);
+    const targetPath = normalizePath(targetUrl.pathname);
+    const matchesPath = targetPath === currentPath
+      || (targetPath !== "/" && currentPath.startsWith(`${targetPath}/`));
+    const matchesTarget = matchesPath && (!targetUrl.hash || targetUrl.hash === currentUrl.hash);
+
+    if (matchesTarget && !link.hasAttribute("aria-current")) {
+      link.setAttribute("aria-current", "page");
+    }
+
+    if (!matchesPath) return;
+    const dropdown = link.closest(".nav-dropdown");
+    const parentLink = dropdown?.querySelector(":scope > .nav-link");
+    dropdown?.classList.add("is-active");
+    parentLink?.classList.add("is-active");
+  });
+
   const updateHomeHeaderState = () => {
     if (!isHomePage || !header) return;
     header.classList.toggle("is-scrolled", window.scrollY > 8);

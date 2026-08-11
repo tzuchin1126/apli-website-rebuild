@@ -1,8 +1,5 @@
 .affiliates-page { --page-hero-image-position: center 90%; }
 
-.affiliates-breadcrumb { border-bottom: 1px solid var(--color-line); }
-.affiliates-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: .88rem; }
-.affiliates-breadcrumb a { color: var(--color-ink); text-decoration: none; }
 .affiliates-content { padding-top: clamp(48px, 6vw, 80px); padding-bottom: 112px; }
 .affiliate-tabs { display: flex; margin-bottom: 48px; overflow-x: auto; border-bottom: 1px solid var(--color-line); }
 .affiliate-tabs button { flex: 0 0 auto; min-height: 52px; padding: 12px 20px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--color-ink); cursor: pointer; white-space: nowrap; }

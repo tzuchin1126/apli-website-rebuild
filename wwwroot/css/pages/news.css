@@ -1,9 +1,6 @@
 .news-page { --page-hero-image-position: center 75%; }
 
 .news-breadcrumb { display: none; }
-.news-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: 0.88rem; }
-.news-breadcrumb a { color: var(--color-ink); text-decoration: none; }
-.news-breadcrumb a:hover, .news-breadcrumb a:focus-visible { color: var(--color-primary); }
 
 .news-content { padding-top: clamp(72px, 8vw, 112px); padding-bottom: clamp(64px, 8vw, 112px); }
 .news-filter { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 48px; }

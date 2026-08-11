@@ -3,9 +3,6 @@
   --page-hero-image-origin: 50% 58%;
 }
 
-.safety-breadcrumb { border-bottom: 1px solid var(--color-line); }
-.safety-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: .88rem; }
-.safety-breadcrumb a { color: var(--color-ink); text-decoration: none; }
 .safety-intro { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 96px); align-items: center; padding-top: clamp(64px, 8vw, 112px); padding-bottom: clamp(64px, 8vw, 112px); }
 .safety-intro figure { margin: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 18px 42px rgb(15 50 66 / 12%); }
 .safety-intro figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }

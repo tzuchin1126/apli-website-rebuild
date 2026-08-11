@@ -3,9 +3,6 @@
   --page-hero-image-origin: 35% 66%;
 }
 
-.resources-breadcrumb { border-bottom: 1px solid var(--color-line); }
-.resources-breadcrumb .site-container { display: flex; min-height: 40px; align-items: center; gap: 10px; color: var(--color-muted); font-size: .88rem; }
-.resources-breadcrumb a { color: var(--color-ink); text-decoration: none; }
 .resource-block { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 96px); align-items: center; padding-top: clamp(64px, 8vw, 112px); padding-bottom: clamp(64px, 8vw, 112px); }
 .resource-block--alt { display: block; background: var(--color-surface-soft); max-width: none; }
 .resource-block__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); gap: clamp(48px, 6vw, 96px); align-items: center; }
