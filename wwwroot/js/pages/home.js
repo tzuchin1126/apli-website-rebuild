@@ -81,7 +81,7 @@
       document.querySelector(".home-services"),
       document.querySelector(".home-latest"),
       document.querySelector(".home-philosophy"),
-      ...document.querySelectorAll(".home-image-cta")
+      document.querySelector(".home-contact-cta")
     ].filter(Boolean);
 
     sections.forEach((section) => section.classList.add("home-reveal"));
