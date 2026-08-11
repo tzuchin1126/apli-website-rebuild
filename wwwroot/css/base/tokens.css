@@ -10,4 +10,12 @@
   --font-heading: "Noto Serif TC", "Songti TC", serif;
   --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
+  --button-primary-bg: #40403e;
+  --button-primary-hover-bg: var(--color-primary);
+  --button-primary-color: #fff;
+  --button-primary-min-height: 48px;
+  --button-primary-gap: 12px;
+  --button-primary-icon-size: 16px;
+  --button-primary-padding-inline: 24px;
+  --button-primary-radius: 4px;
 }

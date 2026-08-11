@@ -1,3 +1,5 @@
+/*
+Legacy orange button style is temporarily disabled while the project primary button is established.
 .button {
   display: inline-flex;
   min-height: 44px;
@@ -14,4 +16,27 @@
 .button:hover,
 .button:focus-visible {
   background: var(--color-primary-dark);
+}
+*/
+
+/* 按鈕樣式：index-about-查看更多 */
+.button--primary {
+  display: inline-flex;
+  min-height: var(--button-primary-min-height);
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-primary-gap);
+  padding: 0 var(--button-primary-padding-inline);
+  border: 1px solid transparent;
+  border-radius: var(--button-primary-radius);
+  background: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  background: var(--button-primary-hover-bg);
+  color: var(--button-primary-color);
 }
