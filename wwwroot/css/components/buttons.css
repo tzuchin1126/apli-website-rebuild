@@ -41,6 +41,26 @@ Legacy orange button style is temporarily disabled while the project primary but
   color: var(--button-primary-color);
 }
 
+@font-face {
+  font-family: "Phosphor";
+  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
+.button--primary .ph {
+  flex: 0 0 auto;
+  font-family: "Phosphor";
+  font-size: var(--button-primary-icon-size);
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+
+.button--primary .ph-caret-line-down::before { content: "\e134"; }
+.button--primary .ph-caret-line-up::before { content: "\e12e"; }
+
 /* 可重用文字箭頭連結：卡片右下角 More */
 .button--text-arrow {
   display: inline-flex;

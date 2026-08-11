@@ -80,7 +80,12 @@
     const setToggleLabel = () => {
       if (!toggle) return;
       const labelElement = toggle.querySelector("span");
+      const iconElement = toggle.querySelector("i");
       if (labelElement) labelElement.textContent = expanded ? "收合至近期獎項" : "查看完整認證與獎項";
+      if (iconElement) {
+        iconElement.classList.toggle("ph-caret-line-down", !expanded);
+        iconElement.classList.toggle("ph-caret-line-up", expanded);
+      }
       toggle.setAttribute("aria-expanded", String(expanded));
       toggle.classList.toggle("is-expanded", expanded);
     };

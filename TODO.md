@@ -189,3 +189,11 @@
 - 驗證：已完成 `/contact.html` 桌機 1366×1400 與手機 390×844 瀏覽器檢查；已確認桌機灰色背景向左右邊界延伸、手機恢復單欄且無水平溢出、Footer 1 個；`dotnet build -c Release` 成功（0 警告、0 錯誤）。
 - 未驗證：跨瀏覽器、實體裝置與人工無障礙驗收。
 - 更新：2026-08-11。狀態：已提交，Commit：`ffc9f03`。
+
+## 2026-08-11 About 認證按鈕圖示
+
+- [ ] 認證與獎項按鈕補上 Phosphor `ph-caret-line-down`／`ph-caret-line-up`，並讓展開與收合狀態同步切換圖示。
+- 範圍：`Pages/About.cshtml`、`wwwroot/about.html`、`wwwroot/css/components/buttons.css`、`wwwroot/js/pages/about.js`、`wwwroot/public/fonts/Phosphor.woff2`。
+- 已驗證：待執行。
+- 未驗證：瀏覽器實際展開／收合、桌機與手機渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+- 更新：2026-08-11。狀態：進行中。
