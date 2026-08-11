@@ -190,6 +190,12 @@
 - 未驗證：跨瀏覽器、實體裝置與人工無障礙驗收。
 - 更新：2026-08-11。狀態：已提交，Commit：`ffc9f03`。
 
+- [x] 修正 Contact 公司位置背景層級與地圖寬度。
+  - 內容：撤回 `.location-card` 向右滿版延伸，讓 Google Maps 恢復在 `site-container` 原本寬度內；將淺灰背景移至 `.location-card` 作為地圖與左側資料區共同底層，標題區保留白底。
+  - 已驗證：Headless Chrome 桌機 1366×1400、手機 390×2200；確認桌機地圖恢復容器寬度、灰色底層橫跨左右欄並延伸至地圖下方，手機維持單欄與 Footer 顯示。
+  - 未驗證：Google Maps 外部 iframe 在 Headless Chrome 中未載入地圖內容；跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`dea0c69`。
+
 ## 2026-08-11 About 認證按鈕圖示
 
 - [x] 認證與獎項按鈕補上 Phosphor `ph-caret-line-down`／`ph-caret-line-up`，並讓展開與收合狀態同步切換圖示。
