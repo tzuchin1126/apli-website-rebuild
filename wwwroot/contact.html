@@ -101,22 +101,12 @@
       </div>
     </div>
 
-    <!-- Hero 主視覺區 -->
-    <section class="contact-hero page-hero" aria-labelledby="contact-title">
-      <picture class="page-hero__media">
-        <source type="image/avif" srcset="public/images/contact/contact-us-960.avif 960w, public/images/contact/contact-us-1920.avif 1920w" sizes="100vw">
-        <img class="page-hero__image" src="public/images/contact/contact-us.jpg" alt="亞太國際物流作業場景" fetchpriority="high">
-      </picture>
-      <div class="contact-hero__overlay page-hero__overlay" aria-hidden="true"></div>
-      <h1 class="page-hero__title" id="contact-title">聯絡我們</h1>
-    </section>
-
     <!-- 聯絡我們內容區 -->
-    <section class="contact-content site-container">
+    <section class="contact-content site-container" aria-labelledby="contact-title">
       <!-- 各部門聯絡窗口卡片 -->
       <div class="contact-card">
         <p class="eyebrow">CONTACT APLI</p>
-        <h2>各部門聯絡窗口</h2>
+        <h1 id="contact-title">各部門聯絡窗口</h1>
         <p class="contact-lead">有任何服務需求、問題、建議或疑慮，歡迎透過以下方式與我們聯繫。</p>
         
         <dl class="department-grid">
@@ -149,9 +139,11 @@
 
       <!-- 公司位置卡片 -->
       <div class="location-card">
-        <div>
+        <div class="location-heading">
           <p class="eyebrow">LOCATION</p>
           <h2>公司位置</h2>
+        </div>
+        <div>
           <dl class="contact-list">
             <div>
               <dt>公司地址</dt>
@@ -177,14 +169,20 @@
               <dd>公司備有停車位，來訪前可先與聯絡窗口確認停車安排</dd>
             </div>
           </dl>
-          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=高雄市小港區東亞路2號" target="_blank" rel="noopener noreferrer">
-            在 Google Maps 開啟 ↗
-          </a>
         </div>
-        <img src="public/images/about/company-facility.jpg" alt="亞太國際物流公司環境" loading="lazy">
+        <iframe
+          class="map-canvas"
+          title="亞太國際物流位置地圖，高雄市小港區東亞路2號"
+          src="https://www.google.com/maps?q=%E4%BA%9E%E5%A4%AA%E5%9C%8B%E9%9A%9B%E7%89%A9%E6%B5%81%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%20%E9%AB%98%E9%9B%84%E5%B8%82%E5%B0%8F%E6%B8%AF%E5%8D%80%E6%9D%B1%E4%BA%9E%E8%B7%AF2%E8%99%9F&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
       </div>
     </section>
   </main>
+
+  <!-- shared-site-footer -->
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js"></script>

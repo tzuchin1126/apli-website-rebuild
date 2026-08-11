@@ -163,3 +163,13 @@
   - 已驗證：`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 warnings、0 errors）；暫存差異 `git diff --cached --check`；`git status --short`。
   - 未驗證：桌機／手機瀏覽器實際圖片裁切、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的既有 HTML trailing whitespace 影響。
   - 更新：2026-08-11。狀態：已提交，Commit：`04555a8`。
+
+## 2026-08-11 Contact 頁面調整
+
+- [x] 移除 Contact Hero，改為先顯示各部門聯絡窗口，再顯示公司位置。
+- [x] 調整 `h1`／`h2` 標題層級與橘色底線樣式，補回 `CONTACT APLI`／`LOCATION` 英文小標，縮短標題與內文距離，並移除區塊邊線、內部分隔線與陰影。
+- [x] 右側公司照片改為 Google Maps iframe，移除不需要的 `map-link` 外部連結。
+- [x] 將公司位置左側資料欄在桌機版向下內縮 24–32px，使其與右側地圖視覺對齊；手機版維持 0px 內縮。
+- [x] 修正 `contact.html` 缺少 `shared-site-footer` marker 的問題，恢復共用 Footer 注入。
+- 驗證：已完成 `/contact.html` 桌機 1366×1400 與手機 390×844 瀏覽器檢查；已滾動確認手機地圖 iframe 載入，並確認無水平溢出。
+- 未驗證：跨瀏覽器、實體裝置與人工無障礙驗收；尚未 commit。
