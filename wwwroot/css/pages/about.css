@@ -19,17 +19,29 @@
 .about-philosophy { padding: clamp(64px, 8vw, 112px) 0; background: var(--color-surface-soft); }
 .about-section-heading { display: grid; justify-items: center; gap: 8px; margin-bottom: 40px; text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
-.philosophy-gallery { position: relative; display: flex; width: min(100% - 32px, 1280px); min-height: clamp(460px, 60vh, 680px); margin: 0 auto; overflow: hidden; border-radius: 12px; background: #173646; }
-.philosophy-gallery__image, .philosophy-gallery__overlay { position: absolute; inset: 0; background: url('/public/images/index/使命.jpg') center / cover no-repeat; transition: opacity 500ms ease; }
-.philosophy-gallery__image--values { background-image: url('/public/images/about/new.jpg'); opacity: 0; }
-.philosophy-gallery__overlay { background: linear-gradient(0deg, rgb(0 0 0 / 75%), rgb(0 0 0 / 15%)); }
+.about-page .about-philosophy .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
+.about-page .about-philosophy .about-section-heading h2::after { position: absolute; right: 50%; bottom: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: translateX(50%); }
+.about-page .philosophy-gallery { position: relative; display: flex; width: 100%; max-width: none; min-height: clamp(460px, 60vh, 680px); margin: 0; overflow: hidden; border-radius: var(--card-radius); background: #173646; }
+.philosophy-gallery__image { position: absolute; inset: 0; opacity: 0; background-position: center; background-size: cover; transition: opacity 500ms ease, transform 500ms ease; }
+.philosophy-gallery__image[data-active="true"] { opacity: 1; transform: scale(1.02); }
+.philosophy-gallery__image--default { background-image: url('/public/images/index/1223.png'); background-position: center 72%; }
+.philosophy-gallery__image--mission { background-image: url('/public/images/index/使命.jpg'); }
+.philosophy-gallery__image--values { background-image: url('/public/images/about/new.jpg'); background-position: 35% center; }
+.philosophy-gallery__image--vision { background-image: url('/public/images/index/container-handler.png'); background-position: center 70%; }
+.philosophy-gallery__overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(0 0 0 / 75%), rgb(0 0 0 / 15%)); }
 .philosophy-panels { position: relative; z-index: 1; display: flex; width: 100%; }
-.philosophy-panels button { display: flex; min-width: 0; flex: 1; align-items: center; justify-content: center; padding: clamp(24px, 4vw, 56px); border: 0; border-right: 1px solid rgb(255 255 255 / 42%); background: rgb(0 0 0 / 30%); color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background 500ms ease; }
+.philosophy-panels button { display: flex; min-width: 0; flex: 1; align-items: center; justify-content: center; padding: 0; border: 0; border-right: 1px solid rgb(255 255 255 / 42%); background: rgb(0 0 0 / 30%); color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background 500ms ease; }
 .philosophy-panels button:last-child { border-right: 0; }
-.philosophy-panels button[aria-expanded="true"] { flex: 7; background: rgb(0 0 0 / 36%); }
-.philosophy-panels strong { display: grid; gap: 16px; font-family: var(--font-heading); font-size: clamp(1.35rem, 2vw, 2rem); }
-.philosophy-panels span { display: block; max-width: 600px; max-height: 0; overflow: hidden; opacity: 0; transform: translateY(12px); font-size: clamp(0.95rem, 1.1vw, 1.08rem); line-height: 1.75; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
-.philosophy-panels button[aria-expanded="true"] span { max-height: 160px; opacity: 0.9; transform: translateY(0); }
+.philosophy-panels button:hover, .philosophy-panels button:focus-visible, .philosophy-panels button[aria-expanded="true"] { flex: 7; background: rgb(0 0 0 / 36%); }
+.philosophy-panel__content { display: grid; width: 100%; justify-items: center; gap: 12px; padding: clamp(24px, 4vw, 56px); text-align: center; }
+.philosophy-panel__icon { display: block; width: clamp(48px, 5vw, 74px); aspect-ratio: 1; background: currentColor; color: #fff; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; mask-position: center; mask-repeat: no-repeat; mask-size: contain; }
+.philosophy-panel__icon--mission { -webkit-mask-image: url('../../public/images/icon/icons8-target-100.png'); mask-image: url('../../public/images/icon/icons8-target-100.png'); }
+.philosophy-panel__icon--values { -webkit-mask-image: url('../../public/images/icon/icons8-team-100.png'); mask-image: url('../../public/images/icon/icons8-team-100.png'); }
+.philosophy-panel__icon--vision { -webkit-mask-image: url('../../public/images/icon/icons8-increase-100.png'); mask-image: url('../../public/images/icon/icons8-increase-100.png'); }
+.philosophy-panels button:hover .philosophy-panel__icon, .philosophy-panels button:focus-visible .philosophy-panel__icon, .philosophy-panels button[aria-expanded="true"] .philosophy-panel__icon { color: var(--color-primary); }
+.philosophy-panels strong { font-family: var(--font-heading); font-size: clamp(1.35rem, 2vw, 2rem); line-height: 1.35; }
+.philosophy-panel__description { display: block; width: 100%; max-width: 600px; max-height: 0; overflow: hidden; opacity: 0; transform: translateY(12px); font-size: clamp(0.95rem, 1.1vw, 1.08rem); line-height: 1.75; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
+.philosophy-panels button:hover .philosophy-panel__description, .philosophy-panels button:focus-visible .philosophy-panel__description, .philosophy-panels button[aria-expanded="true"] .philosophy-panel__description { max-height: 160px; opacity: 0.9; transform: translateY(0); }
 .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
 
 .about-certifications { padding: clamp(64px, 8vw, 112px) 0; background: var(--color-surface); }
@@ -58,5 +70,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .philosophy-gallery__image, .philosophy-panels button, .philosophy-panels span { transition: none; }
+  .philosophy-gallery__image, .philosophy-panels button, .philosophy-panel__description { transition: none; }
 }

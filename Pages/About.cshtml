@@ -38,14 +38,16 @@
 
 <section id="core-values" class="about-philosophy" aria-labelledby="core-values-title">
     <div class="site-container about-section-heading"><p class="eyebrow">OUR PHILOSOPHY</p><h2 id="core-values-title">經營理念</h2></div>
-    <div class="philosophy-gallery" data-philosophy-gallery>
-        <div class="philosophy-gallery__image" data-philosophy-image="mission" aria-hidden="true"></div>
+    <div class="philosophy-gallery" data-philosophy-gallery data-default-panel="default">
+        <div class="philosophy-gallery__image philosophy-gallery__image--default" data-philosophy-image="default" data-active="true" aria-hidden="true"></div>
+        <div class="philosophy-gallery__image philosophy-gallery__image--mission" data-philosophy-image="mission" aria-hidden="true"></div>
         <div class="philosophy-gallery__image philosophy-gallery__image--values" data-philosophy-image="values" aria-hidden="true"></div>
+        <div class="philosophy-gallery__image philosophy-gallery__image--vision" data-philosophy-image="vision" aria-hidden="true"></div>
         <div class="philosophy-gallery__overlay" aria-hidden="true"></div>
         <div class="philosophy-panels" role="group" aria-label="經營理念互動選單">
-            <button type="button" data-philosophy-panel="mission" aria-expanded="true"><strong>使命</strong><span>以創新服務精神迎向未來，追求永續，更創新局。</span></button>
-            <button type="button" data-philosophy-panel="values" aria-expanded="false"><strong>核心價值觀</strong><span>專業團隊精神</span></button>
-            <button type="button" data-philosophy-panel="vision" aria-expanded="false"><strong>共同願景</strong><span>商品附加價值創造者</span></button>
+            <button type="button" data-philosophy-panel="mission" aria-expanded="false"><span class="philosophy-panel__content"><span class="philosophy-panel__icon philosophy-panel__icon--mission" aria-hidden="true"></span><strong>使命</strong><span class="philosophy-panel__description">以創新服務精神迎向未來，追求永續，更創新局。</span></span></button>
+            <button type="button" data-philosophy-panel="values" aria-expanded="false"><span class="philosophy-panel__content"><span class="philosophy-panel__icon philosophy-panel__icon--values" aria-hidden="true"></span><strong>核心價值觀</strong><span class="philosophy-panel__description">專業團隊精神</span></span></button>
+            <button type="button" data-philosophy-panel="vision" aria-expanded="false"><span class="philosophy-panel__content"><span class="philosophy-panel__icon philosophy-panel__icon--vision" aria-hidden="true"></span><strong>共同願景</strong><span class="philosophy-panel__description">商品附加價值創造者</span></span></button>
         </div>
     </div>
 </section>
