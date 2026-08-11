@@ -28,7 +28,7 @@
 .philosophy-gallery__image--mission { background-image: url('/public/images/index/使命.jpg'); }
 .philosophy-gallery__image--values { background-image: url('/public/images/about/new.jpg'); background-position: 35% center; }
 .philosophy-gallery__image--vision { background-image: url('/public/images/index/container-handler.png'); background-position: center 70%; }
-.philosophy-gallery__overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(0 0 0 / 32%), rgb(0 0 0 / 0%)); }
+.philosophy-gallery__overlay { position: absolute; inset: 0; /*background: linear-gradient(0deg, rgb(0 0 0 / 32%), rgb(0 0 0 / 0%));*/ }
 .philosophy-panels { position: relative; z-index: 1; display: flex; width: 100%; }
 .philosophy-panels button { position: relative; display: flex; min-width: 0; flex: 1; align-items: center; justify-content: center; padding: 0; border: 0; background: rgb(0 0 0 / 22%); color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background 500ms ease; }
 .philosophy-panels button:not(:last-child)::after { position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(180deg, rgb(255 255 255 / 72%), rgb(255 255 255 / 0%)); content: ""; pointer-events: none; }
