@@ -61,12 +61,12 @@
   - 未驗證：桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的 `about.html` 既有 trailing whitespace 影響；最後一次重跑 Release build 因既有 dotnet 程序鎖定 `bin\Release\net8.0\apli-website-rebuild.dll` 而失敗。
   - 更新：2026-08-11。狀態：已提交，Commit：`e59fe86`。
 
-- [ ] 調整 About 經營理念互動區塊。
+- [x] 調整 About 經營理念互動區塊。
   - 範圍：`wwwroot/about.html`、`Pages/About.cshtml`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
   - 內容：標題底線改用置中的 `h2::after` 與 `--color-primary`；`philosophy-gallery` 改為左右填滿並使用 `var(--card-radius)`；預設顯示與首頁核心理念相同的 target、team、increase 圖示及換行標題；依舊版介面支援 hover／focus／click 展開、橘色 icon 與內文顯示。
-  - 已驗證：待執行 `node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`、暫存差異 `git diff --cached --check` 與 `git status --short`。
-  - 未驗證：桌機／手機瀏覽器渲染、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 可能仍受保留中的既有靜態頁 trailing whitespace 影響。
-  - 更新：2026-08-11。狀態：待提交。
+  - 已驗證：來源結構、selector、`--card-radius` 與首頁核心理念 target／team／increase 圖示對照；`node --check wwwroot/js/pages/about.js`；暫存差異 `git diff --cached --check`；`git status --short`。
+  - 未驗證：`dotnet build -c Release` 因既有 `.NET Host (PID 21820)` 鎖定 `bin\Release\net8.0\apli-website-rebuild.dll` 而失敗；桌機／手機瀏覽器渲染、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的 `about.html` 與 `affiliates.html` 既有 trailing whitespace 影響。
+  - 更新：2026-08-11。狀態：已提交，Commit：`022a979`。
 
 - [x] 補回服務頁 Header 缺少的搜尋連結。
   - 範圍：`wwwroot/services.html`。
