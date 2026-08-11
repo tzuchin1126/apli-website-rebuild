@@ -115,8 +115,8 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-philosophy__list li { display: grid; justify-items: center; gap: 16px; }
 .home-philosophy__list li > span { display: grid; width: 74px; height: 74px; place-items: center; border-radius: 50%; background: var(--color-primary); color: #fff; font-size: 2rem; }
 .home-philosophy__list strong { font-family: var(--font-heading); font-weight: 600; }
-.home-outline-link, .home-image-cta a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 20px; border: 1px solid currentColor; color: var(--color-ink); text-decoration: none; }
-.home-outline-link:hover, .home-image-cta a:hover { background: var(--color-primary); color: #fff; }
+.home-image-cta a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 20px; border: 1px solid currentColor; color: var(--color-ink); text-decoration: none; }
+.home-image-cta a:hover { background: var(--color-primary); color: #fff; }
 .home-image-cta { position: relative; min-height: clamp(300px, 32vw, 460px); overflow: hidden; color: #fff; }
 .home-image-cta::after { position: absolute; inset: 0; background: rgb(0 0 0 / 30%); content: ""; }
 .home-image-cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -267,7 +267,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest__meta time,
 .home-page .home-latest__meta span,
 .home-page .home-latest__item strong { padding: 0; }
-.home-page .home-latest__item strong { color: var(--color-ink); font-family: var(--font-heading); font-size: clamp(1.15rem, 1.05rem + .15vw, 1.3rem); font-weight: 500; letter-spacing: .03em; line-height: 1.5; }
+.home-page .home-latest__item strong { color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.15rem, 1.05rem + .15vw, 1.3rem); font-weight: 500; letter-spacing: .03em; line-height: 1.5; }
 .home-page .home-latest__summary { display: -webkit-box; overflow: hidden; padding-inline: 0; color: var(--color-muted); font-size: .9375rem; line-height: 1.7; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .home-page .home-latest__more { align-self: end; justify-self: end; margin-top: 18px; padding-inline: 0; }
 .home-page .home-latest__item:hover .home-latest__more .home-text-link__icon,
@@ -292,13 +292,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-philosophy__list li > span { width: clamp(104px, 10vw, 144px); height: clamp(104px, 10vw, 144px); background: var(--color-primary); transition: background-color 180ms ease, color 180ms ease; }
 .home-page .home-philosophy__list li:hover > span { background: #fff; color: var(--color-primary); }
 .home-page .home-philosophy__list li > span svg { width: 48%; height: 48%; }
-.home-page .home-philosophy__list strong { color: var(--color-ink); font-size: clamp(1.1rem, 1rem + .2vw, 1.25rem); font-weight: 500; letter-spacing: .04em; }
-.home-page .home-outline-link { min-height: 48px; gap: 18px; padding: 0 24px; border-color: #40403e; border-radius: 2px; color: #40403e; font-size: 1rem; font-weight: 400; letter-spacing: .04em; transition: background-color 180ms ease, color 180ms ease; }
-.home-page .home-outline-link::after { content: "→"; font-size: 1.2em; transition: transform 180ms ease; }
-.home-page .home-outline-link:hover,
-.home-page .home-outline-link:focus-visible { background: #40403e; color: #fff; }
-.home-page .home-outline-link:hover::after,
-.home-page .home-outline-link:focus-visible::after { transform: translateX(3px); }
+.home-page .home-philosophy__list strong { color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.1rem, 1rem + .2vw, 1.25rem); font-weight: 500; letter-spacing: .04em; }
 
 .home-page .home-image-cta { min-height: clamp(260px, 30vw, 420px); isolation: isolate; background: #1f2f32; }
 .home-page .home-image-cta::after { z-index: 0; background: linear-gradient(90deg, rgb(16 31 32 / 56%), rgb(16 31 32 / 12%)); }

@@ -121,14 +121,15 @@
 
   const setupPhilosophyIcons = () => {
     const icons = [
-      '<path d="M12 20.5s-7-3.8-7-9.5a3.8 3.8 0 0 1 7-2.2A3.8 3.8 0 0 1 19 11c0 5.7-7 9.5-7 9.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55"/>',
-      '<path d="M12 20.5c4.4-2.9 6.8-6.2 6.8-10A4.2 4.2 0 0 0 12 7.2a4.2 4.2 0 0 0-6.8 3.3c0 3.8 2.4 7.1 6.8 10ZM8.6 12.2h6.8M12 8.8v6.8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55"/>',
-      '<path d="M7.2 18.4 12 4l4.8 14.4M8.8 13.8h6.4M10 18.4h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55"/>'
+      '<circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 1.5v2.2M12 20.3v2.2M1.5 12h2.2M20.3 12h2.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"/>',
+      '<circle cx="12" cy="8.2" r="2.6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="6.3" cy="10.4" r="2.1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="17.7" cy="10.4" r="2.1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M4.2 19.3c.4-2.9 2.1-4.7 4.7-4.7s4.3 1.8 4.7 4.7M11.8 19.3c.4-2.9 2.1-4.7 4.7-4.7s4.3 1.8 4.7 4.7M14.6 12.8c.8-.4 1.7-.6 2.7-.6 2.5 0 4.2 1.6 4.6 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>',
+      '<path d="M8.3 21.2h7.4M9.7 18.9h4.6M10.2 18.9l1.2-7.5h1.2l1.2 7.5M9.6 11.4h4.8M10.3 8.8h3.4l.8 2.6H9.5l.8-2.6ZM11 8.8c0-1 .4-1.8 1-2.4.6.6 1 1.4 1 2.4M12 6.4V2.2M8.4 8.8H3.2M15.6 8.8h5.2M9 6.2 5.4 3.5M15 6.2l3.6-2.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>'
     ];
     document.querySelectorAll(".home-philosophy__list li > span").forEach((element, index) => {
       const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       icon.setAttribute("viewBox", "0 0 24 24");
       icon.setAttribute("focusable", "false");
+      icon.setAttribute("aria-hidden", "true");
       icon.innerHTML = icons[index] ?? icons[0];
       element.replaceChildren(icon);
     });
