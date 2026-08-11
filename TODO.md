@@ -48,6 +48,12 @@
 
 ## 已完成紀錄
 
+- [x] 補回服務頁 Header 缺少的搜尋連結。
+  - 範圍：`wwwroot/services.html`。
+  - 內容：補回與其他靜態頁一致的 `index.html#search` 搜尋連結與搜尋 SVG；共用 `site-header.css` 樣式不需調整。
+  - 已驗證：來源結構比對；`/services.html` 桌機實際瀏覽器檢查搜尋連結與 SVG 存在；390px 手機實際檢查搜尋連結可見、頁面寬度未溢出。
+  - 更新：2026-08-11。狀態：待提交。
+
 - [x] 整理健康安全、營運資源、隱私權與服務項目靜態頁標記。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/operational-resources.html`、`wwwroot/privacy.html`、`wwwroot/services.html`。
   - 內容：將既有壓縮 HTML 展開以利維護；保留單一 `<!-- shared-site-footer -->` 注入標記；服務頁補齊分頁籤 roving tabindex 與導覽箭頭，tabpanel 不新增額外 tab stop。
