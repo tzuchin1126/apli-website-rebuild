@@ -40,3 +40,38 @@ Legacy orange button style is temporarily disabled while the project primary but
   background: var(--button-primary-hover-bg);
   color: var(--button-primary-color);
 }
+
+/* 可重用文字箭頭連結：卡片右下角 More */
+.button--text-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--button-text-arrow-gap);
+  color: var(--button-text-arrow-color);
+  font-size: var(--button-text-arrow-font-size);
+  font-weight: var(--button-text-arrow-font-weight);
+  line-height: var(--button-text-arrow-line-height);
+  letter-spacing: var(--button-text-arrow-letter-spacing);
+  text-decoration: none;
+}
+
+.button--text-arrow .home-text-link__icon {
+  width: var(--button-text-arrow-icon-size);
+  height: var(--button-text-arrow-icon-size);
+  flex: 0 0 auto;
+  fill: currentColor;
+  transition: var(--button-icon-transition);
+}
+
+.button--text-arrow:hover .home-text-link__icon,
+.button--text-arrow:focus-visible .home-text-link__icon {
+  transform: translateX(var(--button-text-arrow-hover-shift-x));
+}
+
+.button--text-arrow:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button--text-arrow .home-text-link__icon { transition: none; }
+}

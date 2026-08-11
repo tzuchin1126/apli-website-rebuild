@@ -90,6 +90,7 @@ Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。Razor Layout 直接載�
 - 使用 Phosphor `share` icon，尺寸 `16px`，文字與 icon 間距 `12px`。
 - 採實心按鈕樣式，保留 hover、focus-visible 與手機版狀態。
 - 共用 class 為 `.button--primary`，定義於 `wwwroot/css/components/buttons.css`；首頁的 `.home-text-link` 保留頁面語意 class。
+- 卡片右下角的 `MORE` 使用共用 `.button--text-arrow`，由 `--button-text-arrow-*` tokens 控制顏色、間距、字級與 icon 位移；icon 沿用 `.home-text-link__icon`，動畫共用 `--button-icon-transition`。
 - 原本的橘色 `.button` 基礎樣式暫時註解，不作為主要按鈕使用。
 
 ## 開發與紀錄流程

@@ -18,4 +18,15 @@
   --button-primary-icon-size: 16px;
   --button-primary-padding-inline: 24px;
   --button-primary-radius: 4px;
+  --button-text-arrow-color: var(--color-primary-dark);
+  --button-text-arrow-gap: 8px;
+  --button-text-arrow-font-size: 1rem;
+  --button-text-arrow-font-weight: 400;
+  --button-text-arrow-line-height: 1.73;
+  --button-text-arrow-letter-spacing: 0;
+  --button-text-arrow-icon-size: 16px;
+  --button-icon-transition: transform 180ms ease;
+  --button-text-arrow-hover-shift-x: 2px;
+  --card-radius: 6px;
+  --card-shadow-hover: 0 16px 40px rgb(20 35 25 / 14%);
 }
