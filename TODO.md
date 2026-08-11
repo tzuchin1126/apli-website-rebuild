@@ -19,7 +19,7 @@
   - 內容：以舊版廠區資訊、機具配置、作業量能、健康與安全、營運優勢及地理位置為視覺與內容基準，換回對應圖片與完整數據；使用新版語意 HTML、頁面 scoped 原生 CSS、既有 tokens、共用 Hero／Breadcrumb／主要按鈕完成，不帶入 Tailwind。手機內容順序統一為標題、圖片、內文，地圖沿用新版 Contact 已採用的 Google Maps iframe，避免搬入舊版 MapLibre 套件與資料不一致的 `map.js`。
   - 已驗證：`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；Headless Chrome 1366×900、390×844、320×800 實際渲染，確認四段圖片成功載入、桌機左右交錯、手機閱讀順序、表格換行、七個距離圓點橫向滑動、Footer 單一注入且頁面無水平溢位；Headless Edge 980、1099、1100px 斷點，確認 1100px 切換雙欄且三個尺寸均無水平溢位；Headless Edge 確認按鈕 focus 轉橘並保留 outline、Reduced Motion 停用內容進場動畫，以及 390px 距離列可取得鍵盤焦點並以方向鍵橫向捲動。
   - 未驗證：無頭瀏覽器未能觸發實際 `:hover`，hover 色彩與 icon 位移僅完成 CSS 靜態確認；Google Maps 外部 iframe 在無頭完整頁截圖未顯示地圖內容，僅確認 iframe 存在且沒有載入失敗紀錄；實體裝置、Firefox／Safari、人工無障礙驗收。
-  - 更新：2026-08-11。狀態：本次提交。
+  - 更新：2026-08-11。狀態：已提交，Commit：`18b63bc`。
 
 - [x] 建立員工專區 `/Admin` 登入與最新消息管理頁。
   - 範圍：`Pages/Admin/Index.cshtml`、`Services/NewsService.cs`、`Program.cs`、`wwwroot/css/pages/admin.css`、`wwwroot/js/pages/admin.js`。
@@ -138,7 +138,7 @@
 
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
-| 2026-08-11 | 營運資源頁面 | 依舊版介面補齊四段圖文、健康與安全 CTA、三欄營運優勢、周邊距離與嵌入式地圖；全部採用頁面 scoped 原生 CSS、既有 tokens 與共用元件，不帶入 Tailwind。已完成 Release 建置、JS／差異檢查、1366／390／320 實際渲染及 980／1099／1100 斷點檢查；外部地圖內容、實際 hover、跨瀏覽器、實體裝置與人工無障礙仍待驗證。狀態：本次提交。 |
+| 2026-08-11 | 營運資源頁面 | 依舊版介面補齊四段圖文、健康與安全 CTA、三欄營運優勢、周邊距離與嵌入式地圖；全部採用頁面 scoped 原生 CSS、既有 tokens 與共用元件，不帶入 Tailwind。已完成 Release 建置、JS／差異檢查、1366／390／320 實際渲染及 980／1099／1100 斷點檢查；外部地圖內容、實際 hover、跨瀏覽器、實體裝置與人工無障礙仍待驗證。Commit：`18b63bc`。 |
 | 2026-08-11 | 頁面命名與多語言規劃 | 記錄為最後階段處理：先完成主要頁面內容、路由與功能，再統一正式 canonical URL、舊 `.html` 轉址、`/zh-tw`／`/en` 語言前綴、翻譯內容策略與 `hreflang`／SEO metadata。Commit：`2f68685`。 |
 | 2026-08-11 | 靜態頁 HTML 整理 | 展開健康安全、營運資源、隱私權與服務項目 HTML，保留單一 Footer 注入標記並補齊服務頁籤鍵盤狀態；程式檢查通過，畫面驗證待進行。Commit：`b7fd2b2`。 |
 | 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流、與舊專案一致的啟動前帳密必要檢查與消息／分類 API，帳號密碼由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、未設定帳密的啟動失敗、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、本次修改檔案 `git diff --check` 通過。Commit：`0754ebe`。 |
