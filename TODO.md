@@ -14,6 +14,13 @@
 
 ## 進行中
 
+- [x] 對齊 `occupational-safety.html` 舊版內容區介面。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：參考舊版 Hero、健康與安全前導、ISO 45001 大圖資訊卡與三張專業證照卡片，改用新版語意 HTML、頁面 scoped 原生 CSS、既有 tokens 與舊版對應圖片，不帶入 Tailwind；補上實際證書編號與有效日期，並以可鍵盤操作的原圖連結取代舊版不可讀的收合縮圖，避免進頁即下載約 2 MB 證書。
+  - 已驗證：舊／新版安全素材逐檔 SHA-1 相同；`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；Headless Edge 1366×900、1100×900、1099×900、390×844、320×800 實際渲染，確認 Hero／前導／ISO／證照卡圖片載入、1100px 三欄與 1099px 雙欄切換、手機單欄、ISO 資訊卡未超出背景區、三張卡片 16:9 裁切、Footer 單一注入且所有尺寸無水平溢位；證書連結鍵盤 focus 保留橘色 outline；Reduced Motion 停用 Hero 動畫及新增 transition。
+  - 未驗證：證書連結開啟新分頁僅完成 href、提示與 focus 靜態／瀏覽器狀態檢查，未自動開啟原圖；證照卡 hover 僅完成 CSS 與 Reduced Motion 檢查；實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已完成，待提交。
+
 - [x] 對齊 `operational-resources.html` 舊版內容區介面。
   - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
   - 內容：以舊版廠區資訊、機具配置、作業量能、健康與安全、營運優勢及地理位置為視覺與內容基準，換回對應圖片與完整數據；使用新版語意 HTML、頁面 scoped 原生 CSS、既有 tokens、共用 Hero／Breadcrumb／主要按鈕完成，不帶入 Tailwind。手機內容順序統一為標題、圖片、內文，地圖沿用新版 Contact 已採用的 Google Maps iframe，避免搬入舊版 MapLibre 套件與資料不一致的 `map.js`。

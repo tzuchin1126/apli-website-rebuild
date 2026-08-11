@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="亞太國際物流健康與安全管理方向">
         <title>健康與安全 - 亞太國際物流</title>
+        <link rel="preload" as="image" href="public/images/occupational-safety/01.jpg" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
         <link rel="stylesheet" href="css/base/tokens.css">
         <link rel="stylesheet" href="css/layout/site-header.css">
@@ -66,66 +67,136 @@
         </header>
 
         <main id="main-content">
-            <div class="safety-breadcrumb page-breadcrumb">
+            <nav class="safety-breadcrumb page-breadcrumb" aria-label="麵包屑">
                 <div class="site-container">
                     <a href="index.html">首頁</a>
                     <span aria-hidden="true">›</span>
                     <span aria-current="page">健康與安全</span>
                 </div>
-            </div>
+            </nav>
 
             <section class="safety-hero page-hero" aria-labelledby="safety-title">
                 <picture class="page-hero__media">
-                    <img class="page-hero__image" src="public/images/occupational-safety/01.jpg" alt="港區作業環境" fetchpriority="high">
+                    <img class="page-hero__image" src="public/images/occupational-safety/01.jpg" alt="作業現場桌面上的安全帽與鐵鎚" width="5760" height="3840" fetchpriority="high">
                 </picture>
                 <div class="safety-hero__overlay page-hero__overlay" aria-hidden="true"></div>
                 <h1 class="page-hero__title" id="safety-title">健康與安全</h1>
             </section>
 
-            <section class="safety-intro site-container">
-                <figure>
-                    <img src="public/images/about/company-facility.jpg" alt="亞太國際物流作業環境" loading="lazy">
-                </figure>
-                <div>
-                    <p class="eyebrow">OCCUPATIONAL SAFETY</p>
-                    <h2>安全，是每一項作業的前提</h2>
-                    <p>亞太重視每一位進入營運場域人員的健康、安全與福祉，包括員工、承攬夥伴、訪客與客戶。</p>
-                    <p>面對貨櫃場、倉儲、機具維修及車輛往來等不同作業情境，我們將風險辨識與安全要求融入日常作業規劃及現場管理。</p>
-                </div>
-            </section>
-
-            <section class="safety-principles">
-                <div class="site-container">
-                    <p class="eyebrow">SAFETY PRINCIPLES</p>
-                    <h2>安全管理重點</h2>
-                    <div class="safety-grid">
-                        <article>
-                            <span aria-hidden="true">01</span>
-                            <h3>風險辨識</h3>
-                            <p>依作業環境與設備狀況辨識潛在風險，建立相應的防護措施。</p>
-                        </article>
-                        <article>
-                            <span aria-hidden="true">02</span>
-                            <h3>現場管理</h3>
-                            <p>透過動線規劃、設備維護與 5S 管理，維持整潔有序的工作場所。</p>
-                        </article>
-                        <article>
-                            <span aria-hidden="true">03</span>
-                            <h3>人員培訓</h3>
-                            <p>持續強化安全教育與作業溝通，讓安全成為全體同仁共同的工作習慣。</p>
-                        </article>
+            <section class="safety-section safety-intro" aria-labelledby="safety-intro-title">
+                <div class="site-container safety-intro__layout">
+                    <figure class="safety-intro__media">
+                        <picture>
+                            <source type="image/avif" srcset="public/images/occupational-safety/occupational-safety-hero-card-1536.avif">
+                            <img src="public/images/occupational-safety/occupational-safety-hero.png" alt="港區作業人員面對貨櫃裝卸設備" width="1536" height="1024" loading="lazy" decoding="async">
+                        </picture>
+                    </figure>
+                    <div class="safety-intro__copy">
+                        <div class="safety-heading">
+                            <p class="eyebrow">OCCUPATIONAL SAFETY</p>
+                            <div class="safety-heading__title-row">
+                                <h2 id="safety-intro-title">安全，是每一項作業的前提</h2>
+                                <svg class="safety-heading__icon" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+                                    <path d="M159 139c3-31 20-55 48-66M251 73c28 11 45 35 48 66"></path>
+                                    <path d="m214 106-5-41c-.4-4 2.5-7 6.5-7h27c4 0 6.9 3 6.5 7l-5 41"></path>
+                                    <rect x="149" y="139" width="160" height="23" rx="7"></rect>
+                                    <path d="M162 162v25c0 29 17 51 37 67 18 14 42 14 60 0 20-16 37-38 37-67v-25"></path>
+                                    <path d="M191 264c22 19 52 19 75 0M191 264c-47 11-79 48-80 95M266 264c47 11 79 48 80 95"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <p>亞太重視每一位進入營運場域人員的健康、安全與福祉，包括員工、承攬夥伴、訪客與客戶。面對貨櫃場、倉儲、機具維修及車輛往來等不同作業情境，我們將風險辨識與安全要求融入日常作業規劃及現場管理。</p>
+                        <p>我們也透過 5S 管理、動線規劃、設備維護與作業環境改善，持續打造整潔、有序且可靠的工作場所，降低潛在風險，兼顧人員安全與營運品質。</p>
                     </div>
                 </div>
             </section>
 
-            <section class="safety-iso site-container" id="iso-45001">
-                <div>
-                    <p class="eyebrow">ISO 45001</p>
-                    <h2>持續維持安全衛生管理</h2>
-                    <p>亞太持續落實職業安全衛生管理制度，將安全要求納入倉儲、貨櫃搬運、船舶裝卸及理貨包裝等服務流程。</p>
+            <section class="safety-certification-section" id="iso-45001" aria-labelledby="iso-45001-title">
+                <div class="safety-certification">
+                    <picture class="safety-certification__media">
+                        <source media="(max-width: 760px)" type="image/avif" srcset="public/images/about/milestones-hero-container-yard-960.avif">
+                        <source type="image/avif" srcset="public/images/about/milestones-hero-container-yard-1448.avif">
+                        <img src="public/images/about/milestones-hero-container-yard.png" alt="亞太國際物流貨櫃場與橋式起重機" width="1448" height="1086" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="safety-certification__copy">
+                        <p class="eyebrow">ISO 45001</p>
+                        <h2 id="iso-45001-title">持續維持</h2>
+                        <p>亞太多年來持續通過 ISO 45001 職業安全衛生管理系統驗證，並持續落實相關管理制度。現行驗證範圍涵蓋倉儲、貨櫃搬運、船舶裝卸及理貨包裝服務。</p>
+                        <dl class="safety-certification__facts">
+                            <div><dt>管理系統</dt><dd>ISO 45001:2018</dd></div>
+                            <div><dt>證書編號</dt><dd>ARES/TW/I1910058S</dd></div>
+                            <div><dt>有效日期</dt><dd><time datetime="2028-10-14">2028-10-14</time></dd></div>
+                        </dl>
+                        <a class="safety-certification__link" href="public/images/occupational-safety/iso-45001-certificate-2025-2028.png" target="_blank" rel="noopener">
+                            <span class="safety-certification__link-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7zM14 3v5h4M10 12h5m-5 4h5"></path></svg>
+                            </span>
+                            <span>查看 ISO 45001 證書<span class="sr-only">（在新分頁開啟）</span></span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="safety-iso__badge" aria-label="ISO 45001 職業安全衛生管理系統">
-                    ISO<br><strong>45001</strong>
+            </section>
+
+            <section class="safety-section safety-credentials" aria-labelledby="safety-credentials-title">
+                <div class="site-container">
+                    <header class="safety-credentials__heading">
+                        <p class="eyebrow">PROFESSIONAL QUALIFICATIONS</p>
+                        <h2 id="safety-credentials-title">專業證照與專責能力</h2>
+                        <p>本區彙整本公司人員目前已取得的職業安全、特殊作業及物流場站相關專業證照與資格。</p>
+                    </header>
+                    <div class="safety-credentials__grid">
+                        <article class="safety-credential-card">
+                            <figure class="safety-credential-card__media">
+                                <img src="public/images/occupational-safety/01-3.png" alt="作業人員於貨櫃旁進行安全檢查" width="1672" height="941" loading="lazy" decoding="async">
+                            </figure>
+                            <div class="safety-credential-card__title">
+                                <span class="safety-credential-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M3 13h18M9 13V8m6 5V8"></path></svg>
+                                </span>
+                                <h3>健康防護：安全守護者</h3>
+                            </div>
+                            <ul>
+                                <li>職業安全衛生管理人員</li>
+                                <li>勞工健康護理服務人員</li>
+                                <li>業務主管</li>
+                                <li>急救人員</li>
+                                <li>防火管理人</li>
+                            </ul>
+                        </article>
+                        <article class="safety-credential-card">
+                            <figure class="safety-credential-card__media">
+                                <img src="public/images/occupational-safety/137.png" alt="貨櫃場內操作貨櫃的重型機具" width="1672" height="941" loading="lazy" decoding="async">
+                            </figure>
+                            <div class="safety-credential-card__title">
+                                <span class="safety-credential-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M4 17h13M5 17V9h7v8m0-5h4l3 3v2M7 9V6h6v6M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg>
+                                </span>
+                                <h3>特種操作：重機具達人</h3>
+                            </div>
+                            <ul>
+                                <li>固定式／移動式起重機</li>
+                                <li>堆高機</li>
+                                <li>高空工作車</li>
+                                <li>電機維修相關</li>
+                            </ul>
+                        </article>
+                        <article class="safety-credential-card">
+                            <figure class="safety-credential-card__media">
+                                <img src="public/images/operational-resources/operational-resources-hero.jpg" alt="貨櫃堆置場與現場作業人員" width="2560" height="1707" loading="lazy" decoding="async">
+                            </figure>
+                            <div class="safety-credential-card__title">
+                                <span class="safety-credential-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM8 6v12m8-12v12M3 10h18"></path></svg>
+                                </span>
+                                <h3>物流樞紐：專責管理菁英</h3>
+                            </div>
+                            <ul>
+                                <li>貨櫃集散站自主專責人員</li>
+                                <li>保稅倉庫自主專責人員</li>
+                            </ul>
+                        </article>
+                    </div>
                 </div>
             </section>
         </main>
