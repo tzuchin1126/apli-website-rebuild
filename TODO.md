@@ -157,9 +157,9 @@
 | 2026-08-11 | 首頁聯絡與招募 CTA 互動優化 | 參考 Split Landing Page 的 75%／25% hover 展開邏輯；縮小 CTA 高度與文字，明確設定左圖左文、右圖右文；按鈕保留白色邊線與白色文字，改用主要按鈕尺寸及 Phosphor share icon，連結分別導向 `contact.html` 與 `join.html`。已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收。Commit：`2bb9ef8`。 |
 | 2026-08-11 | 首頁聯絡與招募 CTA 按鈕與收縮狀態調整 | CTA 按鈕改為預設顯示並啟用 `contact.html`／`join.html` 連結；保留按鈕 hover icon 位移動畫，收縮側改為淡出內容，避免文字被擠壓搶走視覺焦點。已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release` 與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收。狀態：待提交。 |
 
-- [ ] 調整 About 經營理念圖片裁切比例。
+- [x] 調整 About 經營理念圖片裁切比例。
   - 範圍：`wwwroot/css/pages/about.css`。
   - 內容：桌機 gallery 改用以視窗寬度計算的固定 14:5 圖片框架，避免 `60vh` 使筆電與桌機因可視高度不同而產生不同裁切；手機版恢復自動高度並保留 `min-height: 520px`。
-  - 已驗證：待執行 `node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`、`git diff --check` 與 `git status --short`。
-  - 未驗證：桌機／手機瀏覽器實際圖片裁切、實體裝置、跨瀏覽器與人工無障礙驗收。
-  - 更新：2026-08-11。狀態：待提交。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 warnings、0 errors）；暫存差異 `git diff --cached --check`；`git status --short`。
+  - 未驗證：桌機／手機瀏覽器實際圖片裁切、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的既有 HTML trailing whitespace 影響。
+  - 更新：2026-08-11。狀態：已提交，Commit：`04555a8`。
