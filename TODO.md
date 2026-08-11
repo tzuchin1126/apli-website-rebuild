@@ -171,12 +171,12 @@
   - 未驗證：桌機／手機瀏覽器渲染、sticky 年份與收合互動實機結果、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的靜態 HTML trailing whitespace 影響。
   - 更新：2026-08-11。狀態：已提交，Commit：`0e44ca4`。
 
-- [ ] 修正 About 認證時間軸收合後年份與底部滾動狀態。
+- [x] 修正 About 認證時間軸收合後年份與底部滾動狀態。
   - 範圍：`wwwroot/js/pages/about.js`。
   - 內容：收合後年份應回到最後一筆近期獎項 2019；依目前可見事件與視窗錨點重新校正 sticky 年份，並在展開／收合狀態變更後更新時間軸進度。
-  - 已驗證：待執行。
-  - 未驗證：瀏覽器實際收合、展開、滑到底與桌機／手機渲染；待執行 `node --check wwwroot/js/pages/about.js`、`dotnet build -c Release` 與 `git diff --check`。
-  - 更新：2026-08-11。狀態：進行中。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 warnings、0 errors）；本次 staged `git diff --check`。
+  - 未驗證：瀏覽器實際收合、展開、滑到底與桌機／手機渲染、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受既有靜態 HTML trailing whitespace 影響。
+  - 更新：2026-08-11。狀態：已提交，Commit：`c6959ef`。
 
 ## 2026-08-11 Contact 頁面調整
 
