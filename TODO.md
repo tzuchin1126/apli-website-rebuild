@@ -57,8 +57,8 @@
 - [x] 調整 About 公司簡介區塊圖片比例與標題底線。
   - 範圍：`wwwroot/css/pages/about.css`；同步套用 `/about` Razor 頁面。
   - 內容：參考首頁「關於亞太」的左右欄配置，將右側公司圖片縮為欄寬 88% 並靠近文字側；標題底線改用首頁「最新消息」的 `h2::after` 寫法與既有 `--color-primary` 變數。
-  - 已驗證：來源 selector、版型與既有 CSS 變數檢查；`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
-  - 未驗證：桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 已驗證：來源 selector、版型與既有 CSS 變數檢查；`node --check wwwroot/js/pages/about.js`；一次 `dotnet build -c Release`（0 warnings、0 errors）；本次暫存差異 `git diff --cached --check`。
+  - 未驗證：桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的 `about.html` 既有 trailing whitespace 影響；最後一次重跑 Release build 因既有 dotnet 程序鎖定 `bin\Release\net8.0\apli-website-rebuild.dll` 而失敗。
   - 更新：2026-08-11。狀態：已提交，Commit：`e59fe86`。
 
 - [x] 補回服務頁 Header 缺少的搜尋連結。
