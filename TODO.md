@@ -226,3 +226,10 @@
   - 已驗證：來源 selector、偽元素定位與本次檔案 `git diff --check`。
   - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
   - 更新：2026-08-11。狀態：本次提交。
+
+- [x] 補充公司沿革 Hero 遮罩的共用來源。
+  - 範圍：`README.md`、`TODO.md`。
+  - 內容：記錄 `milestones.html` 的 `.milestones-hero__overlay.page-hero__overlay` 使用共用 Hero 遮罩；共用元件由 `site.css` 載入，預設遮罩 token 位於 `tokens.css`，頁面 CSS 只設定圖片定位。
+  - 已驗證：`milestones.html`、`site.css`、`components/page-hero.css`、`base/tokens.css` 與 `milestones.css` 來源關係檢查；本次檔案 `git diff --check`。
+  - 未驗證：文件更新不涉及瀏覽器渲染驗證。
+  - 更新：2026-08-11。狀態：本次提交。

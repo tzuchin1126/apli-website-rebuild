@@ -84,6 +84,12 @@ Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。Razor Layout 直接載�
 - 頁面專屬 selector 必須以頁面根 class 限定，例如 `.home-page`。
 - 不使用 `!important` 或過度具體的 selector 掩蓋責任錯置。
 
+### 非首頁 Hero
+
+- `wwwroot/css/site.css` 載入共用 `wwwroot/css/components/page-hero.css`；高度、標題、遮罩與動畫 token 集中於 `wwwroot/css/base/tokens.css`。
+- 一般頁面使用 `.page-hero__overlay` 與預設的 `--page-hero-overlay-light`。頁面可透過 `--page-hero-overlay` 改用不同遮罩，但不應重複建立遮罩規則。
+- `milestones.html` 的 `.milestones-hero__overlay` 同時套用 `.page-hero__overlay`，因此遮罩屬於共用 Hero；`wwwroot/css/pages/milestones.css` 目前只設定該頁 Hero 圖片位置。
+
 ## 主要按鈕規範
 
 目前專案的主要按鈕以首頁「關於亞太」區塊的「了解更多」按鈕作為視覺基準：
