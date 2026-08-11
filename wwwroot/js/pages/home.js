@@ -108,6 +108,17 @@
     return icon;
   };
 
+  const createShareIcon = () => {
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.setAttribute("class", "home-text-link__icon");
+    icon.setAttribute("viewBox", "0 0 256 256");
+    icon.setAttribute("aria-hidden", "true");
+    icon.setAttribute("focusable", "false");
+    icon.setAttribute("fill", "currentColor");
+    icon.innerHTML = '<path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>';
+    return icon;
+  };
+
   const setupPhilosophyIcons = () => {
     const icons = [
       '<path d="M12 20.5s-7-3.8-7-9.5a3.8 3.8 0 0 1 7-2.2A3.8 3.8 0 0 1 19 11c0 5.7-7 9.5-7 9.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55"/>',
@@ -250,8 +261,8 @@
           summary.className = "home-latest__summary";
           summary.textContent = item.content.replace(/\s+/g, " ").trim();
           const more = document.createElement("span");
-          more.className = "home-latest__more";
-          more.append("MORE", createArrow());
+          more.className = "home-latest__more button--text-arrow";
+          more.append("MORE", createShareIcon());
           body.append(meta, title, summary, more);
           link.append(media, body);
           list.append(link);
