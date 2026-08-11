@@ -16,10 +16,10 @@
 
 - [x] 建立員工專區 `/Admin` 登入與最新消息管理頁。
   - 範圍：`Pages/Admin/Index.cshtml`、`Services/NewsService.cs`、`Program.cs`、`wwwroot/css/pages/admin.css`、`wwwroot/js/pages/admin.js`。
-  - 狀態：已完成原生 CSS/JavaScript 頁面、Cookie 登入、登入限流、CSRF 與消息／分類 CRUD；檔案上傳不在本次範圍。Commit：`48322cb`。
+  - 狀態：已完成原生 CSS/JavaScript 頁面、Cookie 登入、登入限流、CSRF 與消息／分類 CRUD；檔案上傳不在本次範圍。Commit：`a32df44`。
   - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/admin.js`、`git diff --check`、`/Admin` 路由 200、1366px 登入畫面、390px 登入／工作區、登入後 6 筆消息與 3 個分類載入、編輯／清空互動、頁面無水平溢位、瀏覽器 console 無 error/warning。
   - 未驗證：實際消息儲存／刪除、分類新增／刪除寫入操作；正式環境 HTTPS、實體裝置、跨瀏覽器、人工無障礙驗收。
-  - 更新：2026-08-11。狀態：已提交，Commit：`48322cb`。
+  - 更新：2026-08-11。狀態：已提交，Commit：`a32df44`。
 
 - [ ] 首頁 Hero 下方區塊對齊舊版 — 關於亞太、服務項目、最新消息、經營理念、聯絡 CTA、人才招募 CTA。
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`
@@ -72,7 +72,7 @@
 
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
-| 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流與消息／分類 API，帳號密碼改由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、`git diff --check` 通過。Commit：`48322cb`。 |
+| 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流與消息／分類 API，帳號密碼改由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、`git diff --check` 通過。Commit：`a32df44`。 |
 | 2026-08-11 | 新視窗交接流程 | 在 `AGENTS.md` 補充以文件與 Git 接續上下文、縮小單次範圍，並強制於實作前詢問「主代理＋子代理模式」或「一般模式」；已完成文件及差異檢查。狀態：待提交。 |
 | 2026-08-11 | 非首頁共用 Hero | 建立共用 Hero 元件與深淺遮罩 tokens，換回 9 頁專屬圖片／裁切，補上圖片與文字動畫、reduced-motion 及 AVIF MIME；建置與差異檢查通過，逐頁手機與 MIME 修正後瀏覽器重載待驗證。Commit：`aa1cab7`。 |
 | 2026-08-11 | 專案文件 | 新增 README、TODO，並將強制同步更新規則寫入 AGENTS.md。Commit：`508f754`。 |
