@@ -10,7 +10,7 @@
 .department-grid dd { margin: 8px 0 0; color: var(--color-primary); }
 .department-grid a { color: inherit; text-decoration: none; }
 .department-grid a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.location-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 24px 48px; align-items: start; }
+.location-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 24px 0; align-items: start; }
 .location-heading { grid-column: 1 / -1; }
 .location-heading h2 { margin-bottom: 0; }
 .location-card > div { display: grid; align-content: start; }
