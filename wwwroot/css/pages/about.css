@@ -44,18 +44,37 @@
 .philosophy-panels button:hover .philosophy-panel__description, .philosophy-panels button:focus-visible .philosophy-panel__description, .philosophy-panels button[aria-expanded="true"] .philosophy-panel__description { max-height: 160px; opacity: 0.9; transform: translateY(0); }
 .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
 
-.about-certifications { padding: clamp(64px, 8vw, 112px) 0; background: var(--color-surface); }
-.about-section-heading--left { justify-items: start; margin-bottom: 40px; text-align: left; }
-.about-section-heading--left h2 { position: relative; }
-.certification-list { position: relative; display: grid; max-width: 1120px; margin: 0 auto; padding: 0 0 0 38px; list-style: none; }
-.certification-list::before { position: absolute; top: 0; bottom: 0; left: 8px; width: 2px; background: var(--color-line); content: ""; }
-.certification-list li { position: relative; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 24px; padding: 0 0 24px 28px; }
-.certification-list li::before { position: absolute; top: 4px; left: -1px; width: 18px; height: 18px; border: 5px solid var(--color-surface); border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); content: ""; }
-.certification-list time { color: var(--color-primary-dark); font-weight: 700; line-height: 1.6; }
-.certification-list p { margin: 0; padding-bottom: 24px; border-bottom: 1px solid var(--color-line); line-height: 1.6; }
-.about-certifications__link { display: inline-flex; margin-top: 32px; margin-left: 38px; }
-.about-certifications__link.button--outline { background: transparent; color: var(--color-primary); }
-.about-certifications__link.button--outline:hover, .about-certifications__link.button--outline:focus-visible { background: var(--color-primary); color: #fff; }
+.about-page .about-certifications {
+  --certification-line-x: 20px;
+  --certification-progress: 0px;
+  --certification-sticky-top: 132px;
+  padding: clamp(64px, 8vw, 112px) 0;
+  background: var(--color-surface);
+}
+.about-page .about-section-heading--left { justify-items: start; margin-bottom: 40px; text-align: left; }
+.about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
+.about-page .about-certifications .about-section-heading--left h2::after { position: absolute; right: auto; bottom: 0; left: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: none; }
+.about-page .milestone-timeline { position: relative; width: min(1120px, 100%); margin: clamp(40px, 5vw, 72px) auto 0; }
+.about-page .milestone-timeline::before,
+.about-page .milestone-timeline::after { position: absolute; z-index: 1; top: 0; left: var(--certification-line-x); width: 2px; border-radius: 999px; pointer-events: none; content: ""; }
+.about-page .milestone-timeline::before { bottom: 0; background: linear-gradient(to bottom, transparent, var(--color-line) 8%, var(--color-line) 92%, transparent); }
+.about-page .milestone-timeline::after { height: var(--certification-progress); max-height: 100%; background: linear-gradient(to bottom, transparent 0, var(--color-primary) 10%, var(--color-primary-dark) 100%); }
+.about-page .milestone-content { position: relative; width: 100%; }
+.about-page .milestone-panels { display: grid; gap: clamp(72px, 10vw, 132px); }
+.about-page .milestone-panel { display: grid; grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.55fr); gap: clamp(40px, 7vw, 96px); align-items: start; }
+.about-page .milestone-era-label { position: sticky; top: var(--certification-sticky-top); z-index: 2; min-height: 48px; padding-left: 74px; }
+.about-page .milestone-era-label h3 { margin: 0; color: var(--color-ink); font-family: var(--font-heading); font-size: clamp(1.65rem, 3vw, 3rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.03em; }
+.about-page .milestone-era-dot { position: absolute; top: 4px; left: 8px; width: 26px; height: 26px; border: 7px solid var(--color-surface); border-radius: 50%; background: var(--color-line); box-shadow: 0 0 0 1px var(--color-line); }
+.about-page .milestone-panel-events { display: grid; width: 100%; margin-inline: auto; gap: 0; }
+.about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 8px; align-items: baseline; width: 100%; padding: 2px 0 22px; border-bottom: 1px solid var(--color-line); text-align: left; }
+.about-page .milestone-panel-events > div + div { padding-top: 22px; }
+.about-page .milestone-panel-events h3 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1rem, 1.25vw, 1.16rem); line-height: 1.55; font-weight: 500; }
+.about-page .milestone-event-year { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-dark); font-weight: 700; line-height: 1.7; }
+.about-page .about-certifications-toggle { grid-column: 2; justify-self: start; margin-top: 28px; }
+.about-page [data-collapsible-events] > div { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; overflow: hidden; transition: opacity 350ms ease, transform 350ms ease, margin 350ms ease, max-height 350ms ease; pointer-events: none; }
+.about-page [data-collapsible-events] > div.is-visible { opacity: 1; transform: translateY(0); max-height: 500px; margin-top: 12px; margin-bottom: 12px; pointer-events: auto; }
+.about-page [data-collapsible-events] > div.is-collapsed { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; }
+.about-page [data-collapsible-events] > div[hidden] { display: none; }
 
 @media (max-width: 840px) {
   .about-page .about-profile { grid-template-columns: 1fr; }
@@ -64,11 +83,17 @@
   .philosophy-panels { flex-direction: column; }
   .philosophy-panels button { min-height: 160px; }
   .philosophy-panels button:not(:last-child)::after { top: auto; right: auto; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, rgb(255 255 255 / 72%), rgb(255 255 255 / 0%)); }
-  .certification-list { padding-left: 28px; }
-  .certification-list li { grid-template-columns: 58px minmax(0, 1fr); gap: 14px; padding-left: 20px; }
-  .about-certifications__link { margin-left: 28px; }
+  .about-page .milestone-timeline { --certification-line-x: 18px; margin-top: 36px; }
+  .about-page .milestone-panels { gap: 72px; }
+  .about-page .milestone-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .about-page .milestone-era-label { position: relative; top: auto; padding-left: 56px; }
+  .about-page .milestone-era-label h3 { font-size: clamp(1.55rem, 8vw, 2.2rem); }
+  .about-page .milestone-era-dot { left: 6px; }
+  .about-page .milestone-panel-events { padding-left: 56px; }
+  .about-page .about-certifications-toggle { grid-column: 1; justify-self: stretch; width: calc(100% - 56px); margin: 28px 0 0 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .philosophy-gallery__image, .philosophy-panels button, .philosophy-panel__description { transition: none; }
+  .about-page [data-collapsible-events] > div { transition: none; }
 }

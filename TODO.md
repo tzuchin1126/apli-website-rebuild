@@ -164,6 +164,13 @@
   - 未驗證：桌機／手機瀏覽器實際圖片裁切、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的既有 HTML trailing whitespace 影響。
   - 更新：2026-08-11。狀態：已提交，Commit：`04555a8`。
 
+- [ ] 調整 About 認證與獎項時間軸區塊。
+  - 範圍：`Pages/About.cshtml`、`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 內容：參考舊版完整認證與獎項資料，加入桌機 sticky 年份、滾動進度線、近期八筆與完整清單的收合互動；標題底線改用 About 既有標題底線邏輯，按鈕沿用 `.button--primary`。
+  - 已驗證：Razor／靜態頁區塊順序與資料結構來源檢查；`node --check wwwroot/js/pages/about.js`。
+  - 未驗證：`dotnet build -c Release`、桌機／手機瀏覽器渲染、sticky 年份與收合互動實機結果、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的靜態 HTML trailing whitespace 影響。
+  - 更新：2026-08-11。狀態：待提交。
+
 ## 2026-08-11 Contact 頁面調整
 
 - [x] 移除 Contact Hero，改為先顯示各部門聯絡窗口，再顯示公司位置。
