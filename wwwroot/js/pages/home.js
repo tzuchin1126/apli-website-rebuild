@@ -100,6 +100,28 @@
     sections.forEach((section) => observer.observe(section));
   };
 
+  const setupContactCta = () => {
+    const cta = document.querySelector(".home-contact-cta");
+    if (!cta) return;
+
+    const setHoverState = (state) => {
+      cta.classList.toggle("hover-left", state === "left");
+      cta.classList.toggle("hover-right", state === "right");
+    };
+
+    cta.querySelectorAll(".home-contact-cta__panel").forEach((panel) => {
+      const state = panel.classList.contains("home-contact-cta__panel--join") ? "right" : "left";
+      panel.addEventListener("mouseenter", () => setHoverState(state));
+      panel.addEventListener("mouseleave", () => {
+        if (!panel.contains(document.activeElement)) setHoverState(null);
+      });
+      panel.addEventListener("focusin", () => setHoverState(state));
+      panel.addEventListener("focusout", (event) => {
+        if (!panel.contains(event.relatedTarget)) setHoverState(null);
+      });
+    });
+  };
+
   const createArrow = () => {
     const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     icon.setAttribute("viewBox", "0 0 24 24");
@@ -266,5 +288,6 @@
 
   setupHeroCarousel();
   setupReveal();
+  setupContactCta();
   setupLatestNews();
 })();
