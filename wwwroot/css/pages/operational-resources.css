@@ -3,7 +3,7 @@
   --page-hero-image-origin: 35% 66%;
   --resources-section-space: clamp(64px, 7vw, 96px);
   --resources-feature-gap: clamp(48px, 6vw, 96px);
-  --resources-content-gap: clamp(28px, 3vw, 42px);
+  --resources-content-gap: 20px;
   --resources-title-size: clamp(1.9375rem, 1.825rem + 0.375vw, 2.3125rem);
   --resources-title-line-height: clamp(39px, 36.666px + 0.487vw, 48.1px);
   --resources-rule-width: clamp(48px, 5vw, 72px);
@@ -134,7 +134,7 @@
 
 .operational-resources-page .resource-body th,
 .operational-resources-page .resource-body td {
-  padding: 0.42rem 0.5rem;
+  padding: 0.42rem 0;
   border-bottom: 1px solid var(--color-line);
   vertical-align: top;
 }
@@ -231,16 +231,20 @@
   text-align: center;
 }
 
-.operational-resources-page .resources-advantages__grid svg {
-  width: clamp(42px, 4vw, 56px);
-  height: clamp(42px, 4vw, 56px);
+.operational-resources-page .resources-advantages__grid .ph {
+  display: block;
   margin-bottom: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  color: inherit;
+  font-family: "Phosphor";
+  font-size: clamp(38px, 3.4vw, 48px);
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
 }
+
+.operational-resources-page .resources-advantages__grid .ph-security-camera::before { content: "\eca4"; }
+.operational-resources-page .resources-advantages__grid .ph-users-three::before { content: "\e68e"; }
+.operational-resources-page .resources-advantages__grid .ph-shipping-container::before { content: "\e78c"; }
 
 .operational-resources-page .resources-advantages__grid h3 {
   margin: 0 0 9px;
@@ -348,26 +352,6 @@
   width: 100%;
   height: 100%;
   border: 0;
-}
-
-@supports (animation-timeline: view()) {
-  .operational-resources-page .resource-animate {
-    animation: resources-fade-in linear both;
-    animation-timeline: view();
-    animation-range: entry 8% cover 30%;
-  }
-}
-
-@keyframes resources-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 1099px) {

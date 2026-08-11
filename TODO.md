@@ -55,6 +55,34 @@
 
 ## 已完成紀錄
 
+- [x] 改用 Phosphor icon 呈現營運優勢。
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`、`TODO.md`。
+  - 內容：移除三個手繪 SVG，分別改用 `ph-security-camera`、`ph-users-three`、`ph-shipping-container`；沿用專案既有本機 Phosphor 字型，並將 icon 的字型與 codepoint 規則限定於營運優勢區塊。專案目前僅有 regular 字型，因此不引入外部字型，將 icon 尺寸縮為 `38–48px` 以降低筆畫的視覺重量。
+  - 已驗證：指定 class、Phosphor 字型載入與三個官方 regular codepoint 比對；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`458e9f2`。
+
+- [x] 修正營運資源內容區的捲動淡出、間距與表格對齊。
+  - 範圍：`wwwroot/css/pages/operational-resources.css`、`TODO.md`。
+  - 內容：移除 `view()` 捲動時間軸造成區塊反向捲動時淡出的效果；標題底線至內容的間距調整為與首頁相同的 20px；移除表格儲存格左右內距，讓表頭首字與上方內文左緣對齊。
+  - 已驗證：來源 selector 與首頁間距值比對；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`458e9f2`。
+
+- [x] 調整公司沿革年份位置與切換選單間距。
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 內容：保留既有年代切換選單與 JavaScript 行為；沿革項目的年份改為置於標題上方，並縮短 Hero 與年代選單的距離。依最新決定移除固定年份指示器與每筆年份浮水印；桌機與手機均維持單欄年份、標題、內文的閱讀順序。
+  - 已驗證：來源結構、既有頁籤與 JavaScript 合約檢查；`node --check wwwroot/js/pages/milestones.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：未進行桌機／手機瀏覽器渲染、切換選單實際互動、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`458e9f2`。
+
+- [x] 微調 About 關係企業區塊的背景、標題與卡片互動。
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 內容：移除區塊背景色；標題下底線改為與 About 經營理念相同的置中偽元素造型；移除卡片 hover 陰影，改為與 `MORE` 一致的 `--color-primary-dark` 邊線；`MORE` 改用既有 `.button--text-arrow` 相同的 token、share icon 與位移動畫。
+  - 已驗證：來源 selector 與共用 `button--text-arrow` token／SVG 結構比對；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`458e9f2`。
+
 - [x] 在 About 認證與獎項下方加入關係企業區塊。
   - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
   - 內容：依舊版的六張關係企業 Logo 卡片與連結目標加入「AFFILIATES／關係企業」區塊；樣式使用新版頁面 scoped CSS、既有色彩／圓角／陰影／按鈕 icon tokens，並保留鍵盤 focus 與 reduced-motion 狀態。`MORE` 採 inline SVG，避免使用未註冊的 Phosphor glyph。六張圖片均已存在於新專案，且與舊版素材逐一比對一致，因此不重複覆寫素材。

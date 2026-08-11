@@ -1,6 +1,6 @@
 .milestones-page { --page-hero-image-position: center 28%; }
 
-.milestones-content { padding-top: clamp(48px, 6vw, 80px); padding-bottom: 112px; }
+.milestones-content { padding-top: clamp(24px, 2.5vw, 36px); padding-bottom: 112px; }
 .milestone-tabs { display: flex; max-width: 860px; margin: 0 auto 32px; border-bottom: 1px solid var(--color-line); }
 .milestone-tabs button { position: relative; flex: 1; min-height: 52px; padding: 12px 20px; border: 0; background: transparent; color: var(--color-ink); cursor: pointer; }
 .milestone-tabs button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
@@ -8,11 +8,11 @@
 .milestone-panel { max-width: 860px; margin: 0 auto; }
 .milestone-panel[hidden] { display: none; }
 .milestone-panel:not([hidden]) { animation: milestone-panel-in 350ms ease both; }
-.milestone-panel article { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 8px 20px; padding: 22px 0; border-bottom: 1px solid var(--color-line); }
-.milestone-panel time { grid-row: span 2; color: var(--color-primary-dark); font-weight: 700; line-height: 1.7; }
+.milestone-panel article { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 22px 0; border-bottom: 1px solid var(--color-line); }
+.milestone-panel time { color: var(--color-primary-dark); font-weight: 700; line-height: 1.7; }
 .milestone-panel h2, .milestone-panel p { margin: 0; }
 .milestone-panel h2 { font-family: var(--font-body); font-size: clamp(1rem, 1.25vw, 1.16rem); font-weight: 500; line-height: 1.55; }
 .milestone-panel p { color: var(--color-muted); line-height: 1.7; }
 @keyframes milestone-panel-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .milestone-panel:not([hidden]) { animation: none; } }
-@media (max-width: 760px) { .milestones-breadcrumb { display: none; } .milestones-content { padding-top: 48px; padding-bottom: 80px; } .milestone-tabs { display: grid; grid-template-columns: 1fr; } .milestone-panel article { grid-template-columns: 70px minmax(0, 1fr); gap: 6px 14px; } }
+@media (max-width: 760px) { .milestones-breadcrumb { display: none; } .milestones-content { padding-top: 24px; padding-bottom: 80px; } .milestone-tabs { display: grid; grid-template-columns: 1fr; } .milestone-panel article { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
