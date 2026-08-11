@@ -46,13 +46,13 @@
   - 內容：將既有壓縮 HTML 展開以利維護；保留單一 `<!-- shared-site-footer -->` 注入標記；服務頁補齊分頁籤 roving tabindex 與導覽箭頭，tabpanel 不新增額外 tab stop。
   - 已驗證：共用 Footer 標記來源檢查、素材路徑檢查、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
   - 未驗證：桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
-  - 更新：2026-08-11。狀態：待提交。
+  - 更新：2026-08-11。Commit：`b7fd2b2`。
 - [x] 補充新視窗與任務交接規則，讓後續工作可從專案文件與 Git 接續，不必攜帶完整舊對話。
   - 範圍：`AGENTS.md`、`TODO.md`。
   - 內容：固定啟動檢查、單一頁面／區塊範圍、舊版唯讀參考、Git 權限界線，以及開始實作前強制詢問「主代理＋子代理模式」或「一般模式」；前者由主代理負責子代理分工與最終品質。
   - 已驗證：文件內容檢查、`git diff --check`。
   - 未驗證：不涉及程式或瀏覽器畫面。
-  - 更新：2026-08-11。狀態：待提交。
+  - 更新：2026-08-11。Commit：`b7fd2b2`。
 - [x] 統一非首頁頁面的 Hero 圖片、遮罩、文字與進場動畫。
   - 共用元件：`wwwroot/css/components/page-hero.css`；遮罩、高度、標題與動畫參數集中於 `wwwroot/css/base/tokens.css`。
   - 頁面差異：一般頁面使用 25%→40% 淺遮罩，About 引文使用 52%→66% 深遮罩；9 個靜態頁及 About／News Razor 路由改用各頁專屬圖片與裁切變數。
@@ -78,9 +78,9 @@
 
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
-| 2026-08-11 | 靜態頁 HTML 整理 | 展開健康安全、營運資源、隱私權與服務項目 HTML，保留單一 Footer 注入標記並補齊服務頁籤鍵盤狀態；程式檢查通過，畫面驗證待進行。狀態：待提交。 |
+| 2026-08-11 | 靜態頁 HTML 整理 | 展開健康安全、營運資源、隱私權與服務項目 HTML，保留單一 Footer 注入標記並補齊服務頁籤鍵盤狀態；程式檢查通過，畫面驗證待進行。Commit：`b7fd2b2`。 |
 | 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流與消息／分類 API，帳號密碼改由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、`git diff --check` 通過。Commit：`a32df44`。 |
-| 2026-08-11 | 新視窗交接流程 | 在 `AGENTS.md` 補充以文件與 Git 接續上下文、縮小單次範圍，並強制於實作前詢問「主代理＋子代理模式」或「一般模式」；已完成文件及差異檢查。狀態：待提交。 |
+| 2026-08-11 | 新視窗交接流程 | 在 `AGENTS.md` 補充以文件與 Git 接續上下文、縮小單次範圍，並強制於實作前詢問「主代理＋子代理模式」或「一般模式」；已完成文件及差異檢查。Commit：`b7fd2b2`。 |
 | 2026-08-11 | 非首頁共用 Hero | 建立共用 Hero 元件與深淺遮罩 tokens，換回 9 頁專屬圖片／裁切，補上圖片與文字動畫、reduced-motion 及 AVIF MIME；建置與差異檢查通過，逐頁手機與 MIME 修正後瀏覽器重載待驗證。Commit：`aa1cab7`。 |
 | 2026-08-11 | 專案文件 | 新增 README、TODO，並將強制同步更新規則寫入 AGENTS.md。Commit：`508f754`。 |
 | 2026-08-11 | 首頁下方區塊 | 完成視覺、輪播與驗證狀態記錄。Commit：`6070bc9`。 |
