@@ -21,7 +21,7 @@
 .about-section-heading h2 { margin-bottom: 0; }
 .about-page .about-philosophy .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
 .about-page .about-philosophy .about-section-heading h2::after { position: absolute; right: 50%; bottom: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: translateX(50%); }
-.about-page .philosophy-gallery { position: relative; display: flex; width: 100%; max-width: none; min-height: clamp(460px, 60vh, 680px); margin: 0; overflow: hidden; border-radius: var(--card-radius); background: #173646; }
+.about-page .philosophy-gallery { position: relative; display: flex; width: 100%; max-width: none; height: clamp(460px, calc(100vw * 5 / 14), 680px); min-height: 0; margin: 0; overflow: hidden; border-radius: var(--card-radius); background: #173646; }
 .philosophy-gallery__image { position: absolute; inset: 0; opacity: 0; background-position: center; background-size: cover; transition: opacity 500ms ease, transform 500ms ease; }
 .philosophy-gallery__image[data-active="true"] { opacity: 1; transform: scale(1.02); }
 .philosophy-gallery__image--default { background-image: url('/public/images/index/1223.png'); background-position: center 72%; }
@@ -60,7 +60,7 @@
 @media (max-width: 840px) {
   .about-page .about-profile { grid-template-columns: 1fr; }
   .about-page .about-profile figure { width: 100%; justify-self: stretch; }
-  .philosophy-gallery { min-height: 520px; }
+  .philosophy-gallery { height: auto; min-height: 520px; }
   .philosophy-panels { flex-direction: column; }
   .philosophy-panels button { min-height: 160px; }
   .philosophy-panels button:not(:last-child)::after { top: auto; right: auto; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, rgb(255 255 255 / 72%), rgb(255 255 255 / 0%)); }
