@@ -75,6 +75,13 @@
   - 未驗證：`dotnet build -c Release` 因既有 `.NET Host (PID 21820)` 鎖定 `bin\Release\net8.0\apli-website-rebuild.dll` 而失敗；桌機／手機瀏覽器渲染、圖片清晰度、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收；完整工作樹 `git diff --check` 仍受保留中的 `about.html` 與 `affiliates.html` 既有 trailing whitespace 影響。
   - 更新：2026-08-11。狀態：已提交，Commit：`4cda642`。
 
+- [ ] 再調淡 About 經營理念圖片遮罩。
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 內容：將 `philosophy-gallery__overlay` 漸層由 48%／4% 調整為 32%／0%，讓背景圖片更清楚。
+  - 已驗證：待執行 `node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`、`git diff --check` 與 `git status --short`。
+  - 未驗證：桌機／手機瀏覽器渲染、圖片清晰度、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
 - [x] 補回服務頁 Header 缺少的搜尋連結。
   - 範圍：`wwwroot/services.html`。
   - 內容：補回與其他靜態頁一致的 `index.html#search` 搜尋連結與搜尋 SVG；共用 `site-header.css` 樣式不需調整。
