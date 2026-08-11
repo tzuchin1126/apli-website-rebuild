@@ -238,6 +238,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   line-height: 1.73;
 }
 .home-page .home-service-grid { gap: 26px; }
+.home-page .home-service-grid article > img { border-radius: var(--card-image-radius); }
 .home-page .home-service-grid article {
   display: grid;
   grid-template-rows: auto 1fr;

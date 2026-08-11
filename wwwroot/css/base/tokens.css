@@ -28,5 +28,6 @@
   --button-icon-transition: transform 180ms ease;
   --button-text-arrow-hover-shift-x: 2px;
   --card-radius: 6px;
+  --card-image-radius: var(--card-radius) var(--card-radius) 0 0;
   --card-shadow-hover: 0 16px 40px rgb(20 35 25 / 14%);
 }
