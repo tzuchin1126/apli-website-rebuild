@@ -1,4 +1,19 @@
-﻿(() => {
+(() => {
+  const footerColumns = document.querySelectorAll(".site-footer .footer-column");
+  if (!footerColumns.length) return;
+
+  const compactViewport = window.matchMedia("(max-width: 840px)");
+  const updateFooterDisclosureState = () => {
+    footerColumns.forEach((column) => {
+      column.open = !compactViewport.matches;
+    });
+  };
+
+  updateFooterDisclosureState();
+  compactViewport.addEventListener("change", updateFooterDisclosureState);
+})();
+
+(() => {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".menu-toggle");
   const navigation = document.querySelector("#main-navigation");

@@ -59,17 +59,7 @@
         @RenderBody()
     </main>
 
-    <footer class="site-footer">
-        <div class="site-container site-footer__main">
-            <div class="site-footer__brand"><a asp-area="" asp-page="/Index" aria-label="亞太國際物流首頁"><img src="~/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" /></a></div>
-            <nav class="site-footer__nav" aria-label="頁尾導覽">
-                <div class="footer-column"><h2>關於亞太</h2><a href="/about">公司簡介</a><a href="/milestones">公司沿革</a><a href="/operational-resources">營運資源</a></div>
-                <div class="footer-column"><h2>服務項目</h2><a href="/services#warehousing">倉儲物流</a><a href="/services#terminal-handling">貨櫃清洗與維修</a><a href="/services#maintenance">機具維修與銷售</a></div>
-                <div class="footer-column"><h2>快速連結</h2><a href="/news">最新消息</a><a href="/join">人才招募</a><a href="/contact">聯絡我們</a><a asp-area="" asp-page="/Privacy">隱私權政策</a></div>
-            </nav>
-        </div>
-        <div class="site-footer__bottom"><div class="site-container"><span>&copy; 2026 亞太國際物流股份有限公司</span><a asp-area="" asp-page="/Privacy">隱私權政策</a></div></div>
-    </footer>
+    <partial name="_Footer" />
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
