@@ -203,3 +203,12 @@
 - 已驗證：`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`（0 警告、0 錯誤）；本次 staged `git diff --check`。
 - 未驗證：未啟動網站，未進行瀏覽器實際展開／收合、桌機與手機渲染、跨瀏覽器、實體裝置與人工無障礙驗收；完整工作樹 `git diff --check` 仍受既有靜態 HTML 尾端空白影響。
 - 更新：2026-08-11。狀態：已提交，Commit：`4156341`。
+
+## 2026-08-11 公司沿革頁面微調
+
+- [x] 調整公司沿革年份頁籤與事件文字層級。
+  - 範圍：`wwwroot/css/pages/milestones.css`。
+  - 內容：年份頁籤統一維持墨色文字，hover 與目前選項僅以橘色下底線表示；縮小頁籤高度與內距，將年份、事件標題與內文的字級、粗細與行高收斂至舊版參考比例；切換年份時加入淡入上移過渡，並支援 `prefers-reduced-motion`。
+  - 已驗證：來源 selector 與舊版文字規格對照、`node --check wwwroot/js/pages/milestones.js`、本次檔案 `git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：本次提交。
