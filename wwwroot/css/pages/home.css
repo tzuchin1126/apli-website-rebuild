@@ -290,8 +290,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-philosophy__list { max-width: 840px; gap: clamp(32px, 7vw, 88px); margin-bottom: 36px; }
 .home-page .home-philosophy__list li { gap: 16px; }
 .home-page .home-philosophy__list li > span { width: clamp(104px, 10vw, 144px); height: clamp(104px, 10vw, 144px); background: var(--color-primary); transition: background-color 180ms ease, color 180ms ease; }
-.home-page .home-philosophy__list li:hover > span { background: #fff; color: var(--color-primary); }
-.home-page .home-philosophy__list li > span svg { width: 48%; height: 48%; }
+.home-page .home-philosophy__list li > span img { width: 48%; height: 48%; object-fit: contain; }
 .home-page .home-philosophy__list strong { color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.1rem, 1rem + .2vw, 1.25rem); font-weight: 500; letter-spacing: .04em; }
 
 .home-page .home-image-cta { min-height: clamp(260px, 30vw, 420px); isolation: isolate; background: #1f2f32; }
