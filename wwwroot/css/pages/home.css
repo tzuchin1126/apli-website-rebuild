@@ -251,7 +251,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest__heading { align-items: end; padding-bottom: 24px; }
 .home-page .home-latest h2 { padding-bottom: 20px; }
 .home-page .home-latest__all { margin-top: 0; text-decoration: none; }
-.home-page .home-latest__viewport { width: calc(100% + (100vw - 100%) / 2); overflow-x: auto; padding-top: 6px; padding-bottom: 24px; overscroll-behavior-inline: contain; scrollbar-width: none; scroll-snap-type: x mandatory; touch-action: pan-y; }
+.home-page .home-latest__viewport { width: calc(100% + (100vw - 100%) / 2); overflow-x: auto; padding-top: 6px; padding-bottom: 40px; overscroll-behavior-inline: contain; scrollbar-width: none; scroll-snap-type: x mandatory; touch-action: pan-y; }
 .home-page .home-latest__viewport::-webkit-scrollbar { display: none; }
 .home-page .home-latest__list { gap: 26px; margin-top: 36px; }
 .home-page .home-latest__item { flex: 0 0 calc((100% - 78px) / 3.5); grid-template-rows: auto 1fr; overflow: hidden; border-radius: var(--card-radius); scroll-snap-align: start; transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease; }

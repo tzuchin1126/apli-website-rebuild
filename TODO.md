@@ -64,3 +64,4 @@
 | 2026-08-11 | 首頁按鈕 icon 動畫 token | 新增 `--button-icon-transition`，讓「關於亞太／了解更多」與服務卡片 `MORE` 共用 `transform 180ms ease` 動畫設定；Commit：`bb547fb`。 |
 | 2026-08-11 | 首頁服務卡片圓角 token | 新增 `--card-radius` 與 `--card-image-radius`，分別控制卡片與圖片圓角；已執行 `dotnet build -c Release`（0 警告、0 錯誤）、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`；Commit：`94a022a`。 |
 | 2026-08-11 | 首頁最新消息區塊 | 補回標題下方橘線；卡片與圖片改用圓角與共用 hover 陰影 token；修正 meta、標題、摘要對齊；`MORE` 改用 `.button--text-arrow`、`.home-text-link__icon` 與既有動畫 token；查看全部使用 `.button--primary`；輪播 viewport 沿用舊版右側延伸與手機 RWD；已執行 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；未驗證瀏覽器畫面、跨瀏覽器、實體裝置與人工無障礙驗收，實際視覺驗證由使用者確認；Commit：`24fd5cf`。 |
+| 2026-08-11 | 首頁最新消息按鈕與 hover 陰影 | 補回「查看全部」的 Phosphor `share` inline SVG，沿用 `.button--primary`、`.home-text-link__icon` 與既有位移動畫；增加最新消息 viewport 底部空間，避免共用卡片 hover 陰影被輪播容器裁切而形成直線；已執行來源調整，待執行建置、語法與差異檢查；實際視覺驗證由使用者確認；Commit：待提交。 |
