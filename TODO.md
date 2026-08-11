@@ -78,7 +78,7 @@
   - 內容：About 靜態頁與 `/about` 改為「首頁 › 關於我們 › 公司簡介」；各頁共用 `.page-breadcrumb` 基礎樣式；`site.js` 依目前 URL 標記子選單項目 `aria-current` 與父層 `.nav-link.is-active`，服務頁 hash 子項目保留同一父層 active 邏輯。
   - 已驗證：`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；來源結構與 selector 檢查。
   - 未驗證：桌機／手機瀏覽器渲染、子選單實際互動、實體裝置、跨瀏覽器與人工無障礙驗收；完整 `git diff --check` 仍受既有 `contact.html`、`join.html`、`milestones.html`、`news.html` trailing whitespace 影響。
-  - 更新：2026-08-11。狀態：待提交。
+  - 更新：2026-08-11。狀態：已提交，Commit：`b95ac95`。
 - [x] 建立單一來源共用 Footer，並依舊版規格完成桌機四欄與手機 accordion。
   - 單一來源：`Pages/Shared/_Footer.cshtml`；Razor Layout 直接引用，12 個靜態頁面由 `Program.cs` 伺服器端注入。
   - 行動版：隱私權政策與員工專區只保留在快速連結中，底欄只顯示水平置中的 copyright。
@@ -102,7 +102,7 @@
 | 2026-08-11 | 員工專區 `/Admin` | 新增獨立 Razor 登入／最新消息管理頁，使用原生 CSS/JavaScript；Program 補上 Cookie 認證、CSRF、登入限流、與舊專案一致的啟動前帳密必要檢查與消息／分類 API，帳號密碼由 `Admin__Username`／`Admin__Password` 環境變數提供；檔案上傳未納入。完成 1366px／390px 實際渲染、登入與資料載入、編輯／清空互動；消息／分類寫入操作、未設定帳密的啟動失敗、正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙尚未驗證。`dotnet build -c Release`、`node --check wwwroot/js/pages/admin.js`、本次修改檔案 `git diff --check` 通過。Commit：`0754ebe`。 |
 | 2026-08-11 | 新視窗交接流程 | 在 `AGENTS.md` 補充以文件與 Git 接續上下文、縮小單次範圍，並強制於實作前詢問「主代理＋子代理模式」或「一般模式」；已完成文件及差異檢查。Commit：`b7fd2b2`。 |
 | 2026-08-11 | 非首頁共用 Hero | 建立共用 Hero 元件與深淺遮罩 tokens，換回 9 頁專屬圖片／裁切，補上圖片與文字動畫、reduced-motion 及 AVIF MIME；建置與差異檢查通過，逐頁手機與 MIME 修正後瀏覽器重載待驗證。Commit：`aa1cab7`。 |
-| 2026-08-11 | 共用 Breadcrumb 與 Header active | 建立 `.page-breadcrumb` 共用樣式；About 與 `/about` 補齊「首頁 › 關於我們 › 公司簡介」；`site.js` 依 URL 標記子選單父層 `.nav-link.is-active` 與 `aria-current`。JS 語法與 Release 建置通過；瀏覽器渲染、互動、跨瀏覽器、實體裝置與人工無障礙待驗證；完整 `git diff --check` 受既有 4 個靜態頁 trailing whitespace 影響。狀態：待提交。 |
+| 2026-08-11 | 共用 Breadcrumb 與 Header active | 建立 `.page-breadcrumb` 共用樣式；About 與 `/about` 補齊「首頁 › 關於我們 › 公司簡介」；`site.js` 依 URL 標記子選單父層 `.nav-link.is-active` 與 `aria-current`。JS 語法與 Release 建置通過；瀏覽器渲染、互動、跨瀏覽器、實體裝置與人工無障礙待驗證；完整 `git diff --check` 受既有 4 個靜態頁 trailing whitespace 影響。狀態：已提交，Commit：`b95ac95`。 |
 | 2026-08-11 | 專案文件 | 新增 README、TODO，並將強制同步更新規則寫入 AGENTS.md。Commit：`508f754`。 |
 | 2026-08-11 | 首頁下方區塊 | 完成視覺、輪播與驗證狀態記錄。Commit：`6070bc9`。 |
 | 2026-08-11 | 共用 Footer | 建立單一 Partial、靜態頁伺服器端注入、桌機四欄與手機 accordion。Commit：`6070bc9`。 |
