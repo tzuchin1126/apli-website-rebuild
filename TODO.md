@@ -55,6 +55,13 @@
 
 ## 已完成紀錄
 
+- [x] 在 About 認證與獎項下方加入關係企業區塊。
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 內容：依舊版的六張關係企業 Logo 卡片與連結目標加入「AFFILIATES／關係企業」區塊；樣式使用新版頁面 scoped CSS、既有色彩／圓角／陰影／按鈕 icon tokens，並保留鍵盤 focus 與 reduced-motion 狀態。六張圖片均已存在於新專案，且與舊版素材逐一比對一致，因此不重複覆寫素材。
+  - 已驗證：舊版區塊結構、連結與素材路徑比對；六個圖片檔案內容比對；`node --check wwwroot/js/pages/about.js`；`dotnet build -c Release`；`git diff --check`。
+  - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、hover／focus 實際互動、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：已提交，Commit：`a7ef382`。
+
 - [x] 調整 About 靜態頁 Hero 引言版型。
   - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
   - 內容：隱藏 Hero 標題（保留 `sr-only` h1）、引言置中、開頭加入 `〝`、署名前使用 inline SVG 橘色線，未使用 `::before`。
