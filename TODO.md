@@ -219,3 +219,10 @@
   - 已驗證：新版 `about.css`、`join.css`、`affiliates.css` selector 與數值對照、`node --check wwwroot/js/pages/milestones.js`、本次檔案 `git diff --check`。
   - 未驗證：依需求未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
   - 更新：2026-08-11。狀態：本次提交。
+
+- [x] 對齊公司沿革當前頁籤的橘色下底線。
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 內容：以目前頁籤的偽元素覆蓋灰色基線，避免橘線上浮；橘色線厚度由 2px 提高至 4px。
+  - 已驗證：來源 selector、偽元素定位與本次檔案 `git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：本次提交。
