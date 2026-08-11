@@ -62,6 +62,69 @@
 
 ## 已完成紀錄
 
+- [x] 移除員工健康與照護獨立區塊並重整健康安全前導版型。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：移除獨立的「員工健康與照護」三卡片區塊，保留措施文字於安全前導內容；前導版型改為桌機左側文字、右側 3:4 直立圖片，手機改為單欄堆疊。
+  - 已驗證：HTML 區塊結構、移除選取器、scoped CSS 與響應式斷點檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 在健康與安全前導內容後補充員工健康照護措施。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：於 ISO 45001 說明段落後新增健康照護引導文字與三項措施清單，包含年度健康檢查、心理減壓講座及職業安全衛生護理師臨場健康諮詢服務。
+  - 已驗證：HTML 語意結構、scoped CSS 與清單樣式檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 新增健康安全頁的員工健康與照護區塊。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：在前導安全理念與 ISO 45001 區塊之間新增「員工健康與照護」，以三張卡片呈現年度健康檢查、心理減壓講座與職業安全衛生護理師健康諮詢臨場服務；桌機三欄、手機單欄。
+  - 已驗證：HTML 語意結構、scoped CSS 與響應式斷點檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 切換健康與安全前導圖片至 `1-1.png` 並整理取景 CSS。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：`<picture>` 的 `source` 與 `<img>` 統一改用 `public/images/occupational-safety/1-1.png`，同步修正圖片 intrinsic 尺寸為 1672 × 941；確認寬幅圖片在 4:3 圖框中仍需 `object-fit: cover` 與 `object-position: 92% center`，移除不必要的 `max-width: none`、`scale(1.02)` 與 `transform-origin`。
+  - 已驗證：圖片尺寸、HTML 引用與 CSS selector 檢查；`git diff --check`。
+  - 未驗證：未進行網站實際渲染、桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 更新健康與安全前導說明文案並分段呈現。
+  - 範圍：`wwwroot/occupational-safety.html`、`TODO.md`。
+  - 內容：替換前導標題下方文案，補充 ISO 45001 外部稽核與營運總部現場查核內容，並拆分為四段以建立清楚的閱讀層次。
+  - 已驗證：HTML 段落結構與文案來源檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 調整健康與安全前導圖片取景位置。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：因原本 `scale(1.4)` 會大幅裁切新增的右側場景，將前導圖片縮放調整為 `1.08`，並把取景焦點移至 `72%`，讓右側港區內容更明顯。
+  - 已驗證：CSS selector 與圖片引用檢查；`git diff --check`。
+  - 未驗證：未進行網站實際渲染、桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 調整健康與安全前導圖片右側構圖。
+  - 範圍：`wwwroot/public/images/occupational-safety/1.png`、`TODO.md`。
+  - 內容：保留左側橘色機具、中央吊具與原有光線，延伸右側港區背景與作業地面，讓圖片在頁面裁切時保有更多右側場景。
+  - 已驗證：輸出 PNG 檔案為 1672 × 941、RGB；已確認頁面引用 `1.png`。
+  - 未驗證：未進行網站實際渲染、桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 簡化健康與安全前導重要標題。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：移除 `safety-heading__icon`、`OCCUPATIONAL SAFETY` eyebrow 與前導標題下底線，保留「安全，是每一項作業的前提」作為獨立的重要訊息；認證區標題底線維持原樣。
+  - 已驗證：來源 class、標題結構與 scoped CSS 檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
+- [x] 更新健康與安全前導圖片來源。
+  - 範圍：`wwwroot/occupational-safety.html`、`TODO.md`。
+  - 內容：將前導圖片 `<picture>` 的 `source` 改為 `image/png`，改用 `public/images/occupational-safety/1.png`，並保留相同圖片的 `<img>` fallback。
+  - 已驗證：HTML 圖片來源與檔案路徑檢查；`git diff --check`。
+  - 未驗證：未啟動網站，未進行圖片實際渲染、桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。狀態：待提交。
+
 - [x] 改用 Phosphor icon 呈現營運優勢。
   - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`、`TODO.md`。
   - 內容：移除三個手繪 SVG，分別改用 `ph-security-camera`、`ph-users-three`、`ph-shipping-container`；沿用專案既有本機 Phosphor 字型，並將 icon 的字型與 codepoint 規則限定於營運優勢區塊。專案目前僅有 regular 字型，因此不引入外部字型，將 icon 尺寸縮為 `38–48px` 以降低筆畫的視覺重量。
