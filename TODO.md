@@ -52,7 +52,7 @@
   - 範圍：`wwwroot/services.html`。
   - 內容：補回與其他靜態頁一致的 `index.html#search` 搜尋連結與搜尋 SVG；共用 `site-header.css` 樣式不需調整。
   - 已驗證：來源結構比對；`/services.html` 桌機實際瀏覽器檢查搜尋連結與 SVG 存在；390px 手機實際檢查搜尋連結可見、頁面寬度未溢出。
-  - 更新：2026-08-11。狀態：待提交。
+  - 更新：2026-08-11。狀態：已提交，Commit：`dcaf579`。
 
 - [x] 整理健康安全、營運資源、隱私權與服務項目靜態頁標記。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/operational-resources.html`、`wwwroot/privacy.html`、`wwwroot/services.html`。
