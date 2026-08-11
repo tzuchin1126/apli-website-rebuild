@@ -85,9 +85,9 @@
 .about-page .about-affiliates__logo img { display: block; width: auto; max-width: min(170px, 100%); height: auto; max-height: 72px; object-fit: contain; }
 .about-page .about-affiliates__name { display: block; min-width: 0; margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1rem, 1.2vw, 1.12rem); font-weight: 600; line-height: 1.45; }
 .about-page .about-affiliates__more { position: absolute; right: 18px; bottom: 16px; display: inline-flex; align-items: center; gap: 6px; color: var(--color-primary); font-size: 0.875rem; opacity: 0; transform: translateY(8px); transition: opacity 280ms ease, transform 280ms ease; }
-.about-page .about-affiliates__more .ph { font-size: var(--button-text-arrow-icon-size); transition: var(--button-icon-transition); }
+.about-page .about-affiliates__more-icon { width: var(--button-text-arrow-icon-size); height: var(--button-text-arrow-icon-size); transition: var(--button-icon-transition); }
 .about-page .about-affiliates__card:hover .about-affiliates__more, .about-page .about-affiliates__card:focus-visible .about-affiliates__more { opacity: 1; transform: translateY(0); }
-.about-page .about-affiliates__card:hover .about-affiliates__more .ph, .about-page .about-affiliates__card:focus-visible .about-affiliates__more .ph { transform: translateX(var(--button-text-arrow-hover-shift-x)) translateY(-2px); }
+.about-page .about-affiliates__card:hover .about-affiliates__more-icon, .about-page .about-affiliates__card:focus-visible .about-affiliates__more-icon { transform: translateX(var(--button-text-arrow-hover-shift-x)) translateY(-2px); }
 
 @media (max-width: 840px) {
   .about-page .about-profile { grid-template-columns: 1fr; }
@@ -117,5 +117,5 @@
 @media (prefers-reduced-motion: reduce) {
   .philosophy-gallery__image, .philosophy-panels button, .philosophy-panel__description { transition: none; }
   .about-page [data-collapsible-events] > div { transition: none; }
-  .about-page .about-affiliates__card, .about-page .about-affiliates__more, .about-page .about-affiliates__more .ph { transition: none; }
+  .about-page .about-affiliates__card, .about-page .about-affiliates__more, .about-page .about-affiliates__more-icon { transition: none; }
 }
