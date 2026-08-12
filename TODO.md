@@ -67,7 +67,7 @@
   - 內容：ISO 45001 卡片改為第一個顯示項目，並以本機 Phosphor ph-certificate 與 codepoint e766 顯示證書圖示；其餘三張卡片順序不變。
   - 已驗證：ISO 卡片為四張卡片中的第一張，HTML 使用 ph-certificate，CSS codepoint 為 e766；node --check wwwroot/js/site.js；node --check wwwroot/js/pages/occupational-safety.js；dotnet build -c Release（0 warnings、0 errors）；git diff --check；本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認 ISO 標題與 icon 顯示、頁面無水平溢位；瀏覽器 console 無 error／warning。
   - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
-  - 更新：2026-08-12。狀態：待提交。
+  - 更新：2026-08-12。狀態：已提交，Commit：ef0e331。
 
 - [x] 新增 ISO 45001 專業證照卡片並將證照區塊改為可水平拖移的卡片列。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
