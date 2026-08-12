@@ -195,11 +195,54 @@
 }
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media {
-  background: var(--color-surface-soft);
+  background: var(--color-surface);
 }
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media img {
   object-fit: contain;
+}
+
+.safety-page .safety-credential-card--certification {
+  border-color: #173646;
+  color: var(--color-surface);
+  background: #173646;
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__media::after {
+  top: auto;
+  right: auto;
+  bottom: -36px;
+  left: 20px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #173646;
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__icon {
+  color: #173646;
+  background: var(--color-surface);
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__title h3 {
+  color: var(--color-surface);
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__title h3::after {
+  background: var(--color-surface);
+}
+
+.safety-page .safety-credential-card--certification li {
+  border-bottom-color: rgb(255 255 255 / 24%);
+  color: rgb(255 255 255 / 88%);
+}
+
+.safety-page .safety-credential-card--certification li::before {
+  background: var(--color-surface);
+}
+
+.safety-page .safety-credential-card--certification li::after {
+  border-color: #173646;
 }
 
 .safety-page .safety-credential-card__title {
@@ -234,7 +277,7 @@
 .safety-page .safety-credential-card__icon.ph-shield-check::before { content: "\e40c"; }
 .safety-page .safety-credential-card__icon.ph-hard-hat::before { content: "\ed46"; }
 .safety-page .safety-credential-card__icon.ph-gear::before { content: "\e270"; }
-.safety-page .safety-credential-card__icon.ph-certificate::before { content: "\e766"; }
+.safety-page .safety-credential-card__icon.ph-globe-hemisphere-east::before { content: "\e28a"; }
 
 .safety-page .safety-credential-card__title h3 {
   position: relative;
