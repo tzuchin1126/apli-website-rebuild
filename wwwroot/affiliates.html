@@ -115,89 +115,193 @@
     <section class="affiliates-content site-container">
       <!-- 頁籤導覽 (Tabs) -->
       <nav class="affiliate-tabs" role="tablist" aria-label="關係企業選單">
-        <button type="button" role="tab" aria-selected="true" aria-controls="affiliate-sexin">世新貨櫃</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="affiliate-oil">亞柏油品</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="affiliate-club">亞柏會館</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="affiliate-taronews">太報文化</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="affiliate-alpha">ALPHA TOTAL SOLUTION</button>
+        <button id="affiliate-tab-sexin" type="button" role="tab" aria-selected="true" aria-controls="affiliate-sexin">世新貨櫃</button>
+        <button id="affiliate-tab-oil" type="button" role="tab" aria-selected="false" aria-controls="affiliate-oil">亞柏油品</button>
+        <button id="affiliate-tab-club" type="button" role="tab" aria-selected="false" aria-controls="affiliate-club">亞柏會館</button>
+        <button id="affiliate-tab-badminton" type="button" role="tab" aria-selected="false" aria-controls="affiliate-badminton">亞柏羽球隊</button>
+        <button id="affiliate-tab-taronews" type="button" role="tab" aria-selected="false" aria-controls="affiliate-taronews">太報</button>
+        <button id="affiliate-tab-alpha" type="button" role="tab" aria-selected="false" aria-controls="affiliate-alpha">ALPHA TOTAL SOLUTION</button>
       </nav>
 
       <!-- Panel 1: 世新貨櫃 -->
-      <article class="affiliate-panel" id="affiliate-sexin" role="tabpanel">
-        <div>
-          <p class="eyebrow">CONTAINER SERVICES</p>
-          <h2>世新貨櫃企業</h2>
-          <p>成立於 1986 年，主力於空櫃儲轉及貨櫃維修清洗服務，累積豐富的驗櫃技術與維修專業團隊。</p>
-          <h3>服務項目</h3>
-          <ul>
-            <li>貨櫃修理與保養</li>
-            <li>貨櫃噴砂、除銹、噴漆與清洗</li>
-            <li>貨櫃車架整修</li>
-          </ul>
+      <article class="affiliate-panel" id="affiliate-sexin" role="tabpanel" aria-labelledby="affiliate-tab-sexin">
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>世新貨櫃企業股份有限公司</h2>
+            <div class="affiliate-panel-intro">
+              <p>成立於1986年，主力於空櫃儲轉及貨櫃維修清洗服務。</p>
+              <p>擁有優質的空櫃儲放管理系統，累積經驗豐富的驗櫃技術和維修專業團隊，卓越的業績和專業的服務，世新貨櫃多次獲得全球最佳櫃場之殊榮。</p>
+            </div>
+            <div class="affiliate-panel-details">
+              <section>
+                <h3>服務項目</h3>
+                <ul>
+                  <li>貨櫃之修理與保養業務</li>
+                  <li>貨櫃之噴砂、除銹、噴漆、清洗業務</li>
+                  <li>貨櫃車架之整修</li>
+                  <li>其他與貨櫃修理有關業務之經營</li>
+                </ul>
+              </section>
+              <section>
+                <h3>聯絡資訊</h3>
+                <p>世新業務部</p>
+                <p>電話：<a href="tel:+88678137961">07-813-7961</a></p>
+                <p>地址：高雄市小港區東亞路2號</p>
+              </section>
+            </div>
+          </div>
+          <figure class="affiliate-panel-gallery">
+            <img src="public/images/services/equipment-maintenance.png" alt="世新貨櫃作業現場" loading="lazy">
+            <img src="public/images/services/container-cleaning.jpg" alt="世新貨櫃清洗作業" loading="lazy">
+            <img src="public/images/services/port-equipment-maintenance.jpg" alt="亞太貨櫃場作業現場" loading="lazy">
+          </figure>
+          <section class="affiliate-sexin-awards" aria-labelledby="affiliate-sexin-awards-title">
+            <h3 id="affiliate-sexin-awards-title">服務品質肯定</h3>
+            <div class="affiliate-sexin-award-grid">
+              <figure><img src="public/images/affiliates/sexin-award-2005.png" alt="FLORENS 2005年全球最佳櫃場獎狀" width="433" height="577" loading="lazy"><figcaption>榮獲 FLORENS 2005年全球最佳櫃場</figcaption></figure>
+              <figure><img src="public/images/affiliates/sexin-award-2006.png" alt="TEXTAINER 2006年台灣區最佳櫃場獎狀" width="433" height="577" loading="lazy"><figcaption>榮獲 TEXTAINER 2006年台灣區最佳櫃場</figcaption></figure>
+              <figure><img src="public/images/affiliates/sexin-award-2008.png" alt="TEXTAINER 2008年獎狀" width="433" height="577" loading="lazy"><figcaption>榮獲 TEXTAINER 2008年台灣區最佳櫃場</figcaption></figure>
+            </div>
+          </section>
         </div>
-        <img src="public/images/about/company-facility.jpg" alt="貨櫃作業現場" loading="lazy">
       </article>
 
       <!-- Panel 2: 亞柏油品 -->
-      <article class="affiliate-panel" id="affiliate-oil" role="tabpanel" hidden>
-        <div>
-          <p class="eyebrow">ENERGY SERVICES</p>
-          <h2>亞柏油品事業</h2>
-          <p>自 2001 年起跨足油品市場，持續朝油品銷售與綠能永續方向發展，提供便利且多元的能源服務。</p>
-          <h3>服務方向</h3>
-          <ul>
-            <li>油品銷售</li>
-            <li>洗車服務</li>
-            <li>便利商店與生活服務</li>
-          </ul>
+      <article class="affiliate-panel" id="affiliate-oil" role="tabpanel" aria-labelledby="affiliate-tab-oil" hidden>
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>亞柏油品事業股份有限公司</h2>
+            <div class="affiliate-panel-intro">
+              <p class="affiliate-tagline">油品質純 綠能永續</p>
+              <p>2001年起，亞太事業跨足油品市場，並成功開設第一座加油站「亞柏小港站」，更曾締造全台柴油發油量之冠。</p>
+              <p>2016年正式成立「亞柏油品事業股份有限公司」，除了油品銷售外，亞柏油品持續朝多元化的服務方向發展。</p>
+              <p>近年來，我們更以友善環境和綠能永續的概念，積極在全台設立新站點，其中綠能加油站「亞柏西螺站」於2022年正式啟用。</p>
+            </div>
+          </div>
+          <figure class="affiliate-panel-gallery">
+            <img src="public/images/affiliates/aplus-energy-station.png" alt="亞柏油品加油站" loading="lazy">
+            <img src="public/images/affiliates/aplus-energy-solar-station.jpg" alt="加油站太陽能板設施空拍" loading="lazy">
+            <img src="public/images/affiliates/aplus-energy-station-site.jpg" alt="加油站站區" loading="lazy">
+          </figure>
+          <blockquote class="affiliate-oil-quote">亞柏油品將繼續致力於提供優質的油品銷售及多元化的服務，以綠能永續為目標，秉持著友善環境的理念，為客戶提供更便利、更可持續的能源服務體驗。</blockquote>
+          <div class="affiliate-oil-details">
+            <section>
+              <h3>服務項目</h3>
+              <ul><li>油品銷售</li><li>洗車服務區</li><li>便利商店</li><li>贈品兌換中心</li></ul>
+            </section>
+          <section class="affiliate-oil-locations" aria-labelledby="affiliate-oil-locations-title">
+            <h3 id="affiliate-oil-locations-title">服務據點</h3>
+            <div class="affiliate-location-accordion">
+              <details>
+                <summary>土城站</summary>
+                <div class="affiliate-location-details"><span>02-2263-5800</span><span>新北市土城區中華路一段164號</span></div>
+              </details>
+              <details>
+                <summary>新屋站</summary>
+                <div class="affiliate-location-details"><span>03-497-0830</span><span>桃園市新屋區中山東路一段620號</span></div>
+              </details>
+              <details>
+                <summary>西螺站</summary>
+                <div class="affiliate-location-details"><span>05-587-9665</span><span>雲林縣西螺鎮振興226-1號</span></div>
+              </details>
+              <details>
+                <summary>路竹站</summary>
+                <div class="affiliate-location-details"><span>07-607-6490</span><span>高雄市路竹區復興路213號</span></div>
+              </details>
+              <details>
+                <summary>仁武站</summary>
+                <div class="affiliate-location-details"><span>07-371-1336</span><span>高雄市仁武區澄觀路一段111號</span></div>
+              </details>
+              <details>
+                <summary>八卦寮</summary>
+                <div class="affiliate-location-details"><span>07-371-7900</span><span>高雄市仁武區八德西路433號</span></div>
+              </details>
+              <details>
+                <summary>小港站</summary>
+                <div class="affiliate-location-details"><span>07-813-3991</span><span>高雄市小港區東亞路2號</span></div>
+              </details>
+              <details>
+                <summary>新園站</summary>
+                <div class="affiliate-location-details"><span>08-868-6812</span><span>屏東縣新園鄉仙吉路300號</span></div>
+              </details>
+              <details>
+                <summary>潮州站</summary>
+                <div class="affiliate-location-details"><span>08-789-3983</span><span>屏東縣潮州鎮延平路342號</span></div>
+              </details>
+            </div>
+          </section>
+          </div>
         </div>
-        <img src="public/images/index/1223.png" alt="能源與物流服務場景" loading="lazy">
       </article>
 
       <!-- Panel 3: 亞柏會館 -->
-      <article class="affiliate-panel" id="affiliate-club" role="tabpanel" hidden>
-        <div>
-          <p class="eyebrow">SPORTS &amp; LEISURE</p>
-          <h2>亞柏會館</h2>
-          <p>提供休閒、娛樂與社交聯誼的場所，作為企業員工與社區交流的重要空間。</p>
-          <h3>服務特色</h3>
-          <ul>
-            <li>運動休閒空間</li>
-            <li>文化與展覽活動</li>
-            <li>羽球與團體活動</li>
-          </ul>
+      <article class="affiliate-panel" id="affiliate-club" role="tabpanel" aria-labelledby="affiliate-tab-club" hidden>
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>亞柏會舘</h2>
+            <p class="affiliate-tagline">運動 休閒 聯誼 多元化優質環境</p>
+            <p>亞太員工是公司最重要的資產，因此員工福利一直是公司極為重視的一環，同時也將作為亞柏羽球隊的訓練基地。為此，2011年員工綜合運動休閒中心啟用，正式命名為「亞柏會舘」。</p>
+            <p>亞柏會舘除了為亞太公司及關係企業的員工及其親友提供休閒、娛樂和社交聯誼的場所外，也開放給社會各界舉辦文化、展覽、羽球比賽等活動使用。</p>
+            <div class="affiliate-panel-details">
+              <section><h3>聯絡資訊</h3><p>地址：高雄市小港區學府路113號</p><p>電話：07-8027698</p></section>
+            </div>
+          </div>
+          <figure class="affiliate-panel-gallery">
+            <img src="public/images/affiliates/aplus-club-exterior.jpg" alt="亞柏會舘外觀" loading="lazy">
+            <img src="public/images/affiliates/aplus-club-meeting-room.jpg" alt="亞柏會舘會議空間" loading="lazy">
+            <img src="public/images/affiliates/aplus-club-sepak-takraw.jpg" alt="亞柏會舘藤球活動" loading="lazy">
+          </figure>
         </div>
-        <img src="public/images/about/new.jpg" alt="休閒與活動空間" loading="lazy">
+      </article>
+
+      <!-- Panel 4: 亞柏羽球隊 -->
+      <article class="affiliate-panel" id="affiliate-badminton" role="tabpanel" aria-labelledby="affiliate-tab-badminton" hidden>
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>亞柏羽球隊</h2>
+            <p class="affiliate-tagline">台灣羽球戰將 放眼國際賽場</p>
+            <p>2009年，亞太國際物流集團正式揮拍進軍羽壇，是民間企業所成立的第一支專業羽球隊。我們致力於年輕球員的培育，締造了亞運男子團體銅牌、亞洲青少年男子單打二屆冠軍及多項國內外羽球大賽的金牌殊榮。</p>
+            <section class="affiliate-panel-details"><h3>歷年成績殊榮</h3><ul><li>陳曉歡－全國羽球排名賽女甲單打冠軍</li><li>呂家弘－2015世界青少年男子單打冠軍</li><li>曾敏豪－2014韓國仁川亞運男子團體銅牌</li><li>楊智傑－2018印尼雅加達亞運男子團體銅牌</li><li>謝沛珊－2023台北公開賽混雙銅牌</li><li>盧明哲－2023丹麥挑戰賽第二名</li></ul></section>
+          </div>
+          <figure class="affiliate-panel-gallery">
+            <img src="public/images/affiliates/aplus-badminton-player.jpg" alt="亞柏羽球隊選手於賽場躍起擊球" loading="lazy">
+            <img src="public/images/affiliates/aplus-badminton-doubles.jpg" alt="亞柏羽球隊雙打比賽現場" loading="lazy">
+            <img src="public/images/affiliates/aplus-badminton-team.jpg" alt="亞柏羽球隊參與羽球賽事" loading="lazy">
+          </figure>
+        </div>
       </article>
 
       <!-- Panel 4: 太報文化 -->
-      <article class="affiliate-panel affiliate-panel--text" id="affiliate-taronews" role="tabpanel" hidden>
-        <div>
-          <p class="eyebrow">MEDIA &amp; CULTURE</p>
-          <h2>太報文化股份有限公司</h2>
-          <p class="affiliate-tagline">深入新聞，秒懂台灣，秒懂全世界</p>
-          <p>《太報》於 2017 年誕生，2018 年正式登記成立太報文化事業股份有限公司，致力於以深度、解釋性的視角提供新聞與人文內容。</p>
-          <p>太報 TaiSounds 堅持公正報導，關注台灣與國際即時新聞、政治財經、社會議題、體育及文化娛樂。</p>
-          <a class="affiliate-website-link" href="https://www.taisounds.com/" target="_blank" rel="noopener">
-            前往太報官網<span class="sr-only">（開啟新分頁）</span>
-          </a>
+      <article class="affiliate-panel" id="affiliate-taronews" role="tabpanel" aria-labelledby="affiliate-tab-taronews" hidden>
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>太報文化股份有限公司</h2>
+            <p class="affiliate-tagline">深入新聞，秒懂台灣，秒懂全世界</p>
+            <p>《太報》於2017年誕生，2018年正式登記成立太報文化事業股份有限公司，以跳脫傳統台灣新聞媒體的框架為初衷，旨在替社會發聲並帶來人文溫度。</p>
+            <p>太報 TaiSounds 堅持公正的報導立場，追求以深度、解釋性的視角進行報導，關注台灣與國際即時新聞、政治財經、社會議題、體育與文化娛樂。</p>
+            <a class="affiliate-website-link" href="https://www.taisounds.com/" target="_blank" rel="noopener">前往太報官網<span class="sr-only">（開啟新分頁）</span></a>
+          </div>
+          <figure class="affiliate-feature-image affiliate-feature-image--portrait"><img src="public/images/affiliates/taisounds.jpg" alt="太報 TaiSounds" loading="lazy"></figure>
         </div>
       </article>
 
       <!-- Panel 5: ALPHA TOTAL SOLUTION -->
-      <article class="affiliate-panel" id="affiliate-alpha" role="tabpanel" hidden>
-        <div>
-          <p class="eyebrow">OVERSEAS SOLUTIONS</p>
-          <h2>ALPHA TOTAL SOLUTION</h2>
-          <p>延伸海外市場，提供港機設備銷售、保固維修與售後技術支援，建立完整的設備服務能力。</p>
-          <h3>服務內容</h3>
-          <ul>
-            <li>港機設備銷售</li>
-            <li>保固與維修服務</li>
-            <li>售後技術支援</li>
-          </ul>
+      <article class="affiliate-panel" id="affiliate-alpha" role="tabpanel" aria-labelledby="affiliate-tab-alpha" hidden>
+        <div class="affiliate-panel-layout">
+          <div class="affiliate-panel-copy">
+            <h2>ALPHA TOTAL SOLUTION PTE LTD</h2>
+            <p>45年港口機具保養維修經驗，代理振華柴油堆高機、電動堆高機、電動拖車、陜汽重卡、各式零組件、板台、特殊大型機具銷售及保固維修服務。</p>
+            <div class="affiliate-panel-details">
+              <section><h3>服務項目</h3><ul><li>堆高機銷售（柴油／電動）</li><li>電動拖車銷售</li><li>陜汽重型卡車銷售</li><li>零組件供應</li><li>板台及特殊大型機具銷售</li><li>保固維修服務</li><li>定期保養服務</li></ul></section>
+              <section><h3>聯絡資訊</h3><p>台灣營銷處：亞太港機經銷部</p><p>電話：<a href="tel:+88678137856">07-813-7856</a></p></section>
+            </div>
+          </div>
+          <div class="affiliate-panel-gallery">
+            <figure><img src="public/images/affiliates/port-crane-operation.png" alt="貨櫃吊運作業" loading="lazy"></figure>
+            <figure><img src="public/images/affiliates/alpha-port-equipment.png" alt="ALPHA 港口機具" loading="lazy"></figure>
+            <figure><img src="public/images/services/port-equipment-maintenance.jpg" alt="貨櫃場作業現場" loading="lazy"></figure>
+          </div>
         </div>
-        <img src="public/images/index/1223.png" alt="港區機具作業" loading="lazy">
       </article>
     </section>
   </main>
