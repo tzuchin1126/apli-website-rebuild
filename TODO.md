@@ -452,4 +452,4 @@
   - 完成：正式頁名、前導圖文版面、行動版「標題 → 圖片 → 內文」閱讀順序、職業安全衛生證照卡片、左右控制圖示與手指水平拖曳。
   - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；桌機版容器對齊與前導區塊版面已實際檢查。
   - 未驗證：實體行動裝置、Firefox／Safari 與人工無障礙驗收。
-  - 狀態：已提交，commit `b0079a9`。
+  - 狀態：頁面變更已提交，commit `bfc406c`；本文件紀錄另行提交。
