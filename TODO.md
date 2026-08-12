@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 修正職安證照卡片標題與底線的排列結構。
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：標題改為 icon 搭配標題內容群組，底線直接隸屬標題群組；桌機標題到底線 20px、手機 16px，避免外層 grid 將底線推遠。
+  - 已驗證：四張卡片桌機標題與底線位置一致；本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認無水平溢位；瀏覽器 console 無 error／warning；node --check wwwroot/js/pages/occupational-safety.js；git diff --check。
+  - 未驗證：實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 統一職安證照卡片標題底線介面並讓 ISO 圖片填滿兩側。
   - 範圍：wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：證照標題採用與公司標題一致的標題留白與橘色底線規則；ISO 證書圖片改用 cover 裁切並以上方第三方 logo 為焦點，填滿卡片圖片區兩側。

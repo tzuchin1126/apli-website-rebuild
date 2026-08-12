@@ -211,7 +211,13 @@
   align-content: start;
   padding-top: 16px;
   column-gap: 16px;
-  row-gap: 0;
+}
+
+.safety-page .safety-credential-card__title-content {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 20px;
 }
 
 .safety-page .safety-credential-card__icon {
@@ -238,9 +244,8 @@
 }
 
 .safety-page .safety-credential-card__title h3 {
-  grid-column: 2;
   margin: 0;
-  padding-bottom: 20px;
+  padding: 0;
   color: var(--color-ink);
   font-size: clamp(1.05rem, 1.35vw, 1.22rem);
   font-weight: 500;
@@ -249,7 +254,6 @@
 
 .safety-page .safety-credential-card__title-rule {
   display: block;
-  grid-column: 2;
   width: var(--safety-rule-width);
   height: 2px;
   margin-top: 0;
@@ -386,6 +390,10 @@
 
   .safety-page .safety-credentials__heading h2 {
     padding-bottom: 16px;
+  }
+
+  .safety-page .safety-credential-card__title-content {
+    gap: 16px;
   }
 
   .safety-page .safety-intro__media {
