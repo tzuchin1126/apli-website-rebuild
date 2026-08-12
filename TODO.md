@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 移除職業安全頁 ISO 認證區塊的 `safety-certification__media` 圖片區塊。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：移除 ISO 認證區塊的 HTML 圖片、桌機／手機圖片樣式與遮罩樣式；檢查 `wwwroot/js/` 後確認沒有對應 JavaScript 邏輯，因此不新增無效 JS 變更；保留認證說明、資料與證書連結。
+  - 已驗證：`safety-certification__media` 已不存在於 HTML／CSS／JS；`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；本機 `/occupational-safety.html` 以 1366×900 與 390×844 實際渲染，確認 ISO 標題與內容卡仍可見、圖片媒體未出現、手機無水平溢位；瀏覽器 console 無 error／warning。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 移除員工健康與照護獨立區塊並重整健康安全前導版型。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
   - 內容：移除獨立的「員工健康與照護」三卡片區塊，保留措施文字於安全前導內容；前導版型改為桌機左側文字、右側 3:4 直立圖片，手機改為單欄堆疊。
