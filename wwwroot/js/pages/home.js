@@ -222,6 +222,19 @@
       update();
     };
 
+    const parseCreatedAt = (value) => {
+      const timestamp = Date.parse(value || "");
+      return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
+    };
+
+    const compareLatestNews = (left, right) => {
+      const createdAtDifference = parseCreatedAt(right.createdAt) - parseCreatedAt(left.createdAt);
+      if (createdAtDifference !== 0) return createdAtDifference;
+
+      const dateDifference = String(right.date || "").localeCompare(String(left.date || ""));
+      return dateDifference || String(right.id || "").localeCompare(String(left.id || ""));
+    };
+
     fetch("data/news.json", { cache: "no-store" })
       .then((response) => {
         if (!response.ok) throw new Error("Unable to load news");
@@ -234,8 +247,9 @@
         title: item.title ?? item.Title,
         content: item.content ?? item.Content ?? "",
         imageUrl: item.imageUrl ?? item.ImageUrl ?? "",
+        createdAt: item.createdAt ?? item.CreatedAt ?? "",
         published: item.published ?? item.Published
-      })).filter((item) => item.published !== false).slice(0, 6))
+      })).filter((item) => item.published !== false).sort(compareLatestNews).slice(0, 6))
       .then((items) => {
         list.replaceChildren();
         if (!items.length) throw new Error("No news");

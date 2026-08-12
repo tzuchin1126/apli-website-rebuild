@@ -21,13 +21,11 @@
     <a class="skip-link" href="#main-content">跳至主要內容</a>
     <main id="main-content" class="admin-shell">
         <section id="loginPanel" class="admin-login" aria-labelledby="login-title">
-            <a class="admin-login__logo" href="/index.html" aria-label="返回亞太國際物流首頁">
-                <img src="/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
-            </a>
             <div class="admin-login__card">
-                <p class="admin-eyebrow">APLI EMPLOYEE AREA</p>
+                <a class="admin-login__logo" href="/index.html" aria-label="返回亞太國際物流首頁">
+                    <img src="/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
+                </a>
                 <h1 id="login-title">員工專區</h1>
-                <p class="admin-login__lead">登入後管理官網最新消息。</p>
                 <form id="loginForm" class="admin-form" novalidate>
                     <label class="admin-field" for="loginUsername">
                         <span>帳號</span>
@@ -37,6 +35,16 @@
                         <span>密碼</span>
                         <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
                     </label>
+                    <div class="admin-captcha">
+                        <label class="admin-field" for="loginCaptcha">
+                            <span>圖形驗證碼</span>
+                            <div class="admin-captcha__input-row">
+                                <input id="loginCaptcha" name="captcha" inputmode="text" autocomplete="off" maxlength="5" required />
+                                <button class="admin-captcha__refresh" type="button" id="refreshCaptcha">重新產生</button>
+                            </div>
+                        </label>
+                        <img id="captchaImage" class="admin-captcha__image" src="/api/admin/captcha" alt="圖形驗證碼，請輸入圖片中的 5 個字元" />
+                    </div>
                     <p id="loginMessage" class="admin-message" aria-live="polite"></p>
                     <button class="admin-button admin-button--primary" type="submit">登入</button>
                 </form>
@@ -83,6 +91,30 @@
                             <span>內文</span>
                             <textarea id="newsContent" rows="8" maxlength="50000"></textarea>
                         </label>
+                        <div class="admin-form__upload-grid">
+                            <div class="admin-upload-field">
+                                <label class="admin-field" for="newsImageFile">
+                                    <span>公告圖片</span>
+                                    <input id="newsImageFile" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
+                                </label>
+                                <p class="admin-upload-status">目前圖片：<span id="currentImageName">未上傳</span></p>
+                                <label class="admin-checkbox" for="removeNewsImage">
+                                    <input id="removeNewsImage" type="checkbox" />
+                                    <span>移除目前圖片</span>
+                                </label>
+                            </div>
+                            <div class="admin-upload-field">
+                                <label class="admin-field" for="newsAttachmentFile">
+                                    <span>公告附件</span>
+                                    <input id="newsAttachmentFile" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                </label>
+                                <p class="admin-upload-status">目前附件：<span id="currentAttachmentName">未上傳</span></p>
+                                <label class="admin-checkbox" for="removeNewsAttachment">
+                                    <input id="removeNewsAttachment" type="checkbox" />
+                                    <span>移除目前附件</span>
+                                </label>
+                            </div>
+                        </div>
                         <label class="admin-field" for="newsPublished">
                             <span>前台狀態</span>
                             <select id="newsPublished">

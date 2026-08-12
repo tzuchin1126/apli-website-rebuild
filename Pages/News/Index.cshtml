@@ -31,8 +31,8 @@
                 <button type="button" data-category="@category" aria-pressed="false">@category</button>
             }
         </div>
-        <label class="news-year">
-            <span>年份</span>
+        <label class="news-year" data-news-year-filter>
+            <span class="sr-only">年份</span>
             <select data-year aria-label="年份">
                 <option value="">全部年份</option>
                 @foreach (var year in Model.Items.Select(item => item.Date[..4]).Distinct())
@@ -51,7 +51,7 @@
                     <span class="news-row__date">@item.Date</span>
                     <span class="news-row__tag">@item.Tag</span>
                     <span class="news-row__title">@item.Title</span>
-                    <span class="news-row__icon" aria-hidden="true">›</span>
+                    <span class="news-row__icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
             </article>
         }

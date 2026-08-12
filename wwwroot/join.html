@@ -113,65 +113,24 @@
 
     <!-- 人才招募內容區 -->
     <section class="join-content site-container">
-      <!-- 頁籤導覽 (Tabs) -->
-      <nav class="join-tabs" role="tablist" aria-label="人才招募選單">
-        <button type="button" role="tab" aria-selected="true" aria-controls="join-career">職缺資訊</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="join-training">教育訓練</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="join-benefits">公司福利</button>
-      </nav>
-
       <!-- Panel 1: 職缺資訊 -->
       <article class="join-panel" id="join-career" role="tabpanel">
         <div class="join-intro">
-          <div>
-            <p class="eyebrow">JOIN APLI</p>
-            <h2>加入亞太</h2>
+          <div class="join-intro-copy">
+            <div class="join-intro-heading">
+              <p class="eyebrow">JOIN APLI</p>
+              <h2>加入亞太</h2>
+            </div>
             <p>亞太以專業、誠信與穩健服務為基礎，持續深耕物流產業。我們重視每一位夥伴的投入，提供穩定的工作環境、實務學習與成長機會。</p>
             <p>如果你具備責任感，願意學習並迎接挑戰，誠摯邀請你加入亞太，與我們一起運籌未來。</p>
           </div>
-          <img src="public/images/about/company-facility.jpg" alt="亞太國際物流工作環境" loading="lazy">
+          <img src="public/images/join/careers-workplace.jpg" alt="亞太國際物流工作環境" loading="lazy">
         </div>
 
-        <div class="recruitment">
-          <h2>職缺資訊</h2>
-          <div class="recruitment-links">
-            <a href="https://www.1111.com.tw/corp/331099/" target="_blank" rel="noopener noreferrer">
-              1111 人力銀行<br>
-              <span>查看最新職缺與應徵 ↗</span>
-            </a>
-            <a href="https://www.104.com.tw/company/1xysxlk?jobsource=bing" target="_blank" rel="noopener noreferrer">
-              104 人力銀行<br>
-              <span>查看最新職缺與應徵 ↗</span>
-            </a>
-          </div>
-        </div>
       </article>
 
-      <!-- Panel 2: 教育訓練 -->
-      <article class="join-panel" id="join-training" role="tabpanel" hidden>
-        <h2>教育訓練</h2>
-        <div class="join-cards">
-          <div>
-            <strong>新進人員</strong>
-            <p>由專人帶領熟悉環境與工作內容。</p>
-          </div>
-          <div>
-            <strong>在職訓練</strong>
-            <p>依職務需求安排實務指導與技能訓練。</p>
-          </div>
-          <div>
-            <strong>內部訓練</strong>
-            <p>安排安全講座與內部課程，強化職場安全意識。</p>
-          </div>
-          <div>
-            <strong>外部訓練</strong>
-            <p>鼓勵同仁參與外部課程，持續精進專業。</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Panel 3: 公司福利 -->
-      <article class="join-panel" id="join-benefits" role="tabpanel" hidden>
+      <!-- Panel 2: 公司福利 -->
+      <article class="join-panel" id="join-benefits" role="region">
         <h2>公司福利</h2>
         <table class="benefits-table">
           <thead>
@@ -224,6 +183,23 @@
           </tbody>
         </table>
       </article>
+
+      <section class="join-recruitment" aria-labelledby="join-recruitment-title">
+        <div class="join-section-heading">
+          <p class="eyebrow">CAREER OPPORTUNITIES</p>
+          <h2 id="join-recruitment-title">職缺資訊</h2>
+        </div>
+        <div class="recruitment-links">
+          <a class="recruitment-link" href="https://www.1111.com.tw/corp/331099/" target="_blank" rel="noopener noreferrer">
+            <span class="recruitment-link__logo"><img src="public/images/join/1111-job-bank-logo.png" alt="1111 人力銀行" loading="lazy"></span>
+            <span class="recruitment-link__text">查看最新職缺與應徵<span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="recruitment-link" href="https://www.104.com.tw/company/1xysxlk?jobsource=bing" target="_blank" rel="noopener noreferrer">
+            <span class="recruitment-link__logo"><img src="public/images/join/104-job-bank-logo.png" alt="104 人力銀行" loading="lazy"></span>
+            <span class="recruitment-link__text">查看最新職缺與應徵<span aria-hidden="true">↗</span></span>
+          </a>
+        </div>
+      </section>
     </section>
   </main>
 

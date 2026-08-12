@@ -47,7 +47,9 @@
 
     @if (!string.IsNullOrWhiteSpace(Model.Item.Url))
     {
-        var attachmentName = Model.Item.Url.Split('?', 2)[0].Split('/').Last();
+        var attachmentName = string.IsNullOrWhiteSpace(Model.Item.AttachmentName)
+            ? Model.Item.Url.Split('?', 2)[0].Split('/').Last()
+            : Model.Item.AttachmentName;
         <div class="news-detail__attachment">
             <p class="news-detail__attachment-heading">附件：</p>
             <a class="news-detail__attachment-link" href="@Model.Item.Url" target="_blank" rel="noopener">

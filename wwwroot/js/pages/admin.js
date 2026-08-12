@@ -7,6 +7,7 @@
   const categoryForm = document.querySelector("#categoryForm");
   const categoryRows = document.querySelector("#categoryRows");
   const tagSelect = document.querySelector("#newsTag");
+  const captchaImage = document.querySelector("#captchaImage");
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || "";
   let news = [];
   let categories = [];
@@ -20,11 +21,17 @@
   categoryRows.addEventListener("click", onCategoryRowsClick);
   document.querySelector("#logoutButton")?.addEventListener("click", logout);
   document.querySelector("#resetButton")?.addEventListener("click", resetForm);
+  document.querySelector("#refreshCaptcha")?.addEventListener("click", loadCaptcha);
   setDefaultDate();
+  loadCaptcha();
   restoreSession();
 
   function csrfHeaders(headers = {}) {
     return { ...headers, "X-CSRF-TOKEN": csrfToken };
+  }
+
+  function loadCaptcha() {
+    if (captchaImage) captchaImage.src = `/api/admin/captcha?ts=${Date.now()}`;
   }
 
   async function login(event) {
@@ -39,6 +46,7 @@
         body: JSON.stringify({
           username: document.querySelector("#loginUsername").value,
           password: document.querySelector("#loginPassword").value,
+          captcha: document.querySelector("#loginCaptcha").value,
         }),
       });
 
@@ -49,7 +57,9 @@
 
       message.textContent = response.status === 429
           ? "登入嘗試過於頻繁，請稍後再試。"
-          : "帳號或密碼錯誤。";
+          : "帳號、密碼或驗證碼錯誤。";
+      document.querySelector("#loginCaptcha").value = "";
+      loadCaptcha();
     } catch {
       message.textContent = "目前無法連線，請稍後再試。";
     }
@@ -98,6 +108,8 @@
       content: item.content ?? item.Content ?? "",
       url: item.url ?? item.Url ?? "",
       imageUrl: item.imageUrl ?? item.ImageUrl ?? "",
+      imageName: item.imageName ?? item.ImageName ?? "",
+      attachmentName: item.attachmentName ?? item.AttachmentName ?? "",
       published: item.published ?? item.Published,
       createdAt: item.createdAt ?? item.CreatedAt ?? "",
       updatedAt: item.updatedAt ?? item.UpdatedAt ?? "",
@@ -163,10 +175,16 @@
     document.querySelector("#newsContent").value = item.content || "";
     document.querySelector("#newsUrl").value = item.url || "";
     document.querySelector("#newsImageUrl").value = item.imageUrl || "";
+    document.querySelector("#currentImageName").textContent = item.imageName || "未上傳";
+    document.querySelector("#currentAttachmentName").textContent = item.attachmentName || (item.url ? item.url.split("/").pop() : "未上傳");
+    document.querySelector("#removeNewsImage").checked = false;
+    document.querySelector("#removeNewsAttachment").checked = false;
     document.querySelector("#newsPublished").value = String(item.published !== false);
     document.querySelector("#createdAtInfo").textContent = item.createdAt || "尚未紀錄";
     document.querySelector("#updatedAtInfo").textContent = item.updatedAt || "尚未紀錄";
-    document.querySelector("#formMessage").textContent = "";
+    const message = document.querySelector("#formMessage");
+    message.textContent = "";
+    message.removeAttribute("data-state");
     document.querySelector("#editor-title").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -183,18 +201,37 @@
       imageUrl: document.querySelector("#newsImageUrl").value,
       published: document.querySelector("#newsPublished").value === "true",
     };
+    const formData = new FormData();
+    Object.entries(item).forEach(([key, value]) => formData.append(key, String(value)));
+    formData.append("imageName", document.querySelector("#currentImageName").textContent === "未上傳" ? "" : document.querySelector("#currentImageName").textContent);
+    formData.append("attachmentName", document.querySelector("#currentAttachmentName").textContent === "未上傳" ? "" : document.querySelector("#currentAttachmentName").textContent);
+    formData.append("removeImage", String(document.querySelector("#removeNewsImage").checked));
+    formData.append("removeAttachment", String(document.querySelector("#removeNewsAttachment").checked));
+    const imageFile = document.querySelector("#newsImageFile").files[0];
+    const attachmentFile = document.querySelector("#newsAttachmentFile").files[0];
+    if (imageFile) formData.append("image", imageFile);
+    if (attachmentFile) formData.append("attachment", attachmentFile);
 
+    document.querySelector("#formMessage").removeAttribute("data-state");
     message.textContent = "儲存中…";
-    const response = await fetch("/api/news/save", {
-      method: "POST",
-      headers: csrfHeaders({ "Content-Type": "application/json" }),
-      body: JSON.stringify(item),
-    });
-    if (!ensureAuthorized(response)) return;
-    message.textContent = response.ok ? "已儲存。" : "儲存失敗，請檢查欄位內容。";
-    if (response.ok) {
-      resetForm();
-      await loadNews();
+    try {
+      const response = await fetch("/api/news/save", {
+        method: "POST",
+        headers: csrfHeaders(),
+        body: formData,
+      });
+      if (!ensureAuthorized(response)) return;
+      const errorText = response.ok ? "" : await response.text();
+      message.dataset.state = response.ok ? "success" : "error";
+      message.textContent = response.ok ? "已儲存。" : errorText || "儲存失敗，請檢查欄位內容。";
+      if (response.ok) {
+        resetForm();
+        await loadNews();
+        message.dataset.state = "success";
+        message.textContent = "消息已成功儲存。";
+      }
+    } catch {
+      message.textContent = "目前無法連線，請稍後再試。";
     }
   }
 
@@ -252,10 +289,15 @@
     document.querySelector("#newsId").value = "";
     document.querySelector("#newsUrl").value = "";
     document.querySelector("#newsImageUrl").value = "";
+    document.querySelector("#currentImageName").textContent = "未上傳";
+    document.querySelector("#currentAttachmentName").textContent = "未上傳";
+    document.querySelector("#removeNewsImage").checked = false;
+    document.querySelector("#removeNewsAttachment").checked = false;
     document.querySelector("#createdAtInfo").textContent = "儲存後自動紀錄";
     document.querySelector("#updatedAtInfo").textContent = "儲存後自動紀錄";
     renderCategoryOptions();
     setDefaultDate();
+    document.querySelector("#formMessage").removeAttribute("data-state");
     document.querySelector("#formMessage").textContent = "";
   }
 

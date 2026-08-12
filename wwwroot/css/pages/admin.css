@@ -6,6 +6,7 @@
   --admin-line: #dfe4df;
   --admin-soft: #f7f8f6;
   --admin-danger: #b42318;
+  --admin-success: #2f6f4e;
   min-width: 320px;
   background: var(--admin-background);
   color: var(--admin-ink);
@@ -31,8 +32,9 @@
 }
 
 .admin-login__logo {
-  display: inline-block;
-  width: min(190px, 60vw);
+  display: block;
+  width: min(170px, 60vw);
+  margin: 0 auto clamp(22px, 4vw, 32px);
 }
 
 .admin-login__logo img {
@@ -66,9 +68,46 @@
   line-height: 1.25;
 }
 
-.admin-login__lead {
-  margin: 12px 0 28px;
+.admin-login h1 {
+  font-size: clamp(1.6rem, 2.5vw, 2.15rem);
+  text-align: center;
+}
+
+.admin-captcha {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-captcha__input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.admin-captcha__refresh {
+  min-height: 44px;
+  border: 1px solid var(--admin-line);
+  border-radius: 4px;
+  background: var(--admin-soft);
   color: var(--admin-muted);
+  padding: 9px 12px;
+  font-size: .84rem;
+  font-weight: 600;
+}
+
+.admin-captcha__refresh:hover,
+.admin-captcha__refresh:focus-visible {
+  border-color: var(--admin-ink);
+  color: var(--admin-ink);
+}
+
+.admin-captcha__image {
+  display: block;
+  width: min(260px, 100%);
+  height: 82px;
+  border: 1px solid var(--admin-line);
+  border-radius: 8px;
+  background: var(--admin-soft);
 }
 
 .admin-form {
@@ -162,6 +201,10 @@
   font-weight: 600;
 }
 
+.admin-message[data-state="success"] {
+  color: var(--admin-success);
+}
+
 .admin-workspace {
   display: grid;
   gap: 24px;
@@ -230,6 +273,50 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.admin-form__upload-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-upload-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--admin-line);
+  background: var(--admin-soft);
+}
+
+.admin-upload-field input[type="file"] {
+  padding: 8px;
+  background: var(--admin-panel);
+  font-size: .84rem;
+}
+
+.admin-upload-status {
+  margin: 0;
+  color: var(--admin-muted);
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--admin-muted);
+  font-size: .84rem;
+  cursor: pointer;
+}
+
+.admin-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--color-primary);
 }
 
 .admin-form__actions {
@@ -404,7 +491,8 @@
   }
 
   .admin-form__row,
-  .admin-meta {
+  .admin-meta,
+  .admin-form__upload-grid {
     grid-template-columns: 1fr;
   }
 

@@ -29,11 +29,12 @@
   - 更新：2026-08-11。狀態：已提交，Commit：`18b63bc`。
 
 - [x] 建立員工專區 `/Admin` 登入與最新消息管理頁。
-  - 範圍：`Pages/Admin/Index.cshtml`、`Services/NewsService.cs`、`Program.cs`、`wwwroot/css/pages/admin.css`、`wwwroot/js/pages/admin.js`。
-  - 狀態：已完成原生 CSS/JavaScript 頁面、Cookie 登入、登入限流、CSRF 與消息／分類 CRUD；補上與舊專案一致的啟動前帳密必要檢查；檔案上傳不在本次範圍。Commit：`0754ebe`。
-  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/admin.js`、本次修改檔案的 `git diff --check`、未設定完整帳密時應用程式啟動失敗、`/Admin` 路由 200、1366px 登入畫面、390px 登入／工作區、錯誤帳密維持登入頁、正確測試帳密登入後載入 6 筆消息與 3 個分類、編輯／清空互動、頁面無水平溢位、瀏覽器 console 無 error/warning。
-  - 未驗證：實際消息儲存／刪除、分類新增／刪除寫入操作；整體工作樹 `git diff --check` 仍有既有 `wwwroot/news.html:89` trailing whitespace；正式環境 HTTPS、實體裝置、跨瀏覽器、人工無障礙驗收。
-  - 更新：2026-08-11。狀態：已提交，Commit：`0754ebe`。
+  - 2026-08-12 補充驗證：以隔離測試資料及當前 shell 暫時帳密完成登入後頁面重新載入、消息新增／讀取／刪除、分類新增／刪除 HTTP API 驗證，並以 SHA-256 確認 `news.json` 與 `news-categories.json` 還原；本次僅更新紀錄，尚未另行提交。
+  - 範圍：`Pages/Admin/Index.cshtml`、`Services/NewsService.cs`、`Program.cs`、`.gitignore`、`wwwroot/css/pages/admin.css`、`wwwroot/js/pages/admin.js`、`Pages/News/Detail.cshtml`、`Pages/News/Index.cshtml.cs`、`wwwroot/js/pages/news-detail.js`。
+  - 狀態：已完成原生 CSS/JavaScript 頁面、Cookie 登入、登入限流、CSRF、一次性圖形驗證碼與消息／分類 CRUD；新增公告圖片及 PDF／Word／Excel 附件上傳，檔案存放於 `App_Data` 並由受限 API 提供；首頁無圖片時沿用預設消息背景圖。原始功能 Commit：`0754ebe`；本次功能尚未提交。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/admin.js`、`node --check wwwroot/js/pages/news-detail.js`、`git diff --check`；隔離 HTTP API 驗證驗證碼拒絕／接受、multipart 圖片／PDF 上傳、原始檔名與資料儲存、已發布檔案匿名讀取，且未改動目前工作樹的 `news.json`。
+  - 未驗證：本次瀏覽器存取本機 `127.0.0.1` 被瀏覽器權限拒絕，因此未完成登入卡片桌機／手機實際截圖；正式環境 HTTPS、實體裝置、跨瀏覽器、人工無障礙驗收；整體工作樹仍保留既有 `wwwroot/news.html:89` trailing whitespace 紀錄。
+  - 更新：2026-08-12。狀態：原始功能已提交，Commit：`0754ebe`；本次功能尚未提交。
 
 - [ ] 最後階段：統一正式企業網站頁面命名，並建立可支援中英文的路由與內容策略。
   - 範圍：確認正式 canonical URL、檔名與無副檔名路由；評估 `join`→`careers`、`milestones`→`company-history`、`operational-resources`→`operations`／`facilities`、`news-detail`→`news/{id}`；保留舊 `.html` 路徑並規劃 301／308 轉址。
@@ -47,6 +48,12 @@
   - 狀態：程式與桌機畫面調整完成。Commit：`6070bc9`。
   - 已驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）、1280px 桌機瀏覽器畫面與互動。
   - 未驗證：實際手機寬度渲染、實體裝置、跨瀏覽器、人工無障礙驗收。
+
+- [x] 對齊 `join.html` 舊版人才招募介面。
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`、`wwwroot/public/images/join/104-job-bank-logo.png`、`wwwroot/public/images/join/1111-job-bank-logo.png`。
+  - 內容：移除獨立教育訓練頁籤與區塊；保留公司福利表內的員工在職教育訓練福利列；改為加入亞太、公司福利、職缺資訊的單頁順序；取用舊版 104／1111 Logo，沿用新版既有 CSS tokens 與 RWD 結構。
+  - 已驗證：舊版頁面內容與畫面比對；新版 `join.html` 桌機實際渲染；兩個 Logo SHA-256 與舊版一致；`node --check wwwroot/js/pages/join.js`、`git diff --check`。
+  - 未驗證：新版 390px／320px 實際瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收；尚未另行提交。
   - 更新：2026-08-11
 
 ## 下一步
@@ -317,6 +324,26 @@
 - [x] 同步舊專案圖片素材。Commit：`71be0c8`。
 
 ## 更新紀錄
+
+- [x] 2026-08-12：員工專區 `/Admin` 調整完成。
+  - 內容：移除登入驗證碼下方說明文字；保留目前清楚且適度干擾的 5 碼驗證碼設計；修正儲存成功訊息被清空的問題；最新消息改以建立時間 `CreatedAt` 排序，同時間再以公告日期與 ID 後備排序。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/admin.js`、`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+  - 未驗證：瀏覽器實際登入、儲存成功通知與首頁最新消息排序畫面；實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：對齊 `join.html` 舊版人才招募介面。
+  - 內容：移除教育訓練頁籤與獨立區塊；保留福利表內的員工在職教育訓練列；補入舊版 104／1111 Logo 與外部職缺連結，並改用現有 tokens 控制文字與卡片排版。
+  - 已驗證：舊版內容與桌機畫面比對、新版桌機實際渲染、Logo SHA-256、`node --check wwwroot/js/pages/join.js`、`git diff --check`。
+  - 未驗證：新版手機實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：擴充 `/Admin` 登入與最新消息上傳能力。
+  - 內容：登入加入伺服器端一次性圖形驗證碼；消息編輯支援公告圖片與 PDF／Word／Excel 附件，檔案存放於 `App_Data`，已發布消息的圖片與附件透過受限 API 提供；首頁無公告圖片時沿用預設背景，公開詳情頁顯示附件原始檔名；登入卡片 Logo 下移少許。
+  - 已驗證：Release build、Admin／News Detail JavaScript 語法、`git diff --check`；隔離 HTTP API 的驗證碼與 multipart 圖片／PDF 上傳流程。
+  - 未驗證：本次瀏覽器存取本機 `127.0.0.1` 被權限拒絕，登入卡片桌機／手機實際畫面仍待驗證；正式 HTTPS、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調整 `/Admin` 登入卡片品牌與標題層級。
+  - 內容：移除登入卡片內的 `APLI EMPLOYEE AREA` 與登入說明，將公司 Logo 移入卡片並置中；縮小「員工專區」標題。
+  - 已驗證：Razor Release build、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機實際畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
 
 - [x] 2026-08-12：對齊消息詳情返回按鈕的 hover icon 動畫。
   - 內容：參考首頁「關於亞太／了解更多」按鈕，改為使用 `--button-text-arrow-hover-shift-x` 的水平 2px 位移；移除原本左上方位移效果。

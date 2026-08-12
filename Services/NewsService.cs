@@ -39,7 +39,9 @@ public sealed class NewsItem
     public string Title { get; set; } = "";
     public string Content { get; set; } = "";
     public string Url { get; set; } = "";
+    public string AttachmentName { get; set; } = "";
     public string ImageUrl { get; set; } = "";
+    public string ImageName { get; set; } = "";
     public bool Published { get; set; } = true;
     public string CreatedAt { get; set; } = "";
     public string UpdatedAt { get; set; } = "";

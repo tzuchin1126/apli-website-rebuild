@@ -20,9 +20,10 @@
       date: item.date ?? item.Date,
       tag: item.tag ?? item.Tag,
       title: item.title ?? item.Title,
-      content: item.content ?? item.Content,
-      url: item.url ?? item.Url,
-      imageUrl: item.imageUrl ?? item.ImageUrl
+       content: item.content ?? item.Content,
+       url: item.url ?? item.Url,
+       attachmentName: item.attachmentName ?? item.AttachmentName,
+       imageUrl: item.imageUrl ?? item.ImageUrl
     })).find((item) => item.id === id))
     .then((item) => {
       if (!item) throw new Error("News item not found");
@@ -42,7 +43,7 @@
       }
       if (item.url) {
         attachment.href = item.url;
-        attachmentName.textContent = decodeURIComponent(item.url.split("/").pop().split("?")[0]);
+        attachmentName.textContent = item.attachmentName || decodeURIComponent(item.url.split("/").pop().split("?")[0]);
         attachmentWrap.hidden = false;
       }
       detail.hidden = false;

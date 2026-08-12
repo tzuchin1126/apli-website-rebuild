@@ -2,6 +2,9 @@
 bin/
 obj/
 
+## Runtime news uploads
+App_Data/
+
 ## Visual Studio / VS Code / Rider
 .vs/
 .vscode/

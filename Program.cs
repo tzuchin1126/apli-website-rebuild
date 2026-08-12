@@ -1,11 +1,14 @@
 using System.Globalization;
+using System.IO.Compression;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.StaticFiles;
 using apli_website_rebuild.Services;
@@ -21,6 +24,18 @@ if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminP
 }
 
 builder.Services.AddRazorPages();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "ap-admin-captcha";
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+        ? CookieSecurePolicy.SameAsRequest
+        : CookieSecurePolicy.Always;
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+});
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -79,11 +94,15 @@ var app = builder.Build();
 var root = app.Environment.ContentRootPath;
 var newsFile = Path.Combine(root, "wwwroot", "data", "news.json");
 var categoriesFile = Path.Combine(root, "wwwroot", "data", "news-categories.json");
+var uploadsRoot = Path.Combine(root, "App_Data", "news");
 var defaultCategories = new[] { "營運公告", "費率公告", "職缺公告" };
+const string captchaSessionKey = "admin-login-captcha";
+const long maxUploadRequestBytes = 16 * 1024 * 1024;
 var newsWriteLock = new SemaphoreSlim(1, 1);
 var categoriesWriteLock = new SemaphoreSlim(1, 1);
 
 Directory.CreateDirectory(Path.GetDirectoryName(newsFile)!);
+Directory.CreateDirectory(uploadsRoot);
 if (!File.Exists(categoriesFile))
     await WriteCategories(defaultCategories);
 
@@ -162,6 +181,7 @@ app.UseStaticFiles(new StaticFileOptions
     ContentTypeProvider = staticFileContentTypes
 });
 
+app.UseSession();
 app.UseRouting();
 
 app.UseRateLimiter();
@@ -171,18 +191,30 @@ app.UseAntiforgery();
 
 app.MapRazorPages();
 
+app.MapGet("/api/admin/captcha", (HttpContext context) =>
+{
+    var code = CreateCaptchaCode();
+    context.Session.SetString(captchaSessionKey, code);
+    context.Response.Headers.CacheControl = "no-store, no-cache";
+    context.Response.Headers.Pragma = "no-cache";
+    return Results.Content(CreateCaptchaSvg(code), "image/svg+xml", Encoding.UTF8);
+});
+
 app.MapPost("/api/admin/login", async (HttpContext context, LoginRequest request, IAntiforgery antiforgery) =>
 {
     await antiforgery.ValidateRequestAsync(context);
 
+    var expectedCaptcha = context.Session.GetString(captchaSessionKey);
+    context.Session.Remove(captchaSessionKey);
     var usernameBytes = Encoding.UTF8.GetBytes(request.Username ?? "");
     var expectedUsernameBytes = Encoding.UTF8.GetBytes(adminUsername);
     var passwordBytes = Encoding.UTF8.GetBytes(request.Password ?? "");
     var expectedPasswordBytes = Encoding.UTF8.GetBytes(adminPassword);
     var usernameMatches = CryptographicOperations.FixedTimeEquals(usernameBytes, expectedUsernameBytes);
     var passwordMatches = CryptographicOperations.FixedTimeEquals(passwordBytes, expectedPasswordBytes);
+    var captchaMatches = FixedTimeTextEquals(expectedCaptcha, request.Captcha);
 
-    if (!usernameMatches || !passwordMatches)
+    if (!usernameMatches || !passwordMatches || !captchaMatches)
         return Results.Unauthorized();
 
     var claims = new[] { new Claim(ClaimTypes.Name, adminUsername) };
@@ -206,26 +238,80 @@ app.MapGet("/api/admin/session", (HttpContext context) =>
         ? Results.Ok()
         : Results.Unauthorized());
 
-app.MapGet("/api/news", async () => Results.Ok(await NewsService.ReadAsync(newsFile)))
+app.MapGet("/api/news", async () => Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
     .RequireAuthorization();
 
-app.MapPost("/api/news/save", async (HttpContext context, NewsItem item, IAntiforgery antiforgery) =>
+app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforgery) =>
 {
     await antiforgery.ValidateRequestAsync(context);
+    if (context.Features.Get<IHttpMaxRequestBodySizeFeature>() is { IsReadOnly: false } requestLimit)
+        requestLimit.MaxRequestBodySize = maxUploadRequestBytes;
+
+    var requestData = await ReadNewsSaveRequestAsync(context);
+    if (requestData is null)
+        return Results.BadRequest("無法讀取消息資料。");
+
+    var item = requestData.Item;
 
     if (!DateOnly.TryParseExact(item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
         return Results.BadRequest("日期格式必須是 yyyy-MM-dd。");
     if (string.IsNullOrWhiteSpace(item.Title) || item.Title.Length > 200)
         return Results.BadRequest("標題必填且不可超過 200 字。");
-    if (item.Content.Length > 50000)
+    if ((item.Content ?? "").Length > 50000)
         return Results.BadRequest("內文不可超過 50,000 字。");
-    if (item.Tag.Length > 50)
+    if ((item.Tag ?? "").Length > 50)
         return Results.BadRequest("分類不可超過 50 字。");
 
     await newsWriteLock.WaitAsync();
     try
     {
         var news = await NewsService.ReadAsync(newsFile);
+        var existingIndex = news.FindIndex(entry => entry.Id == item.Id);
+        var existingItem = existingIndex >= 0 ? news[existingIndex] : null;
+        var previousImageUrl = existingItem?.ImageUrl ?? item.ImageUrl;
+        var previousAttachmentUrl = existingItem?.Url ?? item.Url;
+
+        try
+        {
+            if (requestData.ImageFile is not null)
+            {
+                var upload = await SaveUploadAsync(requestData.ImageFile, uploadsRoot, UploadKind.Image);
+                item.ImageUrl = upload.Url;
+                item.ImageName = upload.OriginalName;
+            }
+            else if (requestData.RemoveImage)
+            {
+                item.ImageUrl = "";
+                item.ImageName = "";
+            }
+            else if (existingItem is not null)
+            {
+                item.ImageUrl = existingItem.ImageUrl;
+                item.ImageName = existingItem.ImageName;
+            }
+
+            if (requestData.AttachmentFile is not null)
+            {
+                var upload = await SaveUploadAsync(requestData.AttachmentFile, uploadsRoot, UploadKind.Attachment);
+                item.Url = upload.Url;
+                item.AttachmentName = upload.OriginalName;
+            }
+            else if (requestData.RemoveAttachment)
+            {
+                item.Url = "";
+                item.AttachmentName = "";
+            }
+            else if (existingItem is not null)
+            {
+                item.Url = existingItem.Url;
+                item.AttachmentName = existingItem.AttachmentName;
+            }
+        }
+        catch (UploadValidationException exception)
+        {
+            return Results.BadRequest(exception.Message);
+        }
+
         var now = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).ToString("yyyy-MM-dd HH:mm:ss zzz");
         if (string.IsNullOrWhiteSpace(item.Id))
         {
@@ -234,7 +320,6 @@ app.MapPost("/api/news/save", async (HttpContext context, NewsItem item, IAntifo
         }
 
         item.UpdatedAt = now;
-        var existingIndex = news.FindIndex(entry => entry.Id == item.Id);
         if (existingIndex >= 0)
         {
             item.CreatedAt = string.IsNullOrWhiteSpace(news[existingIndex].CreatedAt)
@@ -248,8 +333,10 @@ app.MapPost("/api/news/save", async (HttpContext context, NewsItem item, IAntifo
             news.Add(item);
         }
 
-        news = news.OrderByDescending(entry => entry.Date).ThenByDescending(entry => entry.Id).ToList();
+        news = SortNewsByLatest(news);
         await NewsService.WriteAsync(newsFile, news);
+        DeleteUnusedUpload(previousImageUrl, item.ImageUrl, news, uploadsRoot);
+        DeleteUnusedUpload(previousAttachmentUrl, item.Url, news, uploadsRoot);
         return Results.Ok(item);
     }
     finally
@@ -276,6 +363,32 @@ app.MapDelete("/api/news/delete/{id}", async (HttpContext context, string id, IA
         newsWriteLock.Release();
     }
 }).RequireAuthorization();
+
+app.MapGet("/api/uploads/news/{fileName}", async (HttpContext context, string fileName) =>
+{
+    if (Path.GetFileName(fileName) != fileName)
+        return Results.BadRequest("檔案名稱無效。");
+
+    var filePath = Path.Combine(uploadsRoot, fileName);
+    if (!File.Exists(filePath))
+        return Results.NotFound();
+
+    var publicPath = $"/api/uploads/news/{fileName}";
+    var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
+    if (!isAuthenticated)
+    {
+        var news = await NewsService.ReadAsync(newsFile);
+        var isPublishedReference = news.Any(item => item.Published &&
+            (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
+             string.Equals(item.Url, publicPath, StringComparison.Ordinal)));
+        if (!isPublishedReference)
+            return Results.NotFound();
+    }
+
+    context.Response.Headers.CacheControl = "private, no-store";
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    return Results.File(filePath, GetUploadContentType(fileName), enableRangeProcessing: true);
+});
 
 app.MapGet("/api/news/categories", async () => Results.Ok(await ReadCategories()));
 
@@ -336,5 +449,216 @@ async Task WriteCategories(IEnumerable<string> categories)
     await System.Text.Json.JsonSerializer.SerializeAsync(stream, categories.ToList(), new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 }
 
-record LoginRequest(string? Username, string? Password);
+async Task<NewsSaveRequest?> ReadNewsSaveRequestAsync(HttpContext context)
+{
+    if (context.Request.HasFormContentType)
+    {
+        var form = await context.Request.ReadFormAsync(context.RequestAborted);
+        var published = !bool.TryParse(form["published"].ToString(), out var parsedPublished) || parsedPublished;
+        var item = new NewsItem
+        {
+            Id = form["id"].ToString(),
+            Date = form["date"].ToString(),
+            Tag = form["tag"].ToString(),
+            Title = form["title"].ToString(),
+            Content = form["content"].ToString(),
+            Url = form["url"].ToString(),
+            ImageUrl = form["imageUrl"].ToString(),
+            ImageName = form["imageName"].ToString(),
+            AttachmentName = form["attachmentName"].ToString(),
+            Published = published
+        };
+
+        return new NewsSaveRequest(
+            item,
+            form.Files.GetFile("image"),
+            form.Files.GetFile("attachment"),
+            bool.TryParse(form["removeImage"].ToString(), out var removeImage) && removeImage,
+            bool.TryParse(form["removeAttachment"].ToString(), out var removeAttachment) && removeAttachment);
+    }
+
+    try
+    {
+        var item = await JsonSerializer.DeserializeAsync<NewsItem>(
+            context.Request.Body,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true },
+            context.RequestAborted);
+        return item is null ? null : new NewsSaveRequest(item, null, null, false, false);
+    }
+    catch (JsonException)
+    {
+        return null;
+    }
+}
+
+string CreateCaptchaCode()
+{
+    const string characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    var builder = new StringBuilder(5);
+    for (var index = 0; index < 5; index++)
+        builder.Append(characters[RandomNumberGenerator.GetInt32(characters.Length)]);
+    return builder.ToString();
+}
+
+string CreateCaptchaSvg(string code)
+{
+    var svg = new StringBuilder("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"260\" height=\"82\" viewBox=\"0 0 260 82\" role=\"img\" aria-label=\"圖形驗證碼\">");
+    svg.Append("<rect width=\"260\" height=\"82\" rx=\"8\" fill=\"#f1f4f6\"/>");
+    for (var index = 0; index < 9; index++)
+    {
+        var x1 = RandomNumberGenerator.GetInt32(0, 260);
+        var y1 = RandomNumberGenerator.GetInt32(8, 74);
+        var x2 = RandomNumberGenerator.GetInt32(0, 260);
+        var y2 = RandomNumberGenerator.GetInt32(8, 74);
+        var color = index % 2 == 0 ? "#9eb2bc" : "#d2a36a";
+        svg.Append($"<path d=\"M{x1} {y1} Q130 {RandomNumberGenerator.GetInt32(0, 82)} {x2} {y2}\" fill=\"none\" stroke=\"{color}\" stroke-width=\"{RandomNumberGenerator.GetInt32(1, 3)}\" opacity=\".7\"/>");
+    }
+
+    for (var index = 0; index < code.Length; index++)
+    {
+        var x = 28 + index * 48;
+        var y = RandomNumberGenerator.GetInt32(49, 62);
+        var rotation = RandomNumberGenerator.GetInt32(-12, 13);
+        svg.Append($"<text x=\"{x}\" y=\"{y}\" transform=\"rotate({rotation} {x} {y})\" fill=\"#34495e\" font-family=\"Arial, sans-serif\" font-size=\"31\" font-weight=\"700\">{code[index]}</text>");
+    }
+
+    svg.Append("</svg>");
+    return svg.ToString();
+}
+
+bool FixedTimeTextEquals(string? expected, string? actual)
+{
+    if (string.IsNullOrWhiteSpace(expected) || string.IsNullOrWhiteSpace(actual))
+        return false;
+
+    var expectedBytes = Encoding.UTF8.GetBytes(expected.Trim().ToUpperInvariant());
+    var actualBytes = Encoding.UTF8.GetBytes(actual.Trim().ToUpperInvariant());
+    return expectedBytes.Length == actualBytes.Length &&
+           CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes);
+}
+
+async Task<SavedUpload> SaveUploadAsync(IFormFile file, string directory, UploadKind kind)
+{
+    var originalName = Path.GetFileName(file.FileName).Trim();
+    var extension = Path.GetExtension(originalName).ToLowerInvariant();
+    var allowedExtensions = kind == UploadKind.Image
+        ? new[] { ".jpg", ".jpeg", ".png", ".webp" }
+        : new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx" };
+    var maxSize = kind == UploadKind.Image ? 5 * 1024 * 1024 : 10 * 1024 * 1024;
+
+    if (file.Length <= 0 || file.Length > maxSize)
+        throw new UploadValidationException(kind == UploadKind.Image ? "公告圖片必須小於 5 MB。" : "附件必須小於 10 MB。");
+    if (string.IsNullOrWhiteSpace(originalName) || originalName.Length > 180 || !allowedExtensions.Contains(extension))
+        throw new UploadValidationException(kind == UploadKind.Image
+            ? "公告圖片僅支援 JPG、PNG 或 WebP。"
+            : "附件僅支援 PDF、Word 或 Excel 檔案。");
+
+    var storedName = $"{Guid.NewGuid():N}{extension}";
+    var finalPath = Path.Combine(directory, storedName);
+    var temporaryPath = finalPath + ".tmp";
+    try
+    {
+        await using (var stream = File.Create(temporaryPath))
+            await file.CopyToAsync(stream);
+
+        await ValidateUploadSignatureAsync(temporaryPath, extension, kind);
+        File.Move(temporaryPath, finalPath);
+        return new SavedUpload($"/api/uploads/news/{storedName}", originalName);
+    }
+    catch
+    {
+        if (File.Exists(temporaryPath))
+            File.Delete(temporaryPath);
+        throw;
+    }
+}
+
+async Task ValidateUploadSignatureAsync(string path, string extension, UploadKind kind)
+{
+    await using var stream = File.OpenRead(path);
+    var header = new byte[12];
+    var bytesRead = await stream.ReadAsync(header);
+
+    static bool StartsWith(byte[] source, params byte[] prefix) =>
+        source.Length >= prefix.Length && source.AsSpan(0, prefix.Length).SequenceEqual(prefix);
+
+    if (kind == UploadKind.Image)
+    {
+        var isJpeg = (extension is ".jpg" or ".jpeg") && StartsWith(header, 0xff, 0xd8, 0xff);
+        var isPng = extension == ".png" && StartsWith(header, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a);
+        var isWebp = extension == ".webp" && StartsWith(header, 0x52, 0x49, 0x46, 0x46) && header.AsSpan(8, 4).SequenceEqual("WEBP"u8);
+        if (!isJpeg && !isPng && !isWebp)
+            throw new UploadValidationException("公告圖片內容格式不正確。");
+        return;
+    }
+
+    var isPdf = extension == ".pdf" && StartsWith(header, 0x25, 0x50, 0x44, 0x46, 0x2d);
+    var isOle = (extension is ".doc" or ".xls") && StartsWith(header, 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
+    if (isPdf || isOle)
+        return;
+
+    if (extension is ".docx" or ".xlsx")
+    {
+        try
+        {
+            using var archive = ZipFile.OpenRead(path);
+            var hasContentTypes = archive.GetEntry("[Content_Types].xml") is not null;
+            var hasExpectedDocument = extension == ".docx"
+                ? archive.Entries.Any(entry => entry.FullName.StartsWith("word/", StringComparison.OrdinalIgnoreCase))
+                : archive.Entries.Any(entry => entry.FullName.StartsWith("xl/", StringComparison.OrdinalIgnoreCase));
+            if (hasContentTypes && hasExpectedDocument)
+                return;
+        }
+        catch (InvalidDataException)
+        {
+        }
+    }
+
+    _ = bytesRead;
+    throw new UploadValidationException("附件內容格式不正確。");
+}
+
+void DeleteUnusedUpload(string? previousUrl, string? currentUrl, IReadOnlyCollection<NewsItem> news, string directory)
+{
+    if (string.IsNullOrWhiteSpace(previousUrl) || string.Equals(previousUrl, currentUrl, StringComparison.Ordinal))
+        return;
+    if (!previousUrl.StartsWith("/api/uploads/news/", StringComparison.Ordinal))
+        return;
+    if (news.Any(item => string.Equals(item.ImageUrl, previousUrl, StringComparison.Ordinal) || string.Equals(item.Url, previousUrl, StringComparison.Ordinal)))
+        return;
+
+    var fileName = previousUrl["/api/uploads/news/".Length..];
+    if (Path.GetFileName(fileName) == fileName)
+        File.Delete(Path.Combine(directory, fileName));
+}
+
+List<NewsItem> SortNewsByLatest(IEnumerable<NewsItem> items) => items
+    .OrderByDescending(item => ParseNewsCreatedAt(item.CreatedAt))
+    .ThenByDescending(item => item.Date)
+    .ThenByDescending(item => item.Id)
+    .ToList();
+
+DateTimeOffset ParseNewsCreatedAt(string value) =>
+    DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var createdAt)
+        ? createdAt
+        : DateTimeOffset.MinValue;
+
+string GetUploadContentType(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
+{
+    ".jpg" or ".jpeg" => "image/jpeg",
+    ".png" => "image/png",
+    ".webp" => "image/webp",
+    ".pdf" => "application/pdf",
+    ".doc" => "application/msword",
+    ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".xls" => "application/vnd.ms-excel",
+    ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    _ => "application/octet-stream"
+};
+
+record LoginRequest(string? Username, string? Password, string? Captcha);
 record CategoryRequest(string? Name);
+record NewsSaveRequest(NewsItem Item, IFormFile? ImageFile, IFormFile? AttachmentFile, bool RemoveImage, bool RemoveAttachment);
+record SavedUpload(string Url, string OriginalName);
+enum UploadKind { Image, Attachment }
+sealed class UploadValidationException(string message) : Exception(message);

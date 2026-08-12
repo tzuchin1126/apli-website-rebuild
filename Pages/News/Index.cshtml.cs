@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -18,7 +19,8 @@ public class IndexModel(IWebHostEnvironment environment) : PageModel
         await using var newsStream = System.IO.File.OpenRead(Path.Combine(dataDirectory, "news.json"));
         Items = (await JsonSerializer.DeserializeAsync<List<NewsItem>>(newsStream, jsonOptions) ?? [])
             .Where(item => item.Published)
-            .OrderByDescending(item => item.Date)
+            .OrderByDescending(item => ParseCreatedAt(item.CreatedAt))
+            .ThenByDescending(item => item.Date)
             .ThenByDescending(item => item.Id)
             .ToList();
 
@@ -34,7 +36,15 @@ public class IndexModel(IWebHostEnvironment environment) : PageModel
         public string Title { get; init; } = "";
         public string Content { get; init; } = "";
         public string Url { get; init; } = "";
+        public string AttachmentName { get; init; } = "";
         public string ImageUrl { get; init; } = "";
+        public string ImageName { get; init; } = "";
         public bool Published { get; init; }
+        public string CreatedAt { get; init; } = "";
     }
+
+    private static DateTimeOffset ParseCreatedAt(string value) =>
+        DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var createdAt)
+            ? createdAt
+            : DateTimeOffset.MinValue;
 }
