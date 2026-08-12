@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 將職安證照卡片 icon 改為與標題對齊的實際 Phosphor glyph 元素。
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：標題 icon 改為直接放入 Phosphor codepoint，移除證照 icon 與清單勾選對 `::before`／`::after` 的依賴；icon 與標題同列對齊，標題底線改為實際 HTML 元素。
+  - 已驗證：ISO icon 與標題上緣差為 0px，Phosphor 字型正常載入，icon pseudo content 為 none；本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認頁面無水平溢位；瀏覽器 console 無 error／warning；git diff --check。
+  - 未驗證：實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 將 ISO 45001 證照卡片移至專業證照列第一張並補齊證書 icon。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：ISO 45001 卡片改為第一個顯示項目，並以本機 Phosphor ph-certificate 與 codepoint e766 顯示證書圖示；其餘三張卡片順序不變。
