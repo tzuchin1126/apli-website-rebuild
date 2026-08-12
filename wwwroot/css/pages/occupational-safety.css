@@ -149,15 +149,10 @@
   border: 1px solid var(--color-line);
   border-radius: calc(var(--card-radius) * 2);
   background: var(--color-surface);
-  transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
+  transition: transform 220ms ease;
 }
 
 .safety-page .safety-credential-card:hover {
-  border-color: rgb(245 130 20 / 42%);
-  box-shadow: var(--card-shadow-hover);
   transform: translateY(-4px);
 }
 
@@ -203,18 +198,19 @@
   border-radius: 50%;
   color: var(--color-primary);
   background: var(--color-surface);
-  box-shadow: 0 6px 20px rgb(15 50 66 / 10%);
 }
 
-.safety-page .safety-credential-card__icon svg {
-  width: 28px;
-  height: 28px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.safety-page .safety-credential-card__icon {
+  font-family: "Phosphor";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
 }
+
+.safety-page .safety-credential-card__icon.ph-shield-check::before { content: "\e40c"; }
+.safety-page .safety-credential-card__icon.ph-hard-hat::before { content: "\ed46"; }
+.safety-page .safety-credential-card__icon.ph-gear::before { content: "\e270"; }
 
 .safety-page .safety-credential-card__title h3 {
   position: relative;

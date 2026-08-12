@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 調整職業安全頁專業證照卡片的 hover 與圖示。
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：`safety-credentials__grid` 卡片 hover 保留位移但不再改變邊線顏色或加入陰影；移除 `safety-credential-card__icon` 陰影；改用本機 Phosphor icon，健康防護使用 `ph-shield-check`、特種操作使用 `ph-hard-hat`、物流使用 `ph-gear`。
+  - 已驗證：HTML icon class 與三組 Phosphor codepoint、卡片 hover CSS、icon 無 `box-shadow`；`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；本機 `/occupational-safety.html` 以 1366×900 與 390×844 實際渲染，確認三個 icon 使用 Phosphor 字型、卡片與 icon 的 computed `box-shadow` 為 `none`、hover 規則只保留位移且未設定 `border-color`／`box-shadow`、手機無水平溢位；瀏覽器 console 無 error／warning。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 移除職業安全頁完整的 ISO 45001 `safety-certification` 區塊。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
   - 內容：移除 ISO 45001 認證說明、認證資料、證書連結與整段區塊 HTML；同步移除全部 `safety-certification-*` CSS、響應式樣式與 Reduced Motion 相關規則；檢查 `wwwroot/js/` 後確認沒有對應 JavaScript 邏輯，因此不新增無效 JS 變更。
