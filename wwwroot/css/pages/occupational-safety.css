@@ -252,14 +252,6 @@
   line-height: 1.45;
 }
 
-.safety-page .safety-credential-card__title-rule {
-  display: block;
-  width: var(--safety-rule-width);
-  height: 2px;
-  margin-top: 0;
-  background: var(--color-primary);
-}
-
 .safety-page .safety-credentials__pager {
   min-height: 32px;
   margin-top: 28px;

@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 移除職安證照卡片標題下方的橘色底線。
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：移除四張證照卡片的標題底線 HTML 元素與對應 CSS，保留標題與 icon 排版。
+  - 已驗證：確認頁面不再產生 safety-credential-card__title-rule；node --check wwwroot/js/pages/occupational-safety.js；git diff --check。
+  - 未驗證：本次修改後桌機／手機瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 修正職安證照卡片標題與底線的排列結構。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：標題改為 icon 搭配標題內容群組，底線直接隸屬標題群組；桌機標題到底線 20px、手機 16px，避免外層 grid 將底線推遠。
