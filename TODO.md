@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 放大職安專業證照第一張 ISO 圖片並調整卡片標題間距。
+  - 範圍：wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：ISO 證書圖片使用 1.7 倍放大並以上方第三方認證 logo 為視覺焦點；證照標題區增加上方間距並整理內容對齊，讓標題更接近底線。
+  - 已驗證：本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認圖片 transform、標題與底線間距、頁面無水平溢位；瀏覽器 console 無 error／warning；git diff --check。
+  - 未驗證：實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 將職安證照卡片 icon 改為與標題對齊的實際 Phosphor glyph 元素。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：標題 icon 改為直接放入 Phosphor codepoint，移除證照 icon 與清單勾選對 `::before`／`::after` 的依賴；icon 與標題同列對齊，標題底線改為實際 HTML 元素。

@@ -200,6 +200,8 @@
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media img {
   object-fit: contain;
+  transform: scale(1.7);
+  transform-origin: 50% 8%;
 }
 
 .safety-page .safety-credential-card__title {
@@ -207,6 +209,8 @@
   min-height: 92px;
   grid-template-columns: 28px minmax(0, 1fr);
   align-items: start;
+  align-content: start;
+  padding-top: 16px;
   gap: 16px;
 }
 
