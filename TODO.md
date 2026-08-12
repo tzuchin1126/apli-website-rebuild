@@ -355,7 +355,7 @@
   - 範圍：`wwwroot/news.html`、`wwwroot/news-detail.html`、`wwwroot/css/base/tokens.css`、`wwwroot/css/pages/news.css`、`wwwroot/css/pages/news-detail.css`、`wwwroot/js/pages/news.js`、`wwwroot/js/pages/news-detail.js`、`Pages/News/Detail.cshtml`、`TODO.md`。
   - 已驗證：`node --check wwwroot/js/pages/news.js`、`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`。
   - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
-  - Commit：`198bbdd`。
+  - Commit：已提交；以 `git log -1` 為準。
 
 - [x] 2026-08-12：修正 News 頁面空狀態文字未隨 `hidden` 屬性隱藏的問題。
   - 內容：補上 `.news-empty[hidden]` 的 `display: none` 規則，避免正常消息列表下仍顯示「沒有符合條件的最新消息」。
