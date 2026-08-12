@@ -67,7 +67,7 @@
   - 內容：移除 ISO 45001 認證說明、認證資料、證書連結與整段區塊 HTML；同步移除全部 `safety-certification-*` CSS、響應式樣式與 Reduced Motion 相關規則；檢查 `wwwroot/js/` 後確認沒有對應 JavaScript 邏輯，因此不新增無效 JS 變更。
   - 已驗證：`safety-certification` 與 `iso-45001` 已不存在於職安頁 HTML／CSS／JS；`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；本機 `/occupational-safety.html` 以 1366×900 與 390×844 實際渲染，確認認證區塊與其 class／ID 已移除、專業證照區塊仍存在、手機無水平溢位；瀏覽器 console 無 error／warning。
   - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
-  - 更新：2026-08-12。狀態：待提交。
+  - 更新：2026-08-12。狀態：已提交，Commit：`adf1623`。
 
 - [x] 移除職業安全頁 ISO 認證區塊的 `safety-certification__media` 圖片區塊。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
