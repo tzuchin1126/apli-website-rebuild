@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 調整職安證照卡片標題高度與專業證照區左右延伸範圍。
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：移除標題群組固定高度，改由標題內容與上下內距決定，縮小標題下方空白；專業證照區桌機左側增加至 clamp(32px, 7vw, 104px)，右側延伸至視窗邊緣，手機恢復 16px 兩側邊距。
+  - 已驗證：node --check wwwroot/js/pages/occupational-safety.js；git diff --check；source 確認卡片 viewport 右側無額外 margin／padding 設定。
+  - 未驗證：本次修改後瀏覽器渲染因瀏覽器無法建立新分頁未執行；實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 移除職安證照卡片標題下方的橘色底線。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：移除四張證照卡片的標題底線 HTML 元素與對應 CSS，保留標題與 icon 排版。

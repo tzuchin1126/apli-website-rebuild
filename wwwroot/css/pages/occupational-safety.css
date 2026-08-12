@@ -203,21 +203,20 @@
   object-position: 50% 8%;
 }
 
-.safety-page .safety-credential-card__title {
-  display: grid;
-  min-height: 92px;
-  grid-template-columns: 28px minmax(0, 1fr);
-  align-items: start;
-  align-content: start;
-  padding-top: 16px;
-  column-gap: 16px;
+.safety-page .safety-credentials > .site-container {
+  width: calc(100% - clamp(32px, 7vw, 104px));
+  margin-right: 0;
+  margin-left: clamp(32px, 7vw, 104px);
 }
 
-.safety-page .safety-credential-card__title-content {
+.safety-page .safety-credential-card__title {
   display: grid;
-  min-width: 0;
+  min-height: 0;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
   align-content: start;
-  gap: 20px;
+  padding-block: 16px 14px;
+  column-gap: 16px;
 }
 
 .safety-page .safety-credential-card__icon {
@@ -300,13 +299,17 @@
   background: #40403e;
 }
 
-.safety-page .safety-credentials__arrow svg {
+.safety-page .safety-credentials__arrow .ph {
+  display: inline-flex;
   width: 18px;
   height: 18px;
-}
-
-.safety-page .safety-credentials__arrow--previous svg {
-  transform: rotate(180deg);
+  align-items: center;
+  justify-content: center;
+  font-family: "Phosphor";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
 }
 
 .safety-page .safety-credentials__arrow:disabled {
