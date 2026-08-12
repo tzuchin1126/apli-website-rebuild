@@ -423,3 +423,33 @@
   - 已驗證：`milestones.html`、`site.css`、`components/page-hero.css`、`base/tokens.css` 與 `milestones.css` 來源關係檢查；本次檔案 `git diff --check`。
   - 未驗證：文件更新不涉及瀏覽器渲染驗證。
   - 更新：2026-08-11。狀態：本次提交。
+- [x] 2026-08-12：重新排版 `occupational-safety.html` 的 `site-container safety-intro__layout`。
+  - 版面：標題與兩段說明文字橫跨完整寬度；健康照護清單與圖片改為下方左右兩欄，手機版改為上下排列。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`、HTML/CSS 結構與 responsive grid source 檢查。
+  - 未驗證：本機站台未能在 `localhost:5088` 啟動，尚未完成瀏覽器桌機／手機實際渲染檢查。
+- [x] 2026-08-12：調整 `occupational-safety.html` 的 `public/images/occupational-safety/1-1.png` 圖片呈現比例。
+  - 版面：改為 16:9 橫向長方形，配合圖片原始比例；桌機與手機共用同一長方形比例。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- [x] 2026-08-12：調整 `safety-intro__layout` 下方左右欄位順序與間距。
+  - 版面：保留上方兩段完整寬度段落；下方改為左側圖片、右側健康照護文字，並縮小圖片與文字欄位間距。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- [x] 2026-08-12：調整職安介紹區塊圖片與右側文字的欄位距離。
+  - 版面：以圖片實際最大寬度建立左欄，右側文字使用剩餘寬度，避免因左欄過寬造成不必要的空白與過早換行；未變更 HTML 結構。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- [x] 2026-08-12：放大職安介紹區塊左側圖片，強化段落視覺層次。
+  - 版面：圖片最大寬度由 420px 調整為 520px；1099px 以下依欄位寬度自適應，手機版維持滿寬。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- [x] 2026-08-12：統一職安證照區塊與 `safety-intro__layout` 的左側容器對齊。
+  - 版面：證照區塊沿用介紹區塊在桌機與 1099px 以下的容器邊界計算，右側仍保留輪播延伸空間；手機版維持 16px 內距。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- [x] 2026-08-12：將職安頁面正式名稱由「健康與安全」更新為「職業安全衛生」。
+  - 範圍：頁面 `<title>`、description、Breadcrumb 與 Hero 標題。
+  - 已驗證：`dotnet build -c Release`、`git diff --check`。
+- [x] 2026-08-12：修正職業安全衛生頁面的行動裝置閱讀順序與證照卡片觸控滑動。
+  - 行動版順序：標題 → 圖片 → 兩段說明 → 健康照護內文；證照 viewport 改用原生水平觸控捲動設定，支援手指左右拖曳並保留輪播按鈕與 scroll snap。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`dotnet build -c Release`、`git diff --check`。
+- [x] 2026-08-12：`occupational-safety.html` 頁面完成。
+  - 完成：正式頁名、前導圖文版面、行動版「標題 → 圖片 → 內文」閱讀順序、職業安全衛生證照卡片、左右控制圖示與手指水平拖曳。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；桌機版容器對齊與前導區塊版面已實際檢查。
+  - 未驗證：實體行動裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：已提交，commit `b0079a9`。

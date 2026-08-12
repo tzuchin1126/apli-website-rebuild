@@ -1,11 +1,11 @@
 (() => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const createArrow = () => {
-    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    icon.setAttribute("viewBox", "0 0 24 24");
+  const createArrow = (direction) => {
+    const icon = document.createElement("i");
+    icon.className = "ph ph-caret-" + direction;
     icon.setAttribute("aria-hidden", "true");
-    icon.innerHTML = '<path d="m9 5 7 7-7 7"></path>';
+    icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
     return icon;
   };
 
@@ -35,7 +35,7 @@
     previous.type = "button";
     previous.className = "safety-credentials__arrow safety-credentials__arrow--previous";
     previous.setAttribute("aria-label", "上一組專業證照");
-    previous.append(createArrow());
+    previous.append(createArrow("left"));
 
     const pageButtons = Array.from({ length: pages }, (_, index) => {
       const button = document.createElement("button");
@@ -49,7 +49,7 @@
     next.type = "button";
     next.className = "safety-credentials__arrow safety-credentials__arrow--next";
     next.setAttribute("aria-label", "下一組專業證照");
-    next.append(createArrow());
+    next.append(createArrow("right"));
 
     controls.append(previous, ...pageButtons, next);
     pager.replaceChildren(controls);
