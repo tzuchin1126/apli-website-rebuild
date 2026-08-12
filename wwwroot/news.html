@@ -77,7 +77,7 @@
 
             <section class="news-hero page-hero" aria-labelledby="news-hero-title">
                 <picture class="page-hero__media">
-                    <source type="image/avif" srcset="public/images/index/67-960.avif 960w, public/images/index/67-1920.avif 1920w" sizes="100vw">
+                    <!-- <source type="image/avif" srcset="public/images/index/67-960.avif 960w, public/images/index/67-1920.avif 1920w" sizes="100vw"> -->
                     <img class="page-hero__image" src="public/images/index/67.png" alt="最新消息與企業動態" fetchpriority="high">
                 </picture>
                 <div class="news-hero__overlay page-hero__overlay" aria-hidden="true"></div>
@@ -91,16 +91,13 @@
                     <div class="news-categories" data-news-categories role="group" aria-label="新聞類別">
                         <button type="button" data-category="" aria-pressed="true">全部</button>
                     </div>
-                    <label class="news-year">
-                        <span>年份</span>
-                        <select data-year aria-label="年份">
-                            <option value="">全部年份</option>
-                        </select>
-                    </label>
                 </div>
 
                 <div class="news-list" data-news-list>
-                    <p class="news-empty" data-news-empty hidden>沒有符合條件的最新消息。</p>
+                    <p class="news-empty" data-news-empty hidden>
+                        <i class="ph ph-newspaper" aria-hidden="true"></i>
+                        <span class="news-empty__message">沒有符合條件的最新消息。</span>
+                    </p>
                 </div>
             </section>
         </main>

@@ -8,6 +8,8 @@
   --color-line: #e3e6e1;
   --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
+  --font-pilat: "Pilat", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
+  --font-pilat-wide: "Pilat Wide", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
   --button-primary-bg: #40403e;
@@ -32,7 +34,7 @@
   --card-shadow-hover: 0 16px 40px rgb(20 35 25 / 14%);
   --page-hero-height: clamp(280px, 26vw, 350px);
   --page-hero-title-size: clamp(2.35rem, 4vw, 3.4rem);
-  --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 25%) 9.88%, rgb(0 0 0 / 40%) 100%);
+  --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);
   --page-hero-image-scale: 1.08;
   --page-hero-image-duration: 6s;

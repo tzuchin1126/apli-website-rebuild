@@ -2,24 +2,34 @@
   const root = document.querySelector("[data-news-filter]");
   const list = document.querySelector("[data-news-list]");
   const empty = document.querySelector("[data-news-empty]");
+  const emptyMessage = empty?.querySelector(".news-empty__message");
   if (!root || !list) return;
 
   const categories = root.querySelector("[data-news-categories]");
-  const yearSelect = root.querySelector("[data-year]");
+  const pageSize = 8;
+  const loadMore = document.createElement("button");
   let items = [];
+  let visibleCount = pageSize;
+  const rowIconMarkup = '<span class="news-row__icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+  loadMore.type = "button";
+  loadMore.className = "news-load-more button--primary";
+  loadMore.textContent = "載入更多";
+  loadMore.hidden = true;
+  list.after(loadMore);
 
   const render = () => {
     const category = root.querySelector("[aria-pressed='true']")?.dataset.category || "";
-    const year = yearSelect?.value || "";
-    let visible = 0;
+    let matchingCount = 0;
 
     items.forEach((item) => {
-      const matches = (!category || item.dataset.category === category) && (!year || item.dataset.year === year);
-      item.hidden = !matches;
-      if (matches) visible += 1;
+      const matches = !category || item.dataset.category === category;
+      item.hidden = !matches || matchingCount >= visibleCount;
+      if (matches) matchingCount += 1;
     });
 
-    if (empty) empty.hidden = visible !== 0;
+    loadMore.hidden = matchingCount <= visibleCount;
+    if (empty) empty.hidden = matchingCount !== 0;
   };
 
   const addCategory = (label, value, selected = false) => {
@@ -45,8 +55,7 @@
       article.className = "news-item";
       article.dataset.newsItem = "";
       article.dataset.category = item.tag || "";
-      article.dataset.year = (item.date || "").slice(0, 4);
-      article.innerHTML = `<a class="news-row" href="news-detail.html?id=${encodeURIComponent(item.id)}"><span class="news-row__date"></span><span class="news-row__tag"></span><span class="news-row__title"></span><span class="news-row__icon" aria-hidden="true">›</span></a>`;
+      article.innerHTML = `<a class="news-row" href="news-detail.html?id=${encodeURIComponent(item.id)}"><span class="news-row__date"></span><span class="news-row__tag"></span><span class="news-row__title"></span>${rowIconMarkup}</a>`;
       const row = article.querySelector(".news-row");
       row.querySelector(".news-row__date").textContent = item.date || "";
       row.querySelector(".news-row__tag").textContent = item.tag || "";
@@ -70,17 +79,11 @@
     }));
     const labels = Array.isArray(categoryData) && categoryData.length ? categoryData : [...new Set(normalizedNews.map((item) => item.tag).filter(Boolean))];
     labels.forEach((category) => addCategory(category, category));
-    [...new Set(normalizedNews.filter((item) => item.published !== false).map((item) => (item.date || "").slice(0, 4)).filter(Boolean))].sort().reverse().forEach((year) => {
-      const option = document.createElement("option");
-      option.value = year;
-      option.textContent = year;
-      yearSelect?.append(option);
-    });
     renderItems(normalizedNews);
   }).catch(() => {
     if (empty) {
       empty.hidden = false;
-      empty.textContent = "目前無法載入最新消息。";
+      if (emptyMessage) emptyMessage.textContent = "目前無法載入最新消息。";
     }
   });
 
@@ -88,7 +91,11 @@
     const button = event.target.closest("[data-category]");
     if (!button) return;
     categories.querySelectorAll("[data-category]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+    visibleCount = pageSize;
     render();
   });
-  yearSelect?.addEventListener("change", render);
+  loadMore.addEventListener("click", () => {
+    visibleCount += pageSize;
+    render();
+  });
 })();

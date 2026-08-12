@@ -9,6 +9,7 @@
   const content = detail.querySelector("[data-news-content]");
   const image = detail.querySelector("[data-news-image]");
   const attachment = detail.querySelector("[data-news-attachment]");
+  const attachmentName = detail.querySelector("[data-news-attachment-name]");
   const attachmentWrap = detail.querySelector("[data-news-attachment-wrap]");
   const error = document.querySelector("[data-news-error]");
 
@@ -41,6 +42,7 @@
       }
       if (item.url) {
         attachment.href = item.url;
+        attachmentName.textContent = decodeURIComponent(item.url.split("/").pop().split("?")[0]);
         attachmentWrap.hidden = false;
       }
       detail.hidden = false;

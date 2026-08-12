@@ -318,6 +318,58 @@
 
 ## 更新紀錄
 
+- [x] 2026-08-12：對齊消息詳情返回按鈕的 hover icon 動畫。
+  - 內容：參考首頁「關於亞太／了解更多」按鈕，改為使用 `--button-text-arrow-hover-shift-x` 的水平 2px 位移；移除原本左上方位移效果。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調整消息詳情頁返回按鈕位置與 icon 動畫。
+  - 內容：返回最新消息按鈕移至 `news-detail__header` 上方，改用 Phosphor `ph-arrow-u-up-left`；hover／focus 時沿用首頁文字箭頭的水平位移 token `--button-text-arrow-hover-shift-x`，並支援 reduced motion。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調淡共用一般 Hero 遮罩。
+  - 內容：將 `--page-hero-overlay-light` 由上方 25%／下方 40% 調整為上方 18%／下方 30%；`page-hero--quote` 的專用深色遮罩維持不變。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：下移消息詳情頁 Hero 圖片取景位置。
+  - 內容：將 `news-detail.html` 與 `/news/{id}` 共用的 Hero 圖片位置由桌機 `center 58%` 調整為 `center 68%`，手機由 `center 62%` 調整為 `center 70%`，讓畫面呈現更多圖片下方內容。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：補回消息詳情頁 Hero 並修正附件與返回按鈕樣式。
+  - 內容：`news-detail.html` 與 `/news/{id}` 新增共用 News Hero；附件連結改為僅檔名加底線，紙夾 icon 不再帶底線；返回最新消息改用 `.button--primary` 與 Phosphor 返回 icon。
+  - 已驗證：`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調整 `news-detail.html` 消息內頁附件與返回連結版面。
+  - 內容：維持舊版消息內頁的無 Hero 緊湊版型；附件改為「附件：」標題、Phosphor `ph-paperclip` icon 與實際檔名連結；返回最新消息連結放在正文與附件之後的內容區底部。
+  - 同步：更新靜態 `wwwroot/news-detail.html`、`wwwroot/js/pages/news-detail.js` 與 Razor `Pages/News/Detail.cshtml`，保留兩種路徑的相同呈現。
+  - 已驗證：`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調整 `news.html` 與舊版消息列表介面一致。
+  - 內容：移除年份篩選；消息列表改為每次顯示 8 筆，超過目前顯示數量時才呈現「載入更多」按鈕；保留分類篩選與原有消息連結。
+  - 範圍：`wwwroot/news.html`、`wwwroot/css/pages/news.css`、`wwwroot/js/pages/news.js`、`TODO.md`。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收；依本次工作要求不啟動網站或進行實機驗證。
+
+- [x] 2026-08-12：完成 News 與 News Detail 桌機版介面整理。
+  - 內容：News 保留舊版分類篩選與列表排列，移除年份篩選並加入分批載入；News Detail 補回 Hero、附件檔名連結與符合共用按鈕變數的返回按鈕，並同步靜態頁與 Razor 詳情頁。
+  - 範圍：`wwwroot/news.html`、`wwwroot/news-detail.html`、`wwwroot/css/base/tokens.css`、`wwwroot/css/pages/news.css`、`wwwroot/css/pages/news-detail.css`、`wwwroot/js/pages/news.js`、`wwwroot/js/pages/news-detail.js`、`Pages/News/Detail.cshtml`、`TODO.md`。
+  - 已驗證：`node --check wwwroot/js/pages/news.js`、`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - Commit：`198bbdd`。
+
+- [x] 2026-08-12：修正 News 頁面空狀態文字未隨 `hidden` 屬性隱藏的問題。
+  - 內容：補上 `.news-empty[hidden]` 的 `display: none` 規則，避免正常消息列表下仍顯示「沒有符合條件的最新消息」。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收；依本次工作要求不啟動網站或進行實機驗證。
+
+- [x] 2026-08-12：為 News 頁面空狀態訊息加入消息文件 inline SVG icon。
+  - 內容：在「沒有符合條件的最新消息」上方加入橘色消息文件圖示，載入失敗訊息更新時保留圖示結構。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收；依本次工作要求不啟動網站或進行實機驗證。
+
+- [x] 2026-08-12：將 News 空狀態圖示改用 Phosphor `ph-newspaper`。
+  - 內容：以 `<i class="ph ph-newspaper"></i>` 取代 inline SVG，沿用專案 Phosphor 字型與橘色圖示樣式。
+  - 未驗證：瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收；依本次工作要求不啟動網站或進行實機驗證。
+
+
 | 日期 | 範圍 | 紀錄 |
 | --- | --- | --- |
 | 2026-08-11 | 營運資源頁面 | 依舊版介面補齊四段圖文、健康與安全 CTA、三欄營運優勢、周邊距離與嵌入式地圖；全部採用頁面 scoped 原生 CSS、既有 tokens 與共用元件，不帶入 Tailwind。已完成 Release 建置、JS／差異檢查、1366／390／320 實際渲染及 980／1099／1100 斷點檢查；外部地圖內容、實際 hover、跨瀏覽器、實體裝置與人工無障礙仍待驗證。Commit：`18b63bc`。 |
@@ -453,3 +505,167 @@
   - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；桌機版容器對齊與前導區塊版面已實際檢查。
   - 未驗證：實體行動裝置、Firefox／Safari 與人工無障礙驗收。
   - 狀態：頁面變更已提交，commit `bfc406c`；本文件紀錄另行提交。
+
+- [x] 2026-08-12：重新調整 `services.html` 服務內容區塊版面。
+  - 範圍：`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 版面：沿用職業安全衛生第一區塊的標題與內文層級；服務說明置於上方，下方採左側 16:9 圖片、右側服務細項，並將所有 services selector 限定在 `.services-page` 下；手機版改為圖片後接細項的單欄閱讀。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）、1366px 桌機、1024px 平板、390px 手機實際渲染、三種尺寸無水平溢出、服務分頁 hash／ARIA／tabpanel 切換。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收；5088 埠未啟動，瀏覽器驗證使用目前可連線的 `http://localhost:5127/services.html`。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：調整 `services.html` 介紹區塊文字對齊、倉儲物流圖片輪播與服務細項層級。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`wwwroot/js/pages/services.js`、`TODO.md`。
+  - 內容：eyebrow、h2 與介紹段落改為置中；倉儲物流區塊新增四張指定圖片的輪播、前後切換與指示點；服務內容改用 h3，清單文字放大並使用深色文字。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；1366px 桌機、1024px 平板、390px 手機實際渲染；三種尺寸無水平溢出；輪播前後控制、指示點、服務分頁 hash／ARIA／tabpanel 切換。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：統一 `services.html` 輪播控制列與職業安全衛生證照區塊的 icon 呈現。
+  - 內容：輪播控制列移至圖片下方，改用既有 Phosphor caret icon、active 長條與未選取圓點；保留 8 秒自動切換，滑鼠停留／鍵盤聚焦時暫停；同步調整 Services 介紹文字與服務細項的字體層級。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`；1366px 桌機、1024px 平板、390px 手機實際渲染；自動輪播前後狀態變更、icon／指示點初始化與三種尺寸無水平溢出。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：收斂 `services.html` 介紹文字寬度並平衡服務內容 typography。
+  - 內容：介紹區最大寬度調整為 860px、說明段落限制為 820px，縮短介紹區內部與下方內容的視覺間距；右側 `h3` 降低字級與字重，清單同步調整字級與行高，保留深色文字與既有 heading／body 字體分工。
+  - 已驗證：1366px 桌機、1024px 平板、390px 手機實際渲染；三種尺寸無水平溢出；`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：僅調整 Services 頁面標題字體搭配。
+  - 內容：限定 `.services-page`，將 eyebrow、h2、服務內容 h3 改為 `--font-body` 無襯線字體；h2 採參考圖的橘色粗體，h3 採黑色粗體；其他頁面與 Services 段落／清單字體維持原規則。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；1366px 桌機與 390px 手機實際渲染，兩種尺寸無水平溢出。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：將 Services 服務分頁改為參考頁的標題與說明版面。
+  - 內容：保留「倉儲物流」、「貨櫃清洗與維修」、「機具維修與銷售」標題名稱；移除英文 eyebrow，改為上方置中深色標題、橘色底線與下方整列說明文字。
+  - 版面：圖片與服務內容移至標題／說明下方，桌機採較寬圖片與右側服務內容，平板與手機維持響應式排列。
+  - 已驗證：1366px 桌機、390px 手機實際渲染；標題字級、顏色、字重、橘色底線與三種內容區塊位置已檢查；`git diff --check`。
+  - 未驗證：本次尚未重新執行 `dotnet build -c Release` 與 `node --check wwwroot/js/pages/services.js`；實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：將 Services 分頁標題顏色恢復為既有橘色。
+  - 內容：`.service-panel__intro h2` 改回使用 `var(--color-primary)`；保留目前字級、字重、置中與橘色底線版面。
+  - 已驗證：`git diff --check`。
+  - 未驗證：本次未重新進行瀏覽器渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：恢復 Services 標題原本的下底線造型。
+  - 內容：標題改回文字寬度的 3px 橘色 `border-bottom`，移除目前整列 1px 偽元素底線；保留標題橘色與目前版面配置。
+  - 已驗證：`git diff --check`。
+  - 未驗證：本次未重新進行瀏覽器渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：統一 Services 標題底線與其他頁面標題樣式。
+  - 內容：移除文字寬度的整段 border，改用既有置中標題模式的短橘線（`clamp(48px, 5vw, 72px)`、2px）。
+  - 參考：沿用 About 與首頁置中標題的 `::after` 規則。
+  - 已驗證：`git diff --check`；來源 selector 與既有頁面標題規則對照完成。
+  - 未驗證：本次未重新進行瀏覽器渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：將倉儲物流服務內容改為圖片卡片呈現。
+  - 內容：移除倉儲物流區塊的輪播與自動切換，改以五張既有專案圖片搭配五項服務內容卡片；保留服務分頁切換與聯絡 CTA。
+  - 版面：桌機三欄、平板兩欄、手機單欄；卡片包含服務圖片與項目標題，延續現有圓角、陰影、色彩與字體規範。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`git diff --check`；待完成瀏覽器渲染檢查。
+  - 未驗證：本次尚未執行 `dotnet build -c Release`、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：重新整理 `services.html` 服務內容版面與 Banner 裁切。
+  - 版面：縮短 Banner 與分頁籤之間的上方留白；桌機改為左側標題／說明、右側圖片／服務內容的網格；服務清單下方新增共用 CTA；輪播指示器上移至圖片下方；Banner 改用較乾淨的上方裁切。
+  - RWD：平板改為右欄圖片與服務內容上下排列，手機維持標題／說明、圖片、服務內容與 CTA 的單欄閱讀順序。
+  - 未採用：目前服務項目數量仍適合單欄清單，未強制改為兩欄，避免製造額外空白。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`；1024px 平板、390px 手機與桌機版實際渲染；三種尺寸無水平溢出，CTA、輪播控制列與 Banner 裁切已檢查。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；依本次工作要求保留未提交狀態。
+
+- [x] 2026-08-12：將 Services 三個服務項目改為單頁連續展示，並套用頁面專屬 Pilat 字體堆疊。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`wwwroot/css/base/tokens.css`、`TODO.md`。
+  - 版面：移除分頁籤與隱藏面板，改為三項完整顯示的頁內導覽；三段採一致的標題、說明、代表圖片與編號清單，桌機左右交錯，980px 以下統一為「標題／說明 → 圖片 → 服務清單」，並將三個重複 CTA 合併為頁尾聯絡區塊。
+  - 圖片：倉儲物流、貨櫃清洗與維修、機具維修與銷售分別使用現有 `warehousing-yard.png`、`container-cleaning.jpg`、`equipment-maintenance.png`，不新增推測性素材。
+  - 字體：新增 `--font-pilat-wide` 與 `--font-pilat`，僅套用於 Services Hero 與內容區；目前專案未包含 Pilat Webfont，瀏覽器會依序回退至 `Noto Sans TC` 等既有字體，取得正式授權字型檔後仍需補上 `@font-face` 才能在所有裝置呈現實際 Pilat 字形。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/site.js`、`git diff --check`；Edge 1366×900 與 390×844 實際渲染，兩種尺寸無水平溢出，桌機三段高度約 802／744／768px、手機約 975／866／917px；三項導覽在 390px 同列完整顯示，鍵盤 Enter 可定位至 `#maintenance`，三張圖片均可在進入對應區塊後完成載入；瀏覽器 computed style 已確認標題與正文分別取得 `Pilat Wide`／`Pilat` 字體堆疊。
+  - 未驗證：Pilat 實際字形（缺少字型檔）、實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：移除 Services 頁面服務導覽、區塊標題與服務清單中的數字標記。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 內容：保留服務名稱與清單文字，移除 `01／02／03` 導覽與區塊編號，以及清單的自動計數；同步收斂清單欄位，避免留下編號空間。
+  - 已驗證：待執行 `dotnet build -c Release`、`git diff --check` 與桌機／手機實際渲染檢查。
+  - 未驗證：本次修改尚未完成瀏覽器、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：以 chevron icon 取代 Services 頁面的數字標記位置。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 內容：頁內服務導覽與各服務清單改用橘色 inline SVG `>` icon；區塊標題維持無編號，保留鍵盤 focus 與 hover 位移效果。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/site.js`、`git diff --check`；Edge 1366×900 與 390×844 實際渲染，三項導覽與 14 個服務清單均顯示 chevron icon，兩種尺寸無水平溢出，原本的數字與 CSS counter 均已移除。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：調整 Services Hero 字體、服務導覽與內容版面。
+  - 內容：恢復 Hero 標題的專案共用標題字體；移除服務導覽中的 `service-index__icon`，保留文字連結的 flex 水平置中；各服務標題與敘述獨立水平置中，下面改為左側服務內容、右側搭配圖片。
+  - 已驗證：來源結構檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：縮短 Services 多段介紹文字之間的間距。
+  - 內容：為同一服務區塊內相鄰的介紹段落設定 12px 上間距，保留第一段與標題之間原有的間距。
+  - 已驗證：來源檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：對調 Services 圖片與服務內容的位置。
+  - 內容：桌機／平板改為左側搭配圖片、右側服務內容；980px 以下改為標題／敘述、圖片、服務內容的堆疊順序。
+  - 已驗證：來源結構檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：將倉儲物流左側圖片改為三圖拼接版面。
+  - 內容：沿用既有 `warehousing-yard.png` 作為上方圖片，搭配 `container-yard-overview.png` 與 `warehouse-storage.png` 形成上方一張、下方左右兩張的圖片網格；右側服務內容在桌機版於圖片拼圖中段垂直置中，響應式堆疊時恢復靠上排列。
+  - 已驗證：來源結構檢查、素材檔案存在檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：修正倉儲物流三圖拼接下方留白與圖片間距。
+  - 內容：讓三張圖片填滿各自 grid 區域並使用 `object-fit: cover`，使上下與左右圖片間距按拼圖 `gap` 正常顯示，移除固定拼圖外框造成的下方空白。
+  - 已驗證：來源結構檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：新增倉儲物流三圖拼接的圖片位置切換。
+  - 內容：三張圖片改為純展示；移除圖片本身的點擊操作，改於圖片下方加入上一張、頁面指示點與下一張控制，使用者透過明確控制切換圖片位置。
+  - 版面：右側服務內容維持相對圖片拼圖垂直置中，響應式堆疊順序不變。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、來源結構檢查、素材檔案存在檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：圖片控制列實際瀏覽器互動、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：下移倉儲物流拼圖上方主圖的取景位置。
+  - 內容：將 `warehousing-yard.png` 的 `object-position` 設為 `center 65%`，讓圖片裁切焦點往下呈現；其他圖片維持原位置。
+  - 已驗證：來源 selector 檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：圖片實際裁切效果、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：將貨櫃清洗與維修、機具維修與銷售套用倉儲物流圖片版面。
+  - 內容：兩個服務區塊均改為左側三圖拼接、圖片下方上一張／指示點／下一張控制列，右側維持服務內容並於桌機版垂直置中；平板／手機沿用圖片後接服務內容的堆疊順序。
+  - 素材：貨櫃清洗區使用 `container-cleaning.jpg`、`container-yard-teamwork.png`、`container-handler-operation.png`；機具維修區使用 `equipment-maintenance.png`、`container-handler-operation.png`、`container-yard-teamwork.png`。
+  - 已驗證：`node --check wwwroot/js/pages/services.js`、來源結構檢查、素材檔案存在檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：兩個新增圖片控制列的實際瀏覽器互動、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：上移貨櫃清洗與維修區塊 `326.jpg` 的圖片取景。
+  - 內容：針對 `public/images/occupational-safety/326.jpg` 將 `object-position` 設為 `center 25%`，讓圖片裁切位置往上；不影響同區塊其他圖片與切換順序。
+  - 已驗證：精確 selector 與來源檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：圖片實際裁切效果、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：下移機具維修與銷售區塊三張圖片的取景。
+  - 內容：針對 `container-handler.png`、`home-hero-container-handling.png` 與 `port-equipment-maintenance.jpg` 設定 `object-position: center 60%`，讓三張圖片都稍微往下呈現；不影響其他服務區塊圖片。
+  - 已驗證：精確 selector 與來源檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：三張圖片實際裁切效果、桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-12：調整 Services 內容文字對齊與服務清單分隔線。
+  - 內容：服務區塊內多段介紹文字改為左對齊，讓第二段與第一段的文字起點一致；移除服務內容清單的上方與項目間分隔線，保留 chevron、間距與文字樣式。
+  - 已驗證：來源 selector 檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。

@@ -13,7 +13,21 @@
     <div class="site-container"><a asp-page="/Index">首頁</a><span aria-hidden="true">›</span><a asp-page="/News/Index">最新消息</a><span aria-hidden="true">›</span><span aria-current="page">@Model.Item!.Title</span></div>
 </div>
 
+<section class="news-detail-hero page-hero" aria-labelledby="news-detail-hero-title">
+    <picture class="page-hero__media">
+        <source type="image/avif" srcset="/public/images/news/news-hero-port-transport-960.avif 960w, /public/images/news/news-hero-port-transport-1528.avif 1528w" sizes="100vw" />
+        <img class="page-hero__image" src="/public/images/news/news-hero-port-transport.png" alt="港區物流作業現場" fetchpriority="high" />
+    </picture>
+    <div class="news-detail-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+    <h1 class="page-hero__title" id="news-detail-hero-title">最新消息</h1>
+</section>
+
 <article class="news-detail site-container">
+    <a class="news-detail__back button--primary" asp-page="/News/Index">
+        <i class="ph ph-arrow-u-up-left" aria-hidden="true"></i>
+        <span>返回最新消息</span>
+    </a>
+
     <header class="news-detail__header">
         <div class="news-detail__meta"><time datetime="@Model.Item.Date">@Model.Item.Date</time><span>@Model.Item.Tag</span></div>
         <h1>@Model.Item.Title</h1>
@@ -33,8 +47,14 @@
 
     @if (!string.IsNullOrWhiteSpace(Model.Item.Url))
     {
-        <p class="news-detail__attachment"><a class="button" href="@Model.Item.Url">查看相關附件</a></p>
+        var attachmentName = Model.Item.Url.Split('?', 2)[0].Split('/').Last();
+        <div class="news-detail__attachment">
+            <p class="news-detail__attachment-heading">附件：</p>
+            <a class="news-detail__attachment-link" href="@Model.Item.Url" target="_blank" rel="noopener">
+                <i class="ph ph-paperclip" aria-hidden="true"></i>
+                <span>@attachmentName</span>
+            </a>
+        </div>
     }
 
-    <a class="news-detail__back" asp-page="/News/Index">← 返回最新消息</a>
 </article>
