@@ -67,7 +67,7 @@
   - 內容：ISO 卡片使用既有深藍色系，圖片下緣以圓形藍色凹入區銜接 icon；icon 改為 ph-globe-hemisphere-east；標題簡化為 ISO 45001，僅保留「職業安全衛生管理系統驗證通過」。
   - 已驗證：ISO 卡片背景為 rgb(23, 54, 70)，圖片下緣凹入區為 72px 圓形藍色區塊；第一張標題為 ISO 45001，使用 ph-globe-hemisphere-east，僅保留「職業安全衛生管理系統驗證通過」；node --check wwwroot/js/site.js；node --check wwwroot/js/pages/occupational-safety.js；dotnet build -c Release（0 warnings、0 errors）；git diff --check；本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認卡片樣式、icon、頁面無水平溢位；瀏覽器 console 無 error／warning。
   - 未驗證：實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
-  - 更新：2026-08-12。狀態：待提交。
+  - 更新：2026-08-12。狀態：已提交，Commit：85b94f5。
 
 - [x] 將 ISO 45001 證照卡片移至專業證照列第一張並補齊證書 icon。
   - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
