@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 統一職安證照卡片標題底線介面並讓 ISO 圖片填滿兩側。
+  - 範圍：wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 內容：證照標題採用與公司標題一致的標題留白與橘色底線規則；ISO 證書圖片改用 cover 裁切並以上方第三方 logo 為焦點，填滿卡片圖片區兩側。
+  - 已驗證：本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認 ISO 圖片 object-fit 為 cover、標題與底線間距為 0px、頁面無水平溢位；瀏覽器 console 無 error／warning；git diff --check。
+  - 未驗證：實體裝置、Firefox／Safari、跨瀏覽器與人工無障礙驗收未執行。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 放大職安專業證照第一張 ISO 圖片並調整卡片標題間距。
   - 範圍：wwwroot/css/pages/occupational-safety.css、TODO.md。
   - 內容：ISO 證書圖片使用 1.7 倍放大並以上方第三方認證 logo 為視覺焦點；證照標題區增加上方間距並整理內容對齊，讓標題更接近底線。
