@@ -62,6 +62,13 @@
 
 ## 已完成紀錄
 
+- [x] 新增 ISO 45001 專業證照卡片並將證照區塊改為可水平拖移的卡片列。
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
+  - 內容：於 safety-credentials__grid 新增 ISO 45001 通過紀錄卡片與證書圖片，參照首頁最新消息使用水平 scroll-snap、隱藏捲軸、分頁點與上一組／下一組控制；桌機每組三張、平板每組兩張、手機每組一張，保留 Reduced Motion 行為。
+  - 已驗證：四張卡片與 ISO 卡片 HTML 結構；node --check wwwroot/js/site.js；node --check wwwroot/js/pages/occupational-safety.js；dotnet build -c Release（0 warnings、0 errors）；git diff --check；本機 /occupational-safety.html 以 1366×900 與 390×844 實際渲染，確認桌機每組三張、手機每組一張、水平 overflow-x: auto、scroll-snap、touch-action: pan-y、上一組／下一組控制可切換、頁面無水平溢位；瀏覽器 console 無 error／warning。
+  - 未驗證：實體裝置、Firefox／Safari、人工無障礙驗收。
+  - 更新：2026-08-12。狀態：待提交。
+
 - [x] 調整職業安全頁專業證照卡片的 hover 與圖示。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
   - 內容：`safety-credentials__grid` 卡片 hover 保留位移但不再改變邊線顏色或加入陰影；移除 `safety-credential-card__icon` 陰影；改用本機 Phosphor icon，健康防護使用 `ph-shield-check`、特種操作使用 `ph-hard-hat`、物流使用 `ph-gear`。

@@ -118,7 +118,8 @@
                         <h2 id="safety-credentials-title">專業證照與專責能力</h2>
                         <p>本區彙整本公司人員目前已取得的職業安全、特殊作業及物流場站相關專業證照與資格。</p>
                     </header>
-                    <div class="safety-credentials__grid">
+                    <div class="safety-credentials__viewport">
+                        <div class="safety-credentials__grid" data-safety-credentials-list>
                         <article class="safety-credential-card">
                             <figure class="safety-credential-card__media">
                                 <img src="public/images/occupational-safety/01-3.png" alt="作業人員於貨櫃旁進行安全檢查" width="1672" height="941" loading="lazy" decoding="async">
@@ -163,6 +164,24 @@
                                 <li>保稅倉庫自主專責人員</li>
                             </ul>
                         </article>
+                        <article class="safety-credential-card safety-credential-card--certification">
+                            <figure class="safety-credential-card__media">
+                                <img src="public/images/occupational-safety/iso-45001-certificate-2025-2028.png" alt="ISO 45001 職業安全衛生管理系統證書" loading="lazy" decoding="async">
+                            </figure>
+                            <div class="safety-credential-card__title">
+                                <i class="safety-credential-card__icon ph ph-certificate" aria-hidden="true"></i>
+                                <h3>ISO 45001：安全管理認證</h3>
+                            </div>
+                            <ul>
+                                <li>職業安全衛生管理系統驗證通過</li>
+                                <li>ISO 45001:2018</li>
+                                <li>持續維持國際安全管理標準</li>
+                            </ul>
+                        </article>
+                        </div>
+                    </div>
+                    <div class="safety-credentials__pager" aria-hidden="true">
+                        <span class="is-active"></span>
                     </div>
                 </div>
             </section>
@@ -171,5 +190,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js"></script>
+        <script src="js/pages/occupational-safety.js"></script>
     </body>
 </html>

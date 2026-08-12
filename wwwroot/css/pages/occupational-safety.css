@@ -137,12 +137,27 @@
 }
 
 .safety-page .safety-credentials__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(22px, 2.5vw, 32px);
+  display: flex;
+  gap: 26px;
+}
+
+.safety-page .safety-credentials__viewport {
+  width: 100%;
+  padding-top: 6px;
+  padding-bottom: 40px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  touch-action: pan-y;
+}
+
+.safety-page .safety-credentials__viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .safety-page .safety-credential-card {
+  flex: 0 0 calc((100% - 78px) / 3.5);
   min-width: 0;
   padding: 0 20px 22px;
   overflow: hidden;
@@ -177,6 +192,14 @@
   height: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__media {
+  background: var(--color-surface-soft);
+}
+
+.safety-page .safety-credential-card--certification .safety-credential-card__media img {
+  object-fit: contain;
 }
 
 .safety-page .safety-credential-card__title {
@@ -232,6 +255,74 @@
   background: var(--color-primary);
 }
 
+.safety-page .safety-credentials__pager {
+  min-height: 32px;
+  margin-top: 28px;
+}
+
+.safety-page .safety-credentials__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.safety-page .safety-credentials__page,
+.safety-page .safety-credentials__arrow {
+  display: grid;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.safety-page .safety-credentials__page {
+  width: 44px;
+  height: 44px;
+}
+
+.safety-page .safety-credentials__arrow {
+  width: 48px;
+  height: 40px;
+}
+
+.safety-page .safety-credentials__page::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-line);
+  content: "";
+  transition: width 180ms ease, background-color 180ms ease;
+}
+
+.safety-page .safety-credentials__page.is-active::before {
+  width: 24px;
+  border-radius: 999px;
+  background: #40403e;
+}
+
+.safety-page .safety-credentials__arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.safety-page .safety-credentials__arrow--previous svg {
+  transform: rotate(180deg);
+}
+
+.safety-page .safety-credentials__arrow:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.safety-page .safety-credentials__page:focus-visible,
+.safety-page .safety-credentials__arrow:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .safety-page .safety-credential-card ul {
   margin: 0;
   padding: 0;
@@ -284,7 +375,11 @@
   }
 
   .safety-page .safety-credentials__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .safety-page .safety-credential-card {
+    flex-basis: calc((100% - 24px) / 2);
   }
 }
 
@@ -309,7 +404,16 @@
   }
 
   .safety-page .safety-credentials__grid {
-    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .safety-page .safety-credentials__viewport {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .safety-page .safety-credential-card {
+    flex-basis: calc(100% - 44px);
   }
 
   .safety-page .safety-credential-card {
@@ -318,7 +422,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .safety-page .safety-credential-card {
+  .safety-page .safety-credential-card,
+  .safety-page .safety-credentials__page,
+  .safety-page .safety-credentials__arrow,
+  .safety-page .safety-credential-card__media img {
     transition: none;
   }
 
