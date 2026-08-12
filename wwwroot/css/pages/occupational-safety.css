@@ -234,6 +234,7 @@
 .safety-page .safety-credential-card__icon.ph-shield-check::before { content: "\e40c"; }
 .safety-page .safety-credential-card__icon.ph-hard-hat::before { content: "\ed46"; }
 .safety-page .safety-credential-card__icon.ph-gear::before { content: "\e270"; }
+.safety-page .safety-credential-card__icon.ph-certificate::before { content: "\e766"; }
 
 .safety-page .safety-credential-card__title h3 {
   position: relative;
