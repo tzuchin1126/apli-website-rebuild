@@ -53,8 +53,8 @@
   - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`、`wwwroot/public/images/join/104-job-bank-logo.png`、`wwwroot/public/images/join/1111-job-bank-logo.png`。
   - 內容：移除獨立教育訓練頁籤與區塊；保留公司福利表內的員工在職教育訓練福利列；改為加入亞太、公司福利、職缺資訊的單頁順序；取用舊版 104／1111 Logo，沿用新版既有 CSS tokens 與 RWD 結構。
   - 已驗證：舊版頁面內容與畫面比對；新版 `join.html` 桌機實際渲染；兩個 Logo SHA-256 與舊版一致；`node --check wwwroot/js/pages/join.js`、`git diff --check`。
-  - 未驗證：新版 390px／320px 實際瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收；尚未另行提交。
-  - 更新：2026-08-11
+  - 未驗證：新版 390px／320px 實際瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 更新：2026-08-11。後續頁面調整已併入 `e05a0d4`。
 
 ## 下一步
 
@@ -324,6 +324,38 @@
 - [x] 同步舊專案圖片素材。Commit：`71be0c8`。
 
 ## 更新紀錄
+
+- [x] 2026-08-12：人才招募頁面完成。
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`、`wwwroot/css/base/tokens.css`、`wwwroot/css/site.css`、`TODO.md`。
+  - 內容：統一招募內容標題與英文標題樣式；移除職缺卡片邊框／陰影；加入 Logo hover 放大與 Phosphor `ph-link`；加入亞太圖片改為 16:9、填滿欄寬且無圓角；建立 1200px 內容最大寬度與響應式左右留白規則，Header 維持寬版導覽。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/join.js`、來源 selector 與容器規則檢查。
+  - 未驗證：瀏覽器實際畫面、跨瀏覽器、實體裝置與人工無障礙驗收；本機瀏覽器控制環境無可用瀏覽器。
+  - 狀態：已提交，Commit：`e05a0d4`。
+
+- [x] 2026-08-12：調整 `join.html` 加入亞太圖片比例與圓角。
+  - 內容：參考台泥第一段落圖片，將加入亞太右側圖片改為填滿欄寬的 16:9 比例，移除 `border-radius`。
+  - 已驗證：確認 `join.css` 圖片規則為 `width: 100%`、`aspect-ratio: 16 / 9` 且未設定圓角；`git diff --check`。
+  - 未驗證：修改後瀏覽器實際畫面、跨瀏覽器、實體裝置與人工無障礙驗收。
+
+- [x] 2026-08-12：建立企業網站內容容器間距規則。
+  - 內容：新增 `--content-max-width: 1200px` 與 `--content-padding: clamp(20px, 5vw, 72px)`；共用 `.site-container` 改用受控內容寬度，讓 Hero 內容、各頁正文與 Footer 保持一致邊界；Header 維持原有寬版導覽列，不直接套用內容容器限制。
+  - 已驗證：來源確認 Header 使用自身 `width: 100%`／`max-width: none` 覆蓋規則；`git diff --check`。
+  - 未驗證：修改後各頁桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+
+- [x] 2026-08-12：移除 `join.html` 介紹圖片陰影。
+  - 內容：移除加入亞太介紹圖片的 `box-shadow`，保留首頁參考的 88% 寬度、4:3 比例與圓角。
+  - 已驗證：確認 `join.css` 介紹圖片不再設定陰影、`git diff --check`。
+  - 未驗證：依需求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：再次調整 `join.html` 標題色彩、圖片比例與福利表間距。
+  - 內容：參考首頁「關於亞太」區塊，統一 JOIN APLI／BENEFITS／CAREER OPPORTUNITIES 的英文標題為灰色、1rem、0.04em 字距與 18px 下距；職缺介紹圖片沿用首頁 88% 寬、4:3 比例與相同陰影；公司福利標題與表格之間補上區塊間距。
+  - 已驗證：來源 selector 與首頁規則比對、`git diff --check`。
+  - 未驗證：依需求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+
+- [x] 2026-08-12：調整 `join.html` 招募內容標題與職缺連結樣式。
+  - 內容：統一「加入亞太／公司福利／職缺資訊」的頁面標題結構與橘色底線；移除職缺資訊卡片的邊框與陰影；職缺 Logo 在 hover／focus 時放大；「查看最新職缺與應徵」改用 Phosphor `ph-link` icon。
+  - 已驗證：HTML 結構與指定 class／icon 檢查、`node --check wwwroot/js/pages/join.js`、`git diff --check`。
+  - 未驗證：依需求未進行實機驗證；未進行瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
 
 - [x] 2026-08-12：員工專區 `/Admin` 調整完成。
   - 內容：移除登入驗證碼下方說明文字；保留目前清楚且適度干擾的 5 碼驗證碼設計；修正儲存成功訊息被清空的問題；最新消息改以建立時間 `CreatedAt` 排序，同時間再以公告日期與 ID 後備排序。

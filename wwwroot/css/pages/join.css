@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Phosphor";
+  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
 .join-page { --page-hero-image-position: center; }
 
 .join-content {
@@ -24,16 +32,38 @@
   gap: 20px;
 }
 
-.join-intro-heading {
+.join-section-heading {
   display: grid;
-  gap: 8px;
+  justify-items: center;
+  gap: 0;
+  margin-bottom: clamp(28px, 4vw, 48px);
+  text-align: center;
 }
 
-.join-intro h2,
-.join-panel > h2,
+.join-section-heading .eyebrow {
+  margin: 0 0 18px;
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.73;
+}
+
+.join-section-heading--left {
+  justify-items: start;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.join-benefits-heading {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
 .join-section-heading h2 {
+  position: relative;
   width: fit-content;
   margin: 0;
+  padding-bottom: 20px;
   color: var(--color-ink);
   font-family: var(--font-heading);
   font-size: clamp(2rem, 3.2vw, 2.6rem);
@@ -42,20 +72,20 @@
   letter-spacing: 0.04em;
 }
 
-.join-intro h2 {
-  position: relative;
-  padding-bottom: 20px;
-}
-
-.join-intro h2::after,
 .join-section-heading h2::after {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
   width: clamp(48px, 5vw, 72px);
   height: 2px;
   background: var(--color-primary);
   content: "";
+  transform: translateX(-50%);
+}
+
+.join-section-heading--left h2::after {
+  left: 0;
+  transform: none;
 }
 
 .join-intro p:not(.eyebrow) {
@@ -65,28 +95,11 @@
 }
 
 .join-intro img {
-  width: 88%;
-  justify-self: start;
-  aspect-ratio: 4 / 3;
-  border-radius: 12px;
+  display: block;
+  width: 100%;
+  justify-self: stretch;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  box-shadow: 0 18px 42px rgb(15 50 66 / 12%);
-}
-
-.join-panel > h2 {
-  position: relative;
-  margin-bottom: clamp(28px, 4vw, 48px);
-  padding-bottom: 20px;
-}
-
-.join-panel > h2::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: clamp(48px, 5vw, 72px);
-  height: 2px;
-  background: var(--color-primary);
-  content: "";
 }
 
 .benefits-table {
@@ -141,25 +154,6 @@
   border-bottom: 0;
 }
 
-.join-section-heading {
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-  margin-bottom: clamp(28px, 4vw, 48px);
-  text-align: center;
-}
-
-.join-section-heading h2 {
-  position: relative;
-  padding-bottom: 20px;
-}
-
-.join-section-heading h2::after {
-  right: 50%;
-  left: auto;
-  transform: translateX(50%);
-}
-
 .recruitment-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -175,19 +169,17 @@
   justify-items: center;
   gap: 24px;
   padding: clamp(24px, 4vw, 44px);
-  border: 1px solid var(--color-line);
+  border: 0;
   border-radius: var(--card-radius);
   background: var(--color-surface);
   color: var(--color-ink);
   text-align: center;
   text-decoration: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .recruitment-link:hover,
 .recruitment-link:focus-visible {
-  border-color: var(--color-primary);
-  box-shadow: var(--card-shadow-hover);
   transform: translateY(-4px);
 }
 
@@ -209,6 +201,12 @@
   max-width: min(260px, 100%);
   max-height: 88px;
   object-fit: contain;
+  transition: transform 180ms ease;
+}
+
+.recruitment-link:hover .recruitment-link__logo img,
+.recruitment-link:focus-visible .recruitment-link__logo img {
+  transform: scale(1.08);
 }
 
 .recruitment-link__text {
@@ -220,12 +218,21 @@
   line-height: var(--button-text-arrow-line-height);
 }
 
-.recruitment-link__text span {
+.recruitment-link__text .ph-link {
+  color: currentColor;
+  font-family: "Phosphor";
+  font-size: 1.1em;
+  font-style: normal;
+  line-height: 1;
   transition: transform var(--button-icon-transition);
 }
 
-.recruitment-link:hover .recruitment-link__text span,
-.recruitment-link:focus-visible .recruitment-link__text span {
+.recruitment-link__text .ph-link::before {
+  content: "\e2e2";
+}
+
+.recruitment-link:hover .recruitment-link__text .ph-link,
+.recruitment-link:focus-visible .recruitment-link__text .ph-link {
   transform: translateX(var(--button-text-arrow-hover-shift-x));
 }
 
@@ -259,7 +266,7 @@
     display: contents;
   }
 
-  .join-intro-heading {
+  .join-intro-copy > .join-section-heading {
     grid-row: 1;
   }
 
@@ -335,7 +342,8 @@
 @media (prefers-reduced-motion: reduce) {
   .benefits-table tbody tr,
   .recruitment-link,
-  .recruitment-link__text span {
+  .recruitment-link__logo img,
+  .recruitment-link__text .ph-link {
     transition: none;
   }
 }

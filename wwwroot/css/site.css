@@ -2,6 +2,6 @@
 @import url("components/breadcrumb.css");
 
 .site-container {
-  width: min(100% - (var(--site-padding) * 2), var(--site-max-width));
+  width: min(100% - (var(--content-padding) * 2), var(--content-max-width));
   margin-inline: auto;
 }

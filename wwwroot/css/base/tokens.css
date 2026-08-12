@@ -10,6 +10,8 @@
   --font-heading: "Noto Serif TC", "Songti TC", serif;
   --font-pilat: "Pilat", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-pilat-wide: "Pilat Wide", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
+  --content-max-width: 1200px;
+  --content-padding: clamp(20px, 5vw, 72px);
   --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
   --button-primary-bg: #40403e;
