@@ -1,6 +1,113 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-13：放大 Services 區塊內容敘述文字。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：桌機敘述文字由 16px 調為 17px 並微增行高，手機維持 16px，避免窄螢幕換行過碎；同步更新 Services CSS 快取版本參數。
+  - 已驗證：來源 selector 檢查與範圍內 `git diff --check`。
+  - 未驗證：待補本次字級修改後桌機／手機實際渲染、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：補足 Services 服務區塊的內容敘述。
+  - 範圍：`wwwroot/services.html`、`TODO.md`。
+  - 內容：恢復舊版既有的倉儲場區與調度說明；依舊版既有服務清單及作業特色，為貨櫃清洗與維修補上清洗、檢查、結構維修、噴砂、除銹、噴漆、車架整修及場站配合說明；機具維修原有三段內容維持不變。
+  - 已驗證：舊版文案／服務內容來源比對、目前頁面結構檢查與範圍內 `git diff --check`；Edge 1366×900 與 390×844 實際渲染，確認倉儲及貨櫃清洗均為兩段敘述且標題區高度一致、機具維修維持三段，兩種尺寸均無文字／水平溢位且 console 無 error／warning。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：依參考圖調整 Services 三個服務區塊的標題與敘述排列。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 內容：三區統一改為中文標題置中、英文副標置於下方並置中，移除標題橘色底線；敘述文字另起一列、橫跨服務區塊並維持靠左閱讀，圖片拼貼與服務清單不變；同步更新 Services 頁面 CSS 快取版本參數。
+  - 已驗證：來源結構／selector 檢查與範圍內 `git diff --check`；Edge 1366×900 與 390×844 實際渲染，確認三區中文標題及英文副標置中、敘述靠左且順序正確、標題不再顯示底線、圖片與服務清單順序維持，兩種尺寸均無水平溢位且 console 無 error／warning。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 `contact.html` Hero，沿用聯絡頁主視覺，並將公司地址、總機、服務時間、Google 地圖與 Google Maps 外連整合至 Hero；下方保留各部門聯絡窗口。已驗證 1366px 桌機與 390px 手機版面、Hero 內容完整呈現且無水平溢位；此檢查環境未顯示外部 Google 地圖 iframe 內容，地圖實際畫面仍待正式環境確認。
+- [x] 2026-08-13：統一 `contact.html` Hero 高度，改回共用 `--page-hero-height`（桌機 350px、手機 280px），並壓縮 Hero 內公司資訊與 Google 地圖配置以維持內容完整；已驗證桌機／手機 Hero 高度、內容位置與無水平溢位。此檢查環境未顯示外部 Google 地圖 iframe 內容，地圖實際畫面仍待正式環境確認。
+- [x] 2026-08-13：將 Contact Hero 左側改為公司資訊（公司名稱、地址、總機、服務信箱 `apadm@mail.apli.com.tw`、服務時間），右側改為 Google 地圖；沿用共用 Hero 高度。已驗證 1366px 桌機與 390px 手機版面、信箱 mailto 連結與無水平溢位；此檢查環境未顯示外部 Google 地圖 iframe 內容，地圖實際畫面仍待正式環境確認。
+- [x] 2026-08-13：移除 Contact Hero 的 `contact-hero__eyebrow` 與 `contact-hero__map-link`，放大 `contact-hero__list` 文字，並將 Hero 圖片焦點由 52% 調整至 30% 以顯示更多上方畫面；已驗證 1366px 桌機與 390px 手機版面、固定 Hero 高度、元素移除與無水平溢位。
+- [x] 2026-08-13：在 Contact Hero 公司資訊最後補上停車資訊，並將 Hero 圖片焦點由 30% 再上移至 15%；手機版同步壓縮列表間距與地圖高度以容納新增內容。已驗證桌機／手機版面、停車文字完整、圖片位置與無水平溢位。
+- [x] 2026-08-13：將 Contact Hero 內 Google 地圖與公司資訊左右位置對調，改為地圖左側、文字右側；已驗證 1366px 桌機與 390px 手機版面、固定 Hero 高度與無水平溢位。
+- [x] 2026-08-13：將 Contact Hero 左右欄改為等寬配置，統一地圖與公司資訊兩側的欄位寬度與間距；已驗證 1366px 桌機與 390px 手機版面、欄位等寬、固定 Hero 高度與無水平溢位。
+- [x] 2026-08-13：為 Contact Hero 的公司地址、總機專線、服務信箱與停車資訊加入 Phosphor `map-pin`、`phone`、`envelope-open`、`car` icon，並補上本頁字型與 glyph mapping；已驗證 icon 字型／glyph、1366px 桌機與 390px 手機版面、固定 Hero 高度與無水平溢位。
+- [x] 2026-08-13：將 Hero 內的公司資訊移至 Google 地圖 Hero 下方、各部門聯絡窗口上方；Hero 改為只顯示地圖，並保留公司資訊的 Phosphor icons；已驗證 1366px 桌機與 390px 手機版面、資訊順序、固定 Hero 高度與無水平溢位。
+
+- [x] 2026-08-13：依參考圖重做職業安全衛生「專業證照與專責能力」卡片。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/js/pages/occupational-safety.js`、`TODO.md`。
+  - 內容：保留四張卡片、現有文案、輪播控制與水平拖曳；卡片改為滿版淺幅圖片、跨接圓形 icon、標題短底線及分隔式勾選條列，桌機顯示三張完整卡片，平板兩張、手機單張並露出下一張提示；補齊卡片 scroll snap 對齊點，並在跨響應式斷點時回到第一張，避免保留舊捲動位置造成半張卡片。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings、0 errors）、範圍內 `git diff --check`；Edge 1366×900、1099×900、390×844 實際渲染，確認桌機三張、平板兩張、手機單張並露出下一張，四張圖片載入、圓形 icon 跨接、卡片等高、前後控制、手機 `touch-action: pan-x`、跨斷點回到第一組，頁面無水平溢位且 console 無 error／warning。
+  - 未驗證：滑鼠實際按住拖曳、實體觸控裝置、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：對齊職安證照卡片 icon 與標題，並恢復圖片凹入效果。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：icon 與標題改用同一個 grid 列垂直對齊並一起跨接圖片下緣；圖片增加卡片內縮留白與圓角，由淺色卡片背景形成凹入圖片框。
+  - 已驗證：來源 selector 檢查與範圍內 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、桌機／手機實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：依使用者要求恢復職安證照卡片前一版呈現。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：撤銷 icon／標題同列位移與圖片凹入框，恢復 icon 跨接圖片、標題位於右側及圖片滿版的前一版；其餘卡片設計、內容、輪播與拖曳維持不變。
+  - 已驗證：來源 selector 檢查與範圍內 `git diff --check`。
+  - 未驗證：未進行瀏覽器、桌機／手機實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：對齊職安證照卡片 icon 與標題並改用深藍色識別。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：icon 與標題改為同一個 grid 列垂直置中，縮短標題區高度及標題到資格清單的間距；卡片圓形 icon、標題短線與清單勾選標記統一改用既有 `--color-secondary` 深藍色 token。
+  - 已驗證：來源 selector 檢查與範圍內 `git diff --check`。
+  - 未驗證：未進行瀏覽器、桌機／手機實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：對齊職安證照卡片清單勾選 icon 與標題 icon 中心。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：桌機清單勾選 icon 依 52px 標題 icon 中心定位，手機依 48px icon 中心定位；同步增加清單文字左側空間，避免 icon 與文字重疊。
+  - 已驗證：來源 selector 與尺寸計算檢查、範圍內 `git diff --check`。
+  - 未驗證：未進行瀏覽器、桌機／手機實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：增加職安卡片標題 icon 白色外圈並恢復清單 icon 位置。
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 內容：標題 icon 保留深藍色圓形底，外層新增白色包覆效果以強化圖片凹入層次；撤銷清單勾選 icon 對齊標題 icon 中心的位移，恢復靠左位置及原有文字間距。
+  - 已驗證：來源 selector 檢查與範圍內 `git diff --check`。
+  - 未驗證：未進行瀏覽器、桌機／手機實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：修正職業安全衛生證照卡片圖片邊線與凹入效果，改由卡片背景形成內縮圖片框，並增加標題 icon 圓形背景尺寸與周圍間距；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：調整職業安全衛生證照卡片，標題 icon 加上圓形底色，圖片改為向卡片內縮並增加圓角留白；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：依參考圖調整職業安全衛生專業證照卡片外觀，改為圖片、白色資訊區、標題與勾選條列內容，保留原有四張卡片與水平拖曳；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：恢復職業安全衛生證照卡片邊線，將標題 icon 改為與標題相同顏色，並對齊下方條列圓點與上方 icon；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：將職業安全衛生證照卡片改回完整展開內容，移除 hover 展開、固定高度與多段轉場，改為圖片、標題、橘色條列內容的簡潔卡片；保留水平拖曳，已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：修正職業安全衛生證照卡片 hover 標題抖動，固定標題列高度與內距，移除標題本身的 hover 高度動畫，改由內容列表單獨展開；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：統一職業安全衛生證照卡片 hover 的上移、內容展開與淡入動畫為 600ms 同一 easing，改善三段效果不同步的問題；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：再放慢職業安全衛生證照卡片 hover 動畫，卡片上移改為 650ms、內容展開改為 620ms；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：修正職業安全衛生證照卡片 hover 內容被截斷問題，縮短列表分隔線範圍並放慢卡片上移動畫；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：微調職業安全衛生證照卡片 hover 狀態，拉開標題與內容間距、放大內容文字，並將標題左側 icon 改為橘色；已完成來源規則檢查，瀏覽器畫面尚未驗證。
+
+- [x] 2026-08-13：依 TECO 官網卡片設計調整職業安全衛生證照卡片。固定卡片高度，讓 hover 時內容區增加、圖片自然縮短，移除圖片縮放與額外外露邊框，保留卡片上移與標題 icon 內距；已完成來源規則檢查與 `git diff --check`，瀏覽器畫面尚未驗證。
+
 本檔案是專案唯一的待辦與進度紀錄。每次功能、介面、內容、資料、路由或驗證狀態有調整時，必須同步更新本檔案。
+
+- [x] 2026-08-13：將 Services 的 `service-section__heading` 調整為獨立區塊。
+  - 內容：標題、英文眉標與說明文字獨立佔據服務區塊上方整列；圖片與主要服務清單保留在下方左右交錯排列，手機順序維持標題、圖片、內容。
+  - 已驗證：來源 CSS grid selector 檢查。
+  - 未驗證：Services 桌機／手機瀏覽器實際版面、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除 Services 頁面的圖片輪播效果。
+  - 內容：移除三個服務區塊的圖片切換按鈕、輪播 data attribute、相關控制項 CSS 與 `services.js` 輪播邏輯；保留三圖靜態拼貼展示與一左一右交錯版型。
+  - 已驗證：來源 selector 檢查。
+  - 未驗證：Services 桌機／手機瀏覽器實際版面、圖片靜態展示、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
 
 ## 紀錄規則
 
@@ -13,6 +120,178 @@
 - 新發現的問題與頁面差異必須加入本檔案，不只記錄在聊天或 commit 訊息。
 
 ## 進行中
+
+- [x] 2026-08-13：移除 Services 頁面的 service-index 頁內導覽列。
+  - 內容：移除 `wwwroot/services.html` 的三項服務快速導覽，並清除桌機、手機與 reduced-motion 專屬 CSS selector；服務內容區塊與頁首導覽不變。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：Services 桌機／手機瀏覽器實際版面、頁內錨點與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：固定職業安全衛生證照卡片高度並調整 hover 內容區。
+  - 內容：卡片改為固定高度，hover／focus 時只重新分配卡片內的圖片與內容空間，不推高卡片；標題列增加左右 padding，圖片縮小時顯示內縮邊框與留白。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：職業安全衛生桌機／手機瀏覽器實際卡片高度、hover／focus 與拖曳效果、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整職業安全衛生專業證照卡片拖曳與 hover 展開。
+  - 內容：專業證照與專責能力區塊沿用首頁最新消息的水平捲動方向，新增滑鼠按住左右拖曳；卡片預設只顯示圖片與標題，hover／focus 時卡片上移、圖片縮小並展開內容；標題 icon 改用與文字相同的 `var(--color-ink)`。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、來源 selector 檢查與 `git diff --check`。
+  - 未驗證：職業安全衛生桌機／手機瀏覽器實際拖曳、hover／focus、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：微調營運資源表格文字與職業安全衛生英文標題。
+  - 內容：表格文字調整為 0.95rem、較寬鬆的 1.65 行高；欄位標題保留 `var(--color-ink)` 與 500 字重，數值內容改用 `var(--color-muted)`；英文小標由 `OCCUPATIONAL SAFETY` 修正為正式完整的 `OCCUPATIONAL SAFETY AND HEALTH`。
+  - 已驗證：來源 selector／文案檢查與 `git diff --check`。
+  - 未驗證：營運資源桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整營運資源四個主要區塊的圖片與間距。
+  - 內容：將廠區資訊、機具配置、作業量能與職業安全衛生圖片統一為與 About 公司簡介相同的 4:3 比例；移除圓角、陰影與健康安全圖片的額外放大裁切；標題「健康與安全」改為「職業安全衛生」；區塊間距 token 對齊 About 的 `clamp(64px, 8vw, 112px)` 節奏。
+  - 已驗證：來源結構／selector 檢查與 `git diff --check`。
+  - 未驗證：營運資源桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：對齊 About 公司簡介正文背景與圖片底部。
+  - 內容：桌機版讓公司簡介左欄與右側圖片同高，正文背景從內容起點延伸至圖片底部；文字寬度維持原本左欄寬度，手機版不變。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：修正 About 公司簡介背景延伸範圍。
+  - 內容：保留正文原本左欄文字寬度，僅以背景伪元素向右延伸至欄位中間，避免文字跟著背景一起變寬。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：讓 About 公司簡介正文文字同步延伸至中間區域。
+  - 內容：將桌機版正文背景區塊改為明確增加欄位間距的寬度，讓文字排版也能使用延伸後的空間；手機版維持單欄寬度。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：延伸 About 公司簡介正文背景至桌機欄位中間。
+  - 內容：讓正文淺色背景在桌機版向右延伸，填滿公司簡介文字欄與圖片欄之間的 grid gap；841px 以下維持單欄寬度，避免水平溢位。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 About 公司簡介標題間距與正文背景區塊。
+  - 內容：將公司簡介英文小標與中文標題間距由文字欄原本的 20px 調整為 8px；兩段正文新增淺色背景與內距，並同步套用靜態 `wwwroot/about.html` 與 Razor `Pages/About.cshtml`。
+  - 已驗證：來源結構檢查與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將 About 經營理念改為 sticky 圖片滾動呈現。
+  - 內容：經營理念改為限定寬度的三張直式圖片卡片，移除區塊背景色，預設等寬排列並加入較明顯的 42% 黑色半透明遮罩；hover／focus／click 時展開目前卡片，保留 18% 淡遮罩以維持文字對比，icon、標題與說明移至卡片中央，不使用文字立體效果與中央內容背景色；標題 `strong` 改用既有標題字體 token；認證與獎項區塊移除 `services/services-hero.jpg` 背景圖片與漸層，改用 `var(--color-surface-soft)` 淡色背景，增加區塊上下留白避免背景貼齊相鄰內容；補上靜態 `about.html` 的完整 Footer；相鄰區塊交界改為只保留單一份垂直 padding；移除卡片兩側貼齊並降低桌機與手機卡片高度。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release` 與 `git diff --check`。
+  - 未驗證：About 桌機／手機瀏覽器實際卡片 hover／focus／click 與字體呈現、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 About 公司簡介圖片版面。
+  - 內容：移除公司簡介圖片的圓角與陰影，並讓圖片容器填滿右側欄位寬度。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：修正首頁服務卡片整卡導向與 hover 邊線。
+  - 內容：服務卡片改為整卡可點擊並導向對應服務 anchor，icon 保留為右上角視覺提示；hover／focus 的卡片邊線固定維持 `var(--color-line)`。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際點擊與 hover、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整首頁服務項目 hover 圖片與 icon 位置。
+  - 內容：服務卡片右下角 icon 移至圖片右上角，hover／focus 時顯示白色 icon；圖片放大至 1.08 倍並加入黑色半透明遮罩，新增圖片層以限制遮罩範圍。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：首頁最新消息改為顯示全部已發布消息。
+  - 內容：移除 `wwwroot/js/pages/home.js` 的 `.slice(0, 6)` 限制，保留最新排序、已發布篩選、水平拖曳與分頁控制。
+  - 已驗證：來源 selector 檢查、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`。
+  - 未驗證：本機服務啟動後的實際消息數量、桌機／手機瀏覽器、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整首頁最新消息卡片 hover 視覺。
+  - 內容：卡片 hover／focus 時僅讓標題顯示類似 `<a>` 的 2px 文字底線，消息圖片放大至 1.08 倍並加入黑色半透明遮罩，右上角顯示白色 icon；預設背景圖維持可縮放的背景層。
+  - 已驗證：來源 selector 檢查與 `git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：修正首頁最新消息卡片導向。
+  - 內容：將 `wwwroot/js/pages/home.js` 產生的消息詳情連結由 `news-detail.html?id=...` 統一改為正式 Razor 路由 `/news/{id}`，與 `Pages/News/Index.cshtml` 的消息列表連結一致。
+  - 已驗證：來源路由檢查、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release` 與 `git diff --check`。
+  - 未驗證：本機服務啟動後的實際點擊導向、桌機／手機瀏覽器、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 固定首頁最新消息卡片 hover 邊線顏色。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：hover／focus 時維持與一般狀態相同的 `var(--color-line)`，不再變為透明。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 恢復首頁最新消息區塊邊線。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：恢復標題下方分隔線與消息卡片外框線；保留 hover 圖片放大及 hover／focus 顯示 icon 的行為。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 調整首頁最新消息區塊邊線與 hover icon 顯示。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：移除標題下方與消息卡片的可見邊線，右下角 icon 預設隱藏，僅在卡片 hover／focus 時顯示，貼近參考圖的視覺呈現。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 調整首頁最新消息卡片 hover 與右下角 icon。
+  - 範圍：`wwwroot/js/pages/home.js`、`wwwroot/css/pages/home.css`。
+  - 內容：移除最新消息卡片陰影與 hover 上移，改為圖片放大；移除右下角 `MORE` 文字，改用與服務項目一致的 `ph-arrow-bend-up-right` icon、22px 尺寸與相同顏色。
+  - 已驗證：來源 selector／動態產生邏輯檢查、`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 放大首頁服務項目卡片右下角 icon。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：將服務卡片右下角 `ph-arrow-bend-up-right` 由 16px 放大為 22px，保留原本顯示時機與位置。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 修正首頁服務項目右下角 Phosphor icon 未顯示。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 原因：專案未載入完整 Phosphor class mapping；補上 `ph-arrow-bend-up-right` 對應的 `\e026` glyph codepoint。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 替換首頁服務項目卡片右下角 icon。
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 內容：三個服務卡片的右下角 icon 改為 Phosphor `ph-arrow-bend-up-right`，保留 hover／focus 顯示與 icon 位移效果。
+  - 已驗證：來源 class／selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 調整首頁服務項目卡片 hover 互動。
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 內容：移除卡片 hover 位移，改為圖片放大；右下角服務連結預設隱藏，hover／focus-within 時只顯示 icon，移除 `MORE` 文字並補上各服務的 `aria-label`。
+  - 已驗證：HTML／CSS selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 移除首頁服務項目卡片陰影。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：保留卡片邊框與 hover 上移效果，移除一般狀態及 hover／focus-within 狀態的陰影。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
+
+- [x] 調整首頁「關於亞太」圖片左側對齊與外觀。
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 內容：圖片容器改為寬度 100%、左側對齊，移除圓角與陰影；同步移除手機版圓角覆寫。保留先前最新消息區塊的未提交修改。
+  - 已驗證：來源 selector 檢查、`git diff --check`。
+  - 未驗證：本次修改後桌機／手機瀏覽器實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 更新：2026-08-13。狀態：待提交。
 
 - [x] 對齊 `occupational-safety.html` 舊版內容區介面。
   - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
@@ -834,4 +1113,250 @@
   - 內容：服務區塊內多段介紹文字改為左對齊，讓第二段與第一段的文字起點一致；移除服務內容清單的上方與項目間分隔線，保留 chevron、間距與文字樣式。
   - 已驗證：來源 selector 檢查、`git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
   - 未驗證：桌機／平板／手機實際渲染、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整首頁經營理念圓圈互動。
+  - 內容：將 `.home-page .home-philosophy__list li > span` 改為深藍背景，保留原有圖示，滑鼠移入或鍵盤聚焦時以 3D 翻轉顯示對應理念文字，並加入 reduced-motion 支援。
+  - 已驗證：來源 selector 檢查、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 警告、0 錯誤）與 `git diff --check`；依需求未啟動網站，未進行實機／瀏覽器驗證。
+  - 未驗證：桌機／平板／手機實際翻轉效果、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Contact 公司資訊與 Google 地圖版位。
+  - 內容：Hero 保留與其他頁面一致的圖片高度並移除地圖內容；公司資訊改以「公司資訊／COMPANY INFORMATION」標題呈現，移除欄位 icon；Google 地圖移至 Hero 下方，與公司資訊左右並列，手機版改為上下排列。
+  - 已驗證：來源結構與 selector 檢查、桌機／手機瀏覽器版面檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、Google 地圖第三方內容實際載入與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：精簡 Contact 地圖與內容區塊。
+  - 內容：移除 Google 地圖容器的 padding 與陰影，並完整移除各部門聯絡窗口區塊及其相關 CSS；同步更新頁面描述文字。
+  - 已驗證：來源結構與 selector 檢查、桌機／手機瀏覽器版面檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、Google 地圖第三方內容實際載入與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 Contact Hero 標題顯示。
+  - 內容：依共用 Hero 結構補回「聯絡我們」標題，Hero 維持原有高度與圖片焦點；公司資訊標題調整為 `h2`，保留頁面唯一的 `h1`。
+  - 已驗證：桌機／手機瀏覽器檢查、Hero 高度與標題可見性、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services「倉儲物流」左右版位。
+  - 內容：桌機版將「主要服務項目」移至右側、圖片展示移至左側；平板與手機維持圖片在前、服務項目在後的單欄排列。
+  - 已驗證：桌機／手機瀏覽器版位與水平溢位檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：統一全站公開頁面主要內文字級。
+  - 內容：在 `tokens.css` 新增響應式主要內文字級（約 16–17px），並套用至首頁、公司簡介、公司沿革、營運資源、職業安全、服務項目、關係企業、聯絡我們、人才招募、新聞內頁及隱私權頁面的段落、說明與內容清單；導覽、頁尾、按鈕、標題、日期、標籤及資料表輔助資訊維持原尺寸。
+  - 已驗證：`dotnet build -c Release`（0 warning、0 error）、指定檔案 `git diff --check`、共用字級 token 使用位置檢查。
+  - 未驗證：桌機／手機實際畫面（本機服務未啟動且瀏覽器無可用一般視窗）、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：簡化 Services「倉儲物流」圖片展示。
+  - 內容：移除左側三張圖片拼貼，改為保留一張倉儲物流主圖，維持圖片在左、主要服務項目在右的桌機版位。
+  - 已驗證：桌機／手機瀏覽器圖片數量、版位與水平溢位檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將「倉儲物流」圖片與服務項目整合為雙欄卡片。
+  - 內容：依參考圖將左側主圖與右側主要服務項目放入同一張卡片，服務項目改為兩欄小卡；平板／手機改為上下排列。
+  - 已驗證：桌機／手機瀏覽器視覺與版位檢查、圖片載入確認、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復「倉儲物流」原本的圖片與服務清單版型。
+  - 內容：撤回整合卡片與服務項目小卡樣式，保留單張主圖在左、原本主要服務項目清單在右；未恢復三張圖片拼貼。
+  - 已驗證：桌機／手機瀏覽器版位與水平溢位檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整「倉儲物流」圖片尺寸與服務項目高低差。
+  - 內容：放大桌機版左側圖片比例，並將右側主要服務項目對齊圖片底部；平板／手機維持標準上下排列。
+  - 已驗證：桌機／手機瀏覽器尺寸、底部對齊與水平溢位檢查、圖片載入確認、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：為「主要服務項目」增加公司簡介風格背景。
+  - 內容：套用與公司簡介內容區相近的 `var(--color-surface-soft)` 淺色背景與內距，維持服務項目在圖片底部的高低差配置。
+  - 已驗證：桌機／手機瀏覽器背景色、版位與水平溢位檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：銜接「主要服務項目」與圖片之間的背景色。
+  - 內容：桌機版以服務項目區塊的淺色背景向左延伸至圖片與文字區塊之間，維持原有文字位置與高低差；手機版不改變上下排列。
+  - 已驗證：桌機／手機瀏覽器背景銜接、文字位置與水平溢位檢查、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：新增「倉儲物流」左側圖片輪播。
+  - 內容：將倉庫、貨櫃場與場站全景三張圖片整合為輪播，加入上一張／下一張、指示點、自動播放、滑鼠／鍵盤聚焦暫停與 reduced-motion 支援，維持既有圖片尺寸與右側服務項目位置。
+  - 已驗證：桌機／手機瀏覽器輪播初始化、下一張切換、版位與水平溢位檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、自動播放完整週期與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整輪播「下一張」控制鈕配色。
+  - 內容：下一張按鈕改為白色背景、橘色 icon，並同步套用 hover／focus 狀態；上一張按鈕維持原本深色樣式。
+  - 已驗證：桌機瀏覽器按鈕 computed style 與水平溢位檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：放大「倉儲物流」左側輪播圖片並向左外溢。
+  - 內容：桌機版圖片向左超出內容容器一小段並增加寬度，圖片右緣與服務項目位置維持不變；手機版不外溢。
+  - 已驗證：桌機／手機瀏覽器圖片邊界、右側文字位置與水平溢位檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復輪播「下一張」控制鈕原本配色。
+  - 內容：移除白底橘色覆寫，下一張按鈕恢復與上一張一致的深色背景、白色 icon。
+  - 已驗證：桌機瀏覽器 computed style 與水平溢位檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：同步輪播圖片寬度與指示點數量。
+  - 內容：再次增加桌機版左側輪播圖片的左側外溢寬度；指示點改由輪播圖片數量自動產生，現有 6 張圖片會顯示 6 個點，並同步更新 slide ARIA 張數資訊。
+  - 已驗證：桌機／手機瀏覽器圖片邊界、6 張圖片／6 個指示點、ARIA 張數、水平溢位檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、自動播放完整週期與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將「主要服務項目」背景延伸至頁面右側。
+  - 內容：服務項目的淺色背景向右延伸至頁面邊界，保留原有文字位置與圖片／服務項目高低差；加入 Services 頁面水平溢位裁切，避免背景延伸產生水平捲軸。
+  - 已驗證：桌機／手機瀏覽器右側背景延伸、文字位置與水平捲軸檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、自動播放完整週期與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 Services 背景延伸前的範圍。
+  - 內容：取消背景填滿至頁面最右側與水平溢位裁切，保留圖片與主要服務項目之間的背景色銜接、圖片寬度與輪播功能。
+  - 已驗證：桌機瀏覽器背景 pseudo 範圍、水平溢位與既有輪播指示點檢查、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、自動播放完整週期與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：放大 Services 服務項目小標題。
+  - 內容：將 `.service-section__details h3` 由固定 16px 調整為響應式約 18–20px，使其清楚高於服務清單內文，維持原有粗細、行高及間距。
+  - 已驗證：指定檔案 `git diff --check`、CSS selector 與字級值檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將「貨櫃清洗與維修」及「機具維修與銷售」調整為與「倉儲物流」一致的區塊介面。
+  - 內容：兩個區塊改用相同的左側圖片輪播、右側主要服務項目背景區塊、圖片左側外溢與桌機高低差版型；輪播指示點由既有 JavaScript 依圖片數量產生，並保留原有文字與圖片。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的三個區塊排列、圖片／資訊順序、背景色、水平溢位、輪播圖片數量與指示點數量；桌機輪播下一張控制；`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、自動播放完整週期與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除「貨櫃清洗與維修」區塊的預設淺色背景。
+  - 內容：保留 `service-section--reverse` 的版面排列，只將 `#terminal-handling` 區塊背景恢復為一般頁面背景；右側主要服務項目背景維持不變。
+  - 已驗證：桌機／手機瀏覽器背景色與版面排列、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：整合「機具維修與銷售」區塊說明文字。
+  - 內容：將服務範圍、現場維修保養及代理銷售內容合併為單一段落，改善閱讀連續性並保留原有文案。
+  - 已驗證：`git diff --check`。
+  - 未驗證：實際瀏覽器畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：新增 Services Hero 下方的服務項目切換選單。
+  - 內容：加入純文字 tab 列，串接三個服務 panel 的顯示／隱藏、網址 hash 與頁首服務選單；保留無 JavaScript 時的內容可讀性，手機版改為自動換行，不使用水平拖曳。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的預設 panel、純文字選單、點選切換、網址 hash、鍵盤方向鍵／Enter、手機水平滑動與水平溢位；瀏覽器 console 無 error／warning；`node --check wwwroot/js/pages/services.js`、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services 切換列底線與溢位行為。
+  - 內容：移除整列滿版底線，只保留目前選中項目下方的橘色指示線；取消水平拖曳與捲軸，手機版改為換行顯示。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的底線、捲軸、換行、水平溢位與服務切換；瀏覽器 console 無 error／warning；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：依照關係企業頁面調整 Services 切換列間距與底線。
+  - 內容：增加 Hero 與切換列之間的上方留白，將下底線限制在內容容器寬度，並改用關係企業頁面的 tab 底線與選中項目樣式。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的 Hero 間距、內容容器寬度下底線、選中項目橘色底線、手機換行與水平溢位；瀏覽器 console 無 error／warning；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services 切換選單 hover 顏色。
+  - 內容：hover／focus 時只顯示淺色背景，不改變文字顏色；目前選中項目的橘色文字與底線維持不變。
+  - 已驗證：Edge 桌機 1366×900 實際 hover 背景與文字顏色、瀏覽器 console 無 error／warning、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、手機瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services 切換選單選中項目文字顏色。
+  - 內容：選中項目文字維持一般灰色，不再變成橘色；保留粗體與橘色底線作為選中狀態提示。
+  - 已驗證：Edge 桌機 1366×900 選中項目文字與一般項目顏色一致、橘色底線與粗體保留、無水平溢位、瀏覽器 console 無 error／warning、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、手機瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除 Services 切換選單選中項目的粗體。
+  - 內容：選中項目只保留橘色底線，文字顏色與字重均維持一般狀態。
+  - 已驗證：Edge 桌機 1366×900 選中／未選中字重均為一般字重、選中項目橘色底線保留、瀏覽器 console 無 error／warning、`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari、手機瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：比照 Services 調整 affiliates.html 切換選單。
+  - 內容：關係企業切換選單 hover／focus 只顯示淺色背景，選中項目文字維持一般灰色與字重，只保留橘色底線。
+  - 已驗證：Edge 桌機 1366×900 實際 hover／選中樣式、選中與一般文字顏色及字重一致、橘色底線保留、瀏覽器 console 無 error／warning、`git diff --check`；已加入 CSS 版本參數避免瀏覽器沿用舊樣式。
+  - 未驗證：實體裝置、Firefox／Safari、手機瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：在「倉儲物流」主要服務項目下方新增營運資訊導引。
+  - 內容：將「了解詳細營運資訊」導引移回「主要服務項目」卡片內的服務清單下方；保留原始背景圖片、白色標題、變數按鈕「前往查看」與 `operational-resources.html` 連結。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的卡片內位置、服務清單下方排列、按鈕樣式、原始背景圖片、`operational-resources.html` 目標網址、水平溢位與瀏覽器 console；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：恢復「倉儲物流」原本的營運資訊導引位置。
+  - 內容：移除獨立背景圖片 CTA，恢復放在「主要服務項目」服務清單下方的 `.service-section__details-link`；使用原本說明文字與文字箭頭連結，導向 `operational-resources.html`。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的卡片內位置、說明文字、連結網址、無獨立 CTA 結構、無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：重新設計 Services 業務洽談區塊。
+  - 內容：將頁尾原本的水平聯絡 CTA 改為置中業務洽談區，採英文識別、中文標題與深藍色部門聯絡卡；卡片顯示「營業部」及可直接撥打的 `07-813-7912`，手機版改為上下排列。
+  - 已驗證：`dotnet build -c Release`、指定檔案 `git diff --check`、電話連結及響應式 selector 檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 Services 原有聯絡 CTA。
+  - 內容：依需求撤回「業務洽談／營業部」聯絡卡，恢復原本「了解詳細服務項目內容」文字與「聯絡我們」按鈕；保留其餘 Services 版面與字級調整。
+  - 已驗證：指定檔案 `git diff --check`、聯絡區塊結構與相關 CSS selector 檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將 Services 聯絡區改為圖片與資訊雙欄版型。
+  - 內容：左側使用 `privacy-policy.jpg`，右側顯示業務洽談說明、營業部與可直接撥打的 `07-813-7912`；桌機以斜切圖片邊界銜接文字，手機改為圖片在上、資訊在下並保留斜切感。
+  - 已驗證：`dotnet build -c Release`、指定檔案 `git diff --check`、圖片路徑、電話連結及桌機／手機響應式 selector 檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除 Services 聯絡區外層背景與留白。
+  - 內容：移除聯絡區塊新增的淺色背景及上下 padding，保留圖片斜切、雙欄資訊與右側文字必要內距。
+  - 已驗證：指定檔案 `git diff --check`、聯絡區塊背景與外層 padding selector 檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將 Services 聯絡區改為低高度滿版呈現。
+  - 內容：移除上邊線、容器寬度限制、卡片外框、圓角及陰影，讓圖片與文字填滿左右兩側；桌機最小高度由 380px 降為 320px，並縮減文字區垂直留白。
+  - 已驗證：指定檔案 `git diff --check`、滿版結構及高度 selector 檢查。
+  - 未驗證：桌機／手機實際畫面、實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：將「查看場區設備與配置」改為可點擊文字連結。
+  - 內容：移除「前往查看」按鈕，將文字本身導向 `operational-resources.html`，保留原本主要服務項目區塊內的分隔與間距。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的文字連結、`operational-resources.html` 目標網址、按鈕移除與無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：調整「查看廠區設備與配置」導引的間距、對齊與 icon。
+  - 內容：統一導引上下內距，文字改為右側對齊，補上既有箭頭 icon，並維持整段連結至 `operational-resources.html`。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的右側對齊、箭頭 icon、上下 20px 內距、連結網址與無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：將服務項目區塊與導引連結下移，並統一使用 Phosphor icon。
+  - 內容：桌機版主要服務項目卡片下移 12–20px，底部導引同步下移；導引箭頭改用網站既有 `ph-arrow-bend-up-right` Phosphor icon。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 的服務項目卡片下移、Phosphor icon、連結網址與無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：增加桌機版服務項目區塊的下移幅度。
+  - 內容：將主要服務項目卡片與底部導引的桌機版下移幅度調整為 24–40px，手機版維持不變。
+  - 已驗證：Edge 桌機 1366×900 確認卡片下移 40px、手機 390×844 維持原位置，兩種尺寸均無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-13：恢復加入「查看廠區設備與配置」導引前的服務項目區塊。
+  - 內容：移除「查看廠區設備與配置」文字連結、Phosphor icon、分隔線與相關間距，並撤回服務項目卡片的額外下移；保留主要服務項目清單。
+  - 已驗證：Edge 桌機 1366×900 與手機 390×844 確認導引移除、額外下移撤回、服務項目位置恢復與無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
   - 狀態：待提交；未自行 commit 或 push。

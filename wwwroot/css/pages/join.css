@@ -91,6 +91,7 @@
 .join-intro p:not(.eyebrow) {
   margin: 0;
   color: var(--color-muted);
+  font-size: var(--font-size-body-copy);
   line-height: 1.75;
 }
 
@@ -107,7 +108,7 @@
   border: 1px solid var(--color-line);
   border-collapse: collapse;
   table-layout: fixed;
-  font-size: 1rem;
+  font-size: var(--font-size-body-copy);
 }
 
 .benefits-table th,
@@ -327,7 +328,7 @@
 
   .benefits-table tbody td {
     padding: 0 18px 18px;
-    font-size: 0.95rem;
+    font-size: var(--font-size-body-copy);
   }
 
   .recruitment-links {

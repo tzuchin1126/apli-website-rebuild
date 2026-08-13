@@ -12,7 +12,7 @@
 .milestone-panel time { color: var(--color-primary-dark); font-weight: 700; line-height: 1.7; }
 .milestone-panel h2, .milestone-panel p { margin: 0; }
 .milestone-panel h2 { font-family: var(--font-body); font-size: clamp(1rem, 1.25vw, 1.16rem); font-weight: 500; line-height: 1.55; }
-.milestone-panel p { color: var(--color-muted); line-height: 1.7; }
+.milestone-panel p { color: var(--color-muted); font-size: var(--font-size-body-copy); line-height: 1.7; }
 @keyframes milestone-panel-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .milestone-panel:not([hidden]) { animation: none; } }
 @media (max-width: 760px) { .milestones-breadcrumb { display: none; } .milestones-content { padding-top: 24px; padding-bottom: 80px; } .milestone-tabs { display: grid; grid-template-columns: 1fr; } .milestone-panel article { grid-template-columns: minmax(0, 1fr); gap: 6px; } }

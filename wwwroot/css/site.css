@@ -5,3 +5,8 @@
   width: min(100% - (var(--content-padding) * 2), var(--content-max-width));
   margin-inline: auto;
 }
+
+.privacy-content p {
+  font-size: var(--font-size-body-copy);
+  line-height: 1.8;
+}

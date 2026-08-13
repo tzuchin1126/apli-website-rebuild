@@ -18,9 +18,53 @@
     if (!viewport || !pager) return;
 
     const cards = Array.from(list.querySelectorAll(".safety-credential-card"));
+    let activePointerId = null;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+    let hasDragged = false;
+    let suppressClick = false;
+
+    const finishPointerDrag = (event) => {
+      if (event.pointerId !== activePointerId) return;
+      viewport.classList.remove("is-dragging");
+      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+      if (hasDragged) suppressClick = true;
+      activePointerId = null;
+    };
+
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      activePointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartScrollLeft = viewport.scrollLeft;
+      hasDragged = false;
+      suppressClick = false;
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
+    });
+
+    viewport.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== activePointerId) return;
+      const distance = event.clientX - dragStartX;
+      if (Math.abs(distance) < 4) return;
+      hasDragged = true;
+      event.preventDefault();
+      viewport.scrollLeft = dragStartScrollLeft - distance;
+    }, { passive: false });
+
+    viewport.addEventListener("pointerup", finishPointerDrag);
+    viewport.addEventListener("pointercancel", finishPointerDrag);
+    viewport.addEventListener("click", (event) => {
+      if (!suppressClick) return;
+      suppressClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+    viewport.addEventListener("dragstart", (event) => event.preventDefault());
+
     const cardsPerPage = () => {
       if (window.matchMedia("(max-width: 760px)").matches) return 1;
-      if (window.matchMedia("(max-width: 980px)").matches) return 2;
+      if (window.matchMedia("(max-width: 1099px)").matches) return 2;
       return 3;
     };
 
@@ -95,6 +139,7 @@
     const onResize = () => {
       if (cardsPerPage() !== pageSize) {
         window.removeEventListener("resize", onResize);
+        viewport.scrollTo({ left: 0, behavior: "auto" });
         setupCredentialsCarousel();
         return;
       }

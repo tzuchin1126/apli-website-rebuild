@@ -1,8 +1,8 @@
 .operational-resources-page {
   --page-hero-image-position: center 60%;
   --page-hero-image-origin: 35% 66%;
-  --resources-section-space: clamp(64px, 7vw, 96px);
-  --resources-feature-gap: clamp(48px, 6vw, 96px);
+  --resources-section-space: clamp(64px, 8vw, 112px);
+  --resources-feature-gap: clamp(48px, 6.7vw, 96px);
   --resources-content-gap: 20px;
   --resources-title-size: clamp(1.9375rem, 1.825rem + 0.375vw, 2.3125rem);
   --resources-title-line-height: clamp(39px, 36.666px + 0.487vw, 48.1px);
@@ -82,11 +82,12 @@
 .operational-resources-page .resource-media {
   grid-area: media;
   align-self: center;
+  width: 100%;
   aspect-ratio: 4 / 3;
   margin: 0;
   overflow: hidden;
-  border-radius: calc(var(--card-radius) * 2);
-  box-shadow: 0 18px 42px rgb(15 50 66 / 12%);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .operational-resources-page .resource-media img {
@@ -103,8 +104,7 @@
 }
 
 .operational-resources-page .resource-media--safety img {
-  transform: scale(2);
-  transform-origin: 63% 61%;
+  transform: none;
 }
 
 .operational-resources-page .resource-body {
@@ -118,7 +118,7 @@
 .operational-resources-page .resource-body p {
   margin: 0;
   color: var(--color-muted);
-  font-size: 1rem;
+  font-size: var(--font-size-body-copy);
   font-weight: 400;
   line-height: 1.73;
 }
@@ -127,9 +127,9 @@
   width: 100%;
   margin: 0;
   border-collapse: collapse;
-  color: var(--color-ink);
-  font-size: 1rem;
-  line-height: 1.55;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 .operational-resources-page .resource-body th,
@@ -141,12 +141,13 @@
 
 .operational-resources-page .resource-body th {
   width: 36%;
+  color: var(--color-ink);
   font-weight: 500;
   text-align: left;
 }
 
 .operational-resources-page .resource-body td {
-  color: var(--color-ink);
+  color: var(--color-muted);
   text-align: right;
 }
 
@@ -258,7 +259,7 @@
   max-width: 24em;
   margin: 0;
   color: inherit;
-  font-size: clamp(0.86rem, 0.9vw, 0.96rem);
+  font-size: var(--font-size-body-copy);
   line-height: 1.7;
 }
 
@@ -271,7 +272,7 @@
   max-width: 38em;
   margin: 18px auto 0;
   color: var(--color-ink);
-  font-size: 1.05rem;
+  font-size: var(--font-size-body-copy);
   line-height: 1.8;
 }
 
@@ -423,7 +424,7 @@
   }
 
   .operational-resources-page .resource-media {
-    border-radius: var(--card-radius);
+    border-radius: 0;
   }
 
   .operational-resources-page .resource-body table {

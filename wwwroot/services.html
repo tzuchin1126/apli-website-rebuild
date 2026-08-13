@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="css/layout/site-header.css">
         <link rel="stylesheet" href="css/layout/site-footer.css">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/services.css?v=20260812-services-continuous">
+        <link rel="stylesheet" href="css/pages/services.css?v=20260813-services-contact-split-v15">
         <link rel="stylesheet" href="css/site.css">
     </head>
     <body class="services-page">
@@ -84,39 +84,54 @@
                 <h1 class="page-hero__title" id="services-hero-title">服務項目</h1>
             </section>
 
-            <section class="services-content" aria-label="服務項目內容">
-                <nav class="service-index" aria-label="服務項目頁內導覽">
-                    <div class="service-index__inner site-container">
-                        <a href="#warehousing">倉儲物流</a>
-                        <a href="#terminal-handling">貨櫃清洗與維修</a>
-                        <a href="#maintenance">機具維修與銷售</a>
+            <nav class="service-switcher" aria-label="服務項目切換">
+                <div class="service-switcher__inner site-container">
+                    <div class="service-switcher__list" role="tablist" aria-label="選擇服務項目">
+                        <button id="service-tab-warehousing" class="service-switcher__tab" type="button" role="tab" aria-controls="warehousing" aria-selected="true">倉儲物流</button>
+                        <button id="service-tab-terminal-handling" class="service-switcher__tab" type="button" role="tab" aria-controls="terminal-handling" aria-selected="false" tabindex="-1">貨櫃清洗與維修</button>
+                        <button id="service-tab-maintenance" class="service-switcher__tab" type="button" role="tab" aria-controls="maintenance" aria-selected="false" tabindex="-1">機具維修與銷售</button>
                     </div>
-                </nav>
+                </div>
+            </nav>
 
-                <article id="warehousing" class="service-section service-section--collage">
+            <section class="services-content" aria-label="服務項目內容">
+                <article id="warehousing" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-warehousing">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
                             <h2>倉儲物流</h2>
-                            <p>我們提供貨櫃與貨物的倉儲、裝卸、拆裝櫃及場站管理服務，整合碼頭、貨櫃場與CFS倉庫作業，協助客戶完成貨櫃進出站、貨物裝櫃出站及後續轉運。</p>
-                            <p>亞太位於高雄港腹地後線，面積約7.69公頃，可依照船期、貨物型態與場區作業需求，安排貨櫃儲放、貨物暫存及場內調度，提升整體物流作業效率。</p>
+                            <p class="eyebrow">WAREHOUSING &amp; LOGISTICS</p>
+                            <p>我們提供貨櫃與貨物的倉儲、裝卸、拆裝櫃及場站管理服務，整合碼頭、貨櫃場與CFS倉庫作業，協助客戶完成貨櫃進出站、貨物裝櫃出站及後續轉運。廠區位於高雄港腹地後線，面積約7.69公頃，可依船期、貨物型態與作業需求彈性調度貨櫃儲放與貨物暫存，提升整體物流效率。</p>
                         </header>
-                        <figure class="service-section__media service-section__media--collage" data-image-collage aria-label="倉儲物流圖片展示">
-                            <div class="service-collage__grid">
-                                <img src="public/images/services/warehousing-yard.png" alt="貨櫃場的倉儲與物流作業" loading="eager" decoding="async">
-                                <img src="public/images/services/container-yard-overview-1.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
-                                <img src="public/images/services/warehouse-storage.png" alt="倉庫內的貨物儲放作業" loading="lazy" decoding="async">
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="倉儲物流圖片展示">
+                            <div class="service-carousel__viewport">
+                                <div class="service-carousel__track">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 3 張">
+                                        <img src="public/images/services/warehouse-storage.png" alt="倉庫內的貨物儲放作業" loading="eager" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 3 張">
+                                        <img src="public/images/services/warehousing-yard.png" alt="貨櫃場的倉儲與物流作業" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 3 張">
+                                        <img src="public/images/services/container-yard-overview-1.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 4 張，共 6 張">
+                                        <img src="public/images/index/1223.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 5 張，共 6 張">
+                                        <img src="public/images/services/about-hero.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 6 張，共 6 張">
+                                        <img src="public/images/services/home-hero-alternate.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="service-collage__controls" role="group" aria-label="倉儲物流圖片切換控制">
-                                <button class="service-collage__arrow service-collage__arrow--previous" type="button" data-collage-previous aria-label="上一張倉儲物流圖片" disabled>
-                                    <i class="ph ph-caret-left" aria-hidden="true">&#xe138;</i>
-                                </button>
-                                <button class="service-collage__page is-active" type="button" data-collage-page="0" aria-label="顯示第 1 張倉儲物流圖片" aria-current="page"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="1" aria-label="顯示第 2 張倉儲物流圖片"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="2" aria-label="顯示第 3 張倉儲物流圖片"></button>
-                                <button class="service-collage__arrow service-collage__arrow--next" type="button" data-collage-next aria-label="下一張倉儲物流圖片">
-                                    <i class="ph ph-caret-right" aria-hidden="true">&#xe13a;</i>
-                                </button>
-                            </div>
+                            <button class="service-carousel__control service-carousel__control--prev" type="button" data-carousel-prev aria-label="上一張圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg>
+                            </button>
+                            <button class="service-carousel__control service-carousel__control--next" type="button" data-carousel-next aria-label="下一張圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
+                            </button>
+                            <div class="service-carousel__dots" data-carousel-dots role="group" aria-label="選擇倉儲物流圖片"></div>
                         </figure>
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
@@ -131,74 +146,81 @@
                     </div>
                 </article>
 
-                <article id="terminal-handling" class="service-section service-section--reverse service-section--collage">
+                <article id="terminal-handling" class="service-section service-section--reverse" data-service-panel role="tabpanel" aria-labelledby="service-tab-terminal-handling">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
                             <h2>貨櫃清洗與維修</h2>
+                            <p class="eyebrow">CONTAINER CLEANING &amp; REPAIR</p>
                             <p>服務據點涵蓋亞太本場及萬海碼頭，持有專業修櫃證照，配合場站與航商需求安排洗櫃、修櫃及貨櫃狀況處理，協助貨櫃維持良好使用狀態。</p>
                         </header>
-                        <figure class="service-section__media service-section__media--collage" data-image-collage aria-label="貨櫃清洗與維修圖片展示">
-                            <div class="service-collage__grid">
-                                <img src="public/images/services/container-cleaning.jpg" alt="作業人員進行貨櫃內部清洗" loading="lazy" decoding="async">
-                                <img src="public/images/occupational-safety/326.jpg" alt="貨櫃場現場作業人員協同作業" loading="lazy" decoding="async">
-                                <img src="public/images/services/equipment-maintenance.png" alt="貨櫃場使用機具進行搬運作業" loading="lazy" decoding="async">
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="貨櫃清洗與維修圖片展示">
+                            <div class="service-carousel__viewport">
+                                <div class="service-carousel__track">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 3 張">
+                                        <img src="public/images/services/container-cleaning.jpg" alt="作業人員進行貨櫃內部清洗" loading="eager" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 3 張">
+                                        <img src="public/images/services/12.jpg" alt="貨櫃場現場作業人員協同作業" loading="lazy" decoding="async">
+                                    </div>
+                                    <!-- <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 3 張">
+                                        <img src="public/images/services/03.jpg" alt="貨櫃場使用機具進行搬運作業" loading="lazy" decoding="async">
+                                    </div> -->
+                                </div>
                             </div>
-                            <div class="service-collage__controls" role="group" aria-label="貨櫃清洗與維修圖片切換控制">
-                                <button class="service-collage__arrow service-collage__arrow--previous" type="button" data-collage-previous aria-label="上一張貨櫃清洗與維修圖片" disabled>
-                                    <i class="ph ph-caret-left" aria-hidden="true">&#xe138;</i>
-                                </button>
-                                <button class="service-collage__page is-active" type="button" data-collage-page="0" aria-label="顯示第 1 張貨櫃清洗與維修圖片" aria-current="page"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="1" aria-label="顯示第 2 張貨櫃清洗與維修圖片"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="2" aria-label="顯示第 3 張貨櫃清洗與維修圖片"></button>
-                                <button class="service-collage__arrow service-collage__arrow--next" type="button" data-collage-next aria-label="下一張貨櫃清洗與維修圖片">
-                                    <i class="ph ph-caret-right" aria-hidden="true">&#xe13a;</i>
-                                </button>
-                            </div>
+                            <button class="service-carousel__control service-carousel__control--prev" type="button" data-carousel-prev aria-label="上一張貨櫃清洗與維修圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg>
+                            </button>
+                            <button class="service-carousel__control service-carousel__control--next" type="button" data-carousel-next aria-label="下一張貨櫃清洗與維修圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
+                            </button>
+                            <div class="service-carousel__dots" data-carousel-dots role="group" aria-label="選擇貨櫃清洗與維修圖片"></div>
                         </figure>
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
                             <ul>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃修理與保養</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃噴砂、除銹、噴漆與清洗</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃車架整修</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃狀況檢查與處理</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃之修理與保養業務</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃之噴砂、除銹、噴漆、清洗業務</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃車架之整修</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>其他貨櫃修理相關業務之經營</li>
                             </ul>
                         </div>
                     </div>
                 </article>
 
-                <article id="maintenance" class="service-section service-section--collage">
+                <article id="maintenance" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-maintenance">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
                             <h2>機具維修與銷售</h2>
-                            <p>我們提供港區與場區機具的維修、保養、銷售及保固服務，設備範圍涵蓋碼頭機具、堆高機、拖車、板台、小型車輛與各類重型機械。</p>
-                            <p>目前於鴻明70號碼頭及萬海79號碼頭提供機具維修與保養服務，協助碼頭及場區設備穩定運轉，降低故障造成的作業中斷。</p>
-                            <p>另透過 ALPHA TOTAL SOLUTION PTE. LTD. 代理振華堆高機等設備，提供銷售、保固維修及售後技術支援。</p>
+                            <p class="eyebrow">EQUIPMENT MAINTENANCE &amp; SALES</p>
+                            <p>我們提供港區及場區機具的維修、保養、銷售與保固服務，服務設備涵蓋碼頭機具、堆高機、拖車、板台、小型車輛及各類重型機械。目前於鴻明70號碼頭及萬海79號碼頭提供機具維修保養服務，協助碼頭與場區設備維持穩定運轉，降低設備故障造成的作業中斷。此外，透過ALPHA TOTAL SOLUTION PTE. LTD.代理振華堆高機等設備，提供機具銷售、保固維修及售後技術支援。</p>
                         </header>
-                        <figure class="service-section__media service-section__media--collage" data-image-collage aria-label="機具維修與銷售圖片展示">
-                            <div class="service-collage__grid">
-                                <img src="public/images/index/container-handler.png" alt="技術人員進行港區機具維修" loading="lazy" decoding="async">
-                                <img src="public/images/index/home-hero-container-handling.png" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
-                                <img src="public/images/services/port-equipment-maintenance.jpg" alt="貨櫃場現場人員與機具作業" loading="lazy" decoding="async">
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="機具維修與銷售圖片展示">
+                            <div class="service-carousel__viewport">
+                                <div class="service-carousel__track">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 3 張">
+                                        <img src="public/images/index/home-hero-container-handling.png" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 3 張">
+                                        <img src="public/images/index/container-handler.png" alt="技術人員進行港區機具維修" loading="eager" decoding="async">
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 3 張">
+                                        <img src="public/images/services/port-equipment-maintenance.jpg" alt="貨櫃場現場人員與機具作業" loading="lazy" decoding="async">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="service-collage__controls" role="group" aria-label="機具維修與銷售圖片切換控制">
-                                <button class="service-collage__arrow service-collage__arrow--previous" type="button" data-collage-previous aria-label="上一張機具維修與銷售圖片" disabled>
-                                    <i class="ph ph-caret-left" aria-hidden="true">&#xe138;</i>
-                                </button>
-                                <button class="service-collage__page is-active" type="button" data-collage-page="0" aria-label="顯示第 1 張機具維修與銷售圖片" aria-current="page"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="1" aria-label="顯示第 2 張機具維修與銷售圖片"></button>
-                                <button class="service-collage__page" type="button" data-collage-page="2" aria-label="顯示第 3 張機具維修與銷售圖片"></button>
-                                <button class="service-collage__arrow service-collage__arrow--next" type="button" data-collage-next aria-label="下一張機具維修與銷售圖片">
-                                    <i class="ph ph-caret-right" aria-hidden="true">&#xe13a;</i>
-                                </button>
-                            </div>
+                            <button class="service-carousel__control service-carousel__control--prev" type="button" data-carousel-prev aria-label="上一張機具維修與銷售圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg>
+                            </button>
+                            <button class="service-carousel__control service-carousel__control--next" type="button" data-carousel-next aria-label="下一張機具維修與銷售圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
+                            </button>
+                            <div class="service-carousel__dots" data-carousel-dots role="group" aria-label="選擇機具維修與銷售圖片"></div>
                         </figure>
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
                             <ul>
                                 <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>機具維修與故障處理</li>
                                 <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>定期保養服務</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>港區現場支援</li>
                                 <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>機具設備銷售</li>
                                 <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>保固與售後維修</li>
                             </ul>
@@ -207,15 +229,25 @@
                 </article>
 
                 <section class="services-contact" aria-labelledby="services-contact-title">
-                    <div class="services-contact__inner site-container">
-                        <div>
-                            <h2 id="services-contact-title">了解詳細服務項目內容</h2>
-                            <p>歡迎與我們聯繫，由專人協助確認您的作業需求。</p>
+                    <div class="services-contact__inner">
+                        <figure class="services-contact__media">
+                            <img src="public/images/privacy-policy.jpg" alt="業務人員書寫服務文件">
+                        </figure>
+                        <div class="services-contact__content">
+                            <p class="eyebrow">BUSINESS INQUIRY</p>
+                            <h2 id="services-contact-title">業務洽談</h2>
+                            <p class="services-contact__description">如有倉儲物流、貨櫃作業或機具服務需求，歡迎直接聯繫我們。</p>
+                            <div class="services-contact__details">
+                                <div>
+                                    <span>聯絡部門</span>
+                                    <strong>營業部</strong>
+                                </div>
+                                <a href="tel:+88678137912" aria-label="致電營業部 07-813-7912">
+                                    <span>服務電話</span>
+                                    <strong>07-813-7912</strong>
+                                </a>
+                            </div>
                         </div>
-                        <a class="services-contact__link button--primary" href="contact.html">
-                            聯絡我們
-                            <svg class="services-contact__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path></svg>
-                        </a>
                     </div>
                 </section>
             </section>
@@ -224,6 +256,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js"></script>
-        <script src="js/pages/services.js"></script>
+        <script src="js/pages/services.js?v=20260813-services-switcher-v1"></script>
     </body>
 </html>

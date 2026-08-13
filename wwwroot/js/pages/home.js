@@ -122,22 +122,18 @@
     });
   };
 
-  const createArrow = () => {
-    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    icon.setAttribute("viewBox", "0 0 24 24");
+  const createArrow = (direction) => {
+    const icon = document.createElement("i");
+    icon.className = `ph ph-caret-${direction}`;
     icon.setAttribute("aria-hidden", "true");
-    icon.innerHTML = '<path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />';
+    icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
     return icon;
   };
 
-  const createShareIcon = () => {
-    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    icon.setAttribute("class", "home-text-link__icon");
-    icon.setAttribute("viewBox", "0 0 256 256");
+  const createServiceArrowIcon = () => {
+    const icon = document.createElement("i");
+    icon.className = "ph ph-arrow-bend-up-right";
     icon.setAttribute("aria-hidden", "true");
-    icon.setAttribute("focusable", "false");
-    icon.setAttribute("fill", "currentColor");
-    icon.innerHTML = '<path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>';
     return icon;
   };
 
@@ -147,6 +143,50 @@
     const viewport = list.closest(".home-latest__viewport");
     const pager = list.closest(".home-latest")?.querySelector(".home-latest__pager");
     if (!viewport || !pager) return;
+
+    let activePointerId = null;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+    let hasDragged = false;
+    let suppressClick = false;
+
+    const finishPointerDrag = (event) => {
+      if (event.pointerId !== activePointerId) return;
+      viewport.classList.remove("is-dragging");
+      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+      if (hasDragged) suppressClick = true;
+      activePointerId = null;
+    };
+
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      activePointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartScrollLeft = viewport.scrollLeft;
+      hasDragged = false;
+      suppressClick = false;
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
+    });
+
+    viewport.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== activePointerId) return;
+      const distance = event.clientX - dragStartX;
+      if (Math.abs(distance) < 4) return;
+      hasDragged = true;
+      event.preventDefault();
+      viewport.scrollLeft = dragStartScrollLeft - distance;
+    }, { passive: false });
+
+    viewport.addEventListener("pointerup", finishPointerDrag);
+    viewport.addEventListener("pointercancel", finishPointerDrag);
+    viewport.addEventListener("click", (event) => {
+      if (!suppressClick) return;
+      suppressClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+    viewport.addEventListener("dragstart", (event) => event.preventDefault());
 
     const renderControls = (items) => {
       const cardsPerPage = () => {
@@ -164,7 +204,7 @@
       previous.type = "button";
       previous.className = "home-latest__arrow home-latest__arrow--previous";
       previous.setAttribute("aria-label", "上一組最新消息");
-      previous.append(createArrow());
+      previous.append(createArrow("left"));
       const pageButtons = Array.from({ length: pages }, (_, index) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -176,7 +216,7 @@
       next.type = "button";
       next.className = "home-latest__arrow home-latest__arrow--next";
       next.setAttribute("aria-label", "下一組最新消息");
-      next.append(createArrow());
+      next.append(createArrow("right"));
       controls.append(previous, ...pageButtons, next);
       pager.replaceChildren(controls);
       pager.removeAttribute("aria-hidden");
@@ -249,14 +289,14 @@
         imageUrl: item.imageUrl ?? item.ImageUrl ?? "",
         createdAt: item.createdAt ?? item.CreatedAt ?? "",
         published: item.published ?? item.Published
-      })).filter((item) => item.published !== false).sort(compareLatestNews).slice(0, 6))
+      })).filter((item) => item.published !== false).sort(compareLatestNews))
       .then((items) => {
         list.replaceChildren();
         if (!items.length) throw new Error("No news");
         items.forEach((item) => {
           const link = document.createElement("a");
           link.className = "home-latest__item";
-          link.href = `news-detail.html?id=${encodeURIComponent(item.id)}`;
+          link.href = `/news/${encodeURIComponent(item.id)}`;
           const media = document.createElement("span");
           media.className = "home-latest__media";
           if (item.imageUrl) {
@@ -283,7 +323,7 @@
           summary.textContent = item.content.replace(/\s+/g, " ").trim();
           const more = document.createElement("span");
           more.className = "home-latest__more button--text-arrow";
-          more.append("MORE", createShareIcon());
+          more.append(createServiceArrowIcon());
           body.append(meta, title, summary, more);
           link.append(media, body);
           list.append(link);
