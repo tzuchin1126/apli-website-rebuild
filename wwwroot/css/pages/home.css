@@ -440,6 +440,15 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 @media (max-width: 680px) {
   .home-page .home-service-grid { grid-template-columns: 1fr; gap: 20px; }
 }
+@media (hover: none), (pointer: coarse) {
+  .home-page .home-latest__item:hover .home-latest__media::before,
+  .home-page .home-latest__item:hover .home-latest__media img { transform: none; }
+  .home-page .home-latest__item:hover .home-latest__media::after { opacity: 0; }
+  .home-page .home-latest__item:hover strong { text-decoration-line: none; }
+  .home-page .home-latest__more,
+  .home-page .home-latest__item:hover .home-latest__more { opacity: 1; pointer-events: none; }
+  .home-page .home-latest__item:hover .home-latest__more .ph { transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .home-page .home-reveal,
   .home-page .home-contact-cta.home-reveal > .home-contact-cta__panel,

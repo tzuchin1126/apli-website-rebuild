@@ -1,5 +1,93 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-13：依已記錄的精確基準，恢復首頁 Hero 原始波浪。
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 內容：恢復原始 1 個白色 cutout 與 shadow／main／olive／pink／hairline 5 條裝飾線，並逐項還原桌機與手機的波浪尺寸、位置、線條顏色與粗細，以及輪播圓點高度；進場動畫維持原始設定。
+  - 快取：只更新 `home.css` 查詢參數，確保瀏覽器取得恢復後的樣式；不改變波浪視覺數據。
+  - 已驗證：6 個 SVG path 的 class 與路徑資料、桌機／手機容器尺寸、5 條線的顏色與粗細、輪播圓點位置及進場動畫均與下方既有恢復基準逐項一致；簡化版 accent path／selector 殘留為 0；`dotnet build -c Release`（0 warnings、0 errors）；全工作樹 `git diff --check`。
+  - 未驗證：本次依使用者要求不進行瀏覽器／實機驗證；桌機／手機實際畫面、Safari／Firefox 與人工無障礙驗收未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：簡化首頁 Hero 波浪並保留精確恢復基準。
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 調整前恢復基準：SVG 為 `viewBox="0 0 1440 260"`、`preserveAspectRatio="none"`，共 1 個白色 cutout 與 5 條裝飾線。
+  - 原始 paths：cutout／shadow=`M-90 174 C168 242 332 206 532 144 C724 84 886 62 1076 98 C1238 130 1358 150 1530 98`（cutout 另接 `L1530 260 L-90 260 Z`）；main=`M-80 156 C174 222 338 190 534 132 C726 74 890 54 1078 88 C1242 118 1362 138 1530 88`；olive=`M-88 139 C166 204 336 174 530 118 C724 62 892 42 1086 78 C1246 106 1366 126 1538 78`；pink=`M-84 124 C170 190 334 160 530 106 C724 52 896 34 1090 70 C1248 98 1370 116 1538 68`；hairline=`M-70 112 C188 176 350 150 542 96 C730 44 898 28 1094 60 C1258 86 1384 100 1544 54`。
+  - 原始桌機 CSS：容器 `bottom:-8px; width:116vw; height:clamp(118px,17vh,168px)`；shadow `rgb(17 34 57 / 58%) 18px`、main `rgb(31 62 93 / 78%) 12px`、olive `rgb(237 150 52 / 92%) 9px`、pink `rgb(255 255 255 / 76%) 5px`、hairline `rgb(138 190 216 / 68%) 3px`；圓點 `bottom:clamp(142px,calc(17vh + 20px),188px)`。
+  - 原始手機 CSS（≤760px）：`bottom:-6px; width:158vw; height:112px`；圓點 `bottom:124px`。原始進場動畫為 `.9s cubic-bezier(.22,1,.36,1) .68s both`，位移由 `translate(-50%,28px)` 到 `translate(-50%,0)`。
+  - 新版內容：改為白色 cutout、8px 深藍主線與 4px 橘色細線，共 3 個 paths；曲線控制點改為較平緩的 `M-90 184 C190 232 360 204 548 154 C730 106 902 82 1082 112 C1248 140 1376 146 1530 104`，橘線沿相同曲線上移 16 單位。桌機容器改為 `bottom:-6px; width:108vw; height:clamp(96px,12vh,128px)`，圓點改為 `clamp(112px,calc(12vh + 18px),146px)`；手機改為 `bottom:-4px; width:148vw; height:96px`，圓點 `108px`。進場動畫及 Reduced Motion 行為維持不變。
+  - 已驗證：原始恢復基準與修改前來源逐項核對；新版 SVG 共有 3 個 paths，舊 shadow／olive／pink／hairline markup 與 selector 殘留為 0；新版 CSS 快取參數、`dotnet build -c Release`（0 warnings、0 errors）及全工作樹 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認新版桌機／手機實際曲線、圓點距離及進場動畫；Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：此版經使用者比較後未採用；已依上方項目恢復原始波浪。以上「調整前恢復基準」仍保留作為精確還原紀錄。
+
+- [x] 2026-08-13：移除全站 Header 搜尋入口，改為電話與寄信快速連結。
+  - 範圍：14 個 `wwwroot/*.html` 公開靜態頁、`Pages/Shared/_Layout.cshtml`、`TODO.md`。
+  - 內容：原信封 icon 改為電話 icon，連結仍導向聯絡我們頁面；原搜尋 icon／`#search` 連結改為信封 icon與 `mailto:apadm@mail.apli.com.tw`。同步補上「前往聯絡我們頁面」及「寄信給亞太國際物流」無障礙名稱；盤點確認專案原本沒有獨立搜尋面板、CSS 或 JavaScript 搜尋功能，因此無其他搜尋程式需要移除。
+  - 已驗證：14／14 個公開靜態頁及 Razor Layout 均各有一組電話／寄信連結；`#search`、搜尋無障礙名稱與舊「郵件／搜尋」註解殘留為 0；`dotnet build -c Release`（0 warnings、0 errors）；全工作樹 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認桌機／手機 icon 外觀與點擊；作業系統郵件程式啟動、Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：補回關係企業、人才招募與公司沿革頁面的共用 Footer。
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/join.html`、`wwwroot/milestones.html`、`TODO.md`。
+  - 原因：三頁已列在 `Program.cs` 的共用 Footer 注入白名單，但 HTML 缺少 `<!-- shared-site-footer -->` 標記，伺服器沒有可替換的位置。
+  - 內容：在三頁 `main` 後補上共用 Footer 標記，沿用 `_Footer.cshtml` 唯一來源及既有注入流程，不複製 Footer HTML。
+  - 已驗證：三頁各有且僅有一個 Footer 標記，並各自在 `Program.cs` 白名單出現一次；`dotnet build -c Release`（0 warnings、0 errors）；全工作樹 `git diff --check`。
+  - 未驗證：目前 `localhost:5127` 沒有服務運行，尚未完成 HTTP Footer 注入與桌機／手機瀏覽器實際畫面；Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：上移全站回到頂端按鈕，避開 Footer 員工專區。
+  - 範圍：`wwwroot/css/components/back-to-top.css`、`wwwroot/css/site.css`、14 個 `wwwroot/*.html` 公開靜態頁、`TODO.md`。
+  - 內容：依 Footer 深色底列 56px 高度，將按鈕桌機底部距離由 24px 調為 80px、手機由 16px 調為 72px，保留安全區計算，使按鈕完整位於「隱私權政策／員工專區」上方；同步更新共用樣式及元件快取版本。
+  - 已驗證：14／14 個公開靜態頁均載入新版 `site.css`，元件匯入帶新版快取參數；`dotnet build -c Release`（0 warnings、0 errors）；全工作樹 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認桌機／手機實際位置；Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：為全站長頁面加入條件式回到頂端按鈕。
+  - 範圍：`wwwroot/js/site.js`、`wwwroot/css/site.css`、`wwwroot/css/components/back-to-top.css`、14 個 `wwwroot/*.html` 公開靜態頁、`TODO.md`。
+  - 內容：由共用 `site.js` 自動建立按鈕，頁面可捲動距離超過 320px 且向下捲動約半個畫面後才顯示；短頁面不建立可操作狀態。按鈕支援鍵盤 focus、Reduced Motion、動態內容高度與手機安全區，靜態頁統一更新共用 CSS／JS 快取版本；Razor Layout 沿用既有 `asp-append-version`。
+  - 已驗證：`node --check wwwroot/js/site.js`；14／14 個公開靜態頁均載入新版 `site.css`／`site.js`，Razor Layout 維持共用載入；`dotnet build -c Release`（0 warnings、0 errors）；全工作樹 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認桌機／手機實際顯示、捲動及鍵盤操作；Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：限制消息內頁上傳圖片的顯示尺寸。
+  - 範圍：`wwwroot/css/pages/news-detail.css`、`wwwroot/news-detail.html`、`TODO.md`。
+  - 內容：消息圖片由最大寬度 720px 調整為 640px，新增桌機與手機可視高度上限；圖片維持原始比例並完整顯示，不以裁切方式縮圖。靜態消息內頁同步更新 CSS 快取版本，Razor 消息內頁仍透過 `asp-append-version` 取得新版樣式。
+  - 已驗證：靜態與 Razor 消息內頁共用 `.news-detail__image` 規則、來源 selector／快取版本檢查、`dotnet build -c Release`（0 warnings、0 errors）與範圍內 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認桌機／手機實際圖片尺寸；Safari／Firefox、實體裝置與人工無障礙驗收亦未進行。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：修正首頁最新消息卡片無法開啟消息內頁。
+  - 範圍：`wwwroot/js/pages/home.js`、`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`。
+  - 原因：滑鼠按下卡片時，首頁拖曳程式立即將 pointer capture 綁到外層 viewport；即使沒有拖曳，放開時 click 目標仍可能被重定向至 viewport，導致原生 `<a>` 不啟動。首頁卡片另使用 Razor 專屬的 `/news/{id}` 網址，與目前公開靜態消息流程 `news-detail.html?id={id}` 不一致；卡片 hover 在觸控裝置也存在首次輕觸只切換 hover 的風險。
+  - 內容：改為滑鼠移動超過 4px 拖曳門檻後才啟用 pointer capture，普通點擊保留原生連結；首頁卡片統一使用既有靜態詳情頁 query-string 網址；粗指標／無 hover 裝置停用卡片 hover 遮罩與縮放並直接顯示裝飾圖示，桌機滑鼠及鍵盤 focus 效果維持；同步更新首頁 CSS／JS 快取版本參數，避免裝置沿用舊檔。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/pages/news-detail.js`；首頁與靜態消息列表的詳情網址格式一致；抽取目前第一筆公開消息 ID 產生 `news-detail.html?id=...` 並確認詳情腳本以相同 query ID 讀取 `data/news.json`；Production HTTP 驗證首頁與帶有效 ID 的 `news-detail.html` 均為 200，首頁回應包含新版 `home.js`；桌機 Edge 1366×900 實際點擊第一張消息卡片，網址成功切換至 `news-detail.html?id=...`，詳情區顯示且標題正確；`dotnet build -c Release`（0 warnings、0 errors）；範圍內 `git diff --check`。
+  - 未驗證：手機觸控 hover 行為、Safari／Firefox、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [ ] 2026-08-13：盤點並修復既有消息圖片的失效引用。
+  - 發現：本次桌機消息導向驗證中，`/api/uploads/news/aca1d89bd91f40878fc374623eb48d03.png` 與 `/api/uploads/news/02c59acf168f46e89e4c56de407121df.jpg` 回應 404；目前 `App_Data/news/` 沒有對應檔案。此問題不影響消息卡片導向與文字詳情顯示，且不在本次修正範圍，因此未自行修改消息資料或上傳檔案。
+  - 待驗證：確認原始圖片來源、應補回檔案或清除失效 `ImageUrl`，並檢查其他消息附件／圖片。
+
+- [x] 2026-08-13：載入 Google Fonts，統一手機與桌機中文字型。
+  - 範圍：14 個 `wwwroot/*.html` 公開靜態頁、`Pages/Shared/_Layout.cshtml`、`TODO.md`。
+  - 內容：比照台泥官網的外部字型載入方式，預連線 Google Fonts／Google Fonts Static，載入 `Noto Sans TC` 400／500／600／700 與 `Noto Serif TC` 400／500／600，讓既有 `--font-body`、`--font-heading` 在未安裝 Noto 字型的手機上仍能取得實際 Webfont。
+  - 已驗證：14／14 個公開靜態 HTML 與 Razor 共用 Layout 均載入同一組 preconnect／stylesheet；以 iPhone Safari User-Agent 唯讀取得 Google Fonts CSS，確認 Sans 400／500／600／700、Serif 400／500／600、`font-display: swap` 與 `fonts.gstatic.com` WOFF2 分割字型來源；`dotnet build -c Release`（0 warnings、0 errors）；範圍內 `git diff --check`。
+  - 未驗證：目前 Browser 執行環境沒有可用瀏覽器，尚未確認實際 Rendered Font、桌機／手機畫面與字型載入前後的版面位移；Safari／Firefox、實體裝置、外部 Google Fonts 被封鎖時的視覺 fallback 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：更新共用 Footer 的職安頁面名稱。
+  - 範圍：`Pages/Shared/_Footer.cshtml`、`TODO.md`。
+  - 內容：將營運資源欄位中的「健康與安全」改為正式頁名「職業安全衛生」，連結仍維持 `/occupational-safety.html`；所有 Razor 與伺服器注入的靜態頁 Footer 共用此唯一來源。
+  - 已驗證：共用 Footer 來源文字／連結檢查與範圍內 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：依舊版完成 404、500 與隱私權政策頁面。
+  - 範圍：`Program.cs`、`Pages/Privacy.cshtml.cs`、`wwwroot/404.html`、`wwwroot/500.html`、`wwwroot/privacy.html`、`wwwroot/css/pages/error-pages.css`、`wwwroot/css/pages/privacy.css`、`TODO.md`。
+  - 內容：以舊版正式文案與視覺層級為參考，使用新版共用 Header、Footer、tokens、按鈕與原生頁面 scoped CSS 重建 404／500；Production 公開頁的未處理例外改由 500 頁承接，非 API 的 404／500 空白狀態回應會載入對應品牌頁並保留原狀態碼，API 錯誤不轉為 HTML。隱私權頁補齊 2026 年 7 月 31 日來源版七節政策、Breadcrumb、共用 Hero 與政策內容卡；Razor `/Privacy` 永久導向 `/privacy.html`，避免兩份政策內容分歧。未搬入舊版 Tailwind、Lucide 或共用舊樣式。
+  - 已驗證：舊版三頁文案／素材／RWD 規則比對；三張 Privacy 圖片 SHA-256 與舊版一致；`node --check wwwroot/js/site.js`；`dotnet build -c Release`（0 warnings、0 errors）；範圍內 `git diff --check`；Production HTTP 驗證 `/privacy.html` 200、`/Privacy` 301 至 `/privacy.html`、直接 `/404.html` 與 `/500.html` 200、未知公開網址 404 且顯示品牌頁、未知 `/api` 網址 404 且維持空 body，三個靜態頁均只注入一份 Footer。
+  - 未驗證：Browser 技能執行環境未提供可用瀏覽器，因此未完成本次桌機／手機實際渲染；未以受控例外端對端觸發 Production 500，只完成直接頁面、路由設定與建置檢查；舊版政策文案尚未確認為法務核定版本；Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
 - [x] 2026-08-13：放大 Services 區塊內容敘述文字。
   - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
   - 內容：桌機敘述文字由 16px 調為 17px 並微增行高，手機維持 16px，避免窄螢幕換行過碎；同步更新 Services CSS 快取版本參數。
@@ -340,7 +428,7 @@
 - [ ] 以舊版專案逐頁比對剩餘頁面內容區，確認文字大小、粗細、間距、按鈕、動畫、圖片位置與 RWD。
   - 建議順序：`about.html`、`milestones.html`、`operational-resources.html`、`services.html`、`occupational-safety.html`、`news.html`、`news-detail.html`、`join.html`、`affiliates.html`、`contact.html`、`privacy.html`。
   - 驗證：尚未進行本輪逐頁驗收。
-- [ ] 補齊 `privacy.html` 的正式隱私權政策內容；目前仍有 placeholder，需取得核定文案。
+- [ ] 取得隱私權政策法務核定文案；`privacy.html` 已依舊版 2026 年 7 月 31 日來源版補齊七節內容，但仍不得視為法務核定完成。
 - [ ] 確認公開頁面是否維持 `wwwroot/*.html`，或逐步移轉為 Razor Pages；未確認前不進行大規模路由重構。
 - [ ] 為首頁補做 390px 與 320px 實際渲染檢查，確認輪播、水平溢位、CTA 裁切與文字換行。
 - [ ] 確認正式環境 HTTPS 憑證與部署設定；Development 已維持 HTTP 啟動，不再因找不到 HTTPS 連接埠觸發受限 Windows 帳號的 EventLog 錯誤。
@@ -1359,4 +1447,119 @@
   - 內容：移除「查看廠區設備與配置」文字連結、Phosphor icon、分隔線與相關間距，並撤回服務項目卡片的額外下移；保留主要服務項目清單。
   - 已驗證：Edge 桌機 1366×900 與手機 390×844 確認導引移除、額外下移撤回、服務項目位置恢復與無水平溢位；`git diff --check`。
   - 未驗證：實體裝置、Firefox／Safari 與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將 Services「業務洽談」重整為扁平 CTA。
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 內容：修正先前只降低 `min-height`、仍被內容自然高度撐高的問題；CTA 改用固定矮橫幅，圖片與文字各佔 50%，移除 `BUSINESS INQUIRY`、說明文字及標題底線，「業務洽談」恢復一般中文字體與正常字重；手機仍維持左右各半並將聯絡資訊緊湊排列。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；目前 Browser 技能未提供可用瀏覽器，桌機／手機實際渲染尚待補驗。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 Services 業務洽談 CTA 前一版圖片交界。
+  - 內容：撤回圖片向文字側延伸與漸層霧化效果，恢復前一版斜切圖片邊界；50／50 欄位、扁平高度及精簡文字內容維持不變。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：增加 Services 業務洽談 CTA 文字區背景。
+  - 內容：右側業務洽談文字欄改用較 `--color-surface-soft` 深一階的頁面專屬淺灰色 `--services-contact-surface`，與頁面白底及左側圖片建立區隔；CTA 外層同步使用相同底色，修正斜切圖片後方透出白色三角區域；高度、50／50 欄位與文字內容維持不變。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：增加 Services 業務洽談圖片右側局部霧化。
+  - 內容：在圖片右側交界加入 2px 模糊與最高 68% 的背景色漸層，降低圖片邊緣清晰度；霧化層保留在既有 `clip-path` 內，不完全遮蔽圖片，維持斜切輪廓可辨識。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services 業務洽談 CTA 資訊層級。
+  - 內容：右側改為「業務洽談」標題在上，聯絡部門與服務電話在下；聯絡資訊維持桌機雙欄、手機單欄，並以水平分隔線建立清楚閱讀順序。
+  - 已驗證：來源結構／selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將 Services CTA 標題改為「業務諮詢」。
+  - 內容：以較清楚且符合服務頁語境的「業務諮詢」取代「業務洽談」，其餘聯絡資訊與版面不變。
+  - 已驗證：來源文案與 `git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：加強 Services 業務諮詢圖片右側霧化。
+  - 內容：霧化範圍由 100–180px 加寬為 120–220px，模糊由 2px 提高為 4px，背景色漸層最高透明度由 68% 提高為 80%；既有斜切輪廓維持不變。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：區分 Services 業務諮詢 CTA 與 Footer 背景色。
+  - 內容：確認 Footer 使用中性灰 `#f3f4f3` 後，將 CTA 由相近的灰色 `#f0f1f0` 改為帶深藍識別感的淡藍灰 `#edf1f3`；圖片右側霧化漸層同步更新為相同色值。
+  - 已驗證：Footer／CTA 色值來源、霧化色值與快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除 Services 業務諮詢圖片霧化效果。
+  - 內容：移除圖片右側的背景色漸層與 `backdrop-filter` 模糊層；保留原有斜切輪廓、淡藍灰 CTA 背景、50／50 欄位與資訊排版。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：強化 Services 業務諮詢圖片斜切角度。
+  - 內容：新增頁面專屬 `--services-contact-cut`，桌機依視窗在 56–80px 間響應，配合 176px CTA 高度呈現清楚但不過度裝飾的斜切；手機固定為 40px，避免窄欄圖片被裁切過多，50／50 結構維持不變。
+  - 已驗證：來源 selector／響應式變數／快取版本檢查、`git diff --check`；瀏覽器實際畫面尚未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：在 Services 頁面試作深色企業版 Footer。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`；未修改共用 `_Footer.cshtml` 或 `site-footer.css`，其他頁面不受影響。
+  - 內容：沿用共用 Footer HTML 與手機收合互動，僅以 `.services-page .site-footer` 建立品牌深藍背景、白色 Logo、左側品牌區、右側四欄框線導覽及整合式深色版權列；桌機控制為企業網站所需的緊湊高度，手機恢復單欄收合閱讀。
+  - 已驗證：頁面限定 selector、共用 Footer 結構與快取版本檢查、`git diff --check`、Release 建置；Browser 技能目前無可用瀏覽器，桌機／手機實際渲染尚待使用者檢視。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：Services 單頁試作、待確認；未自行 commit 或 push。
+
+- [x] 2026-08-13：簡化 Services Footer 導覽並補上公司資訊。
+  - 範圍：`Pages/Shared/_Footer.cshtml`、`wwwroot/css/layout/site-footer.css`、`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：移除 Services Footer 桌機與手機導覽選單的外框及欄位分隔線，改以欄距維持閱讀層級；Logo 下方加入語意化公司名稱、地址、總機與信箱。公司資訊在共用 Footer 預設隱藏，僅由 `.services-page` 顯示，其他頁面視覺不受影響。
+  - 已驗證：公司資訊與 `contact.html` 來源比對、頁面限定顯示規則、Footer 手機斷點／快取版本、`git diff --check`、`node --check wwwroot/js/site.js`、Release 建置；Browser 技能目前無可用瀏覽器，桌機／手機實際渲染尚待使用者檢視。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：Services 單頁試作、待確認；未自行 commit 或 push。
+
+- [x] 2026-08-13：恢復 Services 原本的共用 Footer。
+  - 範圍：`Pages/Shared/_Footer.cshtml`、`wwwroot/css/layout/site-footer.css`、`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：完整移除 Services 深色 Footer 試作、公司資訊結構及桌機／840px 手機覆寫，恢復既有共用 Footer 的淺灰主區、四欄導覽、手機收合與深色版權列；業務諮詢 CTA 與其他 Services 調整維持不變。
+  - 已驗證：完整 Footer selector／Partial／響應式規則及快取版本檢查、`git diff --check`、`node --check wwwroot/js/site.js`、Release 建置；Browser 技能目前無可用瀏覽器，桌機／手機實際渲染尚待使用者檢視。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：將共用 Footer 主區背景改為 `#f0f0f0`。
+  - 範圍：`wwwroot/css/layout/site-footer.css`、12 個靜態頁面 Footer CSS 快取版本、`TODO.md`。
+  - 內容：主 Footer 背景由 `#f3f4f3` 改為指定的 `#f0f0f0`；深色版權列維持不變，所有靜態頁面同步更新 `site-footer.css` 快取版本，Razor Layout 維持 `asp-append-version`。
+  - 已驗證：共用 Footer 色值／載入頁面盤點、快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：為 Services 業務諮詢圖片加入右側淡出效果。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：將業務諮詢圖片原本的均勻色彩遮罩改為由左至右融入 CTA 背景色的漸層；保留圖片主體辨識度與既有斜切輪廓，不使用模糊效果。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：收斂 Services 頁面服務標題與頁籤的上方間距。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：依既有頁面 spacing token 與企業服務頁資訊密度，將 Hero 到頁籤的上間距調整為 `40–64px`，服務區上下內距調整為 `56–88px`；手機既有 `64px` 內距維持不變，未使用負 margin。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：調整 Services 敘述與下方圖片的間距。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：桌機服務標題／敘述區與下方圖片的共用列間距由 `20px` 調整為 `24px`；手機既有 `28–40px` 間距維持不變，讓段落與圖片有清楚的內容分組。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：移除 Services 服務內容圖片圓角。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：移除服務內容圖片與輪播外框的 `border-radius`，改為直角圖片；業務諮詢 CTA 的斜切圖片效果維持不變。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-13：統一 Services 敘述上下間距。
+  - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
+  - 內容：標題／英文副標到敘述，以及敘述到下方圖片，改由同一個 `--services-content-gap` 控制；桌機固定為 `24px`，中小螢幕響應為 `28–40px`，修正上下留白不一致。
+  - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
   - 狀態：待提交；未自行 commit 或 push。

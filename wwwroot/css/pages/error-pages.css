@@ -1,0 +1,56 @@
+.error-page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: clip;
+}
+
+.error-page .error-page__main {
+  min-height: clamp(560px, 68svh, 760px);
+  flex: 1;
+  padding-block: clamp(150px, 16vh, 220px) clamp(88px, 10vh, 140px);
+  background: var(--color-surface-soft);
+}
+
+.error-page .error-page__card {
+  display: grid;
+  justify-items: start;
+  text-align: left;
+}
+
+.error-page .error-page__card h1 {
+  max-width: 920px;
+  margin: 0 0 clamp(24px, 3vw, 38px);
+  color: var(--color-ink);
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.error-page .error-page__card > p {
+  max-width: 760px;
+  margin: 0 0 36px;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+  .error-page .error-page__main {
+    min-height: 520px;
+    padding-block: 132px 76px;
+  }
+
+  .error-page .error-page__card h1 {
+    margin-bottom: 22px;
+    font-size: clamp(2rem, 10vw, 3.25rem);
+  }
+
+  .error-page .error-page__card > p {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+}

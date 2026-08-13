@@ -109,7 +109,9 @@ if (!File.Exists(categoriesFile))
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseWhen(
+        context => !context.Request.Path.StartsWithSegments("/api"),
+        publicPages => publicPages.UseExceptionHandler("/500.html"));
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -119,6 +121,8 @@ if (!app.Environment.IsDevelopment())
 
 var sharedFooterPages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
 {
+    "/404.html",
+    "/500.html",
     "/index.html",
     "/about.html",
     "/affiliates.html",
@@ -134,6 +138,31 @@ var sharedFooterPages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
 };
 
 const string sharedFooterMarker = "<!-- shared-site-footer -->";
+var sharedFooterPath = Path.Combine(app.Environment.ContentRootPath, "Pages", "Shared", "_Footer.cshtml");
+
+app.UseStatusCodePages(async statusCodeContext =>
+{
+    var httpContext = statusCodeContext.HttpContext;
+    var statusCode = httpContext.Response.StatusCode;
+    var isApiRequest = httpContext.Request.Path.StartsWithSegments("/api");
+    if (isApiRequest || statusCode is not (StatusCodes.Status404NotFound or StatusCodes.Status500InternalServerError))
+        return;
+
+    var pagePath = $"{statusCode}.html";
+    var staticPage = app.Environment.WebRootFileProvider.GetFileInfo(pagePath);
+    if (!staticPage.Exists)
+        return;
+
+    var footerMarkup = await File.ReadAllTextAsync(sharedFooterPath, httpContext.RequestAborted);
+    using var staticPageStream = staticPage.CreateReadStream();
+    using var reader = new StreamReader(staticPageStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+    var pageMarkup = await reader.ReadToEndAsync(httpContext.RequestAborted);
+    var responseMarkup = pageMarkup.Replace(sharedFooterMarker, footerMarkup, StringComparison.Ordinal);
+    var responseBytes = Encoding.UTF8.GetBytes(responseMarkup);
+    httpContext.Response.ContentType = "text/html; charset=utf-8";
+    httpContext.Response.ContentLength = responseBytes.Length;
+    await httpContext.Response.Body.WriteAsync(responseBytes, httpContext.RequestAborted);
+});
 
 app.Use(async (context, next) =>
 {
@@ -154,8 +183,7 @@ app.Use(async (context, next) =>
         return;
     }
 
-    var footerPath = Path.Combine(app.Environment.ContentRootPath, "Pages", "Shared", "_Footer.cshtml");
-    var footerMarkup = await File.ReadAllTextAsync(footerPath, context.RequestAborted);
+    var footerMarkup = await File.ReadAllTextAsync(sharedFooterPath, context.RequestAborted);
     using var staticPageStream = staticPage.CreateReadStream();
     using var reader = new StreamReader(staticPageStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
     var pageMarkup = await reader.ReadToEndAsync(context.RequestAborted);

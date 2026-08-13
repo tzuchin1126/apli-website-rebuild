@@ -100,3 +100,69 @@
     header?.classList.remove("is-menu-open");
   });
 })();
+
+(() => {
+  const button = document.createElement("button");
+  button.className = "back-to-top";
+  button.type = "button";
+  button.hidden = true;
+  button.tabIndex = -1;
+  button.setAttribute("aria-label", "回到頁面頂端");
+  button.setAttribute("aria-hidden", "true");
+  button.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="m6 11 6-6 6 6"></path>
+      <path d="m6 19 6-6 6 6"></path>
+    </svg>`;
+  document.body.append(button);
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const main = document.querySelector("#main-content");
+  let updateFrame = 0;
+
+  const updateButtonState = () => {
+    updateFrame = 0;
+    const viewportHeight = window.innerHeight;
+    const scrollableDistance = document.documentElement.scrollHeight - viewportHeight;
+    const isNeeded = scrollableDistance > 320;
+    const showAfter = Math.min(400, Math.max(240, viewportHeight * 0.45));
+    const isVisible = isNeeded && window.scrollY > showAfter;
+
+    button.hidden = !isNeeded;
+    button.classList.toggle("is-visible", isVisible);
+    button.tabIndex = isVisible ? 0 : -1;
+    button.setAttribute("aria-hidden", String(!isVisible));
+
+    if (!isVisible && document.activeElement === button && main instanceof HTMLElement) {
+      main.focus({ preventScroll: true });
+    }
+  };
+
+  const requestButtonUpdate = () => {
+    if (updateFrame) return;
+    updateFrame = window.requestAnimationFrame(updateButtonState);
+  };
+
+  button.addEventListener("click", () => {
+    if (main instanceof HTMLElement) {
+      main.tabIndex = -1;
+      main.focus({ preventScroll: true });
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: reducedMotion.matches ? "auto" : "smooth"
+    });
+  });
+
+  window.addEventListener("scroll", requestButtonUpdate, { passive: true });
+  window.addEventListener("resize", requestButtonUpdate);
+  window.addEventListener("load", requestButtonUpdate, { once: true });
+
+  if ("ResizeObserver" in window) {
+    const pageResizeObserver = new ResizeObserver(requestButtonUpdate);
+    pageResizeObserver.observe(document.body);
+  }
+
+  updateButtonState();
+})();

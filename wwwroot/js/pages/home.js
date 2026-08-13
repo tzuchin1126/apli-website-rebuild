@@ -165,15 +165,17 @@
       dragStartScrollLeft = viewport.scrollLeft;
       hasDragged = false;
       suppressClick = false;
-      viewport.classList.add("is-dragging");
-      viewport.setPointerCapture(event.pointerId);
     });
 
     viewport.addEventListener("pointermove", (event) => {
       if (event.pointerId !== activePointerId) return;
       const distance = event.clientX - dragStartX;
       if (Math.abs(distance) < 4) return;
-      hasDragged = true;
+      if (!hasDragged) {
+        hasDragged = true;
+        viewport.classList.add("is-dragging");
+        viewport.setPointerCapture(event.pointerId);
+      }
       event.preventDefault();
       viewport.scrollLeft = dragStartScrollLeft - distance;
     }, { passive: false });
@@ -296,7 +298,7 @@
         items.forEach((item) => {
           const link = document.createElement("a");
           link.className = "home-latest__item";
-          link.href = `/news/${encodeURIComponent(item.id)}`;
+          link.href = `news-detail.html?id=${encodeURIComponent(item.id)}`;
           const media = document.createElement("span");
           media.className = "home-latest__media";
           if (item.imageUrl) {

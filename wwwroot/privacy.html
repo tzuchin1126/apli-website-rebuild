@@ -3,14 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="亞太國際物流隱私權政策，說明個人資料蒐集、使用、保護與當事人權利。">
         <title>隱私權政策 - 亞太國際物流</title>
+        <link rel="preload" as="image" type="image/avif" href="public/images/privacy-policy-960.avif" imagesrcset="public/images/privacy-policy-960.avif 960w, public/images/privacy-policy-1920.avif 1920w" imagesizes="100vw" fetchpriority="high">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
         <link rel="stylesheet" href="css/base/reset.css">
         <link rel="stylesheet" href="css/base/tokens.css">
         <link rel="stylesheet" href="css/layout/site-header.css">
-        <link rel="stylesheet" href="css/layout/site-footer.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
+        <link rel="stylesheet" href="css/pages/privacy.css?v=20260813-privacy-content-v1">
+        <link rel="stylesheet" href="css/site.css?v=20260813-back-to-top-v2">
     </head>
-    <body>
+    <body class="privacy-page">
         <a class="skip-link" href="#main-content">
             跳至主要內容
         </a>
@@ -49,11 +55,11 @@
                     <a href="contact.html">聯絡我們</a>
                 </nav>
                 <div class="site-header__tools" aria-label="快速連結">
-                    <a href="contact.html" aria-label="聯絡我們">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 17V7A1.5 1.5 0 0 1 4 5.5Z"></path><path d="m3.5 7 8.5 6 8.5-6"></path></svg>
+                    <a href="contact.html" aria-label="前往聯絡我們頁面">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z"></path></svg>
                     </a>
-                    <a href="index.html#search" aria-label="搜尋網站內容">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.3"></circle><path d="m16.2 16.2 5 5"></path></svg>
+                    <a href="mailto:apadm@mail.apli.com.tw" aria-label="寄信給亞太國際物流">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 17V7A1.5 1.5 0 0 1 4 5.5Z"></path><path d="m3.5 7 8.5 6 8.5-6"></path></svg>
                     </a>
                 </div>
                 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
@@ -65,13 +71,59 @@
             </div>
         </header>
 
-        <main id="main-content" class="site-container privacy-content">
-            <h1>隱私權政策</h1>
-            <p>本頁面將說明亞太國際物流對網站使用者資料的蒐集、使用與保護方式。</p>
+        <main id="main-content">
+            <div class="privacy-breadcrumb page-breadcrumb">
+                <nav class="site-container" aria-label="麵包屑">
+                    <a href="index.html">首頁</a>
+                    <span aria-hidden="true">›</span>
+                    <span aria-current="page">隱私權政策</span>
+                </nav>
+            </div>
+
+            <section class="privacy-hero page-hero" aria-labelledby="privacy-hero-title">
+                <picture class="page-hero__media">
+                    <source type="image/avif" srcset="public/images/privacy-policy-960.avif 960w, public/images/privacy-policy-1920.avif 1920w" sizes="100vw">
+                    <img class="page-hero__image" src="public/images/privacy-policy.jpg" alt="" aria-hidden="true" fetchpriority="high">
+                </picture>
+                <div class="page-hero__overlay" aria-hidden="true"></div>
+                <h1 class="page-hero__title" id="privacy-hero-title">隱私權政策</h1>
+            </section>
+
+            <section class="privacy-content" aria-label="隱私權政策內容">
+                <div class="site-container">
+                    <article class="privacy-policy">
+                        <p class="privacy-policy__updated"><strong>最後更新日期：</strong>2026年7月31日</p>
+                        <p>歡迎您使用亞太國際物流股份有限公司網站（以下簡稱「本網站」）。為保障您的個人資料與隱私權益，特此說明本網站的隱私權保護政策。</p>
+
+                        <h2>一、隱私權保護政策的適用範圍</h2>
+                        <p>本政策適用於您使用本網站時所涉及的個人資料蒐集、處理及利用。本政策不適用於本網站以外的外部連結網站，也不適用於非本公司所委託或參與管理的人員。</p>
+
+                        <h2>二、個人資料的蒐集、處理及利用方式</h2>
+                        <p>一般瀏覽本網站時，本網站不會要求您提供姓名、電話或電子郵件等個人資料。為維護網站正常運作與資訊安全，系統可能記錄連線 IP 位址、存取時間及瀏覽頁面等基本資訊，僅供網站管理與安全維護使用。</p>
+                        <p>當您透過本網站所列電話或其他正式管道主動與本公司聯繫時，本公司可能依實際需要取得您提供的姓名、公司名稱、聯絡方式及詢問內容，並僅於回覆詢問或提供服務所需的範圍及期間內使用。若未提供必要資料，本公司可能無法回覆或提供相關服務。</p>
+                        <p>您可依法向本公司請求查詢、閱覽、補充、更正、停止利用或刪除您的個人資料。相關申請方式請參考<a href="contact.html">〈聯絡我們〉</a>。</p>
+
+                        <h2>三、資料之保護</h2>
+                        <p>本公司採取合理的管理與安全措施保護網站及個人資料，避免未經授權的存取、洩漏、竄改或毀損。因業務需要委託其他單位提供服務時，本公司將要求受託單位於委託範圍內妥善保護資料。</p>
+
+                        <h2>四、網站對外的相關連結</h2>
+                        <p>本網站提供地圖、人才招募及關係企業等外部網站連結。當您點選連結進入其他網站後，應適用該網站的隱私權政策，本公司不負責外部網站的內容及資料處理方式。</p>
+
+                        <h2>五、與第三人共用個人資料之政策</h2>
+                        <p>本公司不會任意出售、交換、出租或提供您的個人資料予第三人。但經您同意、法律明文規定、主管機關依法要求、提供您所需服務，或委託廠商執行必要業務時，不在此限。</p>
+
+                        <h2>六、Cookie 之使用</h2>
+                        <p>本網站可能使用 Cookie 或類似技術，以提供基本功能及維持網站正常運作。您可透過瀏覽器設定管理或停用 Cookie，但部分功能可能因此無法正常使用。</p>
+
+                        <h2>七、隱私權保護政策之修正</h2>
+                        <p>本政策將視法令或網站服務調整需要進行修正，更新後的內容將公布於本網站。</p>
+                    </article>
+                </div>
+            </section>
         </main>
 
         <!-- shared-site-footer -->
 
-        <script src="js/site.js"></script>
+        <script src="js/site.js?v=20260813-back-to-top-v1"></script>
     </body>
 </html>
