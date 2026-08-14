@@ -103,7 +103,7 @@
 
 .news-row__title {
   min-width: 0;
-  font-weight: 400;
+  font-weight: var(--font-weight-section-heading);
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
@@ -158,10 +158,6 @@
     --page-hero-image-position: center 60%;
   }
 
-  .news-breadcrumb {
-    display: none;
-  }
-
   .news-content {
     gap: 24px;
     padding-top: 48px;
@@ -206,7 +202,7 @@
   .news-row__title {
     grid-area: title;
     font-size: 1.04rem;
-    font-weight: 700;
+    font-weight: var(--font-weight-section-heading);
     line-height: 1.55;
   }
 

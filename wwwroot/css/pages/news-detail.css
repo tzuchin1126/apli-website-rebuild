@@ -96,13 +96,21 @@
   }
 
   .news-detail { padding-top: 40px; }
+  .news-detail__back {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
   .news-detail__image {
     max-width: 100%;
     max-height: 64vh;
     max-height: 64svh;
     margin-top: 28px;
   }
-  .news-detail__content { font-size: var(--font-size-body-copy); }
+  .news-detail__content {
+    padding-top: 16px;
+    font-size: var(--font-size-body-copy);
+  }
   .news-detail__attachment-link { font-size: 0.98rem; }
 }
 

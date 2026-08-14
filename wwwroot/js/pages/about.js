@@ -3,10 +3,11 @@
   if (!gallery) return;
 
   const panels = [...gallery.querySelectorAll("[data-philosophy-panel]")];
+  const isMobileLayout = window.innerWidth <= 840;
 
   const setState = (panel, expanded) => {
     panels.forEach((item) => {
-      const active = expanded && item.dataset.philosophyPanel === panel;
+      const active = expanded && (!panel || item.dataset.philosophyPanel === panel);
       item.dataset.active = String(active);
       item.setAttribute("aria-expanded", String(active));
     });
@@ -14,6 +15,11 @@
 
   const activate = (panel) => setState(panel.dataset.philosophyPanel, true);
   const reset = () => setState("", false);
+
+  if (isMobileLayout) {
+    setState("", true);
+    return;
+  }
 
   panels.forEach((panel) => {
     panel.addEventListener("pointerenter", (event) => {

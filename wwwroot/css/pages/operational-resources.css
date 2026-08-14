@@ -410,10 +410,6 @@
 }
 
 @media (max-width: 760px) {
-  .operational-resources-page .resources-breadcrumb {
-    display: none;
-  }
-
   .operational-resources-page .resource-section {
     padding-block: 56px;
   }
@@ -433,6 +429,12 @@
 
   .operational-resources-page .resource-body th {
     width: 34%;
+  }
+
+  .operational-resources-page .resource-link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   .operational-resources-page .resources-advantages {

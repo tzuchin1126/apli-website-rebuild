@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
-  <link rel="stylesheet" href="css/pages/milestones.css">
+  <link rel="stylesheet" href="css/pages/milestones.css?v=20260815-milestones-mobile-v2">
   <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
 </head>
 
@@ -120,9 +120,11 @@
     <section class="milestones-content site-container" aria-label="公司沿革內容">
       <!-- 年代切換頁籤 -->
       <div class="milestone-tabs" role="tablist" aria-label="公司沿革年代">
-        <button type="button" role="tab" aria-selected="true" aria-controls="era-current" data-era="era-current">2013 - 至今</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="era-middle" data-era="era-middle">1993 - 2013</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="era-start" data-era="era-start">1973 - 1993</button>
+        <div class="milestone-tabs__track">
+          <button type="button" role="tab" aria-selected="true" aria-controls="era-current" data-era="era-current">2013 - 至今</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="era-middle" data-era="era-middle" tabindex="-1">1993 - 2013</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="era-start" data-era="era-start" tabindex="-1">1973 - 1993</button>
+        </div>
       </div>
 
       <!-- 2013 - 至今 -->

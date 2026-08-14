@@ -418,12 +418,16 @@
 }
 
 @media (max-width: 760px) {
-  .safety-page .safety-breadcrumb {
-    display: none;
-  }
-
   .safety-page .safety-section {
     padding-block: 56px;
+  }
+
+  .safety-page .safety-intro__health ul {
+    list-style-type: circle;
+  }
+
+  .safety-page .safety-intro__health li::marker {
+    color: var(--color-ink);
   }
 
   .safety-page .safety-credentials__heading h2 {

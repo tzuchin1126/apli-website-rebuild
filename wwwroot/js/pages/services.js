@@ -35,6 +35,7 @@
 
   carousels.forEach((carousel) => {
     const track = carousel.querySelector(".service-carousel__track");
+    const viewport = carousel.querySelector(".service-carousel__viewport");
     const slides = [...carousel.querySelectorAll(".service-carousel__slide")];
     const previous = carousel.querySelector("[data-carousel-prev]");
     const next = carousel.querySelector("[data-carousel-next]");
@@ -42,6 +43,11 @@
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let current = 0;
     let timer;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let pointerDeltaX = 0;
+    let pointerActive = false;
+    let pointerMoved = false;
 
     if (!track || slides.length < 2) return;
 
@@ -98,6 +104,51 @@
         start();
       });
     });
+
+    const finishPointer = (event, commit = true) => {
+      if (!pointerActive) return;
+      pointerActive = false;
+      viewport?.classList.remove("is-dragging");
+      if (viewport?.hasPointerCapture(event.pointerId)) {
+        try { viewport.releasePointerCapture(event.pointerId); } catch {}
+      }
+      track.style.removeProperty("transition");
+      if (commit && pointerMoved && Math.abs(pointerDeltaX) >= Math.max(40, viewport.clientWidth * 0.15)) {
+        show(current + (pointerDeltaX < 0 ? 1 : -1));
+      } else {
+        show(current);
+      }
+      start();
+    };
+
+    viewport?.addEventListener("pointerdown", (event) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      pointerActive = true;
+      pointerMoved = false;
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
+      pointerDeltaX = 0;
+      stop();
+      try { viewport.setPointerCapture(event.pointerId); } catch {}
+      viewport.classList.add("is-dragging");
+    });
+
+    viewport?.addEventListener("pointermove", (event) => {
+      if (!pointerActive || !event.isPrimary) return;
+      pointerDeltaX = event.clientX - pointerStartX;
+      const deltaY = event.clientY - pointerStartY;
+      if (!pointerMoved && Math.abs(deltaY) > Math.abs(pointerDeltaX) && Math.abs(deltaY) > 8) {
+        finishPointer(event, false);
+        return;
+      }
+      if (Math.abs(pointerDeltaX) > 6) pointerMoved = true;
+      if (!pointerMoved) return;
+      track.style.transition = "none";
+      track.style.transform = `translateX(calc(-${current * 100}% + ${pointerDeltaX}px))`;
+    });
+
+    viewport?.addEventListener("pointerup", (event) => finishPointer(event));
+    viewport?.addEventListener("pointercancel", (event) => finishPointer(event, false));
 
     carousel.addEventListener("mouseenter", stop);
     carousel.addEventListener("mouseleave", start);

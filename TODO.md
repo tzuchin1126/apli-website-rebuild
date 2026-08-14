@@ -1,10 +1,82 @@
 # APLI Website Rebuild TODO
 
-- [ ] 2026-08-14：下一階段調整 Affiliates 行動裝置介面
+- [ ] 2026-08-15：待完成主要頁面行動版最終驗證
+  - 待驗證頁面：`wwwroot/index.html`、`wwwroot/404.html`、`wwwroot/500.html`、`wwwroot/privacy.html` 與員工專區 `/Admin`。
+  - 待確認共用介面：全站行動版 Header 與 Footer，包含不同頁面、主要斷點、選單開關、連結與版面溢位。
+  - 狀態：待驗證；尚未進行本輪完整手機／桌機驗收。
+
+- [x] 2026-08-15：完成 Occupational Safety 行動裝置介面
+  - 範圍：`wwwroot/occupational-safety.html` 與 `wwwroot/css/pages/occupational-safety.css` 的行動版麵包屑與健康清單 marker。
+  - 完成：恢復行動版麵包屑；`.safety-intro__health` 清單改為空心 `circle` marker，邊線使用 `var(--color-ink)`，桌機版原本的實心橘色 marker 保留。
+  - 已驗證：390px、1440px 麵包屑顯示、行動版 marker 樣式、桌機版 marker 保留、頁面無水平溢出、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；使用者已確認行動版介面完成，未自行 commit 或 push。
+
+- [x] 2026-08-15：完成 Operational Resources 行動裝置介面
+  - 範圍：`wwwroot/operational-resources.html` 與 `wwwroot/css/pages/operational-resources.css` 的行動版麵包屑與職業安全衛生 CTA。
+  - 完成：恢復行動版麵包屑；職業安全衛生「了解更多」按鈕改為滿版並置中文字，桌機版按鈕維持原本寬度。
+  - 已驗證：390px、1440px 麵包屑顯示、職業安全衛生按鈕寬度／文字對齊、頁面無水平溢出、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；Google Maps 外部 iframe 實際內容仍需另行確認。
+  - 狀態：已完成，待提交；使用者已確認行動版介面完成，未自行 commit 或 push。
+
+- [x] 2026-08-15：完成 Milestones 行動裝置介面
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css` 與 `wwwroot/js/pages/milestones.js` 的行動版麵包屑、年代頁籤與切換互動。
+  - 完成：恢復行動版麵包屑；年代頁籤比照 Affiliates 改為單列水平排列、可左右滑動，文字使用 muted 色並以主題色底線標示目前年代；補上頁籤鍵盤左右切換與 `tabindex` 狀態同步。
+  - 最新修正：行動版第一筆沿革移除額外 22px 上內距，保留頁籤下方 64px 間距與後續項目 22px 節奏，使頁籤至內容的距離與 Affiliates 一致。
+  - 已驗證：390px、1440px 麵包屑顯示、年代頁籤排列／顏色／水平溢位、滑動容器設定、頁籤點選與鍵盤切換、`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；實體手指滑動仍需裝置確認。
+  - 狀態：已完成，待提交；使用者已確認行動版介面完成，未自行 commit 或 push。
+
+- [x] 2026-08-14：完成 Affiliates 行動裝置介面
   - 範圍：`wwwroot/affiliates.html` 的行動裝置版面；桌機版先維持目前狀態。
   - 已完成前置：Affiliates 字體調整已完成，包含內容區 `h2、h3`、副標語與油品引言的字體／字重設定；服務據點卡片已完成初步精簡。
-  - 下一步：檢查並調整行動版 Header、Tabs、內容區塊、服務據點卡片、圖片、間距與文字換行；完成後分別驗證手機與桌機，避免影響已確認的桌機版。
-  - 狀態：待開始；未自行 commit 或 push。
+  - 已完成：世新貨櫃行動版隱藏直幅主圖；亞柏油品、亞柏會舘、亞柏羽球隊與 ALPHA 行動版改為一次顯示一張圖片，使用原生水平捲動與 `scroll-snap` 左右拖曳查看，並加入左右滑動提示 icon；移除油品引言 `::before`；會舘／太報按鈕改為行動版滿版置中；修正會舘電話格式；羽球隊與 ALPHA 列表改為深色空心圓點。
+  - 最新修正：恢復 Affiliates 行動版麵包屑顯示，保留共用麵包屑結構與桌機版樣式。
+  - 最新修正：恢復 Contact 行動版麵包屑顯示，保留共用麵包屑結構與桌機版樣式。
+  - 完成狀態：本次指定的 Affiliates 行動版版面與內容調整已完成，桌機版既有版型已保留。
+  - 已驗證：390px 四個圖庫 DOM／CSS 狀態、太報行動版順序與按鈕寬度、1440px 桌機版三欄圖庫與太報左右版型、marker 樣式、頁面無水平溢出、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`。
+  - 未驗證：實體手機觸控拖曳、跨瀏覽器與人工無障礙驗收；本機瀏覽器預覽額外隱藏圖片，未作圖片外觀驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：完成 Contact 行動裝置介面
+  - 範圍：`wwwroot/contact.html` 與 `wwwroot/css/pages/contact.css` 的行動版麵包屑顯示。
+  - 完成：恢復 Contact 行動版麵包屑，保留共用麵包屑結構與桌機版樣式，並更新 CSS 快取版本。
+  - 已驗證：390px、1440px 麵包屑顯示、頁面無水平溢出、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：完成 Join 行動裝置介面
+  - 範圍：`wwwroot/join.html` 與 `wwwroot/css/pages/join.css` 的行動版麵包屑、加入亞太敘述與公司福利表格。
+  - 完成：縮短兩段敘述的垂直間距；公司福利 `tbody th` 改用正確的 `var(--color-ink)`；恢復行動版麵包屑並更新 CSS 快取版本。
+  - 最新確認：`join.html` 的行動版介面已完成。
+  - 已驗證：390px、1440px 麵包屑顯示、敘述列距與福利標題顏色、頁面無水平溢出、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：完成 News 行動裝置介面
+  - 範圍：`wwwroot/news.html`、`wwwroot/news-detail.html`、`wwwroot/css/pages/news.css` 與 `wwwroot/css/pages/news-detail.css` 的行動版麵包屑、標題、返回按鈕與內文間距。
+  - 完成：恢復消息列表行動版麵包屑；列表標題字重統一使用 `var(--font-weight-section-heading)`；內頁返回按鈕改為滿版置中；縮短內頁敘述上方間距；更新 CSS 快取版本。
+  - 最新確認：`news.html` 與 News 內頁的行動版介面已完成。
+  - 已驗證：390px、1440px 麵包屑、標題字重、返回按鈕寬度與內文間距、頁面無水平溢出、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：完成 Services 行動裝置介面
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css` 與 `wwwroot/js/pages/services.js` 的行動版麵包屑、三個服務區塊圖片順序、輪播手勢與業務諮詢區。
+  - 完成：恢復行動版麵包屑；三個服務區塊改為標題／英文副標、圖片、敘述的順序；輪播加入原生 Pointer Events 左右拖曳、垂直捲動保護與既有按鈕／圓點控制；`services-contact__inner` 行動版改為圖片在上、聯絡資訊在下，桌機雙欄版型保留。
+  - 最新修正：修正 `service-section--reverse` 的手機版 Grid specificity，恢復 `#terminal-handling` 的標題／圖片／敘述／服務清單順序；更新 CSS 快取版本。
+  - 最新確認：`services.html` 的行動版介面已完成。
+  - 已驗證：390px 三個區塊 DOM／CSS 順序、麵包屑、輪播 `touch-action`、聯絡區上下排列與頁面無水平溢出；1440px 桌機雙欄輪播與聯絡區版型、頁面無水平溢出；`node --check wwwroot/js/pages/services.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置實際手指拖曳、跨瀏覽器與人工無障礙驗收；瀏覽器檢查工具無法建立 PointerEvent，未將實際手勢切換標記為已通過。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：完成 About 行動裝置介面
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css` 與 `wwwroot/js/pages/about.js` 的公司簡介、經營理念與關係企業行動版介面。
+  - 完成：公司簡介改為標題、圖片、敘述順序，行動版敘述移除背景色並依已完成頁面間距檢查調整為 40px；經營理念手機版提高三張圖片卡片高度、固定深色遮罩、預設展開全部內容並使用主題色 icon；關係企業手機版 logo／名稱欄距調整為 24px、卡片四邊改為一致 20px 內距，恢復右下 Phosphor regular icon 並調整為 22px；桌機公司簡介與理念互動版型保留。
+  - 最新修正：依已完成頁面 spacing pattern 將公司簡介手機版 row-gap 由 48px 調整為 40px；移除關係企業卡片右側額外 52px padding，恢復右下 icon 並維持標準 regular 字體樣式。
+  - 已驗證：390px、1440px 公司簡介排序／間距、理念卡片初始狀態／高度／遮罩／icon 顏色、關係企業欄距／左右內距／箭頭 icon、頁面無水平溢出、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；圖片實體呈現與實際字體差異仍需人工確認。
+  - 狀態：已完成，待提交；使用者已確認行動版介面完成，未自行 commit 或 push。
 
 - [x] 2026-08-14：暫停共用頁面進場與 scroll reveal 動畫
   - 範圍：`Pages/Shared/_Layout.cshtml`、各靜態頁面共用載入、`TODO.md`

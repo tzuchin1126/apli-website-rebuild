@@ -165,6 +165,10 @@
   align-self: start;
 }
 
+.services-page .service-section__heading-top {
+  width: 100%;
+}
+
 .services-page .service-section__heading .eyebrow {
   margin: 4px 0 0;
   color: var(--color-muted);
@@ -235,6 +239,13 @@
 
 .services-page .service-carousel__viewport {
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.services-page .service-carousel__viewport.is-dragging {
+  cursor: grabbing;
 }
 
 .services-page .service-carousel__track {
@@ -553,18 +564,30 @@
     --services-contact-cut: 40px;
   }
 
-  .services-page .services-breadcrumb {
-    display: none;
-  }
-
   .services-page .service-switcher__list {
     width: max-content;
     row-gap: 0;
   }
 
-  .services-page .service-section__inner {
+  .services-page .service-section__inner,
+  .services-page .service-section--reverse .service-section__inner {
+    grid-template-areas:
+      "heading"
+      "media"
+      "description"
+      "details";
     padding-top: 64px;
     padding-bottom: 64px;
+  }
+
+  .services-page .service-section__heading {
+    display: contents;
+  }
+
+  .services-page .service-section__heading-top {
+    grid-area: heading;
+    width: min(100%, 760px);
+    margin-inline: auto;
   }
 
   .services-page .service-section__heading h2 {
@@ -572,6 +595,10 @@
   }
 
   .services-page .service-section__heading > p:not(.eyebrow) {
+    grid-area: description;
+    width: min(100%, 760px);
+    max-width: 760px;
+    margin: 0 auto;
     font-size: var(--font-size-body-copy);
     line-height: 1.82;
   }
@@ -581,8 +608,12 @@
   }
 
   .services-page .services-contact__inner {
-    height: 200px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .services-page .services-contact__media {
+    height: 180px;
   }
 
   .services-page .services-contact__content {
@@ -592,8 +623,8 @@
   }
 
   .services-page .services-contact__details {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
     padding: 10px 0 0;
     border-top: 1px solid var(--color-line);
   }
