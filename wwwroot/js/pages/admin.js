@@ -198,7 +198,6 @@
       title: document.querySelector("#newsTitle").value,
       content: document.querySelector("#newsContent").value,
       url: document.querySelector("#newsUrl").value,
-      imageUrl: document.querySelector("#newsImageUrl").value,
       published: document.querySelector("#newsPublished").value === "true",
     };
     const formData = new FormData();

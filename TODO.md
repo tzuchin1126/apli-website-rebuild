@@ -1,5 +1,306 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-14：調整 ALPHA TOTAL SOLUTION 第二張圖片的裁切位置
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除圖片位移效果，改讓第二張圖片在固定區塊內靠下裁切，以顯示較多圖片下方內容。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：僅下移 ALPHA TOTAL SOLUTION 第二張圖片本身
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：改以第二張 `img` 的視覺位移調整位置，不移動圖片網格容器。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：依照前面頁面版型調整 ALPHA TOTAL SOLUTION 區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將 Alpha 區塊改為標題、三張服務圖片、介紹文字、服務項目與聯絡資訊的內容順序，並沿用油品、會館與羽球隊的圖片網格版型。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整亞柏油品版面與內容順序
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：依照世新貨櫃版型改為左側文案／服務內容、右側既有加油站圖片；將「油品質純 綠能永續」移至公司標題上方；服務據點移至服務項目下方；引文改為淺色背景引用卡並加入引用符號。
+  - 驗證：`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將亞柏油品引文移至文案敘述下方
+  - 範圍：`wwwroot/affiliates.html`、`TODO.md`
+  - 完成：引文卡改為緊接在三段公司文案後方，服務項目與服務據點接續顯示於引文下方。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整亞柏油品圖片為標題下方三欄呈現
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除左右欄版型，將既有三張油品圖片排列於公司標題下方；手機版改為單欄堆疊，後續維持文案、引文、服務項目與服務據點順序。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：合併亞柏油品公司介紹段落
+  - 範圍：`wwwroot/affiliates.html`、`TODO.md`
+  - 完成：將連續的公司介紹內容合併為單一 `<p>`，使 HTML 語意與實際內容一致。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將亞柏油品引文符號改為主題橘
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：`.affiliate-oil-quote::before` 改用既有 `var(--color-primary)` 主題橘。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：移除亞柏油品服務項目區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除「服務項目」標題與清單，並刪除只供該區塊使用的 `.affiliate-oil-details` 包裝樣式；服務據點直接接續在引文下方。
+  - 驗證：`git diff --check`；確認油品區塊已無「服務項目」語意區塊。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將亞柏油品服務據點改為卡片呈現
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除 `<details>` 手風琴結構，改為固定顯示的據點卡片；桌機三欄、平板兩欄、手機單欄，直接顯示站名、電話與地址。
+  - 驗證：`git diff --check`；確認服務據點已無手風琴相關 selector。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：新增亞柏油品服務據點北中南篩選器
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`wwwroot/js/pages/affiliates.js`、`TODO.md`
+  - 完成：於「服務據點」標題右側加入原生下拉選單，可篩選全部、北部、中部與南部；各據點依地址標示區域，篩選後保留符合條件的卡片。
+  - 驗證：`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機篩選互動、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將服務據點篩選器改為三個橢圓按鈕
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`wwwroot/js/pages/affiliates.js`、`TODO.md`
+  - 完成：移除下拉選單，改為「北部／中部／南部」三個橢圓按鈕；初始顯示全部據點，點擊區域後篩選，再次點擊目前區域可恢復全部顯示。
+  - 驗證：`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機篩選互動、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：統一服務據點篩選按鈕的顏色與字級
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：未選取按鈕改為白底、灰色文字與細邊框；選取狀態沿用 `var(--button-primary-bg)` 與白字；按鈕明確使用 `var(--font-body)`、`var(--font-size-body-copy)` 與 500 字重。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面與篩選互動、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：提升亞柏油品企業理念引文的版面層級
+  - 範圍：`wwwroot/affiliates.html`、`TODO.md`
+  - 完成：將深色企業理念引文移至三張圖片下方、公司介紹文案上方，讓重要訊息先於詳細介紹呈現；服務據點維持在文案之後。
+  - 驗證：`git diff --check`；確認 HTML 顯示順序為圖片、引文、文案、服務據點。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：依照亞柏油品版型調整亞柏會舘區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將會舘小標題移至公司名稱上方，標題下方新增三欄環境圖片，文案改放於圖片下方，保留原有聯絡資訊；手機版三張圖片改為單欄排列。
+  - 驗證：`git diff --check`；確認三張既有會舘圖片路徑與 HTML 結構。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：為亞柏會舘聯絡資訊新增官網按鈕
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：於聯絡資訊右側新增「前往亞柏會舘網站」按鈕，連結至 `http://aph.apli.com.tw/`，並以新分頁開啟。
+  - 驗證：`git diff --check`；確認連結網址、`target="_blank"` 與 `rel="noopener"`。
+  - 未驗證：按鈕實際開啟網站、修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整亞柏會舘官網按鈕 hover 邊線與位置
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：hover／focus 時讓按鈕邊框同步使用主題橘，並將按鈕由垂直置中改為與聯絡資訊區塊頂端對齊。
+  - 驗證：`git diff --check`。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、hover／focus 實際呈現、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將亞柏會舘官網按鈕水平置中
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：保留按鈕頂端對齊，並以 `justify-self: center` 讓按鈕在聯絡資訊右側欄位水平置中。
+  - 驗證：`git diff --check`。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將亞柏會舘聯絡資訊與官網連結改為 CTA
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除原本分欄聯絡資訊與單獨按鈕，改為深色 CTA 區塊；桌機版左側顯示聯絡資訊、右側顯示官網按鈕，手機版改為上下排列。
+  - 驗證：`git diff --check`；確認 CTA 保留官網連結與新分頁安全屬性。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、按鈕 hover／focus、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：區分亞柏會舘 CTA 與油品引言背景
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：CTA 背景改用既有 `var(--color-secondary)` 深藍色，引言維持 `var(--button-primary-bg)`，避免兩個區塊使用相同背景色。
+  - 驗證：`git diff --check`。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：優化亞柏會舘 CTA 視覺層次
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：保留深藍 CTA 背景，加入主題橘左側強調線、橘色 CTA 標題與較高文字對比，改善聯絡資訊與官網按鈕的視覺層次。
+  - 驗證：`git diff --check`。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、按鈕 hover／focus、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：恢復亞柏會舘 CTA 原版視覺
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除 CTA 左側主題橘強調線與橘色標題，恢復深藍背景、白色標題與原本 CTA 內距；CTA 結構與連結功能維持不變。
+  - 驗證：`git diff --check`。
+  - 未驗證：恢復後的瀏覽器桌機／手機畫面、按鈕 hover／focus、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：依照前述版型調整亞柏羽球隊區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將羽球隊小標題移至公司名稱上方，標題下方新增三欄球隊圖片，介紹文案放於圖片下方，保留歷年成績殊榮清單；手機版三張圖片改為單欄排列。
+  - 驗證：`git diff --check`；確認三張既有羽球隊圖片路徑與 HTML 結構。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：修正亞柏羽球隊成績殊榮區塊跑版
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將羽球隊成績區塊限定為單欄排列，修正標題與清單被兩欄 Grid 分開呈現的問題。
+  - 驗證：`git diff --check`；確認羽球隊成績區塊使用單欄結構。
+  - 未驗證：修改後的瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：依照世新版型調整太報區塊並新增官網 CTA
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：太報改為左側標題／子標題／文案與 CTA、右側長版 `taisounds.jpg` 圖片；桌機左右排列，手機上下排列；保留太報官網連結並改為主要 CTA 樣式。
+  - 驗證：`git diff --check`；確認圖片路徑與 `https://www.taisounds.com/` 連結。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、CTA hover／focus、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：統一服務據點卡片站點名稱字體
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：站點名稱改用既有 `var(--font-body)` 內文字體與 500 字重，不再使用標題字體。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整亞柏油品引文卡深色樣式
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：引文卡改用 `var(--color-secondary)` 深色背景與 `var(--color-surface)` 白色文字，與服務據點淺色卡片區隔；`affiliate-tagline` 文案維持「油品質純 綠能永續」。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：讓亞柏油品引文卡共用主要按鈕背景 token
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：引文背景改用既有 `var(--button-primary-bg)`，不新增重複的顏色變數；白色文字與橘色引用符號維持不變。
+  - 驗證：確認 token 已存在於 `wwwroot/css/base/tokens.css`；`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整 `affiliates.html` 關係企業內容版型
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除各關係企業主要內容圖片，改為標題、描述與引文的單欄垂直排列；標題改用 `--font-heading`；移除頁籤、標題與內容區的下底線樣式；保留世新貨櫃的服務品質獎狀圖片。
+  - 驗證：`git diff --check`；確認除世新服務品質肯定區塊外，其他關係企業內容不包含圖片；Edge 桌機 1366x900 與手機 390x844 檢查單欄版型、標題字體、無水平溢出，並確認油品引文位於描述下方。
+  - 未驗證：實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：統一 `affiliates.html` 關係企業標題尺寸
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：比照服務項目、營運資源與職業安全衛生頁面的共用標題尺寸及行高，將關係企業標題上限由 `2.6rem` 調整為 `2.3125rem`。
+  - 驗證：`dotnet build -c Release`、`git diff --check`；Edge 桌機 1366x900 顯示 34.32px、手機 390x844 顯示 31px，並確認手機無水平溢出。
+  - 未驗證：實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整世新貨櫃內容區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除世新聯絡資訊，服務項目接續顯示於描述下方；服務品質肯定前加入分隔線，並以水平三欄呈現三張獎狀圖片。
+  - 驗證：`dotnet build -c Release`、`git diff --check`；Edge 桌機 1366x900 與手機 390x844 確認服務項目、分隔線、三張水平獎狀圖片及聯絡資訊移除結果，且手機無水平溢出。
+  - 未驗證：實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：調整世新貨櫃清單與獎狀圖片對齊
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將 `.affiliate-panel li::marker` 改為網站橘色，清單文字維持原本顏色；獎狀圖片採等寬三欄、各欄水平置中，維持左右圖片間距一致。
+  - 驗證：`dotnet build -c Release`、`git diff --check`；確認 `ul` 維持原文字色、`li::marker` 使用橘色；前次 Edge 桌機 1366x900 與手機 390x844 已確認三欄等寬、圖片水平置中、左右間距一致，且手機無水平溢出。
+  - 未驗證：本次顏色修改後的瀏覽器畫面、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：置中世新貨櫃服務品質肯定圖片區塊
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將三欄獎狀圖片容器以 `margin-inline: auto` 置中，讓中間圖片位於整個內容區中央，同時保留三欄等寬與圖片水平置中。
+  - 驗證：`git diff --check`；依提供畫面確認問題來源為獎狀容器未置中。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將世新服務品質肯定移入同一內容區
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：將服務品質肯定 `<section>` 移入 `.affiliate-panel-copy`，保留服務項目與獎狀區之間的分隔線，並移除獨立區塊的額外上方間距。
+  - 驗證：`git diff --check`；HTML 結構與區塊層級檢查。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：移除世新服務項目與服務品質肯定之間的線條
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：移除服務品質肯定區塊的上方分隔線，保留同一內容區與原有間距。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：恢復世新服務項目與服務品質肯定之間的線條
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：恢復服務品質肯定區塊上方的分隔線，其他版型與間距維持不變。
+  - 驗證：`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將世新合作服務圖片放置於右側欄位
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：使用既有 `wwwroot/public/images/affiliates/世新.jpg`，世新區塊改為左側文案與服務項目、右側直向圖片；服務品質肯定維持於左右區塊下方，手機版改為上下排列並限制圖片高度。
+  - 驗證：`git diff --check`；確認圖片檔案存在且 HTML 路徑一致。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：將世新服務品質肯定縮入左側內容欄
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：服務品質肯定與三張獎狀移入左側文案欄，右側維持世新合作服務直向圖片；手機版依左側內容、右側圖片順序垂直排列。
+  - 驗證：`git diff --check`；HTML 結構與 CSS 欄位關係檢查。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：放大世新右側合作服務圖片
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：右側圖片欄位上限調整為 400px，移除 560px 高度限制，讓直向圖片以較完整尺寸呈現；手機版仍受欄寬限制。
+  - 驗證：`git diff --check`；確認圖片仍使用既有 `世新.jpg`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：精簡世新服務品質證書區塊
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：保留三張證書水平排列，縮小欄間距、圖片高度上限與圖片說明間距，讓左側證書區與放大的右側圖片比例更協調。
+  - 驗證：`git diff --check`；確認三張圖片仍使用 `object-fit: contain`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機、實體裝置、其他瀏覽器與無障礙人工驗收。
+  - Commit：尚未建立。
+
+- [x] 2026-08-14：補充隱私權政策 Cookie 實際用途說明。
+  - 範圍：`wwwroot/privacy.html`、`TODO.md`。
+  - 內容：改為簡潔說明 Cookie 主要用於維持網站基本功能與瀏覽體驗，例如記住頁面顯示設定；不涉及廣告追蹤或跨網站行為分析，並註明可由瀏覽器管理或停用及其功能影響。
+  - 已驗證：Cookie 名稱、Session 閒置時間、登入有效期間與用途均與目前程式設定交叉確認；`git diff --check`。
+  - 未驗證：法務核定、瀏覽器實際 Cookie 行為、桌機／手機、Safari／Firefox、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：於隱私權政策頁補上個人資料權利聯絡窗口。
+  - 範圍：`wwwroot/privacy.html`、`TODO.md`。
+  - 內容：新增「八、聯絡窗口」，沿用網站既有公開信箱 `apadm@mail.apli.com.tw`，並提供 `mailto` 連結。
+  - 已驗證：靜態 HTML 文案、email 連結與頁面結構來源檢查；`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機實際畫面、mailto 開啟行為、Safari／Firefox、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：將全站 Back-to-top 按鈕圖示改為 Phosphor `ph-caret-up`。
+  - 範圍：`wwwroot/js/site.js`、`wwwroot/css/components/back-to-top.css`、`wwwroot/css/site.css`、14 個靜態頁面的 CSS／JS 快取版本、`TODO.md`。
+  - 內容：移除原本雙折線 SVG，改用既有本地 Phosphor 字型與 `ph-caret-up`；保留原有按鈕位置、顯示狀態、鍵盤 focus、hover 與 reduced-motion 行為。
+  - 已驗證：Phosphor glyph mapping、所有靜態頁面引用新版快取參數、`node --check wwwroot/js/site.js`、`git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際畫面、Safari／Firefox、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
 - [x] 2026-08-13：依已記錄的精確基準，恢復首頁 Hero 原始波浪。
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
   - 內容：恢復原始 1 個白色 cutout 與 shadow／main／olive／pink／hairline 5 條裝飾線，並逐項還原桌機與手機的波浪尺寸、位置、線條顏色與粗細，以及輪播圓點高度；進場動畫維持原始設定。
@@ -66,6 +367,13 @@
 - [ ] 2026-08-13：盤點並修復既有消息圖片的失效引用。
   - 發現：本次桌機消息導向驗證中，`/api/uploads/news/aca1d89bd91f40878fc374623eb48d03.png` 與 `/api/uploads/news/02c59acf168f46e89e4c56de407121df.jpg` 回應 404；目前 `App_Data/news/` 沒有對應檔案。此問題不影響消息卡片導向與文字詳情顯示，且不在本次修正範圍，因此未自行修改消息資料或上傳檔案。
   - 待驗證：確認原始圖片來源、應補回檔案或清除失效 `ImageUrl`，並檢查其他消息附件／圖片。
+
+- [x] 2026-08-14：將新上傳新聞圖片與 `news.json` 一起儲存，避免多台管理電腦因本機圖片目錄不同步而缺圖。
+  - 範圍：`Program.cs`、`wwwroot/js/pages/admin.js`、`README.md`、`TODO.md`。
+  - 內容：圖片上傳驗證後直接轉為 Data URL 寫入新聞項目的 `ImageUrl`；另將目前仍存在的兩張舊公告圖片嵌入 `news.json`；保留既有 `/api/uploads/news/...` 舊圖片與附件讀取相容；管理頁編輯既有消息時不再把整張 Base64 圖片重送，降低不必要的請求大小；圖片單檔上限維持 5 MB。
+  - 已驗證：`news.json` 可解析且包含 2 筆 Data URL 圖片、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/admin.js`、`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；最新兩筆仍缺少原始檔的舊圖片尚未復原，需由原始來源重新上傳。
+  - 未驗證：新上傳圖片的實際 Admin API 流程、正式環境部署後的多管理員讀取、瀏覽器桌機／手機、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
 
 - [x] 2026-08-13：載入 Google Fonts，統一手機與桌機中文字型。
   - 範圍：14 個 `wwwroot/*.html` 公開靜態頁、`Pages/Shared/_Layout.cshtml`、`TODO.md`。

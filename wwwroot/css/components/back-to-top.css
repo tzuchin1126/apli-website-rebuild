@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Phosphor";
+  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
 .back-to-top {
   position: fixed;
   z-index: 15;
@@ -41,15 +49,20 @@
   outline-offset: 3px;
 }
 
-.back-to-top svg {
+.back-to-top .ph {
+  display: inline-flex;
   width: 24px;
   height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
+  align-items: center;
+  justify-content: center;
+  font-family: "Phosphor";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
 }
+
+.back-to-top .ph-caret-up::before { content: "\e13c"; }
 
 @media (max-width: 760px) {
   .back-to-top {

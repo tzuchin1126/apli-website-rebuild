@@ -303,7 +303,7 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
         {
             if (requestData.ImageFile is not null)
             {
-                var upload = await SaveUploadAsync(requestData.ImageFile, uploadsRoot, UploadKind.Image);
+                var upload = await SaveImageDataUrlAsync(requestData.ImageFile);
                 item.ImageUrl = upload.Url;
                 item.ImageName = upload.OriginalName;
             }
@@ -563,6 +563,43 @@ bool FixedTimeTextEquals(string? expected, string? actual)
     var actualBytes = Encoding.UTF8.GetBytes(actual.Trim().ToUpperInvariant());
     return expectedBytes.Length == actualBytes.Length &&
            CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes);
+}
+
+async Task<SavedUpload> SaveImageDataUrlAsync(IFormFile file)
+{
+    var originalName = Path.GetFileName(file.FileName).Trim();
+    var extension = Path.GetExtension(originalName).ToLowerInvariant();
+    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+    const long maxImageSize = 5 * 1024 * 1024;
+
+    if (file.Length <= 0 || file.Length > maxImageSize)
+        throw new UploadValidationException("公告圖片必須小於 5 MB。");
+    if (string.IsNullOrWhiteSpace(originalName) || originalName.Length > 180 || !allowedExtensions.Contains(extension))
+        throw new UploadValidationException("公告圖片僅支援 JPG、PNG 或 WebP。");
+
+    await using var input = file.OpenReadStream();
+    using var memory = new MemoryStream((int)file.Length);
+    await input.CopyToAsync(memory);
+    var bytes = memory.ToArray();
+    ValidateImageSignature(bytes, extension);
+
+    var mimeType = GetUploadContentType($"image{extension}");
+    var dataUrl = $"data:{mimeType};base64,{Convert.ToBase64String(bytes)}";
+    return new SavedUpload(dataUrl, originalName);
+}
+
+void ValidateImageSignature(byte[] bytes, string extension)
+{
+    static bool StartsWith(byte[] source, params byte[] prefix) =>
+        source.Length >= prefix.Length && source.AsSpan(0, prefix.Length).SequenceEqual(prefix);
+
+    var isJpeg = (extension is ".jpg" or ".jpeg") && StartsWith(bytes, 0xff, 0xd8, 0xff);
+    var isPng = extension == ".png" && StartsWith(bytes, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a);
+    var isWebp = extension == ".webp" && bytes.Length >= 12 &&
+        StartsWith(bytes, 0x52, 0x49, 0x46, 0x46) && bytes.AsSpan(8, 4).SequenceEqual("WEBP"u8);
+
+    if (!isJpeg && !isPng && !isWebp)
+        throw new UploadValidationException("公告圖片內容格式不正確。");
 }
 
 async Task<SavedUpload> SaveUploadAsync(IFormFile file, string directory, UploadKind kind)

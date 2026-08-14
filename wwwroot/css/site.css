@@ -1,6 +1,6 @@
 @import url("components/page-hero.css");
 @import url("components/breadcrumb.css");
-@import url("components/back-to-top.css?v=20260813-footer-clearance-v2");
+@import url("components/back-to-top.css?v=20260814-caret-up-v1");
 
 .site-container {
   width: min(100% - (var(--content-padding) * 2), var(--content-max-width));

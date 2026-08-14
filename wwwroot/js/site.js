@@ -110,10 +110,7 @@
   button.setAttribute("aria-label", "回到頁面頂端");
   button.setAttribute("aria-hidden", "true");
   button.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="m6 11 6-6 6 6"></path>
-      <path d="m6 19 6-6 6 6"></path>
-    </svg>`;
+    <i class="ph ph-caret-up" aria-hidden="true"></i>`;
   document.body.append(button);
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
