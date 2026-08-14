@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="亞太國際物流隱私權政策，說明個人資料蒐集、使用、保護與當事人權利。">
         <title>隱私權政策 - 亞太國際物流</title>
-        <link rel="preload" as="image" type="image/avif" href="public/images/privacy-policy-960.avif" imagesrcset="public/images/privacy-policy-960.avif 960w, public/images/privacy-policy-1920.avif 1920w" imagesizes="100vw" fetchpriority="high">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
@@ -13,7 +12,7 @@
         <link rel="stylesheet" href="css/base/tokens.css">
         <link rel="stylesheet" href="css/layout/site-header.css">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
-        <link rel="stylesheet" href="css/pages/privacy.css?v=20260813-privacy-content-v1">
+        <link rel="stylesheet" href="css/pages/privacy.css?v=20260814-privacy-content-v2">
         <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
     </head>
     <body class="privacy-page">
@@ -63,9 +62,10 @@
                     </a>
                 </div>
                 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
+                    <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path class="menu-toggle__menu" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path class="menu-toggle__close" d="m6 6 12 12M18 6 6 18"></path>
+                    </svg>
                     <span class="sr-only">開啟選單</span>
                 </button>
             </div>
@@ -80,19 +80,10 @@
                 </nav>
             </div>
 
-            <section class="privacy-hero page-hero" aria-labelledby="privacy-hero-title">
-                <picture class="page-hero__media">
-                    <source type="image/avif" srcset="public/images/privacy-policy-960.avif 960w, public/images/privacy-policy-1920.avif 1920w" sizes="100vw">
-                    <img class="page-hero__image" src="public/images/privacy-policy.jpg" alt="" aria-hidden="true" fetchpriority="high">
-                </picture>
-                <div class="page-hero__overlay" aria-hidden="true"></div>
-                <h1 class="page-hero__title" id="privacy-hero-title">隱私權政策</h1>
-            </section>
-
-            <section class="privacy-content" aria-label="隱私權政策內容">
+            <section class="privacy-content" aria-labelledby="privacy-title">
                 <div class="site-container">
                     <article class="privacy-policy">
-                        <p class="privacy-policy__updated"><strong>最後更新日期：</strong>2026年7月31日</p>
+                        <h1 class="privacy-policy__title" id="privacy-title">隱私權政策</h1>
                         <p>歡迎您使用亞太國際物流股份有限公司網站（以下簡稱「本網站」）。為保障您的個人資料與隱私權益，特此說明本網站的隱私權保護政策。</p>
 
                         <h2>一、隱私權保護政策的適用範圍</h2>

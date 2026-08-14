@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/base/reset.css">
         <link rel="stylesheet" href="css/base/tokens.css">
         <link rel="stylesheet" href="css/layout/site-header.css">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
+        <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
         <link rel="stylesheet" href="css/components/buttons.css">
         <link rel="stylesheet" href="css/pages/occupational-safety.css">
   <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
@@ -62,9 +62,10 @@
                     </a>
                 </div>
                 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
+                    <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path class="menu-toggle__menu" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path class="menu-toggle__close" d="m6 6 12 12M18 6 6 18"></path>
+                    </svg>
                     <span class="sr-only">開啟選單</span>
                 </button>
             </div>
@@ -190,7 +191,7 @@
 
         <!-- shared-site-footer -->
 
-  <script src="js/site.js?v=20260814-caret-up-v1"></script>
+        <script src="js/site.js?v=20260814-caret-up-v1"></script>
         <script src="js/pages/occupational-safety.js"></script>
     </body>
 </html>

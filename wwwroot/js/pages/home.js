@@ -121,7 +121,6 @@
       document.querySelector(".home-intro"),
       document.querySelector(".home-services"),
       document.querySelector(".home-latest"),
-      document.querySelector(".home-philosophy"),
       document.querySelector(".home-contact-cta")
     ].filter(Boolean);
 
@@ -206,8 +205,6 @@
       dragStartScrollLeft = viewport.scrollLeft;
       hasDragged = false;
       suppressClick = false;
-      viewport.classList.add("is-dragging");
-      viewport.setPointerCapture(event.pointerId);
     });
 
     viewport.addEventListener("pointermove", (event) => {
@@ -215,6 +212,8 @@
       const distance = event.clientX - dragStartX;
       if (Math.abs(distance) < 4) return;
       hasDragged = true;
+      viewport.classList.add("is-dragging");
+      if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
       event.preventDefault();
       viewport.scrollLeft = dragStartScrollLeft - distance;
     }, { passive: false });

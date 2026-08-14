@@ -127,6 +127,13 @@
   margin: 0;
 }
 
+@media (min-width: 841px) {
+  .site-footer__bottom-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 .footer-legal-links {
   position: absolute;
   right: max(var(--site-padding), calc((100% - var(--site-max-width)) / 2));

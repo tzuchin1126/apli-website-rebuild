@@ -1,5 +1,186 @@
 # APLI Website Rebuild TODO
 
+- [ ] 2026-08-14：下一階段調整 Affiliates 行動裝置介面
+  - 範圍：`wwwroot/affiliates.html` 的行動裝置版面；桌機版先維持目前狀態。
+  - 已完成前置：Affiliates 字體調整已完成，包含內容區 `h2、h3`、副標語與油品引言的字體／字重設定；服務據點卡片已完成初步精簡。
+  - 下一步：檢查並調整行動版 Header、Tabs、內容區塊、服務據點卡片、圖片、間距與文字換行；完成後分別驗證手機與桌機，避免影響已確認的桌機版。
+  - 狀態：待開始；未自行 commit 或 push。
+
+- [x] 2026-08-14：暫停共用頁面進場與 scroll reveal 動畫
+  - 範圍：`Pages/Shared/_Layout.cshtml`、各靜態頁面共用載入、`TODO.md`
+  - 完成：移除 `page-enter.css` 與 `page-enter.js` 的頁面載入，因此目前不會執行本次新增的整頁進場或區塊 scroll reveal；共用檔案保留，待最後確認動畫方案後再重新啟用或調整。
+  - 已驗證：確認 Razor Layout 與靜態頁面不再載入共用進場動畫檔案、`git diff --check`。
+  - 未驗證：停用後的桌機／手機瀏覽器實際畫面由使用者檢查；原有 Hero／首頁既有動畫未因本次停用而移除。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：改為 Hero 載入動畫與內容區塊 scroll reveal 分離
+  - 範圍：`wwwroot/css/components/page-enter.css`、`wwwroot/js/page-enter.js`、各靜態頁面快取版本、`TODO.md`
+  - 完成：移除整個 `main` 一次進場的行為；Hero 保留既有 Hero 動畫；其他主要內容以 `IntersectionObserver` 進入 viewport 後才淡入上移；首頁略過共用 reveal，沿用既有 `home.js` 區塊動畫；尚未滑到的區塊不提前執行。
+  - 已驗證：scroll reveal selector、IntersectionObserver、快取版本、`node --check`、`git diff --check`。
+  - 未驗證：桌機實際跨頁與捲動動畫體感由使用者檢查；手機、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正桌機進場動畫在重新整理時不明顯的問題
+  - 範圍：`wwwroot/css/components/page-enter.css`、`wwwroot/js/page-enter.js`、各靜態頁面快取版本、`TODO.md`
+  - 完成：改用 `opacity`／`transform` transition，DOMContentLoaded 後先套用初始狀態，再透過雙重 `requestAnimationFrame` 切換最終狀態；保留原生 scroll restoration，不強制修改捲動位置；reduced-motion 或手機直接顯示。
+  - 已驗證：雙重 requestAnimationFrame、transition selector、快取版本、`node --check`、`git diff --check`。
+  - 未驗證：F5／Ctrl+R 與跨頁切換的桌機瀏覽器實際動畫效果由使用者檢查；手機、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：加強桌機版主要內容進場動畫
+  - 範圍：`wwwroot/css/components/page-enter.css`、各靜態頁面進場 CSS 快取版本、`TODO.md`
+  - 完成：主要內容進場動畫由 560ms／14px 調整為 700ms／24px，保留 `cubic-bezier(0.22, 1, 0.36, 1)`；維持 Header／Nav 排除、手機停用與 reduced-motion 直接顯示。
+  - 已驗證：進場 CSS 與所有靜態頁面快取版本檢查、`git diff --check`。
+  - 未驗證：調整後的桌機瀏覽器實際動畫強度由使用者檢查；手機、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：新增桌機版主要內容進場淡入動畫
+  - 範圍：`wwwroot/css/components/page-enter.css`、`wwwroot/js/page-enter.js`、`Pages/Shared/_Layout.cshtml`、現有靜態頁面共用載入
+  - 完成：主要 `main#main-content` 在桌機載入時以 560ms、14px 位移、`cubic-bezier(0.22, 1, 0.36, 1)` 淡入；Header／Nav 不納入動畫；行動裝置與 `prefers-reduced-motion: reduce` 直接顯示；以 data attribute 防止重複初始化。
+  - 已驗證：Razor Layout 與靜態頁面載入檢查、`node --check wwwroot/js/page-enter.js`、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：桌機／手機瀏覽器實際動畫效果與切頁體感由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：降低 Affiliates 副標語字重
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：`.affiliate-panel p.affiliate-tagline` 改用 `var(--font-weight-section-heading)`，目前字重為 500，與 Affiliates `h2、h3` 保持一致。
+  - 已驗證：副標語 selector、快取版本與 `git diff --check`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：精簡 Affiliates 油品服務據點卡片
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：保留服務據點卡片結構與淡色背景，將內距調整為桌機 16px、手機 14px 16px；圓角降為 2px；站名間距與地址行高收緊，降低卡片佔用高度。
+  - 已驗證：服務據點卡片 selector、快取版本與 `git diff --check`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：降低 Affiliates 油品引言字重
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：`.affiliate-oil-quote` 的文字粗細由 600 調整為 500；保留 `Noto Serif TC`、字級、行高與引號樣式。
+  - 已驗證：引言 selector、快取版本與 `git diff --check`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：Affiliates h2、h3 改用 Noto Sans TC
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`wwwroot/css/base/tokens.css`、`TODO.md`
+  - 完成：Affiliates 內容區 `h2、h3`（含會館 CTA 標題）改用 `var(--font-body)`，字重統一使用 `var(--font-weight-section-heading)`，目前為 500；保留 Hero 與引言的原字體設定。
+  - 已驗證：CSS 變數、Affiliates 標題 selector、快取版本與 `git diff --check`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：Contact 公司資訊標題改用 Noto Sans TC
+  - 範圍：`wwwroot/contact.html`、`wwwroot/css/pages/contact.css`、`TODO.md`
+  - 完成：僅將 `.contact-company-info__title` 改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`（目前為 500）；保留原有字級、行高與底線樣式。
+  - 已驗證：CSS selector、快取版本與 `git diff --check`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：放大 Affiliates h3 並統一行高
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：所有 Affiliates `h3`（含會館聯絡資訊）統一為 `clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem)`、`font-weight: 600`、`line-height: 1.5`，避免標題視覺上小於 `ul` 文字；同步更新 CSS 快取版本。
+  - 已驗證：Affiliates h3／ul 字級與行高 selector 比對、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：統一 Affiliates 文字行高與按鈕字重
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`TODO.md`
+  - 完成：一般清單、據點資訊與獎項圖說統一為 `1.75` 行高；關係企業 Tabs 與地區篩選按鈕明確設定 `font-weight: 400`；保留引用文字與卡片標題的層級差異；同步更新 CSS 快取版本。
+  - 已驗證：Affiliates typography selector／字級／字重／行高檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面、Tabs 與篩選操作由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正非首頁行動版 Header icon 間距
+  - 範圍：`wwwroot/css/layout/site-header.css`、`TODO.md`
+  - 完成：提高行動版 Header 內層 selector 優先權，讓 `gap: 4px` 正確覆蓋基礎 `gap: 28px`；同步修正 841–980px 的中間斷點，讓 Contact 等非首頁與首頁的電話、郵件、漢堡按鈕間距一致。
+  - 已驗證：Header CSS selector 優先權與行動版斷點檢查、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面與不同 viewport 間距由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：統一各頁行動版 Header 漢堡選單 icon
+  - 範圍：`wwwroot/*.html`、`Pages/Shared/_Layout.cshtml`、`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：將非首頁頁面的三條 `span` 漢堡線統一為與首頁相同的 inline SVG menu／close icon；共用 CSS 統一 icon 尺寸、線條與開關狀態，並同步首頁桌機下拉選單間距與 CSS 快取版本。
+  - 已驗證：所有 Header menu-toggle markup 盤點、`menu-toggle__icon`／狀態 selector 檢查、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面與漢堡開關操作由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：統一 Contact 聯絡資訊列表字級與字重
+  - 範圍：`wwwroot/css/pages/contact.css`、`TODO.md`
+  - 完成：`dt` 與 `dd` 統一使用 `var(--font-size-body-copy)` 與 `1.6` 行高；`dt` 明確使用 `500`、`dd` 使用 `400`；移除手機版 `dt` 縮小字級設定。
+  - 已驗證：Contact 列表 CSS 字級／字重與手機規則檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：統一 Contact 內容區標題字重
+  - 範圍：`wwwroot/css/pages/contact.css`、`TODO.md`
+  - 完成：將 Contact 內容區「公司資訊」標題字重由 `400` 調整為 `600`，與其他頁面內容標題一致；Hero「聯絡我們」共用字重維持 `400`。
+  - 已驗證：Contact 與其他頁面標題 CSS 字重比對、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正桌機 Header 下拉選單頂部邊線顯示
+  - 範圍：`wwwroot/css/layout/site-header.css`、`TODO.md`
+  - 完成：保留 Header 完整底線，將桌機下拉選單與 Header 底線錯開 1px，並同步延長 hover bridge，避免邊線重疊變粗或整條底線被下拉選單背景遮住；手機版規則維持不變。
+  - 已驗證：桌機下拉選單間距／hover bridge 與手機媒體規則檢查、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面與鍵盤操作由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：移除 Privacy 頁最後更新日期
+  - 範圍：`wwwroot/privacy.html`、`wwwroot/css/pages/privacy.css`、`TODO.md`
+  - 完成：移除「最後更新日期：2026年7月31日」文字，並清理對應的未使用 CSS selector；其他隱私權政策內容維持不變。
+  - 已驗證：Privacy HTML／CSS 文字與 selector 清理檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：移除 Privacy 頁 Hero 並將標題移入內容區塊
+  - 範圍：`wwwroot/privacy.html`、`wwwroot/css/pages/privacy.css`、`TODO.md`
+  - 完成：移除 Privacy 頁 Hero 圖片、遮罩與標題，將「隱私權政策」改為內容區塊內唯一的 `h1`；同步移除不再需要的 Hero 圖片預載並更新 CSS 快取版本。
+  - 已驗證：Privacy HTML／CSS 結構與標題關聯檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：將桌機 Footer copyright 置中
+  - 範圍：`wwwroot/css/layout/site-footer.css`、`TODO.md`
+  - 完成：桌機版 Footer 底部版權文字水平置中；手機版既有置中規則維持不變。
+  - 已驗證：共用 Footer 結構與 CSS 媒體規則檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正首頁最新消息卡片普通點擊無法導向
+  - 範圍：`wwwroot/js/pages/home.js`、`wwwroot/index.html`、`TODO.md`
+  - 完成：拖曳程式改為滑鼠移動超過 4px 後才取得 pointer capture；普通點擊不再被外層 viewport 攔截，保留卡片原生 `news-detail.html?id=...` 導向；同步更新 JavaScript 快取版本。
+  - 已驗證：首頁卡片 href 生成與消息 JSON ID 欄位比對、拖曳事件流程、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際點擊導向由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正 Header 下拉選單桌機與行動裝置重疊邊線
+  - 範圍：`wwwroot/css/layout/site-header.css`、`TODO.md`
+  - 完成：桌機下拉選單移除上邊線，保留 Header 下邊線；行動裝置在選單展開時移除外層 Header 下邊線，改由主選單上邊線作為唯一分隔線，關閉時仍保留 Header 邊界。
+  - 已驗證：桌機／行動裝置 CSS 媒體規則與邊線來源檢查、`git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器下拉選單實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：固定 Header 電話與信封 icon 的 hover 顏色
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：電話與信封快速連結 hover／focus-visible 維持原本 Header 顏色；導覽文字與下拉選單的 hover 橘色維持不變，並同步處理首頁 Header 的較高優先權規則。
+  - 已驗證：共用與首頁 CSS selector 檢查、`git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際 hover／focus 畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：移除首頁經營理念區塊
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
+  - 完成：移除首頁「經營理念」HTML、對應的捲動淡入註冊與頁面專屬 CSS；About 頁的經營理念內容保留不變。
+  - 已驗證：來源 HTML／CSS／JS 的首頁區塊引用清理、`git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：降低首頁 Hero 圖片遮罩強度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：降低桌機水平遮罩與手機垂直遮罩的黑色透明度，保留 Hero 文字可讀性，同時讓背景圖片整體更明亮；同步更新首頁 CSS 快取版本。
+  - 已驗證：來源 CSS 遮罩數值、HTML CSS 快取版本、`git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：調整後的桌機／手機瀏覽器實際畫面由使用者檢查；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
 - [x] 2026-08-14：調整首頁行動裝置最新消息卡片點擊後的遮罩與 icon 狀態
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
   - 完成：行動裝置最新消息卡片預設隱藏右上角 icon 與圖片遮罩；第一次點擊時阻止立即跳頁，顯示與桌機 hover 相同的圖片放大、遮罩與 icon，維持 3 秒後自動隱藏；狀態期間再次點擊才進入詳細頁；桌機 hover 行為維持不變。

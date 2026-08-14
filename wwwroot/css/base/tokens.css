@@ -9,6 +9,7 @@
   --color-line: #e3e6e1;
   --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
+  --font-weight-section-heading: 500;
   --font-pilat: "Pilat", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-pilat-wide: "Pilat Wide", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-size-body-copy: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
