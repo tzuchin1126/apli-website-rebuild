@@ -7,10 +7,16 @@
 
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
     const dotsContainer = hero.querySelector("[data-hero-dots]");
+    const previousButton = hero.querySelector("[data-hero-prev]");
+    const nextButton = hero.querySelector("[data-hero-next]");
     let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
     let autoplayId = null;
     let isHovered = false;
     let hasFocus = false;
+    let swipePointerId = null;
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let swipeActive = false;
 
     const stopAutoplay = () => {
       if (autoplayId !== null) window.clearInterval(autoplayId);
@@ -59,6 +65,41 @@
       });
       dotsContainer.replaceChildren(...dots);
     }
+
+    previousButton?.addEventListener("click", () => goTo(activeIndex - 1));
+    nextButton?.addEventListener("click", () => goTo(activeIndex + 1));
+
+    const finishSwipe = (event) => {
+      if (event.pointerId !== swipePointerId) return;
+      const distanceX = event.clientX - swipeStartX;
+      if (swipeActive && Math.abs(distanceX) >= 48) goTo(activeIndex + (distanceX < 0 ? 1 : -1));
+      if (hero.hasPointerCapture(event.pointerId)) hero.releasePointerCapture(event.pointerId);
+      swipePointerId = null;
+      swipeActive = false;
+    };
+
+    hero.addEventListener("pointerdown", (event) => {
+      if ((event.pointerType !== "touch" && event.pointerType !== "pen") || event.target.closest("a, button")) return;
+      swipePointerId = event.pointerId;
+      swipeStartX = event.clientX;
+      swipeStartY = event.clientY;
+      swipeActive = false;
+    });
+    hero.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== swipePointerId) return;
+      const distanceX = event.clientX - swipeStartX;
+      const distanceY = event.clientY - swipeStartY;
+      if (!swipeActive && Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > 8) {
+        swipePointerId = null;
+        return;
+      }
+      if (Math.abs(distanceX) < 8) return;
+      swipeActive = true;
+      hero.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    }, { passive: false });
+    hero.addEventListener("pointerup", finishSwipe);
+    hero.addEventListener("pointercancel", finishSwipe);
 
     hero.addEventListener("mouseenter", () => { isHovered = true; stopAutoplay(); });
     hero.addEventListener("mouseleave", () => { isHovered = false; startAutoplay(); });
@@ -165,17 +206,15 @@
       dragStartScrollLeft = viewport.scrollLeft;
       hasDragged = false;
       suppressClick = false;
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
     });
 
     viewport.addEventListener("pointermove", (event) => {
       if (event.pointerId !== activePointerId) return;
       const distance = event.clientX - dragStartX;
       if (Math.abs(distance) < 4) return;
-      if (!hasDragged) {
-        hasDragged = true;
-        viewport.classList.add("is-dragging");
-        viewport.setPointerCapture(event.pointerId);
-      }
+      hasDragged = true;
       event.preventDefault();
       viewport.scrollLeft = dragStartScrollLeft - distance;
     }, { passive: false });

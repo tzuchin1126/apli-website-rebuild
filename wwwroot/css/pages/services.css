@@ -49,15 +49,24 @@
 .services-page .service-switcher__inner {
   display: flex;
   align-items: stretch;
+  overflow-x: auto;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.services-page .service-switcher__inner::-webkit-scrollbar {
+  display: none;
 }
 
 .services-page .service-switcher__list {
   display: flex;
   align-items: stretch;
-  flex-wrap: wrap;
-  width: 100%;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  width: max-content;
   gap: 0;
-  max-width: 100%;
+  max-width: none;
   overflow: visible;
   border-bottom: 1px solid var(--color-line);
 }
@@ -549,7 +558,7 @@
   }
 
   .services-page .service-switcher__list {
-    width: 100%;
+    width: max-content;
     row-gap: 0;
   }
 

@@ -14,7 +14,8 @@
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260813-footer-surface-v34">
-  <link rel="stylesheet" href="css/pages/affiliates.css?v=20260814-affiliate-oil-layout-v1">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/pages/affiliates.css?v=20260814-affiliate-tabs-line-v4">
   <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
 </head>
 
@@ -116,12 +117,14 @@
     <!-- 關係企業內容區 -->
     <section class="affiliates-content site-container">
       <nav class="affiliate-tabs" role="tablist" aria-label="關係企業選單">
-        <button id="affiliate-tab-sexin" type="button" role="tab" aria-selected="true" aria-controls="affiliate-sexin">世新貨櫃</button>
-        <button id="affiliate-tab-oil" type="button" role="tab" aria-selected="false" aria-controls="affiliate-oil">亞柏油品</button>
-        <button id="affiliate-tab-club" type="button" role="tab" aria-selected="false" aria-controls="affiliate-club">亞柏會館</button>
-        <button id="affiliate-tab-badminton" type="button" role="tab" aria-selected="false" aria-controls="affiliate-badminton">亞柏羽球隊</button>
-        <button id="affiliate-tab-taronews" type="button" role="tab" aria-selected="false" aria-controls="affiliate-taronews">太報</button>
-        <button id="affiliate-tab-alpha" type="button" role="tab" aria-selected="false" aria-controls="affiliate-alpha">ALPHA TOTAL SOLUTION</button>
+        <div class="affiliate-tabs__track">
+          <button id="affiliate-tab-sexin" type="button" role="tab" aria-selected="true" aria-controls="affiliate-sexin">世新貨櫃</button>
+          <button id="affiliate-tab-oil" type="button" role="tab" aria-selected="false" aria-controls="affiliate-oil" tabindex="-1">亞柏油品</button>
+          <button id="affiliate-tab-club" type="button" role="tab" aria-selected="false" aria-controls="affiliate-club" tabindex="-1">亞柏會館</button>
+          <button id="affiliate-tab-badminton" type="button" role="tab" aria-selected="false" aria-controls="affiliate-badminton" tabindex="-1">亞柏羽球隊</button>
+          <button id="affiliate-tab-taronews" type="button" role="tab" aria-selected="false" aria-controls="affiliate-taronews" tabindex="-1">太報</button>
+          <button id="affiliate-tab-alpha" type="button" role="tab" aria-selected="false" aria-controls="affiliate-alpha" tabindex="-1">ALPHA TOTAL SOLUTION</button>
+        </div>
       </nav>
 
       <!-- Panel 1: 世新貨櫃 -->
@@ -239,7 +242,6 @@
                 </article>
               </div>
             </section>
-            </div>
           </div>
         </div>
       </article>
@@ -271,7 +273,7 @@
                 <p>地址：高雄市小港區學府路113號</p>
                 <p>電話：07-8027698</p>
               </div>
-              <a class="affiliate-club-cta-link" href="http://aph.apli.com.tw/" target="_blank" rel="noopener">前往亞柏會舘網站<span class="sr-only">（開啟新分頁）</span></a>
+              <a class="affiliate-club-cta-link button--primary" href="http://aph.apli.com.tw/" target="_blank" rel="noopener">前往亞柏會舘網站<svg class="affiliate-cta__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path></svg><span class="sr-only">（開啟新分頁）</span></a>
             </section>
           </div>
         </div>
@@ -322,7 +324,7 @@
               <div class="affiliate-panel-intro">
                 <p>《太報》於2017年誕生，2018年正式登記成立太報文化事業股份有限公司，以跳脫傳統台灣新聞媒體的框架為初衷，旨在替社會發聲並帶來人文溫度。</p>
               </div>
-              <a class="affiliate-taronews-cta" href="https://www.taisounds.com/" target="_blank" rel="noopener">前往太報官網<span class="sr-only">（開啟新分頁）</span></a>
+              <a class="affiliate-taronews-cta button--primary" href="https://www.taisounds.com/" target="_blank" rel="noopener">前往太報官網<svg class="affiliate-cta__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path></svg><span class="sr-only">（開啟新分頁）</span></a>
             </div>
             <figure class="affiliate-taronews-feature">
               <img src="public/images/affiliates/taisounds.jpg" alt="太報 TaiSounds" loading="lazy">
@@ -364,6 +366,6 @@
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js?v=20260814-caret-up-v1"></script>
-  <script src="js/pages/affiliates.js?v=20260814-location-filter-v2"></script>
+  <script src="js/pages/affiliates.js?v=20260814-affiliates-tabs-a11y-v2"></script>
 </body>
 </html>

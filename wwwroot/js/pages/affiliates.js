@@ -2,11 +2,28 @@
   const tabs = [...document.querySelectorAll("[role='tab']")];
   const panels = [...document.querySelectorAll(".affiliate-panel")];
   if (tabs.length && panels.length) {
-    tabs.forEach((tab) => tab.addEventListener("click", () => {
+    const selectTab = (tab) => {
       const id = tab.getAttribute("aria-controls");
-      tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute("aria-selected", String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
       panels.forEach((panel) => { panel.hidden = panel.id !== id; });
-    }));
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => selectTab(tab));
+      tab.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+        event.preventDefault();
+        const nextTab = tabs[(index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+        selectTab(nextTab);
+        nextTab.focus();
+      });
+    });
+
+    selectTab(tabs.find((tab) => tab.getAttribute("aria-selected") === "true") || tabs[0]);
   }
 
   const regionFilters = [...document.querySelectorAll("[data-region-filter]")];

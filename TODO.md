@@ -1,5 +1,175 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-14：調整首頁行動裝置最新消息卡片點擊後的遮罩與 icon 狀態
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
+  - 完成：行動裝置最新消息卡片預設隱藏右上角 icon 與圖片遮罩；第一次點擊時阻止立即跳頁，顯示與桌機 hover 相同的圖片放大、遮罩與 icon，維持 3 秒後自動隱藏；狀態期間再次點擊才進入詳細頁；桌機 hover 行為維持不變。
+  - 已驗證：來源 CSS／JS 狀態流程與快取版本檢查。
+  - 未驗證：瀏覽器實際點擊、3 秒狀態與詳細頁跳轉尚未驗證；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：比照專業證照卡片修正首頁最新消息水平拖曳流暢度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
+  - 完成：參考 `occupational-safety.html` 的專業證照與專責能力卡片，將首頁最新消息 viewport 改為 `touch-action: pan-x`、原生水平捲動、`-webkit-overflow-scrolling: touch` 與 `scroll-snap-align: start`；鼠標拖曳維持 pointer capture，按下時進入 dragging 狀態，觸控不再由 JS 逐幀寫入 `scrollLeft`；同步更新 CSS／JS 快取版本。
+  - 已驗證：首頁與 occupational-safety 的 CSS／JS 拖曳流程來源比對。
+  - 未驗證：瀏覽器實際拖曳流暢度、實體裝置與跨瀏覽器畫面尚未驗證；人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正首頁行動裝置 Services 背景與最新消息卡片拖曳
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
+  - 完成：行動裝置移除 Services 區塊背景色；清除最新消息卡片手機上下 padding，讓圖片從卡片頂端完整填滿；最新消息 viewport 的 pointer drag 於按下時先取得 pointer capture，保留滑鼠與觸控水平拖曳、連結 click 抑制與 scroll snap 行為；同步更新 CSS／JS 快取版本。
+  - 已驗證：來源 CSS／JS selector 與拖曳狀態流程檢查。
+  - 未驗證：瀏覽器實際畫面與滑鼠拖曳操作尚未驗證；Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：固定首頁行動裝置「關於亞太」閱讀順序與按鈕狀態
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：將區塊結構固定為標題、圖片、敘述；桌機維持圖片左側與文字右側；行動裝置圖片位於標題下方、敘述上方。手機按鈕恢復與桌機預設相同的 `--button-primary-bg`，停用 hover 背景變色與 icon 位移；CSS 快取更新為 `home-mobile-intro-v1`。
+  - 已驗證：來源 HTML／CSS selector、grid area 與按鈕 token 檢查。
+  - 未驗證：依需求未進行實機／瀏覽器畫面驗證；Firefox／Safari、跨瀏覽器、實體裝置與人工無障礙驗收未驗證。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：恢復手機版 Hero 第一張圖片的放大與上移設定
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：移除第一張圖片的 `top: -4%` 與 `height: 108%`，恢復原本圖片尺寸與垂直位置；保留水平取景 `72%`。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整手機版 Hero 第一張圖片垂直位置
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：保留第一張圖片的水平取景 `72%`，將圖片放大至 `108%` 並上移 `4%`，讓圖片內品牌文字避開 Hero 標題；第二張圖片維持原設定。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整手機版 Hero 第一張圖片取景，避開圖片內文字與標題重疊
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：第一張圖片的手機版 `object-position` 由 `72%` 調整為 `42%`，讓圖片內的品牌文字保留在主標右側；第二張圖片維持 `35%`。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正手機版 Hero 圓點重新整理時的位置跳動
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：保留 `home-hero__dots` 的 `translateX(-50%)` 水平置中，將圓點進場動畫改為僅控制透明度，避免動畫覆蓋定位用的 `transform`。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整手機版 Hero 兩張圖片取景位置
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：第一張圖片使用 `object-position: 42% center`，第二張使用 `object-position: 56% center`，手機版分別避開文字區干擾並保留主要主體；桌機版維持置中裁切。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整手機版 Hero 遮罩、滑動切換與文字層級
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`wwwroot/index.html`、`TODO.md`
+  - 完成：手機改用中央較深的垂直遮罩；隱藏左右箭頭並支援手指左右滑動切換；縮小副標、放大主標以建立明確層級。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：新增首頁 Hero 圖片遮罩
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：加入左側較深、右側較淡的水平漸層遮罩，提升 Hero 標題與按鈕在不同圖片上的可讀性；不攔截輪播控制操作。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：恢復首頁 Hero 標題原本位置
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`
+  - 完成：移除桌機版 Hero 標題區塊的下移位移，副標、主標與 CTA 回到原本位置；保留其他 Hero 互動與版面調整。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：下移首頁 Hero 標題區塊
+  - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：桌機將副標、主標與 CTA 整體下移 `clamp(32px, 6vh, 64px)`；手機維持原本位置。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：對齊首頁 Hero 標題、​​副標與 CTA 左側起點
+  - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：移除主標題的滿寬與水平置中設定，讓主標題、副標與 CTA 共用左側對齊基準。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：恢復首頁 Hero 標題原本垂直位置
+  - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`
+  - 完成：恢復 Hero 內容垂直置中與原本上方內距；保留標題在左側內容區內水平置中、副標與 CTA 靠左，以及箭頭 hover 不變色。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整首頁 Hero 標題位置與圖片切換控制
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`
+  - 完成：桌機 Hero 內容維持左側 560px 區域，主標題在區域內水平置中，副標與 CTA 維持靠左；新增左右圓形上一張／下一張按鈕且 hover 不改變顏色；底部指示點改為白色膠囊樣式；更新首頁 Hero script 快取版本，保留既有淡入切換、自動播放、hover／focus 暫停與鍵盤操作，手機文案維持置中。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／0 errors）、`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面（本機頁面存取遭瀏覽器權限拒絕）、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：暫停首頁 Hero 底部波浪裝飾
+  - 範圍：`wwwroot/index.html`、`TODO.md`
+  - 完成：將完整 `home-hero__wave` 裝飾區塊註解，保留輪播圖片、文字、CTA 與指示點；相關 CSS 保留，日後可直接恢復標記。
+  - 驗證：`git diff --check`。
+  - 未驗證：瀏覽器桌機／手機畫面、Firefox／Safari、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：整理 `index.html` HTML 排版
+  - 完成：將首頁 Header、Hero、服務卡片、最新消息、經營理念、聯絡 CTA 與 script 載入區塊重新分行與縮排；保留既有內容、路徑、class、ARIA 屬性與互動結構，未新增視覺規則。
+  - 驗證：`git diff --check`；已完成首頁內容與結構來源比對。
+  - 未驗證：本次排版後的瀏覽器桌機／手機畫面、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：收斂首頁 Hero 桌機主標字級
+  - 完成：將桌機 Hero 主標由 `clamp(2.8rem, 4.4vw, 4.5rem)` 調整為 `clamp(2.75rem, 4vw, 4rem)`；手機斷點字級維持原設定，並更新首頁 CSS 快取版本。
+  - 驗證：`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`、`git diff --check`。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：拉開 `affiliates.html` 頁籤與企業內容的間距
+  - 完成：參考 `services.html` 服務頁籤與內容區的留白，桌機改用 `clamp(56px, 6vw, 88px)`，手機改為 `64px`；同步更新 Affiliates CSS 快取版本。
+  - 驗證：`node --check wwwroot/js/pages/affiliates.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings／errors）、`git diff --check`；已完成與 `services.css` 的來源規則比對。
+  - 未驗證：本次修改後的瀏覽器桌機／手機畫面、Firefox／Safari、實體裝置、觸控實機與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：收斂服務項目頁籤灰色基線
+  - 完成：讓 `services.html` 的灰色基線只跟隨最後一個服務頁籤，保留選中項橘色下底線；頁籤列維持可橫向捲動，不再補滿右側空間。
+  - 驗證：已更新 CSS 快取版本並完成 `git diff --check`；依需求未執行實機驗證。
+  - 未驗證：桌機／手機瀏覽器畫面、Firefox、Safari、實體裝置與人工無障礙驗收；未 commit／push。
+
+- [x] 2026-08-14：恢復關係企業頁籤灰色基線
+  - 完成：將 1px 灰色基線放在頁籤內容軌道，線條只到最後一個頁籤，保留選中頁籤的 2px 橘色底線，不再延伸填滿右側空間。
+  - 驗證：已更新 CSS 快取版本並完成 `git diff --check`；依需求未執行實機驗證。
+  - 未驗證：桌機／手機瀏覽器畫面、Firefox、Safari、實體裝置與人工無障礙驗收；未 commit／push。
+
+- [x] 2026-08-14：移除亞柏會舘聯絡資訊 CTA 背景
+  - 範圍：`wwwroot/css/pages/affiliates.css`、`wwwroot/affiliates.html`、`TODO.md`
+  - 完成：恢復亞柏油品引言原有深色卡片；亞柏會舘聯絡資訊移除深藍背景與卡片內距，改用一般標題及正文顏色，官網連結保留共用主要按鈕樣式。
+  - 驗證：`node --check wwwroot/js/pages/affiliates.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`、`git diff --check`；Edge 桌機 1366×900 與手機 390×844 確認聯絡資訊為透明背景、無卡片內距、文字與按鈕依序靠左排列、48px 按鈕與 icon 正常、頁面無水平溢位，並確認亞柏油品引言已恢復原樣，console 無 error／warning。
+  - 未驗證：Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：檢查並統一 `affiliates.html` 各區塊的視覺層級與頁籤介面
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`、`wwwroot/js/pages/affiliates.js`、`TODO.md`
+  - 完成：恢復頁籤灰色基線與選中項橘色下底線；縮減 Hero、頁籤與內容間的重複留白，讓頁籤與公司標題左側對齊；統一公司標題、內文、清單、三圖版型、CTA 與據點篩選器的 token 使用；補上段落間距、收斂羽球隊／Alpha 細節區留白，並修正會舘 CTA 文字被通用規則覆蓋的層疊問題。
+  - 互動與結構：頁籤加入 roving tabindex 與左右方向鍵切換；手機頁籤保留原生水平拖曳並隱藏捲軸；據點篩選按鈕提高為 44px；太報與會舘 CTA 改用共用主要按鈕元件及既有外連 icon 動態；修正油品面板多餘的閉合標籤與 Alpha 電話連結辨識。
+  - 驗證：`node --check wwwroot/js/pages/affiliates.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`、`git diff --check`；Edge 桌機 1366×900 與手機 390×844 實際檢查頁籤底線、Hero 至頁籤間距、頁籤至標題間距、六個面板切換、方向鍵切換、油品地區篩選、CTA 尺寸／icon／文字顏色、所有圖片載入及水平溢位，console 無 error／warning。
+  - 未驗證：Firefox／Safari、實體裝置、觸控實機拖曳與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [ ] 統一處理全站正文與主要按鈕 hover 的文字色彩對比。
+  - 發現：`--color-muted: #81817e` 對白底約 3.91:1；主要按鈕白字對 `--color-primary: #f58214` hover 背景約 2.60:1，均有一般文字 WCAG AA 對比風險。
+  - 範圍：屬 `tokens.css` 與共用按鈕元件的全站決策，不在單一 `affiliates.html` 頁面私自改色；後續需同步檢查所有使用位置與品牌視覺。
+
+- [ ] 統一頁籤元件在停用 JavaScript 時的內容可讀性策略。
+  - 發現：`affiliates.html`、Services 與 Milestones 等頁籤元件會以 `hidden` 隱藏非首個面板；停用 JavaScript 時無法展開其餘內容。
+  - 範圍：屬全站頁籤的漸進增強策略，後續應統一處理，避免只在單一頁面建立不同模式。
+
 - [x] 2026-08-14：調整 ALPHA TOTAL SOLUTION 第二張圖片的裁切位置
   - 範圍：`wwwroot/css/pages/affiliates.css`、`TODO.md`
   - 完成：移除圖片位移效果，改讓第二張圖片在固定區塊內靠下裁切，以顯示較多圖片下方內容。
@@ -1869,5 +2039,47 @@
   - 範圍：`wwwroot/css/pages/services.css`、`wwwroot/services.html`、`TODO.md`。
   - 內容：標題／英文副標到敘述，以及敘述到下方圖片，改由同一個 `--services-content-gap` 控制；桌機固定為 `24px`，中小螢幕響應為 `28–40px`，修正上下留白不一致。
   - 已驗證：來源 selector／快取版本檢查、`git diff --check`、Release 建置；瀏覽器實際畫面尚未驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正首頁行動裝置最新消息卡片需點擊兩次才跳轉。
+  - 範圍：`wwwroot/js/pages/home.js`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 內容：移除行動裝置第一次點擊時攔截連結、顯示 `.is-touched` 遮罩的邏輯，最新消息卡片恢復單次點擊直接跳轉；滑鼠拖曳後的點擊抑制仍保留。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正首頁行動裝置漢堡選單展開時推動 Header 位置。
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`。
+  - 內容：移除選單開啟時將 Header 撐滿整個視窗的規則，改為固定在 Header 下方的滿版覆蓋層，從右側滑入；Header 原本位置維持不變，並保留選單內容的垂直捲動。
+  - 已驗證：來源 CSS selector／定位與動畫規則檢查、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：補正首頁行動裝置選單滿版寬度與關閉按鈕線條。
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`。
+  - 內容：選單改以 viewport 的 `100vw` 與固定定位呈現，避免受 Header／外層寬度限制；展開後的 X 線條調整為 1px，降低視覺重量。
+  - 已驗證：來源 CSS selector／viewport 定位與線條狀態檢查、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：調整首頁行動裝置選單為全畫面覆蓋與內距排版。
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`。
+  - 內容：選單從 Header 下方延伸至 viewport 底部，開啟時不露出 Hero 或下方內容；增加左右內距讓文字與右側箭頭對齊，文字調整為 1rem／400 字重。
+  - 已驗證：來源 CSS selector／高度、內距與字體規則檢查、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：修正首頁行動裝置全畫面選單的垂直排列與 Header icon 視覺重量。
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/index.html`、`TODO.md`。
+  - 內容：覆蓋層改為 `justify-content: flex-start`，避免選單項目被推到畫面底部；Header 工具 icon 固定為 24px，漢堡關閉後的 X 與一般線條統一為 1.5px。
+  - 已驗證：來源 CSS selector／flex 排列與 icon 尺寸檢查、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
+  - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
+  - 狀態：待提交；未自行 commit 或 push。
+
+- [x] 2026-08-14：統一首頁行動版漢堡／叉叉與 Header icon 的 SVG 規格。
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 內容：移除 CSS span 旋轉繪製的漢堡／叉叉，改用同一個 inline SVG `viewBox`、24px 尺寸、1.7px 線寬與 round linecap／linejoin；以 path opacity 切換兩種狀態。
+  - 已驗證：來源 HTML／CSS icon 結構、`node --check wwwroot/js/site.js`、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
   - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
   - 狀態：待提交；未自行 commit 或 push。
