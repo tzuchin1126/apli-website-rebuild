@@ -1,5 +1,139 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-15：恢復 Operational Resources 地理位置圓圈樣式
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
+  - 完成：移除 Comparison 3-inspired 試作，恢復原本的橘色邊框圓圈、hover 效果、桌機七欄與手機水平滑動；恢復原始 CSS 快取版本。
+  - 已驗證：modifier 與試作 CSS 已移除、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：撤回 Operational Resources 地理位置圓圈試作
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
+  - 試作：保留 7 筆距離資料、桌機七欄與手機水平滑動，新增 Comparison 3-inspired 的雙層圓環、淺色圓徽章與數據強調樣式。
+  - 可逆基準：原本每個項目為 `2px solid var(--color-primary)`、透明背景、`border-radius: 50%`、hover 上移／放大與陰影；本次透過 `resources-location__distances--comparison` modifier 隔離，移除 modifier 即可恢復。
+  - 已驗證：HTML modifier 與 scoped CSS selector、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、與參考頁的視覺相似度、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已撤回；未自行 commit 或 push。
+
+- [x] 2026-08-15：增加 Services 優勢區塊與業務諮詢間距
+  - 範圍：`wwwroot/css/pages/services.css`。
+  - 完成：恢復優勢標題與背景內容原本的間距，並將優勢背景區塊下方至業務諮詢卡片的上方留白提高為 `var(--services-section-space)`，避免兩個區塊視覺距離過近。
+  - 已驗證：桌機／手機 media rule 與 scoped CSS selector、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：統一 Services 優勢標題下方間距
+  - 範圍：`wwwroot/css/pages/services.css`。
+  - 完成：將三個「我們的優勢」標題與背景內容區之間的間距統一使用 `var(--services-content-gap)`，與 Services 其他內容區塊一致。
+  - 已驗證：scoped CSS selector、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：更新 Services 業務卡片標題
+  - 範圍：`wwwroot/services.html`。
+  - 完成：將業務洽談區卡片標題由「聯絡業務團隊」改為「業務諮詢」，版面與聯絡資訊維持不變。
+  - 已驗證：HTML 文字與無障礙標題對應、`git diff --check`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：簡化 Services 業務洽談區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：移除 `BUSINESS INQUIRY` 與「業務洽談」標題，只保留置中的聯絡業務團隊卡片，聯絡資訊與手機版排列維持不變。
+  - 已驗證：HTML／CSS 移除與卡片置中規則、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：縮小 Services 業務洽談區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：縮減業務洽談區上下留白與卡片內距，桌機改為標題與聯絡卡左右緊湊排列，手機維持上下排列，讓整體比例接近原本 CTA 且保留聯絡資訊。
+  - 已驗證：桌機／手機 scoped CSS 規則與快取版本、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整貨櫃清洗優勢背景圖片位置
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：`02.jpg` 維持水平置中，垂直背景位置調整為 `35%`，讓安全帽與現場作業主體在優勢內容區更容易保留。
+  - 已驗證：背景 selector、快取版本、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：統一 Services 優勢區塊英文標題
+  - 範圍：`wwwroot/services.html`。
+  - 完成：三個「我們的優勢」區塊的英文副標統一為 `OUR ADVANTAGES`，中文標題、橘色底線、背景與內容維持不變。
+  - 已驗證：三個英文副標內容、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：修正機具優勢區塊 hard-hat icon 顯示
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：保留「現場維修經驗」使用 hard-hat icon，改採專案其他頁面已驗證的 inline codepoint `&#xed46;`，移除該 icon 的 Services CSS pseudo-element mapping，避免畫面顯示字碼尾端「46」。
+  - 已驗證：HTML icon codepoint 與 CSS mapping、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：統一 Services 優勢區塊標題
+  - 範圍：`wwwroot/services.html`。
+  - 完成：倉儲物流、貨櫃清洗與維修、機具維修與銷售三個優勢區塊的中文標題統一為「我們的優勢」，英文副標與其他視覺設定維持不變。
+  - 已驗證：三個優勢區塊標題內容、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整 Services 優勢區塊 icon
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：依更新後文案重新配置 icon；貨櫃區使用 certificate／gear／map-trifold，機具區使用 gear／hard-hat／shield-check，並沿用本機 Phosphor 字型與既有尺寸樣式。
+  - 已驗證：icon class 與本機 codepoint mapping 對應、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：更新 Services 兩組優勢區塊文案
+  - 範圍：`wwwroot/services.html`。
+  - 完成：更新「貨櫃清洗與維修」及「機具維修與銷售」優勢區塊的三組標題與說明文字，版型、背景圖片、icon 與響應式配置維持不變。
+  - 已驗證：文案內容與區塊對應關係、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：恢復隱私權政策主標題字體
+  - 範圍：`wwwroot/privacy.html`、`wwwroot/css/pages/privacy.css`。
+  - 完成：隱私權政策主標題恢復為原本的 `var(--font-heading)`、`clamp(2rem, 3vw, 2.8rem)` 與 `500` 字重，其他頁面標題設定不變。
+  - 已驗證：CSS selector 與快取版本更新；`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整 Services 分頁標題格式
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：三個服務分頁標題統一為英文副標在上、中文標題在下，並在中文標題下方加入橘色底線；保留上方服務頁籤的橘色選取線與其他既有 Services 修改。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：新增其他服務項目優勢區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：在「貨櫃清洗與維修」及「機具維修與銷售」的主要服務項目下方新增對應優勢區塊，沿用英文副標／中文標題／橘色底線、深色圖片背景與三欄圖示內容結構，加入各頁服務流程、場站支援、設備銷售與售後服務文案。
+  - 已驗證：新增區塊各自位於對應服務分頁、背景圖片路徑與 scoped CSS selector；`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實際桌機／手機畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：統一主要內容標題字級與字重
+  - 範圍：`wwwroot/index.html`、`wwwroot/about.html`、`wwwroot/affiliates.html`、`wwwroot/contact.html`、`wwwroot/join.html`、`wwwroot/operational-resources.html`、`wwwroot/occupational-safety.html`、`wwwroot/services.html` 及對應頁面 CSS。
+  - 完成：主要內容標題統一使用 body 的 Noto Sans TC、`clamp(1.75rem, 1.5rem + 1vw, 2rem)` 與 `700`；隱私權政策主標題後續恢復原本樣式；occupational-safety 的「安全，是每一項作業的前提」引言標題保留原本襯線樣式；另保留 Hero 主標題、首頁 CTA 宣傳標題與里程碑事件標題原有層級。
+  - 已驗證：各頁 CSS selector 與快取版本更新、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：尚未完成全站 390px／1440px 實際畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：新增 Services 倉儲物流優勢區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`wwwroot/js/pages/services.js`。
+  - 完成：在 `#warehousing` 的主要服務項目下方新增「倉儲物流優勢」區塊，沿用營運資源頁面的深色整幅背景／三欄圖示內容結構，加入 `warehouse-storage.png` 背景圖片與固定深色覆蓋層，更新為完整場站作業能力、多元倉儲配置、場區動線與櫃況管理三組文案及對應 Phosphor icon（`warehouse`／`package`／`map-trifold`）；移除捲動時背景色變化，保留手機單欄排列，icon 調整為 `32–40px`，區塊標題改為繼承 body 字體、`clamp(1.75rem, 1.5rem + 1vw, 2rem)`、`700`。
+  - 已驗證：新增區塊僅位於 `#warehousing`、已移除滾動換色 JavaScript 與相關 CSS；`node --check wwwroot/js/pages/services.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：目前環境缺少可用的 Playwright 瀏覽器模組，尚未完成 390px／1440px 實際畫面驗收；實體裝置、跨瀏覽器、人工無障礙驗收與 ASP.NET Footer 注入未重新驗證。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：修正 Affiliates 太報區塊桌機版上下間距
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`。
+  - 完成：桌機版將太報左側內容恢復為內層 Grid，右側長圖不再跨越左側四個內容列，避免圖片高度把標語、標題、內文與按鈕之間的間距拉大；行動版維持原本的單欄排序與間距規則。
+  - 已驗證：1440px 計算樣式確認左側內容間距維持 20px、右圖只佔單一外層列；390px 確認 `.affiliate-panel-copy` 與太報圖片仍採行動版原有規則；`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；正式瀏覽器的實際字體／圖片載入差異仍需人工確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-15：完成主要頁面行動版最終驗證
   - 驗證範圍：`wwwroot/index.html`、`wwwroot/404.html`、`wwwroot/500.html`、`wwwroot/privacy.html`、員工專區 `/Admin`，以及全站行動版 Header／Footer、主要斷點、選單開關、連結與版面溢位。
   - 驗證結果：使用者已確認行動版介面驗證皆完成，包含本輪已調整的行動版 Header 子選單、選單字重／間距與 Footer 介面。
@@ -69,6 +203,13 @@
   - 完成：「關於亞太／服務項目／最新消息」三個主要內容標題改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`；保留 Hero 主標題與圖片 CTA 宣傳標題原本的襯線字體與版面，並同步更新首頁 CSS 快取版本。
   - 已驗證：390px／1440px 標題計算樣式、頁面無水平溢位；`node --check wwwroot/js/pages/home.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
   - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；首頁消息資料與實際字體渲染差異仍需人工確認。靜態預覽另有一筆既有消息圖片 URL 回傳 404，未納入本次標題調整。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：重整 Services 業務洽談區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：業務諮詢區改為較符合 APLI 站內風格的淺色背景、一般字體置中標題與橘色底線、扁平雙欄聯絡卡片；保留既有營業部與服務電話資料，移除原左右分欄圖片與參考圖式深色卡片標頭；手機版改為單欄排列，並更新 CSS 快取版本。
+  - 已驗證：390px／1440px 版面、一般字體標題與橘色底線、桌機雙欄／手機單欄聯絡卡片、聯絡電話 `tel:` 連結、三個服務分頁保留、頁面無水平溢位；`node --check wwwroot/js/pages/services.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：760px 獨立瀏覽器檢查因目前環境缺少 Playwright 模組未完成；實體裝置、跨瀏覽器與人工無障礙驗收；ASP.NET Footer 注入未重新驗證。
   - 狀態：已完成，待提交；未自行 commit 或 push。
 
 - [x] 2026-08-15：完成 Occupational Safety 行動裝置介面

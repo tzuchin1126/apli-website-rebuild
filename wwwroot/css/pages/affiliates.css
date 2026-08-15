@@ -28,6 +28,7 @@
 .affiliates-page #affiliate-taronews .affiliate-taronews-main .affiliate-panel-copy > .affiliate-panel-intro { grid-column: 1; grid-row: 3; }
 .affiliates-page #affiliate-taronews .affiliate-taronews-main .affiliate-panel-copy > .affiliate-taronews-cta { grid-column: 1; grid-row: 4; }
 .affiliates-page #affiliate-taronews .affiliate-taronews-main > .affiliate-taronews-feature { grid-column: 2; grid-row: 1 / span 4; }
+@media (min-width: 841px) { .affiliates-page #affiliate-taronews .affiliate-panel-copy { display: grid; } .affiliates-page #affiliate-taronews .affiliate-taronews-main > .affiliate-taronews-feature { grid-row: 1; } }
 .affiliates-page #affiliate-oil .affiliate-oil-gallery, .affiliates-page #affiliate-club .affiliate-club-gallery, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); width: 100%; margin: 0; }
 .affiliates-page #affiliate-oil .affiliate-oil-gallery figure, .affiliates-page #affiliate-club .affiliate-club-gallery figure, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery figure, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery figure { min-width: 0; margin: 0; }
 .affiliates-page #affiliate-oil .affiliate-oil-gallery img, .affiliates-page #affiliate-club .affiliate-club-gallery img, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery img, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: var(--card-radius); object-fit: cover; }
@@ -41,7 +42,7 @@
 .affiliate-panel .affiliate-club-cta-copy h3 { margin: 0 0 14px; padding: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem); font-weight: var(--font-weight-section-heading); line-height: 1.5; }
 .affiliate-panel .affiliate-club-cta-copy p { color: var(--color-muted); }
 .affiliate-club-cta-link { width: fit-content; }
-.affiliate-panel h2 { margin: 0; font-family: var(--font-body); font-size: clamp(1.9375rem, 1.825rem + 0.375vw, 2.3125rem); font-weight: var(--font-weight-section-heading); line-height: clamp(39px, 36.666px + 0.487vw, 48.1px); letter-spacing: .04em; }
+.affiliate-panel h2 { margin: 0; font-family: var(--font-body); font-size: clamp(1.75rem, 1.5rem + 1vw, 2rem); font-weight: 700; line-height: 1.3; letter-spacing: .04em; }
 .affiliate-panel h3 { margin: 20px 0 0; padding: 0; font-family: var(--font-body); font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem); font-weight: var(--font-weight-section-heading); line-height: 1.5; }
 .affiliate-panel p { margin: 0; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-copy); font-weight: 400; line-height: 1.75; }
 .affiliate-panel ul { display: grid; gap: 10px; margin: 0; padding: 0 0 0 20px; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-copy); font-weight: 400; line-height: 1.75; list-style-type: circle; }

@@ -250,8 +250,8 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   padding-bottom: 20px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.9375rem, 1.825rem + .375vw, 2.3125rem);
-  font-weight: var(--font-weight-section-heading);
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2rem);
+  font-weight: 700;
   letter-spacing: .04em;
   line-height: clamp(2.45rem, 2.2rem + .45vw, 3rem);
 }
