@@ -164,10 +164,19 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
     min-height: 56px;
     padding-inline: 0;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: .02em;
     line-height: 1.35;
   }
+  body.home-page > .site-header.is-menu-open .site-header__nav > a:hover,
+  body.home-page > .site-header.is-menu-open .site-header__nav > a:focus-visible,
+  body.home-page > .site-header.is-menu-open .nav-link:hover,
+  body.home-page > .site-header.is-menu-open .nav-link:focus-visible,
+  body.home-page > .site-header.is-menu-open .site-header__nav > a.is-active,
+  body.home-page > .site-header.is-menu-open .nav-link.is-active,
+  body.home-page > .site-header.is-menu-open .site-header__nav > a[aria-current="page"] { color: var(--color-ink); }
+  body.home-page > .site-header.is-menu-open .site-header__nav > a::after,
+  body.home-page > .site-header.is-menu-open .nav-link::after { display: none; }
   body.home-page > .site-header .site-header__tools svg { width: 24px; height: 24px; stroke-width: 1.7; }
   body.home-page > .site-header .menu-toggle__icon {
     grid-area: 1 / 1;
@@ -240,8 +249,9 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   margin: 0;
   padding-bottom: 20px;
   color: var(--color-ink);
+  font-family: var(--font-body);
   font-size: clamp(1.9375rem, 1.825rem + .375vw, 2.3125rem);
-  font-weight: 600;
+  font-weight: var(--font-weight-section-heading);
   letter-spacing: .04em;
   line-height: clamp(2.45rem, 2.2rem + .45vw, 3rem);
 }

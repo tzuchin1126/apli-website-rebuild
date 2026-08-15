@@ -185,9 +185,9 @@
   margin: 0 auto;
   padding: 0;
   color: var(--color-ink);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--services-title-size);
-  font-weight: 600;
+  font-weight: var(--font-weight-section-heading);
   letter-spacing: 0.04em;
   line-height: var(--services-title-line-height);
   text-align: center;

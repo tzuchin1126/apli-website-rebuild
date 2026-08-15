@@ -65,10 +65,10 @@
   margin: 0;
   padding-bottom: 20px;
   color: var(--color-ink);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 3.2vw, 2.6rem);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: var(--font-weight-section-heading);
+  line-height: 1.3;
   letter-spacing: 0.04em;
 }
 

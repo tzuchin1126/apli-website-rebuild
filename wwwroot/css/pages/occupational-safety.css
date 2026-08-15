@@ -36,6 +36,11 @@
   filter: drop-shadow(0 2px 10px rgb(15 50 66 / 8%));
 }
 
+.safety-page .safety-credentials__heading h2 {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-section-heading);
+}
+
 .safety-page .safety-credentials__heading h2::after {
   content: "";
   position: absolute;
@@ -125,10 +130,11 @@
   gap: 4px;
   margin: 0;
   padding-left: 1.25em;
+  list-style-type: circle;
 }
 
 .safety-page .safety-intro__health li::marker {
-  color: var(--color-primary);
+  color: var(--color-ink);
 }
 
 .safety-page .safety-credentials__heading {
@@ -420,14 +426,6 @@
 @media (max-width: 760px) {
   .safety-page .safety-section {
     padding-block: 56px;
-  }
-
-  .safety-page .safety-intro__health ul {
-    list-style-type: circle;
-  }
-
-  .safety-page .safety-intro__health li::marker {
-    color: var(--color-ink);
   }
 
   .safety-page .safety-credentials__heading h2 {

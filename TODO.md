@@ -1,9 +1,75 @@
 # APLI Website Rebuild TODO
 
-- [ ] 2026-08-15：待完成主要頁面行動版最終驗證
-  - 待驗證頁面：`wwwroot/index.html`、`wwwroot/404.html`、`wwwroot/500.html`、`wwwroot/privacy.html` 與員工專區 `/Admin`。
-  - 待確認共用介面：全站行動版 Header 與 Footer，包含不同頁面、主要斷點、選單開關、連結與版面溢位。
-  - 狀態：待驗證；尚未進行本輪完整手機／桌機驗收。
+- [x] 2026-08-15：完成主要頁面行動版最終驗證
+  - 驗證範圍：`wwwroot/index.html`、`wwwroot/404.html`、`wwwroot/500.html`、`wwwroot/privacy.html`、員工專區 `/Admin`，以及全站行動版 Header／Footer、主要斷點、選單開關、連結與版面溢位。
+  - 驗證結果：使用者已確認行動版介面驗證皆完成，包含本輪已調整的行動版 Header 子選單、選單字重／間距與 Footer 介面。
+  - 未納入本項：實體裝置、跨瀏覽器與人工無障礙驗收仍依各項紀錄分開追蹤。
+  - 狀態：已完成；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整行動版選單字重
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`。
+  - 完成：行動版一級選單字重由 `400` 調整為 `500`；字級、行動版選單項目高度與左右內距維持不變，首頁與其他公開頁面同步一致。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`；已檢查 390px／1440px 的 CSS 計算樣式與選單結構。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；實際字體在不同系統的渲染差異仍需人工確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：修正行動版 Header 子選單與點擊狀態
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`。
+  - 完成：修正行動版子選單被桌機 transform 規則移出畫面的問題；點擊後依 `.is-open` 顯示子選單，並移除行動版 hover／focus／active 的橘色文字與底線，桌機 hover 顏色保留。
+  - 已驗證：390px 子選單展開、ARIA `aria-expanded`、子選單位置與文字顏色；1440px hover 橘色狀態；`node --check wwwroot/js/site.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：增加行動版子選單上下間距
+  - 範圍：`wwwroot/css/layout/site-header.css`。
+  - 完成：子選單連結上下 `padding` 由 `9px` 增加為 `12px`，左右維持 `12px`，單列高度提升至約 44px。
+  - 已驗證：390px 子選單列高與間距、1440px 桌機導覽樣式、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：Join 內容標題改回一般字體
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`。
+  - 完成：Join 內容區 `.join-section-heading h2` 比照 Contact 內容標題，改用 `var(--font-body)`、`var(--font-weight-section-heading)` 與 `1.3` 行高；共用 Hero 標題維持原設定；同步更新 Join CSS 快取版本。
+  - 已驗證：Join 標題 CSS 與 Contact 標題變數比對、390px／1440px 計算樣式、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；實際字體載入後的畫面差異仍需人工確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：Services 標題與整體版面檢查
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`。
+  - 完成：三個服務區塊標題改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`，保留既有字級、行高與間距；同步更新 Services CSS 快取版本。
+  - 版面檢查：確認服務切換列、三個分頁的標題／英文副標／圖片／說明／服務清單順序、業務諮詢 CTA 與主要區塊間距均正常；未發現需另行調整的 spacing 或整頁水平溢位。
+  - 已驗證：390px、420px、760px、1099px、1440px；三個服務分頁切換；Hero 標題顯示；`node --check wwwroot/js/pages/services.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：本次使用靜態預覽，未重新驗證 ASP.NET Footer 注入；實體裝置、跨瀏覽器與人工無障礙驗收仍依全站紀錄追蹤。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整 About 內容標題區
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：公司簡介、經營理念、認證與獎項、關係企業等內容標題改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`，補上 `1.3` 行高；保留原有字級、橘色底線與區塊間距。Hero 引言與語意用的隱藏 `h1` 維持不變；同步更新 About CSS 快取版本。
+  - 已驗證：390px／1440px 標題計算樣式、頁面無水平溢出、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；實際字體載入後的畫面差異仍需人工確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整 Operational Resources 標題與整體介面檢查
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
+  - 完成：內容區的廠區資訊、機具配置、作業量能、職業安全衛生、營運優勢與地理位置標題改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`；保留既有字級、行高、橘色底線與區塊間距；共用 Hero 主標題維持原設定，並同步更新 CSS 快取版本。
+  - 版面檢查：確認 Hero／麵包屑、四個資源區塊順序、資料表格、職業安全衛生 CTA、營運優勢、交通距離橫向捲動與地圖在手機／桌機均正常，未發現水平溢位。
+  - 已驗證：390px、420px、760px、1099px、1440px；`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；Google Maps iframe 實際外部內容仍需另行確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整 Occupational Safety 標題與健康清單 marker
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`。
+  - 完成：`safety-credentials-title` 改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`；`.safety-page .safety-intro__health` 清單比照 Affiliates 使用深色空心圓 marker，桌機／行動版一致；同步更新 CSS 快取版本，安全介紹區主標題維持原設定。
+  - 已驗證：390px／760px／1440px 標題字體、marker `circle`／深色樣式、頁面無水平溢位；`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；marker 在不同系統的實際字型渲染差異仍需人工確認。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-15：調整首頁內容標題
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：「關於亞太／服務項目／最新消息」三個主要內容標題改用 `var(--font-body)` 與 `var(--font-weight-section-heading)`；保留 Hero 主標題與圖片 CTA 宣傳標題原本的襯線字體與版面，並同步更新首頁 CSS 快取版本。
+  - 已驗證：390px／1440px 標題計算樣式、頁面無水平溢位；`node --check wwwroot/js/pages/home.js`、`git diff --check`、`dotnet build -c Release`；瀏覽器主控台無錯誤。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；首頁消息資料與實際字體渲染差異仍需人工確認。靜態預覽另有一筆既有消息圖片 URL 回傳 404，未納入本次標題調整。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
 
 - [x] 2026-08-15：完成 Occupational Safety 行動裝置介面
   - 範圍：`wwwroot/occupational-safety.html` 與 `wwwroot/css/pages/occupational-safety.css` 的行動版麵包屑與健康清單 marker。
