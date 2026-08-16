@@ -1,5 +1,129 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-16：完成本輪首頁介面調整
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`，完成 Hero、關於亞太、服務項目、最新消息與底部 CTA 的視覺統一。
+  - 完成：完成首頁文字層級、顏色、間距、圖片比例與遮罩、卡片樣式、區塊背景、CTA 尺寸與 hover 狀態，以及服務項目／最新消息／pager 間距調整；保留既有內容、連結與互動結構。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`。
+  - 未驗證：本輪未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：本輪介面調整已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：收斂首頁服務項目上方背景色範圍（已恢復）
+  - 範圍：`wwwroot/css/pages/home.css`，減少服務項目標題上方的淡色背景。
+  - 完成：已恢復前一版整個服務項目區塊使用淡色背景的設定；卡片文字區維持白色。
+  - 狀態：已恢復，未新增其他內容或互動變更。
+
+- [x] 2026-08-16：將首頁服務項目改為完整區塊背景
+  - 範圍：`wwwroot/css/pages/home.css`，將服務項目整個區塊套用淡色背景。
+  - 完成：背景涵蓋服務標題、卡片圖片區、卡片文字區與上下 padding；保留卡片白色內容、圖片遮罩與既有互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：校正服務項目背景與卡片圖片底部的水平對齊（已恢復前一版固定高度）
+  - 範圍：`wwwroot/css/pages/home.css`，只微調服務區塊分段背景的起始高度。
+  - 完成：恢復前一版固定背景起始高度；卡片文字區維持白色。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁服務項目區塊背景起始位置
+  - 範圍：`wwwroot/css/pages/home.css`，只讓服務卡片圖片底部以下至區塊底部 padding 使用淡色背景。
+  - 完成：標題區、卡片圖片與卡片文字區維持白底；背景色從圖片下緣開始出現在卡片外側、卡片間隙與服務區塊底部 padding；不修改卡片內容、圖片與互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；完成桌機、雙欄平板與手機單欄的來源 CSS 位置規則檢查。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：校正首頁底部 CTA 按鈕尺寸與 hover 狀態
+  - 範圍：`wwwroot/css/pages/home.css`，讓 `home-contact-cta__link` 對齊 `home-hero__cta` 的尺寸、圓角、字級、內距與 hover 顏色。
+  - 完成：桌機使用 44px 最低高度、7px 上下內距、20px 左右內距、6px 圓角與白底深色 hover；手機沿用 Hero CTA 的 18px 左右內距與 14px 字級；不修改 CTA 文字、連結與雙欄互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；完成與 `home-hero__cta` 的來源 CSS 比對。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁「服務項目」與「最新消息」間距及 pager 距離
+  - 範圍：`wwwroot/css/pages/home.css`，讓服務項目與最新消息沿用關於亞太至服務項目的區塊間距，並收斂最新消息卡片與 pager 的垂直距離。
+  - 完成：服務項目底部增加桌機最多 40px、手機 24px 的留白，使服務項目與最新消息的區塊間距與前一段一致；最新消息卡片至 pager 的空間調整為 16px；不修改卡片內容與 pager 操作結構。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：拉開首頁「關於亞太」與「服務項目」的視覺間距
+  - 範圍：`wwwroot/css/pages/home.css`，只增加關於亞太區塊底部留白，保留服務項目與最新消息目前的間距設定。
+  - 完成：關於亞太底部增加桌機最多 40px、手機 24px 的留白，使兩區塊在白色背景下具有清楚分隔；服務項目與最新消息間距維持桌機 112px、手機 64px；不修改內容、圖片、卡片與互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁最新消息卡片內文字層級
+  - 範圍：`wwwroot/css/pages/home.css`，依首頁服務卡片與既有完成頁面的文字規格調整最新消息卡片內文。
+  - 完成：卡片標題使用 `#141414`、18–20px／500；摘要使用 `#5c5c5c`、正文大小與 1.75 行高；卡片內距統一為 24px；日期與分類維持輔助資訊層級。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；與首頁服務卡片文字規格完成來源 CSS 比對。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一首頁「關於亞太」與「服務項目」區塊間距
+  - 範圍：`wwwroot/css/pages/home.css`，依 `about.css`、`join.css` 已完成的區塊模式調整兩個首頁區塊的上下銜接間距。
+  - 完成：關於亞太桌機／手機取消額外底部留白；服務項目上方留白調整為 `clamp(64px, 8vw, 112px)`，桌機 1432px 為 112px、手機 390px 為 64px；卡片、圖片、文字與互動不變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；以 `about.css`／`join.css` 的區塊 spacing pattern 比對來源規則。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁「服務項目」背景與「最新消息」區塊
+  - 範圍：`wwwroot/css/pages/home.css`，移除服務項目背景色，校正最新消息的標題層級、按鈕、卡片圖片遮罩與區塊銜接間距。
+  - 完成：服務項目改為透明背景；最新消息沿用既有完成頁面的眉標 16px／400／0.08em、標題桌機 40px／手機 26px／300、原有標題分隔線與深藍按鈕；新聞圖片維持原本未 hover 時不加遮罩的狀態；服務項目與最新消息之間桌機為 112px、手機為 64px；未修改新聞資料、卡片內容與互動結構。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；以 `about.css`／`services.css`／`join.css` 的既有標題與區塊 spacing pattern 比對來源規則。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：套用職業安全卡片的首頁服務圖片預設遮罩
+  - 範圍：`wwwroot/css/pages/home.css`，只調整首頁服務卡片圖片遮罩的預設狀態。
+  - 完成：沿用 `occupational-safety.css` 的 APLI 深藍 24% 遮罩，讓未 hover 時圖片也維持一致色調；保留現有 hover 圖片放大與卡片互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；確認首頁與職業安全頁使用相同遮罩色彩與透明度。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依 `services.css` 校正首頁「服務項目」區塊
+  - 範圍：`wwwroot/css/pages/home.css`，只調整服務區標題、標題與卡片間距、卡片標題與正文層級；保留現有圖片、連結與 hover／focus 互動。
+  - 完成：沿用 Services 頁眉標 8px、標題桌機 40px／手機 26px／300、標題與內容 24px、卡片標題 18–20px／500、正文 `#5c5c5c`／1.75；保留現有圖片、連結與 hover／focus 互動。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；完成與 `services.css` 的來源規則比對。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正首頁「關於亞太」桌機圖片與按鈕底部對齊
+  - 範圍：`wwwroot/css/pages/home.css`，只修正桌機版左側圖片與右側文字／按鈕內容區的下緣對齊。
+  - 完成：沿用 `about.css` 已完成的桌機圖片拉伸規則，讓圖片底部與右側內容區底部一致；手機維持 `join.css` 的 16:9 圖片比例。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；確認桌機規則只在 `min-width: 981px` 生效，手機不受影響。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依 `join.html` 校正首頁「關於亞太」間距與圖片比例
+  - 範圍：`wwwroot/css/pages/home.css`，直接沿用 `join.css`「加入亞太」的內容間距、正文間距、圖片比例與手機區塊間距。
+  - 完成：內容與標題間距 20px、段落間距 20px、圖片 16:9、手機區塊間距 16px；不改變內容、欄位順序與按鈕樣式。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；以 `join.css` 來源規則比對間距與圖片比例。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依既有完成頁面校正首頁「關於亞太」區塊
+  - 範圍：`wwwroot/css/pages/home.css`，依 `about.css`／`services.css` 已完成規則校正圖片比例、眉標與標題間距、標題與正文間距；不新增獨立設計值。
+  - 完成：沿用眉標 8px、內容區 8px、正文 `var(--font-size-body-copy)`、手機 40px 區塊間距，以及 About 頁桌機圖片對齊內容區、手機 4:3 的圖片模式；不改變內容、欄位順序與按鈕樣式。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；完成與 `about.css`／`services.css` 的來源規則比對。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正首頁「關於亞太」圖片比例與標題間距
+  - 範圍：`wwwroot/css/pages/home.css`，只修正「關於亞太」圖片容器／圖片的統一比例，以及英文眉標、中文標題與正文的間距。
+  - 完成：圖片容器與圖片統一固定為 4:3；眉標與中文標題間距調整為 16px；中文標題與正文間距調整為 24px；不改變內容、欄位順序與按鈕樣式。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；完成來源 CSS／HTML selector 檢查。
+  - 未驗證：本次依需求未進行實機、瀏覽器、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁「關於亞太」區塊視覺
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`，只調整「關於亞太」區塊的文字層級、間距、顏色、按鈕與圖片呈現。
+  - 完成：標題桌機 40px／手機 26px／300／`#141414`，正文 16px／1.75／`#5c5c5c`，英文眉標 16px／400／`0.08em`；收斂標題與段落間距，圖片維持 4:3 比例並套用 6px 圓角，按鈕改用 APLI 深藍、6px 圓角並保留橘色 hover；服務項目與最新消息標題樣式未變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認標題、正文、按鈕、圖片計算樣式與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-16：收斂首頁 Hero CTA 上下內距
   - 範圍：`wwwroot/css/pages/home.css`，只調整 Hero「查看服務項目」按鈕的上下 padding 與最低高度。
   - 完成：上下 padding 調整為 7px、桌機與手機最低高度統一 44px；左右 padding、文字 14px、icon 16px、6px 圓角、位置與互動狀態不變。
