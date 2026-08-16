@@ -9,7 +9,7 @@
 
 .milestone-tabs {
   max-width: 860px;
-  margin: 0 auto var(--milestones-content-gap, clamp(56px, 6vw, 88px));
+  margin: 0 auto var(--milestones-content-gap, clamp(40px, 4vw, 64px));
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scrollbar-width: none;
@@ -28,24 +28,27 @@
 }
 
 .milestone-tabs button {
+  position: relative;
   flex: 0 0 auto;
   min-height: 52px;
   padding: 12px 20px;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
   background: transparent;
-  color: var(--color-muted);
+  color: #5c5c5c;
   cursor: pointer;
   font-family: var(--font-body);
   font-size: var(--font-size-body-copy);
   font-weight: 400;
   line-height: 1.5;
   white-space: nowrap;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .milestone-tabs button:hover,
 .milestone-tabs button:focus-visible {
   background: var(--color-surface-soft);
+  color: #141414;
 }
 
 .milestone-tabs button:focus-visible {
@@ -54,8 +57,18 @@
 }
 
 .milestone-tabs button[aria-selected="true"] {
-  border-bottom-color: var(--color-primary);
-  color: var(--color-muted);
+  color: #141414;
+}
+
+.milestone-tabs button[aria-selected="true"]::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 999px 999px 0 0;
+  background: var(--color-primary);
+  content: "";
 }
 
 .milestone-panel {
@@ -81,7 +94,7 @@
 
 .milestone-panel time {
   color: var(--color-primary-dark);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.7;
 }
 
@@ -91,7 +104,7 @@
 }
 
 .milestone-panel h2 {
-  color: var(--color-ink);
+  color: #141414;
   font-family: var(--font-body);
   font-size: clamp(1rem, 1.25vw, 1.16rem);
   font-weight: 500;
@@ -99,9 +112,9 @@
 }
 
 .milestone-panel p {
-  color: var(--color-muted);
+  color: #5c5c5c;
   font-size: var(--font-size-body-copy);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 @keyframes milestone-panel-in {
@@ -129,7 +142,7 @@
   }
 
   .milestone-tabs {
-    margin-bottom: 64px;
+    margin-bottom: 48px;
   }
 
   .milestone-panel article {

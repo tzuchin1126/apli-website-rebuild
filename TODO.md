@@ -1,5 +1,486 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-16：收斂首頁 Hero CTA 上下內距
+  - 範圍：`wwwroot/css/pages/home.css`，只調整 Hero「查看服務項目」按鈕的上下 padding 與最低高度。
+  - 完成：上下 padding 調整為 7px、桌機與手機最低高度統一 44px；左右 padding、文字 14px、icon 16px、6px 圓角、位置與互動狀態不變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認 CTA padding、最低高度、icon 與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：縮小首頁 Hero CTA 文字
+  - 範圍：`wwwroot/css/pages/home.css`，只調整 Hero「查看服務項目」按鈕的文字大小。
+  - 完成：桌機與手機 CTA 文字統一調整為 14px，保留按鈕高度、icon、6px 圓角、位置與互動狀態。
+  - 已驗證：完成 `git diff --check`；確認 Hero CTA 字級為 14px，按鈕結構與連結不變。
+  - 未驗證：本次未重新進行瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁 Hero CTA 用詞
+  - 範圍：`wwwroot/index.html`，只調整 Hero CTA 文字。
+  - 完成：將「探索服務」改為較符合企業網站語氣且與主選單一致的「查看服務項目」；保留按鈕尺寸、icon、圓角與互動狀態。
+  - 已驗證：完成 `git diff --check`；確認 CTA 連結仍指向 `services.html`。
+  - 未驗證：本次僅調整文字，未重新進行瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：將首頁 Hero CTA 文字箭頭改為正式 Icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`，只調整 Hero「探索服務」按鈕的 icon 呈現。
+  - 完成：保留按鈕尺寸、文字、6px 圓角與互動狀態，將文字箭頭改為 16px inline SVG icon，hover／focus 維持向右位移。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認 SVG icon 顯示、按鈕尺寸與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整首頁 Hero 文字、按鈕與切換控制
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`，只處理首頁 Hero 區塊。
+  - 完成：保留目前 Hero 字體、圖片、自動輪播、底部圓點與手機滑動；桌機眉標調整為 24px、主標題約 50px，手機眉標 16px、主標題約 27px；收斂 Hero 文字內部間距；CTA 調整為桌機 48px／手機 46px 高、6px 圓角與較緊湊內距；移除左右切換按鈕及 JS 事件；不修改 Hero 高度與遮罩。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認 Hero 字體維持 Noto Serif TC、文字／按鈕計算樣式、左右按鈕已移除、底部圓點保留且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實際手指滑動與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：收斂 Privacy 無 Hero 頁面的內容間距
+  - 範圍：`wwwroot/privacy.html`、`wwwroot/css/pages/privacy.css`，只調整隱私權政策內容區的上下留白、標題間距與段落間距。
+  - 完成：因本頁沒有 Hero，桌機內容區上下留白調整為 72px、政策內層留白 32px；手機內容區上下留白調整為 32px、內層留白 24px；標題、章節標題與段落間距同步收斂；保留目前文字大小、顏色、政策內容與頁面結構。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認間距計算樣式與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Privacy 隱私權政策文字視覺
+  - 範圍：`wwwroot/privacy.html`、`wwwroot/css/pages/privacy.css`，只調整標題、章節標題、正文與文字連結的大小、顏色與間距。
+  - 完成：標題統一為 Noto Sans TC、桌機 40px／手機 26px／300／`#141414`；章節標題改為 22px／手機 20px／500／`#141414`；正文改為 16px／1.75／`#5c5c5c`；文字連結預設深藍、hover／focus 主題橘；調整內容上下留白與段落間距；保留政策內容、圖片、Header 與 Footer 不變；本頁沒有 CTA 按鈕，因此未新增按鈕。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認標題、章節標題、正文、文字連結計算樣式與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 404 找不到頁面文字與按鈕視覺
+  - 範圍：`wwwroot/404.html`、`wwwroot/css/pages/error-pages.css`，只調整 404 頁的文字大小、顏色、間距與按鈕顏色。
+  - 完成：沿用 500 頁已確認的錯誤頁文字層級，以 `.error-page--not-found` 限定 404 頁樣式；標題調整為桌機 40px／手機 26px、`#141414`，正文調整為 16px／1.75／`#5c5c5c`，收斂文字與主要內容上下間距；返回首頁按鈕改為 APLI 深藍 `#223547`，hover／focus 維持主題橘；保留頁面結構、Header、Footer 與 500 頁不變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px 確認標題、正文、按鈕計算樣式與頁面無水平溢位。
+  - 未驗證：本次調整後尚未完成瀏覽器手機 390px 實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 500 錯誤頁文字與按鈕視覺
+  - 範圍：`wwwroot/500.html`、`wwwroot/css/pages/error-pages.css`，只調整 500 頁的文字大小、顏色、間距與按鈕顏色。
+  - 完成：以 `.error-page--server-error` 限定 500 頁樣式；標題調整為桌機 40px／手機 26px、`#141414`，正文調整為 16px／1.75／`#5c5c5c`，收斂文字與主要內容上下間距；返回首頁按鈕改為 APLI 深藍 `#223547`，hover／focus 維持主題橘；保留頁面結構、Header、Footer 與 404 頁不變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1432px 確認標題、正文、按鈕計算樣式與頁面無水平溢位。
+  - 未驗證：本次調整後尚未完成瀏覽器手機 390px 實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Occupational Safety 安全介紹區塊
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只調整安全介紹區塊的圖片與正文視覺及 CSS 快取版本。
+  - 完成：保留「安全，是每一項作業的前提」原有襯線字體；前導圖片改用一致的 6px 圓角並移除陰影；正文與健康清單改用 `#5c5c5c`，保留原有圖片、內容順序與清單結構。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 與手機 390px 確認前導圖片 6px 圓角、無陰影、正文與健康清單使用 `#5c5c5c`，並確認「安全，是每一項作業的前提」維持 Noto Serif TC、頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：將 Operational Resources 職業安全衛生按鈕改為深藍
+  - 範圍：`wwwroot/css/pages/operational-resources.css`，只調整職業安全衛生站內連結按鈕的背景色與 hover／focus 狀態。
+  - 完成：按鈕預設改用 APLI 深藍 `#223547`，hover／focus 維持主題橘 `#f58214`，尺寸、文字與箭頭不變。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認按鈕為 `#223547`、尺寸維持 48px 高且不溢位，手機 390px 確認深藍按鈕滿寬排列且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：降低 Operational Resources 子標題視覺層級
+  - 範圍：`wwwroot/css/pages/operational-resources.css`，只調整四個營運資源子區塊的標題字級與底線長度。
+  - 完成：子標題桌機縮小至約 32px、手機約 24px，橘色底線縮短為 48px；保留 `h2` 語意與 `LOCATION`、`OPERATIONAL ADVANTAGES` 獨立區塊標題樣式。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認子標題約 32px、獨立區塊標題維持 40px，手機 390px 確認子標題 24px、頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：簡化 Operational Resources 子區塊標題層級
+  - 範圍：`wwwroot/operational-resources.html`，只移除廠區資訊、機具配置、作業量能與職業安全衛生四個子區塊的英文眉標。
+  - 完成：保留四個中文標題、橘色底線、圖文配置與其他獨立區塊的標題樣式，讓四個內容明確呈現為「營運資源」下的說明項目。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 與手機 390px 確認四個子區塊英文眉標移除、中文標題與橘色底線保留、`LOCATION` 與 `OPERATIONAL ADVANTAGES` 兩個獨立區塊眉標保留，且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依 Maersk 版面調整 Operational Resources 圖片比例
+  - 範圍：`wwwroot/css/pages/operational-resources.css`、`wwwroot/operational-resources.html`，只調整營運資源內容圖片的高度比例。
+  - 完成：桌機圖片由 4:3 改為 16:9，讓大圖＋文字並列更接近 Maersk 參考版面並減少垂直高度；手機維持 4:3，保留單欄閱讀比例；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認內容圖片比例為 16:9、手機 390px 確認維持 4:3 且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：連續排列 Operational Resources 手機版距離卡片
+  - 範圍：`wwwroot/css/pages/operational-resources.css`，只調整手機版兩組距離卡片之間的垂直間距。
+  - 完成：將左右兩組卡片之間的 24px 間距改為與卡片組內一致的 10px，讓第三貨櫃中心與第四貨櫃中心連續排列；桌機版不變。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器手機 390px 確認第三貨櫃中心與第四貨櫃中心間距為 10px、卡片連續排列且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Operational Resources 手機版距離呈現
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只調整地理位置區塊的手機版呈現。
+  - 完成：手機隱藏中央 AP Logo 與導線，改以「以下為亞太國際物流至各目標地點的距離」說明搭配上下排列的距離卡片，保留卡片邊框與距離資訊；桌機版維持中央 Logo、導線與左右配置；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器手機 390px 確認 AP Logo 與導線隱藏、說明文字顯示、7 張距離卡片滿寬排列且無水平溢位，桌機 1440px 確認說明文字隱藏、中央 AP 圓形 Logo 與三欄導線配置保留。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正 Operational Resources 中央導線連接方式
+  - 範圍：`wwwroot/css/pages/operational-resources.css`、`wwwroot/operational-resources.html`，只調整地理位置距離網絡的中央導線與左右軌道。
+  - 完成：左右垂直虛線軌道向外移，距離節點連線同步縮短，並由 AP 圓形左右中心向外補上短虛線與軌道銜接；手機版維持隱藏導線與垂直距離清單；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認 AP 圓形左右中心虛線延伸至外移軌道並與節點連線銜接，手機 390px 確認中央與節點導線隱藏、垂直距離清單與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：收斂 Operational Resources 距離節點的留白
+  - 範圍：`wwwroot/css/pages/operational-resources.css`，只調整地理位置距離節點的桌機寬度與文字群組位置；手機維持滿寬垂直排列。
+  - 完成：桌機距離區塊限制為較緊湊的寬度，左側靠右、右側靠左，使數值與名稱更集中，同時保留邊框、虛線與中央 AP 圓形；手機恢復滿寬邊框區塊，不影響原有導線隱藏規則。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認左右節點收斂為 360px、文字群組靠近中央導線且無水平溢位，手機 390px 確認節點維持滿寬邊框排列且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：為 Operational Resources 距離文字補上節點邊框
+  - 範圍：`wwwroot/css/pages/operational-resources.css`、`wwwroot/operational-resources.html`，只調整地理位置距離節點的容器邊界與導線連接。
+  - 完成：每個距離項目加入 1px 淡灰邊框、6px 圓角與白底，桌機虛線直接由左右邊框中央延伸；手機改為帶邊框的垂直距離區塊並保留 AP 圓形；不加入陰影或厚重裝飾；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認距離文字 1px 邊框、虛線連接邊框與中央 AP 圓形，手機 390px 確認邊框垂直排列、導線隱藏與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：移除 Operational Resources 不易對齊的節點圓點
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只處理地理位置節點圓點的對齊問題。
+  - 完成：移除水平虛線與垂直導線交界處的節點圓點，保留統一橘色虛線、中央白色 AP Logo 與橘色圓形；手機版維持無導線的垂直距離清單；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認節點圓點已移除、虛線與中央 AP 圓形保留，手機 390px 確認導線隱藏、垂直距離清單與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：套用白色 AP Logo 與虛線節點導線
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只調整地理位置節點圖的 Logo、導線與節點視覺。
+  - 完成：中央改用 `public/images/logo/white-logo.png` 並放入 APLI 橘色圓形；水平與垂直導線統一改為橘色虛線，補上距離節點圓點；線條維持一致透明度，距離差異改由節點色階表現；手機隱藏導線與節點圓點，保留垂直距離清單；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認白色 AP Logo、橘色圓形、水平／垂直虛線與節點圓點，手機 390px 確認白色 AP Logo、圓形比例、隱藏導線與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正 Operational Resources 中央 AP Logo 與距離導線
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只修正地理位置節點圖的中央標誌與線條連接。
+  - 完成：中央改為裁切現有 Logo 的 AP 標誌並置於橘色圓形內；左右距離線改由水平線接至垂直導線，再連到中央圓形；手機隱藏導線並保留 AP 圓形與垂直距離清單；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px、手機 390px 確認 AP Logo、圓形比例、導線連接與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：重整 Operational Resources 地理位置節點版型
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，將地理位置距離資料改為中央 Logo 與左右節點線條呈現。
+  - 完成：中央放置 APLI Logo，七個周邊地點分布於左右兩側，使用橘色線條透明度呈現距離層級；保留所有原始距離與地點文字；手機改為 Logo 上方、節點垂直排列，移除水平滑動；地圖與其他頁面不變；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認中央 Logo、左右節點線條與距離透明度層級，手機 390px 確認 Logo 上方、節點垂直排列與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：優化 Operational Resources 地理位置距離節點
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只調整地理位置距離圓圈的資訊層級與桌機呈現。
+  - 完成：保留橘色圓圈與手機水平滑動；桌機新增細橘色水平節點連接線，距離數字放大並改為 500 字重，地點名稱改為 `#5c5c5c` 並放寬行高；不加入圖示、卡片背景或厚重陰影；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px 確認連接線與節點層級，手機 390px 確認連接線隱藏、水平滑動保留且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Operational Resources 內容文字與圖片視覺
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`，只調整營運資源內容區的標題、正文與資源圖片呈現。
+  - 完成：四段資源內容與營運優勢／地理位置標題統一為 Noto Sans TC 細字標題、`#141414`、正常字距與橘色底線；正文與表格內容改為 `#5c5c5c`／1.75 行高；資源圖片統一 6px 圓角；保留 Hero、區塊順序、地理位置圓圈、地圖、手機水平滑動與職業安全 CTA；同步更新 Operational Resources CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；瀏覽器桌機 1440px、手機 390px 確認標題／正文／圖片樣式與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：補上 News／Affiliates 選單切換過度效果
+  - 範圍：`wwwroot/news.html`、`wwwroot/js/pages/news.js`、`wwwroot/css/pages/news.css`、`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理分類／企業面板切換時的內容進場效果。
+  - 完成：News 分類切換後符合條件的新聞列、Affiliates 企業面板均新增 180ms 淡入與 4px 上移；News 僅在分類切換觸發，不影響初次載入與載入更多；兩頁加入 `prefers-reduced-motion` 停用規則；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/news.js`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`；桌機／手機確認切換後內容正常顯示、動畫規則生效且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：補上 Services 服務選單切換過度效果
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，只處理三個服務面板切換時的內容進場效果。
+  - 完成：新增 180ms 淡入與 4px 上移的輕量切換動畫；保留頁籤、內容結構、圖片輪播與既有版面；加入 `prefers-reduced-motion` 停用規則；同步更新 Services CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`；桌機／手機確認切換後面板正常顯示且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指操作與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：收斂 Milestones 頁籤與沿革內容間距
+  - 範圍：`wwwroot/css/pages/milestones.css`，只調整年代頁籤與第一筆沿革內容的垂直留白。
+  - 完成：桌機頁籤下方間距由 `clamp(56px, 6vw, 88px)` 收斂為 `clamp(40px, 4vw, 64px)`；手機由 64px 調整為 48px；保留首筆沿革手機 0px 上內距、Hero、資料、頁籤互動與其他 RWD 規則。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/milestones.js`、`dotnet build -c Release`；桌機 1440px、手機 390px 確認頁籤至首筆內容距離收斂且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Milestones 頁面 Maersk 視覺基準
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`，只處理公司沿革內容區的頁籤狀態與文字層級。
+  - 完成：沿用 Services／Affiliates 的頁籤 active、hover、focus 與圓角邏輯，active 保留主題橘底線；沿革事件標題改為 `#141414`，年份維持 APLI 深橘並調整為 500 字重，正文改為 `#5c5c5c`／1.75 行高；保留 Hero、內容順序、資料、互動與既有 RWD 間距；同步更新 Milestones CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/milestones.js`、`dotnet build -c Release`（0 warnings、0 errors）；Edge 靜態預覽 1440px、390px 確認頁籤狀態、6px 圓角、正文色彩／行高、手機 64px 頁籤下方間距、首筆 0px 上內距與頁面無水平溢位；三組頁籤點選／鍵盤右移切換正常，主控台無 error／warning。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：限定 About 關係企業背景色只套用 Logo 列
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只修正關係企業標題區與 Logo 展示列的背景範圍。
+  - 完成：關係企業標題維持白底；新增全寬 Logo 展示帶，僅 Logo 列使用 `#f7f7f7`；保留六欄／兩欄排列、無卡片框線、Logo 融合與連結目標；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認標題區背景透明、Logo 展示列背景為 `#f7f7f7`、欄數與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 About 關係企業 Logo 區塊背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只恢復關係企業 Logo 展示區背景色。
+  - 完成：背景恢復為既有淡灰 `#f7f7f7`；保留六欄／兩欄 Logo 排列、無卡片框線、企業名稱隱藏與 JPG Logo 融合規則；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；來源確認關係企業 Logo 區塊背景為 `#f7f7f7`。
+  - 未驗證：本次未重新進行瀏覽器渲染；實體裝置、跨瀏覽器與人工無障礙驗收仍未完成。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：移除 About 關係企業區塊背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只移除關係企業 Logo 展示帶的背景色。
+  - 完成：恢復透明背景，讓區塊沿用頁面白底；保留六欄／兩欄 Logo 排列、無卡片框線、企業名稱隱藏與 JPG Logo 融合規則；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；來源確認關係企業區塊為透明背景。
+  - 未驗證：本次未重新進行瀏覽器渲染；實體裝置、跨瀏覽器與人工無障礙驗收仍未完成。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：重整 About 關係企業 Logo 展示帶
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只處理 About 關係企業區塊的呈現方式。
+  - 完成：參考 Maersk 的淡灰背景 Logo 展示帶，移除卡片框線、白色卡片、企業名稱與右下角箭頭的視覺呈現；桌機改為六欄水平排列，平板／手機改為兩欄；企業名稱保留為 `sr-only` 供無障礙辨識；保留 Logo 連結目標與原有素材，並讓 JPG Logo 白底以 multiply 融入淡灰展示帶；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；瀏覽器預覽已確認桌機 1440px 六欄水平 Logo 展示、淡灰背景、無卡片框線與企業名稱不佔版面，手機 390px 兩欄 Logo 展示、六個 Logo 載入完成且頁面無水平溢位；JPG Logo 融合規則已完成來源檢查。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 About 關係企業卡片為直向媒體版型
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只調整 About 關係企業區塊的卡片排列與內部層級。
+  - 完成：參考 Maersk「上方視覺區／下方文字區」卡片結構，將 Logo 移至卡片上方、企業名稱移至下方；桌機三欄、平板兩欄、手機單欄維持；保留白底、淡邊線、6px 圓角、hover 位移、Logo 放大與右下角箭頭；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認三欄直向卡片、Logo 上方區與名稱下方區；手機 390px 確認六張卡片單欄排列、Logo／名稱上下層級與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正 About 公司簡介桌機圖片對齊
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只修正公司簡介區桌機圖片與左側內容區的下緣對齊。
+  - 完成：桌機取消固定 4:3 高度，讓右側圖片跟隨左側內容區高度對齊；手機維持 4:3 比例；保留 6px 圓角、`object-fit: cover` 與原本左右欄位置；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認圖片與左側內容區上下緣差異為 0px、圖片為 529×438px，手機 390px 維持 350×263px 的 4:3 比例，皆為 6px 圓角且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：固定 About 公司簡介圖片比例
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只處理公司簡介右側圖片的桌機高度。
+  - 完成：加入 `align-self: start`，讓圖片依既有 4:3 `aspect-ratio` 計算，不再被左側內容高度拉伸；桌機約 529×397px、手機維持 350×263px；保留 6px 圓角、裁切與版面位置；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認圖片為 529×397px、手機 390px 確認為 350×263px，皆維持 4:3、6px 圓角且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 About 認證按鈕顏色與圓角
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只處理「查看完整認證與獎項」按鈕。
+  - 完成：預設背景改為 APLI 深藍 `#223547`；hover／focus 改為主題橘 `#f58214`；圓角統一為 6px；保留按鈕尺寸、箭頭、位置與手機版滿寬配置；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認按鈕預設深藍、6px 圓角、48px 高度、手機滿寬配置與頁面無水平溢位；來源確認 hover／focus 為主題橘。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 About 經營理念卡片標題字體
+  - 範圍：`wwwroot/css/pages/about.css`，只處理「使命／核心價值觀／共同願景」三個互動卡片標題的字體。
+  - 完成：由 `Noto Serif TC` 改為與其他內容標題一致的 `Noto Sans TC`；保留字級、字重、顏色、圖片、互動與 RWD 結構。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認三個互動卡片標題使用 `Noto Sans TC`、字級／字重與行高保留，且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：同步 About 頁面 Maersk 文字與圖片視覺
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只處理 About 內容區的標題、眉標、正文、時間軸文字與公司簡介圖片圓角。
+  - 完成：英文眉標統一為 16px／400／`0.08em`／1.5 行高；內容標題與認證時間軸標題統一為 Noto Sans TC、桌機最高 40px／手機 26px、字重 300、`#141414`；公司簡介與認證事件正文改為 `#5c5c5c`、1.75 行高；公司簡介圖片補上 6px 圓角；保留 Hero、經營理念互動、認證時間軸、關係企業卡片與既有 RWD 結構；同步更新 About CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認標題字級／字重／顏色、英文眉標、正文色彩、圖片圓角、經營理念互動與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Services 業務諮詢 CTA 試作
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，只撤回上一個業務諮詢 CTA 試作。
+  - 完成：移除說明文字、`前往聯絡我們` CTA 與對應 modifier 樣式；恢復淡色業務諮詢卡片、營業部／電話資訊、原有桌機雙欄與手機單欄；CSS 快取版本恢復為 `v4`。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認說明文字、CTA 與 modifier 已移除，恢復淡色業務諮詢卡片、電話資訊與原有雙欄／單欄排列，且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：試作 Services 業務諮詢 CTA 結構
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，以頁面 modifier 限定業務諮詢區塊，不影響其他服務內容。
+  - 完成：新增一行業務說明與「前往聯絡我們」CTA；保留營業部／電話資訊、桌機雙欄與手機單欄；CTA 預設深藍、hover／focus 主題橘；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認說明文字、營業部／電話資訊、CTA 連結、手機滿寬按鈕與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已撤回；本次已恢復至試作前版本。
+
+- [x] 2026-08-16：降低 Services 業務諮詢區塊視覺重量
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，只處理業務諮詢卡片的色彩層級。
+  - 完成：卡片由整塊深藍改為白色背景與既有細邊線；標題列改為淡色背景與 APLI 深藍文字；聯絡資訊改回深黑／灰色層級；電話維持深橘，hover／focus 維持主題橘；保留 6px 圓角、內距與桌機／手機排列；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認白色卡片、淡色標題列、深藍標題、深黑／灰內容、深橘電話連結、6px 圓角與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Services 業務諮詢區塊
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，只處理業務諮詢卡片的背景、文字對比、內距與電話 hover。
+  - 完成：卡片改為 APLI 深藍單一背景、移除外框、保留 6px 圓角；標題與聯絡資訊改為白色層級；內距與分隔線改為深色背景適用的配置；電話 hover／focus 改為主題橘；桌機兩欄與手機單欄結構維持；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認深藍背景、白色文字層級、6px 圓角、雙欄／單欄排列、電話連結狀態與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正 Services 分頁選單圓角與選取線
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，只處理服務分頁選單的 hover 圓角與 active 橘色底線。
+  - 完成：頁籤改為僅上方 6px 圓角，移除按鈕本身的底線邊框，改用獨立 pseudo-element 顯示橘色選取線，避免 hover 背景與 active 線條互相干擾；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認選取橘線為 2px、頁籤上方 6px 圓角、下方維持直角且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Services 頁面 Maersk 視覺基準
+  - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`，保留服務分頁、圖片輪播、左右交錯版型與優勢區塊，只調整共用視覺層級。
+  - 完成：服務標題統一為 Noto Sans TC、桌機最高 40px／手機 26px、字重 300、行高 40px／32px、`#141414`；英文眉標統一為 16px／400／`0.08em`；說明與服務清單改為 `#5c5c5c`、1.75 行高；頁籤選取文字加深、hover 保留淡色圓角背景；服務圖片統一 6px 圓角並移除陰影；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/services.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認三個服務標題、英文眉標、正文／清單文字色、頁籤圓角、圖片圓角與陰影移除，頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：微調 News 詳細頁附件區塊
+  - 範圍：`wwwroot/news-detail.html`、`wwwroot/css/pages/news-detail.css`，只處理附件區塊的間距、字重、圖示大小與 hover 顏色。
+  - 完成：手機附件區塊上方間距調整為 24px；附件標題補上 500 字重；紙夾圖示由 22px 調整為 20px；附件連結 hover／focus 改為主題橘，預設仍使用 APLI 深橘；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認附件區塊位置、標題字重、紙夾圖示大小、預設顏色與手機無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 News 詳細頁共用樣式
+  - 範圍：`wwwroot/news-detail.html`、`wwwroot/css/pages/news-detail.css`，套用於所有 `news-detail.html?id=...`，不修改任何單筆新聞資料。
+  - 完成：詳細頁標題改為 Noto Sans TC、桌機最高 40px／手機 26px、字重 300、行高 40px／32px、顏色 `#141414`；日期改為 16px／24px／`#5c5c5c`；正文改為 `#5c5c5c`、1.75 行高；新聞圖片補 6px 圓角；返回按鈕改用深藍預設／主題橘 hover、6px 圓角；附件連結改用 APLI 深橘色；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/news-detail.js`、`dotnet build -c Release`（0 warnings、0 errors）；有效新聞 ID 在桌機 1440px、手機 390px 確認共用標題、meta、正文、圖片、附件、返回按鈕樣式與無水平溢位，並以含圖片／附件、含圖片／無附件、無圖片／含附件的 3 筆資料確認所有詳細頁共用同一套樣式。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 News 文字色與 hover 視覺
+  - 範圍：`wwwroot/news.html`、`wwwroot/css/pages/news.css`，只處理新聞列日期／分類／標題文字與 hover 背景。
+  - 完成：日期與分類文字改為 `#5c5c5c`、新聞標題改為 `#141414`；移除新聞列 hover 的淡灰背景；保留分類按鈕原有背景、圓角、橘色選取狀態、新聞列邊線、箭頭與手機版排列；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/news.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認文字色、分類按鈕樣式未變動、hover 無背景與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：完成 News Maersk 風格一致性盤點
+  - 已確認：Hero 高度與圖片、Header、麵包屑、新聞列結構、桌機／手機間距、箭頭位置與手機無水平溢位正常。
+  - 完成：依需求保留新聞分類按鈕原樣；日期／分類文字色、新聞標題色與新聞列 hover 背景已完成調整。
+  - 已驗證：靜態預覽桌機 1440px、手機 390px；5 筆新聞、分類篩選區、新聞列排列與 Hero 均可正常顯示，頁面無水平溢位。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：Join 桌機加入亞太區塊圖片與標題上緣對齊
+  - 發現：桌機 1440px 的加入亞太圖片上緣約比左側英文眉標高 23px，原因是 `.join-intro` 使用 `align-items: center`；手機單欄排列的標題、圖片與正文間距正常。
+  - 完成：將 `.join-intro` 改為 `align-items: start`，讓桌機圖片與左側英文眉標／標題上緣對齊；手機維持原本單欄順序與 16px 間距；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認圖片與標題上緣差異為 0px；手機 390px 確認標題到圖片 16px、圖片到正文 16px、頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：移除 Join 職缺資訊背景與邊線
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`，只處理 104／1111 職缺連結卡片的背景與邊線。
+  - 完成：職缺連結恢復白色扁平背景與無邊線，保留 6px 圓角佔位、Logo 放大、箭頭位移、鍵盤 focus 與 hover 上移；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；確認職缺連結來源為 `border: 0`、白色背景且未保留 hover 背景／邊線規則。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：移除 Join 福利表格 hover 背景色
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`，只處理福利表格列的 hover 背景。
+  - 完成：移除 hover 時的淡橘色背景，保留表格原有文字色、邊框、手機卡片圓角與職缺卡片 hover；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；確認來源已無福利表格 hover 背景規則。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：完成 Join Maersk 風格一致性盤點
+  - 已確認：Hero 高度與圖片、Header、麵包屑、內容標題字級／字重／橘色底線、英文眉標間距與手機無水平溢位已完成。
+  - 完成：同步正文與福利內容文字色為 `#5c5c5c`、加入亞太圖片 6px 圓角、福利表頭 APLI 深藍、手機福利列 6px 圓角與 12px 卡片間距、104／1111 職缺卡片淡色背景與邊框；保留無陰影、Logo hover 放大與既有外部連結。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認文字顏色、圖片／卡片圓角、福利表格排列、職缺卡片層級與頁面無水平溢位。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：同步 Join 英文眉標與 Contact 的 Maersk 間距
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`，只處理 Join 內容標題上方的英文眉標。
+  - 完成：`JOIN APLI`、`BENEFITS`、`CAREER OPPORTUNITIES` 統一採用 Contact 的 16px、字重 400、字距 `0.08em`、行高 `1.5` 與下方 8px 間距；保留中文標題、橘色底線、Hero、Header、表格、圖片與職缺連結區塊；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認 Join 與 Contact 的英文眉標計算樣式一致；手機 390px 確認字距、標題行高與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Affiliates 調整 Join 內容標題
+  - 範圍：`wwwroot/join.html`、`wwwroot/css/pages/join.css`，只處理「加入亞太」、「公司福利」、「職缺資訊」三個內容標題。
+  - 完成：標題改為既有 Noto Sans TC、桌機最高 40px／手機 26px、字重 300、行高 40px／32px、正常字距與 `#141414`；保留英文眉標、橘色底線、Hero、Header、表格、圖片與職缺連結區塊不變；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/join.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認標題 40px／300／40px；手機 390px 確認標題 26px／300／32px、橘色底線與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：優化 Affiliates 地點卡片與手機圖庫提示位置
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 地點卡片圓角與手機圖庫提示的定位基準。
+  - 完成：地點卡片圓角由 2px 統一為頁面既有 6px；手機圖庫外層依內容寬度預留 4:3 圖片比例高度，讓左右滑動提示固定在圖庫右下方，即使圖片延遲載入也不會跑到標題旁；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px 確認地點卡片為 6px 圓角；手機 390px 確認圖庫外層保留 4:3 高度、提示位於標題下方、頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：新增亞柏油品引言裝飾引號
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理亞柏油品 `<blockquote>` 的裝飾引號與響應式位置。
+  - 完成：加入左上方淡白色開頭引號，使用單一 `“` 字元避免重複成四個；使用 16% 透明度；桌機引號與正文左側對齊，將引號下移至 `top: 28px`、正文上方留白調整為 56px，讓引號下緣貼近正文第一行；手機同步使用 `top: 18px` 與 48px 上方留白，維持相同垂直對齊邏輯並避免遮擋文字；保留深藍背景、白色文字、6px 圓角與原有內容；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認引號位置、正文不重疊與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Affiliates CTA hover 主題橘
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 主要 CTA 的 hover／focus 背景色。
+  - 完成：hover／focus 背景由深橘 `var(--color-primary-dark)` 改回主題橘 `var(--color-primary)`（`#f58214`）；預設深藍、白色文字、6px 圓角、48px 高度、icon 與地區篩選按鈕維持；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；確認 CTA hover／focus CSS 規則、桌機 1440px、手機 390px 圓角與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 主要 CTA 顏色
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 主要 CTA 的預設與 hover／focus 顏色。
+  - 完成：預設背景由共用按鈕灰改為 APLI 深藍 `var(--color-secondary)`（`#223547`）；hover／focus 改為深橘 `var(--color-primary-dark)`（`#9e4e17`）；保留白色文字、6px 圓角、48px 高度、icon 與地區篩選按鈕樣式；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認 CTA 預設計算色彩、hover／focus CSS 規則、圓角與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Affiliates 主要 CTA 圓角
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 主要 CTA 按鈕的圓角。
+  - 完成：會舘與太報主要 CTA 由共用 4px 圓角調整為 Affiliates 統一的 6px；保留地區篩選膠囊按鈕、按鈕高度、文字、icon、橘色 hover 與其他互動；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認 CTA 圓角、篩選按鈕、hover 結構與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 副標語並恢復頁籤橘色底線
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，處理企業副標語與頁籤選取狀態。
+  - 完成：`affiliate-tagline` 統一為 16px／24px、字重 500、深藍色與 `0.04em` 字距，移除原本 -8px 負間距；頁籤選取項目恢復明確的 2px 橘色底線，保留圓弧端點、灰色基線、hover 圓角與手機水平滑動；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認副標語計算樣式、頁籤橘色底線、切換結構與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Affiliates 圓角視覺語言
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 圖片、油品引言與頁籤 hover 的圓角規則。
+  - 完成：新增頁面專屬 `--affiliates-radius`，統一使用既有 `var(--card-radius)`；圖片、油品引言與頁籤 hover 改用相同圓角，頁籤 hover 改為完整圓角；保留橘色選取線、圖片裁切、手機水平滑動與原有背景，不新增陰影或動畫；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認圖片與 hover 圓角、頁籤選取線、圖庫排列與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整亞柏油品引言背景色
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理亞柏油品引言區塊背景色。
+  - 完成：引言背景由共用按鈕灰 `var(--button-primary-bg)` 改為 APLI 深藍 `var(--color-secondary)`（`#223547`）；保留白色文字、6px 圓角、內距、字體、行高與其他內容結構；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認引言背景色、文字對比、圓角與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Affiliates 圖片圓角
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 主圖與獎狀圖片的圓角一致性。
+  - 完成：世新主圖、太報主圖與獎狀圖片補上既有 `var(--card-radius)`；圖庫原有圓角、圖片比例、裁切方式、桌機三欄與手機水平滑動維持不變；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認圖片圓角、圖庫排列與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 頁籤 hover 圓角
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理頁籤 hover／focus 背景的圓弧感。
+  - 完成：頁籤加入 6px 上方圓角與背景／文字色彩過渡；保留透明基礎背景、灰色基線、橘色選取底線、16px 字級、手機水平滑動與既有頁籤互動；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認頁籤尺寸、圓角、選取狀態、水平滑動與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 頁籤字級
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 `affiliate-tabs` 文字字級。
+  - 完成：頁籤字級由流動的 `var(--font-size-body-copy)` 固定為 16px；保留字重 400、52px 高度、左右內距 20px、橘色選取底線、手機水平滑動與 64px 下方間距；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認頁籤字級、水平滑動、選取狀態與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 頁籤與企業標題間距
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理頁籤下方至企業標題的垂直間距。
+  - 完成：將桌機／平板頁籤與企業標題間距由約 86px 收斂為 64px；手機原本為 64px，維持不變；標題至正文、段落、圖庫與其他內容間距不變；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認頁籤至標題間距、頁面結構與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Affiliates 內容文字顏色
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理 Affiliates 內容文字與頁籤文字色彩。
+  - 完成：正文、清單、據點資訊、圖說、次要按鈕文字由 `#81817e` 調整為 `#5c5c5c`；`h2／h3／h4` 與目前選取頁籤改為 `#141414`；保留品牌橘色連結、深藍標語、油品引言白字、版面與互動；同步更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/affiliates.js`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認文字色彩、頁籤狀態、圖庫規則與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整 Affiliates 企業標題區
+  - 範圍：`wwwroot/affiliates.html`、`wwwroot/css/pages/affiliates.css`，只處理頁籤下方各企業的 `h2` 標題文字；不修改頁籤互動、圖片、內容排序、按鈕、Header、Hero 與 Footer。
+  - 完成：企業標題改為既有 Noto Sans TC、桌機最高 40px／手機 26px、字重 300、行高 40px／32px、正常字距與 `#141414`；同步更新 Affiliates CSS 快取版本。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；桌機 1440px、手機 390px 確認企業標題計算樣式、頁籤與內容結構、圖片圖庫規則及無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、觸控拖曳與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-16：參考 Maersk 調整共用 Footer 文字
   - 範圍：`wwwroot/css/layout/site-footer.css`，影響使用共用 Footer 樣式的公開靜態頁面；不改 Footer HTML、連結內容、背景、欄位配置、手機摺疊與橘色互動效果。
   - 完成：Footer 欄位標題改用既有 Noto Sans TC、16px／字重 500／正常字距；Footer 連結統一為 16px／24px，文字色調整為標題 `#141414`、連結 `#5c5c5c`；桌機與手機維持原有版面與互動。
@@ -2613,3 +3094,238 @@
   - 已驗證：來源 HTML／CSS icon 結構、`node --check wwwroot/js/site.js`、`git diff --check`、Release 建置；未進行瀏覽器或實機驗證。
   - 未驗證：桌機／手機瀏覽器、Firefox／Safari、實體裝置與人工無障礙驗收。
   - 狀態：待提交；未自行 commit 或 push。
+- [x] 2026-08-16：收斂 About 關係企業標題與 Logo 展示列間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只調整關係企業標題與 Logo 展示列的內容寬度、列高與垂直間距。
+  - 完成：Logo 內容列收斂至 1080px；展示列改為緊湊上下留白與較短卡片高度；標題區與 Logo 列的間距同步縮短；保留標題白底、Logo 列淡灰背景、六欄桌機與兩欄手機排列。
+  - 已驗證：瀏覽器預覽確認桌機 1440px 內容寬度 1080px、Logo 展示列高度 192px；手機 390px 維持 350px 內容寬度與兩欄排列；兩種尺寸皆無水平溢位；另完成 `git diff --check`、`node --check wwwroot/js/pages/about.js` 與 `dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：撤回 About 關係企業標題與 Logo 同列版面
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只調整關係企業區塊的桌機排列與手機折行方式。
+  - 完成：撤回桌機左側標題／右側 Logo 同列版面，恢復為標題獨立置中、Logo 列獨立淡灰背景；手機維持標題在上、Logo 兩欄在下；同步恢復 About CSS 快取版本。
+  - 已驗證：瀏覽器預覽確認桌機 1440px 恢復標題獨立置中與全寬 Logo 淡灰展示列；手機 390px 維持標題在上、Logo 兩欄在下；兩種尺寸皆無水平溢位；另完成 `git diff --check`、`node --check wwwroot/js/pages/about.js` 與 `dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已撤回；未自行 commit 或 push。
+- [x] 2026-08-16：移除 About 關係企業 Logo 展示列背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只移除關係企業 Logo 展示列的淡灰背景。
+  - 完成：Logo 展示列恢復透明白底；保留目前標題獨立置中、Logo 六欄／手機兩欄排列、間距、連結與 Logo 素材；同步更新 About CSS 快取版本。
+  - 已驗證：瀏覽器預覽確認桌機 1440px 與手機 390px 的 Logo 展示列背景皆為透明白底；桌機六欄、手機兩欄與既有內容寬度維持，兩種尺寸皆無水平溢位；另完成 `git diff --check`、`node --check wwwroot/js/pages/about.js` 與 `dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：縮短 About 關係企業標題與 Logo 間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只調整關係企業標題下方與 Logo 列上方的垂直留白。
+  - 完成：桌機標題／Logo 間距約縮短 36px，手機約縮短 24px；保留白底、標題置中、六欄桌機與兩欄手機排列；同步更新 About CSS 快取版本。
+  - 已驗證：瀏覽器預覽確認桌機 1440px 標題到 Logo 列間距為 12px、手機 390px 為 8px；背景維持透明白底、桌機六欄與手機兩欄排列，兩種尺寸皆無水平溢位；另完成 `git diff --check`、`node --check wwwroot/js/pages/about.js` 與 `dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：增加 About 關係企業 Logo 與 Footer 間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`，只增加關係企業 Logo 展示列下方留白。
+  - 完成：桌機下方留白增加約 40px、手機增加約 24px；保留上方間距、Logo 尺寸、欄數、白底與標題位置；同步更新 About CSS 快取版本。
+  - 已驗證：瀏覽器預覽確認 Logo 到 Footer 的下方空間桌機為 64px、手機為 40px；Logo 尺寸、標題位置與欄數維持，兩種尺寸皆無水平溢位；另完成 `git diff --check`、`node --check wwwroot/js/pages/about.js` 與 `dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：調整 Occupational Safety 專業證照英文眉標
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只調整「專業證照與專責能力」標題區的英文眉標層級。
+  - 完成：保留 `PROFESSIONAL QUALIFICATIONS` 文字，改為較小的 14px、較寬字距、#81817e 灰色與 Noto Sans TC，並縮短與中文標題的間距；中文標題、說明、證照卡片與安全介紹區均未改動。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依既有頁面規則修正 Occupational Safety 英文眉標
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只修正「專業證照與專責能力」標題區的英文眉標與標題群組間距。
+  - 完成：比照已完成的 Operational Resources、About、Join、Services 頁面，恢復 16px（`1rem`）、字重 400、字距 `0.08em`、行高 `1.5`、`var(--color-muted)` 與 Noto Sans TC；英文眉標與中文標題間距改為 8px，說明文字間距改為 18px；不改中文標題、說明內容與證照卡片。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依既有頁面規則調整 Occupational Safety 證照區中文標題
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只調整 `safety-credentials-title` 的文字層級。
+  - 完成：比照 Operational Resources、Services、About 主標題，改用 `#141414`、Noto Sans TC、`font-weight: 300`、桌機最高 40px／手機最低 26px、正常字距、對應行高並移除陰影；保留橘色底線、標題內容、英文眉標、說明文字與證照卡片。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：依既有頁面規則調整 Occupational Safety 證照區說明文字
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只調整「專業證照與專責能力」下方說明文字。
+  - 完成：比照 Services、About、Operational Resources 正文，改用 `#5c5c5c`、`var(--font-size-body-copy)`、字重 400 與 1.75 行高；保留原本 42em 最大寬度、18px 上間距、文字內容與證照卡片。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：收斂 Occupational Safety 安全介紹與證照區間距
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只調整證照區上方留白。
+  - 完成：證照區桌機上方內距調整為 `clamp(48px, 5vw, 72px)`，縮短與「安全，是每一項作業的前提」區塊的距離；手機維持既有 56px，標題內部間距、證照卡片、其他區塊與內容均不變。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：重整 Occupational Safety 專業證照卡片版型
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只調整「專業證照與專責能力」卡片區視覺。
+  - 完成：參考 React Bits Pro Features 12 的中性三卡與反轉焦點卡概念，保留原有四張證照內容、圖片 HTML 與輪播／拖曳互動；圖片不再作為卡片主視覺，卡片改為上方圖示、下方標題／說明的內容焦點版型；ISO 45001 維持第一張並改用 `#141414` 黑底白字，其他卡片使用淺灰色調；手機維持單卡滑動。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：補回 Occupational Safety 證照卡片原有圖片
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只補回專業證照卡片的圖片視覺。
+  - 完成：恢復四張證照原本對應圖片，置於卡片上方並統一 16:9 裁切；下方維持圖示、標題與說明的 Features 12 內容層級；ISO 45001 黑底白字主卡、其他卡片淺灰、桌機三欄輪播與手機單卡滑動維持。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整 Occupational Safety 證照卡片圖片與 icon 疊放
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只調整專業證照卡片上方圖片與 icon 的相對位置。
+  - 完成：圖片與 icon 改為同一層疊放，icon 覆蓋於圖片上方；標題與說明維持在圖片／icon 下方；ISO 45001 黑底白字主卡、其他卡片淺灰、16:9 圖片比例與輪播互動維持。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：修正 Occupational Safety 證照卡片圖片層級與位置
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只修正專業證照卡片上方圖片、icon 與標題的版面關係。
+  - 完成：卡片改為完整底板，原有圖片浮在左上方，icon 疊在同一個上方視覺層並位於圖片右側，標題與說明固定於下方；ISO 45001 黑底白字主卡、其他卡片淺灰、16:9 圖片比例與輪播互動維持。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Occupational Safety 無圖片證照卡片版型
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只恢復專業證照卡片的無圖片視覺。
+  - 完成：隱藏卡片圖片視覺，恢復完整淺灰／黑色底板、左上 icon、下方標題與說明的 Features 12 版型；ISO 45001 維持第一張黑底白字主卡，圖片 HTML 與原始內容保留未刪除。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Occupational Safety 無圖片卡片完整版型
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，撤回上一輪圖片定位實驗。
+  - 完成：恢復原本無圖片 Features 卡片的 grid 結構、左上 icon、下方標題／說明與卡片留白；保留 ISO 45001 第一張黑底白字、其他卡片淺灰與手機單卡滑動；圖片 HTML 保留但不作為視覺內容。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Occupational Safety 原始證照卡片樣式
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，撤回整個 Features 12 卡片實驗。
+  - 完成：恢復原本圖片卡片、8px 圓角、邊框、陰影、圓形 icon、標題列與下方證照清單；移除黑底主卡與無圖片卡片視覺；保留前面已完成的證照區標題、說明文字與區塊間距調整。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk About 調整 Occupational Safety 證照卡片
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`，只調整專業證照卡片版型。
+  - 完成：參考 Maersk About「您可能也感興趣的內容」卡片，改為圖片置頂、白色內容區、細邊框、6px 圓角、無陰影、標題與說明文字垂直排列；移除前一版黑底反轉卡與圓形 icon，保留 ISO 45001 第一張、四張原始圖片、證照內容與桌機／手機輪播互動。
+  - 已驗證：`git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`。
+  - 未驗證：本次瀏覽器因權限拒絕存取本機預覽網址，未完成桌機 1440px／手機 390px 畫面確認；另未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：修正 Occupational Safety 證照卡片標題欄位排版
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：確認實際畫面後，修正隱藏 icon 後仍保留兩欄 Grid 導致標題逐字換行的問題；標題區改為單欄垂直排列，保留圖片置頂與 Maersk 風格卡片結構。
+  - 已驗證：本機桌機預覽已確認修正前的排版問題；完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：瀏覽器桌機畫面確認標題恢復正常橫向排列；390px 手機 viewport 確認卡片維持單張水平滑動、頁面無橫向溢出，標題寬度正常。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：依 Maersk 實際卡片字級調整 Occupational Safety 證照卡片
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：量測 Maersk About「您可能也感興趣的內容」卡片，標題為 20px／24px／400，內文為 16px／24px／400；本頁卡片同步採用相同字級與行高，避免卡片標題搶過頁面主標題。
+  - 已驗證：已完成 Maersk 卡片實際畫面與 computed style 對照；完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 未驗證：本次調整後尚未重新擷取本機桌機／手機畫面；尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：依 Maersk 卡片圖片尺寸與圓角調整 Occupational Safety 證照卡片
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：桌機三欄卡片外框由目前約 415px 收窄至約 409px，使圖片接近 Maersk 約 407px 的實際寬度；圖片補上上方左右圓角，手機單卡水平滑動寬度維持不變。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：瀏覽器桌機畫面確認圖片四角圓角；390px 手機 viewport 確認圖片維持四角圓角且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：修正 Occupational Safety 證照圖片四角圓角
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：依 Maersk 卡片參考畫面，將證照卡片圖片由僅上方圓角改為四角完整 `border-radius`，保留既有圖片尺寸與卡片欄寬。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：瀏覽器桌機畫面確認 icon 位於標題左側；390px 手機 viewport 確認 icon 正常顯示且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：恢復 Occupational Safety 證照卡片原有 icon
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：恢復原有 52px icon，放回卡片標題左側，標題區恢復 icon／文字兩欄排列；保留 Maersk 參考的圖片尺寸、四角圓角與目前字級。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：瀏覽器桌機畫面確認 icon 位於卡片內容區左上角、標題位於 icon 下方；390px 手機 viewport 確認相同排列且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：將 Occupational Safety 證照卡片 icon 改至內容區左上角
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：icon 改為卡片白色內容區左上角，標題改放在 icon 下方；保留目前圖片尺寸、四角圓角、卡片字級與手機水平滑動。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認 icon 位於標題左側同列，且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：恢復 Occupational Safety 證照卡片 icon 與標題同列
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：撤回上一個「icon 位於左上角、標題在下方」的排列，恢復 icon 位於標題左側同列；圖片尺寸、四角圓角、字級與手機水平滑動維持不變。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：瀏覽器桌機畫面確認 icon 位於整張卡片左上角並疊在圖片上方；390px 手機 viewport 確認相同定位且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：將 Occupational Safety 證照卡片 icon 定位於整張卡片左上角
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：依使用者提供的卡片參考圖，將原有 icon 改為整張卡片左上角定位，標題改為下方獨立排列；保留圖片尺寸、四角圓角、字級與手機水平滑動。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認 icon 白色外圈已移除、位置維持在卡片左上角，且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：修正 Occupational Safety icon 的卡片定位基準
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：移除標題區定位上下文，讓 icon 真正以整張卡片為定位基準，固定於卡片左上角，而非停留在圖片下方標題區。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認 icon 位於標題左側、背景透明且無白色外圈，頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：移除 Occupational Safety 卡片 icon 白色外圈
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：移除疊在圖片上方的 icon `box-shadow` 白色外圈，保留深藍圓形 icon、卡片左上角定位、圖片尺寸與四角圓角。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認 icon 欄寬與標題間距縮短，背景透明且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：恢復 Occupational Safety 卡片 icon 至標題左側並移除背景色
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：icon 恢復為標題左側同列，移除深藍圓形背景與外圈，只保留深色線條 icon；保留圖片尺寸、四角圓角與卡片欄寬。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認列表使用 `circle` marker、marker 為深色且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：縮短 Occupational Safety 卡片 icon 與標題間距
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：icon 欄寬由 52px 調整為 40px，標題欄間距由 14px 調整為 10px，讓 icon 與標題更緊密；保留透明背景與左側同列排列。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 已驗證：桌機與 390px 手機 viewport 均確認標題文字與列表文字左側對齊、圓點仍位於列表文字前方，且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：恢復 Occupational Safety 證照卡片 li 圓點標記
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：參考 `.safety-page .safety-intro__health li::marker`，為證照卡片列表恢復 `circle` 標記並套用深色 marker，保留既有文字間距與內容。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`；瀏覽器桌機 1432px 與手機 390px 均確認列表文字左側對齊標題 icon 中心線、圓點仍位於列表文字前方，且頁面無橫向溢出。
+  - 未驗證：尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：對齊 Occupational Safety 卡片標題與列表文字
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：調整證照列表左側 padding，使列表文字與「icon＋標題」中的標題文字共用同一條左側基準線，圓點維持在列表文字前方；同步處理桌機與手機版。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 未驗證：本次調整後尚未重新擷取桌機／手機畫面；尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復 Occupational Safety 專業證照區塊原本標題格式
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只恢復「專業證照與專責能力」的標題呈現。
+  - 完成：補回 `PROFESSIONAL QUALIFICATIONS` 英文眉標、中文標題的 26–40px／300 層級、橘色底線與手機版 16px 下內距；保留證照卡片圖片深藍遮罩、圖片比例、圓角與 Maersk 類卡片版型。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`；瀏覽器桌機 1432px、手機 390px 確認標題格式恢復、圖片遮罩保留且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：統一 Occupational Safety 證照卡片圖片色調與段落層級
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`，只調整「專業證照與專責能力」區塊。
+  - 完成：四張證照卡片圖片統一加上 APLI 深藍 `24%` 半透明遮罩，保留圖片內容、16:9 比例、圓角與卡片互動；移除英文眉標與橘色標題底線，保留 `h2` 語意但將中文導言改為小節導讀層級（桌機 24px／手機 20px／400），下方說明維持 `#5c5c5c`／16px／1.75，讓區塊更接近 Maersk 相關內容區的克制排版。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/occupational-safety.js`、`node --check wwwroot/js/site.js` 與 `dotnet build -c Release`；瀏覽器桌機 1440px、手機 390px 確認圖片遮罩、段落層級與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、實體手指滑動、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-16：將 Occupational Safety 列表內容對齊標題 icon 中心線
+  - 範圍：`wwwroot/css/pages/occupational-safety.css`、`wwwroot/occupational-safety.html`。
+  - 完成：列表文字由標題文字基準改為對齊 icon 中心位置，桌機左 padding 調整為 52px、手機調整為 40px，保留列表圓點。
+  - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
+  - 未驗證：本次調整後尚未重新擷取桌機／手機畫面；尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。

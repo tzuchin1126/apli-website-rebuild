@@ -37,6 +37,42 @@
   line-height: 1.8;
 }
 
+.error-page--server-error .error-page__main,
+.error-page--not-found .error-page__main {
+  padding-block: clamp(112px, 13vh, 176px) clamp(72px, 8vh, 112px);
+}
+
+.error-page--server-error .error-page__card h1,
+.error-page--not-found .error-page__card h1 {
+  max-width: 760px;
+  margin-bottom: 24px;
+  color: #141414;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.35;
+  letter-spacing: normal;
+}
+
+.error-page--server-error .error-page__card > p,
+.error-page--not-found .error-page__card > p {
+  max-width: 640px;
+  margin-bottom: 32px;
+  color: #5c5c5c;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.error-page--server-error .error-page__home-link,
+.error-page--not-found .error-page__home-link {
+  background: var(--color-secondary);
+}
+
+.error-page--server-error .error-page__home-link:hover,
+.error-page--server-error .error-page__home-link:focus-visible,
+.error-page--not-found .error-page__home-link:hover,
+.error-page--not-found .error-page__home-link:focus-visible {
+  background: var(--color-primary);
+}
+
 @media (max-width: 760px) {
   .error-page .error-page__main {
     min-height: 520px;
@@ -52,5 +88,22 @@
     margin-bottom: 30px;
     font-size: 1rem;
     line-height: 1.75;
+  }
+
+  .error-page--server-error .error-page__main,
+  .error-page--not-found .error-page__main {
+    padding-block: 96px 64px;
+  }
+
+  .error-page--server-error .error-page__card h1,
+  .error-page--not-found .error-page__card h1 {
+    margin-bottom: 16px;
+    font-size: 1.625rem;
+    line-height: 1.45;
+  }
+
+  .error-page--server-error .error-page__card > p,
+  .error-page--not-found .error-page__card > p {
+    margin-bottom: 24px;
   }
 }

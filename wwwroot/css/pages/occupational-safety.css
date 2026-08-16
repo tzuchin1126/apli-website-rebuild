@@ -13,6 +13,10 @@
   background: var(--color-surface);
 }
 
+.safety-page .safety-credentials {
+  padding-top: clamp(48px, 5vw, 72px);
+}
+
 .safety-page .eyebrow {
   margin: 0 0 18px;
   color: var(--color-muted);
@@ -37,9 +41,13 @@
 }
 
 .safety-page .safety-credentials__heading h2 {
+  color: #141414;
   font-family: var(--font-body);
-  font-size: clamp(1.75rem, 1.5rem + 1vw, 2rem);
-  font-weight: 700;
+  font-size: clamp(1.625rem, 4vw, 2.5rem);
+  font-weight: 300;
+  line-height: clamp(2rem, 3vw, 2.5rem);
+  letter-spacing: normal;
+  filter: none;
 }
 
 .safety-page .safety-credentials__heading h2::after {
@@ -81,7 +89,7 @@
 
 .safety-page .safety-intro__lead p {
   margin: 0;
-  color: var(--color-muted);
+  color: #5c5c5c;
   font-size: var(--font-size-body-copy);
   font-weight: 400;
   line-height: 1.8;
@@ -95,9 +103,9 @@
   margin: 0;
   justify-self: start;
   overflow: hidden;
-  border-radius: calc(var(--card-radius) * 2) 0;
+  border-radius: var(--card-radius);
   background: var(--color-surface-soft);
-  box-shadow: 0 18px 42px rgb(15 50 66 / 12%);
+  box-shadow: none;
 }
 
 .safety-page .safety-intro__media picture,
@@ -117,7 +125,7 @@
   grid-area: health;
   align-self: start;
   gap: 8px;
-  color: var(--color-muted);
+  color: #5c5c5c;
   font-size: var(--font-size-body-copy);
   line-height: 1.8;
 }
@@ -140,20 +148,27 @@
 
 .safety-page .safety-credentials__heading {
   display: grid;
-  gap: 20px;
+  gap: 0;
   margin-bottom: clamp(28px, 4vw, 48px);
 }
 
 .safety-page .safety-credentials__heading .eyebrow {
-  margin-bottom: -2px;
+  margin: 0 0 8px;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
 }
 
 .safety-page .safety-credentials__heading > p:last-child {
   max-width: 42em;
-  margin: 0;
-  color: var(--color-muted);
+  margin: 18px 0 0;
+  color: #5c5c5c;
   font-size: var(--font-size-body-copy);
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.75;
 }
 
 .safety-page .safety-credentials__grid {
@@ -187,7 +202,7 @@
 .safety-page .safety-credential-card {
   --safety-credential-accent: var(--color-secondary);
   position: relative;
-  flex: 0 0 calc((100% - 52px) / 3);
+  flex: 0 0 calc((100% - 68px) / 3);
   min-width: 0;
   scroll-snap-align: start;
   display: flex;
@@ -218,7 +233,7 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--card-radius);
 }
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media {
@@ -398,6 +413,103 @@
   line-height: 1.5;
 }
 
+/* Maersk-inspired related-content cards: image first, then a quiet text panel. */
+.safety-page .safety-credential-card {
+  min-height: 500px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--card-radius);
+  background: #fff;
+  box-shadow: none;
+}
+
+.safety-page .safety-credential-card--certification {
+  order: initial;
+  background: #fff;
+  color: var(--color-ink);
+}
+
+.safety-page .safety-credential-card__media {
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface-soft);
+}
+
+.safety-page .safety-credential-card__media::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgb(34 53 71 / 24%);
+  content: "";
+  pointer-events: none;
+}
+
+.safety-page .safety-credential-card__media img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.safety-page .safety-credential-card__title {
+  position: static;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
+  min-height: 0;
+  padding: 28px 32px 12px;
+  background: #fff;
+}
+
+.safety-page .safety-credential-card__icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  position: static;
+  margin: 0;
+  color: #141414;
+  background: transparent;
+  box-shadow: none;
+}
+
+.safety-page .safety-credential-card__title h3,
+.safety-page .safety-credential-card--certification .safety-credential-card__title h3 {
+  color: #141414;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.safety-page .safety-credential-card__title h3::after {
+  display: none;
+}
+
+.safety-page .safety-credential-card ul {
+  flex: 1;
+  margin: 0;
+  padding: 0 32px 32px 52px;
+  list-style-type: circle;
+  background: #fff;
+}
+
+.safety-page .safety-credential-card li,
+.safety-page .safety-credential-card--certification li {
+  padding: 0;
+  border-top: 0;
+  color: #5c5c5c;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.safety-page .safety-credential-card li::marker {
+  color: var(--color-ink);
+}
+
+.safety-page .safety-credential-card li + li {
+  margin-top: 8px;
+}
+
+.safety-page .safety-credential-card__list-icon {
+  display: none;
+}
+
 @media (max-width: 1099px) {
   .safety-page .safety-intro__layout {
     max-width: 860px;
@@ -467,27 +579,19 @@
   .safety-page .safety-credential-card {
     flex-basis: calc(100% - 44px);
     border-radius: 8px;
+    min-height: 0;
   }
 
   .safety-page .safety-credential-card__media {
-    aspect-ratio: 2.35 / 1;
+    aspect-ratio: 16 / 9;
   }
 
   .safety-page .safety-credential-card__title {
-    min-height: 66px;
-    grid-template-columns: 48px minmax(0, 1fr);
-    padding: 8px 18px 6px;
-    column-gap: 12px;
-  }
-
-  .safety-page .safety-credential-card__icon {
-    width: 48px;
-    height: 48px;
-    font-size: 24px;
+    padding: 22px 20px 10px;
   }
 
   .safety-page .safety-credential-card ul {
-    padding-inline: 18px;
+    padding: 0 20px 24px 40px;
   }
 }
 

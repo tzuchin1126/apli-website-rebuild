@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/layout/site-header.css">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260815-operational-title-font-v2">
+        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260816-operational-location-network-v8">
         <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
     </head>
     <body class="operational-resources-page">
@@ -93,14 +93,13 @@
             <section class="resource-section" id="facilities" aria-labelledby="facilities-title">
                 <div class="resource-feature site-container">
                     <header class="resource-heading resource-animate">
-                        <p class="eyebrow">FACILITIES</p>
                         <h2 id="facilities-title">廠區資訊</h2>
                     </header>
                     <figure class="resource-media resource-animate">
                         <img src="public/images/services/container-yard-overview-1.png" alt="高雄港後線貨櫃儲運場" loading="lazy" decoding="async">
                     </figure>
                     <div class="resource-body resource-animate">
-                        <p>廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。作業人員進出場區均配戴安全帽與反光背心，落實職業安全管理，確保作業環境安全無虞。</p>
+                        <p>廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。</p>
                         <table aria-label="廠區面積統計">
                             <tbody>
                                 <tr><th scope="row">貨櫃儲運場</th><td>66,115 m²</td></tr>
@@ -116,7 +115,6 @@
             <section class="resource-section resource-section--soft" id="equipment-config" aria-labelledby="equipment-title">
                 <div class="resource-feature resource-feature--reverse site-container">
                     <header class="resource-heading resource-animate">
-                        <p class="eyebrow">EQUIPMENT CONFIGURATION</p>
                         <h2 id="equipment-title">機具配置</h2>
                     </header>
                     <figure class="resource-media resource-animate">
@@ -139,7 +137,6 @@
             <section class="resource-section" id="capacity" aria-labelledby="capacity-title">
                 <div class="resource-feature site-container">
                     <header class="resource-heading resource-animate">
-                        <p class="eyebrow">CAPACITY</p>
                         <h2 id="capacity-title">作業量能</h2>
                     </header>
                     <figure class="resource-media resource-animate">
@@ -162,7 +159,6 @@
             <section class="resource-section resource-section--soft" id="occupational-safety" aria-labelledby="occupational-safety-title">
                 <div class="resource-feature resource-feature--reverse site-container">
                     <header class="resource-heading resource-animate">
-                        <p class="eyebrow">OCCUPATIONAL SAFETY AND HEALTH</p>
                         <h2 id="occupational-safety-title">職業安全衛生</h2>
                     </header>
                     <figure class="resource-media resource-media--safety resource-animate">
@@ -214,15 +210,23 @@
                         <h2 id="location-title">地理位置</h2>
                         <p>亞太座落於高雄港第三貨櫃中心後線，鄰近小港國際機場、高速公路與各貨櫃中心，具備絕佳地理優勢。</p>
                     </header>
-                    <ul class="resources-location__distances resource-animate" aria-label="周邊交通距離，可左右捲動查看更多地點" tabindex="0">
-                        <li><strong>1.5<small>km</small></strong><span>小港國際機場</span></li>
-                        <li><strong>1.5<small>km</small></strong><span>高速公路終點</span></li>
-                        <li><strong>2.5<small>km</small></strong><span>第二貨櫃中心</span></li>
-                        <li><strong>0.5<small>km</small></strong><span>第三貨櫃中心</span></li>
-                        <li><strong>3<small>km</small></strong><span>第四貨櫃中心</span></li>
-                        <li><strong>0.5<small>km</small></strong><span>第五貨櫃中心</span></li>
-                        <li><strong>20<small>min</small></strong><span>市中心及火車站</span></li>
-                    </ul>
+                    <p class="resources-location__mobile-caption">亞太至各目標地點的距離</p>
+                    <div class="resources-location__network resource-animate" role="group" aria-label="以亞太為中心的周邊交通距離">
+                        <ul class="resources-location__side resources-location__side--left" aria-label="左側周邊交通距離">
+                            <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>小港國際機場</span></li>
+                            <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>高速公路終點</span></li>
+                            <li class="resources-location__node resources-location__node--medium"><strong>2.5<small>km</small></strong><span>第二貨櫃中心</span></li>
+                            <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第三貨櫃中心</span></li>
+                        </ul>
+                        <div class="resources-location__hub" role="img" aria-label="亞太國際物流所在地">
+                            <img src="public/images/logo/white-logo.png" alt="" width="322" height="159" aria-hidden="true">
+                        </div>
+                        <ul class="resources-location__side resources-location__side--right" aria-label="右側周邊交通距離">
+                            <li class="resources-location__node resources-location__node--far"><strong>3<small>km</small></strong><span>第四貨櫃中心</span></li>
+                            <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第五貨櫃中心</span></li>
+                            <li class="resources-location__node resources-location__node--long"><strong>20<small>min</small></strong><span>市中心及火車站</span></li>
+                        </ul>
+                    </div>
                     <div class="resources-location__map resource-animate">
                         <iframe
                             title="亞太國際物流公司位置地圖"

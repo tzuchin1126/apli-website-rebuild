@@ -18,7 +18,7 @@
   loadMore.hidden = true;
   list.after(loadMore);
 
-  const render = () => {
+  const render = (animate = false) => {
     const category = root.querySelector("[aria-pressed='true']")?.dataset.category || "";
     let matchingCount = 0;
 
@@ -30,6 +30,11 @@
 
     loadMore.hidden = matchingCount <= visibleCount;
     if (empty) empty.hidden = matchingCount !== 0;
+    if (animate) {
+      list.classList.remove("news-list--filtering");
+      void list.offsetWidth;
+      list.classList.add("news-list--filtering");
+    }
   };
 
   const addCategory = (label, value, selected = false) => {
@@ -92,7 +97,7 @@
     if (!button) return;
     categories.querySelectorAll("[data-category]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
     visibleCount = pageSize;
-    render();
+    render(true);
   });
   loadMore.addEventListener("click", () => {
     visibleCount += pageSize;

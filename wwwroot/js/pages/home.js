@@ -7,8 +7,6 @@
 
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
     const dotsContainer = hero.querySelector("[data-hero-dots]");
-    const previousButton = hero.querySelector("[data-hero-prev]");
-    const nextButton = hero.querySelector("[data-hero-next]");
     let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
     let autoplayId = null;
     let isHovered = false;
@@ -65,9 +63,6 @@
       });
       dotsContainer.replaceChildren(...dots);
     }
-
-    previousButton?.addEventListener("click", () => goTo(activeIndex - 1));
-    nextButton?.addEventListener("click", () => goTo(activeIndex + 1));
 
     const finishSwipe = (event) => {
       if (event.pointerId !== swipePointerId) return;
