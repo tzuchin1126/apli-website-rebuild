@@ -1,5 +1,61 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-16：參考 Maersk 調整共用 Footer 文字
+  - 範圍：`wwwroot/css/layout/site-footer.css`，影響使用共用 Footer 樣式的公開靜態頁面；不改 Footer HTML、連結內容、背景、欄位配置、手機摺疊與橘色互動效果。
+  - 完成：Footer 欄位標題改用既有 Noto Sans TC、16px／字重 500／正常字距；Footer 連結統一為 16px／24px，文字色調整為標題 `#141414`、連結 `#5c5c5c`；桌機與手機維持原有版面與互動。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；以 `about.html` 內嵌 Footer 做靜態瀏覽器預覽，於桌機 1440px、768px 與手機 390px、320px 確認 Footer 字體、字級、字重、顏色、手機摺疊與無水平溢位；共用 Footer CSS 快取版本已同步至各公開 HTML。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整 Contact 右側地圖
+  - 範圍：`wwwroot/css/pages/contact.css`，只處理右側地圖外觀。
+  - 完成：移除地圖 8px 圓角，改為扁平邊角；保留寬高、欄位對齊、手機高度、iframe 與無邊框設定。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1440px、手機 390px 確認地圖尺寸、圓角、無邊框與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整 Contact 內容區塊
+  - 範圍：`wwwroot/css/pages/contact.css`，只處理公司資訊列表的文字與列表節奏。
+  - 完成：地址、電話、信箱等內容統一為 16px／24px，資料文字改為 `#141414`，欄位標籤維持較高字重；列表間距調整為桌機 24px、手機 16px；保留雙欄、地圖、背景與整體區塊間距。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px、手機 390px 確認內容字級、行高、文字色彩、列表間距、欄位排列與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整 Contact 標題區塊
+  - 範圍：`wwwroot/css/pages/contact.css`，只處理 Contact 的「公司資訊」標題區塊。
+  - 完成：`公司資訊`調整為手機 26px／32px、桌機 40px／40px、字重 300、正常字距與 `#141414`；`COMPANY INFORMATION` 維持 16px 灰色；保留橘色底線、間距、地址列表與地圖。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px、手機 390px 確認主標顏色、字級、眉標、底線、欄位排列與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整內頁 Hero 標題文字
+  - 範圍：`wwwroot/css/components/page-hero.css`，影響使用共用 `.page-hero__title` 的內頁；首頁 Hero 文案與 CTA 不在本次範圍。
+  - 完成：標題改用專案既有 Noto Sans TC，桌機 50px、手機 38px、字重 300，行高分別為 56px／38px，字距改為正常；保留 Hero 高度、圖片、遮罩與置中位置。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px、手機 390px 確認內頁 Hero 標題、Hero 高度、遮罩與無水平溢位；首頁 Hero 文案維持原本 Noto Serif 設定。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：參考 Maersk 調整 Header 文字顏色
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`，只處理 Header 一般文字顏色。
+  - 完成：一般文字由現有 `#222222` 調整為 Maersk 參考的 `#141414`；既有 APLI 橘色互動狀態、首頁 Hero 白色文字、手機選單狀態、版面與互動不變。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px、手機 390px 確認一般頁面、首頁 Hero／捲動狀態、目前頁面色彩與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：恢復共用麵包屑文字字級
+  - 範圍：`wwwroot/css/components/breadcrumb.css`，影響 11 個使用麵包屑的公開靜態頁面。
+  - 完成：撤回本輪麵包屑字級試作，恢復原本的 `0.88rem`；保留高度、底線、顏色、箭頭、HTML 結構與導覽功能。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已恢復，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：調整共用 Header 文字字級
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`，影響 14 個公開靜態頁面的共用 Header；首頁另有一條頁面覆寫需同步。
+  - 完成：只將桌機／手機主選單與下拉選單文字統一為 `1rem`（16px）；保留字重、顏色、Logo、間距、Header 高度、下拉互動與版面結構。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px、手機 390px 確認 Contact／首頁字級、選單顯示與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-16：恢復 Contact 頁面原本樣式
   - 範圍：`wwwroot/contact.html`、`wwwroot/css/pages/contact.css`。
   - 完成：撤回本輪 Maersk 風格試作，恢復原本的 Contact HTML 結構、Noto Sans TC 載入字重、頁面 CSS、Hero 高度／遮罩、Header 版面、橘色底線、資訊列表與地圖圓角。

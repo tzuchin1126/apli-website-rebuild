@@ -37,11 +37,11 @@
   margin: 0;
   place-items: center;
   color: #fff;
-  font-family: var(--font-heading);
-  font-size: var(--page-hero-title-size);
-  font-weight: 400;
-  line-height: 1.16;
-  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+  font-size: clamp(2.375rem, 3.5vw, 3.125rem);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: normal;
 }
 
 .page-hero > .page-hero__title,
@@ -98,6 +98,10 @@
 }
 
 @media (max-width: 760px) {
+  .page-hero__title {
+    line-height: 1;
+  }
+
   .page-hero--quote .page-hero__content {
     gap: 18px;
   }
