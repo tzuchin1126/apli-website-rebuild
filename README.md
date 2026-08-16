@@ -56,8 +56,7 @@ git status --short
 ## 專案結構
 
 ```text
-Pages/                         Razor Pages 與後端處理
-Pages/Shared/                  Razor 共用 Layout
+Pages/                         Razor Pages 與後端處理，目前保留 Admin
 Pages/Shared/_Footer.cshtml    全站唯一 Footer HTML 來源
 wwwroot/*.html                 目前主要公開靜態頁面
 wwwroot/css/base/              Reset、設計 token、基礎元素
@@ -71,9 +70,9 @@ wwwroot/data/                  最新消息 JSON 資料
 wwwroot/public/images/         圖片與品牌素材
 ```
 
-目前 Razor Pages 與 `wwwroot` 靜態頁面並存。是否將所有公開頁面移轉為 Razor Page，需另行確認；在決策前不得自行大規模改寫路由或頁面結構。
+公開網站頁面統一由 `wwwroot/*.html` 提供；ASP.NET Core 僅保留 `/Admin`、`/api/*` 與靜態頁面的 Footer／錯誤處理。舊的無副檔名公開路徑會由 `Program.cs` 導向對應 `.html` 頁面，以維持既有連結相容性。
 
-Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。Razor Layout 直接載入此 Partial；既有靜態 HTML 只保留 `<!-- shared-site-footer -->` 標記，由 `Program.cs` 在伺服器回傳頁面時注入同一份 Partial。修改 Footer 結構或連結時不得重新在各頁複製 HTML。
+Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。既有靜態 HTML 只保留 `<!-- shared-site-footer -->` 標記，由 `Program.cs` 在伺服器回傳頁面時注入同一份 Partial。修改 Footer 結構或連結時不得重新在各頁複製 HTML。
 
 ## CSS 責任分區
 

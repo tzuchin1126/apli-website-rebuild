@@ -1,5 +1,19 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-16：恢復 Contact 頁面原本樣式
+  - 範圍：`wwwroot/contact.html`、`wwwroot/css/pages/contact.css`。
+  - 完成：撤回本輪 Maersk 風格試作，恢復原本的 Contact HTML 結構、Noto Sans TC 載入字重、頁面 CSS、Hero 高度／遮罩、Header 版面、橘色底線、資訊列表與地圖圓角。
+  - 已驗證：Contact HTML／CSS 與 `HEAD` 原始版本一致、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；靜態預覽於桌機 1432px 與手機 390px 確認 Hero 高度、Header、單欄／雙欄內容、地圖尺寸與無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-16：公開頁面統一使用 `wwwroot/*.html`
+  - 範圍：`Program.cs`、`README.md`，移除未使用的公開 Razor 頁面與共用 Razor Layout 骨架。
+  - 完成：公開內容頁統一由 `wwwroot/*.html` 提供；保留 `/Admin` 與 `/api/*` 後端功能；原本的 `/about`、`/news`、`/news/{id}`、`/privacy` 等無副檔名路徑改為永久導向對應靜態頁面；保留 ASP.NET 對靜態頁面的共用 Footer 注入與錯誤頁處理。
+  - 已驗證：`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；Release 本機 HTTP 確認 `/`、`/index.html`、Footer 注入、`/about` 與 `/news/{id}` 導向、`/privacy` 導向及未登入 `/api/news`；Development 本機 HTTP 確認 `/Admin` 可開啟。
+  - 未驗證：實際瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-15：恢復 Operational Resources 地理位置圓圈樣式
   - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
   - 完成：移除 Comparison 3-inspired 試作，恢復原本的橘色邊框圓圈、hover 效果、桌機七欄與手機水平滑動；恢復原始 CSS 快取版本。

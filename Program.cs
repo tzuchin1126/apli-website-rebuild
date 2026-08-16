@@ -217,6 +217,27 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
+var staticPageRedirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+{
+    ["/index"] = "/index.html",
+    ["/about"] = "/about.html",
+    ["/milestones"] = "/milestones.html",
+    ["/operational-resources"] = "/operational-resources.html",
+    ["/occupational-safety"] = "/occupational-safety.html",
+    ["/services"] = "/services.html",
+    ["/news"] = "/news.html",
+    ["/join"] = "/join.html",
+    ["/affiliates"] = "/affiliates.html",
+    ["/contact"] = "/contact.html",
+    ["/privacy"] = "/privacy.html"
+};
+
+foreach (var redirect in staticPageRedirects)
+    app.MapGet(redirect.Key, () => Results.Redirect(redirect.Value, permanent: true));
+
+app.MapGet("/news/{id}", (string id) =>
+    Results.Redirect($"/news-detail.html?id={Uri.EscapeDataString(id)}", permanent: true));
+
 app.MapRazorPages();
 
 app.MapGet("/api/admin/captcha", (HttpContext context) =>
