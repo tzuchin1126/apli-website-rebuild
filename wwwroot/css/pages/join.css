@@ -10,9 +10,9 @@
 
 .join-content {
   display: grid;
-  gap: clamp(72px, 8vw, 112px);
-  padding-top: clamp(72px, 7vw, 112px);
-  padding-bottom: clamp(72px, 8vw, 120px);
+  gap: var(--section-space);
+  padding-top: var(--page-content-start-space);
+  padding-bottom: var(--section-space);
 }
 
 .join-panel,
@@ -246,9 +246,9 @@
 
 @media (max-width: 760px) {
   .join-content {
-    gap: 72px;
-    padding-top: 64px;
-    padding-bottom: 80px;
+    gap: var(--section-space);
+    padding-top: var(--page-content-start-space);
+    padding-bottom: var(--section-space);
   }
 
   .join-intro {

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260817-container-1324-meta-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260817-home-menu-header-v1">
   <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
 </head>
 <body class="home-page">
@@ -209,9 +209,13 @@
         <span></span>
       </div>
     </section>
+
     <section class="home-contact-cta" aria-label="聯絡我們與人才招募">
       <article class="home-contact-cta__panel home-contact-cta__panel--contact" tabindex="0" aria-labelledby="home-contact-cta-title">
-        <img src="public/images/index/67.png" alt="貨櫃碼頭作業現場" loading="lazy">
+        <picture class="home-contact-cta__media">
+          <source type="image/avif" srcset="public/images/index/67-960.avif 960w, public/images/index/67-1920.avif 1920w" sizes="100vw">
+          <img src="public/images/index/67.png" alt="貨櫃碼頭作業現場" loading="eager" decoding="async">
+        </picture>
         <div>
           <h2 id="home-contact-cta-title">優質管理 高效服務</h2>
           <p>結合倉儲、運輸、報關、流通加工，提供海路一條龍優質物流服務。</p>
@@ -224,7 +228,10 @@
         </div>
       </article>
       <article class="home-contact-cta__panel home-contact-cta__panel--join" tabindex="0" aria-labelledby="home-join-cta-title">
-        <img src="public/images/index/核心價值觀.jpg" alt="亞太國際物流現場工作團隊" loading="lazy">
+        <picture class="home-contact-cta__media">
+          <source type="image/avif" srcset="public/images/index/core-values-960.avif 960w, public/images/index/core-values-1920.avif 1920w" sizes="100vw">
+          <img src="public/images/index/核心價值觀.jpg" alt="亞太國際物流現場工作團隊" loading="eager" decoding="async">
+        </picture>
         <div>
           <h2 id="home-join-cta-title">加入亞太，與我們一起成長</h2>
           <p>發揮你的專業，和我們一起打造更值得信賴的物流服務。</p>
@@ -240,6 +247,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260814-caret-up-v1"></script>
-  <script src="js/pages/home.js?v=20260816-home-hero-controls-v1"></script>
+  <script src="js/pages/home.js?v=20260817-news-list-v2"></script>
 </body>
 </html>

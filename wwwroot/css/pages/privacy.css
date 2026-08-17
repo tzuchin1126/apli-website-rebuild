@@ -1,5 +1,5 @@
 .privacy-page .privacy-content {
-  padding-block: clamp(48px, 6vw, 72px);
+  padding-block: var(--section-space);
   background: var(--color-surface);
 }
 
@@ -63,7 +63,7 @@
   }
 
   .privacy-page .privacy-content {
-    padding-block: 32px;
+    padding-block: var(--section-space);
   }
 
   .privacy-page .privacy-policy {

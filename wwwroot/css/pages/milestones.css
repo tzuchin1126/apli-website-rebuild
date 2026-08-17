@@ -3,13 +3,12 @@
 }
 
 .milestones-content {
-  padding-top: clamp(40px, 5vw, 64px);
-  padding-bottom: 112px;
+  padding-block: var(--section-space);
 }
 
 .milestone-tabs {
   max-width: 860px;
-  margin: 0 auto var(--milestones-content-gap, clamp(40px, 4vw, 64px));
+  margin: 0 auto var(--section-space);
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scrollbar-width: none;
@@ -137,12 +136,11 @@
 
 @media (max-width: 760px) {
   .milestones-content {
-    padding-top: 40px;
-    padding-bottom: 80px;
+    padding-block: var(--section-space);
   }
 
   .milestone-tabs {
-    margin-bottom: 48px;
+    margin-bottom: var(--section-space);
   }
 
   .milestone-panel article {

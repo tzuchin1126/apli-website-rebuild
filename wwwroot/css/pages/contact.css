@@ -1,6 +1,6 @@
 .contact-page { --page-hero-image-position: center 90%; --page-hero-image-origin: 50% 15%; }
 .contact-page .contact-hero { height: var(--page-hero-height); min-height: 0; }
-.contact-content { display: grid; gap: clamp(72px, 9vw, 128px); padding-top: clamp(64px, 8vw, 112px); padding-bottom: 112px; }
+.contact-content { display: grid; gap: var(--section-space); padding-block: var(--section-space); }
 .contact-company-location { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 72px); align-items: stretch; }
 .contact-company-info { min-width: 0; padding: 0; }
 .contact-company-info__title { position: relative; width: fit-content; margin: 0 0 clamp(24px, 3vw, 36px); padding-bottom: 20px; color: #141414; font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
@@ -22,5 +22,5 @@
   .contact-company-info__list { gap: 16px; }
   .contact-company-info__list div { grid-template-columns: 80px minmax(0, 1fr); gap: 10px; }
   .contact-company-map .map-canvas { min-height: 280px; }
-  .contact-content { padding-top: 64px; padding-bottom: 80px; }
+.contact-content { padding-block: var(--section-space); }
 }

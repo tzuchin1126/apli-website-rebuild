@@ -1,7 +1,7 @@
 .services-page {
   --page-hero-image-position: center 28%;
   --page-hero-image-origin: 50% 28%;
-  --services-section-space: clamp(56px, 6vw, 88px);
+  --services-section-space: var(--section-space);
   --services-switcher-space: clamp(40px, 5vw, 64px);
   --services-feature-gap: clamp(48px, 6.7vw, 96px);
   --services-content-gap: 24px;
@@ -581,7 +581,7 @@
 
 .services-page .services-contact {
   padding-top: var(--services-section-space);
-  padding-bottom: clamp(36px, 4vw, 56px);
+  padding-bottom: var(--section-space);
   background: var(--services-contact-surface);
 }
 
@@ -727,8 +727,7 @@
       "media"
       "description"
       "details";
-    padding-top: 64px;
-    padding-bottom: 64px;
+  padding-block: var(--section-space);
   }
 
   .services-page .service-section__heading {
@@ -759,7 +758,7 @@
   }
 
   .services-page .services-advantages {
-    padding-top: 56px;
+  padding-top: var(--section-space);
   }
 
   .services-page .services-advantages__grid {

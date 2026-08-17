@@ -165,13 +165,6 @@
     return icon;
   };
 
-  const createServiceArrowIcon = () => {
-    const icon = document.createElement("i");
-    icon.className = "ph ph-arrow-bend-up-right";
-    icon.setAttribute("aria-hidden", "true");
-    return icon;
-  };
-
   const setupLatestNews = () => {
     const list = document.querySelector("[data-home-latest-list]");
     if (!list) return;
@@ -356,10 +349,7 @@
           const summary = document.createElement("span");
           summary.className = "home-latest__summary";
           summary.textContent = item.content.replace(/\s+/g, " ").trim();
-          const more = document.createElement("span");
-          more.className = "home-latest__more button--text-arrow";
-          more.append(createServiceArrowIcon());
-          body.append(meta, title, summary, more);
+          body.append(meta, title, summary);
           link.append(media, body);
           list.append(link);
         });

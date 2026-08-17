@@ -13,6 +13,8 @@
 
 完整開發規範請參閱 [AGENTS.md](AGENTS.md)。目前進度與待辦統一記錄在 [TODO.md](TODO.md)。
 
+IIS 部署、發布路徑、環境變數與更新流程請參閱 [IIS-DEPLOYMENT.md](IIS-DEPLOYMENT.md)。
+
 ## 技術環境
 
 - .NET 8

@@ -7,4 +7,10 @@
     <RootNamespace>apli_website_rebuild</RootNamespace>
   </PropertyGroup>
 
+  <Target Name="CopySharedFooterToPublishDirectory" AfterTargets="Publish">
+    <MakeDir Directories="$(PublishDir)Pages\Shared" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Pages\Shared\_Footer.cshtml"
+          DestinationFiles="$(PublishDir)Pages\Shared\_Footer.cshtml" />
+  </Target>
+
 </Project>

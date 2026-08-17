@@ -6,7 +6,7 @@
 .about-page .about-hero__cite-rule { flex: 0 0 auto; width: 44px; height: 2px; overflow: visible; color: var(--color-primary); }
 .about-page .about-hero__cite-rule path { fill: none; stroke: currentColor; stroke-width: 2; }
 
-.about-page .about-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); grid-template-areas: "copy media"; gap: clamp(48px, 6.7vw, 96px); max-width: calc(var(--site-max-width) + 60px); align-items: start; padding-top: clamp(72px, 7vw, 112px); padding-bottom: clamp(32px, 4vw, 48px); }
+.about-page .about-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); grid-template-areas: "copy media"; gap: clamp(48px, 6.7vw, 96px); max-width: calc(var(--site-max-width) + 60px); align-items: start; padding-top: var(--page-content-start-space); padding-bottom: var(--section-space); }
 .about-section-copy { display: grid; gap: 20px; }
 .about-page .eyebrow { margin: 0 0 8px; color: var(--color-muted); font-size: 1rem; font-weight: 400; letter-spacing: 0.08em; line-height: 1.5; }
 .about-section-copy h2, .about-section-heading h2 { width: fit-content; margin: 0; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); color: #141414; font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
@@ -27,36 +27,44 @@
   .about-page .about-profile figure { align-self: start; aspect-ratio: 16 / 9; }
 }
 
-.about-philosophy { position: relative; isolation: isolate; padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(64px, 8vw, 112px); background: transparent; }
-.about-philosophy::before { position: absolute; z-index: -1; inset: clamp(32px, 4vw, 56px) 0; background: var(--color-surface-soft); content: ""; }
+.about-philosophy { padding-top: clamp(64px, 8vw, 112px); padding-bottom: 0; background: transparent; }
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
 .about-page .about-philosophy .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
 .about-page .about-philosophy .about-section-heading h2::after { position: absolute; right: 50%; bottom: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: translateX(50%); }
-.about-page .philosophy-gallery { width: min(var(--content-max-width), calc(100% - (var(--content-padding) * 2))); margin: 0 auto; overflow: visible; }
-.about-page .philosophy-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: clamp(32px, 6vw, 96px); }
-.about-page .philosophy-panel { min-width: 0; }
-.about-page .philosophy-panel__content { display: grid; align-content: start; justify-items: center; gap: 16px; width: 100%; text-align: center; }
-.about-page .philosophy-panel__icon { display: inline-flex; width: clamp(56px, 5vw, 80px); height: clamp(56px, 5vw, 80px); align-items: center; justify-content: center; color: currentColor; font-family: "Phosphor"; font-size: clamp(56px, 5vw, 80px); font-style: normal; font-weight: normal; line-height: 1; }
-.about-page .philosophy-panel__icon--mission::before { content: "\e1d6"; }
-.about-page .philosophy-panel__icon--values::before { content: "\e810"; }
-.about-page .philosophy-panel__icon--vision::before { content: "\e582"; }
-.about-page .philosophy-panel__icon--mission { color: var(--color-primary); }
-.about-page .philosophy-panel__icon--values { color: var(--color-secondary); }
-.about-page .philosophy-panel__icon--vision { color: #a66a2f; }
-.about-page .philosophy-panels h3 { margin: 0; color: #141414; font-family: var(--font-body); font-size: clamp(1.125rem, 1rem + .25vw, 1.35rem); font-weight: 500; letter-spacing: .04em; line-height: 1.35; }
-.about-page .philosophy-panel__description { display: block; width: 100%; max-width: 360px; margin: 0; color: #5c5c5c; font-size: var(--font-size-body-copy); line-height: 1.75; }
+.about-page .philosophy-gallery { width: min(1180px, calc(100% - 48px)); height: clamp(400px, 38vw, 520px); margin: 0 auto; overflow: visible; }
+.about-page .philosophy-panels { display: flex; width: 100%; height: 100%; gap: clamp(12px, 2vw, 20px); }
+.about-page .philosophy-panels button { position: relative; display: flex; min-width: 0; flex: 1 1 0; align-items: center; justify-content: center; overflow: hidden; padding: 0; border: 0; border-radius: var(--card-radius); background-color: transparent; background-position: center; background-repeat: no-repeat; background-size: cover; color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background-position 500ms ease; }
+.about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: rgb(0 0 0 / 25%); content: ""; transition: opacity 500ms ease; }
+.about-page .philosophy-panels button:hover::before, .about-page .philosophy-panels button:focus-visible::before, .about-page .philosophy-panels button[data-active="true"]::before, .about-page .philosophy-panels button[aria-expanded="true"]::before { opacity: 0.18; }
+.about-page .philosophy-panels button::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 10%) 0%, rgb(0 0 0 / 16%) 26%, rgb(0 0 0 / 42%) 45%, rgb(0 0 0 / 42%) 60%, rgb(0 0 0 / 16%) 78%, rgb(0 0 0 / 10%) 100%); content: ""; opacity: 0; pointer-events: none; transition: opacity 500ms ease; }
+.about-page .philosophy-panels button[data-philosophy-panel="mission"] { background-image: url("../../public/images/index/home-hero-container-transport.png"); }
+.about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/new.jpg"); background-position: 35% center; }
+.about-page .philosophy-panels button[data-philosophy-panel="vision"] { background-image: url("../../public/images/index/container-handler.png"); background-position: center 70%; }
+.about-page .philosophy-panels button:hover, .about-page .philosophy-panels button:focus-visible, .about-page .philosophy-panels button[data-active="true"], .about-page .philosophy-panels button[aria-expanded="true"] { flex-grow: 7; }
+.about-page .philosophy-panel__content { position: relative; z-index: 1; display: grid; width: 100%; min-height: 100%; box-sizing: border-box; align-content: center; justify-items: center; gap: 12px; padding: clamp(24px, 4vw, 56px); isolation: isolate; text-align: center; }
+.about-page .philosophy-panel__icon { display: block; width: clamp(2.25rem, 3.5vw, 3.25rem); height: clamp(2.25rem, 3.5vw, 3.25rem); color: #fff; background-color: currentColor; -webkit-mask-position: center; mask-position: center; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: contain; mask-size: contain; }
+.about-page .philosophy-panel__icon--mission { -webkit-mask-image: url("../../public/images/icon/compass-rose-light.svg"); mask-image: url("../../public/images/icon/compass-rose-light.svg"); }
+.about-page .philosophy-panel__icon--values { -webkit-mask-image: url("../../public/images/icon/hand-heart-light.svg"); mask-image: url("../../public/images/icon/hand-heart-light.svg"); }
+.about-page .philosophy-panel__icon--vision { -webkit-mask-image: url("../../public/images/icon/handshake-light.svg"); mask-image: url("../../public/images/icon/handshake-light.svg"); }
+.about-page .philosophy-panel__icon, .about-page .philosophy-panel__text { position: relative; z-index: 1; }
+.about-page .philosophy-panels button:hover .philosophy-panel__icon, .about-page .philosophy-panels button:focus-visible .philosophy-panel__icon, .about-page .philosophy-panels button[aria-expanded="true"] .philosophy-panel__icon { color: var(--color-primary); }
+.about-page .philosophy-panel__text { display: grid; width: min(100%, 620px); justify-items: center; gap: 6px; text-align: center; }
+.about-page .philosophy-panels button:hover::after, .about-page .philosophy-panels button:focus-visible::after, .about-page .philosophy-panels button[aria-expanded="true"]::after { opacity: 1; }
+.about-page .philosophy-panels strong { color: #fff; font-family: var(--font-heading); font-size: clamp(1.3rem, 1.08rem + .4vw, 1.6rem); font-weight: 500; letter-spacing: .04em; line-height: 1.35; text-align: center; }
+.about-page .philosophy-panel__description { display: block; width: 100%; max-width: 600px; max-height: 0; margin: 0; overflow: hidden; opacity: 0; transform: translateY(12px); font-family: var(--font-heading); font-size: clamp(.95rem, .9rem + .2vw, 1.1rem); letter-spacing: .02em; line-height: 1.7; text-align: center; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
+.about-page .philosophy-panels button:hover .philosophy-panel__description, .about-page .philosophy-panels button:focus-visible .philosophy-panel__description, .about-page .philosophy-panels button[aria-expanded="true"] .philosophy-panel__description { max-height: 160px; opacity: 0.9; transform: translateY(0); }
+.about-page .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
 .about-page .about-certifications {
   --certification-line-x: 20px;
   --certification-progress: 0px;
   --certification-sticky-top: 132px;
-  margin-top: 0;
-  padding-top: 0;
-  padding-bottom: clamp(32px, 4vw, 56px);
+  margin-top: clamp(32px, 4vw, 64px);
+  padding-block: var(--section-space);
   /* background: var(--color-surface-soft); */
 }
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
-.about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
+.about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; color: #141414; font-weight: 500; }
 .about-page .about-certifications .about-section-heading--left h2::after { position: absolute; right: auto; bottom: 0; left: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: none; }
 .about-page .milestone-timeline { position: relative; width: min(1120px, 100%); margin: clamp(40px, 5vw, 72px) auto 0; }
 .about-page .milestone-timeline::before,
@@ -67,12 +75,22 @@
 .about-page .milestone-panels { display: grid; gap: clamp(72px, 10vw, 132px); }
 .about-page .milestone-panel { display: grid; grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.55fr); gap: clamp(40px, 7vw, 96px); align-items: start; }
 .about-page .milestone-era-label { position: sticky; top: var(--certification-sticky-top); z-index: 2; min-height: 48px; padding-left: 74px; }
-.about-page .milestone-era-label h3 { margin: 0; color: #141414; font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; line-height: clamp(2rem, 3vw, 2.5rem); letter-spacing: normal; }
+
+.about-page .milestone-era-label h3 { 
+  margin: 0; 
+  color: #141414; 
+  font-family: var(--font-body); 
+  font-size: clamp(1.875rem, 4.5vw, 3rem); 
+  font-weight: 700; 
+  line-height: clamp(2.3rem, 5vw, 3.4rem); 
+  letter-spacing: normal; 
+}
+
 .about-page .milestone-era-dot { position: absolute; top: 4px; left: 8px; width: 26px; height: 26px; border: 7px solid var(--color-surface); border-radius: 50%; background: var(--color-line); box-shadow: 0 0 0 1px var(--color-line); }
 .about-page .milestone-panel-events { display: grid; width: 100%; margin-inline: auto; gap: 0; }
 .about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 8px; align-items: baseline; width: 100%; padding: 2px 0 22px; border-bottom: 1px solid var(--color-line); text-align: left; }
 .about-page .milestone-panel-events > div + div { padding-top: 22px; }
-.about-page .milestone-panel-events h3 { margin: 0; color: #5c5c5c; font-family: var(--font-body); font-size: clamp(1rem, .96rem + .2vw, 1.125rem); line-height: 1.75; font-weight: 400; }
+.about-page .milestone-panel-events h3 { margin: 0; color: #141414; font-family: var(--font-body); font-size: clamp(1rem, .96rem + .2vw, 1.125rem); line-height: 1.75; font-weight: 500; }
 .about-page .milestone-event-year { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-dark); font-size: clamp(1rem, .96rem + .15vw, 1.125rem); font-weight: 500; line-height: 1.7; }
 .about-page .about-certifications-toggle { grid-column: 2; justify-self: start; margin-top: 28px; border-radius: var(--card-radius); background: var(--color-secondary); }
 .about-page .about-certifications-toggle:hover, .about-page .about-certifications-toggle:focus-visible { background: var(--color-primary); color: var(--button-primary-color); }
@@ -81,11 +99,11 @@
 .about-page [data-collapsible-events] > div.is-collapsed { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; }
 .about-page [data-collapsible-events] > div[hidden] { display: none; }
 
-.about-page .about-affiliates { padding-top: clamp(48px, 5vw, 72px); padding-bottom: 0; background: transparent; }
+.about-page .about-affiliates { padding-block: var(--section-space); background: transparent; }
 .about-page .about-affiliates .about-section-heading { margin-bottom: clamp(8px, 1vw, 12px); }
 .about-page .about-affiliates .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
 .about-page .about-affiliates .about-section-heading h2::after { position: absolute; right: 50%; bottom: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: translateX(50%); }
-.about-page .about-affiliates__logo-strip { padding: clamp(16px, 2vw, 24px) 0 clamp(40px, 5vw, 64px); background: transparent; }
+.about-page .about-affiliates__logo-strip { padding: clamp(16px, 2vw, 24px) 0 0; background: transparent; }
 .about-page .about-affiliates__logo-strip > .site-container { width: min(100% - (var(--content-padding) * 2), var(--content-max-width)); }
 .about-page .about-affiliates__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px); align-items: center; margin: 0; padding: 0; list-style: none; }
 .about-page .about-affiliates__card { position: relative; display: grid; min-width: 0; min-height: 112px; align-items: center; justify-items: center; overflow: visible; padding: 16px 12px; border: 0; border-radius: 0; background: transparent; color: var(--color-ink); text-decoration: none; transition: transform 280ms ease; }
@@ -103,15 +121,28 @@
   .about-page .about-profile__heading { grid-area: heading; }
   .about-page .about-profile__body { grid-area: body; margin-top: 0; padding: 0; background: transparent; }
   .about-page .about-profile figure { width: 100%; justify-self: stretch; }
-  .about-page .philosophy-gallery { width: min(100% - (var(--content-padding) * 2), var(--content-max-width)); }
-  .about-page .philosophy-panels { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .about-page .philosophy-panel__content { gap: 12px; }
-  .about-page .philosophy-panel__description { max-width: 420px; }
+  .about-page .philosophy-gallery { width: calc(100% - 32px); height: auto; min-height: 420px; }
+  .about-page .philosophy-panels { flex-direction: column; gap: 12px; }
+  .about-page .philosophy-panels button,
+  .about-page .philosophy-panels button:hover,
+  .about-page .philosophy-panels button:focus-visible,
+  .about-page .philosophy-panels button[data-active="true"],
+  .about-page .philosophy-panels button[aria-expanded="true"] { flex: 0 0 auto; min-height: clamp(210px, 48vw, 240px); }
+  .about-page .philosophy-panels button::before,
+  .about-page .philosophy-panels button:hover::before,
+  .about-page .philosophy-panels button:focus-visible::before,
+  .about-page .philosophy-panels button[data-active="true"]::before,
+  .about-page .philosophy-panels button[aria-expanded="true"]::before { background: rgb(0 0 0 / 60%); opacity: 1; }
+  .about-page .philosophy-panels button::after { background: none; opacity: 0; }
+  .about-page .philosophy-panel__description { max-width: 420px; max-height: 160px; opacity: 0.9; transform: translateY(0); }
   .about-page .milestone-timeline { --certification-line-x: 18px; margin-top: 36px; }
   .about-page .milestone-panels { gap: 72px; }
   .about-page .milestone-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .about-page .milestone-era-label { position: relative; top: auto; padding-left: 56px; }
-  .about-page .milestone-era-label h3 { font-size: clamp(1.55rem, 8vw, 2.2rem); }
+  .about-page .milestone-era-label h3 { 
+    font-size: clamp(1.85rem, 9vw, 2.5rem); 
+    line-height: clamp(2.25rem, 10vw, 3rem); 
+  }
   .about-page .milestone-era-dot { left: 6px; }
   .about-page .milestone-panel-events { padding-left: 56px; }
   .about-page .about-certifications-toggle { grid-column: 1; justify-self: stretch; width: calc(100% - 56px); margin: 28px 0 0 56px; }
@@ -119,12 +150,38 @@
 }
 
 @media (max-width: 640px) {
-  .about-page .about-affiliates__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
-  .about-page .about-affiliates__card { min-height: 104px; padding: 16px 8px; }
-  .about-page .about-affiliates__logo img { max-width: 100%; max-height: 58px; }
+  .about-page .about-affiliates__grid { 
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 12px 16px; 
+  }
+  
+  .about-page .about-affiliates__card { 
+    min-height: 104px; 
+    padding: 16px 8px; 
+  }
+  
+  .about-page .about-affiliates__logo img { 
+    max-width: 100%; 
+    max-height: 58px; 
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .about-page [data-collapsible-events] > div { transition: none; }
-  .about-page .about-affiliates__card, .about-page .about-affiliates__logo img, .about-page .about-affiliates__more, .about-page .about-affiliates__more .ph { transition: none; }
+  .about-page .philosophy-panels button, 
+  .about-page .philosophy-panels button::before, 
+  .about-page .philosophy-panels button::after,
+  .about-page .philosophy-panel__description { 
+    transition: none; 
+  }
+
+  .about-page [data-collapsible-events] > div { 
+    transition: none; 
+  }
+
+  .about-page .about-affiliates__card, 
+  .about-page .about-affiliates__logo img, 
+  .about-page .about-affiliates__more, 
+  .about-page .about-affiliates__more .ph { 
+    transition: none; 
+  }
 }

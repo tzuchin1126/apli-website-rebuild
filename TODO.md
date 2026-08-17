@@ -1,5 +1,349 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-17：固定 About 經營理念行動版遮罩
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：行動版遮罩改為 `rgb(0 0 0 / 60%)`，並統一一般、hover、focus、active 與點擊展開狀態的深度。
+  - 未驗證：瀏覽器行動版畫面與實體裝置。
+
+- [x] 2026-08-17：調整 About 經營理念遮罩透明度
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：將 `.philosophy-panels button::before` 遮罩調整為 `rgb(0 0 0 / 25%)`。
+  - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。
+
+- [x] 2026-08-17：移除 About 經營理念行動版漸層遮罩
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：行動版隱藏 `::after` 漸層遮罩，保留 `::before` 的 `background: rgb(0 0 0 / 42%)`。
+  - 驗證：完成 CSS 原始碼檢查；未進行瀏覽器／實機驗證。
+
+- [x] 2026-08-17：統一所有頁面的行動版漢堡選單展開介面
+  - 範圍：`wwwroot/css/layout/site-header.css`、`wwwroot/css/pages/home.css`。
+  - 完成：將首頁使用的固定 72px Header、Header 下方全畫面固定選單、由右側滑入、背景與垂直捲動規則移至共用 Header；移除首頁重複定位規則，其他頁面改用相同展開方式，避免選單進入文件流造成 Header 高度跳動。
+  - 已驗證：確認共用／首頁不再重複定義選單定位、`node --check wwwroot/js/site.js`、`dotnet build -c Release`（0 warnings、0 errors）、指定檔案 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：固定首頁行動版漢堡選單開啟時的 Header 高度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：首頁行動版 Header 與內層固定為 `72px`，選單開啟狀態維持相同高度；全畫面選單仍從 Header 下方的 `72px` 展開，避免點擊漢堡 icon 時 Header 高度跳動；同步更新首頁 CSS query。
+  - 已驗證：確認開關狀態使用相同高度與選單 top 值、`dotnet build -c Release`（0 warnings、0 errors）、指定檔案 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：同步新聞詳細頁 Hero 的 AVIF 圖片來源
+  - 範圍：`wwwroot/news-detail.html`。
+  - 完成：將 Hero `<source>` 由 `news-hero-port-transport` 改為與 fallback `67.png` 同一張圖片產生的 `67-960.avif`／`67-1920.avif`；保留現有 Hero 結構與 fallback。
+  - 已驗證：確認兩個 AVIF 檔案存在、source／fallback 路徑檢查、指定檔案 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：增加新聞詳細頁內容與 Footer 的間距
+  - 範圍：`wwwroot/css/pages/news-detail.css`。
+  - 完成：新聞詳細頁內容區底部 padding 桌機／平板調整為 `clamp(72px, 7vw, 96px)`，手機調整為 `64px`；保留原本上方內容間距與共用 Footer 樣式。
+  - 已驗證：確認桌機／手機 page-scoped selector、`dotnet build -c Release`（0 warnings、0 errors）、指定檔案 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：改善首頁聯絡／招募 CTA 圖片載入延遲
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/public/images/index/67-960.avif`、`wwwroot/public/images/index/67-1920.avif`、`wwwroot/public/images/index/core-values-960.avif`、`wwwroot/public/images/index/core-values-1920.avif`。
+  - 完成：為兩張 CTA 圖片加入響應式 AVIF source，保留 PNG／JPG fallback；由 `loading="lazy"` 改為 `loading="eager"` 並加入 `decoding="async"`，讓圖片提早請求且降低傳輸量；同步調整 picture 結構的既有裁切、hover 與 reduced-motion CSS。
+  - 已驗證：確認四個 AVIF 檔案格式與尺寸、`dotnet build -c Release`（0 warnings、0 errors）、指定檔案 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：為新聞列表頁 Hero 啟用 AVIF source
+  - 範圍：`wwwroot/news.html`、`wwwroot/public/images/index/67-960.avif`、`wwwroot/public/images/index/67-1920.avif`。
+  - 完成：由現有 `67.png` 產生 960px／1920px AVIF 版本，恢復新聞列表頁 Hero 的 `<source>`；保留原 PNG fallback、alt 與 `fetchpriority`。
+  - 已驗證：確認 AVIF 檔案存在與尺寸、HTML source／fallback 結構檢查、指定檔案 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：為新聞詳細頁 Hero 啟用 AVIF source
+  - 範圍：`wwwroot/news-detail.html`。
+  - 完成：恢復新聞詳細頁 Hero 的 AVIF `<source>`，使用 960px／1528px `srcset` 與 `sizes="100vw"`；保留原有 PNG fallback、alt 與 `fetchpriority`。
+  - 已驗證：確認兩個 AVIF 檔案存在、HTML source／fallback 結構檢查、指定檔案 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復首頁最新消息卡片摘要文字
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`。
+  - 完成：恢復首頁卡片的兩行摘要顯示，保留無外框與移除右上角 hover／focus icon 的狀態；同步更新首頁 CSS／JS query。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、指定檔案 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：移除首頁最新消息卡片 hover／focus 的右上角 icon
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`。
+  - 完成：移除首頁最新消息卡片右上角 hover／focus icon 的生成、顯示與位移樣式；保留卡片連結、圖片 hover、標題底線與鍵盤 focus 輪廓。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、指定檔案 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：調整首頁最新消息卡片為無外框、無摘要呈現
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`。
+  - 完成：移除首頁最新消息卡片外框與卡片背景，首頁卡片只保留圖片、日期／分類、標題與既有 hover／focus 行為；不刪除新聞資料，詳細頁仍可顯示完整內容；同步更新首頁 CSS／JS query。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、指定檔案 `git diff --check`。
+  - 未驗證：桌面／手機實際瀏覽器渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：參考 About 間距調整首頁主要區塊
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：保留首頁 `home-intro` 的起始間距；「服務項目」與「最新消息」桌機／平板改用 `clamp(64px, 8vw, 112px)` 上下間距，行動版最新消息固定為 `64px`；首頁 CSS query 更新為 `section-spacing-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`（0 warnings、0 errors）、`index.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：放大桌機與行動版 About 認證時間軸標題
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：`.milestone-era-label h3` 桌機改為 `clamp(1.875rem, 4.5vw, 3rem)`，行動版改為 `clamp(1.85rem, 9vw, 2.5rem)`，同步調整行高；保留目前文字顏色、品牌樣式與 `font-weight: 700`；About CSS query 更新為 `about-milestone-era-title-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 About 認證時間軸年份標題原本桌機字級
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：移除上一筆桌機專用放大覆寫，恢復 `.milestone-era-label h3` 原本的 `clamp(1.625rem, 4vw, 2.5rem)`／`clamp(2rem, 3vw, 2.5rem)`；保留現有顏色、字重與行動版樣式；About CSS query 恢復為 `about-certification-h3-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：放大桌機版 About 認證時間軸年份標題
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：僅在 `min-width: 841px` 將 `.milestone-era-label h3` 調整為 `font-size: clamp(2rem, 3.5vw, 3rem)`、`line-height: clamp(2.4rem, 4vw, 3.4rem)`；保留現有 `var(--color-primary)`、`font-weight: 700` 與行動版尺寸；About CSS query 更新為 `about-milestone-year-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 認證與獎項時間軸內容 h3
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：時間軸每筆認證／獎項內容的 `.milestone-panel-events h3` 在桌機與行動版統一為 `font-weight: 500`、`color: #141414`；年份標籤維持原樣；About CSS query 更新為 `about-certification-h3-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：統一 About 認證與獎項標題字重與顏色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：桌機與行動版認證與獎項標題皆改為 `font-weight: 500`、`color: #141414`；About CSS query 更新為 `about-certification-title-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：提高桌機版 About 認證與獎項標題字重
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：僅在 `min-width: 841px` 將認證與獎項標題字重由 `300` 調整為 `400`，保留原字級、底線、手機版與其他 About 標題；About CSS query 更新為 `about-certification-title-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：修正 About 經營理念遮罩跟隨卡片高度
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：將中央漸層遮罩由 `.philosophy-panel__content::before` 移至卡片按鈕的 `::after`，使遮罩以整張圖片卡片為範圍，並同步更新行動版直接顯示遮罩的 selector；About CSS query 更新為 `about-philosophy-mask-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：增加行動版 About 經營理念卡片高度
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：行動版卡片最小高度由 `160px` 調整為 `clamp(210px, 48vw, 240px)`，保留內容自然撐高；About CSS query 更新為 `about-philosophy-mobile-height-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：加強 About 經營理念卡片中央文字遮罩
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：提高卡片中央漸層遮罩至 42% 黑色透明度，上下維持 10%／16% 的柔和過渡，不新增文字後方矩形色塊；About CSS query 更新為 `about-philosophy-mask-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：修正 About 經營理念內容文字置中
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：明確設定文字群組、`strong` 標題與說明文字的 `justify-items: center`／`text-align: center`；About CSS query 更新為 `about-philosophy-type-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：統一 About 經營理念卡片文字字體並放大標題
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：內容文字改用與 `strong` 相同的 `var(--font-heading)`；標題改為響應式 `clamp(1.3rem, 1.08rem + .4vw, 1.6rem)`，內容維持較小的 `clamp(.95rem, .9rem + .2vw, 1.1rem)`；About CSS query 更新為 `about-philosophy-type-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／行動畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：讓行動版直接顯示 About 經營理念卡片內容
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：在 `max-width: 840px` 的行動／窄版堆疊卡片中，直接顯示三張卡片的說明文字與柔和遮罩，不依賴 hover；固定卡片高度行為，桌面版 hover／focus／click 展開互動維持不變；About CSS query 更新為 `about-philosophy-mobile-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行行動／桌面畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：修正 About 經營理念卡片展開遮罩與文字層級
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：移除文字後方的明顯色塊，改為展開卡片整體的柔和漸層遮罩；內容文字改為小於 `strong` 標題的 `clamp(.95rem, .9rem + .2vw, 1.1rem)`；About CSS query 更新為 `about-philosophy-text-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 與 `TODO.md` 範圍的 `git diff --check`。
+  - 未驗證：依使用者要求交由使用者直接進行桌面／手機畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 經營理念卡片展開文字的可讀性
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：將標題與說明文字包在文字區塊內，展開／hover／focus／click 時加入 28% 半透明深色遮罩；說明文字改用 `clamp(1.0625rem, .98rem + .35vw, 1.25rem)` 並維持響應式行高；About CSS query 更新為 `about-philosophy-text-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 範圍的 `git diff --check`。
+  - 未驗證：本次依使用者要求交由使用者直接進行桌面／手機畫面驗證；未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待使用者畫面確認；未自行 commit 或 push。
+
+- [x] 2026-08-17：改用提供的細線 SVG 作為 About 經營理念卡片 icon
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/public/images/icon/handshake-light.svg`、`wwwroot/public/images/icon/compass-rose-light.svg`、`wwwroot/public/images/icon/hand-heart-light.svg`。
+  - 完成：三個 Phosphor glyph 改為使用本地 SVG 的裝飾性 span 與 CSS mask；保留原有 icon 尺寸、hover／focus 顏色、卡片文字、ARIA 狀態與 JavaScript 互動。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`about.html` 範圍的 `git diff --check`，以及本機 Edge 1366x900 與 390x844 實際渲染；三個 mask URL 均正常載入，手機卡片維持直向排列。
+  - 未驗證：瀏覽器點擊後的 icon 主色狀態因操作逾時未完成、實體裝置、跨瀏覽器與人工無障礙驗收；整體 `git diff --check` 仍被 `wwwroot/css/pages/about.css` 其他既有修改行的 trailing whitespace 擋住。
+  - 狀態：已完成，未自行 commit 或 push。
+
+- [x] 2026-08-17: Tune About philosophy icons to the requested Phosphor Light classes and compass-rose glyph.
+  - Scope: `wwwroot/about.html`, `wwwroot/css/pages/about.css`.
+  - Done: use `ph-light ph-compass-rose`, `ph-light ph-hand-heart`, and `ph-light ph-handshake`; map compass-rose to local glyph `\\e1c6`; reduce the scoped icon size/weight; bump the About CSS cache query.
+  - Verified: `dotnet build -c Release` (0 warnings, 0 errors), both About/site JS syntax checks, `git diff --check`, Chrome headless desktop 1920px and mobile 390px screenshots.
+  - Not verified: physical device, cross-browser, and manual accessibility acceptance. The project still has only the local Regular Phosphor font file, so `ph-light` is preserved as the requested semantic class while the page-scoped tuning reduces visual prominence.
+  - Status: complete; no commit or push.
+
+- [x] 2026-08-17：增加 About 經營理念與認證區塊間距
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：將認證與獎項區塊上方間距調整為 `clamp(32px, 4vw, 64px)`，讓三張理念卡片與認證標題不再過度貼近。
+  - 已驗證：`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`、Chrome headless 桌機 1920px／手機 390px 實際渲染。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；手機頁面既有文字橫向溢出未處理。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：更換 About 經營理念卡片 icon
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：三張圖片卡片改用指定的 `ph-crosshair`、`ph-hand-heart`、`ph-handshake` Phosphor icon，保留卡片圖片與展開互動。
+  - 已驗證：來源檢查、glyph content 與 CSS cache query 檢查、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`、Chrome headless 桌機 1920px／手機 390px 實際渲染。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：進行中，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 About 經營理念三張圖片卡片 hover 展開版本
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：恢復三張獨立背景圖片卡片；桌機橫向排列並於 hover／focus／click 時展開，手機改為直向卡片排列；保留鍵盤焦點、說明文字展開與 reduced-motion 支援。
+  - 已驗證：依今天早先的 `41d075f` 版本比對來源結構、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`、Chrome headless 桌機 1920px／手機 390px 實際渲染，以及瀏覽器點擊後第一張卡片展開至 flex-grow 7 的互動狀態。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收；手機頁面既有文字橫向溢出未處理。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 About 經營理念 icon 三欄版本（已由上方圖片卡片版取代）
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：將經營理念恢復為三欄直接呈現的 Phosphor icon、標題與說明文字；移除後續圖片 hover 互動版的區塊結構，其他 About 區塊未調整。
+  - 已驗證：來源結構與 selector 檢查、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`、Chrome headless 桌機 1920px 與手機 390px 實際渲染。
+  - 未驗證：實體裝置、跨瀏覽器、hover／focus 以外的人工互動驗收；手機頁面既有文字橫向溢出未處理。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：更新營運資源 Hero 的響應式圖片 source
+  - 範圍：`wwwroot/operational-resources.html`。
+  - 完成：將 Hero 的 `<source>` 改為與 `home-hero-terminal.jpg` 同組的 `home-hero-terminal-960/1920.avif`，避免 source 與 fallback 圖片混用並恢復 AVIF 響應式載入。
+  - 已驗證：圖片路徑檢查、`git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際圖片載入與裁切、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：恢復 About 經營理念三張圖片 hover 展開效果
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：恢復預設背景圖與使命／核心價值觀／共同願景三張圖片；面板在 hover、focus 或點擊時切換圖片、展開內容，離開區塊後回到預設圖；保留鍵盤焦點與 reduced-motion 支援。
+  - 已驗證：來源檢查、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際 hover／focus／點擊互動、圖片裁切、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：統一 About 經營理念 icon 圓形背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：三個 icon 改用相同的白色圓形背景與淡色邊框，保留使命橘色、核心價值觀深藍色、共同願景棕色的原本線條顏色；同步更新 About CSS cache query。
+  - 已驗證：來源 selector 檢查、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際渲染、圓形 icon 視覺對比、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：恢復 About 經營理念三個項目的原本字體
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：將「使命／核心價值觀／共同願景」標題恢復為原本的 `var(--font-body)`；保留圓形 icon 背景與 `core-values-title` 原本字體；同步更新 About CSS cache query。
+  - 已驗證：來源 selector 檢查、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：修正 About 經營理念標題字體套用對象
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：恢復 `core-values-title`「經營理念」原本字體，改將「使命／核心價值觀／共同願景」三個 `h3` 標題套用 Hero 引言相同的 `var(--font-heading)`；保留圓形 icon 背景。
+  - 已驗證：來源 selector 檢查、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：調整 About 經營理念 icon 與標題字體
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：三個理念 icon 增加對應品牌色圓形背景並改用白色圖示；「經營理念」標題改用 Hero 引言相同的 `var(--font-heading)` 字體；同步更新 About CSS cache query。
+  - 已驗證：來源 selector 與 Hero 字體對照、`node --check wwwroot/js/pages/about.js`、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際渲染、圓形 icon 視覺比例、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：調整 About 公司簡介與經營理念的背景銜接
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：保留經營理念區塊內容上下間距，移除 section 整體背景色，改由內縮的 `::before` 背景層呈現，讓公司簡介與經營理念之間保留白色緩衝；同步更新 About CSS cache query。
+  - 已驗證：來源檢查、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未 push。
+
+- [x] 2026-08-17：移除營運資源頁面的營運優勢區塊
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`。
+  - 完成：移除 `#advantages` HTML 區塊及其專屬背景、三欄內容、Phosphor icon 與響應式 CSS；保留職業安全衛生與地理位置區塊。
+  - 已驗證：待本次來源檢查、`git diff --check`、`dotnet build -c Release`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待驗證與提交；未 push。
+
+- [x] 2026-08-17：統一四個頁面的 Hero 下方第一個內容區塊間距
+  - 範圍：`wwwroot/css/base/tokens.css`、`wwwroot/css/pages/join.css`、`wwwroot/css/pages/operational-resources.css`、`wwwroot/css/pages/occupational-safety.css`、`wwwroot/css/pages/about.css`、`wwwroot/css/pages/home.css` 及五個頁面 HTML。
+  - 完成：以人才招募頁原有的 `clamp(72px, 7vw, 112px)`（手機 64px）作為第一個內容區塊的 Hero 下方起始間距；一般區塊間距仍維持 `var(--section-space)`。
+  - 已驗證：來源 selector／cache query 檢查、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：四頁桌機／手機實際瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - Commit：未建立；未 push。
+
+- [x] 2026-08-17：調整 About 理念背景與職安證照卡片遮罩
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`。
+  - 完成：`.about-philosophy` 的上下間距改由區塊背景色完整覆蓋；移除 `.safety-credential-card__media::after` 預設深色遮罩。
+  - 已驗證：CSS selector／cache query 檢查、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）。
+  - 未驗證：本次兩頁桌機／手機實際瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - Commit：未建立；未 push。
+
+- [x] 2026-08-17：統一公開頁面主要內容區塊上下間距
+  - 範圍：`wwwroot/css/base/tokens.css`、各公開頁面 CSS、`wwwroot/index.html`。
+  - 完成：新增 `--section-space: clamp(24px, 3vw, 40px)`，首頁及其他公開頁面的外層內容區塊統一套用；保留 Hero、CTA、表單、卡片內距、特殊內部版型、Admin 與錯誤頁。
+  - 已驗證：來源 selector／cache query 檢查、`git diff --check`、`dotnet build -c Release`（0 warnings、0 errors）；HTTP `http://localhost:5127/` 回應 200 且載入新版首頁 CSS query。
+  - 未驗證：本次各頁桌機／手機實際瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - Commit：未建立；未 push。
+
+- [x] 2026-08-17：統一首頁一般內容區塊上下間距
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：About、服務項目、最新消息區塊的上下 padding 統一採用服務項目原下方的 `clamp(24px, 3vw, 40px)`；Hero 與聯絡／招募 CTA 保留特殊版型；同步更新首頁 `home.css` cache query。
+  - 已驗證：確認有效 CSS selector 均使用相同 `padding-block`；`git diff --check`。
+  - 未驗證：桌機／手機瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成程式修正，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：統一首頁「關於亞太」區塊上下間距
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：桌機／平板改用同一組 `clamp(72px, 7vw, 112px)` 上下間距；手機上下統一為 `58px`；同步更新首頁 `home.css` cache query。
+  - 已驗證：CSS source 確認桌機／平板使用相同 `padding-block`、手機使用相同 `padding-block`；`git diff --check`。
+  - 未驗證：本次瀏覽器連線未能取得可控制的正常分頁，因此尚未完成桌機／手機實際渲染檢查；另未驗證實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，瀏覽器驗證待補、待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復首頁服務項目 hover 遮罩
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：服務卡片圖片遮罩預設改為透明，滑鼠 hover、鍵盤 focus 時恢復深藍色遮罩與圖片放大效果；同步更新首頁 `home.css` cache query。
+  - 已驗證：桌機 1366×900 實際渲染確認初始遮罩 `opacity: 0`、hover 後為 `opacity: 1` 且圖片 `scale(1.08)`；手機 390×844 確認初始遮罩為 `opacity: 0`、卡片寬度正常且無水平溢位；`git diff --check`。
+  - 未驗證：實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：建立 IIS 部署與更新手冊
+  - 範圍：`IIS-DEPLOYMENT.md`、`README.md`。
+  - 完成：記錄原始碼、發布暫存、IIS 實體路徑、Application Pool、環境變數、資料夾權限、首次部署、程式碼更新、新聞資料保留與錯誤排查流程；README 已加入文件入口。
+  - 已驗證：完成文件內容檢查與 `git diff --check`；未執行 IIS 實際部署驗證。
+  - 未驗證：HTTPS Binding、正式網域、憑證、跨瀏覽器、實體裝置與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：修正 IIS 發布缺少 Shared Footer Partial
+  - 範圍：`apli-website-rebuild.csproj`。
+  - 完成：將 `Pages/Shared/_Footer.cshtml` 設為發布內容，避免 IIS 發布後 `Program.cs` 讀取 Footer 時因檔案不存在回傳 HTTP 500。
+  - 已驗證：完成 `dotnet build -c Release`、`git diff --check`；Windows Event Log 已確認原始例外為缺少 `C:\Sites\apli\Pages\Shared\_Footer.cshtml`。
+  - 未驗證：重新發布至 IIS 後的實際網站渲染、HTTPS Binding、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成程式修正，待重新發布；未自行 commit 或 push。
+
 - [x] 2026-08-17：調整 Totop 按鈕為深藍色
   - 範圍：`wwwroot/css/components/back-to-top.css`、`wwwroot/css/site.css`。
   - 完成：Totop 按鈕預設背景改用 `var(--color-secondary)` 深藍（`#223547`），Hover 維持原本 APLI 橘色，避免影響全站其他主要按鈕。

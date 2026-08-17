@@ -1,10 +1,10 @@
 .affiliates-page {
   --page-hero-image-position: center 90%;
-  --affiliates-content-gap: 64px;
+  --affiliates-content-gap: var(--section-space);
   --affiliates-radius: var(--card-radius);
 }
 
-.affiliates-content { padding-top: clamp(40px, 5vw, 64px); padding-bottom: clamp(80px, 8vw, 112px); }
+.affiliates-content { padding-block: var(--section-space); }
 .affiliate-tabs { margin-bottom: var(--affiliates-content-gap); overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
 .affiliate-tabs::-webkit-scrollbar { display: none; }
 .affiliate-tabs__track { display: flex; width: max-content; border-bottom: 1px solid var(--color-line); }
@@ -111,3 +111,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) { .affiliate-cta__icon { transition: none; } }
+
+@media (max-width: 760px) {
+  .affiliates-content { padding-block: var(--section-space); }
+  .affiliate-tabs { margin-bottom: var(--section-space); }
+}

@@ -13,6 +13,8 @@
   --font-pilat: "Pilat", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-pilat-wide: "Pilat Wide", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-size-body-copy: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+  --section-space: clamp(24px, 3vw, 40px);
+  --page-content-start-space: clamp(72px, 7vw, 112px);
   --content-max-width: 1324px;
   --content-padding: clamp(20px, 2vw, 24px);
   --site-max-width: 1360px;
@@ -45,4 +47,10 @@
   --page-hero-image-duration: 6s;
   --page-hero-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --page-hero-text-duration: 700ms;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --page-content-start-space: 64px;
+  }
 }
