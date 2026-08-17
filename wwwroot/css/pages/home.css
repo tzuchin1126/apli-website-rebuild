@@ -1,4 +1,6 @@
 .home-page h1, .home-page h2, .home-page h3 { font-family: var(--font-heading); font-weight: 500; }
+html:has(body.home-page),
+body.home-page { overflow-x: clip; }
 .home-page > .home-hero { position: relative; min-height: clamp(680px, 86vh, 880px); overflow: hidden; isolation: isolate; background: #173646; }
 .home-page .home-hero__slides, .home-page .home-hero__slide, .home-page .home-hero__slide img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .home-page .home-hero__slides { z-index: 0; }
@@ -339,12 +341,14 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   line-height: 1.73;
 }
 .home-page .home-service-grid { gap: 26px; margin-top: 24px; }
-.home-page .home-service-grid__card { display: block; min-width: 0; color: inherit; text-decoration: none; }
+.home-page .home-service-grid__card { display: flex; min-width: 0; color: inherit; text-decoration: none; }
 .home-page .home-service-grid__card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
 .home-page .home-service-grid article > img { border-radius: var(--card-image-radius); }
 .home-page .home-service-grid article {
   position: relative;
   display: grid;
+  width: 100%;
+  height: 100%;
   grid-template-rows: auto 1fr;
   border: 1px solid var(--color-line);
   border-radius: var(--card-radius);
@@ -443,7 +447,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest__item:hover .home-latest__media::after,
 .home-page .home-latest__item:focus-visible .home-latest__media::after { opacity: 1; }
 .home-page .home-latest__body { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 12px; padding: 24px; }
-.home-page .home-latest__meta { display: flex; gap: 12px; color: var(--color-muted); font-size: .875rem; line-height: 1.5; }
+.home-page .home-latest__meta { display: flex; gap: 12px; color: var(--color-muted); font-size: clamp(.875rem, .82rem + .18vw, 1rem); line-height: 1.5; }
 .home-page .home-latest__meta time,
 .home-page .home-latest__meta span,
 .home-page .home-latest__item strong { padding: 0; }

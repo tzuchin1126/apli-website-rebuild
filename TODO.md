@@ -1,5 +1,145 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-17：調整 Totop 按鈕為深藍色
+  - 範圍：`wwwroot/css/components/back-to-top.css`、`wwwroot/css/site.css`。
+  - 完成：Totop 按鈕預設背景改用 `var(--color-secondary)` 深藍（`#223547`），Hover 維持原本 APLI 橘色，避免影響全站其他主要按鈕。
+  - 已驗證：完成 `git diff --check`；本次依需求未執行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 未驗證：瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 公司簡介圖片裁切位置
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：公司簡介圖片維持 `16 / 9` 顯示比例，將 `object-position` 調整為 `center bottom`，保留原圖下方內容；確認來源圖片為 `1638×1335`，目前不是因低於顯示寬度而放大造成模糊。
+  - 已驗證：完成 `git diff --check`；本次依需求未執行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 未驗證：瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：移除 About 認證與獎項重複的上方留白
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：認證與獎項區塊移除 `padding-top`，改由經營理念區塊的 `padding-bottom` 統一控制兩個區塊之間的距離。
+  - 已驗證：完成 `git diff --check`；本次依需求未執行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 未驗證：瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 公司簡介圖片與經營理念區塊銜接
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：修正公司簡介區塊 `padding-bottom: 0` 造成圖片底部直接成為區塊邊界的問題，補上 responsive 下方安全間距；同步略收斂經營理念上方留白，維持整體區塊節奏。
+  - 已驗證：完成 `git diff --check`；本次依需求未執行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 未驗證：瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 公司簡介、經營理念與區塊間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：移除公司簡介文字區塊及桌機延伸層的背景色；圖片比例改為比照 `join.html`「加入亞太」的 `16 / 9`，並維持手機標題 → 圖片 → 文字順序。經營理念背景層增加標題與下方文字周邊留白；收斂認證區重複的標題／時間軸間距，避免區塊之間過度分散。
+  - 已驗證：完成 `git diff --check`；本次依需求未執行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 未驗證：瀏覽器實際渲染、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 經營理念背景色範圍
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：保留經營理念上下 padding，但將背景色改由內縮背景層呈現，避免灰色背景延伸到上下留白。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；Chrome headless 1920px、390px 確認背景色未延伸到經營理念區塊上下 padding，圖示與文字仍正常顯示。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：改用 Phosphor icon 呈現 About 經營理念
+  - 範圍：`wwwroot/about.html`。
+  - 完成：使命改用 `ph-crosshair`、核心價值觀改用 `ph-hand-heart`、共同願景改用 `ph-handshake`；移除原本自製 inline SVG，保留三欄版型與各自的品牌配色。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；Chrome headless 1920px、390px 確認三個 Phosphor 字型圖示正常呈現、尺寸一致、配色分別為橘／深藍／銅橘且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：移除 About「經營理念-2」圖片比較區
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：移除三張圖片比較版與其專用 CSS，保留原本 SVG icon 版經營理念；同步更新 About CSS cache 版本。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、390px 確認頁面只剩一個經營理念區塊、三個 SVG icon 與說明正常顯示、圖片比較區已移除且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：新增 About「經營理念-2」圖片圖示比較區
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：保留原 SVG 版經營理念，新增參考圖形式的「經營理念-2」；改為三欄水平圖片卡片，每張以一張情境圖片搭配原有使命、核心價值觀、共同願景文字，方便比較圖示版與圖片版的資訊呈現。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px 確認三欄、每張圖片約 377×283px，390px 確認單欄、每張圖片約 335×251px，三張圖片均正常載入且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 經營理念圖示識別色與線條粗度
+  - 範圍：`wwwroot/css/pages/about.css`。
+  - 完成：避免沿用參考圖的綠／藍／橘配置，改用 APLI 橘、深藍與銅橘；三個 inline SVG 圖示線寬由 `2.5px` 提高至 `3.25px`，保留相同圓角線端與接點規格。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、390px 確認三個圖示均為 `stroke-width: 3.25px`，配色為 APLI 橘、深藍、銅橘，背景為 `#f7f7f7` 且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：統一 About 經營理念圖示線條並加入區塊背景
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：三個理念圖示改為 inline SVG 並統一 `stroke-width: 2.5`、圓角線端與接點；使命、核心價值觀、共同願景保留不同識別色；經營理念區塊加入 `var(--color-surface-soft)` 淡色背景與對應底部留白。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px、390px 確認三個 SVG 圖示均為 `stroke-width: 2.5px`、背景為 `#f7f7f7`，桌機三欄、手機單欄且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：將 About 經營理念改為直接展開三欄資訊
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：移除經營理念 hover／點擊展開互動，改為三個固定展開的語意化資訊項目；圖示、標題與既有說明文字全部直接顯示，桌機三欄、手機單欄。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px 確認三欄且三個說明直接可見，390px 確認單欄直向展開、內容可讀且頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：同步對齊 About 公司簡介左右版面
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：公司簡介右側圖片改為接近參考版型的 `3 / 2` 比例；左側標題與文字面板、右側圖片改以同一 Grid row 垂直置中對齊，避免只縮放右圖後造成左右上下基準不一致；手機維持原有標題、圖片、內容順序。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px 桌機確認左側文字面板與右圖底部差約 8px、左右內容垂直置中且無水平溢位；390px 手機確認標題、圖片、內容順序正常且無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：依 Join 加入亞太區塊調整 About 公司簡介圖片比例
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：About 公司簡介圖片改為沿用 `join.html` 加入亞太區塊的 `16 / 9` 比例；桌機與手機均維持靠上對齊、標題 → 圖片 → 內容的手機順序。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px 桌機圖片均約 588×331px，390px 手機圖片約 335×188px，與 Join `16 / 9` 比例一致，並確認手機順序與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 公司簡介桌機圖片比例
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：桌機公司簡介圖片恢復 `4 / 3` 固定比例並靠上對齊；文字內容區改回自然高度，不再由 Grid row 拉伸圖片；手機維持原有標題、圖片、內容順序與比例。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px 桌機圖片均約 588×441px（4:3），390px 手機圖片約 335×251px，並確認手機順序與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：放大 About 桌機版關係企業 logo
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：關係企業 logo 列改為沿用全站 `--content-max-width`（1324px）而非固定 1080px；桌機 logo 高度上限由 72px 提高至 92px；平板與手機維持既有 RWD 欄數與手機 58px 上限。
+  - 已驗證：完成 `dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px 桌機與 390px 手機確認 logo 尺寸、兩欄手機配置與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整 About 認證與獎項時間軸文字大小
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：`milestone-event-year` 與獎項列表 `h3` 改為 responsive `clamp()` 字級，手機約 16px，1440px 約 17.5px，1920px 上限 18px；左側時間軸主標題維持原有層級，並同步更新 About CSS query 版本。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器 1920px、1440px、390px 均確認字級與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：調整首頁最新消息卡片 meta 文字大小
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：`home-latest__meta` 改為 responsive `clamp()` 字級，手機維持 14px，1440px 約 15.7px，1920px 上限 16px；同步更新首頁 CSS query 版本。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/home.js`、`git diff --check`；瀏覽器 1920px、1440px、390px 均確認字級與頁面無水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：修正首頁服務項目卡片高度不一致
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 完成：服務卡片連結改為 flex 容器，內部 `article` 設定 `width: 100%` 與 `height: 100%`，讓 Grid row 內三張卡片的外框與白色內容區完整撐高。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/home.js`、`git diff --check`；瀏覽器 1920×1080 桌機三張卡片均為 401px，390×844 手機三張卡片均為 345px，手機維持單欄且無整頁水平溢位。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-17：依馬士基官方桌機版容器寬度調整全站內容容器
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/base/tokens.css`、`wwwroot/css/pages/home.css`。
+  - 完成：主要內容最大寬度由 1200px 調整為 1324px，桌機左右內距收斂為 20–24px；首頁消息卡片保留區塊內水平滑動，並避免整頁水平溢位；同步更新首頁 CSS query 版本。
+  - 已驗證：`dotnet build -c Release`、`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/home.js`、`git diff --check`；瀏覽器 1920×1080 桌機確認主要內容寬度 1324px，390×844 手機確認單欄、無整頁水平溢位，消息滑動區仍可水平滾動。
+  - 未驗證：實體裝置、跨瀏覽器、人工無障礙驗收。
+  - 狀態：已完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-16：完成本輪首頁介面調整
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`，完成 Hero、關於亞太、服務項目、最新消息與底部 CTA 的視覺統一。
   - 完成：完成首頁文字層級、顏色、間距、圖片比例與遮罩、卡片樣式、區塊背景、CTA 尺寸與 hover 狀態，以及服務項目／最新消息／pager 間距調整；保留既有內容、連結與互動結構。
