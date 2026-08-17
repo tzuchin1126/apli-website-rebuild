@@ -7,7 +7,8 @@
 .news-content {
   display: grid;
   gap: 32px;
-  padding-block: var(--section-space);
+  padding-top: var(--page-content-start-space);
+  padding-bottom: var(--page-content-start-space);
 }
 
 .news-filter {
@@ -172,7 +173,8 @@
 
   .news-content {
     gap: 24px;
-    padding-block: var(--section-space);
+    padding-top: var(--page-content-start-space);
+    padding-bottom: var(--page-content-start-space);
   }
 
   .news-filter {

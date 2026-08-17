@@ -12,7 +12,7 @@
   display: grid;
   gap: var(--section-space);
   padding-top: var(--page-content-start-space);
-  padding-bottom: var(--section-space);
+  padding-bottom: var(--page-content-start-space);
 }
 
 .join-panel,
@@ -248,7 +248,7 @@
   .join-content {
     gap: var(--section-space);
     padding-top: var(--page-content-start-space);
-    padding-bottom: var(--section-space);
+    padding-bottom: var(--page-content-start-space);
   }
 
   .join-intro {

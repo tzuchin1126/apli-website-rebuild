@@ -1,5 +1,30 @@
 # APLI Website Rebuild TODO
 
+- [x] 2026-08-17：確認主要頁面 Footer 前留白範圍
+  - 說明：上下間距調整只套用在 Join、Contact、Affiliates、News、News Detail 的最外層頁面內容容器，用於控制最後內容與 Footer 的距離；未調整頁面內各內容區塊的 `gap` 或分段間距。
+  - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。
+
+- [x] 2026-08-17：統一主要內容區上下間距
+  - 範圍：`wwwroot/css/pages/join.css`、`wwwroot/css/pages/contact.css`、`wwwroot/css/pages/affiliates.css`、`wwwroot/css/pages/news.css`、`wwwroot/css/pages/news-detail.css` 與對應 HTML。
+  - 完成：Join、Contact、Affiliates、News、News Detail 的內容區下方間距統一為 `var(--page-content-start-space)`，與上方間距相同，並更新 CSS query。
+  - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。
+
+- [x] 2026-08-17：統一 News／News Detail 上下間距
+  - 範圍：`wwwroot/css/pages/news.css`、`wwwroot/css/pages/news-detail.css`、`wwwroot/news.html`、`wwwroot/news-detail.html`。
+  - 完成：參考 `join.css`，內容區上方使用 `var(--page-content-start-space)`、下方使用 `var(--section-space)`，並更新 CSS query。
+  - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。
+
+- [x] 2026-08-17：統一 Contact／Affiliates 上下間距
+  - 範圍：`wwwroot/css/pages/contact.css`、`wwwroot/css/pages/affiliates.css`。
+  - 完成：參考 `join.css`，兩頁內容區上方使用 `var(--page-content-start-space)`、下方使用 `var(--section-space)`，並移除行動版覆寫。
+  - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。
+
+- [x] 2026-08-17：暫時允許 IIS HTTP:8080 開啟員工專區
+  - 範圍：`Program.cs`。
+  - 完成：Session、登入驗證與防偽 Cookie 暫時改用 `SameAsRequest`，可在尚未設定 HTTPS 的 `8080` 測試環境使用 `/Admin`。
+  - 注意：正式上線前必須恢復 `CookieSecurePolicy.Always`，並改用 HTTPS。
+  - 驗證：`dotnet build -c Release`；未驗證重新發布後的 IIS 實際登入流程。
+
 - [x] 2026-08-17：固定 About 經營理念行動版遮罩
   - 範圍：`wwwroot/css/pages/about.css`。
   - 完成：行動版遮罩改為 `rgb(0 0 0 / 60%)`，並統一一般、hover、focus、active 與點擊展開狀態的深度。
