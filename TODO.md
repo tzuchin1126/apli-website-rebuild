@@ -1,5 +1,316 @@
 # APLI Website Rebuild TODO
 
+- [ ] 待辦：補做平板介面尺寸的視覺驗證
+  - 建議檢查：平板直向／橫向尺寸下的 Header、漢堡選單、Hero、內容區塊與 Footer 排版。
+
+- [x] 2026-08-17：恢復關係企業透明 Logo 排列
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：撤回上一個關係企業卡片造型實驗，恢復六欄透明 Logo 橫列、隱藏名稱與原本的透明背景樣式；其他 About 區塊維持不變。
+  - 已驗證：完成 HTML／CSS 原始碼檢查與 `git diff --check`；確認 about CSS 快取版本回到 Hero 分段版本。
+  - 未驗證：about 桌機／手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：停用行動裝置 Footer 連結點擊後的變色與下底線
+  - 範圍：`wwwroot/css/components/touch-buttons.css`、`TODO.md`。
+  - 完成：行動裝置 Footer 一般連結與法律連結不再因 hover／focus／active 變成橘色或顯示底線；桌機 hover／focus 效果維持不變。
+  - 已驗證：完成 Footer selector 盤點與本次修改檔案的 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器桌機／行動版實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 about.html 關係企業卡片造型
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：關係企業恢復原本 3 欄白底卡片、邊框、圓角與企業名稱；保留六家企業 Logo／連結，滑入時恢復 `MORE` 提示；同步更新 about CSS 快取版本。
+  - 已驗證：完成 HTML／CSS 原始碼檢查與 `git diff --check`；確認桌機 3 欄、行動版單欄卡片規則存在。
+  - 未驗證：about 桌機／手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復首頁行動版「關於亞太」按鈕深藍底色
+  - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將行動版「關於亞太」按鈕預設背景由 `var(--button-primary-bg)` 改回共用深藍 `var(--color-secondary)`；保留行動裝置點擊後不變色與桌機 hover 效果。
+  - 已驗證：完成 CSS 原始碼檢查與本次修改檔案的 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器桌機／行動版實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：統一行動裝置按鈕點擊後的顏色狀態
+  - 範圍：新增 `wwwroot/css/components/touch-buttons.css`，更新 `wwwroot/css/site.css`、`wwwroot/css/pages/admin.css`、公開頁面 `site.css` 快取版本，並移除 `news-detail.css` 的單頁重複覆寫。
+  - 完成：行動裝置不套用桌機 hover／focus／active 的變色與 icon 位移；涵蓋主要 CTA、返回／錯誤頁按鈕、頁籤、分類／地區篩選、輪播控制、回到頂端、About 展開按鈕與 Admin 按鈕；保留 `aria-selected`、`aria-pressed`、`is-active` 等實際選取狀態；桌機 hover 規則不變。
+  - 已驗證：完成全站 HTML 按鈕／按鈕樣式盤點、所有公開頁面 CSS 快取版本檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器桌機／行動版實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：修正消息詳細頁行動裝置返回按鈕點擊狀態
+  - 範圍：`wwwroot/css/pages/news-detail.css`、`TODO.md`。
+  - 完成：行動裝置不再因 hover／focus／active 狀態將「返回最新消息」按鈕變為橘色，也不位移返回 icon；保留原有 `<a href="news.html">` 一次點擊返回最新消息頁面的行為，桌機 hover 與鍵盤 focus 狀態不變。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行行動裝置實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：修正首頁行動版漢堡選單被 Header 進場動畫限制
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：行動版停止 Header 內層的父層 `transform` 動畫，改由 Logo／工具按鈕／漢堡按鈕個別保留下移進場；避免 `position: fixed` 的主選單被限制在 Header 高度內；桌機 Header 與 index Hero 動畫維持不變。
+  - 已驗證：390×844 本機瀏覽器實際截圖確認選單完整展開至畫面底部，漢堡按鈕加入 `is-open`、`#main-navigation` 可見且可點擊；完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`。
+  - 未驗證：375×812 實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：更新 about.html 行動版漢堡選單資源快取
+  - 範圍：`wwwroot/about.html`。
+  - 完成：about 頁面改用新的共用 Header CSS／JS 快取版本，避免行動版沿用舊版選單資源；未修改 index 或其他頁面的 Header 行為。
+  - 已驗證：320／375／390／768px 本機瀏覽器點擊漢堡後，`#main-navigation` 均加入 `is-open`、可見且可點擊；完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：再次縮短 about.html 董事長署名出現時間
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：署名動畫延遲由約 `1.5s` 提前為 `1.1s`，仍維持引文先出現、署名後淡入上移；同步更新 about CSS 快取版本。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`；確認署名動畫 delay 為 `1.1s`，index Hero 維持原設定。
+  - 未驗證：about 手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：縮短 about.html 董事長署名出現時間
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：署名動畫延遲由約 `1.92s` 提前為 `1.5s`，仍維持引文先出現、署名後淡入上移；同步更新 about CSS 快取版本。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`；確認署名動畫 delay 為 `1.5s`，index Hero 維持原設定。
+  - 未驗證：about 手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：放大並加粗首頁 Hero 行動版文字
+  - 範圍：`wwwroot/css/pages/home.css` 的行動版 `.home-hero__copy`。
+  - 完成：副標題調整為 `clamp(1.1rem, 4.5vw, 1.25rem)`／`500`，主標題調整為 `clamp(1.75rem, 7.8vw, 2.35rem)`／`600`；位置、圖片裁切與遮罩維持不變。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：拆分 about.html 引文與董事長署名進場時機
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：上方引文先以 `1800ms` 淡入上移，完成後再讓下方「董事長 黃福田」以 `800ms` 淡入上移；index 與其他頁面 Hero 維持原設定；同步更新 about CSS 快取版本。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`；確認 about 的引文與署名使用不同動畫與延遲，並保留 reduced-motion 直接顯示。
+  - 未驗證：about 手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：特別放慢 about.html 引文 Hero 進場
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：about.html 引文 Hero 的標題／引文內容進場由共用 `1200ms` 調整為 `1800ms`；index Hero 與其他頁面 Hero 維持原設定；同步更新 about CSS 快取版本。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`；確認 about 使用 `page-hero-text-enter` 且 duration `1.8s`，index 仍使用 `home-hero-entry-rise`。
+  - 未驗證：about 手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：放慢其他頁面 Hero 標題進場速度
+  - 範圍：`wwwroot/css/components/page-hero.css`、`wwwroot/css/site.css`、其他含 `page-hero` 的公開 HTML 頁面。
+  - 完成：其他頁面共用 Hero 標題／內容進場時間由 `700ms` 放慢至 `1200ms`，index 的 `.home-hero` 不套用此規則；同步更新其他頁面 `site.css` 快取版本。
+  - 已驗證：完成 `git diff --check`；確認 index 仍使用獨立 `home-hero-entry-rise`，其他頁面使用 `page-hero-text-enter`。
+  - 未驗證：其他頁面手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：調整首頁最新消息卡片為左右往返進場
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：參考 [Maersk 首頁](https://www.maersk.com/) 最新資訊卡片的水平進場節奏，將最新消息由原本上移改為先向左、再向右越過、最後回到定位的 `1200ms` 進場；關於亞太、服務項目、CTA、Header 與 Hero 動畫維持不變。
+  - 已驗證：完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`；Edge 本機預覽確認最新消息使用 `home-latest-left-right`，過程中先左移、再右移並回到原位，Hero selector 未變；同步更新 CSS 快取版本。
+  - 未驗證：手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：放慢首頁 Header 下移進場速度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：首頁 Header 下移進場由 `800ms` 調整為 `1200ms`；Hero、關於亞太與最新消息等其他動畫維持不變，同步更新首頁 CSS 快取版本。
+  - 已驗證：完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`。
+  - 未驗證：手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：移除首頁服務項目與快速連結 CTA 進場動畫
+  - 範圍：`wwwroot/index.html`。
+  - 完成：移除服務項目標題／卡片與聯絡我們／人才招募 CTA 的捲動進場標記；關於亞太與最新消息動畫、服務卡片與 CTA 原有 hover／圖片互動、Hero 與 Header 動畫維持不變。
+  - 已驗證：完成 HTML 原始碼檢查、`git diff --check`；確認剩餘捲動動畫只套用關於亞太與最新消息目標。
+  - 未驗證：手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：放慢首頁非 Hero 內容區進場速度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：Hero 與 Header 動畫維持不變；其他區塊淡入／位移由 `760ms` 調整為 `1200ms`，關於亞太圖片的縮放由 `900ms` 調整為 `1400ms`，讓下滑進場速度更接近 Hero 的沉穩節奏；同步更新首頁 CSS 快取版本。
+  - 已驗證：完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`；Edge 本機預覽確認非 Hero 區塊 transition 為 `1.2s`、Hero 圖片仍為 `home-hero-image-scale-in`，CSS 快取版本更新為 `tcc-section-motion-v2`。
+  - 未驗證：手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：依 TCC Group Holdings 參考加入首頁內容區捲動進場效果
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`。
+  - 完成：保留 index Hero 圖片縮放、文字錯開進場與 Header 下移效果；其他區塊改為接近視窗時才觸發的方向性淡入，關於亞太文字／圖片左右錯開、服務卡片依序上移、最新消息內容上移、聯絡／招募左右進場；新增圖片進場時的輕微縮放，既有 hover、輪播與拖曳互動維持。
+  - 已驗證：以 [TCC Group Holdings 首頁](https://www.tccgroupholdings.com/) 的捲動內容節奏作為參考；`node --check wwwroot/js/pages/home.js`、`git diff --check`；Edge 本機預覽確認桌機載入時 Hero 動畫 selector 未變，非 Hero 區塊初始維持隱藏並在捲動進入後由 `50px` 方向性移入，約 `760ms` 完成。
+  - 未驗證：手機瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：加入首頁 Hero Header 下移進場效果
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：首頁 Header 內層由 Hero 載入時上方 `100%` 下移至原位，使用約 `800ms` 的淡入／下移 keyframes；其他頁面 Header、首頁滾動狀態、手機選單與 Hero 動畫維持不變；同步更新首頁 CSS 快取版本。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`；Edge 本機預覽確認 1440×900／390×844 的 Header 套用 `home-header-entry` 並由上往下移入，Hero 圖片／文字動畫仍套用，手機導覽維持 fixed 定位。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：保留首頁 Hero 動畫並移除其他內容區進場動畫
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`。
+  - 完成：移除關於亞太、服務項目、最新消息與聯絡／招募 CTA 的 IntersectionObserver 進場邏輯及左右移入 CSS；保留 Hero 圖片縮放、文字延遲進場、輪播與圓點動畫，其他既有 hover／互動效果維持；同步更新首頁 CSS／JS 快取版本，避免瀏覽器沿用舊進場腳本。
+  - 已驗證：完成 `node --check wwwroot/js/pages/home.js`、`git diff --check`；確認 Hero 動畫 selector 與 keyframes 仍保留。
+  - 未驗證：瀏覽器桌機／行動版實際畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：將首頁內容區進場效果改為左右交錯移入
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 完成：關於亞太／最新消息由左側 `64px` 淡入移入，服務項目／聯絡與招募 CTA 由右側 `64px` 淡入移入；各區塊維持約 `900ms` 進場與首次進入畫面播放，Hero 不變。
+  - 已驗證：完成 CSS 原始碼檢查、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`。
+  - 未驗證：實際手動捲動時的桌機／行動版視覺接受度、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：將首頁內容區進場效果改為 Hero 類型的明顯淡入上移
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 完成：首頁「關於亞太」、服務項目、最新消息與聯絡／招募 CTA 改用 `home-content-entry` keyframes，從下方 `64px` 淡入上移至定位，動畫時間約 `900ms`；維持 IntersectionObserver 首次進入畫面時播放，並在 `prefers-reduced-motion` 時停用。
+  - 已驗證：完成 CSS 原始碼檢查、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`；Edge 本機預覽確認 1440×900／390×844 載入時 `prefers-reduced-motion: false`，未進入區塊維持透明並下移 `64px`。
+  - 未驗證：實際手動捲動時的桌機／行動版視覺接受度、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：提高首頁內容區進場動畫辨識度
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 完成：首頁「關於亞太」、服務項目、最新消息與聯絡／招募 CTA 的進場位移由 `28px` 增加為 `52px`，淡入與位移時間由 `600ms` 延長為 `800ms`；維持 IntersectionObserver 首次進入畫面時播放、`prefers-reduced-motion` 時停用的行為。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：瀏覽器桌機／行動版實際畫面、實體裝置、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：移除首頁服務項目圖片遮罩
+  - 範圍：`wwwroot/css/pages/home.css`。
+  - 完成：移除服務圖片上的深藍漸層遮罩，保留原本卡片、圖片、下方內容區與 hover 行為。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：移除首頁服務項目圖片 icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：移除三張服務圖片上的 icon 與對應 Phosphor codepoint；保留深藍遮罩、圖片、卡片內容區與既有互動。
+  - 已驗證：完成 HTML／CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：將首頁第三個服務 icon 改為維修圖示
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：第三張服務圖片由自製堆高機 SVG 改為既有 Phosphor `wrench`，對應機具維修與銷售；其他 icon、卡片版型與遮罩維持不變。
+  - 已驗證：完成 icon class／codepoint 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：修正首頁服務項目貨櫃與堆高機 icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：第二張改為 `shipping-container` 貨櫃圖示，第三張改為自製白色線條堆高機 SVG；第一張倉庫 icon 與卡片樣式維持不變。
+  - 已驗證：完成 icon HTML／CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：依參考圖替換首頁服務項目 icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：三張服務圖片上的 icon 依序改為 `warehouse`、`crane`、`truck`，對應倉儲、貨櫃吊掛與機具作業；卡片版型、深藍遮罩與下方內容區維持不變。
+  - 已驗證：完成 icon class／codepoint 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：替換首頁服務項目 icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：三張服務圖片上的 icon 依序改為 Phosphor `boat`、`user-focus`、`atom`，卡片樣式、深藍遮罩與下方內容區維持不變。
+  - 已驗證：完成 icon class／codepoint 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復首頁服務卡片原本版型並保留圖片遮罩 icon
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：恢復卡片邊框、圖片下方內容區、服務摘要、標題與右上角箭頭；僅保留圖片上方深藍漸層遮罩與中央白色 icon。
+  - 已驗證：完成首頁 HTML／CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：調整首頁服務項目預設卡片呈現
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`。
+  - 完成：服務卡片改為滿版圖片、深藍漸層遮罩、白色 Phosphor icon 與服務名稱置中呈現；保留摘要與連結內容，摘要及右上角箭頭改為預設隱藏。
+  - 已驗證：完成首頁 HTML／CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依目前工作要求未進行瀏覽器桌機／行動版、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：統一 About 經營理念桌機／行動版深藍遮罩
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panels button::before`。
+  - 完成：桌機與行動版全面遮罩統一使用既有深藍 `#173646` 色調；行動版維持 `52%` 至 `66%`，桌機維持一半的 `26%` 至 `33%` 強度。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：降低 About 經營理念桌機版遮罩強度
+  - 範圍：`wwwroot/css/pages/about.css` 的桌機版 `.philosophy-panels button::before`。
+  - 完成：桌機遮罩由 Hero 的 `52%` 至 `66%` 降為一半的 `26%` 至 `33%`；行動版維持 `52%` 至 `66%`。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：同步 About 經營理念桌機／行動版全面遮罩
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panels button::before`。
+  - 完成：將全面遮罩提升至桌機與行動版共用，兩者皆使用 `var(--page-hero-overlay-quote)` 的 `52%` 至 `66%` 強度；移除文字局部 radial gradient。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：同步 About 經營理念行動版與 Hero 遮罩強度
+  - 範圍：`wwwroot/css/pages/about.css` 的行動版 `.philosophy-panels button::before`。
+  - 完成：改用共用 `var(--page-hero-overlay-quote)`，與 About Hero 的 `52%` 至 `66%` 遮罩強度一致；保留行動版移除文字局部遮罩的設定。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：提高 About 經營理念行動版全面遮罩強度
+  - 範圍：`wwwroot/css/pages/about.css` 的行動版 `.philosophy-panels button::before`。
+  - 完成：全面遮罩由 `24%` 提高為 `36%`，保留桌機樣式與行動版文字結構。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：將 About 經營理念行動版改為全面遮罩
+  - 範圍：`wwwroot/css/pages/about.css` 的行動版 `.philosophy-panels`。
+  - 完成：移除行動版文字局部 radial gradient，改為每張卡片統一 `24%` 黑色全面遮罩；桌機維持原本文字局部處理。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 About 經營理念行動版文字可讀性加強樣式
+  - 範圍：`wwwroot/css/pages/about.css` 的行動版 `.philosophy-panel__text`。
+  - 完成：移除上一筆新增的局部文字底、加強 radial gradient 與加重文字陰影；保留前一筆低透明度行動版整卡遮罩與原本文字局部處理。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：加強 About 經營理念行動版文字可讀性
+  - 範圍：`wwwroot/css/pages/about.css` 的行動版 `.philosophy-panel__text`。
+  - 完成：加入局部半透明文字底、加強文字附近 radial gradient 與文字陰影；保留低透明度整卡漸層，不提高整張圖片的暗度。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：增加 About 經營理念行動版低透明度遮罩
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panels button::before`。
+  - 完成：行動版加入由上而下 `8%` 至 `22%` 的低透明度漸層遮罩，配合文字局部 gradient；桌機維持無整片遮罩。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：加入 About 經營理念文字局部可讀性處理
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panel__text`。
+  - 完成：加入文字附近的低透明度 radial gradient 與淡文字陰影，未恢復整張面板遮罩，也未調整圖片亮度。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：暫時移除 About 經營理念桌機／行動版遮罩
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panels` 面板遮罩。
+  - 完成：移除桌機與行動版 `::before`／`::after` 遮罩及其 hover、focus、展開狀態覆寫；保留圖片、文字與面板互動。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
+- [x] 2026-08-17：恢復 About 經營理念說明文字預設字體
+  - 範圍：`wwwroot/css/pages/about.css` 的 `.philosophy-panel__description`。
+  - 完成：字體由 `var(--font-heading)` 恢復為全站預設的 `var(--font-body)`。
+  - 已驗證：完成 CSS 原始碼檢查與 `git diff --check`。
+  - 未驗證：依使用者要求未進行瀏覽器、實機、跨瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，未自行 commit 或 push。
+
 - [x] 2026-08-17：確認主要頁面 Footer 前留白範圍
   - 說明：上下間距調整只套用在 Join、Contact、Affiliates、News、News Detail 的最外層頁面內容容器，用於控制最後內容與 Footer 的距離；未調整頁面內各內容區塊的 `gap` 或分段間距。
   - 未驗證：瀏覽器桌機／行動版畫面與實體裝置。

@@ -111,30 +111,6 @@
     startAutoplay();
   };
 
-  const setupReveal = () => {
-    const sections = [
-      document.querySelector(".home-intro"),
-      document.querySelector(".home-services"),
-      document.querySelector(".home-latest"),
-      document.querySelector(".home-contact-cta")
-    ].filter(Boolean);
-
-    sections.forEach((section) => section.classList.add("home-reveal"));
-    if (!sections.length || reducedMotion.matches || !("IntersectionObserver" in window)) {
-      sections.forEach((section) => section.classList.add("is-revealed"));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-revealed");
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12 });
-    sections.forEach((section) => observer.observe(section));
-  };
-
   const setupContactCta = () => {
     const cta = document.querySelector(".home-contact-cta");
     if (!cta) return;
@@ -362,11 +338,42 @@
         message.textContent = "目前沒有可顯示的最新消息。";
         list.append(message);
         pager.replaceChildren();
+    });
+  };
+
+  const setupSectionMotion = () => {
+    const revealTargets = Array.from(document.querySelectorAll("[data-home-reveal]"));
+    if (!revealTargets.length) return;
+
+    document.body.classList.add("home-motion-ready");
+
+    const revealAll = () => {
+      revealTargets.forEach((target) => target.classList.add("is-visible"));
+    };
+
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      revealAll();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
       });
+    }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
+
+    revealTargets.forEach((target) => observer.observe(target));
+    reducedMotion.addEventListener("change", () => {
+      if (!reducedMotion.matches) return;
+      observer.disconnect();
+      revealAll();
+    }, { once: true });
   };
 
   setupHeroCarousel();
-  setupReveal();
   setupContactCta();
   setupLatestNews();
+  setupSectionMotion();
 })();

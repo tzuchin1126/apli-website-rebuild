@@ -506,3 +506,42 @@
     width: 100%;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .admin-captcha__refresh:hover,
+  .admin-captcha__refresh:active,
+  .admin-captcha__refresh:focus,
+  .admin-captcha__refresh:focus-visible {
+    border-color: var(--admin-line);
+    color: var(--admin-muted);
+  }
+
+  .admin-button--primary:hover,
+  .admin-button--primary:active,
+  .admin-button--primary:focus,
+  .admin-button--primary:focus-visible {
+    background: var(--admin-ink);
+    color: #fff;
+  }
+
+  .admin-button--secondary:hover,
+  .admin-button--secondary:active,
+  .admin-button--secondary:focus,
+  .admin-button--secondary:focus-visible,
+  .admin-category-item button:hover,
+  .admin-category-item button:active,
+  .admin-category-item button:focus,
+  .admin-category-item button:focus-visible,
+  .admin-table__action:hover,
+  .admin-table__action:active,
+  .admin-table__action:focus,
+  .admin-table__action:focus-visible,
+  .admin-table__action--danger:hover,
+  .admin-table__action--danger:active,
+  .admin-table__action--danger:focus,
+  .admin-table__action--danger:focus-visible {
+    border-color: var(--admin-line);
+    background: var(--admin-panel);
+    color: var(--admin-muted);
+  }
+}

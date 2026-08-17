@@ -1,6 +1,7 @@
-@import url("components/page-hero.css");
+@import url("components/page-hero.css?v=20260817-page-hero-title-slow-v1");
 @import url("components/breadcrumb.css");
 @import url("components/back-to-top.css?v=20260817-totop-deep-blue-v1");
+@import url("components/touch-buttons.css?v=20260817-touch-buttons-v1");
 
 .site-container {
   width: min(100% - (var(--content-padding) * 2), var(--content-max-width));

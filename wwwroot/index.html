@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260817-home-menu-header-v1">
-  <link rel="stylesheet" href="css/site.css?v=20260814-caret-up-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260817-mobile-menu-fix-v1">
+  <link rel="stylesheet" href="css/site.css?v=20260817-touch-buttons-v1">
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -120,14 +120,14 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
     <section class="home-intro site-container" aria-labelledby="home-intro-title">
-      <div class="home-intro__heading">
+      <div class="home-intro__heading" data-home-reveal="left">
         <p class="eyebrow">ABOUT APLI</p>
         <h2 id="home-intro-title">關於亞太</h2>
       </div>
-      <figure class="home-intro__media">
+      <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
         <img src="public/images/index/company1.png" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy">
       </figure>
-      <div class="home-intro__body">
+      <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
         <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
         <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
         <a class="button--primary home-text-link" href="about.html">
@@ -186,7 +186,7 @@
       </div>
     </section>
     <section class="home-latest site-container" aria-labelledby="home-latest-title">
-      <div class="home-latest__heading">
+      <div class="home-latest__heading" data-home-reveal="left">
         <div>
           <p class="eyebrow">NEWS &amp; EVENTS</p>
           <h2 id="home-latest-title">最新消息</h2>
@@ -198,7 +198,7 @@
           </svg>
         </a>
       </div>
-      <div class="home-latest__viewport">
+      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
         <div class="home-latest__list" data-home-latest-list>
           <p class="home-latest__empty">最新消息載入中。</p>
         </div>
@@ -247,6 +247,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260814-caret-up-v1"></script>
-  <script src="js/pages/home.js?v=20260817-news-list-v2"></script>
+  <script src="js/pages/home.js?v=20260817-tcc-section-motion-v1"></script>
 </body>
 </html>

@@ -1,0 +1,242 @@
+/* Touch pointers should not retain desktop hover/focus color treatments after a tap. */
+@media (hover: none) and (pointer: coarse) {
+  .button--primary:hover,
+  .button--primary:active,
+  .button--primary:focus,
+  .button--primary:focus-visible {
+    border-color: transparent;
+    background: var(--button-primary-bg);
+    color: var(--button-primary-color);
+  }
+
+  .affiliates-page .button--primary:hover,
+  .affiliates-page .button--primary:active,
+  .affiliates-page .button--primary:focus,
+  .affiliates-page .button--primary:focus-visible,
+  .about-page .about-certifications-toggle:hover,
+  .about-page .about-certifications-toggle:active,
+  .about-page .about-certifications-toggle:focus,
+  .about-page .about-certifications-toggle:focus-visible,
+  .error-page .error-page__home-link:hover,
+  .error-page .error-page__home-link:active,
+  .error-page .error-page__home-link:focus,
+  .error-page .error-page__home-link:focus-visible,
+  .news-detail-page .news-detail__back:hover,
+  .news-detail-page .news-detail__back:active,
+  .news-detail-page .news-detail__back:focus,
+  .news-detail-page .news-detail__back:focus-visible,
+  .operational-resources-page .resource-link:hover,
+  .operational-resources-page .resource-link:active,
+  .operational-resources-page .resource-link:focus,
+  .operational-resources-page .resource-link:focus-visible {
+    background: var(--color-secondary);
+    color: var(--button-primary-color);
+  }
+
+  .home-page .home-hero__cta:hover,
+  .home-page .home-hero__cta:active,
+  .home-page .home-hero__cta:focus,
+  .home-page .home-hero__cta:focus-visible {
+    border-color: rgb(255 255 255 / 90%);
+    background: transparent;
+    color: #fff;
+  }
+
+  .home-page .home-text-link:hover,
+  .home-page .home-text-link:active,
+  .home-page .home-text-link:focus,
+  .home-page .home-text-link:focus-visible,
+  .home-page .home-latest__all:hover,
+  .home-page .home-latest__all:active,
+  .home-page .home-latest__all:focus,
+  .home-page .home-latest__all:focus-visible {
+    background: var(--button-primary-bg);
+    color: var(--button-primary-color);
+  }
+
+  .home-page .home-intro .home-text-link:hover,
+  .home-page .home-intro .home-text-link:active,
+  .home-page .home-intro .home-text-link:focus,
+  .home-page .home-intro .home-text-link:focus-visible {
+    background: var(--color-secondary);
+    color: #fff;
+  }
+
+  .home-page .home-contact-cta__link:hover,
+  .home-page .home-contact-cta__link:active,
+  .home-page .home-contact-cta__link:focus,
+  .home-page .home-contact-cta__link:focus-visible {
+    border-color: rgb(255 255 255 / 90%);
+    background: transparent;
+    color: #fff;
+  }
+
+  .home-page .home-hero__cta:hover .home-hero__cta-icon,
+  .home-page .home-hero__cta:active .home-hero__cta-icon,
+  .home-page .home-hero__cta:focus .home-hero__cta-icon,
+  .home-page .home-hero__cta:focus-visible .home-hero__cta-icon,
+  .home-page .home-text-link:hover .home-text-link__icon,
+  .home-page .home-text-link:active .home-text-link__icon,
+  .home-page .home-text-link:focus .home-text-link__icon,
+  .home-page .home-text-link:focus-visible .home-text-link__icon,
+  .home-page .home-contact-cta__link:hover .home-text-link__icon,
+  .home-page .home-contact-cta__link:active .home-text-link__icon,
+  .home-page .home-contact-cta__link:focus .home-text-link__icon,
+  .home-page .home-contact-cta__link:focus-visible .home-text-link__icon,
+  .operational-resources-page .resource-link:hover .resource-link__icon,
+  .operational-resources-page .resource-link:active .resource-link__icon,
+  .operational-resources-page .resource-link:focus .resource-link__icon,
+  .operational-resources-page .resource-link:focus-visible .resource-link__icon,
+  .news-detail-page .news-detail__back:hover .ph,
+  .news-detail-page .news-detail__back:active .ph,
+  .news-detail-page .news-detail__back:focus .ph,
+  .news-detail-page .news-detail__back:focus-visible .ph,
+  .affiliate-club-cta-link:hover .affiliate-cta__icon,
+  .affiliate-club-cta-link:active .affiliate-cta__icon,
+  .affiliate-club-cta-link:focus .affiliate-cta__icon,
+  .affiliate-club-cta-link:focus-visible .affiliate-cta__icon,
+  .affiliate-taronews-cta:hover .affiliate-cta__icon,
+  .affiliate-taronews-cta:active .affiliate-cta__icon,
+  .affiliate-taronews-cta:focus .affiliate-cta__icon,
+  .affiliate-taronews-cta:focus-visible .affiliate-cta__icon,
+  .button--text-arrow:hover .home-text-link__icon,
+  .button--text-arrow:active .home-text-link__icon,
+  .button--text-arrow:focus .home-text-link__icon,
+  .button--text-arrow:focus-visible .home-text-link__icon {
+    transform: none;
+  }
+
+  .site-header .nav-link:hover,
+  .site-header .nav-link:active,
+  .site-header .nav-link:focus,
+  .site-header .nav-link:focus-visible {
+    color: var(--site-header-ink);
+  }
+
+  .affiliate-tabs button:hover,
+  .affiliate-tabs button:active,
+  .affiliate-tabs button:focus,
+  .affiliate-tabs button:focus-visible,
+  .milestone-tabs button:hover,
+  .milestone-tabs button:active,
+  .milestone-tabs button:focus,
+  .milestone-tabs button:focus-visible,
+  .services-page .service-switcher__tab:hover,
+  .services-page .service-switcher__tab:active,
+  .services-page .service-switcher__tab:focus,
+  .services-page .service-switcher__tab:focus-visible {
+    background: transparent;
+    color: #5c5c5c;
+  }
+
+  .affiliate-tabs button[aria-selected="true"],
+  .affiliate-tabs button[aria-selected="true"]:hover,
+  .affiliate-tabs button[aria-selected="true"]:active,
+  .affiliate-tabs button[aria-selected="true"]:focus,
+  .affiliate-tabs button[aria-selected="true"]:focus-visible,
+  .milestone-tabs button[aria-selected="true"],
+  .milestone-tabs button[aria-selected="true"]:hover,
+  .milestone-tabs button[aria-selected="true"]:active,
+  .milestone-tabs button[aria-selected="true"]:focus,
+  .milestone-tabs button[aria-selected="true"]:focus-visible,
+  .services-page .service-switcher__tab[aria-selected="true"],
+  .services-page .service-switcher__tab[aria-selected="true"]:hover,
+  .services-page .service-switcher__tab[aria-selected="true"]:active,
+  .services-page .service-switcher__tab[aria-selected="true"]:focus,
+  .services-page .service-switcher__tab[aria-selected="true"]:focus-visible {
+    background: transparent;
+    color: #141414;
+  }
+
+  .affiliate-location-filter button:hover,
+  .affiliate-location-filter button:active,
+  .affiliate-location-filter button:focus,
+  .affiliate-location-filter button:focus-visible {
+    border-color: var(--color-line);
+    background: var(--color-surface);
+    color: #5c5c5c;
+  }
+
+  .affiliate-location-filter button[aria-pressed="true"],
+  .affiliate-location-filter button[aria-pressed="true"]:hover,
+  .affiliate-location-filter button[aria-pressed="true"]:active,
+  .affiliate-location-filter button[aria-pressed="true"]:focus,
+  .affiliate-location-filter button[aria-pressed="true"]:focus-visible {
+    border-color: var(--button-primary-bg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-color);
+  }
+
+  .news-categories button:hover,
+  .news-categories button:active,
+  .news-categories button:focus,
+  .news-categories button:focus-visible {
+    border-color: transparent;
+    background: var(--color-surface-soft);
+    color: var(--news-filter-text);
+  }
+
+  .news-categories button[aria-pressed="true"],
+  .news-categories button[aria-pressed="true"]:hover,
+  .news-categories button[aria-pressed="true"]:active,
+  .news-categories button[aria-pressed="true"]:focus,
+  .news-categories button[aria-pressed="true"]:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--news-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .about-page .philosophy-panels button:hover .philosophy-panel__icon,
+  .about-page .philosophy-panels button:active .philosophy-panel__icon,
+  .about-page .philosophy-panels button:focus .philosophy-panel__icon,
+  .about-page .philosophy-panels button:focus-visible .philosophy-panel__icon {
+    color: #fff;
+  }
+
+  .services-page .service-carousel__control:hover,
+  .services-page .service-carousel__control:active,
+  .services-page .service-carousel__control:focus,
+  .services-page .service-carousel__control:focus-visible {
+    background: rgb(15 50 66 / 72%);
+  }
+
+  .services-page .service-carousel__dot:not(.is-active):hover,
+  .services-page .service-carousel__dot:not(.is-active):active,
+  .services-page .service-carousel__dot:not(.is-active):focus,
+  .services-page .service-carousel__dot:not(.is-active):focus-visible {
+    background: rgb(255 255 255 / 62%);
+    transform: none;
+  }
+
+  .footer-column a:hover,
+  .footer-column a:active,
+  .footer-column a:focus,
+  .footer-column a:focus-visible {
+    color: var(--footer-link);
+  }
+
+  .footer-column a:hover::after,
+  .footer-column a:active::after,
+  .footer-column a:focus::after,
+  .footer-column a:focus-visible::after,
+  .footer-legal-links a:hover::after,
+  .footer-legal-links a:active::after,
+  .footer-legal-links a:focus::after,
+  .footer-legal-links a:focus-visible::after {
+    transform: scaleX(0);
+  }
+
+  .footer-legal-links a:hover,
+  .footer-legal-links a:active,
+  .footer-legal-links a:focus,
+  .footer-legal-links a:focus-visible {
+    color: #fff;
+  }
+
+  .back-to-top:hover,
+  .back-to-top:active,
+  .back-to-top:focus,
+  .back-to-top:focus-visible {
+    background: var(--color-secondary);
+  }
+}

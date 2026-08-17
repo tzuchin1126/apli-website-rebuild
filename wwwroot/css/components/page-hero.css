@@ -1,5 +1,6 @@
 .page-hero {
   --page-hero-overlay: var(--page-hero-overlay-light);
+  --page-hero-text-duration: 1200ms;
   position: relative;
   height: var(--page-hero-height);
   overflow: hidden;
