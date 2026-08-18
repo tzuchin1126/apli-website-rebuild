@@ -44,7 +44,7 @@
   margin: 0 0 8px;
   color: var(--color-muted);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   letter-spacing: 0.08em;
   line-height: 1.5;
 }
@@ -64,7 +64,7 @@
   width: fit-content;
   margin: 0;
   padding-bottom: 20px;
-  color: #141414;
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.625rem, 4vw, 2.5rem);
   font-weight: 300;
@@ -90,7 +90,7 @@
 
 .join-intro p:not(.eyebrow) {
   margin: 0;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
   line-height: 1.75;
 }
@@ -128,17 +128,17 @@
 
 .benefits-table thead th {
   background: var(--color-secondary);
-  color: #fff;
-  font-weight: 600;
+  color: var(--color-surface);
+  font-weight: var(--font-weight-semibold);
 }
 
 .benefits-table tbody th {
   color: var(--color-ink);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .benefits-table tbody td {
-  color: #5c5c5c;
+  color: var(--color-muted);
   line-height: 1.9;
 }
 

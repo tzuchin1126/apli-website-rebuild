@@ -15,7 +15,7 @@
 
 .privacy-page .privacy-policy__title {
   margin: 0 0 clamp(24px, 3vw, 32px);
-  color: #141414;
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.625rem, 3vw, 2.5rem);
   font-weight: 300;
@@ -25,23 +25,23 @@
 
 .privacy-page .privacy-policy h2 {
   margin: 32px 0 10px;
-  color: #141414;
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.25rem, 1.1rem + 0.3vw, 1.5rem);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: 1.5;
 }
 
 .privacy-page .privacy-policy p {
   margin: 0 0 12px;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
 
 .privacy-page .privacy-policy a {
   color: var(--color-secondary);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-underline-offset: 4px;
 }
 

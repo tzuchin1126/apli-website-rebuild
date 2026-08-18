@@ -19,6 +19,9 @@ function initAdmin() {
   const categoryRows = document.querySelector("#categoryRows");
   const tagSelect = document.querySelector("#newsTag");
   const captchaImage = document.querySelector("#captchaImage");
+  const logoutButton = document.querySelector("#logoutButton");
+  const resetButton = document.querySelector("#resetButton");
+  const refreshCaptchaButton = document.querySelector("#refreshCaptcha");
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || "";
 
   // 必要元素檢查：缺少任一則不啟動
@@ -36,9 +39,11 @@ function initAdmin() {
   categoryForm.addEventListener("submit", onCategorySave);
   newsRows.addEventListener("click", onNewsRowClick);
   categoryRows.addEventListener("click", onCategoryRowClick);
-  document.querySelector("#logoutButton")?.addEventListener("click", onLogout);
-  document.querySelector("#resetButton")?.addEventListener("click", onResetForm);
-  document.querySelector("#refreshCaptcha")?.addEventListener("click", loadCaptcha);
+  // These controls are optional so the initializer remains safe if a reduced
+  // Admin markup variant omits a secondary action or the captcha image.
+  logoutButton?.addEventListener("click", onLogout);
+  resetButton?.addEventListener("click", onResetForm);
+  refreshCaptchaButton?.addEventListener("click", loadCaptcha);
 
   // ---- 啟動流程 ----
   setDefaultDate();
@@ -78,11 +83,11 @@ function initAdmin() {
     /** HTML 轉義：防止 XSS */
   function escapeHtml(value) {
     return String(value)
-      .replaceAll("&", "&")
-      .replaceAll("<", "<")
-      .replaceAll(">", ">")
-      .replaceAll('"', '"')
-      .replaceAll("'", "'");
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
   }
 
   /** 屬性值轉義：比 escapeHtml 多處理 backtick */
@@ -173,19 +178,20 @@ function initAdmin() {
 
   /** 正規化消息物件：相容 camelCase 與 PascalCase */
   function normalizeNewsItem(item) {
+    const source = item ?? {};
     return {
-      id: item.id ?? item.Id ?? "",
-      date: item.date ?? item.Date ?? "",
-      tag: item.tag ?? item.Tag ?? "",
-      title: item.title ?? item.Title ?? "",
-      content: item.content ?? item.Content ?? "",
-      url: item.url ?? item.Url ?? "",
-      imageUrl: item.imageUrl ?? item.ImageUrl ?? "",
-      imageName: item.imageName ?? item.ImageName ?? "",
-      attachmentName: item.attachmentName ?? item.AttachmentName ?? "",
-      published: item.published ?? item.Published,
-      createdAt: item.createdAt ?? item.CreatedAt ?? "",
-      updatedAt: item.updatedAt ?? item.UpdatedAt ?? "",
+      id: source.id ?? source.Id ?? "",
+      date: source.date ?? source.Date ?? "",
+      tag: source.tag ?? source.Tag ?? "",
+      title: source.title ?? source.Title ?? "",
+      content: source.content ?? source.Content ?? "",
+      url: source.url ?? source.Url ?? "",
+      imageUrl: source.imageUrl ?? source.ImageUrl ?? "",
+      imageName: source.imageName ?? source.ImageName ?? "",
+      attachmentName: source.attachmentName ?? source.AttachmentName ?? "",
+      published: source.published ?? source.Published,
+      createdAt: source.createdAt ?? source.CreatedAt ?? "",
+      updatedAt: source.updatedAt ?? source.UpdatedAt ?? "",
     };
   }
 
@@ -263,7 +269,7 @@ function initAdmin() {
     document.querySelector("#newsUrl").value = item.url || "";
     document.querySelector("#newsImageUrl").value = item.imageUrl || "";
     document.querySelector("#currentImageName").textContent = item.imageName || "未上傳";
-    document.queryessor("#currentAttachmentName").textContent = item.attachmentName || (item.url ? item.url.split("/").pop() : "未上傳");
+    document.querySelector("#currentAttachmentName").textContent = item.attachmentName || (item.url ? item.url.split("/").pop() : "未上傳");
     document.querySelector("#removeNewsImage").checked = false;
     document.querySelector("#removeNewsAttachment").checked = false;
     document.querySelector("#newsPublished").value = String(item.published !== false);
@@ -403,9 +409,11 @@ function initAdmin() {
 
   /** 重設消息表單 */
   function onResetForm() {
-    newsForm.reset(); // 原生 reset 會清空所有 input/textarea/select
+    // 原生 reset 會清空 newsId、newsUrl、newsImageUrl、檔案欄位、
+    // removeImage、removeAttachment 與其他 input/textarea/select。
+    newsForm.reset();
 
-    // 非表單元素需手動重設
+    // 這些狀態文字不是表單控制項，必須另外重設。
     document.querySelector("#currentImageName").textContent = "未上傳";
     document.querySelector("#currentAttachmentName").textContent = "未上傳";
     document.querySelector("#createdAtInfo").textContent = "儲存後自動紀錄";

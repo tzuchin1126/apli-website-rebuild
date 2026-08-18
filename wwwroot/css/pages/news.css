@@ -40,7 +40,7 @@
   color: var(--news-filter-text);
   font-family: var(--font-body);
   font-size: 0.9375rem;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.35;
   cursor: pointer;
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
@@ -110,12 +110,12 @@
 
 .news-row__date,
 .news-row__tag {
-  color: #5c5c5c;
+  color: var(--color-muted);
 }
 
 .news-row__title {
   min-width: 0;
-  color: #141414;
+  color: var(--color-ink);
   font-weight: var(--font-weight-section-heading);
   line-height: 1.55;
   overflow-wrap: anywhere;

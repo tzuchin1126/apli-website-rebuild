@@ -1,10 +1,10 @@
 .admin-page {
   --admin-background: #f2f4f1;
-  --admin-panel: #ffffff;
-  --admin-ink: #222222;
-  --admin-muted: #747a74;
-  --admin-line: #dfe4df;
-  --admin-soft: #f7f8f6;
+  --admin-panel: var(--color-surface);
+  --admin-ink: var(--color-ink);
+  --admin-muted: var(--color-muted);
+  --admin-line: var(--color-line);
+  --admin-soft: var(--color-surface-soft);
   --admin-danger: #b42318;
   --admin-success: #2f6f4e;
   min-width: 320px;
@@ -45,16 +45,16 @@
   width: min(100%, 440px);
   padding: clamp(28px, 5vw, 48px);
   border: 1px solid var(--admin-line);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   background: var(--admin-panel);
-  box-shadow: 0 12px 32px rgb(20 35 25 / 7%);
+  box-shadow: var(--shadow-lg);
 }
 
 .admin-eyebrow {
   margin: 0 0 12px;
   color: var(--admin-muted);
   font-size: .78rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: .12em;
   line-height: 1.4;
 }
@@ -64,7 +64,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.25;
 }
 
@@ -87,12 +87,12 @@
 .admin-captcha__refresh {
   min-height: 44px;
   border: 1px solid var(--admin-line);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--admin-soft);
   color: var(--admin-muted);
   padding: 9px 12px;
   font-size: .84rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-captcha__refresh:hover,
@@ -106,7 +106,7 @@
   width: min(260px, 100%);
   height: 82px;
   border: 1px solid var(--admin-line);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: var(--admin-soft);
 }
 
@@ -120,7 +120,7 @@
   gap: 7px;
   color: var(--admin-muted);
   font-size: .95rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-field input,
@@ -130,7 +130,7 @@
   width: 100%;
   min-width: 0;
   border: 1px solid var(--admin-line);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--admin-panel);
   color: var(--admin-ink);
   padding: 11px 13px;
@@ -156,10 +156,10 @@
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 9px 18px;
   font-size: .95rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.4;
   text-decoration: none;
   transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
@@ -167,7 +167,7 @@
 
 .admin-button--primary {
   background: var(--admin-ink);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 .admin-button--primary:hover,
@@ -198,7 +198,7 @@
   margin: 0;
   color: var(--admin-danger);
   font-size: .9rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-message[data-state="success"] {
@@ -237,9 +237,9 @@
   min-width: 0;
   padding: clamp(22px, 3vw, 32px);
   border: 1px solid var(--admin-line);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   background: var(--admin-panel);
-  box-shadow: 0 8px 24px rgb(20 35 25 / 4%);
+  box-shadow: var(--shadow-card);
 }
 
 .admin-card--editor {
@@ -261,7 +261,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-size: clamp(1.35rem, 2vw, 1.75rem);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.35;
 }
 
@@ -363,18 +363,18 @@
 
 .admin-category-item span {
   overflow-wrap: anywhere;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-category-item button,
 .admin-table__action {
   border: 1px solid var(--admin-line);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--admin-panel);
   color: var(--admin-muted);
   padding: 6px 10px;
   font-size: .84rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-category-item button:hover,
@@ -405,7 +405,7 @@
 .admin-table th {
   color: var(--admin-muted);
   font-size: .8rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: .04em;
   white-space: nowrap;
 }
@@ -417,17 +417,17 @@
 .admin-table td[data-label="標題"] {
   min-width: 190px;
   color: var(--admin-ink);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .admin-table__status {
   display: inline-flex;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   padding: 4px 9px;
   background: #eef8ef;
   color: #26733d;
   font-size: .8rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   white-space: nowrap;
 }
 
@@ -521,7 +521,7 @@
   .admin-button--primary:focus,
   .admin-button--primary:focus-visible {
     background: var(--admin-ink);
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .admin-button--secondary:hover,

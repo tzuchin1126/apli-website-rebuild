@@ -39,7 +39,7 @@
   .home-page .home-hero__cta:focus-visible {
     border-color: rgb(255 255 255 / 90%);
     background: transparent;
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .home-page .home-text-link:hover,
@@ -59,7 +59,7 @@
   .home-page .home-intro .home-text-link:focus,
   .home-page .home-intro .home-text-link:focus-visible {
     background: var(--color-secondary);
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .home-page .home-contact-cta__link:hover,
@@ -68,7 +68,7 @@
   .home-page .home-contact-cta__link:focus-visible {
     border-color: rgb(255 255 255 / 90%);
     background: transparent;
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .home-page .home-hero__cta:hover .home-hero__cta-icon,
@@ -110,7 +110,7 @@
   .site-header .nav-link:active,
   .site-header .nav-link:focus,
   .site-header .nav-link:focus-visible {
-    color: var(--site-header-ink);
+    color: var(--color-ink);
   }
 
   .affiliate-tabs button:hover,
@@ -126,7 +126,7 @@
   .services-page .service-switcher__tab:focus,
   .services-page .service-switcher__tab:focus-visible {
     background: transparent;
-    color: #5c5c5c;
+    color: var(--color-muted);
   }
 
   .affiliate-tabs button[aria-selected="true"],
@@ -145,7 +145,7 @@
   .services-page .service-switcher__tab[aria-selected="true"]:focus,
   .services-page .service-switcher__tab[aria-selected="true"]:focus-visible {
     background: transparent;
-    color: #141414;
+    color: var(--color-ink);
   }
 
   .affiliate-location-filter button:hover,
@@ -154,7 +154,7 @@
   .affiliate-location-filter button:focus-visible {
     border-color: var(--color-line);
     background: var(--color-surface);
-    color: #5c5c5c;
+    color: var(--color-muted);
   }
 
   .affiliate-location-filter button[aria-pressed="true"],
@@ -190,7 +190,7 @@
   .about-page .philosophy-panels button:active .philosophy-panel__icon,
   .about-page .philosophy-panels button:focus .philosophy-panel__icon,
   .about-page .philosophy-panels button:focus-visible .philosophy-panel__icon {
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .services-page .service-carousel__control:hover,
@@ -230,7 +230,7 @@
   .footer-legal-links a:active,
   .footer-legal-links a:focus,
   .footer-legal-links a:focus-visible {
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .back-to-top:hover,

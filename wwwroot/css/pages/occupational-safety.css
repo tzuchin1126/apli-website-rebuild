@@ -25,7 +25,7 @@
   margin: 0 0 18px;
   color: var(--color-muted);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.73;
   letter-spacing: 0.04em;
 }
@@ -38,14 +38,14 @@
   color: var(--color-ink);
   font-family: var(--font-heading);
   font-size: var(--safety-title-size);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: var(--safety-title-line-height);
   letter-spacing: 0.04em;
   filter: drop-shadow(0 2px 10px rgb(15 50 66 / 8%));
 }
 
 .safety-page .safety-credentials__heading h2 {
-  color: #141414;
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.625rem, 4vw, 2.5rem);
   font-weight: 300;
@@ -93,9 +93,9 @@
 
 .safety-page .safety-intro__lead p {
   margin: 0;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.8;
 }
 
@@ -129,7 +129,7 @@
   grid-area: health;
   align-self: start;
   gap: 8px;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
   line-height: 1.8;
 }
@@ -161,7 +161,7 @@
   color: var(--color-muted);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   letter-spacing: 0.08em;
   line-height: 1.5;
 }
@@ -169,9 +169,9 @@
 .safety-page .safety-credentials__heading > p:last-child {
   max-width: 42em;
   margin: 18px 0 0;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.75;
 }
 
@@ -215,7 +215,7 @@
   padding: 0;
   overflow: hidden;
   border: 1px solid var(--color-line);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
   box-shadow: 0 8px 24px rgb(34 34 34 / 9%);
 }
@@ -313,7 +313,7 @@
   padding: 0;
   color: var(--color-ink);
   font-size: clamp(1.05rem, 1.2vw, 1.18rem);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.35;
 }
 
@@ -322,7 +322,7 @@
   width: 38px;
   height: 3px;
   margin-top: 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: var(--safety-credential-accent);
   content: "";
 }
@@ -371,7 +371,7 @@
 
 .safety-page .safety-credentials__page.is-active::before {
   width: 24px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: #40403e;
 }
 
@@ -422,13 +422,13 @@
   min-height: 500px;
   border: 1px solid var(--color-line);
   border-radius: var(--card-radius);
-  background: #fff;
+  background: var(--color-surface);
   box-shadow: none;
 }
 
 .safety-page .safety-credential-card--certification {
   order: initial;
-  background: #fff;
+  background: var(--color-surface);
   color: var(--color-ink);
 }
 
@@ -450,7 +450,7 @@
   column-gap: 10px;
   min-height: 0;
   padding: 28px 32px 12px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .safety-page .safety-credential-card__icon {
@@ -459,16 +459,16 @@
   height: 40px;
   position: static;
   margin: 0;
-  color: #141414;
+  color: var(--color-ink);
   background: transparent;
   box-shadow: none;
 }
 
 .safety-page .safety-credential-card__title h3,
 .safety-page .safety-credential-card--certification .safety-credential-card__title h3 {
-  color: #141414;
+  color: var(--color-ink);
   font-size: 20px;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 24px;
 }
 
@@ -481,14 +481,14 @@
   margin: 0;
   padding: 0 32px 32px 52px;
   list-style-type: circle;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .safety-page .safety-credential-card li,
 .safety-page .safety-credential-card--certification li {
   padding: 0;
   border-top: 0;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: 16px;
   line-height: 24px;
 }
@@ -573,7 +573,7 @@
 
   .safety-page .safety-credential-card {
     flex-basis: calc(100% - 44px);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     min-height: 0;
   }
 

@@ -53,7 +53,7 @@ textarea {
   z-index: 100;
   padding: 8px 14px;
   background: var(--color-ink);
-  color: #fff;
+  color: var(--color-surface);
   text-decoration: none;
   transform: translateY(-160%);
 }

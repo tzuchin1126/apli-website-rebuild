@@ -1,9 +1,4 @@
 .site-footer {
-  --footer-background: #f0f0f0;
-  --footer-bottom-background: #40403e;
-  --footer-heading: #141414;
-  --footer-link: #5c5c5c;
-  --footer-divider: rgb(23 54 70 / 16%);
   position: relative;
   margin-top: 0;
   background: var(--footer-background);
@@ -63,7 +58,7 @@
 .footer-column__title {
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: normal;
 }
 
@@ -113,7 +108,7 @@
   min-height: 56px;
   padding: 6px 0;
   background: var(--footer-bottom-background);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 .site-footer__bottom-inner {
@@ -147,7 +142,7 @@
 .footer-legal-links a {
   min-height: 44px;
   padding: 10px 0;
-  color: #fff;
+  color: var(--color-surface);
   font-size: clamp(0.85rem, 0.9vw, 0.95rem);
 }
 

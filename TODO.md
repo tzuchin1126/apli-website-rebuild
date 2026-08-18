@@ -1,4 +1,168 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-18: Admin and CSS technical debt Phase 1-3
+  - Scope: wwwroot/js/pages/admin.js, wwwroot/css/base/tokens.css, shared layout/components CSS, page CSS, and TODO.md.
+  - Completed: clarified optional Admin guards; fixed HTML escaping and attachment selector typo; made news normalization null-safe for camelCase/PascalCase; documented native form reset behavior; centralized color, typography, radius, shadow, Footer, Header, page Hero, button, and Admin tokens.
+  - Verified: node --check wwwroot/js/pages/admin.js; node --check wwwroot/js/site.js; dotnet build -c Release (0 warnings, 0 errors); git diff --check.
+  - Not verified: desktop/tablet/mobile visual rendering, physical devices, other browsers, and manual accessibility acceptance.
+  - Status: code complete, pending commit; no commit or push performed.
+
+- [x] 2026-08-18：完成首頁我們的服務卡片預設遮罩驗證
+  - 已驗證：瀏覽器 1440px／390px；三張服務卡片圖片均套用 18% 品牌深色遮罩，遮罩 pointer-events 為 none，頁面文件寬度未超出視窗；git diff --check。
+  - 未驗證：平板實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：為首頁我們的服務卡片加入預設遮罩
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：服務卡片圖片預設加入 18% 品牌深色遮罩，保留原有圖片裁切、卡片文字、箭頭與 hover／focus 互動。
+  - 已驗證：待完成瀏覽器桌機／手機檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面專業證照區中英文標題
+  - 範圍：wwwroot/occupational-safety.html、TODO.md。
+  - 完成：中文主標題調整為「專業證照」，英文小標同步調整為「PROFESSIONAL CERTIFICATIONS」；其餘原始卡片介面、間距與內容維持不變。
+  - 已驗證：確認 HTML 中英文標題文案與 git diff --check。
+  - 未驗證：本次僅調整文字，未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復職業安全頁面至所有調整前的原始介面
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
+  - 完成：撤回本次職業安全頁面的四卡 Grid、圖片遮罩、圖片內標題、卡片高度、標題文案與間距等調整，恢復原始 HTML／CSS／JS 介面；TODO 歷程紀錄保留。
+  - 已驗證：HTML／CSS 與原始版本比對一致，git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面原本間距恢復驗證
+  - 已驗證：瀏覽器 1440px／820px／390px；標題敘述到卡片間距恢復為 58px／43px／38px，桌機維持 Grid、平板與手機維持 Flex，三種尺寸文件寬度未超出視窗；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復職業安全頁面專業區塊原本間距
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：撤回上一輪專業區塊敘述與卡片間距收斂，恢復原本桌機／平板／手機間距；四張卡片 Grid、圖片遮罩、標題與 Icon 位置維持不變。
+  - 已驗證：待完成瀏覽器桌機／平板／手機檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面專業區塊間距驗證
+  - 已驗證：瀏覽器 1440px／820px／390px；標題敘述到卡片實測分別為 40px／32px／34px，卡片內標題仍位於圖片中央，三種尺寸文件寬度未超出視窗；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：收斂職業安全頁面專業區塊敘述與卡片間距
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：調整專業區塊標題敘述到卡片的間距，桌機約 40px、平板約 32px、手機約 34px；保留卡片內標題與 Icon 位置。
+  - 已驗證：待完成瀏覽器桌機／平板／手機檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面證照區標題文案
+  - 範圍：wwwroot/occupational-safety.html、TODO.md。
+  - 完成：將英文小標調整為「PROFESSIONAL CERTIFICATIONS」，中文標題調整為「專業證照」，避免使用較制式的「專責能力」說法，並保留涵蓋多類專業證照的範圍。
+  - 已驗證：確認 HTML 標題文案與 git diff --check。
+  - 未驗證：本次僅調整文字，未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面桌機 Grid 與切換列驗證
+  - 已驗證：瀏覽器 1440px 桌機四張卡片等寬置中，左右外距各 40px、卡片間距皆 26px，切換列隱藏且 Icon 無白色光暈；820px 平板維持雙卡與切換列，390px 手機切換列距離為 16px；三種尺寸文件寬度未溢出；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面桌機卡片排列與切換列
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：桌機改為置中四欄等寬 Grid，左右外距與卡片間距一致並隱藏不必要的切換列；平板與手機保留水平滑動及切換操作，Icon 移除白色光暈，切換列間距同步收斂。
+  - 已驗證：待完成瀏覽器桌機／平板／手機檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面卡片高度收斂驗證
+  - 已驗證：瀏覽器 1440px／820px／390px；桌機卡片約 420px，四張卡片資格清單皆完整，標題與圖示仍位於圖片內；平板與手機文件寬度未超出視窗；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：收斂職業安全頁面卡片高度
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：卡片最小高度由 500px 調整為 420px，保留圖片標題遮罩、四張桌機並列與資格清單空間。
+  - 已驗證：待完成瀏覽器桌機／平板／手機檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面平板圖片標題置中驗證
+  - 已驗證：瀏覽器 820px 平板兩張卡片可見，標題與圖示位於圖片內，文件寬度未超出視窗；補充完成 1440px／390px 檢查結果；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面圖片標題置中與遮罩驗證
+  - 已驗證：瀏覽器 1440px／390px；桌機標題與圖示位於圖片中央、遮罩生效，手機標題仍位於圖片內且文件寬度未超出視窗；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：平板實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面卡片標題與圖示版面
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：四張卡片維持桌機並列，將卡片標題與圖示移至圖片中央，加入低透明度深色遮罩；下方保留資格清單，改善窄卡片標題換行的視覺重心。
+  - 已驗證：待完成瀏覽器桌機／平板／手機畫面檢查；git diff --check。
+  - 未驗證：尚未重新進行瀏覽器實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面四張卡片排列驗證
+  - 已驗證：瀏覽器 1440px 桌機四張卡片完整並列、820px 平板兩張、390px 手機一張加側邊預覽；桌機卡片內容未溢出，三種尺寸文件寬度未超出視窗；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面桌機一次呈現四張證照卡片
+  - 範圍：wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
+  - 完成：桌機卡片改為四張並列，平板維持兩張、手機維持一張；同步調整桌機輪播每頁數量與卡片寬度計算，保留既有卡片內容與操作。
+  - 已驗證：待完成瀏覽器桌機／平板／手機檢查；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面原本卡片介面恢復驗證
+  - 已驗證：瀏覽器 1440px／820px／390px；桌機恢復三卡、平板恢復雙卡、手機恢復原本單卡加側邊預覽，背景恢復白色且沒有主卡淡化狀態；文件寬度未溢出；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復職業安全頁面原本卡片介面
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
+  - 完成：撤回主卡聚焦輪播的卡片寬度、置中、淡化、淺色背景與單卡分頁邏輯，恢復原本桌機三卡、平板雙卡、手機單卡的排列與視覺介面；保留頁面其他既有內容修改。
+  - 已驗證：待完成瀏覽器桌機／手機檢查；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：完成職業安全頁面桌機輪播主卡尺寸微調與驗證
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：桌機主卡由約 720px 收斂至約 600px；平板 560px、手機比例、側卡預覽、內容與輪播操作維持不變。
+  - 已驗證：瀏覽器 1440px／820px／390px；桌機各張主卡皆可置中，手機文件寬度未超出 390px；git diff --check、node --check wwwroot/js/pages/occupational-safety.js。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：收斂職業安全頁面桌機輪播主卡尺寸
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、TODO.md。
+  - 完成：桌機主卡由約 720px 收斂至約 600px；平板與手機主卡比例、側卡預覽、內容與輪播行為維持不變。
+  - 已驗證：待完成瀏覽器檢查；git diff --check。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面證照輪播卡片視覺
+  - 範圍：wwwroot/occupational-safety.html、wwwroot/css/pages/occupational-safety.css、wwwroot/js/pages/occupational-safety.js、TODO.md。
+  - 完成：參考 Institute of Health 的主卡聚焦輪播構圖，改為各尺寸一次聚焦一張卡片、兩側卡片露出並淡化；證照區套用淺色背景、主卡白底與較寬圖片槽；保留原有四張卡片內容、水平滑動、分頁按鈕、拖曳與響應式操作。
+  - 已驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`；瀏覽器桌機／平板／手機畫面待檢查。
+  - 未驗證：尚未重新進行瀏覽器 1440px／820px／390px 實際畫面、輪播按鈕與拖曳互動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待瀏覽器驗證與提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復職業安全頁面證照區原說明文案
+  - 範圍：wwwroot/occupational-safety.html、TODO.md。
+  - 完成：撤回上一筆證照區公司第一人稱文案調整，恢復為「亞太人員目前已取得的職業安全、特殊作業及物流場站相關專業證照與資格。」；標題、卡片內容與版面維持不變。
+  - 已驗證：確認 HTML 文案恢復與本次修改範圍的 git diff --check。
+  - 未驗證：本次僅恢復文字，未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整職業安全頁面證照區說明文案
+  - 範圍：wwwroot/occupational-safety.html、TODO.md。
+  - 完成：將證照區說明改為公司第一人稱「我們具備職安、特殊作業與物流場站管理等相關證照與資格，持續強化現場作業與安全管理能力。」；未調整標題、卡片內容與版面。
+  - 已驗證：確認 HTML 文案與本次修改範圍的 git diff --check。
+  - 未驗證：本次僅調整文字，未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-18：微調行動版首頁 Hero 橘色底線
   - 範圍：wwwroot/css/pages/home.css、TODO.md。
   - 完成：將 760px 以下 Hero 底部橘色線由 3px 調整為 4px；12px 圓角與其他 Hero 內容維持不變。
@@ -4511,17 +4675,17 @@
   - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
   - 狀態：待 commit，未 push。
 
-- [ ] ��b���D�Gadmin.js guard clause ���[�\�Ҧ���Τ���
+- [x] ��b���D�Gadmin.js guard clause ���[�\�Ҧ���Τ���
   - �d��Gwwwroot/js/pages/admin.js (l.10, l.15, l.22-24)�C
   - �����GcaptchaImage�B#logoutButton�B#resetButton�B#refreshCaptcha ���b l.15 guard clause ���A���� ?. / if �O�@���|�����A���޿�W������C
   - �ݳB�z�G�M�w�O�_�X�R guard clause�B�ΫO�d�{���å[���ѡC
 
-- [ ] ��b���D�Gadmin.js resetForm() ���ƲM�z�������
+- [x] ��b���D�Gadmin.js resetForm() ���ƲM�z�������
   - �d��Gwwwroot/js/pages/admin.js (l.286-301)�C
   - �����GnewsForm.reset() �w�۰ʲM�ũҦ� input/textarea/select (�t newsId�BnewsUrl�BnewsImageUrl�BremoveNewsImage�BremoveNewsAttachment)�A�����ʽ���ݭ��ơCcurrentImageName�BcurrentAttachmentName�BcreatedAtInfo�BupdatedAtInfo ���D���椸���ݫO�d��ʭ��]�C
   - �ݳB�z�G�������Ʀ�A�O�d�D���椸�����]�޿�C
 
-- [ ] �T�{�ƶ��Gadmin.js normalizeNews ������W���ۮe�ʳ]�p
+- [x] �T�{�ƶ��Gadmin.js normalizeNews ������W���ۮe�ʳ]�p
   - �d��Gwwwroot/js/pages/admin.js (l.102-117)�C
   - �����Gitem.id ?? item.Id ?? " ���P�ɤ䴩 camelCase �P PascalCase�A���ۮe C# �w�] JSON �ǦC�ƿ�X�P�e�ݺD�ΩR�W�A**�D���X�B�D���~**�A�ݨ�N�]�p�C
   - �ݳB�z�G�ȧ@�O���A�Y API �Τ@��X�榡��i²�ơC
@@ -4529,7 +4693,7 @@
 
 # CSS �ܼƤ@�P�ʲΤ@�]2026-08-18 �ˬd�o�{�^
 
-- [ ] Phase 1�G�Τ@��r��B�I����B���j�u�]���v�T�B�C���I�^
+- [x] Phase 1�G�Τ@��r��B�I����B���j�u�]���v�T�B�C���I�^
   - �d��Gwwwroot/css/base/tokens.css�B���� pages/*.css�Blayout/*.css�Bcomponents/*.css
   - #141414 (38�B) �� var(--color-ink) �νվ� --color-ink �� #141414
   - #5c5c5c (34�B) �� var(--color-muted) �νվ� --color-muted �� #5c5c5c
@@ -4538,7 +4702,7 @@
   - #e3e6e1 �� var(--color-line)
   - �����ҡG�U������ı�L�t���B�`��/�L��Ҧ��ۮe
 
-- [ ] Phase 2�G�ꨤ�B���v�B�r���зǤơ]�����v�T�^
+- [x] Phase 2�G�ꨤ�B���v�B�r���зǤơ]�����v�T�^
   - �d��Gwwwroot/css/base/tokens.css�B���� pages/*.css
   - �s�W�ꨤ�G--radius-sm: 4px�B--radius-md: 6px (�{ --card-radius)�B--radius-lg: 8px�B--radius-full: 999px
   - �s�W���v�G--shadow-sm�B--shadow-md�B--shadow-lg�B--shadow-card
@@ -4546,7 +4710,7 @@
   - �r���G�ɥR --font-weight-normal: 400�B--font-weight-medium: 500�B--font-weight-semibold: 600
   - ���� affiliates.css --affiliates-radius�Badmin.css �W���ꨤ��
 
-- [ ] Phase 3�G�����W���ܼƾE���� tokens.css�]�[�c��z�^
+- [x] Phase 3�G�����W���ܼƾE���� tokens.css�]�[�c��z�^
   - �d��Gwwwroot/css/base/tokens.css�Blayout/site-header.css�Blayout/site-footer.css�Bcomponents/page-hero.css�Bpages/admin.css
   - site-footer.css: --footer-background �� �� tokens.css �[ --footer-* �e��
   - site-header.css: --site-header-ink �� �����A��� --color-ink

@@ -52,7 +52,7 @@
   color: var(--color-muted);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.5;
   letter-spacing: 0.08em;
 }
@@ -63,7 +63,7 @@
   width: fit-content;
   margin: 0;
   padding-bottom: 20px;
-  color: #141414;
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--resources-title-size);
   font-weight: 300;
@@ -130,9 +130,9 @@
 
 .operational-resources-page .resource-body p {
   margin: 0;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   line-height: 1.75;
 }
 
@@ -140,7 +140,7 @@
   width: 100%;
   margin: 0;
   border-collapse: collapse;
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: 0.95rem;
   line-height: 1.65;
 }
@@ -155,12 +155,12 @@
 .operational-resources-page .resource-body th {
   width: 36%;
   color: var(--color-ink);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: left;
 }
 
 .operational-resources-page .resource-body td {
-  color: #5c5c5c;
+  color: var(--color-muted);
   text-align: right;
 }
 
@@ -342,7 +342,7 @@
 .operational-resources-page .resources-location__node strong {
   color: var(--color-ink);
   font-size: clamp(1.35rem, 1.8vw, 1.75rem);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: 1.1;
   white-space: nowrap;
 }
@@ -350,11 +350,11 @@
 .operational-resources-page .resources-location__node small {
   margin-left: 1px;
   font-size: 0.6em;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .operational-resources-page .resources-location__node span {
-  color: #5c5c5c;
+  color: var(--color-muted);
   font-size: clamp(0.84rem, 0.95vw, 0.96rem);
   line-height: 1.4;
 }
@@ -461,7 +461,7 @@
     display: block;
     width: min(100%, 640px);
     margin: 30px auto 0;
-    color: #5c5c5c;
+    color: var(--color-muted);
     font-size: 0.95rem;
     line-height: 1.7;
     text-align: center;
