@@ -13,8 +13,6 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-section-heading: var(--font-weight-medium);
-  --font-pilat: "Pilat", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
-  --font-pilat-wide: "Pilat Wide", "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-size-body-copy: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
   --section-space: clamp(24px, 3vw, 40px);
   --page-content-start-space: clamp(72px, 7vw, 112px);
@@ -45,8 +43,6 @@
   --radius-full: 999px;
   --card-radius: var(--radius-md);
   --card-image-radius: var(--card-radius) var(--card-radius) 0 0;
-  --shadow-card-hover: 0 16px 40px rgb(20 35 25 / 14%);
-  --card-shadow-hover: var(--shadow-card-hover);
   --shadow-sm: 0 2px 12px rgb(0 0 0 / 16%);
   --shadow-md: 0 4px 14px rgb(0 0 0 / 18%);
   --shadow-lg: 0 12px 32px rgb(20 35 25 / 7%);
@@ -57,7 +53,6 @@
   --footer-link: var(--color-muted);
   --footer-divider: rgb(23 54 70 / 16%);
   --page-hero-height: clamp(280px, 26vw, 350px);
-  --page-hero-title-size: clamp(2.35rem, 4vw, 3.4rem);
   --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);
   --page-hero-image-scale: 1.08;

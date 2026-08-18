@@ -5,7 +5,6 @@
   --services-switcher-space: clamp(40px, 5vw, 64px);
   --services-feature-gap: clamp(48px, 6.7vw, 96px);
   --services-content-gap: 24px;
-  --services-warehousing-image-bleed: clamp(28px, 3.2vw, 48px);
   --services-title-size: clamp(1.625rem, 4vw, 2.5rem);
   --services-title-line-height: clamp(2rem, 3vw, 2.5rem);
   --services-contact-surface: var(--color-surface-soft);
@@ -562,7 +561,7 @@
 }
 
 .services-page .services-advantages--container .services-advantages__band::before {
-  background-image: url("../../public/images/services/02.jpg");
+  background-image: url("../../public/images/services/container-yard-operations.jpg");
   background-position: center 35%;
 }
 

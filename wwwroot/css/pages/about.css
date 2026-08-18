@@ -61,7 +61,7 @@
   .about-page .philosophy-panels button::before { background: linear-gradient(180deg, rgb(0 0 0 / 26%) 0%, rgb(0 0 0 / 33%) 100%); }
 }
 .about-page .philosophy-panels button[data-philosophy-panel="mission"] { background-image: url("../../public/images/index/home-hero-container-transport.png"); }
-.about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/new.jpg"); background-position: 35% center; }
+.about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/philosophy-values.jpg"); background-position: 35% center; }
 .about-page .philosophy-panels button[data-philosophy-panel="vision"] { background-image: url("../../public/images/index/container-handler.png"); background-position: center 70%; }
 .about-page .philosophy-panels button:hover, .about-page .philosophy-panels button:focus-visible, .about-page .philosophy-panels button[data-active="true"], .about-page .philosophy-panels button[aria-expanded="true"] { flex-grow: 7; }
 .about-page .philosophy-panel__content { position: relative; z-index: 1; display: grid; width: 100%; min-height: 100%; box-sizing: border-box; align-content: center; justify-items: center; gap: 12px; padding: clamp(24px, 4vw, 56px); isolation: isolate; text-align: center; }

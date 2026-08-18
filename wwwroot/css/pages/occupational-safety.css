@@ -2,7 +2,6 @@
   --page-hero-image-position: center 58%;
   --page-hero-image-origin: 50% 58%;
   --safety-section-space: var(--section-space);
-  --safety-layout-gap: clamp(48px, 6vw, 96px);
   --safety-title-size: clamp(1.9375rem, 1.825rem + 0.375vw, 2.3125rem);
   --safety-title-line-height: clamp(39px, 36.666px + 0.487vw, 48.1px);
   --safety-rule-width: clamp(48px, 5vw, 72px);
@@ -435,6 +434,15 @@
 .safety-page .safety-credential-card__media {
   aspect-ratio: 16 / 9;
   background: var(--color-surface-soft);
+}
+
+.safety-page .safety-credential-card__media::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgb(15 50 66 / 18%);
+  content: "";
+  pointer-events: none;
 }
 
 .safety-page .safety-credential-card__media img {

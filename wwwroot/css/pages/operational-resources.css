@@ -272,7 +272,6 @@
 }
 
 .operational-resources-page .resources-location__node {
-  --resources-distance-alpha: 0.72;
   position: relative;
   display: grid;
   width: min(100%, clamp(320px, 25vw, 380px));
@@ -317,26 +316,6 @@
 
 .operational-resources-page .resources-location__side--right .resources-location__node::after {
   left: calc(var(--resources-network-gap) * var(--resources-rail-share) * -1);
-}
-
-.operational-resources-page .resources-location__node--closest {
-  --resources-distance-alpha: 1;
-}
-
-.operational-resources-page .resources-location__node--near {
-  --resources-distance-alpha: 0.82;
-}
-
-.operational-resources-page .resources-location__node--medium {
-  --resources-distance-alpha: 0.66;
-}
-
-.operational-resources-page .resources-location__node--far {
-  --resources-distance-alpha: 0.54;
-}
-
-.operational-resources-page .resources-location__node--long {
-  --resources-distance-alpha: 0.38;
 }
 
 .operational-resources-page .resources-location__node strong {
