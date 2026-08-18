@@ -1,10 +1,6 @@
-(() => {
-  const tabs = [...document.querySelectorAll("[role='tab']")];
-  const panels = [...document.querySelectorAll(".join-panel")];
-  if (!tabs.length || !panels.length) return;
-  tabs.forEach((tab) => tab.addEventListener("click", () => {
-    const id = tab.getAttribute("aria-controls");
-    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
-    panels.forEach((panel) => { panel.hidden = panel.id !== id; });
-  }));
-})();
+// ==========================================
+// 人才招募頁面：無需 JavaScript 互動
+// ==========================================
+// 本頁面為靜態內容呈現，兩個 .join-panel 區塊同時顯示，
+// 無分頁切換、無動態載入、無互動需求。
+// 若未來有互動需求，請在此實作 initJoin() 並掛載到 DOMContentLoaded。

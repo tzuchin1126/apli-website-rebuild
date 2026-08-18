@@ -1,181 +1,250 @@
-(() => {
+// ==========================================
+// About 頁面互動：經營理念 + 認證時間軸
+// ==========================================
+
+/**
+ * 經營理念：滑鼠移入/點擊切換對應圖片
+ * 觸控裝置只回應點擊，不回應 hover
+ */
+function initPhilosophyGallery() {
   const gallery = document.querySelector("[data-philosophy-gallery]");
-  if (gallery) {
-    const panels = [...gallery.querySelectorAll("[data-philosophy-panel]")];
-    const images = [...gallery.querySelectorAll("[data-philosophy-image]")];
-    const defaultPanel = gallery.dataset.defaultPanel || "";
+  if (!gallery) return;
 
-    const setState = (panel, expanded) => {
-      images.forEach((image) => {
-        image.dataset.active = String(image.dataset.philosophyImage === panel);
-      });
-      panels.forEach((item) => {
-        const active = expanded && item.dataset.philosophyPanel === panel;
-        item.dataset.active = String(active);
-        item.setAttribute("aria-expanded", String(active));
-      });
-    };
+  const panels = [...gallery.querySelectorAll("[data-philosophy-panel]")];
+  const images = [...gallery.querySelectorAll("[data-philosophy-image]")];
+  const defaultPanel = gallery.dataset.defaultPanel || "";
 
-    const activate = (panel) => setState(panel.dataset.philosophyPanel, true);
-    const reset = () => setState(defaultPanel, false);
-
+  // 切換到指定面板
+  function showPanel(panelName, isExpanded) {
+    images.forEach((img) => {
+      img.dataset.active = img.dataset.philosophyImage === panelName ? "true" : "false";
+    });
     panels.forEach((panel) => {
-      panel.addEventListener("pointerenter", (event) => {
-        if (event.pointerType !== "touch") activate(panel);
-      });
-      panel.addEventListener("focus", () => activate(panel));
-      panel.addEventListener("click", () => activate(panel));
+      const isActive = isExpanded && panel.dataset.philosophyPanel === panelName;
+      panel.dataset.active = isActive ? "true" : "false";
+      panel.setAttribute("aria-expanded", isActive ? "true" : "false");
     });
-
-    gallery.addEventListener("pointerleave", (event) => {
-      if (event.pointerType !== "touch" && !gallery.contains(document.activeElement)) reset();
-    });
-    gallery.addEventListener("focusout", () => {
-      requestAnimationFrame(() => {
-        if (!gallery.contains(document.activeElement)) reset();
-      });
-    });
-
-    reset();
   }
 
+  // 綁定每個面板的互動
+  panels.forEach((panel) => {
+    const panelName = panel.dataset.philosophyPanel;
+
+    // 滑鼠移入（非觸控裝置）
+    panel.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "touch") showPanel(panelName, true);
+    });
+    // 鍵盤聚焦
+    panel.addEventListener("focus", () => showPanel(panelName, true));
+    // 點擊
+    panel.addEventListener("click", () => showPanel(panelName, true));
+  });
+
+  // 離開畫廊區域 → 恢復預設
+  gallery.addEventListener("pointerleave", (e) => {
+    if (e.pointerType !== "touch" && !gallery.contains(document.activeElement)) {
+      showPanel(defaultPanel, false);
+    }
+  });
+  // 焦點移出畫廊 → 恢復預設
+  gallery.addEventListener("focusout", () => {
+    setTimeout(() => {
+      if (!gallery.contains(document.activeElement)) {
+        showPanel(defaultPanel, false);
+      }
+    }, 0);
+  });
+
+  // 初始化：顯示預設面板
+  showPanel(defaultPanel, false);
+}
+
+/**
+ * 認證與獎項時間軸：展開/收合 + 捲動偵測年份
+ */
+function initMilestoneTimelines() {
   const timelines = [...document.querySelectorAll("[data-milestone-timeline]")];
   if (!timelines.length) return;
 
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
   timelines.forEach((timeline) => {
-    const eventsContainer = timeline.querySelector("[data-collapsible-events]");
-    const label = timeline.querySelector(".milestone-era-label h3");
-    const toggle = timeline.querySelector("[data-collapsible-events-toggle]");
-    const events = eventsContainer ? [...eventsContainer.children] : [];
+    const container = timeline.querySelector("[data-collapsible-events]");
+    const yearLabel = timeline.querySelector(".milestone-era-label h3");
+    const toggleBtn = timeline.querySelector("[data-collapsible-events-toggle]");
+    const allEvents = container ? [...container.children] : [];
 
-    if (!eventsContainer || !label || !events.length) return;
+    if (!container || !yearLabel || !allEvents.length) return;
 
-    const initialVisibleCount = Number.parseInt(eventsContainer.dataset.initialVisibleCount || "8", 10);
-    const recentEvents = events.slice(0, Number.isFinite(initialVisibleCount) ? initialVisibleCount : 8);
-    const olderEvents = events.slice(recentEvents.length);
-    let expanded = false;
-    let collapseTimers = [];
+    // 認證與獎項內容進入視窗時由右側滑入；無障礙減少動畫時保持靜態顯示。
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+      container.classList.add("about-certification-events-motion");
+      const revealObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          container.classList.add("is-entered");
+          revealObserver.unobserve(container);
+        },
+        { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+      );
+      revealObserver.observe(container);
+    }
 
-    const setCurrentYear = (event) => {
-      const year = event?.querySelector(".milestone-event-year")?.textContent.trim();
-      if (year) label.textContent = year;
-    };
+    // 區分：預設顯示的近期事件、預設隱藏的較早事件
+    const showCount = parseInt(container.dataset.initialVisibleCount || "6", 10);
+    const recentEvents = allEvents.slice(0, showCount);
+    const olderEvents = allEvents.slice(showCount);
+    let isExpanded = false;
 
-    const updateActiveYear = () => {
-      const visibleEvents = events.filter((event) => !event.hidden && !event.classList.contains("is-collapsed"));
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+      recentEvents.forEach((event, index) => {
+        event.classList.add("about-certification-event-motion");
+        event.style.setProperty("--about-certification-event-delay", `${index * 100}ms`);
+      });
+    }
+
+    // 更新年份標題
+    function updateYearLabel(eventEl) {
+      const yearEl = eventEl?.querySelector(".milestone-event-year");
+      if (yearEl) yearLabel.textContent = yearEl.textContent.trim();
+    }
+
+    // 根據捲動位置判斷目前看哪個事件 → 更新年份
+    function updateYearByScroll() {
+      const visibleEvents = allEvents.filter((e) => !e.hidden && !e.classList.contains("is-collapsed"));
       if (!visibleEvents.length) return;
 
-      const viewportAnchor = window.innerHeight * 0.45;
-      let activeEvent = visibleEvents[0];
-      visibleEvents.forEach((event) => {
-        if (event.getBoundingClientRect().top <= viewportAnchor) activeEvent = event;
+      const viewportMiddle = window.innerHeight * 0.45;
+      let currentEvent = visibleEvents[0];
+      visibleEvents.forEach((e) => {
+        if (e.getBoundingClientRect().top <= viewportMiddle) currentEvent = e;
       });
-      setCurrentYear(activeEvent);
-    };
+      updateYearLabel(currentEvent);
+    }
 
-    const setToggleLabel = () => {
-      if (!toggle) return;
-      const labelElement = toggle.querySelector("span");
-      const iconElement = toggle.querySelector("i");
-      if (labelElement) labelElement.textContent = expanded ? "收合至近期獎項" : "查看完整認證與獎項";
-      if (iconElement) {
-        iconElement.classList.toggle("ph-caret-line-down", !expanded);
-        iconElement.classList.toggle("ph-caret-line-up", expanded);
+    // 更新展開按鈕狀態
+    function updateToggleButton() {
+      if (!toggleBtn) return;
+      const label = toggleBtn.querySelector("span");
+      const icon = toggleBtn.querySelector("i");
+      if (label) label.textContent = isExpanded ? "收合至近期獎項" : "查看完整認證與獎項";
+      if (icon) {
+        icon.classList.toggle("ph-caret-line-down", !isExpanded);
+        icon.classList.toggle("ph-caret-line-up", isExpanded);
       }
-      toggle.setAttribute("aria-expanded", String(expanded));
-      toggle.classList.toggle("is-expanded", expanded);
-    };
+      toggleBtn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+      toggleBtn.classList.toggle("is-expanded", isExpanded);
+    }
 
-    const clearCollapseTimers = () => {
-      collapseTimers.forEach((timer) => window.clearTimeout(timer));
-      collapseTimers = [];
-    };
+    // 展開或收合
+    function setExpanded(expanded, scrollIntoView = false) {
+      const wasExpanded = isExpanded;
+      isExpanded = expanded;
+      updateToggleButton();
 
-    const setExpanded = (nextExpanded, { scrollToggleIntoView = false } = {}) => {
-      const wasExpanded = expanded;
-      expanded = nextExpanded;
-      clearCollapseTimers();
-      setToggleLabel();
-
-      recentEvents.forEach((event) => {
-        event.hidden = false;
-        event.classList.remove("is-collapsed");
-        event.classList.add("is-visible");
+      // 近期事件永遠顯示
+      recentEvents.forEach((e) => {
+        e.hidden = false;
+        e.classList.remove("is-collapsed");
+        e.classList.add("is-visible");
       });
 
       if (expanded) {
-        olderEvents.forEach((event) => {
-          event.hidden = false;
-          event.classList.remove("is-collapsed");
+        // 展開：顯示較早事件（用 CSS 動畫 max-height）
+        olderEvents.forEach((e) => {
+          e.hidden = false;
+          e.classList.remove("is-collapsed");
         });
-        void eventsContainer.offsetHeight;
-        olderEvents.forEach((event) => event.classList.add("is-visible"));
+        // 強制重繪觸發動畫
+        container.offsetHeight;
+        olderEvents.forEach((e) => e.classList.add("is-visible"));
       } else {
-        if (wasExpanded) setCurrentYear(recentEvents[recentEvents.length - 1]);
+        // 收合：隱藏較早事件
+        if (wasExpanded) updateYearLabel(recentEvents[recentEvents.length - 1]);
 
-        olderEvents.forEach((event) => {
-          event.classList.remove("is-visible");
-          event.classList.add("is-collapsed");
+        olderEvents.forEach((e) => {
+          e.classList.remove("is-visible");
+          e.classList.add("is-collapsed");
 
-          const hideAfterTransition = (transitionEvent) => {
-            if (transitionEvent.propertyName === "max-height" && event.classList.contains("is-collapsed")) event.hidden = true;
+          // 動畫結束後真正隱藏
+          const onTransitionEnd = (evt) => {
+            if (evt.propertyName === "max-height" && e.classList.contains("is-collapsed")) {
+              e.hidden = true;
+            }
           };
+          e.addEventListener("transitionend", onTransitionEnd, { once: true });
 
-          event.addEventListener("transitionend", hideAfterTransition, { once: true });
-          collapseTimers.push(window.setTimeout(() => {
-            if (event.classList.contains("is-collapsed")) event.hidden = true;
-          }, prefersReducedMotion ? 0 : 450));
+          // 保險：若動畫沒跑完也強制隱藏
+          setTimeout(() => {
+            if (e.classList.contains("is-collapsed")) e.hidden = true;
+          }, prefersReducedMotion ? 0 : 450);
         });
 
-        if (scrollToggleIntoView && wasExpanded && toggle) {
-          const toggleRect = toggle.getBoundingClientRect();
-          const isVisible = toggleRect.top >= 0 && toggleRect.bottom <= window.innerHeight;
-          if (!isVisible) toggle.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
+        // 收合後將按鈕滾動進視野
+        if (scrollIntoView && wasExpanded && toggleBtn) {
+          const rect = toggleBtn.getBoundingClientRect();
+          const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+          if (!isVisible) {
+            toggleBtn.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
+          }
         }
       }
 
-      window.requestAnimationFrame(() => {
-        updateActiveYear();
-        updateProgress();
+      // 更新進度條與年份
+      requestAnimationFrame(() => {
+        updateYearByScroll();
+        updateProgressBar();
       });
-    };
-
-    setCurrentYear(recentEvents[0]);
-    setExpanded(false);
-    if (toggle && olderEvents.length) {
-      toggle.hidden = false;
-      toggle.addEventListener("click", () => setExpanded(!expanded, { scrollToggleIntoView: true }));
     }
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setCurrentYear(entry.target);
-        });
-      }, { rootMargin: "-40% 0px -55% 0px" });
-
-      events.forEach((event) => observer.observe(event));
-    }
-
-    let ticking = false;
-    const updateProgress = () => {
+    // 進度條：CSS 變數 --certification-progress
+    function updateProgressBar() {
       const rect = timeline.getBoundingClientRect();
-      const viewportAnchor = window.innerHeight * 0.45;
-      const progress = Math.min(Math.max(viewportAnchor - rect.top, 0), rect.height);
+      const viewportMiddle = window.innerHeight * 0.45;
+      const progress = Math.min(Math.max(viewportMiddle - rect.top, 0), rect.height);
       timeline.style.setProperty("--certification-progress", `${progress}px`);
-      updateActiveYear();
-      ticking = false;
-    };
-    const requestProgressUpdate = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(updateProgress);
-    };
+    }
 
-    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
-    window.addEventListener("resize", requestProgressUpdate);
-    requestProgressUpdate();
+    // 節流：捲動/縮放時更新進度條
+    let tickPending = false;
+    function requestUpdate() {
+      if (tickPending) return;
+      tickPending = true;
+      requestAnimationFrame(() => {
+        updateProgressBar();
+        updateYearByScroll();
+        tickPending = false;
+      });
+    }
+
+    // 初始化
+    updateYearLabel(recentEvents[0]);
+    setExpanded(false);
+
+    // 展開按鈕點擊
+    if (toggleBtn && olderEvents.length) {
+      toggleBtn.hidden = false;
+      toggleBtn.addEventListener("click", () => setExpanded(!isExpanded, true));
+    }
+
+    // IntersectionObserver：事件進入視窗更新年份（備援）
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((entry) => entry.isIntersecting && updateYearLabel(entry.target)),
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      allEvents.forEach((e) => observer.observe(e));
+    }
+
+    // 捲動與視窗變更監聽
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    requestUpdate();
   });
-})();
+}
+
+// 啟動
+document.addEventListener("DOMContentLoaded", () => {
+  initPhilosophyGallery();
+  initMilestoneTimelines();
+});

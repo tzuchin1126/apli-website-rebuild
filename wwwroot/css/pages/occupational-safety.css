@@ -245,8 +245,8 @@
 }
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media img {
-  object-fit: cover;
-  object-position: 50% 8%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .safety-page .safety-credentials > .site-container {

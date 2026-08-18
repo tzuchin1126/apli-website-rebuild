@@ -41,7 +41,8 @@
 .affiliates-page #affiliate-oil .affiliate-oil-gallery, .affiliates-page #affiliate-club .affiliate-club-gallery, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); width: 100%; margin: 0; }
 .affiliates-page #affiliate-oil .affiliate-oil-gallery figure, .affiliates-page #affiliate-club .affiliate-club-gallery figure, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery figure, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery figure { min-width: 0; margin: 0; }
 .affiliates-page #affiliate-oil .affiliate-oil-gallery img, .affiliates-page #affiliate-club .affiliate-club-gallery img, .affiliates-page #affiliate-badminton .affiliate-badminton-gallery img, .affiliates-page #affiliate-alpha .affiliate-alpha-gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: var(--affiliates-radius); object-fit: cover; }
-.affiliates-page #affiliate-alpha .affiliate-alpha-gallery figure:nth-child(2) img { object-position: center bottom; }
+.affiliates-page #affiliate-alpha .affiliate-alpha-gallery img[src*="port-crane-operation.png"] { object-position: center 80%; }
+@media (min-width: 761px) { .affiliates-page #affiliate-alpha .affiliate-alpha-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } .affiliates-page #affiliate-alpha .affiliate-alpha-gallery img { aspect-ratio: 2 / 1; } }
 .affiliate-panel-intro { display: grid; gap: 12px; max-width: 960px; }
 .affiliate-panel-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 4px; padding-top: 0; }
 .affiliate-panel .affiliate-panel-details h3 { margin: 0 0 14px; }

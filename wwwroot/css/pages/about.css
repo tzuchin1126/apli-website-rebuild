@@ -48,7 +48,7 @@
   .about-page .about-profile figure { align-self: start; aspect-ratio: 16 / 9; }
 }
 
-.about-philosophy { padding-top: clamp(64px, 8vw, 112px); padding-bottom: 0; background: transparent; }
+.about-philosophy { padding-block: clamp(64px, 8vw, 112px); background: var(--color-surface-soft); }
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
 .about-page .about-philosophy .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
@@ -56,9 +56,9 @@
 .about-page .philosophy-gallery { width: min(1180px, calc(100% - 48px)); height: clamp(400px, 38vw, 520px); margin: 0 auto; overflow: visible; }
 .about-page .philosophy-panels { display: flex; width: 100%; height: 100%; gap: clamp(12px, 2vw, 20px); }
 .about-page .philosophy-panels button { position: relative; display: flex; min-width: 0; flex: 1 1 0; align-items: center; justify-content: center; overflow: hidden; padding: 0; border: 0; border-radius: var(--card-radius); background-color: transparent; background-position: center; background-repeat: no-repeat; background-size: cover; color: #fff; text-align: center; cursor: pointer; transition: flex 500ms ease, background-position 500ms ease; }
-.about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(23 54 70 / 52%) 0%, rgb(23 54 70 / 66%) 100%); content: ""; pointer-events: none; }
+.about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%); content: ""; pointer-events: none; }
 @media (min-width: 841px) {
-  .about-page .philosophy-panels button::before { background: linear-gradient(180deg, rgb(23 54 70 / 26%) 0%, rgb(23 54 70 / 33%) 100%); }
+  .about-page .philosophy-panels button::before { background: linear-gradient(180deg, rgb(0 0 0 / 26%) 0%, rgb(0 0 0 / 33%) 100%); }
 }
 .about-page .philosophy-panels button[data-philosophy-panel="mission"] { background-image: url("../../public/images/index/home-hero-container-transport.png"); }
 .about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/new.jpg"); background-position: 35% center; }
@@ -88,7 +88,7 @@
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
 .about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; color: #141414; font-weight: 500; }
 .about-page .about-certifications .about-section-heading--left h2::after { position: absolute; right: auto; bottom: 0; left: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: none; }
-.about-page .milestone-timeline { position: relative; width: min(1120px, 100%); margin: clamp(40px, 5vw, 72px) auto 0; }
+.about-page .milestone-timeline { position: relative; width: min(1120px, 100%); margin: clamp(32px, 4vw, 56px) auto 0; }
 .about-page .milestone-timeline::before,
 .about-page .milestone-timeline::after { position: absolute; z-index: 1; top: 0; left: var(--certification-line-x); width: 2px; border-radius: 999px; pointer-events: none; content: ""; }
 .about-page .milestone-timeline::before { bottom: 0; background: linear-gradient(to bottom, transparent, var(--color-line) 8%, var(--color-line) 92%, transparent); }
@@ -110,8 +110,21 @@
 
 .about-page .milestone-era-dot { position: absolute; top: 4px; left: 8px; width: 26px; height: 26px; border: 7px solid var(--color-surface); border-radius: 50%; background: var(--color-line); box-shadow: 0 0 0 1px var(--color-line); }
 .about-page .milestone-panel-events { display: grid; width: 100%; margin-inline: auto; gap: 0; }
-.about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 8px; align-items: baseline; width: 100%; padding: 2px 0 22px; border-bottom: 1px solid var(--color-line); text-align: left; }
-.about-page .milestone-panel-events > div + div { padding-top: 22px; }
+.about-page .milestone-panel-events.about-certification-events-motion {
+  opacity: 1;
+}
+.about-page .milestone-panel-events.about-certification-events-motion > div.about-certification-event-motion {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 600ms cubic-bezier(.22, 1, .36, 1), transform 600ms cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--about-certification-event-delay, 0ms);
+}
+.about-page .milestone-panel-events.about-certification-events-motion.is-entered > div.about-certification-event-motion {
+  opacity: 1;
+  transform: translateX(0);
+}
+.about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 8px; align-items: baseline; width: 100%; padding: 2px 0 18px; border-bottom: 1px solid var(--color-line); text-align: left; }
+.about-page .milestone-panel-events > div + div { padding-top: 14px; }
 .about-page .milestone-panel-events h3 { margin: 0; color: #141414; font-family: var(--font-body); font-size: clamp(1rem, .96rem + .2vw, 1.125rem); line-height: 1.75; font-weight: 500; }
 .about-page .milestone-event-year { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-dark); font-size: clamp(1rem, .96rem + .15vw, 1.125rem); font-weight: 500; line-height: 1.7; }
 .about-page .about-certifications-toggle { grid-column: 2; justify-self: start; margin-top: 28px; border-radius: var(--card-radius); background: var(--color-secondary); }
@@ -121,21 +134,22 @@
 .about-page [data-collapsible-events] > div.is-collapsed { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; }
 .about-page [data-collapsible-events] > div[hidden] { display: none; }
 
-.about-page .about-affiliates { padding-block: var(--section-space); background: transparent; }
-.about-page .about-affiliates .about-section-heading { margin-bottom: clamp(8px, 1vw, 12px); }
+.about-page .about-affiliates { padding-top: clamp(40px, 4.5vw, 64px); padding-bottom: clamp(56px, 6vw, 88px); background: transparent; }
+.about-page .about-affiliates .about-section-heading { margin-bottom: clamp(16px, 2vw, 28px); }
 .about-page .about-affiliates .about-section-heading h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
 .about-page .about-affiliates .about-section-heading h2::after { position: absolute; right: 50%; bottom: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: translateX(50%); }
-.about-page .about-affiliates__logo-strip { padding: clamp(16px, 2vw, 24px) 0 0; background: transparent; }
+.about-page .about-affiliates__logo-strip { padding: 0; background: transparent; }
 .about-page .about-affiliates__logo-strip > .site-container { width: min(100% - (var(--content-padding) * 2), var(--content-max-width)); }
-.about-page .about-affiliates__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px); align-items: center; margin: 0; padding: 0; list-style: none; }
-.about-page .about-affiliates__card { position: relative; display: grid; min-width: 0; min-height: 112px; align-items: center; justify-items: center; overflow: visible; padding: 16px 12px; border: 0; border-radius: 0; background: transparent; color: var(--color-ink); text-decoration: none; transition: transform 280ms ease; }
-.about-page .about-affiliates__card:not(.about-affiliates__card--static):hover, .about-page .about-affiliates__card:not(.about-affiliates__card--static):focus-visible { border-color: transparent; background: transparent; transform: translateY(-2px); }
-.about-page .about-affiliates__card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
-.about-page .about-affiliates__logo { display: grid; min-width: 0; min-height: 0; padding: 0; place-items: center; background: transparent; }
-.about-page .about-affiliates__logo img { display: block; width: auto; max-width: 100%; height: auto; max-height: 92px; object-fit: contain; transition: transform 360ms ease; }
+.about-page .about-affiliates__grid { display: grid; width: min(100%, 1120px); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; margin: 0 auto; padding: 0; list-style: none; }
+.about-page .about-affiliates__grid > li { display: flex; min-width: 0; }
+.about-page .about-affiliates__card { position: relative; display: flex; width: 100%; aspect-ratio: 2.6; min-width: 0; overflow: hidden; border: 1px solid var(--color-line); border-radius: 0; background: #fff; color: var(--color-ink); text-decoration: none; }
+.about-page .about-affiliates__card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.about-page .about-affiliates__logo { display: grid; flex: 0 0 52%; min-width: 0; min-height: 0; align-items: center; justify-items: center; padding: 12px; overflow: hidden; background: #fff; }
+.about-page .about-affiliates__logo img { display: block; width: auto; max-width: 100%; height: auto; max-height: 132px; object-fit: contain; transition: transform 260ms ease; }
 .about-page .about-affiliates__logo img[src$=".jpg"] { mix-blend-mode: multiply; }
-.about-page .about-affiliates__card:not(.about-affiliates__card--static):hover .about-affiliates__logo img, .about-page .about-affiliates__card:not(.about-affiliates__card--static):focus-visible .about-affiliates__logo img { transform: scale(1.04); }
-.about-page .about-affiliates__more { display: none; }
+.about-page .about-affiliates__card:hover .about-affiliates__logo img, .about-page .about-affiliates__card:focus-within .about-affiliates__logo img { transform: scale(1.08); }
+.about-page .about-affiliates__body { position: relative; display: flex; flex: 1 1 48%; min-width: 0; align-items: center; box-sizing: border-box; padding: 12px 32px 12px 14px; background: #fff; }
+.about-page .about-affiliates__name { display: block; min-width: 0; color: #141414; font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .25vw, 1.18rem); font-weight: 500; line-height: 1.55; overflow-wrap: anywhere; }
 
 @media (max-width: 840px) {
   .about-page .about-profile { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "media" "body"; row-gap: 40px; }
@@ -162,22 +176,29 @@
   .about-page .milestone-era-dot { left: 6px; }
   .about-page .milestone-panel-events { padding-left: 56px; }
   .about-page .about-certifications-toggle { grid-column: 1; justify-self: stretch; width: calc(100% - 56px); margin: 28px 0 0 56px; }
-  .about-page .about-affiliates__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; }
+  .about-page .about-affiliates__grid {
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+  .about-page .about-affiliates__grid::-webkit-scrollbar { display: none; }
+  .about-page .about-affiliates__grid > li { flex: 0 0 clamp(300px, 38vw, 380px); scroll-snap-align: start; }
+  .about-page .about-affiliates__card { flex: 1 1 auto; }
 }
 
 @media (max-width: 640px) {
   .about-page .about-affiliates__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px 16px;
+    gap: 16px;
   }
-  .about-page .about-affiliates__card {
-    min-height: 104px;
-    padding: 16px 8px;
-  }
-  .about-page .about-affiliates__logo img {
-    max-width: 100%;
-    max-height: 58px;
-  }
+  .about-page .about-affiliates__grid > li { flex-basis: clamp(280px, 82vw, 360px); }
+  .about-page .about-affiliates__logo { padding: 10px; }
+  .about-page .about-affiliates__logo img { max-width: 100%; max-height: 72px; }
+  .about-page .about-affiliates__body { padding: 10px 24px 10px 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -190,10 +211,15 @@
     transition: none; 
   }
 
+  .about-page .milestone-panel-events.about-certification-events-motion,
+  .about-page .milestone-panel-events.about-certification-events-motion > div.about-certification-event-motion {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .about-page .about-affiliates__card,
-  .about-page .about-affiliates__logo img,
-  .about-page .about-affiliates__more,
-  .about-page .about-affiliates__more .ph {
+  .about-page .about-affiliates__logo img {
     transition: none; 
   }
 }

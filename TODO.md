@@ -1,4 +1,185 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-18：微調行動版首頁 Hero 橘色底線
+  - 範圍：wwwroot/css/pages/home.css、TODO.md。
+  - 完成：將 760px 以下 Hero 底部橘色線由 3px 調整為 4px；12px 圓角與其他 Hero 內容維持不變。
+  - 已驗證：CSS 設定、git diff --check；瀏覽器手機畫面待重新檢查。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。- [x] 2026-08-18：調整行動版首頁 Hero 圓弧與橘色底線
+  - 範圍：wwwroot/css/pages/home.css、TODO.md。
+  - 完成：僅在 760px 以下將 Hero 底部圓角調整為 12px、橘色底線調整為 3px；桌機呈現、圖片、文案與輪播維持不變。
+  - 已驗證：手機 390x844 瀏覽器畫面、計算後圓角 12px／底線 3px、git diff --check。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。- [x] 2026-08-18：移除首頁 Hero 左下角加粗橘色弧線
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：移除左下四分之一圓弧描邊，恢復左右一致的底部橘色線與 30px–52px 圓角；Hero 圖片、文案、輪播與遮罩維持不變；還原 CSS 快取版本。
+  - 已驗證：本次 CSS selector、快取版本與 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：修正首頁 Hero 左下橘色弧線呈現方式
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：移除左下角橘色實心加厚矩形，改為沿 Hero 左下圓角的四分之一圓弧描邊加厚；底部橘線、左右圓角、圖片、文案與輪播維持原設定；同步更新 CSS 快取版本。
+  - 已驗證：本次 CSS selector、快取版本與 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：加粗首頁 Hero 左下圓弧轉角的橘色線條
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：保留原本底部橘線與左右圓角；僅在左下圓弧區域增加 16px–22px 的橘色加厚帶，與原本圓角同步，右側與 Hero 內容不變；同步更新 CSS 快取版本。
+  - 已驗證：本次 CSS selector、快取版本與 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復首頁 Hero 左右一致的底部圓角
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：撤回上一版左大右小的不對稱圓角，恢復左右皆為 30px–52px；橘色線粗細與遮罩圓角維持不變；還原 CSS 快取版本。
+  - 已驗證：本次 CSS selector、快取版本與 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整首頁 Hero 左右底部圓角為不對稱比例
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：保留現有 Hero 呈現與橘線粗細；左下圓角調整為 48px–72px，右下圓角維持較收斂的 30px–52px，讓左側標題區的橘色弧線多包覆一些；同步更新 CSS 快取版本。
+  - 已驗證：本次 CSS selector、快取版本與 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：收斂首頁 Hero 底部橘線與圓角比例
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：保留 Hero 內容與圖片不變；將底部橘線調整為 6px–8px，左右底部圓角調整為 30px–52px，降低卡片感；同步更新 CSS 快取版本。
+  - 已驗證：本次修改檔案的 git diff --check、遮罩圓角繼承與 CSS 快取版本。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：同步首頁 Hero 漸層遮罩與底部圓角
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：讓 Hero 的漸層遮罩繼承 Hero 本身的左右底部圓角，避免圓角邊緣出現不一致的遮罩區；橘色底線、圖片、文案與輪播維持不變；同步更新 CSS 快取版本。
+  - 已驗證：遮罩 selector、CSS 快取版本與本次修改檔案的 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：微調首頁 Hero 底部圓角與橘色主題線比例
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：保留現有 Hero 呈現；將左右底部圓角收斂為 34px–60px 響應式範圍，橘色底線加粗為 8px–12px，並同步更新首頁 CSS 快取版本。
+  - 已驗證：本次修改檔案的 git diff --check、CSS selector 與快取版本。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：保留現有首頁 Hero 呈現並加入底部圓角與橘色主題線
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：未改動 Hero 圖片、文案、導覽或輪播結構；僅在 Hero 左下與右下加入響應式 border-radius，並以現有 --color-primary 加入底部橘色 border 線；同步更新首頁 CSS 快取版本。
+  - 已驗證：CSS selector、色彩 token、CSS 快取版本與本次修改檔案的 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：修正首頁最新消息的 JavaScript 停用備援文字
+  - 範圍：wwwroot/index.html、wwwroot/js/pages/home.js、TODO.md。
+  - 完成：停用 JavaScript 時顯示「請啟用 JavaScript 查看最新消息。」；JavaScript 啟用後將同一備援節點切換為「最新消息載入中。」；同步更新首頁 home.js 快取版本。
+  - 已驗證：首頁 HTML、JavaScript 快取版本與 home.js 語法檢查；第三項首頁服務標題與導覽／CTA 用詞未調整。
+  - 未驗證：停用 JavaScript 的實際瀏覽器畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復首頁第一張 Hero 圖片內建文字並下移手機 HTML 文案
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：第一張手機 Hero 恢復 object-position 72% center，保留圖片內建 AP 文字；手機 HTML 文案組下移 64px，避免與圖片文字重疊；桌機與第二張圖片維持不變；同步更新 CSS 快取版本。
+  - 已驗證：瀏覽器 390x844 與 1366x900；手機第一張圖片為 72% 50%，文案未溢出，桌機兩張圖片維持 50% 50% 且文案未溢出。
+  - 未驗證：實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+
+- [x] 2026-08-18：調整首頁手機 Hero 圖片裁切，避免內建文字與 HTML 文案重疊
+  - 範圍：wwwroot/index.html、wwwroot/css/pages/home.css、TODO.md。
+  - 完成：僅調整第一張 Hero 圖片在手機版的 object-position，由 72% center 改為 40% center；桌機與第二張 Hero 圖片維持不變；同步更新首頁 CSS 快取版本。
+  - 已驗證：Hero 圖片 selector、CSS 快取版本與本次修改檔案的 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-18：調整首頁服務區塊標題文案
+  - 範圍：wwwroot/index.html、TODO.md。
+  - 完成：首頁服務區塊標題由「服務項目」改為「我們的服務」。
+  - 已驗證：首頁指定 heading 與本次修改檔案的 git diff --check。
+  - 未驗證：未涉及畫面或互動調整，未另做瀏覽器驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-18：再次下移 ALPHA 港口機具圖片裁切位置
+  - 範圍：wwwroot/affiliates.html、wwwroot/css/pages/affiliates.css、TODO.md。
+  - 完成：將 port-crane-operation.png 的 object-position 由 center 70% 調整為 center 80%，桌機與行動版同步呈現更下方的車體；同步更新 Affiliates CSS 快取版本。
+  - 已驗證：圖片 selector、CSS 快取版本與本次修改檔案的 git diff --check。
+  - 未驗證：尚未重新進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-18：調整 ALPHA 港口機具圖片裁切位置
+  - 範圍：wwwroot/affiliates.html、wwwroot/css/pages/affiliates.css、TODO.md。
+  - 完成：直接鎖定 port-crane-operation.png，桌機與行動版統一將 object-position 調整為 center 70%，讓畫面往下呈現更多車體；同步更新 Affiliates CSS 快取版本。
+  - 已驗證：圖片 selector、桌機／手機裁切位置與本次修改檔案的 git diff --check。
+  - 未驗證：尚未進行實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-18：調整 Affiliates 的 ALPHA TOTAL SOLUTION 圖片區塊
+  - 範圍：wwwroot/affiliates.html、wwwroot/css/pages/affiliates.css、TODO.md。
+  - 完成：移除第一張 ALPHA 圖片，保留第二、三張；桌機改為兩欄並維持接近原三欄的圖片高度，手機維持原本單張水平滑動與圖片高度；同步更新 Affiliates CSS 快取版本。
+  - 已驗證：markup 圖片數量、圖片來源、作用域 CSS 與本次修改檔案的 git diff --check。
+  - 未驗證：尚未進行瀏覽器桌機／手機實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+- [x] 2026-08-18：修正關係企業 hover 時 Logo 被內容面板遮住
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：hover／focus 時讓 Logo 依內容面板增加高度的一半同步上移並保留輕微放大，避免面板向上展開後遮住 Logo；同步更新 About CSS 快取版本。
+  - 已驗證：完成 Logo／內容面板同步位移、CSS 變數與本次修改檔案的 `git diff --check` 檢查。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、hover／focus 實際互動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整關係企業 Logo 白底與 hover 向上內容面板
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：Logo 區改為白色；內容面板改用 `var(--color-surface-soft)`；預設標題面板固定為低高度，hover／focus 時由卡片底部向上增加高度並顯示概述；卡片整體高度不因內容向下增加；同步更新 About CSS 快取版本。
+  - 已驗證：完成 Logo／內容背景、固定底部面板、hover／focus 高度規則與 reduced-motion 檢查；本次修改檔案 `git diff --check` 通過。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、hover／focus 實際互動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：重新加入 About 關係企業區塊背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：重新套用既有 `var(--color-surface-soft)` 淺色背景；卡片樣式、hover 上移概述、無邊線陰影與手機／平板水平滑動維持不變；同步更新 About CSS 快取版本。
+  - 已驗證：完成背景 selector、快取版本與本次修改檔案的 `git diff --check` 檢查。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：恢復 About 關係企業區塊原背景
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：撤回上一項關係企業區塊背景色，恢復透明背景；卡片樣式、hover 上移概述、無邊線陰影與手機／平板水平滑動維持不變；同步回復 About CSS 快取版本。
+  - 已驗證：完成背景 selector、快取版本與本次修改檔案的 `git diff --check` 檢查。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：為 About 關係企業區塊加入背景色
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：關係企業區塊改用既有 `var(--color-surface-soft)` 淺色背景，保留白色卡片、hover 動畫與手機／平板水平滑動；同步更新 About CSS 快取版本。
+  - 已驗證：完成背景 selector、token 與本次修改檔案的 `git diff --check` 檢查。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：調整 About 關係企業卡片 hover 為上移概述
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：概述改為固定卡片內的預留區，hover／focus 以 `translateY` 向上淡入，不再向下撐高卡片；卡片移除邊線與陰影並縮小 Logo 區、桌機卡片寬度及手機／平板滑動卡片寬度；同步更新 About CSS 快取版本。
+  - 已驗證：完成 hover／focus selector、固定高度結構、斷點與 reduced-motion 規則檢查；本次修改檔案 `git diff --check` 通過。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、hover／focus 實際互動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：將 About 關係企業改為 Logo／公司名／概述卡片
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：桌機改為三欄白底卡片；圖片區預設顯示企業 Logo、下方顯示公司名稱；滑入或鍵盤 focus 時以淡入／上移方式展開既有企業介紹與箭頭；手機／平板維持單列原生水平捲動；保留五家企業連結與原有 Phosphor icon；同步更新 About CSS 快取版本。
+  - 內容：五家企業概述沿用並濃縮現有 `affiliates.html` 介紹；亞安沿用既有「企業顧問服務」標示。
+  - 已驗證：完成 HTML／CSS 結構、ARIA 對應、斷點與 reduced-motion 規則檢查；本次修改檔案 `git diff --check` 通過。
+  - 未驗證：尚未進行瀏覽器桌機／手機／平板畫面、hover／focus 實際互動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：修正 About 關係企業 Logo 在手機／平板換行
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：手機與平板改用單列原生水平捲動，六家關係企業維持同一列；加入 `touch-action: pan-x`、scroll snap、隱藏捲軸與原生觸控慣性捲動；桌機六欄排列維持不變；同步更新 About CSS 快取版本。
+  - 已驗證：完成來源 selector／斷點檢查與本次修改檔案的 `git diff --check`。
+  - 未驗證：依需求未進行手機／平板／桌機瀏覽器、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：修正首頁 820px 平板服務項目卡片換行
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：`761–980px` 改用單列原生水平捲動，服務卡片維持兩張可視寬度、第三張留在同列；加入 `touch-action: pan-x`、scroll snap 與原生觸控慣性捲動；手機單欄與桌機三欄維持不變；同步更新首頁 CSS 快取版本。
+  - 已驗證：完成來源 selector／斷點檢查與本次修改檔案的 `git diff --check`。
+  - 未驗證：本機瀏覽器 820×1180、桌機／手機實際畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待建置與瀏覽器驗證；未自行 commit 或 push。
 
 - [ ] 待辦：補做平板介面尺寸的視覺驗證
   - 建議檢查：平板直向／橫向尺寸下的 Header、漢堡選單、Hero、內容區塊與 Footer 排版。
@@ -4273,3 +4454,123 @@
   - 已驗證：完成 `git diff --check`、相關 `node --check` 與 `dotnet build -c Release`。
   - 未驗證：本次調整後尚未重新擷取桌機／手機畫面；尚未驗證實體裝置、跨瀏覽器、實體手指操作、Google Maps 外部內容與人工無障礙驗收。
   - 狀態：已完成，待提交；未自行 commit 或 push。
+# [x] 2026-08-18：調整關係企業 hover Logo 置中位置
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：Logo 改依 hover 後白色區塊的可視高度向上位移，讓 Logo 置中於白色區塊內。
+  - 驗證：已完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：重整關係企業卡片為 Logo／公司名稱左右排列
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：移除卡片敘述與展開動畫，改為白底細框水平卡片；hover／focus 時僅於右上角顯示前往 icon。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+
+
+- [ ] ��b���D�GAbout �g��z���e�Y data-philosophy-image �����æ��h�l
+  - �d��Gwwwroot/about.html�Bwwwroot/js/pages/about.js�Bwwwroot/css/pages/about.css�C
+  - �����GJS �|���� [data-philosophy-image] �� data-active �ݩʡA�� CSS �����ϥ� button[data-philosophy-panel] ���I���� + flex-grow ������ܡA���w�� [data-philosophy-image] �g����˦��C�ݽT�{ HTML �O�_���O�d�Ӥ����A�Y�L�ݨD�i���� JS �����{���X�C
+  - �����ҡG�s�����}�o�u���ˬd DOM ���c�BMutationObserver �ʴ��ݩ��ܤơB�L JS ���Ŧ欰�C
+
+- [ ] ��b���D�G�ɶ��b�i�}���s .is-expanded class �L���� CSS
+  - �d��Gwwwroot/js/pages/about.js (l.115)�Bwwwroot/css/pages/about.css�C
+  - �����GupdateToggleButton() �|�b toggle ���s���� .is-expanded class�A�� CSS �L .about-certifications-toggle.is-expanded ��ܾ��C�ݨM�w�G���� JS �Ӧ�B�θɤW�����˦��C
+  - �����ҡGConsole ���� class �����欰�B��ı�T�{�O�_�ݭn�B�~�˦��C
+
+- [ ] 潛在問題：無 JS 時經營理念與時間軸內容可能全隱藏
+  - 範圍：wwwroot/css/pages/about.css、 wwwroot/about.html。
+  - 說明：經營理念說明文字依賴 [aria-expanded="true"] 顯示（CSS l.78），時間軸事件依賴 .is-visible 顯示（CSS l.120），兩者皆需 JS 加上。無 JS 環境下內容可能不可見，違反漸進增強原則。
+  - 待驗證：停用 JS 重新載入頁面檢查內容可讀性、考慮在 CSS 加入預設顯示規則（如 :not([data-js-enabled]) 或預設 .is-visible）。
+# [x] 2026-08-18：微調關係企業名稱與 hover 前往 icon
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：公司名稱縮小並套用 `#5c5c5c`；前往 icon 改參考首頁服務卡片，於 hover／focus 時顯示在卡片右下角並保留滑動效果。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：避免關係企業公司名稱換行
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：保留公司正式名稱，名稱欄位改為單行顯示；卡片寬度不足時以省略號呈現，避免任意縮短公司名稱。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：移除關係企業名稱省略號
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：移除省略號與文字截斷，改用較短的卡片顯示名稱並維持單行排列；原有連結與公司資料未變更。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：調整關係企業卡片背景與桌機尺寸
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：卡片內部背景改為 `#f7f7f7`；桌機版放寬卡片網格並放大 Logo、公司名稱與內距。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：調整關係企業 Logo hover 與區塊間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：放大 Logo、縮小卡片內距、文字恢復深色；移除右下角 icon，改為 hover／focus 放大 Logo；增加關係企業區塊上下留白與標題至卡片間距。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+# [x] 2026-08-18：恢復關係企業完整公司名稱
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`TODO.md`
+  - 調整：卡片顯示名稱恢復完整公司名稱，取消單行限制，讓長名稱可在卡片內自然換行。
+  - 驗證：待完成 CSS／JavaScript 靜態檢查與 `git diff --check`；未進行瀏覽器、實機或跨瀏覽器驗證。
+  - 狀態：待 commit，未 push。
+
+- [ ] ��b���D�Gadmin.js guard clause ���[�\�Ҧ���Τ���
+  - �d��Gwwwroot/js/pages/admin.js (l.10, l.15, l.22-24)�C
+  - �����GcaptchaImage�B#logoutButton�B#resetButton�B#refreshCaptcha ���b l.15 guard clause ���A���� ?. / if �O�@���|�����A���޿�W������C
+  - �ݳB�z�G�M�w�O�_�X�R guard clause�B�ΫO�d�{���å[���ѡC
+
+- [ ] ��b���D�Gadmin.js resetForm() ���ƲM�z�������
+  - �d��Gwwwroot/js/pages/admin.js (l.286-301)�C
+  - �����GnewsForm.reset() �w�۰ʲM�ũҦ� input/textarea/select (�t newsId�BnewsUrl�BnewsImageUrl�BremoveNewsImage�BremoveNewsAttachment)�A�����ʽ���ݭ��ơCcurrentImageName�BcurrentAttachmentName�BcreatedAtInfo�BupdatedAtInfo ���D���椸���ݫO�d��ʭ��]�C
+  - �ݳB�z�G�������Ʀ�A�O�d�D���椸�����]�޿�C
+
+- [ ] �T�{�ƶ��Gadmin.js normalizeNews ������W���ۮe�ʳ]�p
+  - �d��Gwwwroot/js/pages/admin.js (l.102-117)�C
+  - �����Gitem.id ?? item.Id ?? " ���P�ɤ䴩 camelCase �P PascalCase�A���ۮe C# �w�] JSON �ǦC�ƿ�X�P�e�ݺD�ΩR�W�A**�D���X�B�D���~**�A�ݨ�N�]�p�C
+  - �ݳB�z�G�ȧ@�O���A�Y API �Τ@��X�榡��i²�ơC
+
+
+# CSS �ܼƤ@�P�ʲΤ@�]2026-08-18 �ˬd�o�{�^
+
+- [ ] Phase 1�G�Τ@��r��B�I����B���j�u�]���v�T�B�C���I�^
+  - �d��Gwwwroot/css/base/tokens.css�B���� pages/*.css�Blayout/*.css�Bcomponents/*.css
+  - #141414 (38�B) �� var(--color-ink) �νվ� --color-ink �� #141414
+  - #5c5c5c (34�B) �� var(--color-muted) �νվ� --color-muted �� #5c5c5c
+  - #fff/#ffffff �� var(--color-surface)
+  - #f7f7f7 �� var(--color-surface-soft)
+  - #e3e6e1 �� var(--color-line)
+  - �����ҡG�U������ı�L�t���B�`��/�L��Ҧ��ۮe
+
+- [ ] Phase 2�G�ꨤ�B���v�B�r���зǤơ]�����v�T�^
+  - �d��Gwwwroot/css/base/tokens.css�B���� pages/*.css
+  - �s�W�ꨤ�G--radius-sm: 4px�B--radius-md: 6px (�{ --card-radius)�B--radius-lg: 8px�B--radius-full: 999px
+  - �s�W���v�G--shadow-sm�B--shadow-md�B--shadow-lg�B--shadow-card
+  - �����w�s�X�G4px/6px/8px/999px�B�U�� box-shadow ��
+  - �r���G�ɥR --font-weight-normal: 400�B--font-weight-medium: 500�B--font-weight-semibold: 600
+  - ���� affiliates.css --affiliates-radius�Badmin.css �W���ꨤ��
+
+- [ ] Phase 3�G�����W���ܼƾE���� tokens.css�]�[�c��z�^
+  - �d��Gwwwroot/css/base/tokens.css�Blayout/site-header.css�Blayout/site-footer.css�Bcomponents/page-hero.css�Bpages/admin.css
+  - site-footer.css: --footer-background �� �� tokens.css �[ --footer-* �e��
+  - site-header.css: --site-header-ink �� �����A��� --color-ink
+  - page-hero.css: #173646 �w�s�X �� �T�{�� --color-secondary
+  - admin.css: --admin-* �ܼƩR�W�Τ@�A��ȹ�� tokens
+  - components/touch-buttons.css�Bbuttons.css: �w�s�X�C�� �� tokens �ܼ�
+
+- [x] 2026-08-18：完整顯示 Occupational Safety 專業證照區第一張卡片圖片
+  - 範圍：`wwwroot/occupational-safety.html`、`wwwroot/css/pages/occupational-safety.css`、`TODO.md`。
+  - 完成：僅針對 ISO 45001 第一張證照卡片將圖片由 `object-fit: cover` 改為 `contain`，並置中顯示，讓整張圖片保留在卡片圖片區內；其他證照卡片維持原本裁切方式；同步更新 CSS 快取版本。
+  - 已驗證：完成指定 selector、快取版本與本次修改檔案的 `git diff --check`。
+  - 未驗證：依需求未進行實機驗證；亦未進行瀏覽器桌機／手機畫面、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：新增 About 認證與獎項內容由右側進場動畫
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`、`TODO.md`。
+  - 完成：僅讓 `.milestone-panel-events` 在進入視窗時由右側淡入滑入；保留認證事件逐項展開／收合動畫，並支援 `prefers-reduced-motion`；未啟用整頁 About 區塊動畫。
+  - 已驗證：完成 About JavaScript 語法檢查、動畫 selector／觸發條件與本次修改檔案的 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-18：改為 About 認證事件逐筆由右側進場
+  - 範圍：`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`、`TODO.md`。
+  - 完成：認證區預設顯示的近期事件逐筆由右側淡入滑入，每筆延遲 100ms；較早事件展開時維持原本逐筆展開效果；保留 `prefers-reduced-motion` 支援。
+  - 已驗證：完成 About JavaScript 語法檢查、事件延遲與 selector 檢查，以及本次修改檔案的 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機畫面、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
