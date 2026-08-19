@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：修正 About 乾淨網址 404
+  - 範圍：`wwwroot/about.html`、`TODO.md`。
+  - 完成：移除 About 頁重複的 Footer，改回 `<!-- shared-site-footer -->` 標記，讓 `/about` 使用與其他公開頁面一致的共用 Footer 注入流程。
+  - 已驗證：確認 About 頁包含共用 Footer 標記、`git diff --check`。
+  - 未驗證：尚未完成重新發布後 IIS `/about` 實際請求、瀏覽器渲染與手機裝置驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：修正舊新聞網址轉址遺失 ID
   - 範圍：`Program.cs`、`TODO.md`。
   - 完成：舊的 `/news-detail.html?id=...` 轉址至 `/news-detail` 時保留 Query String，避免詳細頁遺失新聞 ID 而顯示找不到消息。
