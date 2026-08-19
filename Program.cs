@@ -183,7 +183,7 @@ app.Use(async (context, next) =>
 
     if (HttpMethods.IsGet(context.Request.Method) && legacyPageRedirects.TryGetValue(requestPath, out var canonicalPath))
     {
-        context.Response.Redirect(canonicalPath, permanent: true);
+        context.Response.Redirect($"{canonicalPath}{context.Request.QueryString}", permanent: true);
         return;
     }
 

@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：修正舊新聞網址轉址遺失 ID
+  - 範圍：`Program.cs`、`TODO.md`。
+  - 完成：舊的 `/news-detail.html?id=...` 轉址至 `/news-detail` 時保留 Query String，避免詳細頁遺失新聞 ID 而顯示找不到消息。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj --configuration Release`、`git diff --check`。
+  - 未驗證：尚未完成 IIS 實際 301 轉址、瀏覽器與手機裝置驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：公開頁面改用乾淨網址
   - 範圍：`Program.cs`、`wwwroot/*.html`、`wwwroot/js/pages/home.js`、`wwwroot/js/pages/news.js`、`README.md`、`TODO.md`。
   - 完成：由專案直接提供 `/about`、`/services`、`/news`、`/join` 等乾淨網址；舊 `.html` 網址改以永久轉址導向新網址；同步更新站內導覽、Footer、麵包屑、服務錨點與新聞詳細頁連結。
