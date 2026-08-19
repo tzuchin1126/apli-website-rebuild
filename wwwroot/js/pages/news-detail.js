@@ -5,7 +5,7 @@
 /**
  * 初始化消息詳細頁
  * - 從 URL 取得 id 參數
- * - 載入 news.json 尋找對應消息
+ * - 從公開 API 載入指定的已發布消息
  * - 渲染標題、日期、分類、內容、圖片、附件
  * - 找不到時顯示錯誤訊息
  */
@@ -31,15 +31,13 @@ function initNewsDetail() {
   }
 
   // ---- 載入並渲染 ----
-  fetch("data/news.json", { cache: "no-store" })
-    .then((response) => response.json())
-    .then((news) => news
-      .map(normalizeNewsItem)
-      .find((item) => item.id === id)
-    )
+  fetch(`/api/public/news/${encodeURIComponent(id)}`, { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error("News item not found");
+      return response.json();
+    })
     .then((item) => {
-      if (!item) throw new Error("News item not found");
-      renderNewsDetail(item);
+      renderNewsDetail(normalizeNewsItem(item));
     })
     .catch(() => {
       showError();

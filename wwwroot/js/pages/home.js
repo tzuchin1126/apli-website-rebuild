@@ -265,7 +265,7 @@ function setupLatestNews() {
   }
 
   // ---- 載入並渲染 ----
-  fetch("data/news.json", { cache: "no-store" })
+  fetch("/api/public/news", { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error("Unable to load news");
       return response.json();
@@ -281,7 +281,6 @@ function setupLatestNews() {
         createdAt: item.createdAt ?? item.CreatedAt ?? "",
         published: item.published ?? item.Published,
       }))
-      .filter((item) => item.published !== false)
       .sort(compareLatestNews)
     )
     .then((items) => {

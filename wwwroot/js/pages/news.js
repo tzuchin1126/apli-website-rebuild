@@ -4,7 +4,7 @@
 
 /**
  * 初始化最新消息列表頁
- * - 載入 news.json 與 news-categories.json
+ * - 從公開 API 載入已發布消息與分類
  * - 渲染分類篩選按鈕
  * - 渲染消息列表（預設顯示 8 筆，支援「載入更多」）
  * - 分類篩選切換、空狀態處理
@@ -43,8 +43,14 @@ function initNewsList() {
   // 1. 載入資料並初始化
   // ==========================================
   Promise.all([
-    fetch("data/news.json", { cache: "no-store" }).then((r) => r.json()),
-    fetch("data/news-categories.json", { cache: "no-store" }).then((r) => r.json()).catch(() => [])
+    fetch("/api/public/news", { cache: "no-store" }).then((r) => {
+      if (!r.ok) throw new Error("Unable to load news");
+      return r.json();
+    }),
+    fetch("/api/public/news/categories", { cache: "no-store" }).then((r) => {
+      if (!r.ok) throw new Error("Unable to load categories");
+      return r.json();
+    }).catch(() => [])
   ])
     .then(([news, categoryData]) => {
       // 正規化消息資料（相容 camelCase/PascalCase）
@@ -98,8 +104,7 @@ function initNewsList() {
   // 4. 渲染消息列表
   // ==========================================
   function renderItems(source) {
-    // 過濾已發布的消息
-    const news = source.filter((item) => item.published !== false);
+    const news = source;
 
     // 移除現有項目（保留 empty 元素）
     list.querySelectorAll("[data-news-item]").forEach((el) => el.remove());

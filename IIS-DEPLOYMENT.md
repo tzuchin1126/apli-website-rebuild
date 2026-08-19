@@ -18,6 +18,8 @@
 
 IIS 執行的是 `C:\Sites\APLI`，不會自動讀取原始碼目錄。修改原始碼後，必須重新發布並同步到 IIS 網站根目錄。
 
+公開首頁、最新消息與詳細頁使用 `/api/public/news`、`/api/public/news/categories` 及 `/api/public/news/{id}`。這些端點只回傳 `Published = true` 且公告日期不晚於台北今日的資料；管理端的 `/api/news` 仍需要登入，不能以公開端點取代管理端權限。網站也會封鎖直接請求 `/data/news.json` 與 `/data/news-categories.json`。原始 JSON 目前仍是應用程式可變資料，搬移至 `C:\Sites\APLI-Data` 等發布目錄外位置列為後續安全工作。
+
 ## 二、目前的 IIS 設定
 
 ### Application Pool

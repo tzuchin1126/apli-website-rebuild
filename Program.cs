@@ -95,6 +95,7 @@ var uploadsRoot = Path.Combine(root, "App_Data", "news");
 var defaultCategories = new[] { "營運公告", "費率公告", "職缺公告" };
 const string captchaSessionKey = "admin-login-captcha";
 const long maxUploadRequestBytes = 16 * 1024 * 1024;
+const string contentSecurityPolicy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src https://www.google.com;";
 var newsWriteLock = new SemaphoreSlim(1, 1);
 var categoriesWriteLock = new SemaphoreSlim(1, 1);
 
@@ -112,6 +113,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Content-Security-Policy"] = contentSecurityPolicy;
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    await next();
+});
 
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
@@ -220,6 +230,19 @@ app.Use(async (context, next) =>
 });
 
 app.UseDefaultFiles();
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value;
+    if (string.Equals(path, "/data/news.json", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(path, "/data/news-categories.json", StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.StatusCode = StatusCodes.Status404NotFound;
+        return;
+    }
+
+    await next();
+});
+
 var staticFileContentTypes = new FileExtensionContentTypeProvider();
 staticFileContentTypes.Mappings[".avif"] = "image/avif";
 app.UseStaticFiles(new StaticFileOptions
@@ -289,6 +312,32 @@ app.MapGet("/api/admin/session", (HttpContext context) =>
 
 app.MapGet("/api/news", async () => Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
     .RequireAuthorization();
+
+app.MapGet("/api/public/news", async () =>
+{
+    var news = await NewsService.ReadAsync(newsFile);
+    return Results.Ok(SortNewsByLatest(news.Where(IsPublicNewsItem)).Select(ToPublicNewsListItem));
+});
+
+app.MapGet("/api/public/news/{id}", async (string id) =>
+{
+    var news = await NewsService.ReadAsync(newsFile);
+    var item = news.FirstOrDefault(entry => entry.Id == id && IsPublicNewsItem(entry));
+    return item is null
+        ? Results.NotFound()
+        : Results.Ok(ToPublicNewsDetailItem(item));
+});
+
+app.MapGet("/api/public/news/categories", async () =>
+{
+    var news = await NewsService.ReadAsync(newsFile);
+    var categories = SortNewsByLatest(news.Where(IsPublicNewsItem))
+        .Select(item => item.Tag.Trim())
+        .Where(tag => !string.IsNullOrWhiteSpace(tag))
+        .Distinct(StringComparer.Ordinal)
+        .ToList();
+    return Results.Ok(categories);
+});
 
 app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforgery) =>
 {
@@ -427,7 +476,7 @@ app.MapGet("/api/uploads/news/{fileName}", async (HttpContext context, string fi
     if (!isAuthenticated)
     {
         var news = await NewsService.ReadAsync(newsFile);
-        var isPublishedReference = news.Any(item => item.Published &&
+        var isPublishedReference = news.Any(item => IsPublicNewsItem(item) &&
             (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
              string.Equals(item.Url, publicPath, StringComparison.Ordinal)));
         if (!isPublishedReference)
@@ -729,6 +778,29 @@ DateTimeOffset ParseNewsCreatedAt(string value) =>
         ? createdAt
         : DateTimeOffset.MinValue;
 
+bool IsPublicNewsItem(NewsItem item) =>
+    item.Published &&
+    DateOnly.TryParseExact(item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date) &&
+    date <= DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).DateTime);
+
+PublicNewsListItem ToPublicNewsListItem(NewsItem item) => new(
+    item.Id,
+    item.Date,
+    item.Tag,
+    item.Title,
+    item.ImageUrl,
+    item.CreatedAt);
+
+PublicNewsDetailItem ToPublicNewsDetailItem(NewsItem item) => new(
+    item.Id,
+    item.Date,
+    item.Tag,
+    item.Title,
+    item.Content,
+    item.Url,
+    item.AttachmentName,
+    item.ImageUrl);
+
 string GetUploadContentType(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
 {
     ".jpg" or ".jpeg" => "image/jpeg",
@@ -745,6 +817,8 @@ string GetUploadContentType(string fileName) => Path.GetExtension(fileName).ToLo
 record LoginRequest(string? Username, string? Password, string? Captcha);
 record CategoryRequest(string? Name);
 record NewsSaveRequest(NewsItem Item, IFormFile? ImageFile, IFormFile? AttachmentFile, bool RemoveImage, bool RemoveAttachment);
+record PublicNewsListItem(string Id, string Date, string Tag, string Title, string ImageUrl, string CreatedAt);
+record PublicNewsDetailItem(string Id, string Date, string Tag, string Title, string Content, string Url, string AttachmentName, string ImageUrl);
 record SavedUpload(string Url, string OriginalName);
 enum UploadKind { Image, Attachment }
 sealed class UploadValidationException(string message) : Exception(message);

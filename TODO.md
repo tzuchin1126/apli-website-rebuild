@@ -1,4 +1,25 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：公開新聞改用伺服器端發布狀態 API
+  - 範圍：`Program.cs`、`wwwroot/js/pages/home.js`、`wwwroot/js/pages/news.js`、`wwwroot/js/pages/news-detail.js`、`README.md`、`IIS-DEPLOYMENT.md`、`SECURITY-BASELINE.md`、`TODO.md`。
+  - 完成：新增 `/api/public/news`、`/api/public/news/categories` 與 `/api/public/news/{id}`；伺服器端只回傳 `Published = true` 且公告日期不晚於台北今日的資料；首頁、最新消息與詳細頁不再直接讀取 `wwwroot/data/news.json`；靜態檔案 middleware 前封鎖兩個可變 JSON 路徑。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/home.js`、`news.js`、`news-detail.js`、`git diff --check`；原始碼檢查確認 API 與附件下載共用發布狀態／日期規則。
+  - 未驗證：本機 ASP.NET listener 因 `nice(5) failed` 無法啟動，尚未取得 API 實際回應、JSON 404 封鎖與安全標頭 HTTP 驗證；亦尚未完成草稿／未來公告存取測試、IIS、瀏覽器、附件與正式網域驗收；`news.json` 與附件尚未移出發布目錄。
+  - 狀態：程式與文件修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-19：建立網站安全基線文件
+  - 範圍：`SECURITY-BASELINE.md`、`TODO.md`。
+  - 完成：整理目前已實作的管理員驗證、Cookie、CSRF、速率限制、附件檢查、安全標頭，以及尚未完成的資料暴露、部署資料分離、個別管理員、惡意檔案掃描、備份與正式環境驗證項目。
+  - 已驗證：唯讀檢視目前 `Program.cs`、Admin 頁面、管理員 JavaScript、設定檔與部署文件。
+  - 未驗證：本次未執行新的建置、瀏覽器、IIS、滲透測試或正式環境安全驗收。
+  - 狀態：文件完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-19：加入全站安全標頭
+  - 範圍：`Program.cs`、`TODO.md`。
+  - 完成：所有回應加入 CSP、`X-Frame-Options: DENY`、`X-Content-Type-Options: nosniff` 與 `Referrer-Policy: strict-origin-when-cross-origin`；CSP 保留 Google Fonts、Contact 頁 Google Maps、同源腳本／樣式／API，以及新聞 `data:` 圖片所需來源。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；確認 CSP 來源涵蓋目前 Google Fonts、Google Maps iframe、同源資源與新聞 `data:` 圖片需求。
+  - 未驗證：本執行環境無法啟動本機 ASP.NET listener，尚未取得實際 HTTP 回應標頭；亦尚未在實際 IIS HTTPS 網域、瀏覽器、Contact Google Maps、Admin 登入與附件下載流程驗收。
+  - 狀態：程式修正完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-19：修正 Services 行動版「我們的優勢」標題粗細
   - 範圍：`wwwroot/css/pages/services.css`、`TODO.md`。
   - 完成：將行動版 `services-advantages__heading h2` 從 `font-weight: 300` 修正為 `600`，三個服務區塊一致套用。
