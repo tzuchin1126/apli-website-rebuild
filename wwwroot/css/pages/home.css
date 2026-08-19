@@ -410,10 +410,10 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest { max-width: calc(var(--site-max-width) + 60px); padding-block: clamp(64px, 8vw, 112px); }
 .home-page .home-latest__heading { align-items: end; padding-bottom: 24px; border-bottom: 1px solid var(--color-line); }
 .home-page .home-latest__heading .eyebrow { margin-bottom: 8px; color: var(--color-muted); letter-spacing: .08em; line-height: 1.5; }
-.home-page .home-latest h2 { padding-bottom: 16px; color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
+.home-page .home-latest h2 { padding-bottom: 16px; color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
 .home-page .home-latest__all { margin-top: 0; background: var(--color-secondary); text-decoration: none; }
 .home-page .home-latest__viewport { width: calc(100% + (100vw - 100%) / 2); overflow-x: auto; padding-top: 6px; padding-bottom: 16px; overscroll-behavior-inline: contain; scrollbar-width: none; scroll-snap-type: x mandatory; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
-.home-page .home-latest__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.home-page .home-latest__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; -webkit-user-select: none; user-select: none; }
 .home-page .home-latest__viewport:not(.is-dragging) { cursor: grab; }
 .home-page .home-latest__viewport::-webkit-scrollbar { display: none; }
 .home-page .home-latest__list { gap: 26px; margin-top: 24px; }

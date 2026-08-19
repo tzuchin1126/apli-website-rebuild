@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：補上 Safari 的 user-select 相容性前綴
+  - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/css/pages/occupational-safety.css`、`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 完成：在拖曳／不可選取區塊補上 `-webkit-user-select: none`，並保留標準 `user-select` 宣告。
+  - 已驗證：`git diff --check`、確認 3 處宣告皆包含 Safari 前綴。
+  - 未驗證：尚未完成 Safari／iOS Safari 實機或瀏覽器渲染驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：修正首頁介紹標題字重
   - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
   - 完成：將首頁介紹區塊 `.home-intro h2` 從 300 修正為 `var(--font-weight-semibold)`（600），避免後置規則覆蓋原本粗體設定，並更新 CSS 快取版本。

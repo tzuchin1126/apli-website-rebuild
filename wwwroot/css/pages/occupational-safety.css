@@ -208,6 +208,7 @@
 .safety-page .safety-credentials__viewport.is-dragging {
   cursor: grabbing;
   scroll-snap-type: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
