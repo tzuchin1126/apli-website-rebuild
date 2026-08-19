@@ -292,7 +292,7 @@ function setupLatestNews() {
       items.forEach((item) => {
         const link = document.createElement("a");
         link.className = "home-latest__item";
-        link.href = `news-detail.html?id=${encodeURIComponent(item.id)}`;
+        link.href = `/news-detail?id=${encodeURIComponent(item.id)}`;
 
         // 圖片區
         const media = document.createElement("span");

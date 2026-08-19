@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：公開頁面改用乾淨網址
+  - 範圍：`Program.cs`、`wwwroot/*.html`、`wwwroot/js/pages/home.js`、`wwwroot/js/pages/news.js`、`README.md`、`TODO.md`。
+  - 完成：由專案直接提供 `/about`、`/services`、`/news`、`/join` 等乾淨網址；舊 `.html` 網址改以永久轉址導向新網址；同步更新站內導覽、Footer、麵包屑、服務錨點與新聞詳細頁連結。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj --configuration Release`、確認 HTML／JavaScript 無站內 `.html` 連結。
+  - 未驗證：尚未完成 IIS 發布後的實際 301／乾淨網址請求、桌機／手機瀏覽器渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：統一首頁標題字重
   - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`。
   - 完成：將首頁服務／最新消息等共用標題的 700 統一為 `var(--font-weight-semibold)`（600）。

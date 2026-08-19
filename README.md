@@ -72,7 +72,7 @@ wwwroot/data/                  最新消息 JSON 資料
 wwwroot/public/images/         圖片與品牌素材
 ```
 
-公開網站頁面統一由 `wwwroot/*.html` 提供；ASP.NET Core 僅保留 `/Admin`、`/api/*` 與靜態頁面的 Footer／錯誤處理。舊的無副檔名公開路徑會由 `Program.cs` 導向對應 `.html` 頁面，以維持既有連結相容性。
+公開網站頁面仍由 `wwwroot/*.html` 提供，但對外統一使用 `Program.cs` 管理的乾淨網址，例如 `/about`、`/services` 與 `/join`；舊的 `.html` 網址會以永久轉址導向對應的乾淨網址，以維持既有連結相容性。
 
 Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。既有靜態 HTML 只保留 `<!-- shared-site-footer -->` 標記，由 `Program.cs` 在伺服器回傳頁面時注入同一份 Partial。修改 Footer 結構或連結時不得重新在各頁複製 HTML。
 

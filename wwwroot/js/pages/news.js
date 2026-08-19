@@ -112,7 +112,7 @@ function initNewsList() {
       article.dataset.category = item.tag || "";
 
       article.innerHTML = `
-        <a class="news-row" href="news-detail.html?id=${encodeURIComponent(item.id)}">
+        <a class="news-row" href="/news-detail?id=${encodeURIComponent(item.id)}">
           <span class="news-row__date"></span>
           <span class="news-row__tag"></span>
           <span class="news-row__title"></span>

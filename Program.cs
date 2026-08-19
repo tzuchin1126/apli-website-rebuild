@@ -116,22 +116,38 @@ if (!app.Environment.IsDevelopment())
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 
-var sharedFooterPages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+var publicPagePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
-    "/404.html",
-    "/500.html",
-    "/index.html",
-    "/about.html",
-    "/affiliates.html",
-    "/contact.html",
-    "/join.html",
-    "/milestones.html",
-    "/news-detail.html",
-    "/news.html",
-    "/occupational-safety.html",
-    "/operational-resources.html",
-    "/privacy.html",
-    "/services.html"
+    ["/"] = "index.html",
+    ["/about"] = "about.html",
+    ["/affiliates"] = "affiliates.html",
+    ["/contact"] = "contact.html",
+    ["/join"] = "join.html",
+    ["/milestones"] = "milestones.html",
+    ["/news"] = "news.html",
+    ["/news-detail"] = "news-detail.html",
+    ["/occupational-safety"] = "occupational-safety.html",
+    ["/operational-resources"] = "operational-resources.html",
+    ["/privacy"] = "privacy.html",
+    ["/services"] = "services.html",
+    ["/404.html"] = "404.html",
+    ["/500.html"] = "500.html"
+};
+
+var legacyPageRedirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+{
+    ["/index.html"] = "/",
+    ["/about.html"] = "/about",
+    ["/affiliates.html"] = "/affiliates",
+    ["/contact.html"] = "/contact",
+    ["/join.html"] = "/join",
+    ["/milestones.html"] = "/milestones",
+    ["/news.html"] = "/news",
+    ["/news-detail.html"] = "/news-detail",
+    ["/occupational-safety.html"] = "/occupational-safety",
+    ["/operational-resources.html"] = "/operational-resources",
+    ["/privacy.html"] = "/privacy",
+    ["/services.html"] = "/services"
 };
 
 const string sharedFooterMarker = "<!-- shared-site-footer -->";
@@ -164,15 +180,20 @@ app.UseStatusCodePages(async statusCodeContext =>
 app.Use(async (context, next) =>
 {
     var requestPath = context.Request.Path.Value ?? string.Empty;
-    var pagePath = requestPath == "/" ? "/index.html" : requestPath;
 
-    if (!HttpMethods.IsGet(context.Request.Method) || !sharedFooterPages.Contains(pagePath))
+    if (HttpMethods.IsGet(context.Request.Method) && legacyPageRedirects.TryGetValue(requestPath, out var canonicalPath))
+    {
+        context.Response.Redirect(canonicalPath, permanent: true);
+        return;
+    }
+
+    if (!HttpMethods.IsGet(context.Request.Method) || !publicPagePaths.TryGetValue(requestPath, out var pageFile))
     {
         await next();
         return;
     }
 
-    var staticPage = app.Environment.WebRootFileProvider.GetFileInfo(pagePath.TrimStart('/'));
+    var staticPage = app.Environment.WebRootFileProvider.GetFileInfo(pageFile);
 
     if (!staticPage.Exists)
     {
@@ -214,26 +235,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
-var staticPageRedirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-{
-    ["/index"] = "/index.html",
-    ["/about"] = "/about.html",
-    ["/milestones"] = "/milestones.html",
-    ["/operational-resources"] = "/operational-resources.html",
-    ["/occupational-safety"] = "/occupational-safety.html",
-    ["/services"] = "/services.html",
-    ["/news"] = "/news.html",
-    ["/join"] = "/join.html",
-    ["/affiliates"] = "/affiliates.html",
-    ["/contact"] = "/contact.html",
-    ["/privacy"] = "/privacy.html"
-};
-
-foreach (var redirect in staticPageRedirects)
-    app.MapGet(redirect.Key, () => Results.Redirect(redirect.Value, permanent: true));
-
 app.MapGet("/news/{id}", (string id) =>
-    Results.Redirect($"/news-detail.html?id={Uri.EscapeDataString(id)}", permanent: true));
+    Results.Redirect($"/news-detail?id={Uri.EscapeDataString(id)}", permanent: true));
 
 app.MapRazorPages();
 
