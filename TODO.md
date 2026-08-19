@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：統一首頁標題字重
+  - 範圍：`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將首頁服務／最新消息等共用標題的 700 統一為 `var(--font-weight-semibold)`（600）。
+  - 已驗證：`git diff --check`、確認 `home.css` 已無標題用的 `font-weight: 700`。
+  - 未驗證：尚未完成桌機／手機瀏覽器渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：補上 Safari 的 user-select 相容性前綴
   - 範圍：`wwwroot/css/pages/home.css`、`wwwroot/css/pages/occupational-safety.css`、`wwwroot/css/pages/services.css`、`TODO.md`。
   - 完成：在拖曳／不可選取區塊補上 `-webkit-user-select: none`，並保留標準 `user-select` 宣告。
