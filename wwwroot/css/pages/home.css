@@ -319,7 +319,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-section-heading { max-width: 760px; margin-bottom: 0; }
 .home-page .home-services .eyebrow { margin: 0 0 8px; color: var(--color-muted); font-size: 1rem; font-weight: var(--font-weight-normal); letter-spacing: .08em; line-height: 1.5; }
 .home-page .home-section-heading h2 { padding-bottom: 20px; }
-.home-page .home-services .home-section-heading h2 { padding-bottom: 16px; color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
+.home-page .home-services .home-section-heading h2 { padding-bottom: 16px; color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
 .home-page .home-section-heading h2::after { right: 50%; left: auto; transform: translateX(50%); }
 .home-page .home-section-heading > p:last-child {
   max-width: 620px;
