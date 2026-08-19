@@ -1,4 +1,10 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：加入網站 favicon
+  - 範圍：`wwwroot/*.html`、`wwwroot/public/images/apliLogo.ico`、`TODO.md`。
+  - 完成：所有公開頁面的 `<head>` 已指定 `apliLogo.ico`，瀏覽器分頁會使用公司圖示。
+  - 已驗證：確認 14 個公開 HTML 頁面都有 favicon link、`git diff --check`。
+  - 未驗證：尚未在瀏覽器實際確認圖示更新；favicon 可能需要清除快取或強制重新整理。
+  - 狀態：程式修正完成，待提交；未自行 push。
 - [x] 2026-08-19：修正 About 乾淨網址 404
   - 範圍：`wwwroot/about.html`、`TODO.md`。
   - 完成：移除 About 頁重複的 Footer，改回 `<!-- shared-site-footer -->` 標記，讓 `/about` 使用與其他公開頁面一致的共用 Footer 注入流程。
