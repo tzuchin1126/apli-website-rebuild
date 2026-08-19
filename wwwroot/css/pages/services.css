@@ -45,15 +45,8 @@
 }
 
 @keyframes service-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .services-page .service-switcher {
@@ -70,9 +63,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.services-page .service-switcher__inner::-webkit-scrollbar {
-  display: none;
-}
+.services-page .service-switcher__inner::-webkit-scrollbar { display: none; }
 
 .services-page .service-switcher__list {
   display: flex;
@@ -103,15 +94,8 @@
 }
 
 .services-page .service-switcher__tab:hover,
-.services-page .service-switcher__tab:focus-visible {
-  background: var(--color-surface-soft);
-  color: var(--color-ink);
-}
-
-.services-page .service-switcher__tab[aria-selected="true"] {
-  color: var(--color-ink);
-}
-
+.services-page .service-switcher__tab:focus-visible { background: var(--color-surface-soft); color: var(--color-ink); }
+.services-page .service-switcher__tab[aria-selected="true"] { color: var(--color-ink); }
 .services-page .service-switcher__tab[aria-selected="true"]::after {
   position: absolute;
   right: 0;
@@ -132,9 +116,10 @@
   max-width: 1280px;
   grid-template-areas:
     "heading heading"
-    "details media";
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
+    "description description"
+    "media details";
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  grid-template-rows: auto auto auto;
   column-gap: var(--services-feature-gap);
   row-gap: var(--services-content-gap);
   align-items: start;
@@ -145,23 +130,37 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   grid-template-areas:
     "heading heading"
+    "description description"
     "media details";
 }
 
 @media (min-width: 1100px) {
+  .services-page .service-section__heading {
+    display: block;
+  }
+
   .services-page #warehousing .service-section__inner,
   .services-page #terminal-handling .service-section__inner,
   .services-page #maintenance .service-section__inner {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
     grid-template-areas:
       "heading heading"
-      "details media";
+      "description description"
+      "media details";
+  }
+
+  .services-page #terminal-handling .service-section__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+    grid-template-areas:
+      "heading heading"
+      "description description"
+      "media details";
   }
 
   .services-page #warehousing .service-section__details,
   .services-page #terminal-handling .service-section__details,
   .services-page #maintenance .service-section__details {
-    align-self: end;
+    align-self: start;
   }
 
   .services-page #warehousing .service-section__details::before,
@@ -169,8 +168,8 @@
   .services-page #maintenance .service-section__details::before {
     position: absolute;
     z-index: -1;
-    inset: 0 calc(-1 * var(--services-feature-gap)) 0 0;
-    background: var(--color-surface-soft);
+    inset: 0;
+    background: transparent;
     content: "";
   }
 
@@ -185,16 +184,40 @@
 
 .services-page .service-section__heading {
   grid-area: heading;
-  width: 100%;
+  width: min(100%, 760px);
+  max-width: 760px;
   align-self: start;
+}
+
+.services-page .service-section__description {
+  grid-area: description;
+  width: 100%;
+  max-width: none;
+  padding-bottom: clamp(20px, 2.5vw, 32px);
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-ink);
+}
+
+.services-page .service-section__description p {
+  max-width: none;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: var(--font-size-body-copy);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.75;
+  text-align: left;
+}
+
+.services-page .service-section__description p + p {
+  margin-top: 12px;
 }
 
 .services-page .service-section__heading-top {
   display: grid;
-  justify-items: center;
+  justify-items: start;
   width: 100%;
   gap: 8px;
-  text-align: center;
+  text-align: left;
 }
 
 .services-page .service-section__heading .eyebrow {
@@ -205,65 +228,53 @@
   font-weight: var(--font-weight-normal);
   letter-spacing: 0.08em;
   line-height: 1.5;
-  text-align: center;
+  text-align: left;
 }
 
 .services-page .service-section__heading h2 {
   position: relative;
   width: fit-content;
-  margin: 0 auto;
-  padding: 0 0 16px;
+  margin: 0;
+  padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--services-title-size);
-  font-weight: 300;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  /* font-weight: 300; */
+  font-weight:600;
   letter-spacing: normal;
-  line-height: var(--services-title-line-height);
-  text-align: center;
+  line-height: 1.3;
+  text-align: left;
 }
 
 .services-page .service-section__heading h2::after {
   position: absolute;
-  right: 50%;
+  right: auto;
+  left: 0;
   bottom: 0;
   width: clamp(48px, 5vw, 72px);
   height: 2px;
   background: var(--color-primary);
   content: "";
-  transform: translateX(50%);
+  transform: none;
 }
 
-.services-page .service-section__heading > p:not(.eyebrow):not(.service-section__claim) {
+.services-page .service-section__heading > p:not(.eyebrow) {
   max-width: none;
   margin: 16px 0 0;
-  color: var(--color-muted);
+  color: var(--color-ink);
   font-size: var(--font-size-body-copy);
   font-weight: var(--font-weight-normal);
   line-height: 1.75;
   text-align: left;
 }
 
-.services-page .service-section__heading > p:not(.eyebrow):not(.service-section__claim) + p {
+.services-page .service-section__heading > p:not(.eyebrow) + p {
   margin-top: 12px;
-}
-
-.services-page .service-section__claim {
-  max-width: 900px;
-  margin: clamp(16px, 2vw, 24px) auto 0;
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  font-size: clamp(1.1rem, 1.45vw, 1.4rem);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.02em;
-  line-height: 1.6;
-  text-align: center;
 }
 
 @media (min-width: 1100px) {
   .services-page .service-section__heading {
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    column-gap: var(--services-feature-gap);
+    display: block;
   }
 
   .services-page .service-section__heading-top {
@@ -287,15 +298,8 @@
     transform: none;
   }
 
-  .services-page .service-section__claim {
+  .services-page .service-section__heading > p:not(.eyebrow) {
     grid-column: 1;
-    max-width: 100%;
-    margin: clamp(16px, 2vw, 24px) 0 0;
-    text-align: left;
-  }
-
-  .services-page .service-section__heading > p:not(.eyebrow):not(.service-section__claim) {
-    grid-column: 1 / -1;
     font-size: clamp(1rem, 1.15vw, 1.2rem);
     line-height: 1.8;
   }
@@ -303,7 +307,7 @@
 
 .services-page .service-section__media {
   grid-area: media;
-  align-self: center;
+  align-self: start;
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -312,14 +316,23 @@
 .services-page .service-section__media img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
+  aspect-ratio: auto;
   border-radius: var(--card-radius);
   object-fit: cover;
 }
 
+.services-page .service-section__media--static {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+}
+
 .services-page .service-carousel {
   position: relative;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--card-radius);
 }
@@ -437,12 +450,8 @@
   object-position: center 65%;
 }
 
-.services-page #terminal-handling .service-carousel__slide:first-child img {
+.services-page #terminal-handling .service-section__media--static img {
   object-position: 56% center;
-}
-
-.services-page #terminal-handling .service-carousel__slide:nth-child(2) img {
-  object-position: center 25%;
 }
 
 .services-page #maintenance .service-carousel__slide img {
@@ -463,9 +472,16 @@
 .services-page #maintenance .service-section__details {
   position: relative;
   z-index: 0;
-  padding: clamp(24px, 3vw, 40px);
-  background: var(--color-surface-soft);
+  padding: clamp(8px, 1vw, 16px) 0 0;
+  background: transparent;
   isolation: isolate;
+}
+
+@media (min-width: 761px) {
+  .services-page .service-section__media,
+  .services-page .service-section__details {
+    margin-top: clamp(16px, 2vw, 28px);
+  }
 }
 
 .services-page .service-section__details h3 {
@@ -490,7 +506,7 @@
   gap: 12px;
   align-items: baseline;
   padding: 12px 0;
-  color: var(--color-muted);
+  color: var(--color-ink);
   font-size: var(--font-size-body-copy);
   line-height: 1.65;
 }
@@ -503,133 +519,124 @@
 }
 
 .services-page .services-advantages {
-  padding-top: var(--services-section-space);
+  padding-block: clamp(24px, 3vw, 40px);
   background: var(--color-surface);
 }
 
-.services-page .services-advantages__heading {
-  text-align: center;
+.services-page .services-advantages__inner {
+  width: min(100% - (var(--content-padding) * 2), 1280px);
+  margin-inline: auto;
 }
 
-.services-page .services-advantages__heading .eyebrow {
-  margin: 0 0 8px;
-  color: var(--color-muted);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  letter-spacing: 0.08em;
-  line-height: 1.5;
+.services-page .services-advantages__layout {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  grid-template-areas: "media content";
+  column-gap: var(--services-feature-gap);
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.services-page .services-advantages__media {
+  grid-area: media;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--card-radius);
+  background: center / cover no-repeat;
+}
+
+.services-page .services-advantages__layout--warehouse .services-advantages__media {
+  background-image: url("../../public/images/services/warehouse-storage.png");
+  background-position: center 70%;
+}
+
+.services-page .services-advantages__layout--container .services-advantages__media {
+  background-image: url("../../public/images/services/equipment-maintenance.png");
+  background-position: center 35%;
+}
+
+.services-page .services-advantages__layout--equipment .services-advantages__media {
+  background-image: url("../../public/images/services/port-equipment-maintenance.jpg");
+  background-position: center 85%;
+}
+
+.services-page .services-advantages__content {
+  grid-area: content;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  color: var(--color-ink);
+}
+
+.services-page .services-advantages__heading {
+  margin-bottom: clamp(20px, 3vw, 32px);
 }
 
 .services-page .services-advantages__heading h2 {
   position: relative;
   width: fit-content;
-  margin: 0 auto;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--services-title-size);
-  font-weight: 300;
-  letter-spacing: normal;
-  line-height: var(--services-title-line-height);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  /* font-weight: 300; */
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .services-page .services-advantages__heading h2::after {
-  display: none;
-}
-
-.services-page .services-advantages__band {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  margin-top: clamp(28px, 4vw, 48px);
-  color: var(--color-surface);
-  background: #122028;
-}
-
-.services-page .services-advantages__band::before,
-.services-page .services-advantages__band::after {
   position: absolute;
-  z-index: -1;
-  inset: 0;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  width: clamp(48px, 5vw, 72px);
+  height: 2px;
+  background: var(--color-primary);
   content: "";
-  pointer-events: none;
-}
-
-.services-page .services-advantages__band::before {
-  background: url("../../public/images/services/warehouse-storage.png") center 70% / cover no-repeat;
-}
-
-.services-page .services-advantages--container .services-advantages__band::before {
-  background-image: url("../../public/images/services/container-yard-operations.jpg");
-  background-position: center 35%;
-}
-
-.services-page .services-advantages--equipment .services-advantages__band::before {
-  background-image: url("../../public/images/services/port-equipment-maintenance.jpg");
-  background-position: center;
-  background-position: center 85%;
-}
-
-.services-page .services-advantages__band::after {
-  background: #122028;
-  opacity: 0.78;
 }
 
 .services-page .services-advantages__grid {
   display: grid;
-  max-width: 1280px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(28px, 4vw, 56px);
-  padding-block: clamp(52px, 6vw, 76px);
+  grid-template-columns: 1fr;
+  flex: 1;
+  gap: 16px;
+  align-content: space-between;
 }
 
 .services-page .services-advantages__grid article {
-  display: grid;
-  align-content: start;
-  justify-items: center;
-  min-width: 0;
-  text-align: center;
-}
-
-.services-page .services-advantages__icon {
   display: block;
-  margin-bottom: 16px;
-  color: inherit;
-  font-family: "Phosphor";
-  font-size: clamp(32px, 2.8vw, 40px);
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
+  align-content: start;
+  min-width: 0;
+  text-align: left;
 }
-
-.services-page .services-advantages__icon.ph-warehouse::before { content: "\ecd4"; }
-.services-page .services-advantages__icon.ph-package::before { content: "\e390"; }
-.services-page .services-advantages__icon.ph-map-trifold::before { content: "\e31a"; }
-.services-page .services-advantages__icon.ph-certificate::before { content: "\e766"; }
-.services-page .services-advantages__icon.ph-gear::before { content: "\e270"; }
-.services-page .services-advantages__icon.ph-shield-check::before { content: "\e40c"; }
 
 .services-page .services-advantages__grid h3 {
-  margin: 0 0 9px;
-  color: inherit;
-  font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+  margin: 0 0 4px;
+  color: var(--color-ink);
+  font-size: var(--font-size-body-copy);
   font-weight: var(--font-weight-semibold);
   line-height: 1.5;
 }
 
 .services-page .services-advantages__grid p {
-  max-width: 24em;
+  max-width: none;
   margin: 0;
-  color: inherit;
+  color: var(--color-muted);
   font-size: var(--font-size-body-copy);
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .services-page .services-contact {
-  padding-top: var(--services-section-space);
-  padding-bottom: var(--section-space);
-  background: var(--services-contact-surface);
+  padding-top: clamp(48px, 6vw, 96px);
+  padding-bottom: clamp(48px, 6vw, 96px);
+  background: transparent;
 }
 
 .services-page .services-contact__inner {
@@ -731,6 +738,7 @@
     grid-template-areas:
       "heading"
       "media"
+      "description"
       "details";
     grid-template-columns: minmax(0, 1fr);
     row-gap: var(--services-content-gap);
@@ -742,8 +750,9 @@
     max-width: 760px;
   }
 
-  .services-page .service-section__media img {
-    aspect-ratio: 16 / 9;
+  .services-page .service-section__media {
+    width: min(100%, 820px);
+    aspect-ratio: 4 / 3;
   }
 
   .services-page #warehousing .service-section__details,
@@ -771,7 +780,6 @@
   .services-page .service-section--reverse .service-section__inner {
     grid-template-areas:
       "heading"
-      "claim"
       "description"
       "media"
       "details";
@@ -807,14 +815,6 @@
     transform: none;
   }
 
-  .services-page .service-section__claim {
-    grid-area: claim;
-    width: min(100%, 760px);
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: left;
-  }
-
   .services-page #warehousing .service-section__details,
   .services-page #terminal-handling .service-section__details,
   .services-page #maintenance .service-section__details {
@@ -822,7 +822,7 @@
     background: transparent;
   }
 
-  .services-page .service-section__heading > p:not(.eyebrow):not(.service-section__claim) {
+  .services-page .service-section__heading > p:not(.eyebrow) {
     grid-area: description;
     width: min(100%, 760px);
     max-width: 760px;
@@ -840,8 +840,20 @@
     aspect-ratio: 4 / 3;
   }
 
-  .services-page .services-advantages {
-  padding-top: var(--section-space);
+  .services-page .service-section__description {
+    width: min(100%, 760px);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .services-page .service-carousel {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .services-page .service-section__details {
+    padding-top: 0;
   }
 
   .services-page .services-advantages__grid {
@@ -864,10 +876,191 @@
 
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .services-page [data-service-panel]:not([hidden]) {
-    animation: none;
+.services-page .services-contact__inner {
+  width: min(100% - (var(--content-padding) * 2), var(--content-max-width));
+  padding-inline: 0;
+}
+
+.services-page .services-contact__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: var(--card-radius);
+  min-height: 192px;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--color-surface);
+  background: #102b36 url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
+}
+
+.services-page .services-contact__card::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgb(10 37 47 / 30%);
+  content: "";
+}
+
+.services-page .services-contact__copy {
+  display: grid;
+  align-content: center;
+  padding: 24px clamp(28px, 4vw, 48px);
+}
+
+.services-page .services-contact__copy .eyebrow {
+  display: none;
+}
+
+.services-page .services-contact__card-heading {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-surface);
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-weight: var(--font-weight-medium);
+}
+
+.services-page .services-contact__button {
+  display: inline-flex;
+  width: fit-content;
+  color: var(--color-surface);
+}
+
+.services-page .services-contact__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  margin: clamp(20px, 3vw, 32px) 0 0;
+  padding: 0;
+  background: transparent;
+}
+
+.services-page .services-contact__details > div,
+.services-page .services-contact__details > a {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  justify-items: start;
+  min-height: 0;
+  color: var(--color-surface);
+  text-align: left;
+}
+
+.services-page .services-contact__details > div + a {
+  border-left: 0;
+  border-top: 0;
+}
+
+.services-page .services-contact__details span {
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.services-page .services-contact__details strong {
+  color: var(--color-surface);
+}
+
+@media (max-width: 760px) {
+  .services-page .services-advantages__layout,
+  .services-page .services-contact__card {
+    grid-template-columns: 1fr;
   }
+
+  .services-page .services-advantages__inner {
+    width: min(100% - (var(--content-padding) * 2), 1280px);
+  }
+
+  .services-page .services-advantages__layout {
+    grid-template-areas:
+      "media"
+      "content";
+    row-gap: 12px;
+  }
+
+  .services-page .services-advantages__media {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .services-page .services-advantages__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-page .services-advantages__content {
+    display: flex;
+    height: auto;
+    padding: 0;
+  }
+
+  .services-page .services-advantages__heading {
+    grid-area: auto;
+    margin-bottom: 12px;
+  }
+
+  .services-page .services-advantages__heading h2 {
+    font-size: var(--services-title-size);
+    font-weight: 300;
+    line-height: var(--services-title-line-height);
+  }
+
+  .services-page .services-contact__details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    padding: 0;
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .services-page .services-advantages__grid {
+    grid-area: content;
+    gap: 24px;
+    align-content: start;
+    padding-block: 0 28px;
+  }
+
+  .services-page .services-contact__card {
+    min-height: 0;
+    aspect-ratio: 2.5 / 1;
+  }
+
+  .services-page .services-contact__copy {
+    align-content: center;
+    padding: 34px 20px 2px;
+  }
+
+  .services-page .services-contact__card-heading {
+    font-size: 1.2rem;
+  }
+
+  .services-page .services-contact__details {
+    margin-top: 16px;
+  }
+
+  .services-page .services-contact__details > div,
+  .services-page .services-contact__details > a {
+    gap: 2px;
+  }
+
+  .services-page .services-contact__details span {
+    font-size: 0.75rem;
+  }
+
+  .services-page .services-contact__details strong {
+    font-size: 0.95rem;
+  }
+
+  .services-page .services-contact__details > a {
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-page [data-service-panel]:not([hidden]) { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

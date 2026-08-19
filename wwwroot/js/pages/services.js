@@ -31,55 +31,38 @@ function setupServiceTabs() {
 
   if (!tabs.length || !panels.length) return;
 
-  /**
-   * 切換到指定面板
-   * @param {string} id - 面板 ID
-   * @param {boolean} updateHash - 是否更新 URL hash
-   */
   function selectPanel(id, updateHash = true) {
     const selectedId = panelIds.has(id) ? id : panels[0]?.id;
     if (!selectedId) return;
 
-    // 更新標籤狀態
     tabs.forEach((tab) => {
       const isSelected = tab.getAttribute("aria-controls") === selectedId;
       tab.setAttribute("aria-selected", String(isSelected));
       tab.tabIndex = isSelected ? 0 : -1;
     });
 
-    // 顯示/隱藏面板
     panels.forEach((panel) => {
       panel.hidden = panel.id !== selectedId;
     });
 
-    // 更新 URL hash（不觸發捲動）
     if (updateHash) history.replaceState(null, "", `#${selectedId}`);
   }
 
-  // 綁定每個標籤的點擊與鍵盤事件
   tabs.forEach((tab, index) => {
-    // 點擊切換
     tab.addEventListener("click", () => selectPanel(tab.getAttribute("aria-controls")));
-
-    // 鍵盤方向鍵切換（循環）
     tab.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
       event.preventDefault();
 
       const direction = event.key === "ArrowRight" ? 1 : -1;
-      const nextIndex = (index + direction + tabs.length) % tabs.length;
-      const nextTab = tabs[nextIndex];
-
+      const nextTab = tabs[(index + direction + tabs.length) % tabs.length];
       nextTab.focus();
       selectPanel(nextTab.getAttribute("aria-controls"));
     });
   });
 
-  // 初始化：優先用 URL hash，否則用第一個標籤
   const initialHash = window.location.hash.slice(1);
   selectPanel(initialHash || tabs[0].getAttribute("aria-controls"), false);
-
-  // Hash 變化時同步（如瀏覽器前進/後退）
   window.addEventListener("hashchange", () => selectPanel(window.location.hash.slice(1), false));
 }
 

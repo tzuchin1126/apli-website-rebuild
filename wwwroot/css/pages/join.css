@@ -67,7 +67,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.625rem, 4vw, 2.5rem);
-  font-weight: 300;
+  font-weight: 600;
   line-height: clamp(2rem, 3vw, 2.5rem);
   letter-spacing: normal;
 }

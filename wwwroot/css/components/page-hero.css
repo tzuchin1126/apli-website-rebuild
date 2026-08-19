@@ -6,7 +6,7 @@
   overflow: hidden;
   isolation: isolate;
   border-bottom: clamp(6px, .5vw, 8px) solid var(--color-primary);
-  border-bottom-left-radius: clamp(30px, 3.5vw, 52px);
+  border-bottom-left-radius: 0;
   border-bottom-right-radius: clamp(30px, 3.5vw, 52px);
   background: var(--color-secondary);
 }
@@ -104,7 +104,7 @@
 @media (max-width: 760px) {
   .page-hero {
     border-bottom-width: 4px;
-    border-bottom-left-radius: 12px;
+    border-bottom-left-radius: 0;
     border-bottom-right-radius: 12px;
   }
 

@@ -30,7 +30,7 @@
 .about-page .about-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); grid-template-areas: "copy media"; gap: clamp(48px, 6.7vw, 96px); max-width: calc(var(--site-max-width) + 60px); align-items: start; padding-top: var(--page-content-start-space); padding-bottom: var(--section-space); }
 .about-section-copy { display: grid; gap: 20px; }
 .about-page .eyebrow { margin: 0 0 8px; color: var(--color-muted); font-size: 1rem; font-weight: var(--font-weight-normal); letter-spacing: 0.08em; line-height: 1.5; }
-.about-section-copy h2, .about-section-heading h2 { width: fit-content; margin: 0; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
+.about-section-copy h2, .about-section-heading h2 { width: fit-content; margin: 0; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
 .about-section-copy p:not(.eyebrow) { margin: 0; color: var(--color-muted); font-size: var(--font-size-body-copy); line-height: 1.75; }
 .about-page .about-profile .about-section-copy h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; }
 .about-page .about-profile .about-section-copy h2::after { position: absolute; right: auto; bottom: 0; left: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: none; }
@@ -56,13 +56,17 @@
 .about-page .philosophy-gallery { width: min(1180px, calc(100% - 48px)); height: clamp(400px, 38vw, 520px); margin: 0 auto; overflow: visible; }
 .about-page .philosophy-panels { display: flex; width: 100%; height: 100%; gap: clamp(12px, 2vw, 20px); }
 .about-page .philosophy-panels button { position: relative; display: flex; min-width: 0; flex: 1 1 0; align-items: center; justify-content: center; overflow: hidden; padding: 0; border: 0; border-radius: var(--card-radius); background-color: transparent; background-position: center; background-repeat: no-repeat; background-size: cover; color: var(--color-surface); text-align: center; cursor: pointer; transition: flex 500ms ease, background-position 500ms ease; }
-.about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%); content: ""; pointer-events: none; }
+@media (max-width: 840px) {
+  .about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%); content: ""; pointer-events: none; }
+}
 @media (min-width: 841px) {
-  .about-page .philosophy-panels button::before { background: linear-gradient(180deg, rgb(0 0 0 / 26%) 0%, rgb(0 0 0 / 33%) 100%); }
+  .about-page .philosophy-panels button::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 12%) 0%, rgb(0 0 0 / 18%) 100%); content: ""; pointer-events: none; }
+  .about-page .philosophy-panels button[data-active="true"]::before,
+  .about-page .philosophy-panels button[aria-expanded="true"]::before { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 26%) 0%, rgb(0 0 0 / 33%) 100%); content: ""; pointer-events: none; }
 }
 .about-page .philosophy-panels button[data-philosophy-panel="mission"] { background-image: url("../../public/images/index/home-hero-container-transport.png"); }
-.about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/philosophy-values.jpg"); background-position: 35% center; }
-.about-page .philosophy-panels button[data-philosophy-panel="vision"] { background-image: url("../../public/images/index/container-handler.png"); background-position: center 70%; }
+.about-page .philosophy-panels button[data-philosophy-panel="values"] { background-image: url("../../public/images/about/philosophy-values.jpg"); background-position: 50% center; }
+.about-page .philosophy-panels button[data-philosophy-panel="vision"] { background-image: url("../../public/images/index/container-handler.png"); background-position: 50% 70%; }
 .about-page .philosophy-panels button:hover, .about-page .philosophy-panels button:focus-visible, .about-page .philosophy-panels button[data-active="true"], .about-page .philosophy-panels button[aria-expanded="true"] { flex-grow: 7; }
 .about-page .philosophy-panel__content { position: relative; z-index: 1; display: grid; width: 100%; min-height: 100%; box-sizing: border-box; align-content: center; justify-items: center; gap: 12px; padding: clamp(24px, 4vw, 56px); isolation: isolate; text-align: center; }
 .about-page .philosophy-panel__icon { display: block; width: clamp(2.25rem, 3.5vw, 3.25rem); height: clamp(2.25rem, 3.5vw, 3.25rem); color: var(--color-surface); background-color: currentColor; -webkit-mask-position: center; mask-position: center; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: contain; mask-size: contain; }
@@ -86,7 +90,7 @@
   /* background: var(--color-surface-soft); */
 }
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
-.about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; color: var(--color-ink); font-weight: var(--font-weight-medium); }
+.about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; color: var(--color-ink); font-weight: 600; }
 .about-page .about-certifications .about-section-heading--left h2::after { position: absolute; right: auto; bottom: 0; left: 0; width: clamp(48px, 5vw, 72px); height: 2px; background: var(--color-primary); content: ""; transform: none; }
 .about-page .milestone-timeline { position: relative; width: min(1120px, 100%); margin: clamp(32px, 4vw, 56px) auto 0; }
 .about-page .milestone-timeline::before,
@@ -149,7 +153,7 @@
 .about-page .about-affiliates__logo img[src$=".jpg"] { mix-blend-mode: multiply; }
 .about-page .about-affiliates__card:hover .about-affiliates__logo img, .about-page .about-affiliates__card:focus-within .about-affiliates__logo img { transform: scale(1.08); }
 .about-page .about-affiliates__body { position: relative; display: flex; flex: 1 1 48%; min-width: 0; align-items: center; box-sizing: border-box; padding: 12px 32px 12px 14px; background: var(--color-surface); }
-.about-page .about-affiliates__name { display: block; min-width: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .25vw, 1.18rem); font-weight: var(--font-weight-medium); line-height: 1.55; overflow-wrap: anywhere; }
+.about-page .about-affiliates__name { display: block; min-width: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .25vw, 1.05rem); font-weight: var(--font-weight-medium); line-height: 1.55; overflow-wrap: anywhere; }
 
 @media (max-width: 840px) {
   .about-page .about-profile { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "media" "body"; row-gap: 40px; }

@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/layout/site-header.css">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
         <link rel="stylesheet" href="css/components/buttons.css">
-<link rel="stylesheet" href="css/pages/operational-resources.css?v=20260817-operational-first-section-spacing-v1">
+<link rel="stylesheet" href="css/pages/operational-resources.css?v=20260819-location-motion-v1">
   <link rel="stylesheet" href="css/site.css?v=20260818-page-hero-rounded-orange-v1">
     </head>
     <body class="operational-resources-page">
@@ -22,7 +22,7 @@
         <header class="site-header">
             <div class="site-container site-header__inner">
                 <a class="site-header__brand" href="index.html" aria-label="亞太國際物流首頁">
-                    <img src="public/images/logo/apli-logo.svg" alt="亞太國際物流標誌">
+                    <img src="public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" loading="eager" decoding="sync">
                 </a>
                 <nav id="main-navigation" class="site-header__nav" aria-label="主選單">
                     <div class="nav-dropdown">
@@ -84,7 +84,7 @@
             <section class="resources-hero page-hero" aria-labelledby="resources-title">
                 <picture class="page-hero__media">
                     <source type="image/avif" srcset="public/images/index/home-hero-terminal-960.avif 960w, public/images/index/home-hero-terminal-1920.avif 1920w" sizes="100vw">
-                    <img class="page-hero__image" src="public/images/index/home-hero-terminal.jpg" alt="港區營運資源" fetchpriority="high">
+                    <img class="page-hero__image" src="public/images/index/home-hero-terminal.jpg" alt="港區營運資源" fetchpriority="high" loading="eager" decoding="sync">
                 </picture>
                 <div class="resources-hero__overlay page-hero__overlay" aria-hidden="true"></div>
                 <h1 class="page-hero__title" id="resources-title">營運資源</h1>
@@ -96,7 +96,7 @@
                         <h2 id="facilities-title">廠區資訊</h2>
                     </header>
                     <figure class="resource-media resource-animate">
-                        <img src="public/images/services/container-yard-overview-1.png" alt="高雄港後線貨櫃儲運場" loading="lazy" decoding="async">
+                        <img src="public/images/services/container-yard-overview-1.png" alt="高雄港後線貨櫃儲運場" loading="eager" decoding="sync">
                     </figure>
                     <div class="resource-body resource-animate">
                         <p>廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。</p>
@@ -118,7 +118,7 @@
                         <h2 id="equipment-title">機具配置</h2>
                     </header>
                     <figure class="resource-media resource-animate">
-                        <img src="public/images/index/container-handler.png" alt="正面吊與堆高機作業" loading="lazy" decoding="async">
+                        <img src="public/images/index/container-handler.png" alt="正面吊與堆高機作業" loading="eager" decoding="sync">
                     </figure>
                     <div class="resource-body resource-animate">
                         <p>廠區依作業需求配置多元化機具設備，並定期保養維護，維持設備妥善率與作業穩定性。</p>
@@ -140,7 +140,7 @@
                         <h2 id="capacity-title">作業量能</h2>
                     </header>
                     <figure class="resource-media resource-animate">
-                        <img src="public/images/services/container-handler-operation.png" alt="高雄港後線貨櫃作業量能" loading="lazy" decoding="async">
+                        <img src="public/images/services/container-handler-operation.png" alt="高雄港後線貨櫃作業量能" loading="eager" decoding="sync">
                     </figure>
                     <div class="resource-body resource-animate">
                         <p>亞太位於高雄港後線核心基地，擁有充足廠域與專業機具支撐月度高強度作業量能，確保貨櫃流轉高效穩定。</p>
@@ -164,7 +164,7 @@
                     <figure class="resource-media resource-media--safety resource-animate">
                         <picture>
                             <source type="image/avif" srcset="public/images/occupational-safety/occupational-safety-hero-card-1536.avif">
-                            <img src="public/images/occupational-safety/occupational-safety-hero.png" alt="港區作業人員面對貨櫃裝卸設備" width="1536" height="1024" loading="lazy" decoding="async">
+                            <img src="public/images/occupational-safety/occupational-safety-hero.png" alt="港區作業人員面對貨櫃裝卸設備" width="1536" height="1024" loading="eager" decoding="sync">
                         </picture>
                     </figure>
                     <div class="resource-body resource-animate">
@@ -180,35 +180,25 @@
             <section class="resources-location" id="location" aria-labelledby="location-title">
                 <div class="site-container">
                     <header class="resources-section-heading resource-animate">
-                        <p class="eyebrow">LOCATION</p>
-                        <h2 id="location-title">地理位置</h2>
+                        <h2 id="location-title">地理優勢</h2>
                         <p>亞太座落於高雄港第三貨櫃中心後線，鄰近小港國際機場、高速公路與各貨櫃中心，具備絕佳地理優勢。</p>
                     </header>
                     <p class="resources-location__mobile-caption">亞太至各目標地點的距離</p>
                     <div class="resources-location__network resource-animate" role="group" aria-label="以亞太為中心的周邊交通距離">
-                        <ul class="resources-location__side resources-location__side--left" aria-label="左側周邊交通距離">
+                        <ul class="resources-location__side resources-location__side--left resources-location__motion" aria-label="左側周邊交通距離">
                             <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>小港國際機場</span></li>
                             <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>高速公路終點</span></li>
                             <li class="resources-location__node resources-location__node--medium"><strong>2.5<small>km</small></strong><span>第二貨櫃中心</span></li>
                             <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第三貨櫃中心</span></li>
                         </ul>
-                        <div class="resources-location__hub" role="img" aria-label="亞太國際物流所在地">
-                            <img src="public/images/logo/white-logo.png" alt="" width="322" height="159" aria-hidden="true">
+                        <div class="resources-location__hub resources-location__motion" role="img" aria-label="亞太國際物流所在地">
+                            <img src="public/images/logo/white-logo.png" alt="" width="322" height="159" aria-hidden="true" loading="eager" decoding="sync">
                         </div>
-                        <ul class="resources-location__side resources-location__side--right" aria-label="右側周邊交通距離">
+                        <ul class="resources-location__side resources-location__side--right resources-location__motion" aria-label="右側周邊交通距離">
                             <li class="resources-location__node resources-location__node--far"><strong>3<small>km</small></strong><span>第四貨櫃中心</span></li>
                             <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第五貨櫃中心</span></li>
                             <li class="resources-location__node resources-location__node--long"><strong>20<small>min</small></strong><span>市中心及火車站</span></li>
                         </ul>
-                    </div>
-                    <div class="resources-location__map resource-animate">
-                        <iframe
-                            title="亞太國際物流公司位置地圖"
-                            src="https://www.google.com/maps?q=%E4%BA%9E%E5%A4%AA%E5%9C%8B%E9%9A%9B%E7%89%A9%E6%B5%81%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%20%E9%AB%98%E9%9B%84%E5%B8%82%E5%B0%8F%E6%B8%AF%E5%8D%80%E6%9D%B1%E4%BA%9E%E8%B7%AF2%E8%99%9F&amp;output=embed"
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            allowfullscreen>
-                        </iframe>
                     </div>
                 </div>
             </section>
@@ -217,5 +207,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js?v=20260814-caret-up-v1"></script>
+        <script src="js/pages/operational-resources.js?v=20260819-location-motion-observer-v1"></script>
     </body>
 </html>
