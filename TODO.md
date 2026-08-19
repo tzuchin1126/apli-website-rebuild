@@ -1,4 +1,11 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：修正首頁介紹標題字重
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將首頁介紹區塊 `.home-intro h2` 從 300 修正為 `var(--font-weight-semibold)`（600），避免後置規則覆蓋原本粗體設定，並更新 CSS 快取版本。
+  - 已驗證：`git diff --check`、檢查首頁 CSS 與 HTML 快取版本。
+  - 未驗證：尚未完成桌機／手機瀏覽器渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
+
 - [x] 2026-08-19：增加 Services 標題敘述分隔線
   - 範圍：`wwwroot/services.html`、`wwwroot/css/pages/services.css`、`TODO.md`。
   - 完成：主要服務標題與敘述下方加入淡色水平分隔線，將上方介紹與下方圖片／服務項目區隔；手機版同步保留。

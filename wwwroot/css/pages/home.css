@@ -244,7 +244,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   line-height: clamp(2.45rem, 2.2rem + .45vw, 3rem);
 }
 .home-page .home-intro .eyebrow { margin-bottom: 8px; color: var(--color-muted); letter-spacing: .08em; line-height: 1.5; }
-.home-page .home-intro h2 { color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
+.home-page .home-intro h2 { color: var(--color-ink); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: var(--font-weight-semibold); letter-spacing: normal; line-height: clamp(2rem, 3vw, 2.5rem); }
 .home-page .home-intro h2::after,
 .home-page .home-section-heading h2::after,
 .home-page .home-latest h2::after {
