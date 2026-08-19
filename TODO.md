@@ -1,4 +1,10 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-19：修正 Services 行動版「我們的優勢」標題粗細
+  - 範圍：`wwwroot/css/pages/services.css`、`TODO.md`。
+  - 完成：將行動版 `services-advantages__heading h2` 從 `font-weight: 300` 修正為 `600`，三個服務區塊一致套用。
+  - 已驗證：確認行動版覆寫規則與桌機版一致、`git diff --check`。
+  - 未驗證：尚未進行實際手機瀏覽器畫面驗收。
+  - 狀態：程式修正完成，待提交；未自行 push。
 - [x] 2026-08-19：加入網站 favicon
   - 範圍：`wwwroot/*.html`、`wwwroot/public/images/apliLogo.ico`、`TODO.md`。
   - 完成：所有公開頁面的 `<head>` 已指定 `apliLogo.ico`，瀏覽器分頁會使用公司圖示。

@@ -1003,7 +1003,7 @@
 
   .services-page .services-advantages__heading h2 {
     font-size: var(--services-title-size);
-    font-weight: 300;
+    font-weight: 600;
     line-height: var(--services-title-line-height);
   }
 
