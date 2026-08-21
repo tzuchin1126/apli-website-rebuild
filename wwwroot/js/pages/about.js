@@ -74,6 +74,7 @@ function initMilestoneTimelines() {
     const yearDot = timeline.querySelector(".milestone-era-dot");
     const toggleBtn = timeline.querySelector("[data-collapsible-events-toggle]");
     const allEvents = container ? [...container.children] : [];
+    const isMobileTimeline = () => window.matchMedia?.("(max-width: 840px)").matches ?? false;
 
     if (!container || !yearLabel || !allEvents.length) return;
 
@@ -116,9 +117,11 @@ function initMilestoneTimelines() {
       if (!visibleEvents.length) return;
 
       const dotRect = yearDot?.getBoundingClientRect();
-      const anchorY = dotRect
-        ? dotRect.top + dotRect.height / 2
-        : window.innerHeight * 0.45;
+      const anchorY = isMobileTimeline()
+        ? window.innerHeight * 0.45
+        : dotRect
+          ? dotRect.top + dotRect.height / 2
+          : window.innerHeight * 0.45;
       let currentEvent = visibleEvents[0];
       let closestDistance = Number.POSITIVE_INFINITY;
 
@@ -239,9 +242,11 @@ function initMilestoneTimelines() {
     function updateProgressBar() {
       const rect = timeline.getBoundingClientRect();
       const dotRect = yearDot?.getBoundingClientRect();
-      const anchorY = dotRect
-        ? dotRect.top + dotRect.height / 2
-        : window.innerHeight * 0.45;
+      const anchorY = isMobileTimeline()
+        ? window.innerHeight * 0.45
+        : dotRect
+          ? dotRect.top + dotRect.height / 2
+          : window.innerHeight * 0.45;
       const progress = Math.min(Math.max(anchorY - rect.top, 0), rect.height);
       timeline.style.setProperty("--certification-progress", `${progress}px`);
     }

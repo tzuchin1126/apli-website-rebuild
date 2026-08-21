@@ -1,4 +1,25 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-21：對齊 About 時間軸圓點與年份
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：圓點改為相對左側年份區塊垂直置中，讓圓點中心與年份視覺中心對齊；水平位置、尺寸、主題橘色與時間軸邏輯維持不變。
+  - 已驗證：`rg` 確認 `top: 50%` 與 `translateY(-50%)`；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、實際捲動、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：對齊調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：將 About 時間軸圓點改為主題橘色
+  - 範圍：`wwwroot/css/pages/about.css`、`TODO.md`。
+  - 完成：`.about-page .milestone-era-dot` 的 `background` 與 `box-shadow` 改用 `var(--color-primary)`；尺寸、位置與其他時間軸行為維持不變。
+  - 已驗證：`rg` 確認兩個指定值；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：顏色調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：避免 About 行動版大年份遮擋事件文字
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：行動版大年份恢復一般流動排列，不再 sticky 蓋住右側事件；行動版年份與進度改以視窗 45% 位置判斷，保留橘色進度線與事件捲動同步；桌機仍使用圓點中心錨點。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`rg` 確認行動版 position／錨點邏輯與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行實際行動裝置瀏覽器捲動、文字遮擋、圓點／年份同步與展開操作驗收，亦未進行桌機、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：行動版遮擋修正完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-21：修正 About 認證時間軸行動版進度線與圓點錨定
   - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
   - 完成：行動版 `milestone-era-label` 改為 sticky 錨點並避開內容覆蓋；進度線從時間軸起點延伸至圓點中心；年份與進度計算維持以圓點中心為基準。

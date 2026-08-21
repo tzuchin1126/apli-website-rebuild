@@ -112,7 +112,7 @@
   letter-spacing: normal; 
 }
 
-.about-page .milestone-era-dot { position: absolute; top: 4px; left: 8px; width: 26px; height: 26px; border: 7px solid var(--color-surface); border-radius: 50%; background: var(--color-line); box-shadow: 0 0 0 1px var(--color-line); }
+.about-page .milestone-era-dot { position: absolute; top: 50%; left: 8px; width: 26px; height: 26px; border: 7px solid var(--color-surface); border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); transform: translateY(-50%); }
 .about-page .milestone-panel-events { display: grid; width: 100%; margin-inline: auto; gap: 0; }
 .about-page .milestone-panel-events.about-certification-events-motion {
   opacity: 1;
@@ -174,7 +174,7 @@
   .about-page .milestone-timeline { --certification-line-x: 18px; margin-top: 36px; }
   .about-page .milestone-panels { gap: 72px; }
   .about-page .milestone-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .about-page .milestone-era-label { position: sticky; top: 96px; z-index: 2; min-height: 48px; padding: 8px 0 8px 56px; background: var(--color-surface); }
+  .about-page .milestone-era-label { position: relative; top: auto; z-index: auto; min-height: 48px; padding-left: 56px; background: transparent; }
   .about-page .milestone-era-label h3 { 
     font-size: clamp(1.85rem, 9vw, 2.5rem); 
     line-height: clamp(2.25rem, 10vw, 3rem); 
