@@ -1,4 +1,137 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-21：增加 Milestones 行動版事件內容寬度
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：保留年代 Tab 與 active 橘線不變；行動版縮短節點至事件文字距離約 10px，事件標題維持 16px／600，說明文字調整為 15px／灰色／1.75；年份、節點大小與橘色維持目前設定。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器 Milestones 行動版／桌機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：行動版樣式調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：微調 Milestones 行動版事件標題與年份距離
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：行動版事件標題縮至 16px、字重固定 600；內文維持原有 17–18px 與 1.8 行高；年份欄與時間軸欄間距再縮小約 6px，讓年份更靠近節點。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器 Milestones 行動版／桌機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：行動版樣式調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：收窄 Milestones 行動版年份與時間軸欄位
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：行動版年份調整為約 22–24px、年份欄寬約 54–60px；時間軸軌道縮窄，節點至事件文字的間距與事件內容左右 padding 同步收緊，增加標題可用寬度；桌機版維持不變。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器 Milestones 行動版／桌機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：行動版樣式調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：收斂 Milestones 事件文字與時間軸間距
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：事件標題調整為 20–21px／600，內文調整為 17–18px／1.8；縮短年份至時間軸、節點至事件文字的距離，降低事件列垂直留白；保留目前淡色灰色分隔線。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器 Milestones 桌機／手機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：樣式調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：縮小 Milestones 年份字級並收緊年份與時間軸距離
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：桌機年份調整為 36–40px、字重 600，避免形成 Section Heading 的大標題感；年份欄寬與欄間距同步縮小，讓年份更靠近時間軸；手機版既有年份與水平滑動行為保留。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器 Milestones 桌機／手機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：樣式調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：移除首頁 Hero 下方最新消息浮動列表
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`。
+  - 完成：移除 Hero 內的前三筆最新消息列表與其資料渲染／專屬樣式，恢復 Hero 原本高度、輪播圓點位置與主視覺裁切；首頁下方完整最新消息區塊保留。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`；`git diff --check`。
+  - 未驗證：尚未進行瀏覽器首頁桌機／手機實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：移除完成，待提交；未自行 commit 或 push。既有工作樹修改予以保留。
+
+- [x] 2026-08-21：在首頁 Hero 下方加入前三筆最新消息浮動卡片
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/home.js`、`TODO.md`。
+  - 完成：沿用 `/api/public/news` 的既有排序與資料，於 Hero 下方以白色浮動列表顯示前三筆公告；卡片包含「最新消息」標題，各列依序顯示日期／分類、公告標題與詳細公告按鈕，並縮小列高與 Hero 重疊幅度以保留主視覺；原本下方的完整最新消息列表與 Hero 輪播均保留。
+  - 已驗證：`node --check wwwroot/js/pages/home.js`；`dotnet build -c Release`；`git diff --check`。
+  - 未驗證：本次嘗試以本機 HTTP 載入驗證，但應用程式未在驗證連接埠接受連線，因此尚未確認瀏覽器首頁桌機／手機實際渲染；亦未進行實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：浮動卡片調整完成，待提交；未自行 commit 或 push。既有工作樹修改予以保留。
+
+- [x] 2026-08-21：重新設計最新消息預設圖片
+  - 範圍：`wwwroot/public/images/index/news.png`、`wwwroot/css/pages/home.css`、`wwwroot/js/pages/news.js`、`wwwroot/index.html`、`wwwroot/news.html`、`TODO.md`。
+  - 完成：以無文字的橘色波紋、淡藍物流線條與貨櫃幾何元素取代舊公告圖；同步更新首頁與最新消息的圖片／資源 cache key，避免沿用舊圖。
+  - 已驗證：確認圖片為 PNG 1672×941；`node --check wwwroot/js/pages/news.js`；`git diff --check`。
+  - 未驗證：尚未進行瀏覽器首頁／最新消息頁渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：圖片與引用調整完成，待提交；未自行 commit 或 push。其他既有工作樹修改予以保留。
+
+- [x] 2026-08-21：加大 Milestones 桌機整體右移幅度並更新樣式快取版本
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：桌機內容同步右移幅度由最多 28px 調整為最多 56px，並將 Milestones CSS cache key 更新為 `timeline-v5`，讓切換選單、年份、時間軸與事件內容的變化更明顯。
+  - 已驗證：靜態預覽桌機 1440×900，CSS 載入 `timeline-v5`，切換選單／面板左緣 x=114、年份同步右移、時間軸中心 x=294、水平溢位為 0；手機 390×844，年份 24px、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：同步右移 Milestones 年份與年代切換選單
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：將右移設定套用至整個 Milestones 內容容器，讓年代切換選單、年份、時間軸與事件敘述共用同一個水平起點；手機版維持原本位置與水平滑動行為。
+  - 已驗證：靜態預覽桌機 1440×900，切換選單／年份／面板左緣同為 x=86、時間軸中心 x=266、事件內容起點 x=306；手機 390×844，切換選單與年份左緣同為 x=20、圓點中心 x=108、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：將 Milestones 桌機內容整體右移
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：桌機年代切換列與時間軸內容同步右移一小段，右側仍收在內容容器內；手機版維持原本位置與水平滑動行為。
+  - 已驗證：靜態預覽桌機 1440×900，切換列／內容左緣由 x=58 移至 x=86，第一個圓點中心 x=266，水平溢位為 0；手機 390×844，切換列左緣 x=20、圓點中心 x=108、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：微調 Milestones 事件標題與行動版年份字級
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：事件標題調整為 `clamp(1.1rem, 1.25vw, 1.35rem)` 與全站較一致的 `font-weight: 500`；行動版橘色年份縮小為 `clamp(1.5rem, 6vw, 2rem)`，維持點綴用途與辨識度。
+  - 已驗證：靜態預覽桌機 1440×900，事件標題 18px／500、內文 17px／400；手機 390×844，年份 24px／600、事件標題 17.6px／500、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：補強 Milestones 短記事的橫向視覺結構
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：保留無背景事件內容，於右側內容欄加入淡色底部分隔線，讓 1993 - 2013 等短標題／短敘述記事仍能延伸出完整欄位結構，降低視覺重心偏左的感覺；手機版同步保留。
+  - 已驗證：靜態預覽桌機 1440×900，1993 - 2013 頁籤可切換、事件內容欄延伸至 x=1382 且有 1px 淡色底部分隔線；手機 390×844，水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：放寬 Milestones 內容區以平衡整體視覺重心
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：年代切換列與時間軸共用內容區寬度；保留年份／時間軸／事件三欄順序，讓事件內容延伸至右側；年份與時間軸維持靠近；手機版維持原有欄位與水平滑動規則。
+  - 已驗證：靜態預覽桌機 1440×900，內容區 x=58–1382、時間軸中心 x=238、事件敘述右緣 x=1270；手機 390×844，時間軸中心 x=108、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：縮短 Milestones 年份與時間軸距離並恢復切換選單左側排列
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：縮小桌機年份欄寬與欄間距，讓年份更靠近時間軸；年代切換選單恢復左側排列；手機版維持原有欄位、水平滑動與時間軸規則。
+  - 已驗證：靜態預覽桌機 1440×900，切換選單左緣 x=290、年份右緣 x=273、第一個圓點中心 x=342；手機 390×844，圓點／線條中心同為 x=108、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：將 Milestones 時間軸恢復至年份旁
+  - 範圍：`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：桌機時間軸改以固定的響應式年份欄寬與間距定位，讓圓點／垂直線緊接年份右側；事件標題與敘述仍位於時間軸右側；手機版維持原有欄位與水平滑動規則。
+  - 已驗證：靜態預覽桌機 1440×900，第一個圓點中心 x=406、年份欄右緣 x=273；手機 390×844，圓點／線條中心同為 x=108、水平溢位為 0；`node --check wwwroot/js/pages/milestones.js`、`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：調整 Milestones 年代選單與時間軸視覺重心
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：桌機年代切換選單改為相對內容區置中；時間軸內容寬度收斂並置中；左側年份縮小為響應式字級並改用 `font-weight: 600`；手機版保留水平滑動選單與無溢位排列。
+  - 已驗證：靜態預覽桌機 1440×900 與手機 390×844；桌機選單與視窗中心一致、時間軸區塊中心一致；手機水平溢位為 0；年份字重為 600；`git diff --check`。
+  - 未驗證：未進行實體裝置、其他瀏覽器與人工無障礙驗收；靜態預覽不包含 ASP.NET Footer 注入與正式路由驗證。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：微調 Milestones 時間軸圓點、年份與標題對齊
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：移除事件卡片背景色與 `.milestone-event__meta`；年份對齊該組第一個事件圓點；時間軸置於圓點下層且與圓點中心對齊；事件標題與圓點中心對齊；保留手機版同步規則。
+  - 已驗證：靜態預覽桌機 1440×900 與手機 390×844；桌機年份／標題與圓點中心誤差約 1px 內，手機誤差約 0.2px 內；圓點與線條 X 軸一致；手機水平溢位為 0；`git diff --check`。
+  - 未驗證：ASP.NET listener 在目前環境無法接受本機連線，因此未驗證完整 ASP.NET Footer 注入／正式路由；未進行實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
+- [x] 2026-08-21：調整 Milestones 公司沿革時間軸版面
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
+  - 完成：保留上方 2013 - 至今／1993 - 2013／1973 - 1993 年代切換；下方改為左側年份與垂直時間軸、右側事件卡片；移除事件圖片需求，僅顯示標題，有敘述時才顯示段落；保留鍵盤左右切換與 ARIA tab／tabpanel 關聯。
+  - 已驗證：`node --check wwwroot/js/pages/milestones.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`。
+  - 未驗證：依需求未進行實機驗證；亦未進行瀏覽器桌機／手機渲染、平板、其他瀏覽器與人工無障礙驗收。
+  - 狀態：版面調整完成，待提交；未自行 commit 或 push。既有 `wwwroot/data/news.json` 修改與本次無關，予以保留。
+
 - [x] 2026-08-21：對齊 About 時間軸圓點與年份
   - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
   - 完成：圓點改為相對左側年份區塊垂直置中，讓圓點中心與年份視覺中心對齊；水平位置、尺寸、主題橘色與時間軸邏輯維持不變。

@@ -19,7 +19,7 @@ function initNewsList() {
 
   const categoriesContainer = root.querySelector("[data-news-categories]");
   const pageSize = 8; // 每次載入筆數
-  const defaultNewsImage = "/public/images/index/news.png";
+  const defaultNewsImage = "/public/images/index/news.png?v=20260821-default-v2";
   let visibleCount = pageSize; // 目前顯示筆數
   let items = []; // 所有消息 DOM 元素
 

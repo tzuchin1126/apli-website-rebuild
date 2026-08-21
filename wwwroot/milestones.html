@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
-  <link rel="stylesheet" href="css/pages/milestones.css?v=20260816-maersk-visual-v1">
+  <link rel="stylesheet" href="css/pages/milestones.css?v=20260821-timeline-v10">
   <link rel="stylesheet" href="css/site.css?v=20260818-page-hero-rounded-orange-v1">
 </head>
 
@@ -122,108 +122,186 @@
       <!-- 年代切換頁籤 -->
       <div class="milestone-tabs" role="tablist" aria-label="公司沿革年代">
         <div class="milestone-tabs__track">
-          <button type="button" role="tab" aria-selected="true" aria-controls="era-current" data-era="era-current">2013 - 至今</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="era-middle" data-era="era-middle" tabindex="-1">1993 - 2013</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="era-start" data-era="era-start" tabindex="-1">1973 - 1993</button>
+          <button id="milestone-tab-current" type="button" role="tab" aria-selected="true" aria-controls="era-current" data-era="era-current">2013 - 至今</button>
+          <button id="milestone-tab-middle" type="button" role="tab" aria-selected="false" aria-controls="era-middle" data-era="era-middle" tabindex="-1">1993 - 2013</button>
+          <button id="milestone-tab-start" type="button" role="tab" aria-selected="false" aria-controls="era-start" data-era="era-start" tabindex="-1">1973 - 1993</button>
         </div>
       </div>
 
       <!-- 2013 - 至今 -->
-      <div class="milestone-panel" id="era-current" role="tabpanel">
-        <article>
-          <time>2023</time>
-          <h2>亞太五十週年</h2>
-          <p>50周年是一個重要的里程碑，也是一個重新確認公司永續發展承諾的時刻。
-            公司將繼續秉持著創新、負責任和持續改進的價值觀，為未來的五十年鋪墊道路，實現更加卓越的成就。
-          </p>
-        </article>
-        <article>
-          <time>2023</time>
-          <h2>成立亞安企業管理顧問股份有限公司</h2>
-        </article>
-        <article>
-          <time>2023</time>
-          <h2>成立港機經銷部</h2>
-          <p>振華堆高機代理銷售、港機零組件發貨倉庫、車機再利用規劃、碼頭車機合作案。</p>
-        </article>
-        <article>
-          <time>2018</time>
-          <h2>成立Alpha Total Solution Pte Ltd 公司</h2>
-          <p>成立 ALPHA TOTAL SOLUTION PTE LTD，延伸海外市場。</p>
-        </article>
-        <article>
-          <time>2018</time>
-          <h2>成立太報文化事業股份有限公司</h2>
-          <p>太報於 2017 年誕生，2018 年正式登記成立太報文化事業股份有限公司，跨足媒體文化事業。</p>
-        </article>
-        <article>
-          <time>2016</time>
-          <h2>油品事業升級</h2>
-          <p>亞柏加油站轉型為亞柏油品事業，深化油品事業版圖。</p>
-        </article>
+      <div class="milestone-panel" id="era-current" role="tabpanel" aria-labelledby="milestone-tab-current">
+        <div class="milestone-timeline">
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2023">
+            <div class="milestone-year-label">
+              <time id="milestone-year-2023">2023</time>
+            </div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>亞太五十週年</h2>
+                  <p>50周年是一個重要的里程碑，也是一個重新確認公司永續發展承諾的時刻。公司將繼續秉持著創新、負責任和持續改進的價值觀，為未來的五十年鋪墊道路，實現更加卓越的成就。</p>
+                </div>
+              </article>
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>成立亞安企業管理顧問股份有限公司</h2>
+                </div>
+              </article>
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>成立港機經銷部</h2>
+                  <p>振華堆高機代理銷售、港機零組件發貨倉庫、車機再利用規劃、碼頭車機合作案。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2018">
+            <div class="milestone-year-label">
+              <time id="milestone-year-2018">2018</time>
+            </div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>成立 Alpha Total Solution Pte Ltd 公司</h2>
+                  <p>成立 ALPHA TOTAL SOLUTION PTE LTD，延伸海外市場。</p>
+                </div>
+              </article>
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>成立太報文化事業股份有限公司</h2>
+                  <p>太報於 2017 年誕生，2018 年正式登記成立太報文化事業股份有限公司，跨足媒體文化事業。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2016">
+            <div class="milestone-year-label">
+              <time id="milestone-year-2016">2016</time>
+            </div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content">
+                  <h2>油品事業升級</h2>
+                  <p>亞柏加油站轉型為亞柏油品事業，深化油品事業版圖。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
       </div>
 
       <!-- 1993 - 2013 -->
-      <div class="milestone-panel" id="era-middle" role="tabpanel" hidden>
-        <article>
-          <time>2011</time>
-          <h2>成立亞柏會館</h2>
-          <p>成立亞柏會館，拓展運動休閒事業版圖。</p>
-        </article>
-        <article>
-          <time>2009</time>
-          <h2>成立亞柏羽球隊</h2>
-          <p>跨足運動休閒事業，成立亞柏羽球隊。</p>
-        </article>
-        <article>
-          <time>2006</time>
-          <h2>成立亞柏國際旅行社</h2>
-          <p>民國 95 年 10 月成立亞柏國際旅行社，投入綠色休閒產業等休旅服務。</p>
-        </article>
-        <article>
-          <time>2006</time>
-          <h2>成立亞柏 EZ 購物網</h2>
-          <p>民國 95 年成立亞柏 EZ 購物網，以 e 世代的服務型態，跨足網購業。</p>
-        </article>
-        <article>
-          <time>2001</time>
-          <h2>成立亞柏加油站</h2>
-          <p>民國 90 年公司事業跨足油品市場步入多角化經營型態。</p>
-        </article>
-        <article>
-          <time>2000</time>
-          <h2>承作陽明業務</h2>
-          <p>民國 89 年隸陽明海運公司高雄港碼頭之裝卸業務委由本公司承作。</p>
-        </article>
-        <article>
-          <time>1998</time>
-          <h2>取得ISO認證</h2>
-          <p>民國 87 年通過 ISO 品保驗證，水準已臻國際標準。</p>
-        </article>
-        <article>
-          <time>1994</time>
-          <h2>跨足碼頭裝卸</h2>
-          <p>民國 83 年擴大營業規模及服務範圍，開啟碼頭裝卸業務。</p>
-        </article>
+      <div class="milestone-panel" id="era-middle" role="tabpanel" aria-labelledby="milestone-tab-middle" hidden>
+        <div class="milestone-timeline">
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2011">
+            <div class="milestone-year-label"><time id="milestone-year-2011">2011</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立亞柏會館</h2><p>成立亞柏會館，拓展運動休閒事業版圖。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2009">
+            <div class="milestone-year-label"><time id="milestone-year-2009">2009</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立亞柏羽球隊</h2><p>跨足運動休閒事業，成立亞柏羽球隊。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2006">
+            <div class="milestone-year-label"><time id="milestone-year-2006">2006</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立亞柏國際旅行社</h2><p>民國 95 年 10 月成立亞柏國際旅行社，投入綠色休閒產業等休旅服務。</p></div>
+              </article>
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立亞柏 EZ 購物網</h2><p>民國 95 年成立亞柏 EZ 購物網，以 e 世代的服務型態，跨足網購業。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2001">
+            <div class="milestone-year-label"><time id="milestone-year-2001">2001</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立亞柏加油站</h2><p>民國 90 年公司事業跨足油品市場步入多角化經營型態。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-2000">
+            <div class="milestone-year-label"><time id="milestone-year-2000">2000</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>承作陽明業務</h2><p>民國 89 年隸陽明海運公司高雄港碼頭之裝卸業務委由本公司承作。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-1998">
+            <div class="milestone-year-label"><time id="milestone-year-1998">1998</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>取得 ISO 認證</h2><p>民國 87 年通過 ISO 品保驗證，水準已臻國際標準。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-1994">
+            <div class="milestone-year-label"><time id="milestone-year-1994">1994</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>跨足碼頭裝卸</h2><p>民國 83 年擴大營業規模及服務範圍，開啟碼頭裝卸業務。</p></div>
+              </article>
+            </div>
+          </section>
+        </div>
       </div>
 
       <!-- 1973 - 1993 -->
-      <div class="milestone-panel" id="era-start" role="tabpanel" hidden>
-        <article>
-          <time>1986</time>
-          <h2>成立世新貨櫃企業股份有限公司</h2>
-          <p>成立世新貨櫃企業股份有限公司，主力於空櫃儲轉及貨櫃維修清洗服務，曾多次獲得全球最佳櫃場之殊榮。</p>
-        </article>
-        <article>
-          <time>1981</time>
-          <h2>全面電腦化</h2>
-          <p>民國七十年作業流程全面電腦化，服務水準達國際標準。</p>
-        </article>
-        <article>
-          <time>1973</time>
-          <h2>公司創立</h2>
-          <p>民國六十二年九月，本公司創立並從事貨櫃儲運、維修相關業務</p>
-        </article>
+      <div class="milestone-panel" id="era-start" role="tabpanel" aria-labelledby="milestone-tab-start" hidden>
+        <div class="milestone-timeline">
+          <section class="milestone-year-group" aria-labelledby="milestone-year-1986">
+            <div class="milestone-year-label"><time id="milestone-year-1986">1986</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>成立世新貨櫃企業股份有限公司</h2><p>成立世新貨櫃企業股份有限公司，主力於空櫃儲轉及貨櫃維修清洗服務，曾多次獲得全球最佳櫃場之殊榮。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-1981">
+            <div class="milestone-year-label"><time id="milestone-year-1981">1981</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>全面電腦化</h2><p>民國七十年作業流程全面電腦化，服務水準達國際標準。</p></div>
+              </article>
+            </div>
+          </section>
+          <section class="milestone-year-group" aria-labelledby="milestone-year-1973">
+            <div class="milestone-year-label"><time id="milestone-year-1973">1973</time></div>
+            <div class="milestone-year-events">
+              <article class="milestone-event">
+                <div class="milestone-event__marker" aria-hidden="true"><span></span></div>
+                <div class="milestone-event__content"><h2>公司創立</h2><p>民國六十二年九月，本公司創立並從事貨櫃儲運、維修相關業務。</p></div>
+              </article>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
   </main>

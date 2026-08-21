@@ -40,14 +40,16 @@
 }
 
 .privacy-page .privacy-policy a {
-  color: var(--color-secondary);
+  /* color: var(--color-secondary); */
+  color: var(--color-primary);
   font-weight: var(--font-weight-medium);
   text-underline-offset: 4px;
 }
 
 .privacy-page .privacy-policy a:hover,
 .privacy-page .privacy-policy a:focus-visible {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
+  color: var(--color-secondary);
   text-decoration-thickness: 2px;
 }
 
