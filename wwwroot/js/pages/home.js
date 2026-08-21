@@ -77,7 +77,7 @@ function setupHeroCarousel() {
     autoplayId = window.setInterval(() => {
       activeIndex = (activeIndex + 1) % slides.length;
       render();
-    }, 8000);
+    }, 6000);
   }
 
   /** 切換到指定索引 */

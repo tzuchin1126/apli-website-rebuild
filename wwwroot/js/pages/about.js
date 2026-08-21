@@ -71,6 +71,7 @@ function initMilestoneTimelines() {
   timelines.forEach((timeline) => {
     const container = timeline.querySelector("[data-collapsible-events]");
     const yearLabel = timeline.querySelector(".milestone-era-label h3");
+    const yearDot = timeline.querySelector(".milestone-era-dot");
     const toggleBtn = timeline.querySelector("[data-collapsible-events-toggle]");
     const allEvents = container ? [...container.children] : [];
 
@@ -94,7 +95,7 @@ function initMilestoneTimelines() {
     const showCount = parseInt(container.dataset.initialVisibleCount || "6", 10);
     const recentEvents = allEvents.slice(0, showCount);
     const olderEvents = allEvents.slice(showCount);
-    let isExpanded = false;
+    let visibleCount = showCount;
 
     if (!prefersReducedMotion && "IntersectionObserver" in window) {
       recentEvents.forEach((event, index) => {
@@ -114,10 +115,28 @@ function initMilestoneTimelines() {
       const visibleEvents = allEvents.filter((e) => !e.hidden && !e.classList.contains("is-collapsed"));
       if (!visibleEvents.length) return;
 
-      const viewportMiddle = window.innerHeight * 0.45;
+      const dotRect = yearDot?.getBoundingClientRect();
+      const anchorY = dotRect
+        ? dotRect.top + dotRect.height / 2
+        : window.innerHeight * 0.45;
       let currentEvent = visibleEvents[0];
+      let closestDistance = Number.POSITIVE_INFINITY;
+
       visibleEvents.forEach((e) => {
-        if (e.getBoundingClientRect().top <= viewportMiddle) currentEvent = e;
+        const rect = e.getBoundingClientRect();
+        if (rect.top <= anchorY && rect.bottom >= anchorY) {
+          currentEvent = e;
+          closestDistance = 0;
+          return;
+        }
+
+        if (closestDistance !== 0) {
+          const distance = Math.abs(rect.top + rect.height / 2 - anchorY);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            currentEvent = e;
+          }
+        }
       });
       updateYearLabel(currentEvent);
     }
@@ -127,19 +146,29 @@ function initMilestoneTimelines() {
       if (!toggleBtn) return;
       const label = toggleBtn.querySelector("span");
       const icon = toggleBtn.querySelector("i");
-      if (label) label.textContent = isExpanded ? "收合至近期獎項" : "查看完整認證與獎項";
-      if (icon) {
-        icon.classList.toggle("ph-caret-line-down", !isExpanded);
-        icon.classList.toggle("ph-caret-line-up", isExpanded);
+      const hasOlderEvents = visibleCount > showCount;
+      const isFullyExpanded = visibleCount >= allEvents.length;
+      if (label) {
+        label.textContent = isFullyExpanded
+          ? "收合至近期獎項"
+          : hasOlderEvents
+            ? "繼續查看較早獎項"
+            : "查看較早獎項";
       }
-      toggleBtn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
-      toggleBtn.classList.toggle("is-expanded", isExpanded);
+      if (icon) {
+        icon.classList.toggle("ph-caret-line-down", !isFullyExpanded);
+        icon.classList.toggle("ph-caret-line-up", isFullyExpanded);
+      }
+      toggleBtn.setAttribute("aria-expanded", hasOlderEvents ? "true" : "false");
+      toggleBtn.classList.toggle("is-expanded", hasOlderEvents);
     }
 
-    // 展開或收合
-    function setExpanded(expanded, scrollIntoView = false) {
-      const wasExpanded = isExpanded;
-      isExpanded = expanded;
+    // 分批展開或收合
+    function setVisibleCount(nextCount, scrollIntoView = false) {
+      const wasShowingOlderEvents = visibleCount > showCount;
+      const targetCount = Math.max(showCount, Math.min(nextCount, allEvents.length));
+      const wasFullyExpanded = visibleCount >= allEvents.length;
+      visibleCount = targetCount;
       updateToggleButton();
 
       // 近期事件永遠顯示
@@ -149,44 +178,53 @@ function initMilestoneTimelines() {
         e.classList.add("is-visible");
       });
 
-      if (expanded) {
-        // 展開：顯示較早事件（用 CSS 動畫 max-height）
-        olderEvents.forEach((e) => {
-          e.hidden = false;
-          e.classList.remove("is-collapsed");
-        });
-        // 強制重繪觸發動畫
-        container.offsetHeight;
-        olderEvents.forEach((e) => e.classList.add("is-visible"));
-      } else {
-        // 收合：隱藏較早事件
-        if (wasExpanded) updateYearLabel(recentEvents[recentEvents.length - 1]);
+      const visibleOlderEvents = olderEvents.slice(0, visibleCount - showCount);
+      const hiddenOlderEvents = olderEvents.slice(visibleCount - showCount);
+      const newlyVisibleEvents = visibleOlderEvents.filter((e) => e.hidden || !e.classList.contains("is-visible"));
 
-        olderEvents.forEach((e) => {
-          e.classList.remove("is-visible");
+      // 展開下一批較早事件（用 CSS 動畫 max-height）
+      newlyVisibleEvents.forEach((e) => {
+        e.hidden = false;
+        e.classList.remove("is-collapsed");
+      });
+      container.offsetHeight;
+      newlyVisibleEvents.forEach((e) => e.classList.add("is-visible"));
+
+      // 收合尚未顯示的較早事件
+      hiddenOlderEvents.forEach((e) => {
+        if (e.hidden && !e.classList.contains("is-visible")) {
           e.classList.add("is-collapsed");
+          return;
+        }
 
-          // 動畫結束後真正隱藏
-          const onTransitionEnd = (evt) => {
-            if (evt.propertyName === "max-height" && e.classList.contains("is-collapsed")) {
-              e.hidden = true;
-            }
-          };
-          e.addEventListener("transitionend", onTransitionEnd, { once: true });
+        e.classList.remove("is-visible");
+        e.classList.add("is-collapsed");
 
-          // 保險：若動畫沒跑完也強制隱藏
-          setTimeout(() => {
-            if (e.classList.contains("is-collapsed")) e.hidden = true;
-          }, prefersReducedMotion ? 0 : 450);
-        });
-
-        // 收合後將按鈕滾動進視野
-        if (scrollIntoView && wasExpanded && toggleBtn) {
-          const rect = toggleBtn.getBoundingClientRect();
-          const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-          if (!isVisible) {
-            toggleBtn.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
+        // 動畫結束後真正隱藏
+        const onTransitionEnd = (evt) => {
+          if (evt.propertyName === "max-height" && e.classList.contains("is-collapsed")) {
+            e.hidden = true;
           }
+        };
+        e.addEventListener("transitionend", onTransitionEnd, { once: true });
+
+        // 保險：若動畫沒跑完也強制隱藏
+        setTimeout(() => {
+          if (e.classList.contains("is-collapsed")) e.hidden = true;
+        }, prefersReducedMotion ? 0 : 450);
+      });
+
+      // 完整展開後收合時，年份回到近期事件
+      if (wasShowingOlderEvents && visibleCount === showCount) {
+        updateYearLabel(recentEvents[recentEvents.length - 1]);
+      }
+
+      // 收合後將按鈕滾動進視野
+      if (scrollIntoView && wasFullyExpanded && visibleCount === showCount && toggleBtn) {
+        const rect = toggleBtn.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        if (!isVisible) {
+          toggleBtn.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
         }
       }
 
@@ -200,8 +238,11 @@ function initMilestoneTimelines() {
     // 進度條：CSS 變數 --certification-progress
     function updateProgressBar() {
       const rect = timeline.getBoundingClientRect();
-      const viewportMiddle = window.innerHeight * 0.45;
-      const progress = Math.min(Math.max(viewportMiddle - rect.top, 0), rect.height);
+      const dotRect = yearDot?.getBoundingClientRect();
+      const anchorY = dotRect
+        ? dotRect.top + dotRect.height / 2
+        : window.innerHeight * 0.45;
+      const progress = Math.min(Math.max(anchorY - rect.top, 0), rect.height);
       timeline.style.setProperty("--certification-progress", `${progress}px`);
     }
 
@@ -219,12 +260,19 @@ function initMilestoneTimelines() {
 
     // 初始化
     updateYearLabel(recentEvents[0]);
-    setExpanded(false);
+    setVisibleCount(showCount);
 
     // 展開按鈕點擊
     if (toggleBtn && olderEvents.length) {
       toggleBtn.hidden = false;
-      toggleBtn.addEventListener("click", () => setExpanded(!isExpanded, true));
+      toggleBtn.addEventListener("click", () => {
+        if (visibleCount >= allEvents.length) {
+          setVisibleCount(showCount, true);
+          return;
+        }
+
+        setVisibleCount(visibleCount + showCount);
+      });
     }
 
     // IntersectionObserver：事件進入視窗更新年份（備援）

@@ -32,6 +32,9 @@ function initAdmin() {
   // ---- 狀態變數 ----
   let news = [];        // 消息列表資料
   let categories = [];  // 分類列表資料
+  const maxSourceImageBytes = 5 * 1024 * 1024;
+  const maxStoredImageBytes = 1 * 1024 * 1024;
+  const maxImageEdge = 1920;
 
   // ---- 綁定事件 ----
   loginForm.addEventListener("submit", onLoginSubmit);
@@ -71,6 +74,82 @@ function initAdmin() {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${date.getFullYear()}-${month}-${day}`;
+  }
+
+  /** 讀取本機圖片，供 Canvas 縮圖與轉檔使用 */
+  function loadLocalImage(file) {
+    return new Promise((resolve, reject) => {
+      const objectUrl = URL.createObjectURL(file);
+      const image = new Image();
+      image.onload = () => {
+        URL.revokeObjectURL(objectUrl);
+        resolve(image);
+      };
+      image.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("無法讀取圖片，請確認檔案內容是否正確。"));
+      };
+      image.src = objectUrl;
+    });
+  }
+
+  /** 將 Canvas 內容輸出成 WebP Blob */
+  function canvasToWebp(canvas, quality) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob || blob.type !== "image/webp") {
+          reject(new Error("目前瀏覽器無法將圖片轉成 WebP，請改用最新版瀏覽器。"));
+          return;
+        }
+        resolve(blob);
+      }, "image/webp", quality);
+    });
+  }
+
+  /** 圖片最長邊縮至 1920px，轉成 WebP 並控制在 1 MB 內 */
+  async function optimizeNewsImage(file) {
+    if (file.size <= 0 || file.size > maxSourceImageBytes) {
+      throw new Error("原始圖片必須小於 5 MB。");
+    }
+
+    const image = await loadLocalImage(file);
+    const sourceWidth = image.naturalWidth;
+    const sourceHeight = image.naturalHeight;
+    if (!sourceWidth || !sourceHeight) {
+      throw new Error("無法取得圖片尺寸，請改用其他圖片。");
+    }
+
+    const initialScale = Math.min(1, maxImageEdge / Math.max(sourceWidth, sourceHeight));
+    let width = Math.max(1, Math.round(sourceWidth * initialScale));
+    let height = Math.max(1, Math.round(sourceHeight * initialScale));
+    let lastBlob = null;
+
+    // 若第一次仍超過 1 MB，逐次降低品質與尺寸，避免大圖占滿主機空間。
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      if (!context) throw new Error("瀏覽器無法處理圖片，請改用其他圖片。");
+
+      context.drawImage(image, 0, 0, width, height);
+      const quality = Math.max(0.57, 0.82 - attempt * 0.05);
+      lastBlob = await canvasToWebp(canvas, quality);
+      if (lastBlob.size <= maxStoredImageBytes) break;
+
+      width = Math.max(1, Math.round(width * 0.85));
+      height = Math.max(1, Math.round(height * 0.85));
+    }
+
+    if (!lastBlob || lastBlob.size > maxStoredImageBytes) {
+      throw new Error("圖片壓縮後仍超過 1 MB，請先縮小圖片再上傳。");
+    }
+
+    const baseName = file.name.replace(/\.[^.]+$/, "") || "news-image";
+    return new File([lastBlob], `${baseName}.webp`, {
+      type: "image/webp",
+      lastModified: file.lastModified,
+    });
   }
 
   /** 將時間戳字串轉為「日期 時間」雙行 HTML */
@@ -313,10 +392,21 @@ function initAdmin() {
 
     const imageFile = document.querySelector("#newsImageFile").files[0];
     const attachmentFile = document.querySelector("#newsAttachmentFile").files[0];
-    if (imageFile) formData.append("image", imageFile);
+    if (imageFile) {
+      try {
+        messageEl.textContent = "圖片最佳化中...";
+        const optimizedImage = await optimizeNewsImage(imageFile);
+        formData.append("image", optimizedImage);
+      } catch (error) {
+        messageEl.dataset.state = "error";
+        messageEl.textContent = error instanceof Error ? error.message : "圖片處理失敗。";
+        return;
+      }
+    }
     if (attachmentFile) formData.append("attachment", attachmentFile);
 
     try {
+      messageEl.textContent = "儲存中...";
       const response = await fetch("/api/news/save", {
         method: "POST",
         headers: csrfHeaders(),

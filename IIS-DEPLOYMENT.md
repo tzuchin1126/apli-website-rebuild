@@ -12,7 +12,7 @@
 | 發布暫存資料夾 | `C:\Deploy\APLI` |
 | IIS 實際網站根目錄 | `C:\Sites\APLI` |
 | 新聞 JSON 資料 | `C:\Sites\APLI\wwwroot\data` |
-| 新聞附件 | `C:\Sites\APLI\App_Data\news` |
+| 新聞附件與壓縮圖片 | `C:\Sites\APLI\App_Data\news` |
 | IIS Site 名稱 | `APLI Website` |
 | IIS Application Pool | `APLIWebsite` |
 
@@ -108,7 +108,7 @@ Test-Path C:\Sites\APLI\Pages\Shared\_Footer.cshtml
 
 ### 5. 設定資料夾寫入權限
 
-Admin 會修改新聞 JSON 並儲存附件，因此只對必要資料夾授予 `Modify`：
+Admin 會修改新聞 JSON，並在 `App_Data\news` 儲存附件與壓縮後圖片，因此只對必要資料夾授予 `Modify`：
 
 ```powershell
 New-Item -ItemType Directory -Force C:\Sites\APLI\wwwroot\data

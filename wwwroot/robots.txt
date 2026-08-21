@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /api/
+Disallow: /Admin/
+Disallow: /data/
+Crawl-delay: 10
+
+# Sitemap (若有的話請取消註解並填入正確網址)
+# Sitemap: https://your-domain.com/sitemap.xml

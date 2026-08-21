@@ -85,6 +85,12 @@
 .news-load-more {
   display: flex;
   margin: 28px auto 0;
+  background: var(--color-secondary);
+}
+
+.news-load-more:hover,
+.news-load-more:focus-visible {
+  background: var(--color-primary);
 }
 
 .news-empty[hidden] {
@@ -97,34 +103,113 @@
 
 .news-row {
   display: grid;
-  grid-template-columns: 120px 110px minmax(0, 1fr) 28px;
-  gap: 16px;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr) 28px;
+  gap: clamp(24px, 3vw, 40px);
   align-items: center;
-  min-height: 72px;
-  padding: 18px 6px;
+  min-height: 228px;
+  padding: 24px 6px;
   color: var(--color-ink);
   font-family: var(--font-body);
   text-decoration: none;
-  transition: background-color 180ms ease;
 }
 
-.news-row__date,
-.news-row__tag {
+.news-row__media {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+}
+
+.news-row__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.news-row__body {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 8px;
+}
+
+.news-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
   color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.news-row__date {
+  font-variant-numeric: tabular-nums;
 }
 
 .news-row__title {
   min-width: 0;
   color: var(--color-ink);
-  font-weight: var(--font-weight-section-heading);
-  line-height: 1.55;
+  font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
   overflow-wrap: anywhere;
+  transition: color 180ms ease;
+}
+
+.news-row__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.news-row__summary-text {
+  display: -webkit-box;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.news-row__summary[hidden] {
+  display: none;
+}
+
+.news-row__attachment {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin-top: 3px;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.news-row__attachment[hidden] {
+  display: none;
+}
+
+.news-row__attachment .ph {
+  font-family: "Phosphor";
+  font-size: 1.25rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.news-row__attachment .ph-paperclip::before {
+  content: "\e39a";
 }
 
 .news-row__icon {
   display: grid;
   place-items: center;
   color: var(--color-primary);
+  transition: transform 180ms ease;
 }
 
 .news-row__icon svg {
@@ -135,6 +220,21 @@
 .news-row:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: -2px;
+}
+
+.news-row:hover .news-row__image,
+.news-row:focus-visible .news-row__image {
+  transform: scale(1.035);
+}
+
+.news-row:hover .news-row__title,
+.news-row:focus-visible .news-row__title {
+  color: var(--color-primary);
+}
+
+.news-row:hover .news-row__icon,
+.news-row:focus-visible .news-row__icon {
+  transform: translateX(4px);
 }
 
 .news-empty {
@@ -188,35 +288,39 @@
   }
 
   .news-row {
-    grid-template-columns: auto minmax(0, 1fr) 24px;
+    grid-template-columns: minmax(0, 1fr) 24px;
     grid-template-areas:
-      "date tag icon"
-      "title title icon";
+      "media media"
+      "body icon";
     min-height: 0;
-    padding: 18px 16px;
-    column-gap: 10px;
-    row-gap: 12px;
+    padding: 20px 0;
+    column-gap: 12px;
+    row-gap: 20px;
   }
 
-  .news-row__date {
-    grid-area: date;
-    font-size: 0.82rem;
-    line-height: 1.4;
-    font-variant-numeric: tabular-nums;
+  .news-row__media {
+    grid-area: media;
+    width: 100%;
   }
 
-  .news-row__tag {
-    grid-area: tag;
-    justify-self: start;
+  .news-row__body {
+    grid-area: body;
+    gap: 8px;
+  }
+
+  .news-row__meta {
     font-size: 0.82rem;
     line-height: 1.4;
   }
 
   .news-row__title {
-    grid-area: title;
-    font-size: 1.04rem;
-    font-weight: var(--font-weight-section-heading);
-    line-height: 1.55;
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+
+  .news-row__summary {
+    font-size: 0.95rem;
+    line-height: 1.65;
   }
 
   .news-row__icon {
@@ -228,5 +332,11 @@
 @media (prefers-reduced-motion: reduce) {
   .news-list--filtering .news-item:not([hidden]) {
     animation: none;
+  }
+
+  .news-row__image,
+  .news-row__title,
+  .news-row__icon {
+    transition: none;
   }
 }

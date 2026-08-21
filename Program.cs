@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO.Compression;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -11,9 +11,27 @@ using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.StaticFiles;
+using Serilog;
+using Serilog.Events;
 using apli_website_rebuild.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 檔案 Log 只收 Warning 以上，每日或達 10 MB 時換檔，最多保留 14 天／14 個檔案。
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File(
+        Path.Combine(context.HostingEnvironment.ContentRootPath, "App_Data", "logs", "apli-.log"),
+        restrictedToMinimumLevel: LogEventLevel.Warning,
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 10 * 1024 * 1024,
+        rollOnFileSizeLimit: true,
+        retainedFileCountLimit: 14,
+        retainedFileTimeLimit: TimeSpan.FromDays(14),
+        shared: true));
 
 var adminUsername = builder.Configuration["Admin:Username"];
 var adminPassword = builder.Configuration["Admin:Password"];
@@ -51,6 +69,14 @@ builder.Services
         {
             if (context.Request.Path.StartsWithSegments("/api"))
             {
+                // API 未授權時記錄來源，不把使用者導向 HTML 登入頁。
+                var logger = context.HttpContext.RequestServices
+                    .GetRequiredService<ILoggerFactory>()
+                    .CreateLogger("ApliWebsite.Authorization");
+                logger.LogWarning(
+                    "未授權存取 API。來源 IP：{SourceIp}，請求路徑：{RequestPath}",
+                    context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                    context.Request.Path.ToString());
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 return Task.CompletedTask;
             }
@@ -72,6 +98,18 @@ builder.Services.AddAntiforgery(options =>
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.OnRejected = (context, _) =>
+    {
+        // Rate Limiter 拒絕請求時，記錄來源 IP 與路徑以利追查。
+        var logger = context.HttpContext.RequestServices
+            .GetRequiredService<ILoggerFactory>()
+            .CreateLogger("ApliWebsite.RateLimiter");
+        logger.LogWarning(
+            "Rate Limiter 已拒絕請求。來源 IP：{SourceIp}，請求路徑：{RequestPath}",
+            context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            context.HttpContext.Request.Path.ToString());
+        return ValueTask.CompletedTask;
+    };
     options.AddPolicy("admin-login", context =>
     {
         var address = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
@@ -85,6 +123,19 @@ builder.Services.AddRateLimiter(options =>
                 AutoReplenishment = true
             });
     });
+    options.AddPolicy("public-api", context =>
+    {
+        var address = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        return RateLimitPartition.GetFixedWindowLimiter(
+            address,
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
 });
 
 var app = builder.Build();
@@ -92,18 +143,22 @@ var root = app.Environment.ContentRootPath;
 var newsFile = Path.Combine(root, "wwwroot", "data", "news.json");
 var categoriesFile = Path.Combine(root, "wwwroot", "data", "news-categories.json");
 var uploadsRoot = Path.Combine(root, "App_Data", "news");
+var imageUploadsRoot = Path.Combine(uploadsRoot, "images");
 var defaultCategories = new[] { "營運公告", "費率公告", "職缺公告" };
 const string captchaSessionKey = "admin-login-captcha";
 const long maxUploadRequestBytes = 16 * 1024 * 1024;
-const string contentSecurityPolicy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src https://www.google.com;";
+const string newsUploadsUrlPrefix = "/api/uploads/news";
+const string newsImagesUrlPrefix = "/api/uploads/news/images";
+// blob: 僅開放給後台在本機解碼待壓縮圖片；其他 CSP 資源類型維持原限制。
+const string contentSecurityPolicy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-src https://www.google.com;";
 var newsWriteLock = new SemaphoreSlim(1, 1);
 var categoriesWriteLock = new SemaphoreSlim(1, 1);
 
 Directory.CreateDirectory(Path.GetDirectoryName(newsFile)!);
 Directory.CreateDirectory(uploadsRoot);
+Directory.CreateDirectory(imageUploadsRoot);
 if (!File.Exists(categoriesFile))
     await WriteCategories(defaultCategories);
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -113,7 +168,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.Use(async (context, next) =>
 {
     context.Response.Headers["Content-Security-Policy"] = contentSecurityPolicy;
@@ -272,7 +326,11 @@ app.MapGet("/api/admin/captcha", (HttpContext context) =>
     return Results.Content(CreateCaptchaSvg(code), "image/svg+xml", Encoding.UTF8);
 });
 
-app.MapPost("/api/admin/login", async (HttpContext context, LoginRequest request, IAntiforgery antiforgery) =>
+app.MapPost("/api/admin/login", async (
+    HttpContext context,
+    LoginRequest request,
+    IAntiforgery antiforgery,
+    ILoggerFactory loggerFactory) =>
 {
     await antiforgery.ValidateRequestAsync(context);
 
@@ -287,7 +345,14 @@ app.MapPost("/api/admin/login", async (HttpContext context, LoginRequest request
     var captchaMatches = FixedTimeTextEquals(expectedCaptcha, request.Captcha);
 
     if (!usernameMatches || !passwordMatches || !captchaMatches)
+    {
+        // 登入失敗只記錄來源 IP，絕不記錄帳密或驗證碼內容。
+        var logger = loggerFactory.CreateLogger("ApliWebsite.AdminAuthentication");
+        logger.LogWarning(
+            "Admin 登入失敗。來源 IP：{SourceIp}",
+            context.Connection.RemoteIpAddress?.ToString() ?? "unknown");
         return Results.Unauthorized();
+    }
 
     var claims = new[] { new Claim(ClaimTypes.Name, adminUsername) };
     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -307,8 +372,7 @@ app.MapPost("/api/admin/logout", async (HttpContext context, IAntiforgery antifo
 
 app.MapGet("/api/admin/session", (HttpContext context) =>
     context.User.Identity?.IsAuthenticated == true
-        ? Results.Ok()
-        : Results.Unauthorized());
+        ? Results.Ok() : Results.Unauthorized());
 
 app.MapGet("/api/news", async () => Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
     .RequireAuthorization();
@@ -317,7 +381,7 @@ app.MapGet("/api/public/news", async () =>
 {
     var news = await NewsService.ReadAsync(newsFile);
     return Results.Ok(SortNewsByLatest(news.Where(IsPublicNewsItem)).Select(ToPublicNewsListItem));
-});
+}).RequireRateLimiting("public-api");
 
 app.MapGet("/api/public/news/{id}", async (string id) =>
 {
@@ -326,7 +390,7 @@ app.MapGet("/api/public/news/{id}", async (string id) =>
     return item is null
         ? Results.NotFound()
         : Results.Ok(ToPublicNewsDetailItem(item));
-});
+}).RequireRateLimiting("public-api");
 
 app.MapGet("/api/public/news/categories", async () =>
 {
@@ -337,9 +401,12 @@ app.MapGet("/api/public/news/categories", async () =>
         .Distinct(StringComparer.Ordinal)
         .ToList();
     return Results.Ok(categories);
-});
+}).RequireRateLimiting("public-api");
 
-app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforgery) =>
+app.MapPost("/api/news/save", async (
+    HttpContext context,
+    IAntiforgery antiforgery,
+    ILoggerFactory loggerFactory) =>
 {
     await antiforgery.ValidateRequestAsync(context);
     if (context.Features.Get<IHttpMaxRequestBodySizeFeature>() is { IsReadOnly: false } requestLimit)
@@ -360,6 +427,8 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
     if ((item.Tag ?? "").Length > 50)
         return Results.BadRequest("分類不可超過 50 字。");
 
+    var newlyStoredUploadUrls = new List<string>();
+    var saveCompleted = false;
     await newsWriteLock.WaitAsync();
     try
     {
@@ -373,7 +442,13 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
         {
             if (requestData.ImageFile is not null)
             {
-                var upload = await SaveImageDataUrlAsync(requestData.ImageFile);
+                // 新圖片改存壓縮後的實體檔案，避免 Base64 讓 news.json 持續膨脹。
+                var upload = await SaveUploadAsync(
+                    requestData.ImageFile,
+                    imageUploadsRoot,
+                    UploadKind.Image,
+                    newsImagesUrlPrefix);
+                newlyStoredUploadUrls.Add(upload.Url);
                 item.ImageUrl = upload.Url;
                 item.ImageName = upload.OriginalName;
             }
@@ -390,7 +465,12 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
 
             if (requestData.AttachmentFile is not null)
             {
-                var upload = await SaveUploadAsync(requestData.AttachmentFile, uploadsRoot, UploadKind.Attachment);
+                var upload = await SaveUploadAsync(
+                    requestData.AttachmentFile,
+                    uploadsRoot,
+                    UploadKind.Attachment,
+                    newsUploadsUrlPrefix);
+                newlyStoredUploadUrls.Add(upload.Url);
                 item.Url = upload.Url;
                 item.AttachmentName = upload.OriginalName;
             }
@@ -407,6 +487,9 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
         }
         catch (UploadValidationException exception)
         {
+            // 檔案驗證失敗時只記錄安全的驗證訊息，不記錄檔案內容。
+            var logger = loggerFactory.CreateLogger("ApliWebsite.UploadValidation");
+            logger.LogWarning("檔案上傳驗證失敗：{ValidationMessage}", exception.Message);
             return Results.BadRequest(exception.Message);
         }
 
@@ -433,12 +516,20 @@ app.MapPost("/api/news/save", async (HttpContext context, IAntiforgery antiforge
 
         news = SortNewsByLatest(news);
         await NewsService.WriteAsync(newsFile, news);
-        DeleteUnusedUpload(previousImageUrl, item.ImageUrl, news, uploadsRoot);
-        DeleteUnusedUpload(previousAttachmentUrl, item.Url, news, uploadsRoot);
+        saveCompleted = true;
+        DeleteUnusedUpload(previousImageUrl, item.ImageUrl, news);
+        DeleteUnusedUpload(previousAttachmentUrl, item.Url, news);
         return Results.Ok(item);
     }
     finally
     {
+        // 儲存中途失敗時清除已建立的新檔，避免留下無人引用的檔案。
+        if (!saveCompleted)
+        {
+            foreach (var uploadUrl in newlyStoredUploadUrls)
+                DeleteStoredUpload(uploadUrl);
+        }
+
         newsWriteLock.Release();
     }
 }).RequireAuthorization();
@@ -450,10 +541,19 @@ app.MapDelete("/api/news/delete/{id}", async (HttpContext context, string id, IA
     try
     {
         var news = await NewsService.ReadAsync(newsFile);
-        if (news.RemoveAll(item => item.Id == id) == 0)
+        var removedItems = news.Where(item => item.Id == id).ToList();
+        if (removedItems.Count == 0)
             return Results.NotFound();
 
+        news.RemoveAll(item => item.Id == id);
         await NewsService.WriteAsync(newsFile, news);
+        // 刪除新聞時同步清除沒有被其他新聞共用的圖片與附件。
+        foreach (var removedItem in removedItems)
+        {
+            DeleteUnusedUpload(removedItem.ImageUrl, null, news);
+            DeleteUnusedUpload(removedItem.Url, null, news);
+        }
+
         return Results.Ok();
     }
     finally
@@ -462,31 +562,12 @@ app.MapDelete("/api/news/delete/{id}", async (HttpContext context, string id, IA
     }
 }).RequireAuthorization();
 
-app.MapGet("/api/uploads/news/{fileName}", async (HttpContext context, string fileName) =>
-{
-    if (Path.GetFileName(fileName) != fileName)
-        return Results.BadRequest("檔案名稱無效。");
+// 新圖片與既有附件共用發布狀態檢查，但分開存放以利容量管理。
+app.MapGet("/api/uploads/news/images/{fileName}", (HttpContext context, string fileName) =>
+    ServeNewsUploadAsync(context, fileName, imageUploadsRoot, newsImagesUrlPrefix));
 
-    var filePath = Path.Combine(uploadsRoot, fileName);
-    if (!File.Exists(filePath))
-        return Results.NotFound();
-
-    var publicPath = $"/api/uploads/news/{fileName}";
-    var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
-    if (!isAuthenticated)
-    {
-        var news = await NewsService.ReadAsync(newsFile);
-        var isPublishedReference = news.Any(item => IsPublicNewsItem(item) &&
-            (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
-             string.Equals(item.Url, publicPath, StringComparison.Ordinal)));
-        if (!isPublishedReference)
-            return Results.NotFound();
-    }
-
-    context.Response.Headers.CacheControl = "private, no-store";
-    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
-    return Results.File(filePath, GetUploadContentType(fileName), enableRangeProcessing: true);
-});
+app.MapGet("/api/uploads/news/{fileName}", (HttpContext context, string fileName) =>
+    ServeNewsUploadAsync(context, fileName, uploadsRoot, newsUploadsUrlPrefix));
 
 app.MapGet("/api/news/categories", async () => Results.Ok(await ReadCategories()));
 
@@ -531,6 +612,32 @@ app.MapDelete("/api/news/categories/{name}", async (string name, HttpContext con
 }).RequireAuthorization();
 
 app.Run();
+
+async Task<IResult> ServeNewsUploadAsync(HttpContext context, string fileName, string directory, string urlPrefix)
+{
+    if (Path.GetFileName(fileName) != fileName)
+        return Results.BadRequest("檔案名稱無效。");
+
+    var filePath = Path.Combine(directory, fileName);
+    if (!File.Exists(filePath))
+        return Results.NotFound();
+
+    var publicPath = $"{urlPrefix}/{fileName}";
+    var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
+    if (!isAuthenticated)
+    {
+        var news = await NewsService.ReadAsync(newsFile);
+        var isPublishedReference = news.Any(item => IsPublicNewsItem(item) &&
+            (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
+             string.Equals(item.Url, publicPath, StringComparison.Ordinal)));
+        if (!isPublishedReference)
+            return Results.NotFound();
+    }
+
+    context.Response.Headers.CacheControl = "private, no-store";
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    return Results.File(filePath, GetUploadContentType(fileName), enableRangeProcessing: true);
+}
 
 async Task<List<string>> ReadCategories()
 {
@@ -635,54 +742,21 @@ bool FixedTimeTextEquals(string? expected, string? actual)
            CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes);
 }
 
-async Task<SavedUpload> SaveImageDataUrlAsync(IFormFile file)
-{
-    var originalName = Path.GetFileName(file.FileName).Trim();
-    var extension = Path.GetExtension(originalName).ToLowerInvariant();
-    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
-    const long maxImageSize = 5 * 1024 * 1024;
-
-    if (file.Length <= 0 || file.Length > maxImageSize)
-        throw new UploadValidationException("公告圖片必須小於 5 MB。");
-    if (string.IsNullOrWhiteSpace(originalName) || originalName.Length > 180 || !allowedExtensions.Contains(extension))
-        throw new UploadValidationException("公告圖片僅支援 JPG、PNG 或 WebP。");
-
-    await using var input = file.OpenReadStream();
-    using var memory = new MemoryStream((int)file.Length);
-    await input.CopyToAsync(memory);
-    var bytes = memory.ToArray();
-    ValidateImageSignature(bytes, extension);
-
-    var mimeType = GetUploadContentType($"image{extension}");
-    var dataUrl = $"data:{mimeType};base64,{Convert.ToBase64String(bytes)}";
-    return new SavedUpload(dataUrl, originalName);
-}
-
-void ValidateImageSignature(byte[] bytes, string extension)
-{
-    static bool StartsWith(byte[] source, params byte[] prefix) =>
-        source.Length >= prefix.Length && source.AsSpan(0, prefix.Length).SequenceEqual(prefix);
-
-    var isJpeg = (extension is ".jpg" or ".jpeg") && StartsWith(bytes, 0xff, 0xd8, 0xff);
-    var isPng = extension == ".png" && StartsWith(bytes, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a);
-    var isWebp = extension == ".webp" && bytes.Length >= 12 &&
-        StartsWith(bytes, 0x52, 0x49, 0x46, 0x46) && bytes.AsSpan(8, 4).SequenceEqual("WEBP"u8);
-
-    if (!isJpeg && !isPng && !isWebp)
-        throw new UploadValidationException("公告圖片內容格式不正確。");
-}
-
-async Task<SavedUpload> SaveUploadAsync(IFormFile file, string directory, UploadKind kind)
+async Task<SavedUpload> SaveUploadAsync(
+    IFormFile file,
+    string directory,
+    UploadKind kind,
+    string publicUrlPrefix)
 {
     var originalName = Path.GetFileName(file.FileName).Trim();
     var extension = Path.GetExtension(originalName).ToLowerInvariant();
     var allowedExtensions = kind == UploadKind.Image
         ? new[] { ".jpg", ".jpeg", ".png", ".webp" }
         : new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx" };
-    var maxSize = kind == UploadKind.Image ? 5 * 1024 * 1024 : 10 * 1024 * 1024;
+    var maxSize = kind == UploadKind.Image ? 1 * 1024 * 1024 : 10 * 1024 * 1024;
 
     if (file.Length <= 0 || file.Length > maxSize)
-        throw new UploadValidationException(kind == UploadKind.Image ? "公告圖片必須小於 5 MB。" : "附件必須小於 10 MB。");
+        throw new UploadValidationException(kind == UploadKind.Image ? "公告圖片壓縮後必須小於 1 MB。" : "附件必須小於 10 MB。");
     if (string.IsNullOrWhiteSpace(originalName) || originalName.Length > 180 || !allowedExtensions.Contains(extension))
         throw new UploadValidationException(kind == UploadKind.Image
             ? "公告圖片僅支援 JPG、PNG 或 WebP。"
@@ -698,7 +772,7 @@ async Task<SavedUpload> SaveUploadAsync(IFormFile file, string directory, Upload
 
         await ValidateUploadSignatureAsync(temporaryPath, extension, kind);
         File.Move(temporaryPath, finalPath);
-        return new SavedUpload($"/api/uploads/news/{storedName}", originalName);
+        return new SavedUpload($"{publicUrlPrefix}/{storedName}", originalName);
     }
     catch
     {
@@ -753,16 +827,38 @@ async Task ValidateUploadSignatureAsync(string path, string extension, UploadKin
     throw new UploadValidationException("附件內容格式不正確。");
 }
 
-void DeleteUnusedUpload(string? previousUrl, string? currentUrl, IReadOnlyCollection<NewsItem> news, string directory)
+void DeleteUnusedUpload(string? previousUrl, string? currentUrl, IReadOnlyCollection<NewsItem> news)
 {
     if (string.IsNullOrWhiteSpace(previousUrl) || string.Equals(previousUrl, currentUrl, StringComparison.Ordinal))
-        return;
-    if (!previousUrl.StartsWith("/api/uploads/news/", StringComparison.Ordinal))
         return;
     if (news.Any(item => string.Equals(item.ImageUrl, previousUrl, StringComparison.Ordinal) || string.Equals(item.Url, previousUrl, StringComparison.Ordinal)))
         return;
 
-    var fileName = previousUrl["/api/uploads/news/".Length..];
+    DeleteStoredUpload(previousUrl);
+}
+
+void DeleteStoredUpload(string? uploadUrl)
+{
+    if (string.IsNullOrWhiteSpace(uploadUrl))
+        return;
+
+    string directory;
+    string fileName;
+    if (uploadUrl.StartsWith($"{newsImagesUrlPrefix}/", StringComparison.Ordinal))
+    {
+        directory = imageUploadsRoot;
+        fileName = uploadUrl[$"{newsImagesUrlPrefix}/".Length..];
+    }
+    else if (uploadUrl.StartsWith($"{newsUploadsUrlPrefix}/", StringComparison.Ordinal))
+    {
+        directory = uploadsRoot;
+        fileName = uploadUrl[$"{newsUploadsUrlPrefix}/".Length..];
+    }
+    else
+    {
+        return;
+    }
+
     if (Path.GetFileName(fileName) == fileName)
         File.Delete(Path.Combine(directory, fileName));
 }
@@ -788,7 +884,9 @@ PublicNewsListItem ToPublicNewsListItem(NewsItem item) => new(
     item.Date,
     item.Tag,
     item.Title,
+    item.Content,
     item.ImageUrl,
+    !string.IsNullOrWhiteSpace(item.Url),
     item.CreatedAt);
 
 PublicNewsDetailItem ToPublicNewsDetailItem(NewsItem item) => new(
@@ -817,7 +915,7 @@ string GetUploadContentType(string fileName) => Path.GetExtension(fileName).ToLo
 record LoginRequest(string? Username, string? Password, string? Captcha);
 record CategoryRequest(string? Name);
 record NewsSaveRequest(NewsItem Item, IFormFile? ImageFile, IFormFile? AttachmentFile, bool RemoveImage, bool RemoveAttachment);
-record PublicNewsListItem(string Id, string Date, string Tag, string Title, string ImageUrl, string CreatedAt);
+record PublicNewsListItem(string Id, string Date, string Tag, string Title, string Content, string ImageUrl, bool HasAttachment, string CreatedAt);
 record PublicNewsDetailItem(string Id, string Date, string Tag, string Title, string Content, string Url, string AttachmentName, string ImageUrl);
 record SavedUpload(string Url, string OriginalName);
 enum UploadKind { Image, Attachment }

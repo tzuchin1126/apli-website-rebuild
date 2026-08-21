@@ -19,6 +19,7 @@ function initNewsList() {
 
   const categoriesContainer = root.querySelector("[data-news-categories]");
   const pageSize = 8; // 每次載入筆數
+  const defaultNewsImage = "/public/images/index/news.png";
   let visibleCount = pageSize; // 目前顯示筆數
   let items = []; // 所有消息 DOM 元素
 
@@ -84,6 +85,9 @@ function initNewsList() {
       date: item.date ?? item.Date,
       tag: item.tag ?? item.Tag,
       title: item.title ?? item.Title,
+      content: item.content ?? item.Content ?? "",
+      imageUrl: item.imageUrl ?? item.ImageUrl ?? "",
+      hasAttachment: item.hasAttachment ?? item.HasAttachment ?? false,
       published: item.published ?? item.Published,
     };
   }
@@ -118,17 +122,45 @@ function initNewsList() {
 
       article.innerHTML = `
         <a class="news-row" href="/news-detail?id=${encodeURIComponent(item.id)}">
-          <span class="news-row__date"></span>
-          <span class="news-row__tag"></span>
-          <span class="news-row__title"></span>
+          <span class="news-row__media">
+            <img class="news-row__image" alt="" loading="lazy" decoding="async">
+          </span>
+          <span class="news-row__body">
+            <span class="news-row__meta">
+              <time class="news-row__date"></time>
+              <span class="news-row__tag"></span>
+            </span>
+            <span class="news-row__title"></span>
+            <span class="news-row__summary">
+              <span class="news-row__attachment" hidden>
+                <i class="ph ph-paperclip" aria-hidden="true"></i>
+                <span class="sr-only">含附件：</span>
+              </span>
+              <span class="news-row__summary-text"></span>
+            </span>
+          </span>
           ${rowIconMarkup}
         </a>
       `;
 
       const row = article.querySelector(".news-row");
-      row.querySelector(".news-row__date").textContent = item.date || "";
+      const image = row.querySelector(".news-row__image");
+      const date = row.querySelector(".news-row__date");
+      const summary = row.querySelector(".news-row__summary");
+      const summaryText = row.querySelector(".news-row__summary-text");
+      const attachment = row.querySelector(".news-row__attachment");
+
+      image.src = item.imageUrl || defaultNewsImage;
+      image.addEventListener("error", () => {
+        if (!image.src.endsWith(defaultNewsImage)) image.src = defaultNewsImage;
+      });
+      date.dateTime = item.date || "";
+      date.textContent = item.date || "";
       row.querySelector(".news-row__tag").textContent = item.tag || "";
       row.querySelector(".news-row__title").textContent = item.title || "";
+      summaryText.textContent = item.content.replace(/\s+/g, " ").trim();
+      attachment.hidden = !item.hasAttachment;
+      summary.hidden = !summaryText.textContent && !item.hasAttachment;
 
       list.insertBefore(article, empty);
     });

@@ -127,9 +127,9 @@
   opacity: 1;
   transform: translateX(0);
 }
-.about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 8px; align-items: baseline; width: 100%; padding: 2px 0 18px; border-bottom: 1px solid var(--color-line); text-align: left; }
-.about-page .milestone-panel-events > div + div { padding-top: 14px; }
-.about-page .milestone-panel-events h3 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1rem, .96rem + .2vw, 1.125rem); line-height: 1.75; font-weight: var(--font-weight-medium); }
+.about-page .milestone-panel-events > div { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; justify-items: start; column-gap: 12px; row-gap: 4px; align-items: baseline; width: 100%; padding: 2px 0 12px; border-bottom: 1px solid var(--color-line); text-align: left; }
+.about-page .milestone-panel-events > div + div { padding-top: 8px; }
+.about-page .milestone-panel-events h3 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1rem, .96rem + .2vw, 1.125rem); line-height: 1.6; font-weight: var(--font-weight-medium); }
 .about-page .milestone-event-year { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-dark); font-size: clamp(1rem, .96rem + .15vw, 1.125rem); font-weight: var(--font-weight-medium); line-height: 1.7; }
 .about-page .about-certifications-toggle { grid-column: 2; justify-self: start; margin-top: 28px; border-radius: var(--card-radius); background: var(--color-secondary); }
 .about-page .about-certifications-toggle:hover, .about-page .about-certifications-toggle:focus-visible { background: var(--color-primary); color: var(--button-primary-color); }
@@ -152,6 +152,8 @@
 .about-page .about-affiliates__logo img { display: block; width: auto; max-width: 100%; height: auto; max-height: 132px; object-fit: contain; transition: transform 260ms ease; }
 .about-page .about-affiliates__logo img[src$=".jpg"] { mix-blend-mode: multiply; }
 .about-page .about-affiliates__card:hover .about-affiliates__logo img, .about-page .about-affiliates__card:focus-within .about-affiliates__logo img { transform: scale(1.08); }
+.about-page .about-affiliates__card[href$="#affiliate-club"] .about-affiliates__logo img { transform: scale(1.12); }
+.about-page .about-affiliates__card[href$="#affiliate-club"]:hover .about-affiliates__logo img, .about-page .about-affiliates__card[href$="#affiliate-club"]:focus-within .about-affiliates__logo img { transform: scale(1.21); }
 .about-page .about-affiliates__body { position: relative; display: flex; flex: 1 1 48%; min-width: 0; align-items: center; box-sizing: border-box; padding: 12px 32px 12px 14px; background: var(--color-surface); }
 .about-page .about-affiliates__name { display: block; min-width: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .25vw, 1.05rem); font-weight: var(--font-weight-medium); line-height: 1.55; overflow-wrap: anywhere; }
 
@@ -172,7 +174,7 @@
   .about-page .milestone-timeline { --certification-line-x: 18px; margin-top: 36px; }
   .about-page .milestone-panels { gap: 72px; }
   .about-page .milestone-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .about-page .milestone-era-label { position: relative; top: auto; padding-left: 56px; }
+  .about-page .milestone-era-label { position: sticky; top: 96px; z-index: 2; min-height: 48px; padding: 8px 0 8px 56px; background: var(--color-surface); }
   .about-page .milestone-era-label h3 { 
     font-size: clamp(1.85rem, 9vw, 2.5rem); 
     line-height: clamp(2.25rem, 10vw, 3rem); 

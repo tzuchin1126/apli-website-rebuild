@@ -1,4 +1,108 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-21：修正 About 認證時間軸行動版進度線與圓點錨定
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：行動版 `milestone-era-label` 改為 sticky 錨點並避開內容覆蓋；進度線從時間軸起點延伸至圓點中心；年份與進度計算維持以圓點中心為基準。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`rg` 確認行動版 sticky、進度線與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行實際行動裝置瀏覽器捲動、圓點／年份同步與展開操作驗收，亦未進行桌機、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：行動版時間軸修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：修正 About 認證時間軸年份錨點與進度線
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`、`wwwroot/js/pages/about.js`。
+  - 完成：左側年份改以 `milestone-era-dot` 中心對應右側事件；進度計算同步使用圓點中心；時間軸線從圓點中心開始，移除圓點上方多出的線段。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`rg` 確認圓點錨點與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機實際捲動與展開操作、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：時間軸錨點修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：調整 About 認證與獎項分批顯示筆數
+  - 範圍：`wwwroot/about.html`。
+  - 完成：初始顯示 10 筆，後續每次增加 10 筆；沿用既有分批展開與收合邏輯。
+  - 已驗證：`rg` 確認 `data-initial-visible-count="10"`；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機實際操作、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：顯示筆數調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：將 About 認證與獎項改為分批展開
+  - 範圍：`wwwroot/about.html`、`wwwroot/js/pages/about.js`。
+  - 完成：保留初始 6 筆，每次按鈕增加 6 筆；中段顯示「繼續查看較早獎項」，全部顯示後才提供「收合至近期獎項」，並保留原本事件淡入、年份追蹤與收合捲動行為。
+  - 已驗證：`node --check wwwroot/js/pages/about.js`、`rg` 確認分批狀態與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機實際操作、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：分批展開完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：收斂 About 認證與獎項事件垂直間距
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：維持年份／標題上下排列，將事件內間距由 8px 收至 4px、事件底部留白由 18px 收至 12px、相鄰事件上方留白由 14px 收至 8px，標題行高調整為 1.6，讓展開完整列表時更集中。
+  - 已驗證：`rg` 確認間距與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：間距調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：恢復 About 認證與獎項時間軸原本排列
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：移除上一版「- 年份」與標題同列的排列，恢復年份與標題上下排列的原本行為；保留左側動態年份與時間軸互動。
+  - 已驗證：`rg` 確認原本 grid 排列與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：恢復完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：放大 About 關係企業的亞柏會舘 Logo
+  - 範圍：`wwwroot/about.html`、`wwwroot/css/pages/about.css`。
+  - 完成：只對 `#affiliate-club` 卡片的 Logo 套用約 12% 基準放大，hover／focus 時保留額外放大效果；其他關係企業 Logo 維持原樣。
+  - 已驗證：確認 `aplus-energy.png` 為該卡片目前資產；`rg` 確認限定 selector 與 cache 版本；範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：Logo 尺寸調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：恢復最新消息「載入更多」按鈕原本行為
+  - 範圍：`wwwroot/news.html`、`wwwroot/css/pages/news.css`、`wwwroot/js/pages/news.js`。
+  - 完成：移除上一版新增的載入中指示、旋轉效果與新聞列淡入動畫，恢復原本點擊後直接顯示下一批項目的行為。
+  - 已驗證：`node --check wwwroot/js/pages/news.js`、範圍內 `git diff --check`。
+  - 未驗證：尚未進行瀏覽器桌機／手機渲染、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：恢復完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：修正 About 認證事件「亞柏會館」文字
+  - 範圍：`wwwroot/about.html`。
+  - 完成：將「亞柏會館」更正為「亞柏舘」。
+  - 已驗證：`rg` 確認指定文字已更新；`git diff --check`。
+  - 未驗證：依需求未進行實機或瀏覽器驗證。
+  - 狀態：內容修正完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：最新消息列表加入圖片、摘要與附件狀態版型
+  - 範圍：`Program.cs`、`wwwroot/news.html`、`wwwroot/css/pages/news.css`、`wwwroot/js/pages/news.js`、`TODO.md`。
+  - 完成：保留分類篩選、每次 8 筆與垂直列表；公開列表 API 提供純文字內容及 `hasAttachment` 布林欄位但不暴露附件網址；列表依序顯示「日期＋灰色分類」meta、較精簡的標題與最多兩行內容摘要；公告有附件時，摘要前方以同一行的主題橘色迴紋針提示，沒有附件則不顯示圖示；hover／focus 時標題改為主題橘色；有上傳圖片時使用新聞圖片，未上傳或載入失敗時與首頁共用 `index/news.png`；「載入更多」預設背景使用 `var(--color-secondary)` 深藍色。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/news.js`、範圍內 `git diff --check`；新啟動的本機公開 API 回傳 10 筆且 10 筆皆包含 `content`、3 筆 `hasAttachment = true`，列表 API 未包含附件 URL；本機瀏覽器 1912px 桌機畫面確認資訊順序為 meta／標題／摘要，日期與分類皆為灰色、前 8 筆正常顯示、只有有附件的公告在摘要前方顯示迴紋針且頁面無水平溢位；本機 Chrome 390px 手機畫面確認圖片／meta／標題／摘要依序換行且附件圖示與摘要同行。
+  - 未驗證：尚未實際操作分類篩選、載入更多、hover／鍵盤 focus，亦未進行平板、實體手機、其他瀏覽器與人工無障礙驗收。
+  - 狀態：API、列表版面、首頁共用預設圖與桌機／手機瀏覽器驗證完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：調整最新消息詳細頁版面
+  - 範圍：`wwwroot/news-detail.html`、`wwwroot/css/pages/news-detail.css`、`TODO.md`。
+  - 完成：因費率公告內容較短，詳細頁保留「最新消息」Hero；文章標題使用 `font-weight: 600`，消息圖片與文章左緣對齊；返回最新消息改為無背景深色文字連結並保留鍵盤焦點框；日期與公告類別統一使用灰色；附件標題與檔案連結改為同行，附件圖示及文字預設使用主題橘色、hover 改為深色，沒有附件時以明確的 `[hidden]` 規則隱藏整個附件區塊。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj -c Release`（0 warnings、0 errors）、`node --check wwwroot/js/pages/news-detail.js`、範圍內 `git diff --check`；本機瀏覽器 1912px 桌機畫面確認 Hero、無背景返回連結、圖片靠左，日期與分類顏色相同，無附件消息不顯示附件標題及圖示；有附件消息仍正常顯示同行附件連結；本機 Chrome 390px 手機長版畫面確認 Hero、返回連結、圖片與附件條件顯示皆正常且頁面無水平溢位。
+  - 未驗證：尚未實際操作附件 hover／鍵盤 focus，亦未進行平板、實體手機、其他瀏覽器與人工無障礙驗收。
+  - 狀態：版面調整與桌機／手機瀏覽器驗證完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：允許後台圖片壓縮使用 CSP `blob:` 圖片來源
+  - 範圍：`Program.cs`、`TODO.md`。
+  - 完成：在 `img-src` 增加 `blob:`，讓後台 `URL.createObjectURL()` 產生的本機待壓縮圖片能被解碼；腳本、連線及其他 CSP 指令維持原限制。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj -c Release`（0 warnings、0 errors）；本機新版 DLL 的 `/Admin` 回傳 200，實際 `Content-Security-Policy` Header 包含 `img-src 'self' data: blob:`；`git diff --check`。
+  - 未驗證：尚未在登入後實際重新上傳圖片並確認 Canvas／WebP 完整流程。
+  - 狀態：程式與 HTTP Header 驗證完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：清除新聞孤兒檔案
+  - 範圍：`App_Data/news/`、`TODO.md`。
+  - 完成：依目前 `news.json` 的圖片／附件引用比對後，刪除 9 個未被引用的舊圖片與附件，共釋放 22,200,380 bytes（約 21.2 MiB）；保留 `App_Data/news/`、`images/`、分類資料與 Log。
+  - 已驗證：`news.json` 為空陣列且消息數為 0；刪除後重新列舉 `App_Data/news/`，剩餘檔案數為 0；`App_Data/news/images/` 資料夾、3 個分類與既有 Log 均保留；`git diff --check -- TODO.md` 通過。
+  - 狀態：資料清理與唯讀核對完成；未自行 commit 或 push。
+
+- [x] 2026-08-21：壓縮新聞圖片並改存持久化檔案
+  - 範圍：`Program.cs`、`Pages/Admin/Index.cshtml`、`wwwroot/js/pages/admin.js`、`README.md`、`IIS-DEPLOYMENT.md`、`SECURITY-BASELINE.md`、`TODO.md`。
+  - 完成：後台將 5 MB 內的 JPG／PNG／WebP 縮至最長邊 1920px、轉為 WebP，必要時逐步降低品質與尺寸至 1 MB 內；後端再次強制 1 MB 上限與內容簽章檢查，並將新圖片存入 `App_Data/news/images/`，`news.json` 只保存 API URL。新增圖片公開路由的發布狀態檢查、儲存失敗孤兒檔清理，以及新聞刪除／圖片或附件替換時的未引用檔案清理；既有 Base64 與舊附件網址維持相容。
+  - 已驗證：`node --check wwwroot/js/pages/admin.js`、`dotnet build .\apli-website-rebuild.csproj -c Release`（0 warnings、0 errors）、`git diff --check`；本機 Edge 載入 `/Admin` 確認新圖片格式／尺寸提示與 input 類型，console 無 JavaScript error。
+  - 未驗證：尚未實際登入並提交圖片，因此未完成真實圖片縮圖品質、WebP 大小、實體檔寫入、公開／草稿存取、替換／刪除清理、IIS 權限與容量的端到端驗證；既有兩張 Base64 圖片未自動遷移，需重新上傳或另做一次性轉換後才會移出 `news.json`。
+  - 狀態：程式、文件與靜態／基本瀏覽器驗證完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-21：加入 Serilog 檔案記錄與安全事件 Warning
+  - 範圍：`Program.cs`、`apli-website-rebuild.csproj`、`TODO.md`。
+  - 完成：加入 `Serilog.AspNetCore 8.0.3` 與 `Serilog.Sinks.File 7.0.0`；檔案 Log 僅接收 Warning 以上，寫入 `App_Data/logs/apli-YYYYMMDD.log`，每日或達 10 MB 時換檔，最多保留 14 天且同時限制為 14 個檔案；Admin 登入失敗、Rate Limiter 429、上傳驗證失敗及未授權 `/api` 存取均以 Warning 記錄，且不記錄密碼或驗證碼內容。
+  - 已驗證：`dotnet build .\apli-website-rebuild.csproj -c Release`（0 warnings、0 errors）、`dotnet list .\apli-website-rebuild.csproj package` 確認兩個套件版本、`git diff --check`；原始碼確認四種事件皆使用 `LogWarning`，登入失敗訊息未引用帳號、密碼或驗證碼內容。
+  - 未驗證：尚未實際觸發四種事件並檢查 Log 檔案內容、10 MB／每日 rolling 與 14 天／14 檔清理；尚未在 IIS／共享主機驗證 `App_Data/logs` 寫入權限。
+  - 狀態：程式修正與原始碼驗證完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-19：公開新聞改用伺服器端發布狀態 API
   - 範圍：`Program.cs`、`wwwroot/js/pages/home.js`、`wwwroot/js/pages/news.js`、`wwwroot/js/pages/news-detail.js`、`README.md`、`IIS-DEPLOYMENT.md`、`SECURITY-BASELINE.md`、`TODO.md`。
   - 完成：新增 `/api/public/news`、`/api/public/news/categories` 與 `/api/public/news/{id}`；伺服器端只回傳 `Published = true` 且公告日期不晚於台北今日的資料；首頁、最新消息與詳細頁不再直接讀取 `wwwroot/data/news.json`；靜態檔案 middleware 前封鎖兩個可變 JSON 路徑。

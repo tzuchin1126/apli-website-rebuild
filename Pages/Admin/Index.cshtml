@@ -94,9 +94,10 @@
                         <div class="admin-form__upload-grid">
                             <div class="admin-upload-field">
                                 <label class="admin-field" for="newsImageFile">
-                                    <span>公告圖片</span>
+                                    <span>公告圖片（自動縮圖並轉為 WebP）</span>
                                     <input id="newsImageFile" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
                                 </label>
+                                <p class="admin-upload-status">原始檔小於 5 MB；儲存時最長邊縮至 1920px，壓縮後不超過 1 MB。</p>
                                 <p class="admin-upload-status">目前圖片：<span id="currentImageName">未上傳</span></p>
                                 <label class="admin-checkbox" for="removeNewsImage">
                                     <input id="removeNewsImage" type="checkbox" />
