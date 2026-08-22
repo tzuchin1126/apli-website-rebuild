@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260821-hero-news-v3">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260822-services-motion-dots-v7">
   <link rel="stylesheet" href="css/site.css?v=20260817-touch-buttons-v1">
 </head>
 <body class="home-page">
@@ -106,18 +106,6 @@
           </a>
         </div>
       </div>
-      <!-- Hero 底部波浪裝飾暫停使用
-      <div class="home-hero__wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 260" preserveAspectRatio="none" focusable="false">
-          <path class="home-hero__wave-cutout" d="M-90 174 C168 242 332 206 532 144 C724 84 886 62 1076 98 C1238 130 1358 150 1530 98 L1530 260 L-90 260 Z"></path>
-          <path class="home-hero__wave-shadow" d="M-90 174 C168 242 332 206 532 144 C724 84 886 62 1076 98 C1238 130 1358 150 1530 98"></path>
-          <path class="home-hero__wave-main" d="M-80 156 C174 222 338 190 534 132 C726 74 890 54 1078 88 C1242 118 1362 138 1530 88"></path>
-          <path class="home-hero__wave-olive" d="M-88 139 C166 204 336 174 530 118 C724 62 892 42 1086 78 C1246 106 1366 126 1538 78"></path>
-          <path class="home-hero__wave-pink" d="M-84 124 C170 190 334 160 530 106 C724 52 896 34 1090 70 C1248 98 1370 116 1538 68"></path>
-          <path class="home-hero__wave-hairline" d="M-70 112 C188 176 350 150 542 96 C730 44 898 28 1094 60 C1258 86 1384 100 1544 54"></path>
-        </svg>
-      </div>
-      -->
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
     <section class="home-intro site-container" aria-labelledby="home-intro-title">
@@ -141,13 +129,13 @@
     </section>
     <section class="home-services" aria-labelledby="home-services-title">
       <div class="site-container">
-        <div class="home-section-heading">
+        <div class="home-section-heading" data-home-reveal="up">
           <p class="eyebrow">OUR SERVICES</p>
           <h2 id="home-services-title">我們的服務</h2>
           <!--<p>我們公司現有的核心服務項目，結合倉儲物流、貨櫃維修與機具保養，提供一站式營運支援。</p>-->
         </div>
         <div class="home-service-grid">
-          <a class="home-service-grid__card" href="/services#warehousing" aria-label="查看倉儲物流服務">
+          <a class="home-service-grid__card" href="/services#warehousing" aria-label="查看倉儲物流服務" data-home-reveal="up" data-home-delay="100">
             <article>
               <div class="home-service-grid__media">
                 <img src="public/images/index/home-hero-container-handling.png" alt="倉儲物流" loading="eager" decoding="sync">
@@ -159,7 +147,7 @@
               </div>
             </article>
           </a>
-          <a class="home-service-grid__card" href="/services#terminal-handling" aria-label="查看貨櫃清潔與維修服務">
+          <a class="home-service-grid__card" href="/services#terminal-handling" aria-label="查看貨櫃清潔與維修服務" data-home-reveal="up" data-home-delay="200">
             <article>
               <div class="home-service-grid__media">
                 <img src="public/images/services/container-cleaning.jpg" alt="貨櫃清潔與維修" loading="eager" decoding="sync">
@@ -171,7 +159,7 @@
               </div>
             </article>
           </a>
-          <a class="home-service-grid__card" href="/services#maintenance" aria-label="查看機具維修與銷售服務">
+          <a class="home-service-grid__card" href="/services#maintenance" aria-label="查看機具維修與銷售服務" data-home-reveal="up" data-home-delay="300">
             <article>
               <div class="home-service-grid__media">
                 <img src="public/images/services/port-equipment-maintenance.jpg" alt="機具維修與銷售" loading="eager" decoding="sync">

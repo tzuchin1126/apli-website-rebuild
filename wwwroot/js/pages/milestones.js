@@ -14,6 +14,42 @@ function initMilestones() {
 
   if (!tabs.length || !panels.length) return;
 
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const milestonesContent = document.querySelector(".milestones-content");
+  let hasEnteredViewport = false;
+
+  /**
+   * 設定目前面板內各年份與事件的依序進場時間
+   * - 年份從左側滑入
+   * - 事件標記與右側內容從右側依序滑入
+   */
+  function preparePanelReveal(panel) {
+    const yearGroups = [...panel.querySelectorAll(".milestone-year-group")];
+
+    yearGroups.forEach((group, groupIndex) => {
+      const yearLabel = group.querySelector(".milestone-year-label");
+      const events = [...group.querySelectorAll(".milestone-event")];
+      const groupStart = groupIndex * 360;
+
+      yearLabel?.style.setProperty("--milestone-year-delay", `${groupStart}ms`);
+
+      events.forEach((event, eventIndex) => {
+        const delay = groupStart + 120 + eventIndex * 70;
+        event.querySelector(".milestone-event__marker")?.style.setProperty("--milestone-info-delay", `${delay}ms`);
+        event.querySelector(".milestone-event__content")?.style.setProperty("--milestone-info-delay", `${delay}ms`);
+      });
+    });
+  }
+
+  function replayPanelReveal(panel) {
+    if (reduceMotion) return;
+
+    preparePanelReveal(panel);
+    panel.classList.remove("is-revealing");
+    void panel.offsetWidth;
+    panel.classList.add("is-revealing");
+  }
+
   /**
    * 切換到指定分頁
    * @param {HTMLElement} tab - 要啟用的分頁按鈕
@@ -32,6 +68,9 @@ function initMilestones() {
     panels.forEach((panel) => {
       panel.hidden = panel.id !== panelId;
     });
+
+    const activePanel = panels.find((panel) => panel.id === panelId);
+    if (activePanel && hasEnteredViewport) replayPanelReveal(activePanel);
   }
 
   // 綁定每個分頁的點擊與鍵盤事件
@@ -55,7 +94,28 @@ function initMilestones() {
 
   // 初始化：啟用預設分頁（已有 aria-selected="true" 的，或第一個）
   const initialTab = tabs.find((t) => t.getAttribute("aria-selected") === "true") || tabs[0];
+  document.body.classList.add("milestones-motion-ready");
   selectTab(initialTab);
+
+  if (reduceMotion || !milestonesContent) return;
+
+  if (!("IntersectionObserver" in window)) {
+    hasEnteredViewport = true;
+    const activePanel = panels.find((panel) => !panel.hidden);
+    if (activePanel) replayPanelReveal(activePanel);
+    return;
+  }
+
+  const contentObserver = new IntersectionObserver((entries, observer) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+
+    hasEnteredViewport = true;
+    const activePanel = panels.find((panel) => !panel.hidden);
+    if (activePanel) replayPanelReveal(activePanel);
+    observer.disconnect();
+  }, { threshold: 0.18 });
+
+  contentObserver.observe(milestonesContent);
 }
 
 // ==========================================

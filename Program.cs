@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Http.Timeouts;
 using Serilog;
 using Serilog.Events;
 using apli_website_rebuild.Services;
@@ -41,6 +42,20 @@ if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminP
         "Admin credentials are not configured. Set Admin__Username and Admin__Password.");
 }
 
+if (!builder.Environment.IsDevelopment())
+{
+    var allowedHosts = builder.Configuration["AllowedHosts"];
+    if (string.IsNullOrWhiteSpace(allowedHosts) || allowedHosts == "*")
+    {
+        throw new InvalidOperationException(
+            "Production AllowedHosts is not configured. Set it to the real website host names.");
+    }
+}
+
+var cookieSecurePolicy = builder.Environment.IsDevelopment()
+    ? CookieSecurePolicy.SameAsRequest
+    : CookieSecurePolicy.Always;
+
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -49,8 +64,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.Strict;
-    // 暫時支援 IIS HTTP:8080 測試；正式環境改回 Always 並使用 HTTPS。
-    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    options.Cookie.SecurePolicy = cookieSecurePolicy;
     options.IdleTimeout = TimeSpan.FromMinutes(10);
 });
 builder.Services
@@ -61,8 +75,7 @@ builder.Services
         options.Cookie.Name = "ap-admin";
         options.Cookie.HttpOnly = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
-        // 暫時支援 IIS HTTP:8080 測試；正式環境改回 Always 並使用 HTTPS。
-        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        options.Cookie.SecurePolicy = cookieSecurePolicy;
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
         options.Events.OnRedirectToLogin = context =>
@@ -92,8 +105,15 @@ builder.Services.AddAntiforgery(options =>
     options.Cookie.Name = "ap-csrf";
     options.Cookie.HttpOnly = true;
     options.Cookie.SameSite = SameSiteMode.Strict;
-    // 暫時支援 IIS HTTP:8080 測試；正式環境改回 Always 並使用 HTTPS。
-    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    options.Cookie.SecurePolicy = cookieSecurePolicy;
+});
+builder.Services.AddRequestTimeouts(options =>
+{
+    options.DefaultPolicy = new RequestTimeoutPolicy
+    {
+        Timeout = TimeSpan.FromSeconds(30),
+        TimeoutStatusCode = StatusCodes.Status504GatewayTimeout
+    };
 });
 builder.Services.AddRateLimiter(options =>
 {
@@ -136,13 +156,58 @@ builder.Services.AddRateLimiter(options =>
                 AutoReplenishment = true
             });
     });
+    options.AddPolicy("admin-api", context =>
+    {
+        var address = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        return RateLimitPartition.GetFixedWindowLimiter(
+            address,
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
 });
 
 var app = builder.Build();
 var root = app.Environment.ContentRootPath;
-var newsFile = Path.Combine(root, "wwwroot", "data", "news.json");
-var categoriesFile = Path.Combine(root, "wwwroot", "data", "news-categories.json");
-var uploadsRoot = Path.Combine(root, "App_Data", "news");
+var configuredDataRoot = builder.Configuration["Apli:DataRoot"];
+string dataRoot;
+if (string.IsNullOrWhiteSpace(configuredDataRoot))
+{
+    if (!app.Environment.IsDevelopment())
+    {
+        throw new InvalidOperationException(
+            "Production Apli:DataRoot is not configured. Set it to a directory outside the published website.");
+    }
+
+    dataRoot = root;
+}
+else
+{
+    dataRoot = Path.GetFullPath(configuredDataRoot, root);
+}
+
+var webRoot = Path.GetFullPath(Path.Combine(root, "wwwroot"));
+if (!app.Environment.IsDevelopment() &&
+    (string.Equals(dataRoot, webRoot, StringComparison.OrdinalIgnoreCase) ||
+     dataRoot.StartsWith($"{webRoot}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase)))
+{
+    throw new InvalidOperationException(
+        "Production Apli:DataRoot must be outside the published wwwroot directory.");
+}
+
+var newsFile = string.IsNullOrWhiteSpace(configuredDataRoot)
+    ? Path.Combine(root, "wwwroot", "data", "news.json")
+    : Path.Combine(dataRoot, "news.json");
+var categoriesFile = string.IsNullOrWhiteSpace(configuredDataRoot)
+    ? Path.Combine(root, "wwwroot", "data", "news-categories.json")
+    : Path.Combine(dataRoot, "news-categories.json");
+var uploadsRoot = string.IsNullOrWhiteSpace(configuredDataRoot)
+    ? Path.Combine(root, "App_Data", "news")
+    : Path.Combine(dataRoot, "news");
 var imageUploadsRoot = Path.Combine(uploadsRoot, "images");
 var defaultCategories = new[] { "營運公告", "費率公告", "職缺公告" };
 const string captchaSessionKey = "admin-login-captcha";
@@ -174,6 +239,7 @@ app.Use(async (context, next) =>
     context.Response.Headers["X-Frame-Options"] = "DENY";
     context.Response.Headers["X-Content-Type-Options"] = "nosniff";
     context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    context.Response.Headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
     await next();
 });
 
@@ -306,6 +372,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseSession();
 app.UseRouting();
+app.UseRequestTimeouts();
 
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -324,7 +391,7 @@ app.MapGet("/api/admin/captcha", (HttpContext context) =>
     context.Response.Headers.CacheControl = "no-store, no-cache";
     context.Response.Headers.Pragma = "no-cache";
     return Results.Content(CreateCaptchaSvg(code), "image/svg+xml", Encoding.UTF8);
-});
+}).RequireRateLimiting("admin-login");
 
 app.MapPost("/api/admin/login", async (
     HttpContext context,
@@ -368,14 +435,16 @@ app.MapPost("/api/admin/logout", async (HttpContext context, IAntiforgery antifo
     await antiforgery.ValidateRequestAsync(context);
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     return Results.Ok();
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("admin-api");
 
 app.MapGet("/api/admin/session", (HttpContext context) =>
     context.User.Identity?.IsAuthenticated == true
-        ? Results.Ok() : Results.Unauthorized());
+        ? Results.Ok() : Results.Unauthorized())
+    .RequireRateLimiting("admin-api");
 
 app.MapGet("/api/news", async () => Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
-    .RequireAuthorization();
+    .RequireAuthorization()
+    .RequireRateLimiting("admin-api");
 
 app.MapGet("/api/public/news", async () =>
 {
@@ -532,7 +601,7 @@ app.MapPost("/api/news/save", async (
 
         newsWriteLock.Release();
     }
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("admin-api");
 
 app.MapDelete("/api/news/delete/{id}", async (HttpContext context, string id, IAntiforgery antiforgery) =>
 {
@@ -560,7 +629,7 @@ app.MapDelete("/api/news/delete/{id}", async (HttpContext context, string id, IA
     {
         newsWriteLock.Release();
     }
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("admin-api");
 
 // 新圖片與既有附件共用發布狀態檢查，但分開存放以利容量管理。
 app.MapGet("/api/uploads/news/images/{fileName}", (HttpContext context, string fileName) =>
@@ -569,7 +638,9 @@ app.MapGet("/api/uploads/news/images/{fileName}", (HttpContext context, string f
 app.MapGet("/api/uploads/news/{fileName}", (HttpContext context, string fileName) =>
     ServeNewsUploadAsync(context, fileName, uploadsRoot, newsUploadsUrlPrefix));
 
-app.MapGet("/api/news/categories", async () => Results.Ok(await ReadCategories()));
+app.MapGet("/api/news/categories", async () => Results.Ok(await ReadCategories()))
+    .RequireAuthorization()
+    .RequireRateLimiting("admin-api");
 
 app.MapPost("/api/news/categories", async (CategoryRequest request, HttpContext context, IAntiforgery antiforgery) =>
 {
@@ -591,7 +662,7 @@ app.MapPost("/api/news/categories", async (CategoryRequest request, HttpContext 
     {
         categoriesWriteLock.Release();
     }
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("admin-api");
 
 app.MapDelete("/api/news/categories/{name}", async (string name, HttpContext context, IAntiforgery antiforgery) =>
 {
@@ -609,7 +680,7 @@ app.MapDelete("/api/news/categories/{name}", async (string name, HttpContext con
     {
         categoriesWriteLock.Release();
     }
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("admin-api");
 
 app.Run();
 

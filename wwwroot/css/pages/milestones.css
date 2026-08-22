@@ -1,6 +1,9 @@
 .milestones-page {
   --milestone-content-shift: clamp(32px, 4vw, 56px);
+  --milestone-reveal-duration: 520ms;
+  --milestone-reveal-ease: cubic-bezier(.22, .75, .25, 1);
   --page-hero-image-position: center 28%;
+  overflow-x: clip;
 }
 
 .milestones-content {
@@ -88,8 +91,22 @@
   animation: milestone-panel-in 350ms ease both;
 }
 
+.milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-year-label {
+  opacity: 0;
+  animation: milestone-year-slide-in var(--milestone-reveal-duration) var(--milestone-reveal-ease) both;
+  animation-delay: var(--milestone-year-delay, 0ms);
+}
+
+.milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-event__marker,
+.milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-event__content {
+  opacity: 0;
+  animation: milestone-info-slide-in var(--milestone-reveal-duration) var(--milestone-reveal-ease) both;
+  animation-delay: var(--milestone-info-delay, 120ms);
+}
+
 .milestone-timeline {
   position: relative;
+  overflow-x: clip;
   padding-block: 8px 24px;
 }
 
@@ -200,9 +217,41 @@
   }
 }
 
+@keyframes milestone-year-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes milestone-info-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .milestone-panel:not([hidden]) {
     animation: none;
+  }
+
+  .milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-year-label,
+  .milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-event__marker,
+  .milestones-page.milestones-motion-ready .milestone-panel.is-revealing .milestone-event__content {
+    opacity: 1;
+    animation: none;
+    transform: none;
   }
 }
 

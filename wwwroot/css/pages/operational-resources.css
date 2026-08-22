@@ -7,10 +7,12 @@
   --resources-title-size: clamp(1.625rem, 4vw, 2.5rem);
   --resources-title-line-height: clamp(2rem, 3vw, 2.5rem);
   --resources-rule-width: clamp(48px, 5vw, 72px);
+  overflow-x: clip;
 }
 
 .operational-resources-page .resource-section {
   padding-block: var(--resources-section-space);
+  overflow-x: clip;
   background: var(--color-surface);f
 }
 
@@ -174,6 +176,44 @@
   color: var(--color-ink);
   font-size: 0.9rem;
   line-height: 1.7;
+}
+
+@keyframes resources-feature-slide-left {
+  from { opacity: 0; transform: translateX(-56px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes resources-feature-slide-right {
+  from { opacity: 0; transform: translateX(56px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-left .resource-animate,
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-right .resource-animate {
+  opacity: 0;
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-left.is-visible .resource-animate,
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-right.is-visible .resource-animate {
+  animation-duration: 760ms;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-left.is-visible .resource-animate {
+  animation-name: resources-feature-slide-left;
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section--slide-right.is-visible .resource-animate {
+  animation-name: resources-feature-slide-right;
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section.is-visible .resource-media {
+  animation-delay: 100ms;
+}
+
+.operational-resources-page.resources-sections-motion-ready .resource-section.is-visible .resource-body {
+  animation-delay: 180ms;
 }
 
 .operational-resources-page .resource-link {
@@ -626,6 +666,12 @@
     opacity: 1;
     transform: none;
     animation: none;
+  }
+
+  .operational-resources-page.resources-sections-motion-ready .resource-section--slide-left .resource-animate,
+  .operational-resources-page.resources-sections-motion-ready .resource-section--slide-right .resource-animate {
+    opacity: 1;
+    transform: none;
   }
 
   .operational-resources-page.resources-location-motion-ready .resources-location__side.resources-location__motion,

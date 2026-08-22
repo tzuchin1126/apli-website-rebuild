@@ -39,7 +39,7 @@ Release 建置：
 dotnet build -c Release
 ```
 
-員工專區 `/Admin` 的登入帳號不寫入版本庫，啟動前必須設定環境變數 `Admin__Username` 與 `Admin__Password`。應用程式未設定完整帳密時會直接停止啟動；登入後可管理 `wwwroot/data/news.json` 與 `wwwroot/data/news-categories.json`。公開首頁、最新消息與詳細頁透過 `/api/public/news` 及其子路徑取得已發布資料，不能以公開 API 取得草稿或未來公告；目前可變資料仍在應用程式目錄內，正式部署前仍須完成資料根目錄分離。後台會將原始新聞圖片（上限 5 MB）縮至最長邊 1920px、轉為 WebP 並控制在 1 MB 內，再存入 `App_Data/news/images/`；附件存放於 `App_Data/news/`。既有 Base64 圖片仍可讀取，但新圖片不再寫入 `news.json`；部署與備份時不可遺漏整個 `App_Data/news/`。
+員工專區 `/Admin` 的登入帳號不寫入版本庫，啟動前必須設定環境變數 `Admin__Username` 與 `Admin__Password`。應用程式未設定完整帳密時會直接停止啟動；Production 另必須設定 `AllowedHosts` 與 `Apli__DataRoot`，並將可變資料放在發布目錄外。登入後可管理資料根目錄內的 `news.json`、`news-categories.json` 與 `news/` 附件。公開首頁、最新消息與詳細頁透過 `/api/public/news` 及其子路徑取得已發布資料，不能以公開 API 取得草稿或未來公告。後台會將原始新聞圖片（上限 5 MB）縮至最長邊 1920px、轉為 WebP 並控制在 1 MB 內；既有 Base64 圖片仍可讀取，但新圖片不再寫入 `news.json`。部署與備份時不可遺漏整個資料根目錄。
 
 JavaScript 語法檢查：
 

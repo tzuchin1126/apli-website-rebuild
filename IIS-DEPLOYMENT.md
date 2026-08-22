@@ -11,14 +11,15 @@
 | 開發用公開頁面 | `C:\Users\U096\apli-website-rebuild\wwwroot` |
 | 發布暫存資料夾 | `C:\Deploy\APLI` |
 | IIS 實際網站根目錄 | `C:\Sites\APLI` |
-| 新聞 JSON 資料 | `C:\Sites\APLI\wwwroot\data` |
-| 新聞附件與壓縮圖片 | `C:\Sites\APLI\App_Data\news` |
+| 可變資料根目錄 | `C:\Sites\APLI-Data` |
+| 新聞 JSON 資料 | `C:\Sites\APLI-Data\news.json`、`news-categories.json` |
+| 新聞附件與壓縮圖片 | `C:\Sites\APLI-Data\news` |
 | IIS Site 名稱 | `APLI Website` |
 | IIS Application Pool | `APLIWebsite` |
 
 IIS 執行的是 `C:\Sites\APLI`，不會自動讀取原始碼目錄。修改原始碼後，必須重新發布並同步到 IIS 網站根目錄。
 
-公開首頁、最新消息與詳細頁使用 `/api/public/news`、`/api/public/news/categories` 及 `/api/public/news/{id}`。這些端點只回傳 `Published = true` 且公告日期不晚於台北今日的資料；管理端的 `/api/news` 仍需要登入，不能以公開端點取代管理端權限。網站也會封鎖直接請求 `/data/news.json` 與 `/data/news-categories.json`。原始 JSON 目前仍是應用程式可變資料，搬移至 `C:\Sites\APLI-Data` 等發布目錄外位置列為後續安全工作。
+公開首頁、最新消息與詳細頁使用 `/api/public/news`、`/api/public/news/categories` 及 `/api/public/news/{id}`。這些端點只回傳 `Published = true` 且公告日期不晚於台北今日的資料；管理端的 `/api/news` 仍需要登入，不能以公開端點取代管理端權限。網站也會封鎖直接請求 `/data/news.json` 與 `/data/news-categories.json`。Production 必須將可變資料放在 `C:\Sites\APLI-Data` 等發布目錄外位置；未設定資料根目錄或網域時，應用程式會拒絕啟動。
 
 ## 二、目前的 IIS 設定
 
@@ -108,20 +109,16 @@ Test-Path C:\Sites\APLI\Pages\Shared\_Footer.cshtml
 
 ### 5. 設定資料夾寫入權限
 
-Admin 會修改新聞 JSON，並在 `App_Data\news` 儲存附件與壓縮後圖片，因此只對必要資料夾授予 `Modify`：
+Admin 會修改外部資料根目錄內的新聞 JSON，並在 `news` 儲存附件與壓縮後圖片，因此只對必要資料夾授予 `Modify`：
 
 ```powershell
-New-Item -ItemType Directory -Force C:\Sites\APLI\wwwroot\data
-New-Item -ItemType Directory -Force C:\Sites\APLI\App_Data\news
+New-Item -ItemType Directory -Force C:\Sites\APLI-Data\news
 
-icacls "C:\Sites\APLI\wwwroot\data" `
-  /grant "IIS AppPool\APLIWebsite:(OI)(CI)(M)"
-
-icacls "C:\Sites\APLI\App_Data\news" `
+icacls "C:\Sites\APLI-Data" `
   /grant "IIS AppPool\APLIWebsite:(OI)(CI)(M)"
 ```
 
-不要把整個 `C:\Sites\APLI` 開放寫入。
+不要把整個 `C:\Sites\APLI` 或整個伺服器磁碟開放寫入。
 
 ### 6. 設定系統環境變數
 
@@ -131,6 +128,8 @@ icacls "C:\Sites\APLI\App_Data\news" `
 ASPNETCORE_ENVIRONMENT=Production
 Admin__Username=實際後台帳號
 Admin__Password=實際後台密碼
+AllowedHosts=正式網域;必要的正式別名
+Apli__DataRoot=C:\Sites\APLI-Data
 ```
 
 帳密不可寫入：
@@ -142,6 +141,12 @@ Admin__Password=實際後台密碼
 - 聊天訊息或截圖
 
 設定環境變數後，重啟 IIS 服務或至少回收 Application Pool，讓新的 IIS worker process 取得變數。
+
+Production 會拒絕以下不安全設定並停止啟動：
+
+- `AllowedHosts` 未設定、空白或仍為 `*`。
+- `Apli__DataRoot` 未設定，或指向發布目錄內的 `wwwroot`。
+- `Admin__Username` 或 `Admin__Password` 未設定。
 
 ### 7. 建立 IIS Website
 
@@ -208,9 +213,9 @@ css/pages/about.css?v=新的版本字串
 透過 `/Admin` 新增或修改新聞時，不需要重新發布。資料會直接寫入 IIS 伺服器上的：
 
 ```text
-C:\Sites\APLI\wwwroot\data\news.json
-C:\Sites\APLI\wwwroot\data\news-categories.json
-C:\Sites\APLI\App_Data\news\
+C:\Sites\APLI-Data\news.json
+C:\Sites\APLI-Data\news-categories.json
+C:\Sites\APLI-Data\news\
 ```
 
 ## 五、更新前的資料保護
@@ -221,9 +226,9 @@ C:\Sites\APLI\App_Data\news\
 $backupRoot = "C:\Backups\APLI\$(Get-Date -Format yyyyMMdd-HHmmss)"
 New-Item -ItemType Directory -Force $backupRoot
 
-Copy-Item C:\Sites\APLI\wwwroot\data\news.json $backupRoot -Force
-Copy-Item C:\Sites\APLI\wwwroot\data\news-categories.json $backupRoot -Force
-Copy-Item C:\Sites\APLI\App_Data\news $backupRoot -Recurse -Force
+Copy-Item C:\Sites\APLI-Data\news.json $backupRoot -Force
+Copy-Item C:\Sites\APLI-Data\news-categories.json $backupRoot -Force
+Copy-Item C:\Sites\APLI-Data\news $backupRoot -Recurse -Force
 ```
 
 不要用會鏡像刪除資料的部署指令覆蓋 `C:\Sites\APLI`，除非已經確認新聞資料與附件有獨立備份。

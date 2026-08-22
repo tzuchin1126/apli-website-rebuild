@@ -1,4 +1,95 @@
 # APLI Website Rebuild TODO
+- [x] 2026-08-22：增加 Operational Resources 四區塊左右交錯進場動畫
+  - 範圍：`wwwroot/operational-resources.html`、`wwwroot/css/pages/operational-resources.css`、`wwwroot/js/pages/operational-resources.js`、`TODO.md`。
+  - 完成：廠區資訊由右側滑入、機具配置由左側滑入、作業量能由右側滑入、職業安全衛生由左側滑入；各區塊進入視窗附近才播放，區塊內標題／圖片／資訊略為錯開；保留停用 JavaScript 時內容可讀、`prefers-reduced-motion` 與 IntersectionObserver 不支援時的降級行為；手機動畫期間由區塊裁切水平溢位；CSS／JavaScript 快取版本更新為 `20260822-resource-sections-motion-v2`／`20260822-resource-sections-motion-v1`。
+  - 已驗證：`node --check wwwroot/js/pages/operational-resources.js`；`git diff --check`；本機瀏覽器手機 390×500 逐區塊確認右／左／右／左方向、進入視窗後才加上 `is-visible`、動畫期間與完成後水平寬度皆為 390px；桌機 1440×900 確認首個區塊可正常播放；瀏覽器無 warning／error。
+  - 未驗證：尚未進行實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：改為 Milestones 內容進入視窗後才播放動畫
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/js/pages/milestones.js`、`TODO.md`。
+  - 完成：以 `IntersectionObserver` 觀察 Milestones 內容區；初始面板等內容進入視窗後才依序播放，進入後切換年代仍會重新播放；保留減少動態效果與不支援 Observer 時的降級行為；JavaScript 快取版本更新為 `20260822-timeline-motion-v3`。
+  - 已驗證：`node --check wwwroot/js/pages/milestones.js`；`git diff --check`；本機瀏覽器手機 390×500 確認內容尚未進入觸發條件時沒有 `is-revealing`，捲動至內容後才開始動畫；桌機內容進入視窗後動畫正常完成；動畫完成後年份／事件全部可見且手機水平寬度無溢位；瀏覽器無 warning／error。
+  - 未驗證：尚未進行實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：增加 Milestones 年份與事件依序滑入動畫
+  - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`wwwroot/js/pages/milestones.js`、`TODO.md`。
+  - 完成：目前顯示的年代面板載入時，左側年份由左側滑入，右側事件標記與資訊由右側依年份／事件順序滑入；切換年代時重新播放；停用 JavaScript 時維持內容可讀，並支援 `prefers-reduced-motion`；動畫期間由時間軸容器裁切水平溢位；CSS 快取版本更新為 `20260822-timeline-motion-v2`。
+  - 已驗證：`node --check wwwroot/js/pages/milestones.js`；`git diff --check`；本機瀏覽器桌機 1440×900 與手機 390×844 確認年份／事件依序顯示、動畫完成後全部可見且水平寬度無溢位；確認年代 Tab 切換會重新播放；瀏覽器無 warning／error。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：動畫調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：調整首頁 Hero 輪播指示器透明黑背景
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：膠囊背景改為 `R=0 G=0 B=0 A=0.18`（CSS：`rgb(0 0 0 / 18%)`）；保留置中、尺寸、位置、button、短條、輪播切換、ARIA 與鍵盤 focus 行為；CSS 快取版本更新為 `20260822-services-motion-dots-v7`。
+  - 已驗證：`git diff --check`。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：背景色調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：恢復首頁 Hero 輪播指示器至參考數值調整前狀態
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：撤回上一個 `bottom:100px`、`#00295499`、blur 與 blend mode 實驗；保留前一版置中、`128×32px`、`gap:12px`、button `24×24px`、短條 `20×5px` 與網站 token 配色；CSS 快取版本恢復為 `20260822-services-motion-dots-v5`。
+  - 已驗證：`git diff --check`；確認未改動輪播切換、ARIA 或鍵盤 focus 行為。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：上一個參考數值實驗已恢復，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：套用參考畫面的 Hero 輪播指示器數值
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：維持水平置中，套用膠囊 `128×32px`、`gap:12px`、`bottom:100px`、`border-radius:100px`、背景 `#00295499`、`backdrop-filter:blur(10px)` 與 `background-blend-mode:multiply`；button 維持 `24×24px`，手機保留較小的 responsive 規則；CSS 快取版本更新為 `20260822-services-motion-dots-v6`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1432×786 實際量測膠囊 128×32px、水平置中、CSS `bottom:100px`、`gap:12px`、背景 computed 為 `rgba(0, 41, 84, 0.6)`、blur 10px、圓角 100px，水平溢位為 0；確認桌機與手機規則均已更新，未改動輪播切換、ARIA 或鍵盤 focus 行為。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：參考數值套用完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：恢復首頁 Hero 輪播指示器置中並降低高度
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：輪播膠囊恢復水平置中，桌機採約 `128×32px`、button 約 `24×24px`、短條約 `20×5px`；手機同步縮小；保留靠近 Hero 底部、輪播切換、ARIA 與鍵盤 focus 行為；CSS 快取版本更新為 `20260822-services-motion-dots-v5`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1181×786 實際量測膠囊 128×32px、與 Hero 水平置中、距 Hero 底部約 20px，button 24×24px、短條 20×5px，水平溢位為 0；確認桌機與手機規則均已更新。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：輪播指示器位置與尺寸調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：將首頁 Hero 輪播指示器降為低存在感功能控制
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：膠囊移至 Hero 左下並貼近底部；桌機縮小至約 86×40px，手機約 74×38px，短條同步降低高度；保留輪播切換、ARIA 與鍵盤 focus 行為；CSS 快取版本更新為 `20260822-services-motion-dots-v4`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1432×786 實際量測膠囊約 86×40px、左側距離約 100px、距 Hero 底部約 21px，短條約 22×6px，水平溢位為 0；確認桌機與手機規則均已更新。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：輪播指示器位置與低存在感尺寸調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：再次縮小首頁 Hero 輪播指示器
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：在保留 `--color-secondary` 深藍背景與白／半透明白短條配色的前提下，桌機膠囊縮小至約 96×48px，手機同步縮小至約 88×44px；CSS 快取版本更新為 `20260822-services-motion-dots-v3`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1432×786 實際量測膠囊約 96×48px、短條 26×7px，水平溢位為 0；確認桌機與手機 CSS 均已更新，未改動輪播切換、ARIA 或鍵盤 focus 行為。
+  - 未驗證：尚未進行瀏覽器實際渲染、手機／平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：輪播指示器再次縮小完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：縮小並統一首頁 Hero 輪播指示器色彩
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將輪播膠囊縮小至桌機約 120×52px；背景改用現有 `--color-secondary`，active 使用 `--color-surface`，inactive 使用半透明白色；手機同步縮小；CSS 快取版本更新為 `20260822-services-motion-dots-v2`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1432×786 確認膠囊約 120×52px、背景 computed 為 `rgb(34, 53, 71)`、active／inactive 短條色彩正確，水平溢位為 0；確認不再使用頁面外自訂藍色 `#173e68`。
+  - 未驗證：尚未進行手機／平板實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：輪播指示器尺寸與色彩調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：調整首頁 Hero 輪播指示器樣式
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將 `home-hero__dots` 改為圖片參考的深藍圓角膠囊；三個指示器改為橫向矩形短條，active 為白色、非 active 為淡灰藍色；保留原本輪播切換、ARIA 與鍵盤 focus 行為，手機同步縮小尺寸；CSS 快取版本更新為 `20260822-services-motion-dots-v1`。
+  - 已驗證：`git diff --check`；本機靜態頁面桌機 1432×786 確認膠囊約 176×64px、active 白色短條、inactive 淡灰藍短條與水平溢位為 0；確認手機 CSS 有對應縮小規則。
+  - 未驗證：尚未進行手機／平板實際渲染、實體裝置、其他瀏覽器與人工無障礙驗收；目前首頁只有兩張 Hero 圖片，因此保留兩個與輪播內容對應的指示器。
+  - 狀態：輪播指示器樣式調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：縮小首頁 Hero 主標
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：將「優質服務 唯客思維」桌機與手機字級縮小約 8%；保留 Hero 圖片、CTA、Header 與服務項目動畫目前設定；CSS 快取版本更新為 `20260822-services-motion-title-v1`。
+  - 已驗證：`git diff --check`；確認桌機／手機主標 clamp 值已同步調整。
+  - 未驗證：尚未進行瀏覽器桌機／手機實際渲染、平板、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：主標調整完成，待提交；未自行 commit 或 push。
+
+- [x] 2026-08-22：增加首頁服務項目區塊進場動畫
+  - 範圍：`wwwroot/index.html`、`wwwroot/css/pages/home.css`、`TODO.md`。
+  - 完成：沿用首頁既有 `data-home-reveal` 與 IntersectionObserver 機制；服務標題與三張服務卡片改為由下往上淡入，卡片以 100／200／300ms 依序延遲；保留停用 JavaScript 時內容可讀，以及 `prefers-reduced-motion` 時停用動畫。
+  - 已驗證：`git diff --check`；確認首頁服務標題與三張卡片均掛上進場標記，CSS 快取版本更新為 `20260822-services-motion-v1`；本機靜態頁面桌機 1432×786 渲染確認服務標題與三張卡片依序進場，動畫結束後皆為可見狀態，頁面水平溢位為 0。
+  - 未驗證：尚未進行手機／平板實際渲染、ASP.NET Footer 注入與正式路由、實體裝置、其他瀏覽器與人工無障礙驗收。
+  - 狀態：動畫調整完成，待提交；未自行 commit 或 push。
+
 - [x] 2026-08-21：增加 Milestones 行動版事件內容寬度
   - 範圍：`wwwroot/milestones.html`、`wwwroot/css/pages/milestones.css`、`TODO.md`。
   - 完成：保留年代 Tab 與 active 橘線不變；行動版縮短節點至事件文字距離約 10px，事件標題維持 16px／600，說明文字調整為 15px／灰色／1.75；年份、節點大小與橘色維持目前設定。
@@ -853,6 +944,15 @@
   - 未驗證：本次未重新進行瀏覽器桌機／行動版、實體裝置、其他瀏覽器與人工無障礙驗收。
   - 狀態：程式修正完成，待提交；未自行 commit 或 push。
 
+
+## 2026-08-22 安全加強
+
+- [x] 補強應用程式層資安基線
+  - 範圍：`Program.cs`、`appsettings.json`、`appsettings.Development.json`、`README.md`、`IIS-DEPLOYMENT.md`、`SECURITY-BASELINE.md`、`TODO.md`。
+  - 完成：Production Cookie 強制 `Secure`；Production 未設定或使用萬用 `AllowedHosts` 時拒絕啟動；Production 要求 `Apli__DataRoot` 且拒絕放在 `wwwroot` 內；移除 Development 的 `admin/admin` 帳密兜底；新增管理 API 每 IP 每分鐘 60 次限流、CAPTCHA 限流、30 秒請求逾時、`Permissions-Policy`；分類管理 API 改為需要登入。
+  - 已驗證：`dotnet build -c Release`（0 warnings、0 errors）；`git diff --check`；已同步部署環境變數、外部資料目錄、ACL 與備份說明。
+  - 未驗證：正式 IIS HTTPS／Host Header／Cookie／WAF／ACL、資料搬移與還原演練、真實上傳防毒掃描、壓力測試、實際 HTTP 回應、實體裝置、跨瀏覽器與滲透測試；本機 listener 受執行環境 `nice(5) failed: operation not permitted` 阻擋。
+  - 狀態：程式與文件調整完成，待正式部署驗證；未自行 commit 或 push。
 
 ## 待處理事項
 

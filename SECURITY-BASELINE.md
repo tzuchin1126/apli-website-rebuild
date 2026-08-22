@@ -1,6 +1,6 @@
 # APLI Website Rebuild 安全基線與防護紀錄
 
-更新日期：2026-08-19  
+更新日期：2026-08-22
 適用專案：`apli-website-rebuild`  
 文件目的：記錄目前已實作的安全防護、尚未實作或尚未驗證的項目，以及各項防護缺少時可能造成的影響。
 
@@ -12,11 +12,10 @@
 
 目前尚未達到完整正式上線安全基準，主要原因是：
 
-- 公開頁面已改用伺服器端發布狀態 API，且網站已封鎖兩個原始新聞 JSON 路徑；但新聞資料與附件仍位於應用程式目錄內，部署時可能被覆蓋或與附件資料分離。
-- 新聞 JSON 與附件仍位於應用程式目錄內，部署時可能被覆蓋或與附件資料分離。
+- 公開頁面已改用伺服器端發布狀態 API，且網站已封鎖兩個原始新聞 JSON 路徑；Production 已改為要求將新聞資料與附件放到發布目錄外，但正式伺服器仍需完成設定與資料搬移。
 - 管理員使用共用帳號密碼，尚無個別帳號、操作稽核或多因素驗證。
 - 附件尚無防毒／惡意內容掃描。
-- Production HTTPS、Cookie Secure、正式 Domain、備份還原與實際回應標頭尚未完成完整環境驗證。
+- Production HTTPS、正式 Domain、備份還原與實際回應標頭尚未完成完整環境驗證。
 
 建議目前狀態：可作為開發與單機測試基礎；正式上線前應先完成「高優先級待補強項目」。
 
@@ -61,7 +60,7 @@
 
 若沒有這些設定：瀏覽器中的登入狀態較容易被腳本讀取、被跨站請求攜帶，或在共用電腦上長時間保持有效。
 
-目前狀態：基本設定已實作；`SecurePolicy` 目前是 `SameAsRequest`，Production 正式環境仍應改為 `Always` 並強制 HTTPS。
+目前狀態：已實作環境條件設定；Development 保留 `SameAsRequest` 以支援本機 HTTP，非 Development 強制 `Always`，仍須在正式 IIS HTTPS 網域實測。
 
 ### 2.4 CSRF 防護
 
@@ -85,7 +84,7 @@
 
 若沒有這項防護：攻擊者可以快速嘗試常見帳密，或以大量請求消耗後台資源。
 
-目前狀態：已實作；目前只有登入 API 限速，其他 API 與附件上傳尚無獨立速率限制；尚未完成正式環境壓力與繞過測試。
+目前狀態：已實作登入／CAPTCHA 每 IP 每分鐘 5 次，以及管理 API 每 IP 每分鐘 60 次；仍須完成正式環境壓力與代理層繞過測試。
 
 ### 2.6 附件副檔名、大小與內容簽章檢查
 
@@ -133,6 +132,7 @@
 - `X-Frame-Options: DENY`：禁止網站被其他網站以 iframe 嵌入。
 - `X-Content-Type-Options: nosniff`：避免瀏覽器猜測錯誤的 MIME 類型。
 - `Referrer-Policy: strict-origin-when-cross-origin`：降低跨站 Referer 洩漏資訊。
+- `Permissions-Policy`：停用本網站不需要的相機、麥克風與地理位置功能。
 
 防護作用：降低 XSS、Clickjacking、MIME 混淆與 URL 路徑洩漏風險。
 
@@ -140,7 +140,13 @@
 
 目前狀態：原始碼已加入；Release 建置與 `git diff --check` 已通過，但尚未在實際 IIS HTTPS 網域取得完整回應標頭驗證。
 
-### 2.10 Production HTTPS、HSTS 與自訂錯誤頁設定
+### 2.10 API 請求逾時與管理 API 限流
+
+管理 API 與公開 API 會套用每個來源 IP 的固定視窗限流；所有路由端點另設 30 秒請求逾時，避免異常請求長時間佔用工作執行緒與檔案鎖。
+
+目前狀態：已實作；IIS／WAF 的上游限流、連線數限制與壓力測試仍未驗證。
+
+### 2.11 Production HTTPS、HSTS 與自訂錯誤頁設定
 
 實作位置：[Program.cs](Program.cs#L107-L115)、[Program.cs](Program.cs#L166-L188)、[IIS-DEPLOYMENT.md](IIS-DEPLOYMENT.md#L33-L41)
 
@@ -154,7 +160,7 @@
 
 ## 三、尚未實作或需要補強的防護
 
-### 3.1 公開頁面直接暴露完整 `news.json`（已處理，資料分離仍待完成）
+### 3.1 公開頁面直接暴露完整 `news.json`（已處理，正式資料分離待部署）
 
 目前 [wwwroot/js/pages/news.js](wwwroot/js/pages/news.js)、[wwwroot/js/pages/news-detail.js](wwwroot/js/pages/news-detail.js) 與 [wwwroot/js/pages/home.js](wwwroot/js/pages/home.js) 改由 `/api/public/news` 及其子路徑取得資料。API 會在伺服器端要求 `Published = true`，並要求公告日期不晚於 Asia/Taipei 今日；詳細頁也會再次驗證指定公告的公開狀態。
 
@@ -162,31 +168,31 @@
 
 已補上的即時防護：[Program.cs](Program.cs) 在靜態檔案 middleware 前對 `/data/news.json` 與 `/data/news-categories.json` 回傳 404，因此即使知道檔案路徑也不能從網站直接下載原始 JSON。
 
-尚未完成的部分：`news.json` 目前仍位於 `wwwroot/data/`，部署時仍可能覆蓋或與附件資料分離。下一步要將新聞 JSON、分類與附件移出發布目錄，並讓 API 讀取外部資料根目錄。
+已補上的應用程式防護：Production 會要求設定 `Apli__DataRoot`，且拒絕指向發布目錄內 `wwwroot` 的路徑；API 會從外部資料根目錄讀取新聞 JSON、分類與附件。正式部署仍須完成資料搬移、ACL 與備份。
 
 ### 3.2 新聞資料與附件仍位於應用程式目錄（高優先級）
 
-目前 `news.json` 位於 `wwwroot/data/`，附件與壓縮圖片位於 `App_Data/news/`。`App_Data` 被 Git 忽略，新聞 JSON 卻仍在版本庫內，容易造成兩台電腦或不同發布版本資料不一致。
+Production 不再允許可變資料根目錄落在發布目錄內；Development 未設定 `Apli__DataRoot` 時，才會沿用目前專案內的測試資料路徑。
 
 影響：發布新版本時可能覆蓋正式新聞；只同步 JSON 時可能產生附件 404；若備份不完整，新聞與附件可能無法一起還原。
 
-建議：將新聞 JSON、分類與附件移至發布目錄外的正式資料根目錄，使用環境設定指定位置；部署程式碼時排除可變資料，並定期備份與測試還原。
+部署要求：將新聞 JSON、分類與附件搬移至例如 `C:\Sites\APLI-Data`，設定 `Apli__DataRoot`，只對該資料根目錄授予 IIS Application Pool Modify，並定期備份與測試還原。
 
-### 3.3 Production Cookie 尚未固定使用 HTTPS
+### 3.3 Production Cookie 已固定使用 HTTPS
 
-目前 Cookie 使用 `CookieSecurePolicy.SameAsRequest`。
+Production 已改為 `CookieSecurePolicy.Always`；Development 才使用 `SameAsRequest` 以支援本機 HTTP 測試。
 
-影響：若 Production 仍存在 HTTP Binding、反向代理判斷錯誤，或管理員透過 HTTP 請求，登入 Cookie 可能沒有 `Secure` 屬性，增加被竊取的風險。
+影響：若 Production 仍存在 HTTP Binding 或反向代理設定錯誤，登入流程會因 Cookie 強制 Secure 而失效；這會暴露部署設定問題，但不會退回以 HTTP 傳送登入 Cookie。
 
-建議：正式環境改用 `CookieSecurePolicy.Always`，只保留 HTTPS，並確認 IIS／反向代理正確傳遞 HTTPS 狀態。
+部署要求：只保留 HTTPS Binding，並確認 IIS／反向代理正確傳遞 HTTPS 狀態。
 
-### 3.4 `AllowedHosts` 目前是萬用設定
+### 3.4 `AllowedHosts` 已改為 Production 必填
 
-目前 [appsettings.json](appsettings.json#L1-L8) 使用 `"AllowedHosts": "*"`。
+Development 只允許本機 Host；Production 若未設定 `AllowedHosts`、設為空白或仍為 `*`，應用程式會直接停止啟動。
 
 影響：應用程式不會以正式 Domain 限制 Host Header。若反向代理、IIS Binding 或快取設定不嚴謹，可能增加 Host Header 混淆、錯誤連結或快取污染風險。
 
-建議：Production 設定為正式 Domain 與必要別名，例如 `www.example.com;example.com`，並同步檢查 IIS Binding。
+部署要求：以系統環境變數設定正式 Domain 與必要別名，並同步檢查 IIS Binding。
 
 ### 3.5 沒有個別管理員帳號、MFA 與操作稽核
 
@@ -206,11 +212,11 @@
 
 ### 3.7 沒有完整的全站／上傳 API 速率限制
 
-目前主要限制登入 API；新聞查詢、上傳與部分公開請求沒有獨立的 IP、帳號或檔案速率限制。
+目前登入／CAPTCHA API 使用每 IP 每分鐘 5 次；公開 API 使用每 IP 每分鐘 60 次；管理 API 使用每 IP 每分鐘 60 次，並套用 30 秒請求逾時。
 
 影響：可能被大量請求消耗 CPU、磁碟、頻寬或新聞 JSON 鎖定時間；附件上傳也可能被用於資源耗盡攻擊。
 
-建議：在 IIS 或反向代理加入 WAF／限流，並為上傳、登入、管理 API 設定不同限制與記錄。
+仍需補強：在 IIS 或反向代理加入 WAF／限流、連線數與請求大小限制；目前應用程式限流以 IP 為依據，若經過代理必須正確設定可信任的轉發來源。
 
 ### 3.8 備份與還原尚未自動化及實際演練
 
@@ -245,9 +251,9 @@
 
 ### P0：必須先處理
 
-1. 將新聞 JSON 與附件移出發布目錄，避免部署覆蓋或只同步部分資料。
-2. Production Cookie 改為 `SecurePolicy.Always`，完成 HTTPS Binding、憑證與 HSTS 驗證。
-3. 將 `AllowedHosts` 改為正式 Domain。
+1. 將新聞 JSON 與附件搬到外部資料根目錄，完成資料搬移、ACL 與備份。
+2. 完成 HTTPS Binding、憑證、HSTS 與強制 Secure Cookie 的正式環境驗證。
+3. 設定正式 Domain 的 `AllowedHosts` 並完成 Host Header 驗證。
 4. 建立正式資料備份並完成一次還原演練。
 
 ### P1：建議正式上線前完成
@@ -255,7 +261,7 @@
 1. 管理員改用個別帳號與操作紀錄。
 2. 加入 MFA 或公司 SSO。
 3. 加入附件防毒／惡意內容掃描。
-4. 為上傳與管理 API 加入限流、記錄與告警。
+4. 在 IIS／反向代理加入 WAF、連線數與上傳請求限制，並接上告警。
 5. 完成 IIS、瀏覽器與附件下載的實際安全驗收。
 
 ### P2：營運期間持續處理
