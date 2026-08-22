@@ -13,7 +13,11 @@
 .affiliate-tabs button[aria-selected="true"]::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; border-radius: var(--radius-full) var(--radius-full) 0 0; background: var(--color-primary); content: ""; }
 .affiliate-panel { padding: 0; border: 0; box-shadow: none; }
 .affiliate-panel[hidden] { display: none; }
+.affiliate-panel:not(.is-active)[aria-hidden="true"],
+.affiliate-panel.is-hidden { display: none; }
+.affiliate-panel.is-active { animation: affiliate-panel-in 180ms ease both; }
 .affiliate-panel:not([hidden]) { animation: affiliate-panel-in 180ms ease both; }
+
 
 @keyframes affiliate-panel-in {
   from { opacity: 0; transform: translateY(4px); }

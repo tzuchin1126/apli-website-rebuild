@@ -6,7 +6,8 @@
  * 初始化公司沿革頁面分頁互動
  * - 年代標籤切換對應面板
  * - 支援鍵盤方向鍵左右切換
- * - 更新 aria-selected、tabIndex、面板 hidden 狀態
+ * - 更新 aria-selected、tabIndex、面板 CSS class 與 aria-hidden 狀態
+ * - 無 JS 時：所有面板預設顯示（漸進增強）
  */
 function initMilestones() {
   const tabs = [...document.querySelectorAll("[data-era]")];
@@ -64,9 +65,12 @@ function initMilestones() {
       item.tabIndex = isSelected ? 0 : -1; // 只有啟用的分頁可被 Tab 聚焦
     });
 
-    // 顯示/隱藏對應面板
+    // 顯示/隱藏對應面板：同步 hidden、is-active 與 aria-hidden，保持輔助工具狀態一致
     panels.forEach((panel) => {
-      panel.hidden = panel.id !== panelId;
+      const isActive = panel.id === panelId;
+      panel.classList.toggle("is-active", isActive);
+      panel.setAttribute("aria-hidden", String(!isActive));
+      panel.hidden = !isActive;
     });
 
     const activePanel = panels.find((panel) => panel.id === panelId);
@@ -101,7 +105,7 @@ function initMilestones() {
 
   if (!("IntersectionObserver" in window)) {
     hasEnteredViewport = true;
-    const activePanel = panels.find((panel) => !panel.hidden);
+    const activePanel = panels.find((panel) => panel.classList.contains("is-active"));
     if (activePanel) replayPanelReveal(activePanel);
     return;
   }
@@ -110,7 +114,7 @@ function initMilestones() {
     if (!entries.some((entry) => entry.isIntersecting)) return;
 
     hasEnteredViewport = true;
-    const activePanel = panels.find((panel) => !panel.hidden);
+    const activePanel = panels.find((panel) => panel.classList.contains("is-active"));
     if (activePanel) replayPanelReveal(activePanel);
     observer.disconnect();
   }, { threshold: 0.18 });

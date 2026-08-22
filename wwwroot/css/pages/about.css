@@ -78,8 +78,9 @@
 .about-page .philosophy-panel__text { display: grid; width: min(100%, 620px); justify-items: center; gap: 6px; isolation: isolate; text-align: center; }
 .about-page .philosophy-panels strong, .about-page .philosophy-panel__description { text-shadow: 0 1px 4px rgb(0 0 0 / 55%); }
 .about-page .philosophy-panels strong { color: var(--color-surface); font-family: var(--font-heading); font-size: clamp(1.3rem, 1.08rem + .4vw, 1.6rem); font-weight: var(--font-weight-medium); letter-spacing: .04em; line-height: 1.35; text-align: center; }
-.about-page .philosophy-panel__description { display: block; width: 100%; max-width: 600px; max-height: 0; margin: 0; overflow: hidden; opacity: 0; transform: translateY(12px); font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .2vw, 1.1rem); letter-spacing: .02em; line-height: 1.7; text-align: center; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
+.about-page .philosophy-panel__description { display: block; width: 100%; max-width: 600px; max-height: none; margin: 0; overflow: visible; opacity: 1; transform: none; font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .2vw, 1.1rem); letter-spacing: .02em; line-height: 1.7; text-align: center; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
 .about-page .philosophy-panels button:hover .philosophy-panel__description, .about-page .philosophy-panels button:focus-visible .philosophy-panel__description, .about-page .philosophy-panels button[aria-expanded="true"] .philosophy-panel__description { max-height: 160px; opacity: 0.9; transform: translateY(0); }
+.about-page .philosophy-panels button:not([aria-expanded="true"]) .philosophy-panel__description { max-height: 0; opacity: 0; transform: translateY(12px); overflow: hidden; }
 .about-page .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
 .about-page .about-certifications {
   --certification-line-x: 20px;
@@ -133,9 +134,10 @@
 .about-page .milestone-event-year { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-dark); font-size: clamp(1rem, .96rem + .15vw, 1.125rem); font-weight: var(--font-weight-medium); line-height: 1.7; }
 .about-page .about-certifications-toggle { grid-column: 2; justify-self: start; margin-top: 28px; border-radius: var(--card-radius); background: var(--color-secondary); }
 .about-page .about-certifications-toggle:hover, .about-page .about-certifications-toggle:focus-visible { background: var(--color-primary); color: var(--button-primary-color); }
-.about-page [data-collapsible-events] > div { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; overflow: hidden; transition: opacity 350ms ease, transform 350ms ease, margin 350ms ease, max-height 350ms ease; pointer-events: none; }
-.about-page [data-collapsible-events] > div.is-visible { opacity: 1; transform: translateY(0); max-height: 500px; margin-top: 12px; margin-bottom: 12px; pointer-events: auto; }
-.about-page [data-collapsible-events] > div.is-collapsed { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; }
+/* 折疊增強樣式僅在 JavaScript 可用時（html.js）套用；停用 JS 時認證／獎項內容完整可讀。 */
+html.js .about-page [data-collapsible-events] > div { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; overflow: hidden; transition: opacity 350ms ease, transform 350ms ease, margin 350ms ease, max-height 350ms ease; pointer-events: none; }
+html.js .about-page [data-collapsible-events] > div.is-visible { opacity: 1; transform: translateY(0); max-height: 500px; margin-top: 12px; margin-bottom: 12px; pointer-events: auto; }
+html.js .about-page [data-collapsible-events] > div.is-collapsed { opacity: 0; transform: translateY(-12px); max-height: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; }
 .about-page [data-collapsible-events] > div[hidden] { display: none; }
 
 .about-page .about-affiliates { padding-top: clamp(40px, 4.5vw, 64px); padding-bottom: clamp(56px, 6vw, 88px); background: transparent; }

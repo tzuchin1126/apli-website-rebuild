@@ -83,11 +83,12 @@
   margin: 0 auto;
 }
 
-.milestone-panel[hidden] {
+.milestone-panel[hidden],
+.milestone-panel:not(.is-active)[aria-hidden="true"] {
   display: none;
 }
 
-.milestone-panel:not([hidden]) {
+.milestone-panel.is-active {
   animation: milestone-panel-in 350ms ease both;
 }
 

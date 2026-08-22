@@ -4,5 +4,4 @@ Disallow: /Admin/
 Disallow: /data/
 Crawl-delay: 10
 
-# Sitemap (若有的話請取消註解並填入正確網址)
-# Sitemap: https://your-domain.com/sitemap.xml
+# Sitemap：正式網域確定且 sitemap 上線後，再加入 sitemap 的絕對網址。

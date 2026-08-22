@@ -14,7 +14,10 @@ function initNewsDetail() {
   if (!detail) return;
 
   // ---- 取得 DOM 元素 ----
-  const id = new URLSearchParams(window.location.search).get("id");
+  const routeMatch = window.location.pathname.match(/^\/news\/([^/]+)\/?$/i);
+  const id = routeMatch
+    ? decodeURIComponent(routeMatch[1])
+    : new URLSearchParams(window.location.search).get("id");
   const titleEl = detail.querySelector("[data-news-title]");
   const dateEl = detail.querySelector("[data-news-date]");
   const tagEl = detail.querySelector("[data-news-tag]");
@@ -24,6 +27,9 @@ function initNewsDetail() {
   const attachmentNameEl = detail.querySelector("[data-news-attachment-name]");
   const attachmentWrapEl = detail.querySelector("[data-news-attachment-wrap]");
   const errorEl = document.querySelector("[data-news-error]");
+  const descriptionEl = document.querySelector('meta[name="description"]');
+  const ogTitleEl = document.querySelector('meta[property="og:title"]');
+  const ogDescriptionEl = document.querySelector('meta[property="og:description"]');
 
   if (!id) {
     showError();
@@ -61,6 +67,10 @@ function initNewsDetail() {
   function renderNewsDetail(item) {
     // 更新頁面標題
     document.title = `${item.title} - 亞太國際物流`;
+    const description = item.content.trim().replace(/\s+/g, " ").slice(0, 160);
+    if (descriptionEl) descriptionEl.content = description || `${item.title} - 亞太國際物流`;
+    if (ogTitleEl) ogTitleEl.content = document.title;
+    if (ogDescriptionEl) ogDescriptionEl.content = description || `${item.title} - 亞太國際物流`;
 
     // 基本資料
     titleEl.textContent = item.title;
@@ -69,6 +79,7 @@ function initNewsDetail() {
     tagEl.textContent = item.tag;
 
     // 內容：以換行分段
+    contentEl.replaceChildren();
     item.content.split("\n").forEach((paragraph) => {
       const trimmed = paragraph.trim();
       if (!trimmed) return;
@@ -80,6 +91,7 @@ function initNewsDetail() {
     // 圖片
     if (item.imageUrl) {
       imageEl.src = item.imageUrl;
+      imageEl.alt = item.title;
       imageEl.hidden = false;
     }
 

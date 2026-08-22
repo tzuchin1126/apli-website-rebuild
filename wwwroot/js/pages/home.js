@@ -291,7 +291,7 @@ function setupLatestNews() {
       items.forEach((item) => {
         const link = document.createElement("a");
         link.className = "home-latest__item";
-        link.href = `/news-detail?id=${encodeURIComponent(item.id)}`;
+        link.href = `/news/${encodeURIComponent(item.id)}`;
 
         // 圖片區
         const media = document.createElement("span");
@@ -331,6 +331,9 @@ function setupLatestNews() {
       renderControls(items);
     })
     .catch(() => {
+      // 伺服器端已渲染最新消息時保留原內容，不顯示錯誤訊息。
+      if (list.querySelector(".home-latest__item")) return;
+
       list.replaceChildren();
       const message = document.createElement("p");
       message.className = "home-latest__empty";

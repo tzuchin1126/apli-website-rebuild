@@ -28,9 +28,14 @@ function setupServiceTabs() {
       tab.tabIndex = isSelected ? 0 : -1;
     });
 
-    panels.forEach((panel) => {
-      panel.hidden = panel.id !== selectedId;
-    });
+     // 顯示/隱藏對應面板：同步 hidden、is-active 與 aria-hidden，
+     // 確保未選取面板不可聚焦、不被螢幕閱讀器朗讀
+     panels.forEach((panel) => {
+       const isActive = panel.id === selectedId;
+       panel.classList.toggle("is-active", isActive);
+       panel.setAttribute("aria-hidden", String(!isActive));
+       panel.hidden = !isActive;
+     });
 
     if (updateHash) history.replaceState(null, "", `#${selectedId}`);
   }

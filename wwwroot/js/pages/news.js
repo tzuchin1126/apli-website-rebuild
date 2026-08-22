@@ -121,7 +121,7 @@ function initNewsList() {
       article.dataset.category = item.tag || "";
 
       article.innerHTML = `
-        <a class="news-row" href="/news-detail?id=${encodeURIComponent(item.id)}">
+        <a class="news-row" href="/news/${encodeURIComponent(item.id)}">
           <span class="news-row__media">
             <img class="news-row__image" alt="" loading="lazy" decoding="async">
           </span>

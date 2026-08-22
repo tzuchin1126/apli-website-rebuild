@@ -40,6 +40,8 @@ public sealed class NewsEndpointOptions
     public string UploadsRoot { get; }
     public string ImageUploadsRoot { get; }
     public IReadOnlyList<string> DefaultCategories { get; }
+
+    // 存檔的時候上鎖,避免兩個請求同時寫檔案把資料寫壞
     public SemaphoreSlim NewsWriteLock { get; } = new(1, 1);
     public SemaphoreSlim CategoriesWriteLock { get; } = new(1, 1);
 }
@@ -57,10 +59,15 @@ public static class NewsEndpoints
         var defaultCategories = options.DefaultCategories;
         var newsWriteLock = options.NewsWriteLock;
         var categoriesWriteLock = options.CategoriesWriteLock;
+
         const string captchaSessionKey = "admin-login-captcha";
         const long maxUploadRequestBytes = 16 * 1024 * 1024;
         const string newsUploadsUrlPrefix = "/api/uploads/news";
         const string newsImagesUrlPrefix = "/api/uploads/news/images";
+
+        // ============================================================
+        // 後台登入相關:驗證碼、登入、登出、查詢是否已登入
+        // ============================================================
 
         app.MapGet("/api/admin/captcha", (HttpContext context) =>
         {
@@ -81,17 +88,15 @@ public static class NewsEndpoints
 
             var expectedCaptcha = context.Session.GetString(captchaSessionKey);
             context.Session.Remove(captchaSessionKey);
-            var usernameBytes = Encoding.UTF8.GetBytes(request.Username ?? "");
-            var expectedUsernameBytes = Encoding.UTF8.GetBytes(adminUsername);
-            var passwordBytes = Encoding.UTF8.GetBytes(request.Password ?? "");
-            var expectedPasswordBytes = Encoding.UTF8.GetBytes(adminPassword);
-            var usernameMatches = CryptographicOperations.FixedTimeEquals(usernameBytes, expectedUsernameBytes);
-            var passwordMatches = CryptographicOperations.FixedTimeEquals(passwordBytes, expectedPasswordBytes);
+
+            // 帳號密碼跟驗證碼都要用「固定時間比對」,防止有人靠回應時間差去猜密碼
+            var usernameMatches = FixedTimeEquals(request.Username, adminUsername);
+            var passwordMatches = FixedTimeEquals(request.Password, adminPassword);
             var captchaMatches = FixedTimeTextEquals(expectedCaptcha, request.Captcha);
 
             if (!usernameMatches || !passwordMatches || !captchaMatches)
             {
-                // 登入失敗只記錄來源 IP，絕不記錄帳密或驗證碼內容。
+                // 登入失敗只記錄來源 IP,絕不記錄帳密或驗證碼內容
                 var logger = loggerFactory.CreateLogger("ApliWebsite.AdminAuthentication");
                 logger.LogWarning(
                     "Admin 登入失敗。來源 IP：{SourceIp}",
@@ -117,23 +122,30 @@ public static class NewsEndpoints
 
         app.MapGet("/api/admin/session", (HttpContext context) =>
             context.User.Identity?.IsAuthenticated == true
-                ? Results.Ok() : Results.Unauthorized())
+                ? Results.Ok()
+                : Results.Unauthorized())
             .RequireRateLimiting("admin-api");
 
-        app.MapGet("/api/news", async () => Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
+        // ============================================================
+        // 新聞查詢:後台看全部、前台只看已發布的
+        // ============================================================
+
+        app.MapGet("/api/news", async () =>
+            Results.Ok(SortNewsByLatest(await NewsService.ReadAsync(newsFile))))
             .RequireAuthorization()
             .RequireRateLimiting("admin-api");
 
         app.MapGet("/api/public/news", async () =>
         {
             var news = await NewsService.ReadAsync(newsFile);
-            return Results.Ok(SortNewsByLatest(news.Where(IsPublicNewsItem)).Select(ToPublicNewsListItem));
+            var publicNews = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem));
+            return Results.Ok(publicNews.Select(ToPublicNewsListItem));
         }).RequireRateLimiting("public-api");
 
         app.MapGet("/api/public/news/{id}", async (string id) =>
         {
             var news = await NewsService.ReadAsync(newsFile);
-            var item = news.FirstOrDefault(entry => entry.Id == id && IsPublicNewsItem(entry));
+            var item = news.FirstOrDefault(entry => entry.Id == id && NewsService.IsPublicNewsItem(entry));
             return item is null
                 ? Results.NotFound()
                 : Results.Ok(ToPublicNewsDetailItem(item));
@@ -142,7 +154,7 @@ public static class NewsEndpoints
         app.MapGet("/api/public/news/categories", async () =>
         {
             var news = await NewsService.ReadAsync(newsFile);
-            var categories = SortNewsByLatest(news.Where(IsPublicNewsItem))
+            var categories = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem))
                 .Select(item => item.Tag.Trim())
                 .Where(tag => !string.IsNullOrWhiteSpace(tag))
                 .Distinct(StringComparer.Ordinal)
@@ -150,33 +162,41 @@ public static class NewsEndpoints
             return Results.Ok(categories);
         }).RequireRateLimiting("public-api");
 
+        // ============================================================
+        // 新增/編輯新聞
+        // ============================================================
         app.MapPost("/api/news/save", async (
             HttpContext context,
             IAntiforgery antiforgery,
             ILoggerFactory loggerFactory) =>
         {
             await antiforgery.ValidateRequestAsync(context);
+
             if (context.Features.Get<IHttpMaxRequestBodySizeFeature>() is { IsReadOnly: false } requestLimit)
+            {
                 requestLimit.MaxRequestBodySize = maxUploadRequestBytes;
+            }
 
             var requestData = await ReadNewsSaveRequestAsync(context);
             if (requestData is null)
+            {
                 return Results.BadRequest("無法讀取消息資料。");
+            }
 
             var item = requestData.Item;
+            var validationError = ValidateNewsItem(item);
+            if (validationError is not null)
+            {
+                return Results.BadRequest(validationError);
+            }
 
-            if (!DateOnly.TryParseExact(item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
-                return Results.BadRequest("日期格式必須是 yyyy-MM-dd。");
-            if (string.IsNullOrWhiteSpace(item.Title) || item.Title.Length > 200)
-                return Results.BadRequest("標題必填且不可超過 200 字。");
-            if ((item.Content ?? "").Length > 50000)
-                return Results.BadRequest("內文不可超過 50,000 字。");
-            if ((item.Tag ?? "").Length > 50)
-                return Results.BadRequest("分類不可超過 50 字。");
+            // 存檔要上鎖,不然兩個人同時儲存可能會互相蓋掉對方的資料
+            await newsWriteLock.WaitAsync();
 
+            // 如果中途失敗,已經存到硬碟的新檔案要記得刪掉,不要留垃圾檔案
             var newlyStoredUploadUrls = new List<string>();
             var saveCompleted = false;
-            await newsWriteLock.WaitAsync();
+
             try
             {
                 var news = await NewsService.ReadAsync(newsFile);
@@ -187,94 +207,46 @@ public static class NewsEndpoints
 
                 try
                 {
-                    if (requestData.ImageFile is not null)
-                    {
-                        // 新圖片改存壓縮後的實體檔案，避免 Base64 讓 news.json 持續膨脹。
-                        var upload = await SaveUploadAsync(
-                            requestData.ImageFile,
-                            imageUploadsRoot,
-                            UploadKind.Image,
-                            newsImagesUrlPrefix);
-                        newlyStoredUploadUrls.Add(upload.Url);
-                        item.ImageUrl = upload.Url;
-                        item.ImageName = upload.OriginalName;
-                    }
-                    else if (requestData.RemoveImage)
-                    {
-                        item.ImageUrl = "";
-                        item.ImageName = "";
-                    }
-                    else if (existingItem is not null)
-                    {
-                        item.ImageUrl = existingItem.ImageUrl;
-                        item.ImageName = existingItem.ImageName;
-                    }
-
-                    if (requestData.AttachmentFile is not null)
-                    {
-                        var upload = await SaveUploadAsync(
-                            requestData.AttachmentFile,
-                            uploadsRoot,
-                            UploadKind.Attachment,
-                            newsUploadsUrlPrefix);
-                        newlyStoredUploadUrls.Add(upload.Url);
-                        item.Url = upload.Url;
-                        item.AttachmentName = upload.OriginalName;
-                    }
-                    else if (requestData.RemoveAttachment)
-                    {
-                        item.Url = "";
-                        item.AttachmentName = "";
-                    }
-                    else if (existingItem is not null)
-                    {
-                        item.Url = existingItem.Url;
-                        item.AttachmentName = existingItem.AttachmentName;
-                    }
+                    await ApplyImageAsync(item, existingItem, requestData, newlyStoredUploadUrls);
+                    await ApplyAttachmentAsync(item, existingItem, requestData, newlyStoredUploadUrls);
                 }
                 catch (UploadValidationException exception)
                 {
-                    // 檔案驗證失敗時只記錄安全的驗證訊息，不記錄檔案內容。
+                    // 檔案驗證失敗時只記錄安全的驗證訊息,不記錄檔案內容
                     var logger = loggerFactory.CreateLogger("ApliWebsite.UploadValidation");
                     logger.LogWarning("檔案上傳驗證失敗：{ValidationMessage}", exception.Message);
                     return Results.BadRequest(exception.Message);
                 }
 
-                var now = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).ToString("yyyy-MM-dd HH:mm:ss zzz");
-                if (string.IsNullOrWhiteSpace(item.Id))
-                {
-                    item.Id = Guid.NewGuid().ToString("N");
-                    item.CreatedAt = now;
-                }
+                ApplyTimestamps(item, existingIndex >= 0 ? news[existingIndex] : null);
 
-                item.UpdatedAt = now;
                 if (existingIndex >= 0)
                 {
-                    item.CreatedAt = string.IsNullOrWhiteSpace(news[existingIndex].CreatedAt)
-                        ? item.CreatedAt
-                        : news[existingIndex].CreatedAt;
                     news[existingIndex] = item;
                 }
                 else
                 {
-                    item.CreatedAt = string.IsNullOrWhiteSpace(item.CreatedAt) ? now : item.CreatedAt;
                     news.Add(item);
                 }
 
                 news = SortNewsByLatest(news);
                 await NewsService.WriteAsync(newsFile, news);
                 saveCompleted = true;
+
+                // 存檔成功後,把換掉的舊圖片/舊附件清掉(如果沒有其他新聞還在用它)
                 DeleteUnusedUpload(previousImageUrl, item.ImageUrl, news);
                 DeleteUnusedUpload(previousAttachmentUrl, item.Url, news);
+
                 return Results.Ok(item);
             }
             finally
             {
-                // 儲存中途失敗時清除已建立的新檔，避免留下無人引用的檔案。
                 if (!saveCompleted)
                 {
                     foreach (var uploadUrl in newlyStoredUploadUrls)
+                    {
                         DeleteStoredUpload(uploadUrl);
+                    }
                 }
 
                 newsWriteLock.Release();
@@ -290,11 +262,14 @@ public static class NewsEndpoints
                 var news = await NewsService.ReadAsync(newsFile);
                 var removedItems = news.Where(item => item.Id == id).ToList();
                 if (removedItems.Count == 0)
+                {
                     return Results.NotFound();
+                }
 
                 news.RemoveAll(item => item.Id == id);
                 await NewsService.WriteAsync(newsFile, news);
-                // 刪除新聞時同步清除沒有被其他新聞共用的圖片與附件。
+
+                // 刪除新聞的同時,把沒有被其他新聞共用的圖片跟附件也一起刪掉
                 foreach (var removedItem in removedItems)
                 {
                     DeleteUnusedUpload(removedItem.ImageUrl, null, news);
@@ -309,12 +284,16 @@ public static class NewsEndpoints
             }
         }).RequireAuthorization().RequireRateLimiting("admin-api");
 
-        // 新圖片與既有附件共用發布狀態檢查，但分開存放以利容量管理。
+        // 圖片跟附件分開存放兩個資料夾,方便之後單獨管理容量
         app.MapGet("/api/uploads/news/images/{fileName}", (HttpContext context, string fileName) =>
             ServeNewsUploadAsync(context, fileName, imageUploadsRoot, newsImagesUrlPrefix));
 
         app.MapGet("/api/uploads/news/{fileName}", (HttpContext context, string fileName) =>
             ServeNewsUploadAsync(context, fileName, uploadsRoot, newsUploadsUrlPrefix));
+
+        // ============================================================
+        // 新聞分類管理
+        // ============================================================
 
         app.MapGet("/api/news/categories", async () => Results.Ok(await ReadCategories()))
             .RequireAuthorization()
@@ -325,14 +304,19 @@ public static class NewsEndpoints
             await antiforgery.ValidateRequestAsync(context);
             var name = request.Name?.Trim() ?? "";
             if (string.IsNullOrWhiteSpace(name) || name.Length > 50)
+            {
                 return Results.BadRequest("分類必填且不可超過 50 字。");
+            }
 
             await categoriesWriteLock.WaitAsync();
             try
             {
                 var categories = await ReadCategories();
                 if (!categories.Contains(name, StringComparer.Ordinal))
+                {
                     categories.Add(name);
+                }
+
                 await WriteCategories(categories);
                 return Results.Ok(categories);
             }
@@ -349,8 +333,11 @@ public static class NewsEndpoints
             try
             {
                 var categories = await ReadCategories();
-                if (categories.Remove(name) is false)
+                if (!categories.Remove(name))
+                {
                     return Results.NotFound();
+                }
+
                 await WriteCategories(categories);
                 return Results.Ok(categories);
             }
@@ -361,25 +348,39 @@ public static class NewsEndpoints
         }).RequireAuthorization().RequireRateLimiting("admin-api");
 
 
+        // ============================================================
+        // 以下都是給上面 endpoint 用的小工具方法
+        // ============================================================
+
         async Task<IResult> ServeNewsUploadAsync(HttpContext context, string fileName, string directory, string urlPrefix)
         {
+            // 檔名不能包含路徑符號(例如 ../../secret.txt),防止跳出資料夾去讀別的檔案
             if (Path.GetFileName(fileName) != fileName)
+            {
                 return Results.BadRequest("檔案名稱無效。");
+            }
 
             var filePath = Path.Combine(directory, fileName);
             if (!File.Exists(filePath))
+            {
                 return Results.NotFound();
+            }
 
+            // 沒登入的人只能看「已發布新聞正在用的圖片/附件」,其他一律當作不存在
             var publicPath = $"{urlPrefix}/{fileName}";
             var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
             if (!isAuthenticated)
             {
                 var news = await NewsService.ReadAsync(newsFile);
-                var isPublishedReference = news.Any(item => IsPublicNewsItem(item) &&
+                var isPublishedReference = news.Any(item =>
+                    NewsService.IsPublicNewsItem(item) &&
                     (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
                      string.Equals(item.Url, publicPath, StringComparison.Ordinal)));
+
                 if (!isPublishedReference)
+                {
                     return Results.NotFound();
+                }
             }
 
             context.Response.Headers.CacheControl = "private, no-store";
@@ -390,24 +391,29 @@ public static class NewsEndpoints
         async Task<List<string>> ReadCategories()
         {
             if (!File.Exists(categoriesFile))
+            {
                 return defaultCategories.ToList();
+            }
 
             await using var stream = File.OpenRead(categoriesFile);
-            return await System.Text.Json.JsonSerializer.DeserializeAsync<List<string>>(stream) ?? defaultCategories.ToList();
+            var categories = await JsonSerializer.DeserializeAsync<List<string>>(stream);
+            return categories ?? defaultCategories.ToList();
         }
 
         async Task WriteCategories(IEnumerable<string> categories)
         {
             await using var stream = File.Create(categoriesFile);
-            await System.Text.Json.JsonSerializer.SerializeAsync(stream, categories.ToList(), new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+            await JsonSerializer.SerializeAsync(stream, categories.ToList(), new JsonSerializerOptions { WriteIndented = true });
         }
 
+        // 存新聞的表單有兩種可能:一般 JSON,或是有夾檔案的 multipart form
         async Task<NewsSaveRequest?> ReadNewsSaveRequestAsync(HttpContext context)
         {
             if (context.Request.HasFormContentType)
             {
                 var form = await context.Request.ReadFormAsync(context.RequestAborted);
                 var published = !bool.TryParse(form["published"].ToString(), out var parsedPublished) || parsedPublished;
+
                 var item = new NewsItem
                 {
                     Id = form["id"].ToString(),
@@ -422,12 +428,15 @@ public static class NewsEndpoints
                     Published = published
                 };
 
+                var removeImage = bool.TryParse(form["removeImage"].ToString(), out var parsedRemoveImage) && parsedRemoveImage;
+                var removeAttachment = bool.TryParse(form["removeAttachment"].ToString(), out var parsedRemoveAttachment) && parsedRemoveAttachment;
+
                 return new NewsSaveRequest(
                     item,
                     form.Files.GetFile("image"),
                     form.Files.GetFile("attachment"),
-                    bool.TryParse(form["removeImage"].ToString(), out var removeImage) && removeImage,
-                    bool.TryParse(form["removeAttachment"].ToString(), out var removeAttachment) && removeAttachment);
+                    removeImage,
+                    removeAttachment);
             }
 
             try
@@ -436,6 +445,7 @@ public static class NewsEndpoints
                     context.Request.Body,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true },
                     context.RequestAborted);
+
                 return item is null ? null : new NewsSaveRequest(item, null, null, false, false);
             }
             catch (JsonException)
@@ -444,19 +454,115 @@ public static class NewsEndpoints
             }
         }
 
+        // 新聞內容的欄位檢查,通過回傳 null,不通過回傳錯誤訊息
+        string? ValidateNewsItem(NewsItem item)
+        {
+            if (!DateOnly.TryParseExact(item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+            {
+                return "日期格式必須是 yyyy-MM-dd。";
+            }
+
+            if (string.IsNullOrWhiteSpace(item.Title) || item.Title.Length > 200)
+            {
+                return "標題必填且不可超過 200 字。";
+            }
+
+            if ((item.Content ?? "").Length > 50000)
+            {
+                return "內文不可超過 50,000 字。";
+            }
+
+            if ((item.Tag ?? "").Length > 50)
+            {
+                return "分類不可超過 50 字。";
+            }
+
+            return null;
+        }
+
+        // 圖片欄位有三種情況:上傳新圖片、按了移除、或什麼都沒動(維持原本的圖片)
+        async Task ApplyImageAsync(
+            NewsItem item, NewsItem? existingItem, NewsSaveRequest requestData, List<string> newlyStoredUploadUrls)
+        {
+            if (requestData.ImageFile is not null)
+            {
+                // 圖片存成實體檔案,不要存成 Base64 塞進 news.json,不然檔案會越長越大
+                var upload = await SaveUploadAsync(requestData.ImageFile, imageUploadsRoot, UploadKind.Image, newsImagesUrlPrefix);
+                newlyStoredUploadUrls.Add(upload.Url);
+                item.ImageUrl = upload.Url;
+                item.ImageName = upload.OriginalName;
+            }
+            else if (requestData.RemoveImage)
+            {
+                item.ImageUrl = "";
+                item.ImageName = "";
+            }
+            else if (existingItem is not null)
+            {
+                item.ImageUrl = existingItem.ImageUrl;
+                item.ImageName = existingItem.ImageName;
+            }
+        }
+
+        async Task ApplyAttachmentAsync(
+            NewsItem item, NewsItem? existingItem, NewsSaveRequest requestData, List<string> newlyStoredUploadUrls)
+        {
+            if (requestData.AttachmentFile is not null)
+            {
+                var upload = await SaveUploadAsync(requestData.AttachmentFile, uploadsRoot, UploadKind.Attachment, newsUploadsUrlPrefix);
+                newlyStoredUploadUrls.Add(upload.Url);
+                item.Url = upload.Url;
+                item.AttachmentName = upload.OriginalName;
+            }
+            else if (requestData.RemoveAttachment)
+            {
+                item.Url = "";
+                item.AttachmentName = "";
+            }
+            else if (existingItem is not null)
+            {
+                item.Url = existingItem.Url;
+                item.AttachmentName = existingItem.AttachmentName;
+            }
+        }
+
+        // 新增就記錄建立時間,編輯就只更新「最後修改時間」,建立時間維持原本的
+        void ApplyTimestamps(NewsItem item, NewsItem? existingItem)
+        {
+            var now = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).ToString("yyyy-MM-dd HH:mm:ss zzz");
+
+            if (existingItem is null)
+            {
+                item.CreatedAt = string.IsNullOrWhiteSpace(item.CreatedAt) ? now : item.CreatedAt;
+            }
+            else
+            {
+                item.CreatedAt = string.IsNullOrWhiteSpace(existingItem.CreatedAt) ? now : existingItem.CreatedAt;
+            }
+
+            item.UpdatedAt = now;
+        }
+
         string CreateCaptchaCode()
         {
             const string characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
             var builder = new StringBuilder(5);
             for (var index = 0; index < 5; index++)
+            {
                 builder.Append(characters[RandomNumberGenerator.GetInt32(characters.Length)]);
+            }
+
             return builder.ToString();
         }
 
+        // 畫一張帶干擾線的驗證碼圖片,純粹是防機器人用的,沒有特別複雜的邏輯
         string CreateCaptchaSvg(string code)
         {
-            var svg = new StringBuilder("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"260\" height=\"82\" viewBox=\"0 0 260 82\" role=\"img\" aria-label=\"圖形驗證碼\">");
+            var svg = new StringBuilder(
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"260\" height=\"82\" viewBox=\"0 0 260 82\" role=\"img\" aria-label=\"圖形驗證碼\">");
             svg.Append("<rect width=\"260\" height=\"82\" rx=\"8\" fill=\"#f1f4f6\"/>");
+
+            // 畫幾條干擾線,增加機器人辨識的難度
             for (var index = 0; index < 9; index++)
             {
                 var x1 = RandomNumberGenerator.GetInt32(0, 260);
@@ -464,25 +570,40 @@ public static class NewsEndpoints
                 var x2 = RandomNumberGenerator.GetInt32(0, 260);
                 var y2 = RandomNumberGenerator.GetInt32(8, 74);
                 var color = index % 2 == 0 ? "#9eb2bc" : "#d2a36a";
-                svg.Append($"<path d=\"M{x1} {y1} Q130 {RandomNumberGenerator.GetInt32(0, 82)} {x2} {y2}\" fill=\"none\" stroke=\"{color}\" stroke-width=\"{RandomNumberGenerator.GetInt32(1, 3)}\" opacity=\".7\"/>");
+                svg.Append(
+                    $"<path d=\"M{x1} {y1} Q130 {RandomNumberGenerator.GetInt32(0, 82)} {x2} {y2}\" fill=\"none\" stroke=\"{color}\" stroke-width=\"{RandomNumberGenerator.GetInt32(1, 3)}\" opacity=\".7\"/>");
             }
 
+            // 每個字元用隨機角度旋轉一下,不要排得整整齊齊
             for (var index = 0; index < code.Length; index++)
             {
                 var x = 28 + index * 48;
                 var y = RandomNumberGenerator.GetInt32(49, 62);
                 var rotation = RandomNumberGenerator.GetInt32(-12, 13);
-                svg.Append($"<text x=\"{x}\" y=\"{y}\" transform=\"rotate({rotation} {x} {y})\" fill=\"#34495e\" font-family=\"Arial, sans-serif\" font-size=\"31\" font-weight=\"700\">{code[index]}</text>");
+                svg.Append(
+                    $"<text x=\"{x}\" y=\"{y}\" transform=\"rotate({rotation} {x} {y})\" fill=\"#34495e\" font-family=\"Arial, sans-serif\" font-size=\"31\" font-weight=\"700\">{code[index]}</text>");
             }
 
             svg.Append("</svg>");
             return svg.ToString();
         }
 
+        // 一般字串比對(==)如果比對到不一樣的字元就會提早結束,
+        // 有心人可以量測回應時間差,一個字一個字猜出正確答案。
+        // FixedTimeEquals 不管對不對都花一樣的時間比對完,防止這種攻擊。
+        bool FixedTimeEquals(string? actual, string expected)
+        {
+            var actualBytes = Encoding.UTF8.GetBytes(actual ?? "");
+            var expectedBytes = Encoding.UTF8.GetBytes(expected);
+            return CryptographicOperations.FixedTimeEquals(actualBytes, expectedBytes);
+        }
+
         bool FixedTimeTextEquals(string? expected, string? actual)
         {
             if (string.IsNullOrWhiteSpace(expected) || string.IsNullOrWhiteSpace(actual))
+            {
                 return false;
+            }
 
             var expectedBytes = Encoding.UTF8.GetBytes(expected.Trim().ToUpperInvariant());
             var actualBytes = Encoding.UTF8.GetBytes(actual.Trim().ToUpperInvariant());
@@ -490,11 +611,8 @@ public static class NewsEndpoints
                    CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes);
         }
 
-        async Task<SavedUpload> SaveUploadAsync(
-            IFormFile file,
-            string directory,
-            UploadKind kind,
-            string publicUrlPrefix)
+        // 把上傳的檔案存到硬碟。流程:檢查大小跟副檔名 → 先存成 .tmp → 檢查檔案內容是不是真的那個格式 → 改名成正式檔案
+        async Task<SavedUpload> SaveUploadAsync(IFormFile file, string directory, UploadKind kind, string publicUrlPrefix)
         {
             var originalName = Path.GetFileName(file.FileName).Trim();
             var extension = Path.GetExtension(originalName).ToLowerInvariant();
@@ -504,56 +622,78 @@ public static class NewsEndpoints
             var maxSize = kind == UploadKind.Image ? 1 * 1024 * 1024 : 10 * 1024 * 1024;
 
             if (file.Length <= 0 || file.Length > maxSize)
-                throw new UploadValidationException(kind == UploadKind.Image ? "公告圖片壓縮後必須小於 1 MB。" : "附件必須小於 10 MB。");
+            {
+                throw new UploadValidationException(
+                    kind == UploadKind.Image ? "公告圖片壓縮後必須小於 1 MB。" : "附件必須小於 10 MB。");
+            }
+
             if (string.IsNullOrWhiteSpace(originalName) || originalName.Length > 180 || !allowedExtensions.Contains(extension))
-                throw new UploadValidationException(kind == UploadKind.Image
-                    ? "公告圖片僅支援 JPG、PNG 或 WebP。"
-                    : "附件僅支援 PDF、Word 或 Excel 檔案。");
+            {
+                throw new UploadValidationException(
+                    kind == UploadKind.Image ? "公告圖片僅支援 JPG、PNG 或 WebP。" : "附件僅支援 PDF、Word 或 Excel 檔案。");
+            }
 
             var storedName = $"{Guid.NewGuid():N}{extension}";
             var finalPath = Path.Combine(directory, storedName);
             var temporaryPath = finalPath + ".tmp";
+
             try
             {
                 await using (var stream = File.Create(temporaryPath))
+                {
                     await file.CopyToAsync(stream);
+                }
 
+                // 副檔名可以亂改,所以還要打開檔案看內容開頭是不是真的那個格式
                 await ValidateUploadSignatureAsync(temporaryPath, extension, kind);
+
                 File.Move(temporaryPath, finalPath);
                 return new SavedUpload($"{publicUrlPrefix}/{storedName}", originalName);
             }
             catch
             {
                 if (File.Exists(temporaryPath))
+                {
                     File.Delete(temporaryPath);
+                }
+
                 throw;
             }
         }
 
+        // 檢查檔案開頭的「魔數」是不是符合宣稱的格式,例如 JPG 檔案開頭一定是 FF D8 FF
         async Task ValidateUploadSignatureAsync(string path, string extension, UploadKind kind)
         {
             await using var stream = File.OpenRead(path);
             var header = new byte[12];
-            var bytesRead = await stream.ReadAsync(header);
+            await stream.ReadAsync(header);
 
             static bool StartsWith(byte[] source, params byte[] prefix) =>
                 source.Length >= prefix.Length && source.AsSpan(0, prefix.Length).SequenceEqual(prefix);
 
             if (kind == UploadKind.Image)
             {
-                var isJpeg = (extension is ".jpg" or ".jpeg") && StartsWith(header, 0xff, 0xd8, 0xff);
+                var isJpeg = extension is ".jpg" or ".jpeg" && StartsWith(header, 0xff, 0xd8, 0xff);
                 var isPng = extension == ".png" && StartsWith(header, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a);
                 var isWebp = extension == ".webp" && StartsWith(header, 0x52, 0x49, 0x46, 0x46) && header.AsSpan(8, 4).SequenceEqual("WEBP"u8);
+
                 if (!isJpeg && !isPng && !isWebp)
+                {
                     throw new UploadValidationException("公告圖片內容格式不正確。");
+                }
+
                 return;
             }
 
             var isPdf = extension == ".pdf" && StartsWith(header, 0x25, 0x50, 0x44, 0x46, 0x2d);
-            var isOle = (extension is ".doc" or ".xls") && StartsWith(header, 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
-            if (isPdf || isOle)
-                return;
+            var isOle = extension is ".doc" or ".xls" && StartsWith(header, 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
 
+            if (isPdf || isOle)
+            {
+                return;
+            }
+
+            // docx/xlsx 其實是一個壓縮檔(zip),所以改用解壓縮的方式檢查裡面有沒有該有的內容
             if (extension is ".docx" or ".xlsx")
             {
                 try
@@ -563,35 +703,49 @@ public static class NewsEndpoints
                     var hasExpectedDocument = extension == ".docx"
                         ? archive.Entries.Any(entry => entry.FullName.StartsWith("word/", StringComparison.OrdinalIgnoreCase))
                         : archive.Entries.Any(entry => entry.FullName.StartsWith("xl/", StringComparison.OrdinalIgnoreCase));
+
                     if (hasContentTypes && hasExpectedDocument)
+                    {
                         return;
+                    }
                 }
                 catch (InvalidDataException)
                 {
+                    // 不是合法的 zip 檔案,往下走到最後統一丟出驗證失敗
                 }
             }
 
-            _ = bytesRead;
             throw new UploadValidationException("附件內容格式不正確。");
         }
 
+        // 如果圖片/附件被換掉了,而且沒有其他新聞還在引用舊的那個檔案,就把它從硬碟刪掉
         void DeleteUnusedUpload(string? previousUrl, string? currentUrl, IReadOnlyCollection<NewsItem> news)
         {
             if (string.IsNullOrWhiteSpace(previousUrl) || string.Equals(previousUrl, currentUrl, StringComparison.Ordinal))
+            {
                 return;
-            if (news.Any(item => string.Equals(item.ImageUrl, previousUrl, StringComparison.Ordinal) || string.Equals(item.Url, previousUrl, StringComparison.Ordinal)))
-                return;
+            }
 
-            DeleteStoredUpload(previousUrl);
+            var isStillUsed = news.Any(item =>
+                string.Equals(item.ImageUrl, previousUrl, StringComparison.Ordinal) ||
+                string.Equals(item.Url, previousUrl, StringComparison.Ordinal));
+
+            if (!isStillUsed)
+            {
+                DeleteStoredUpload(previousUrl);
+            }
         }
 
         void DeleteStoredUpload(string? uploadUrl)
         {
             if (string.IsNullOrWhiteSpace(uploadUrl))
+            {
                 return;
+            }
 
             string directory;
             string fileName;
+
             if (uploadUrl.StartsWith($"{newsImagesUrlPrefix}/", StringComparison.Ordinal))
             {
                 directory = imageUploadsRoot;
@@ -608,24 +762,12 @@ public static class NewsEndpoints
             }
 
             if (Path.GetFileName(fileName) == fileName)
+            {
                 File.Delete(Path.Combine(directory, fileName));
+            }
         }
 
-        List<NewsItem> SortNewsByLatest(IEnumerable<NewsItem> items) => items
-            .OrderByDescending(item => ParseNewsCreatedAt(item.CreatedAt))
-            .ThenByDescending(item => item.Date)
-            .ThenByDescending(item => item.Id)
-            .ToList();
-
-        DateTimeOffset ParseNewsCreatedAt(string value) =>
-            DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var createdAt)
-                ? createdAt
-                : DateTimeOffset.MinValue;
-
-        bool IsPublicNewsItem(NewsItem item) =>
-            item.Published &&
-            DateOnly.TryParseExact(item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date) &&
-            date <= DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).DateTime);
+        List<NewsItem> SortNewsByLatest(IEnumerable<NewsItem> items) => NewsService.SortByLatest(items);
 
         PublicNewsListItem ToPublicNewsListItem(NewsItem item) => new(
             item.Id,
@@ -659,8 +801,6 @@ public static class NewsEndpoints
             ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             _ => "application/octet-stream"
         };
-
-
     }
 
     private sealed record SavedUpload(string Url, string OriginalName);

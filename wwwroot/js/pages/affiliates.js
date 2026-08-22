@@ -29,10 +29,12 @@ function initAffiliates() {
         item.tabIndex = isSelected ? 0 : -1; // 只有啟用的分頁可被 Tab 聚焦
       });
 
-      // 顯示/隱藏對應面板
-      panels.forEach((panel) => {
-        panel.hidden = panel.id !== panelId;
-      });
+       // 顯示/隱藏對應面板：使用 CSS class 控制，不設定 hidden attribute
+       panels.forEach((panel) => {
+         const isActive = panel.id === panelId;
+         panel.classList.toggle("is-active", isActive);
+         panel.setAttribute("aria-hidden", String(!isActive));
+       });
     }
 
     // 綁定每個分頁的點擊與鍵盤事件

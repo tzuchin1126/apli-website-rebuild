@@ -72,7 +72,7 @@ wwwroot/data/                  最新消息 JSON 資料
 wwwroot/public/images/         圖片與品牌素材
 ```
 
-公開網站頁面仍由 `wwwroot/*.html` 提供，但對外統一使用 `Program.cs` 管理的乾淨網址，例如 `/about`、`/services` 與 `/join`；舊的 `.html` 網址會以永久轉址導向對應的乾淨網址，以維持既有連結相容性。
+公開網站頁面仍由 `wwwroot/*.html` 提供，但對外統一使用 `Program.cs` 管理的乾淨網址，例如 `/about`、`/services`、`/careers` 與 `/company-history`；目前存在的 `.html` 路徑會依 `Program.cs` 設定導向對應的正式路由。
 
 Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。既有靜態 HTML 只保留 `<!-- shared-site-footer -->` 標記，由 `Program.cs` 在伺服器回傳頁面時注入同一份 Partial。修改 Footer 結構或連結時不得重新在各頁複製 HTML。
 
@@ -89,7 +89,7 @@ Footer 由 `Pages/Shared/_Footer.cshtml` 統一管理。既有靜態 HTML 只保
 
 - `wwwroot/css/site.css` 載入共用 `wwwroot/css/components/page-hero.css`；高度、標題、遮罩與動畫 token 集中於 `wwwroot/css/base/tokens.css`。
 - 一般頁面使用 `.page-hero__overlay` 與預設的 `--page-hero-overlay-light`。頁面可透過 `--page-hero-overlay` 改用不同遮罩，但不應重複建立遮罩規則。
-- `milestones.html` 的 `.milestones-hero__overlay` 同時套用 `.page-hero__overlay`，因此遮罩屬於共用 Hero；`wwwroot/css/pages/milestones.css` 目前只設定該頁 Hero 圖片位置。
+- `company-history.html` 的 `.milestones-hero__overlay` 同時套用 `.page-hero__overlay`，因此遮罩屬於共用 Hero；`wwwroot/css/pages/company-history.css` 目前只設定該頁 Hero 圖片位置。
 
 ## 主要按鈕規範
 

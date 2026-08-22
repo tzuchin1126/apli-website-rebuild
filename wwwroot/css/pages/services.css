@@ -39,7 +39,12 @@
   background: var(--color-surface-soft);
 }
 
-.services-page [data-service-panel]:not([hidden]) {
+.services-page [data-service-panel][hidden],
+.services-page [data-service-panel]:not(.is-active)[aria-hidden="true"] {
+  display: none;
+}
+
+.services-page [data-service-panel].is-active {
   animation: service-panel-in 180ms ease both;
 }
 
