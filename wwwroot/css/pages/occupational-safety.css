@@ -263,7 +263,6 @@
   border-radius: 50%;
   color: var(--color-surface);
   background: var(--safety-credential-accent);
-  /* box-shadow: 0 1px 3px rgb(0 0 0 / 8%); */
   transform: translateY(-4px);
 }
 

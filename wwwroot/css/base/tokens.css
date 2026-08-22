@@ -44,7 +44,6 @@
   --card-radius: var(--radius-md);
   --card-image-radius: var(--card-radius) var(--card-radius) 0 0;
   --shadow-sm: 0 2px 12px rgb(0 0 0 / 16%);
-  --shadow-md: 0 4px 14px rgb(0 0 0 / 18%);
   --shadow-lg: 0 12px 32px rgb(20 35 25 / 7%);
   --shadow-card: 0 6px 18px rgb(15 50 66 / 5%);
   --footer-background: #f0f0f0;

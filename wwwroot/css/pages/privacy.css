@@ -7,10 +7,6 @@
   max-width: 896px;
   margin-inline: auto;
   padding: clamp(16px, 2.5vw, 32px);
-  /* border: 1px solid var(--color-line); */
-  /* border-radius: var(--card-radius); */
-  /* background: var(--color-surface); */
-  /* box-shadow: 0 6px 20px rgb(20 35 25 / 8%); */
 }
 
 .privacy-page .privacy-policy__title {
@@ -40,7 +36,6 @@
 }
 
 .privacy-page .privacy-policy a {
-  /* color: var(--color-secondary); */
   color: var(--color-primary);
   font-weight: var(--font-weight-medium);
   text-underline-offset: 4px;
@@ -48,7 +43,6 @@
 
 .privacy-page .privacy-policy a:hover,
 .privacy-page .privacy-policy a:focus-visible {
-  /* color: var(--color-primary); */
   color: var(--color-secondary);
   text-decoration-thickness: 2px;
 }

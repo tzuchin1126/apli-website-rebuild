@@ -6,19 +6,6 @@
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 /**
- * 建立方向箭頭 icon（供輪播使用）
- * @param {"left"|"right"} direction
- * @returns {HTMLElement}
- */
-function createArrow(direction) {
-  const icon = document.createElement("i");
-  icon.className = `ph ph-caret-${direction}`;
-  icon.setAttribute("aria-hidden", "true");
-  icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
-  return icon;
-}
-
-/**
  * 1. 服務切換標籤
  * - 三個服務分類標籤切換對應面板
  * - 支援 URL hash 深層連結

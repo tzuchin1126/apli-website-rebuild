@@ -87,7 +87,6 @@
   --certification-sticky-top: 132px;
   margin-top: clamp(32px, 4vw, 64px);
   padding-block: var(--section-space);
-  /* background: var(--color-surface-soft); */
 }
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
 .about-page .about-certifications .about-section-heading--left h2 { position: relative; margin: 0; padding-bottom: 20px; border-bottom: 0; color: var(--color-ink); font-weight: 600; }
@@ -116,6 +115,7 @@
 .about-page .milestone-panel-events { display: grid; width: 100%; margin-inline: auto; gap: 0; }
 .about-page .milestone-panel-events.about-certification-events-motion {
   opacity: 1;
+  overflow-x: clip;
 }
 .about-page .milestone-panel-events.about-certification-events-motion > div.about-certification-event-motion {
   opacity: 0;

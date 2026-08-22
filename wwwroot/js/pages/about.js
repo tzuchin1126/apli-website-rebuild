@@ -3,7 +3,7 @@
 // ==========================================
 
 /**
- * 經營理念：滑鼠移入/點擊切換對應圖片
+ * 經營理念：滑鼠移入/點擊切換面板
  * 觸控裝置只回應點擊，不回應 hover
  */
 function initPhilosophyGallery() {
@@ -11,14 +11,10 @@ function initPhilosophyGallery() {
   if (!gallery) return;
 
   const panels = [...gallery.querySelectorAll("[data-philosophy-panel]")];
-  const images = [...gallery.querySelectorAll("[data-philosophy-image]")];
   const defaultPanel = gallery.dataset.defaultPanel || "";
 
   // 切換到指定面板
   function showPanel(panelName, isExpanded) {
-    images.forEach((img) => {
-      img.dataset.active = img.dataset.philosophyImage === panelName ? "true" : "false";
-    });
     panels.forEach((panel) => {
       const isActive = isExpanded && panel.dataset.philosophyPanel === panelName;
       panel.dataset.active = isActive ? "true" : "false";
@@ -163,7 +159,6 @@ function initMilestoneTimelines() {
         icon.classList.toggle("ph-caret-line-up", isFullyExpanded);
       }
       toggleBtn.setAttribute("aria-expanded", hasOlderEvents ? "true" : "false");
-      toggleBtn.classList.toggle("is-expanded", hasOlderEvents);
     }
 
     // 分批展開或收合
