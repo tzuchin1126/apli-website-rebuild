@@ -1,4 +1,4 @@
-# APLI Website Rebuild 安全基線與防護紀錄
+# APLI 企業官網安全基線與防護紀錄
 
 更新日期：2026-08-22
 適用專案：`apli-website-rebuild`  

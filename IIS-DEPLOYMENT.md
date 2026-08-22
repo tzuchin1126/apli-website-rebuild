@@ -1,6 +1,6 @@
-# APLI Website Rebuild：IIS 部署與更新手冊
+# APLI 企業官網：IIS 部署與更新手冊
 
-本文件記錄 APLI Website Rebuild 在 Windows IIS 上的目前部署方式、實際資料夾、初次設定與後續更新流程。
+本文件記錄 APLI 企業官網在 Windows IIS 上的目前部署方式、實際資料夾、初次設定與後續更新流程。
 
 ## 一、目前實際路徑
 
