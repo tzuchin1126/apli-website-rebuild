@@ -80,7 +80,9 @@
 .about-page .philosophy-panels strong { color: var(--color-surface); font-family: var(--font-heading); font-size: clamp(1.3rem, 1.08rem + .4vw, 1.6rem); font-weight: var(--font-weight-medium); letter-spacing: .04em; line-height: 1.35; text-align: center; }
 .about-page .philosophy-panel__description { display: block; width: 100%; max-width: 600px; max-height: none; margin: 0; overflow: visible; opacity: 1; transform: none; font-family: var(--font-body); font-size: clamp(.95rem, .9rem + .2vw, 1.1rem); letter-spacing: .02em; line-height: 1.7; text-align: center; transition: max-height 500ms ease, opacity 500ms ease, transform 500ms ease; }
 .about-page .philosophy-panels button:hover .philosophy-panel__description, .about-page .philosophy-panels button:focus-visible .philosophy-panel__description, .about-page .philosophy-panels button[aria-expanded="true"] .philosophy-panel__description { max-height: 160px; opacity: 0.9; transform: translateY(0); }
-.about-page .philosophy-panels button:not([aria-expanded="true"]) .philosophy-panel__description { max-height: 0; opacity: 0; transform: translateY(12px); overflow: hidden; }
+@media (min-width: 841px) {
+  html.js .about-page .philosophy-panels button:not([aria-expanded="true"]) .philosophy-panel__description { max-height: 0; opacity: 0; transform: translateY(12px); overflow: hidden; }
+}
 .about-page .philosophy-panels button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
 .about-page .about-certifications {
   --certification-line-x: 20px;

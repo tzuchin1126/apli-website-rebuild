@@ -112,23 +112,54 @@
 
 
   // ------------------------------------------------------
-  // 關閉所有下拉選單
+  // 下拉選單狀態
   // ------------------------------------------------------
 
+  const dropdowns = [...navigation.querySelectorAll(".nav-dropdown")];
+
+  function setDropdownState(dropdown, isOpen) {
+    const button = dropdown.querySelector(":scope > .nav-link");
+    const menu = dropdown.querySelector(":scope > .nav-menu");
+
+    dropdown.classList.toggle("is-open", isOpen);
+    button?.setAttribute("aria-expanded", String(isOpen));
+    menu?.setAttribute("aria-hidden", String(!isOpen));
+  }
+
   function closeDropdowns() {
-    const openedDropdowns =
-      navigation.querySelectorAll(".nav-dropdown.is-open");
+    dropdowns.forEach((dropdown) => setDropdownState(dropdown, false));
+  }
 
-    openedDropdowns.forEach((dropdown) => {
-      dropdown.classList.remove("is-open");
+  // 桌機保留滑入開啟，鍵盤焦點進入時也同步更新 ARIA 狀態。
+  // visibility 由 CSS 同步控制，避免不可見的子選單連結進入 Tab 順序。
+  dropdowns.forEach((dropdown) => {
+    const button = dropdown.querySelector(":scope > .nav-link");
+    const menu = dropdown.querySelector(":scope > .nav-menu");
 
-      const button = dropdown.querySelector(".nav-link");
+    if (!button || !menu) return;
 
-      if (button) {
-        button.setAttribute("aria-expanded", "false");
+    setDropdownState(dropdown, false);
+
+    dropdown.addEventListener("mouseenter", () => {
+      if (window.innerWidth >= 841) setDropdownState(dropdown, true);
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      if (window.innerWidth >= 841 && !dropdown.contains(document.activeElement)) {
+        setDropdownState(dropdown, false);
       }
     });
-  }
+
+    dropdown.addEventListener("focusin", () => {
+      if (window.innerWidth >= 841) setDropdownState(dropdown, true);
+    });
+    dropdown.addEventListener("focusout", (event) => {
+      if (dropdown.contains(event.relatedTarget)) return;
+      if (window.innerWidth < 841 || !dropdown.matches(":hover")) {
+        setDropdownState(dropdown, false);
+      }
+    });
+  });
 
 
   // ------------------------------------------------------
@@ -178,12 +209,8 @@
       if (!dropdown) return;
 
       // 切換開啟 / 關閉
-      const isOpen = dropdown.classList.toggle("is-open");
-
-      button.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
+      const isOpen = !dropdown.classList.contains("is-open");
+      setDropdownState(dropdown, isOpen);
     });
   });
 

@@ -20,10 +20,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css">
-  <link rel="stylesheet" href="css/layout/site-header.css?v=20260817-mobile-menu-v1">
+  <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260822-nojs-certification-v2">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260823-nojs-philosophy-v1">
   <link rel="stylesheet" href="css/site.css?v=20260818-page-hero-rounded-orange-v1">
 </head>
 
@@ -118,7 +118,6 @@
     <!-- Hero 主視覺與董事長引言 -->
     <section class="about-hero page-hero page-hero--quote" aria-labelledby="about-hero-title">
       <picture class="page-hero__media">
-        <source type="image/avif" srcset="public/images/about/about-hero-container-yard-960.avif 960w, public/images/about/about-hero-container-yard-1920.avif 1920w" sizes="100vw">
         <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="sync">
       </picture>
       <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
@@ -161,30 +160,30 @@
       </div>
       <div class="philosophy-gallery" data-philosophy-gallery>
         <div class="philosophy-panels" role="group" aria-label="經營理念互動選單">
-          <button type="button" data-philosophy-panel="mission" aria-expanded="false">
+          <button type="button" data-philosophy-panel="mission" aria-expanded="false" aria-controls="philosophy-description-mission">
             <span class="philosophy-panel__content">
               <span class="philosophy-panel__icon philosophy-panel__icon--mission" aria-hidden="true"></span>
               <span class="philosophy-panel__text">
                 <strong>使命</strong>
-                <p class="philosophy-panel__description">以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
+                <span class="philosophy-panel__description" id="philosophy-description-mission">以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</span>
               </span>
             </span>
           </button>
-          <button type="button" data-philosophy-panel="values" aria-expanded="false">
+          <button type="button" data-philosophy-panel="values" aria-expanded="false" aria-controls="philosophy-description-values">
             <span class="philosophy-panel__content">
               <span class="philosophy-panel__icon philosophy-panel__icon--values" aria-hidden="true"></span>
               <span class="philosophy-panel__text">
                 <strong>核心價值觀</strong>
-                <p class="philosophy-panel__description">專業團隊精神</p>
+                <span class="philosophy-panel__description" id="philosophy-description-values">專業團隊精神</span>
               </span>
             </span>
           </button>
-          <button type="button" data-philosophy-panel="vision" aria-expanded="false">
+          <button type="button" data-philosophy-panel="vision" aria-expanded="false" aria-controls="philosophy-description-vision">
             <span class="philosophy-panel__content">
               <span class="philosophy-panel__icon philosophy-panel__icon--vision" aria-hidden="true"></span>
               <span class="philosophy-panel__text">
                 <strong>共同願景</strong>
-                <p class="philosophy-panel__description">商品附加價值創造者</p>
+                <span class="philosophy-panel__description" id="philosophy-description-vision">商品附加價值創造者</span>
               </span>
             </span>
           </button>
@@ -436,7 +435,7 @@
 
   <!-- shared-site-footer -->
 
-  <script src="js/site.js?v=20260817-mobile-menu-v1"></script>
+  <script src="js/site.js?v=20260823-a11y-nav-v2"></script>
   <script src="js/pages/about.js?v=20260822-nojs-certification-v2"></script>
 </body>
 </html>
