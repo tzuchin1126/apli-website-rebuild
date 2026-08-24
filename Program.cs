@@ -6,31 +6,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Http.Timeouts;
-using Serilog;
-using Serilog.Events;
 using apli_website_rebuild.Endpoints;
 using apli_website_rebuild.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// ============================================================
-// 日誌設定
-// 檔案 log 只記錄 Warning 以上的訊息,每天或超過 10MB 就換新檔,最多留 14 天/14 個檔案。
-// ============================================================
-builder.Host.UseSerilog((context, services, configuration) => configuration
-    .ReadFrom.Configuration(context.Configuration)
-    .ReadFrom.Services(services)
-    .Enrich.FromLogContext()
-    .WriteTo.Console()
-    .WriteTo.File(
-        Path.Combine(context.HostingEnvironment.ContentRootPath, "App_Data", "logs", "apli-.log"),
-        restrictedToMinimumLevel: LogEventLevel.Warning,
-        rollingInterval: RollingInterval.Day,
-        fileSizeLimitBytes: 10 * 1024 * 1024,
-        rollOnFileSizeLimit: true,
-        retainedFileCountLimit: 14,
-        retainedFileTimeLimit: TimeSpan.FromDays(14),
-        shared: true));
 
 // ============================================================
 // 基本安全檢查:管理員帳密、AllowedHosts 一定要有設定,不能用預設值上正式環境
@@ -95,13 +74,6 @@ builder.Services
         {
             if (context.Request.Path.StartsWithSegments("/api"))
             {
-                var logger = context.HttpContext.RequestServices
-                    .GetRequiredService<ILoggerFactory>()
-                    .CreateLogger("ApliWebsite.Authorization");
-                logger.LogWarning(
-                    "未授權存取 API。來源 IP：{SourceIp}，請求路徑：{RequestPath}",
-                    context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-                    context.Request.Path.ToString());
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 return Task.CompletedTask;
             }
@@ -137,17 +109,6 @@ builder.Services.AddRequestTimeouts(options =>
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    options.OnRejected = (context, _) =>
-    {
-        var logger = context.HttpContext.RequestServices
-            .GetRequiredService<ILoggerFactory>()
-            .CreateLogger("ApliWebsite.RateLimiter");
-        logger.LogWarning(
-            "Rate Limiter 已拒絕請求。來源 IP：{SourceIp}，請求路徑：{RequestPath}",
-            context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-            context.HttpContext.Request.Path.ToString());
-        return ValueTask.CompletedTask;
-    };
 
     // 管理員登入畫面:1 分鐘最多 5 次,防止有人猜密碼
     options.AddPolicy("admin-login", context => IpLimiter(context, permitLimit: 5));

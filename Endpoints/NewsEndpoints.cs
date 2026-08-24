@@ -81,8 +81,7 @@ public static class NewsEndpoints
         app.MapPost("/api/admin/login", async (
             HttpContext context,
             LoginRequest request,
-            IAntiforgery antiforgery,
-            ILoggerFactory loggerFactory) =>
+            IAntiforgery antiforgery) =>
         {
             await antiforgery.ValidateRequestAsync(context);
 
@@ -96,11 +95,6 @@ public static class NewsEndpoints
 
             if (!usernameMatches || !passwordMatches || !captchaMatches)
             {
-                // 登入失敗只記錄來源 IP,絕不記錄帳密或驗證碼內容
-                var logger = loggerFactory.CreateLogger("ApliWebsite.AdminAuthentication");
-                logger.LogWarning(
-                    "Admin 登入失敗。來源 IP：{SourceIp}",
-                    context.Connection.RemoteIpAddress?.ToString() ?? "unknown");
                 return Results.Unauthorized();
             }
 
@@ -167,8 +161,7 @@ public static class NewsEndpoints
         // ============================================================
         app.MapPost("/api/news/save", async (
             HttpContext context,
-            IAntiforgery antiforgery,
-            ILoggerFactory loggerFactory) =>
+            IAntiforgery antiforgery) =>
         {
             await antiforgery.ValidateRequestAsync(context);
 
@@ -212,9 +205,6 @@ public static class NewsEndpoints
                 }
                 catch (UploadValidationException exception)
                 {
-                    // 檔案驗證失敗時只記錄安全的驗證訊息,不記錄檔案內容
-                    var logger = loggerFactory.CreateLogger("ApliWebsite.UploadValidation");
-                    logger.LogWarning("檔案上傳驗證失敗：{ValidationMessage}", exception.Message);
                     return Results.BadRequest(exception.Message);
                 }
 

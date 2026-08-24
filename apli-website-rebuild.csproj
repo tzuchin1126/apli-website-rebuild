@@ -9,11 +9,6 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
-  <ItemGroup>
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
-    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-  </ItemGroup>
-
   <Target Name="CopySharedFooterToPublishDirectory" AfterTargets="Publish">
     <MakeDir Directories="$(PublishDir)Pages\Shared" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\Pages\Shared\_Footer.cshtml" DestinationFiles="$(PublishDir)Pages\Shared\_Footer.cshtml" />
