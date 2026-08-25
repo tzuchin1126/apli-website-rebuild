@@ -8,7 +8,7 @@
     ".site-footer .footer-column"
   );
 
-  // 如果頁面沒有 Footer 區塊，就不用繼續執行
+  
   if (!footerColumns.length) return;
 
   // 840px 以下視為手機 / 平板版
@@ -23,11 +23,8 @@
     });
   }
 
-  // 頁面第一次載入時執行
   updateFooter();
-
-  // 當螢幕寬度跨過 840px 時重新判斷
-  mobileScreen.addEventListener("change", updateFooter);
+  mobileScreen.addEventListener("change", updateFooter); // 當螢幕寬度跨過 840px 時重新判斷
 })();
 
 

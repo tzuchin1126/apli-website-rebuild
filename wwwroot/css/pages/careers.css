@@ -6,7 +6,15 @@
   font-display: block;
 }
 
-.join-page { --page-hero-image-position: center; }
+.join-page .join-hero {
+  --page-hero-image-position: center;
+  --page-hero-overlay: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 20%) 0%,
+    rgb(0 0 0 / 10%) 22%,
+    transparent 58%
+  );
+}
 
 .join-content {
   display: grid;

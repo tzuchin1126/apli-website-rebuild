@@ -12,16 +12,10 @@ using apli_website_rebuild.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // ============================================================
-// 基本安全檢查:管理員帳密、AllowedHosts 一定要有設定,不能用預設值上正式環境
+// 管理員帳密直接寫在程式碼 (不使用環境變數)
 // ============================================================
-var adminUsername = builder.Configuration["Admin:Username"];
-var adminPassword = builder.Configuration["Admin:Password"];
-
-if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminPassword))
-{
-    throw new InvalidOperationException(
-        "管理員帳號或密碼未設定,請設定環境變數 Admin__Username 與 Admin__Password。");
-}
+var adminUsername = "apliadmin123";
+var adminPassword = "apliadmin456";
 
 bool isProduction = !builder.Environment.IsDevelopment();
 

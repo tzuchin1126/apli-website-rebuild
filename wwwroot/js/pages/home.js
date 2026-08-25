@@ -34,7 +34,6 @@ function setupHeroCarousel() {
 
   let activeIndex = Math.max(0, slides.findIndex((s) => s.classList.contains("is-active")));
   let autoplayId = null;
-  let isHovered = false;
   let hasFocus = false;
 
   // 觸控滑動變數
@@ -72,7 +71,7 @@ function setupHeroCarousel() {
     if (slides.length < 2) return;
     if (reducedMotion.matches) return;
     if (document.visibilityState === "hidden") return;
-    if (isHovered || hasFocus) return;
+    if (hasFocus) return;
 
     autoplayId = window.setInterval(() => {
       activeIndex = (activeIndex + 1) % slides.length;
@@ -142,9 +141,7 @@ function setupHeroCarousel() {
   hero.addEventListener("pointerup", finishSwipe);
   hero.addEventListener("pointercancel", finishSwipe);
 
-  // ===== 滑鼠/焦點/可見性控制自動播放 =====
-  hero.addEventListener("mouseenter", () => { isHovered = true; stopAutoplay(); });
-  hero.addEventListener("mouseleave", () => { isHovered = false; startAutoplay(); });
+  // ===== 焦點/可見性控制自動播放 =====
   hero.addEventListener("focusin", () => { hasFocus = true; stopAutoplay(); });
   hero.addEventListener("focusout", (event) => {
     if (!hero.contains(event.relatedTarget)) {
@@ -301,6 +298,7 @@ function setupLatestNews() {
           image.src = item.imageUrl;
           image.alt = "";
           image.loading = "lazy";
+          image.decoding = "async";
           image.addEventListener("error", () => image.remove(), { once: true });
           media.append(image);
         }
