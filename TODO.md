@@ -4,7 +4,7 @@
 
 - [ ] 確認正式環境 HTTPS 憑證與部署設定；Development 已維持 HTTP 啟動，不再因找不到 HTTPS 連接埠觸發受限 Windows 帳號的 EventLog 錯誤。
 
-- [ ] 2026-08-25 已新增 Plesk 用 `appsettings.Production.json`，設定 `AllowedHosts` 與網站目錄外的 `..\\apli-data`；尚未在戰國策 Plesk 實機驗證發布檔、資料夾權限、HTTPS 與後台寫入。
+- [ ] 2026-08-25 因戰國策不允許網站程式寫入 `httpdocs` 同層資料夾，Plesk 用 `appsettings.Production.json` 改採 `App_Data` 儲存新聞 JSON、分類與附件；需重新 Publish，並驗證 `/httpdocs/App_Data` 權限、HTTPS 與後台寫入。更新時不得覆蓋或刪除既有 `App_Data` 資料。
 
 - [ ] 完成主要頁面後安排跨瀏覽器、實體裝置與人工無障礙驗收。
 - [ ] 驗證首頁圖片載入策略改善在桌機、手機、冷快取與慢網路下的實際效果；目前已完成來源層級調整，跨裝置與慢網路效果尚未完整驗證。
