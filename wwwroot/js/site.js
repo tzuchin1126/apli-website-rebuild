@@ -262,22 +262,11 @@
 // 3. Back To Top：回到頁面頂端按鈕
 // ======================================================
 (() => {
-
-  // 建立按鈕
-  const button = document.createElement("button");
-
+  const button = document.createElement("button"); // 建立按鈕
   button.className = "back-to-top";
   button.type = "button";
-
-  // 無障礙文字
-  button.setAttribute("aria-label", "回到頁面頂端");
-
-  // 按鈕圖示
-  button.innerHTML = `
-    <i class="ph ph-caret-up" aria-hidden="true"></i>
-  `;
-
-  // 加入頁面
+  button.setAttribute("aria-label", "回到頁面頂端");// 無障礙文字
+  button.innerHTML = `<i class="ph ph-caret-up" aria-hidden="true"></i>`;
   document.body.append(button);
 
 
@@ -286,12 +275,7 @@
   // ------------------------------------------------------
 
   function updateBackToTop() {
-
-    // 頁面可以滾動的高度
-    const scrollableHeight =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight; // 頁面可以滾動的高度
     // 頁面太短就完全不需要回頂端按鈕
     if (scrollableHeight < 320) {
       button.classList.remove("is-visible");

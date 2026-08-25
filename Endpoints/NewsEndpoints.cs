@@ -193,6 +193,12 @@ public static class NewsEndpoints
             try
             {
                 var news = await NewsService.ReadAsync(newsFile);
+
+                if (string.IsNullOrWhiteSpace(item.Id))
+                {
+                    item.Id = NewsService.CreateUniqueId(news);
+                }
+
                 var existingIndex = news.FindIndex(entry => entry.Id == item.Id);
                 var existingItem = existingIndex >= 0 ? news[existingIndex] : null;
                 var previousImageUrl = existingItem?.ImageUrl ?? item.ImageUrl;

@@ -37,6 +37,55 @@ public static class NewsService
         File.Move(temporaryPath, filePath, overwrite: true);
     }
 
+    // 舊資料若缺少 ID 或意外出現重複 ID，啟動時補成唯一值，避免詳細頁連結變成 /news/。
+    public static async Task<int> RepairMissingOrDuplicateIdsAsync(string filePath)
+    {
+        var news = await ReadAsync(filePath);
+        var usedIds = new HashSet<string>(StringComparer.Ordinal);
+        var repairedCount = 0;
+
+        foreach (var item in news)
+        {
+            if (!string.IsNullOrWhiteSpace(item.Id) && usedIds.Add(item.Id))
+            {
+                continue;
+            }
+
+            item.Id = CreateUniqueId(usedIds);
+            repairedCount++;
+        }
+
+        if (repairedCount > 0)
+        {
+            await WriteAsync(filePath, news);
+        }
+
+        return repairedCount;
+    }
+
+    public static string CreateUniqueId(IEnumerable<NewsItem> news)
+    {
+        var usedIds = news
+            .Where(item => !string.IsNullOrWhiteSpace(item.Id))
+            .Select(item => item.Id)
+            .ToHashSet(StringComparer.Ordinal);
+
+        return CreateUniqueId(usedIds);
+    }
+
+    private static string CreateUniqueId(HashSet<string> usedIds)
+    {
+        string id;
+
+        do
+        {
+            id = Guid.NewGuid().ToString("N");
+        }
+        while (!usedIds.Add(id));
+
+        return id;
+    }
+
     // 一則新聞要「已發布」而且「日期不是未來」,前台才看得到
     public static bool IsPublicNewsItem(NewsItem item)
     {

@@ -194,6 +194,8 @@ if (!File.Exists(categoriesFile))
         stream, defaultCategories, new JsonSerializerOptions { WriteIndented = true });
 }
 
+await NewsService.RepairMissingOrDuplicateIdsAsync(newsFile);
+
 // CSP:限制網頁能載入哪些資源,防止 XSS。
 // img-src 多開 blob: 是因為後台要在瀏覽器端先解碼圖片再上傳。
 const string contentSecurityPolicy =
