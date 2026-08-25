@@ -14,7 +14,7 @@
 
 - [ ] 正式 Domain 確認後補上 canonical、`og:url`、`og:image`、Sitemap、JSON-LD，以及需要時的 `hreflang` 與多語言 metadata。
 
-- [ ] 正式環境確認後完成 HTTPS 憑證、IIS／ASP.NET 部署、靜態檔案與資料目錄、Security Headers／CSP 的正式設定確認。
+- [ ] 正式環境確認後完成 HTTPS 憑證、IIS／ASP.NET 部署、靜態檔案與 Security Headers／CSP 的正式設定確認；2026-08-25 已將 IIS 新聞 JSON、分類、附件與圖片分離至 `C:\Sites\APLI-Data`，設定 `APLIWebsite` App Pool 使用該資料根目錄，確認 23 個檔案與搬移前備份一致、公開新聞 API 回應 200，並完成一次重新 publish／部署驗證：測試公告仍存在且部署前後 `news.json` SHA-256 相同。Production／HTTPS 與正式網域仍待驗證。
 
 - [ ] 正式站上線後驗證公開頁面、clean routes、`/news/{id}`、404、圖片／附件、公開 API、HTTP headers 與快取行為。
 
