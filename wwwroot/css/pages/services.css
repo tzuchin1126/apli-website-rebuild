@@ -554,17 +554,17 @@
 }
 
 .services-page .services-advantages__layout--warehouse .services-advantages__media {
-  background-image: url("../../public/images/services/warehouse-storage.png");
+  background-image: url("../../public/images/services/warehouse-storage-1280.jpg");
   background-position: center 70%;
 }
 
 .services-page .services-advantages__layout--container .services-advantages__media {
-  background-image: url("../../public/images/services/equipment-maintenance.png");
+  background-image: url("../../public/images/services/equipment-maintenance-1280.jpg");
   background-position: center 35%;
 }
 
 .services-page .services-advantages__layout--equipment .services-advantages__media {
-  background-image: url("../../public/images/services/port-equipment-maintenance.jpg");
+  background-image: url("../../public/images/services/port-equipment-maintenance-1280.jpg");
   background-position: center 85%;
 }
 
@@ -894,7 +894,7 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--color-surface);
-  background: #102b36 url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
+  background: #102b36 url("../../public/images/privacy-policy-1280.jpg") center / cover no-repeat;
 }
 
 .services-page .services-contact__card::before {

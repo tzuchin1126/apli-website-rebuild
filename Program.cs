@@ -6,31 +6,54 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Http.Timeouts;
+using Microsoft.Extensions.Options;
+using apli_website_rebuild.Configuration;
 using apli_website_rebuild.Endpoints;
+using apli_website_rebuild.Middleware;
 using apli_website_rebuild.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// var adminUsername = "apliadmin123";
-// var adminPassword = "apliadmin456";
+// ===== 取得後台管理員帳號密碼 =====
 var adminUsername = builder.Configuration["Admin:Username"];
 var adminPassword = builder.Configuration["Admin:Password"];
 
-if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminPassword))
-    throw new InvalidOperationException("管理員帳號或密碼尚未設定。");
+if (string.IsNullOrWhiteSpace(adminUsername))
+    throw new InvalidOperationException("管理員帳號尚未設定。");
 
+if (string.IsNullOrWhiteSpace(adminPassword))
+    throw new InvalidOperationException("管理員密碼尚未設定。");
+
+// ===== 判斷是否為正式環境 =====
 bool isProduction = !builder.Environment.IsDevelopment();
 
 if (isProduction)
-
 {
     var allowedHosts = builder.Configuration["AllowedHosts"];
-    if (string.IsNullOrWhiteSpace(allowedHosts) || allowedHosts == "*")
-        throw new InvalidOperationException("正式環境的 AllowedHosts 尚未設定,請設定為實際的網站主機名稱(例如 example.com)。");
+
+    // 完全沒有設定
+    if (string.IsNullOrWhiteSpace(allowedHosts))
+        throw new InvalidOperationException("正式環境的 AllowedHosts 尚未設定,請設定為實際的網站主機名稱。");
+
+    // 設定成萬用字元，等於沒做限制
+    if (allowedHosts == "*")
+        throw new InvalidOperationException("正式環境的 AllowedHosts 不可以設定為 \"*\",請設定為實際的網站主機名稱。");
 }
 
-// 開發環境不強制 HTTPS,正式環境一定要 HTTPS 才能傳送 Cookie
-var cookieSecurePolicy = builder.Environment.IsDevelopment() ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
+
+// ===== 設定 Cookie 安全性原則 =====
+CookieSecurePolicy cookieSecurePolicy;
+
+if (builder.Environment.IsDevelopment())
+{
+    // 開發環境：本機測試常常沒有 HTTPS，所以跟著請求本身的協定走
+    cookieSecurePolicy = CookieSecurePolicy.SameAsRequest;
+}
+else
+{
+    // 正式環境：一律要求 HTTPS 才能傳送 Cookie，避免帳密外洩
+    cookieSecurePolicy = CookieSecurePolicy.Always;
+}
 
 // ============================================================
 // 服務註冊:Razor Pages、Session、登入驗證
@@ -94,6 +117,27 @@ builder.Services.AddRequestTimeouts(options =>
         TimeoutStatusCode = StatusCodes.Status504GatewayTimeout
     };
 });
+
+builder.Services.Configure<PublicPageOptions>(builder.Configuration.GetSection("PublicPages"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<PublicPageOptions>>().Value);
+
+// newsFile path for PublicPageRenderer (computed same way as below, using builder)
+builder.Services.AddSingleton<string>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    var configuredDataRoot = config["Apli:DataRoot"];
+    var hasCustomDataRoot = !string.IsNullOrWhiteSpace(configuredDataRoot);
+    var root = env.ContentRootPath;
+    var dataRoot = hasCustomDataRoot
+        ? Path.GetFullPath(configuredDataRoot!, root)
+        : root;
+    return hasCustomDataRoot
+        ? Path.Combine(dataRoot, "news.json")
+        : Path.Combine(root, "wwwroot", "data", "news.json");
+});
+
+builder.Services.AddSingleton<PublicPageRenderer>();
 
 // ============================================================
 // 限流:同一個 IP 在時間內打太多次就擋掉
@@ -226,174 +270,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 // ============================================================
-// 網址對應表:無副檔名路由(/about)、舊網址 301 轉址(/about.html -> /about)
+// 公開頁面路由與渲染
 // ============================================================
-var publicPagePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-{
-    ["/"] = "index.html",
-    ["/about"] = "about.html",
-    ["/affiliates"] = "affiliates.html",
-    ["/contact"] = "contact.html",
-    ["/careers"] = "careers.html",
-    ["/company-history"] = "company-history.html",
-    ["/news"] = "news.html",
-    ["/occupational-safety"] = "occupational-safety.html",
-    ["/operational-resources"] = "operational-resources.html",
-    ["/privacy"] = "privacy.html",
-    ["/services"] = "services.html",
-    ["/404.html"] = "404.html",
-    ["/500.html"] = "500.html"
-};
-
-var legacyPageRedirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-{
-    ["/index.html"] = "/",
-    ["/about.html"] = "/about",
-    ["/affiliates.html"] = "/affiliates",
-    ["/contact.html"] = "/contact",
-    ["/careers.html"] = "/careers",
-    ["/company-history.html"] = "/company-history",
-    ["/news.html"] = "/news",
-    ["/occupational-safety.html"] = "/occupational-safety",
-    ["/operational-resources.html"] = "/operational-resources",
-    ["/privacy.html"] = "/privacy",
-    ["/services.html"] = "/services"
-};
-
-// 每個靜態頁面裡都有一段 <!-- shared-site-footer --> 標記,
-// 我們在這裡讀取共用的 _Footer.cshtml 內容,把標記換掉。
-const string sharedFooterMarker = "<!-- shared-site-footer -->";
-var sharedFooterPath = Path.Combine(app.Environment.ContentRootPath, "Pages", "Shared", "_Footer.cshtml");
-
-// 404、500 這種狀態碼頁面,也要套用共用 footer
-app.UseStatusCodePages(async statusCodeContext =>
-{
-    var httpContext = statusCodeContext.HttpContext;
-    var statusCode = httpContext.Response.StatusCode;
-    var isApiRequest = httpContext.Request.Path.StartsWithSegments("/api");
-
-    if (isApiRequest || statusCode is not (StatusCodes.Status404NotFound or StatusCodes.Status500InternalServerError))
-    {
-        return;
-    }
-
-    var pagePath = $"{statusCode}.html";
-    var staticPage = app.Environment.WebRootFileProvider.GetFileInfo(pagePath);
-    if (!staticPage.Exists)
-    {
-        return;
-    }
-
-    var pageMarkup = await ReadFileAsync(staticPage, httpContext.RequestAborted);
-    var footerMarkup = await File.ReadAllTextAsync(sharedFooterPath, httpContext.RequestAborted);
-    var responseMarkup = pageMarkup.Replace(sharedFooterMarker, footerMarkup, StringComparison.Ordinal);
-
-    await WriteHtmlResponseAsync(httpContext, responseMarkup);
-});
-
-// ============================================================
-// 公開頁面路由
-// 這段 middleware 依序做幾件事:
-//   1. 舊網址(.html)轉址到新網址
-//   2. /news-detail 這個網址本身要擋掉(它不是真的新聞頁)
-//   3. /news/{id} 這種網址,找出對應的新聞,渲染成新聞詳細頁
-//   4. 其他在 publicPagePaths 裡的網址,直接讀對應的 html 檔案,套用共用 footer
-// ============================================================
-app.Use(async (context, next) =>
-{
-    var requestPath = context.Request.Path.Value ?? string.Empty;
-    var isGet = HttpMethods.IsGet(context.Request.Method);
-
-    if (!isGet)
-    {
-        await next();
-        return;
-    }
-
-    // 1. 舊網址轉址
-    if (legacyPageRedirects.TryGetValue(requestPath, out var canonicalPath))
-    {
-        context.Response.Redirect($"{canonicalPath}{context.Request.QueryString}", permanent: true);
-        return;
-    }
-
-    // 2. /news-detail 本身不是合法網址,直接回 404
-    if (string.Equals(requestPath, "/news-detail", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(requestPath, "/news-detail.html", StringComparison.OrdinalIgnoreCase))
-    {
-        context.Response.StatusCode = StatusCodes.Status404NotFound;
-        return;
-    }
-
-    // 3. /news/{id} 新聞詳細頁
-    var pathSegments = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries);
-    var isNewsDetailPath = pathSegments.Length == 2 &&
-        string.Equals(pathSegments[0], "news", StringComparison.OrdinalIgnoreCase) &&
-        !string.IsNullOrWhiteSpace(pathSegments[1]);
-
-    NewsItem? newsItem = null;
-
-    if (isNewsDetailPath)
-    {
-        var newsId = Uri.UnescapeDataString(pathSegments[1]);
-        var allNews = await NewsService.ReadAsync(newsFile);
-        newsItem = allNews.FirstOrDefault(item =>
-            string.Equals(item.Id, newsId, StringComparison.Ordinal) &&
-            NewsService.IsPublicNewsItem(item));
-
-        if (newsItem is null)
-        {
-            context.Response.StatusCode = StatusCodes.Status404NotFound;
-            return;
-        }
-    }
-
-    // 4. 一般公開頁面(不是上面兩種,就交給下一個 middleware,例如靜態檔案)
-    var hasPublicPage = publicPagePaths.TryGetValue(requestPath, out var pageFile);
-    if (!hasPublicPage && !isNewsDetailPath)
-    {
-        await next();
-        return;
-    }
-
-    pageFile = isNewsDetailPath ? "news-detail.html" : pageFile!;
-    var staticPage = app.Environment.WebRootFileProvider.GetFileInfo(pageFile);
-
-    if (!staticPage.Exists)
-    {
-        await next();
-        return;
-    }
-
-    var pageMarkup = await ReadFileAsync(staticPage, context.RequestAborted);
-
-    if (!pageMarkup.Contains(sharedFooterMarker, StringComparison.Ordinal))
-    {
-        await next();
-        return;
-    }
-
-    var footerMarkup = await File.ReadAllTextAsync(sharedFooterPath, context.RequestAborted);
-    var responseMarkup = pageMarkup.Replace(sharedFooterMarker, footerMarkup, StringComparison.Ordinal);
-
-    // 新聞詳細頁跟首頁/新聞列表頁,還要多做 SEO 用的 SSR 渲染
-    if (isNewsDetailPath && newsItem is not null)
-    {
-        responseMarkup = NewsSeoService.RenderDetailPage(responseMarkup, newsItem);
-    }
-    else if (string.Equals(pageFile, "index.html", StringComparison.OrdinalIgnoreCase) ||
-             string.Equals(pageFile, "news.html", StringComparison.OrdinalIgnoreCase))
-    {
-        var publicNews = NewsService.SortByLatest(
-            (await NewsService.ReadAsync(newsFile)).Where(NewsService.IsPublicNewsItem));
-
-        responseMarkup = string.Equals(pageFile, "index.html", StringComparison.OrdinalIgnoreCase)
-            ? NewsSeoService.RenderHomeLatest(responseMarkup, publicNews)
-            : NewsSeoService.RenderNewsList(responseMarkup, publicNews);
-    }
-
-    await WriteHtmlResponseAsync(context, responseMarkup);
-});
+app.UsePublicPages();
 
 app.UseDefaultFiles();
 
@@ -414,7 +293,25 @@ app.Use(async (context, next) =>
 // 補上 .avif 圖片的 MIME type,不然瀏覽器可能不認得
 var staticFileContentTypes = new FileExtensionContentTypeProvider();
 staticFileContentTypes.Mappings[".avif"] = "image/avif";
-app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = staticFileContentTypes });
+app.UseStaticFiles(new StaticFileOptions
+{
+    ContentTypeProvider = staticFileContentTypes,
+    OnPrepareResponse = context =>
+    {
+        var path = context.Context.Request.Path;
+
+        if (path.StartsWithSegments("/public/images") ||
+            path.StartsWithSegments("/public/fonts"))
+        {
+            context.Context.Response.Headers.CacheControl = "public, max-age=604800";
+        }
+        else if (path.StartsWithSegments("/css") ||
+                 path.StartsWithSegments("/js"))
+        {
+            context.Context.Response.Headers.CacheControl = "public, max-age=86400";
+        }
+    }
+});
 
 app.UseSession();
 app.UseRouting();
@@ -436,21 +333,3 @@ NewsEndpoints.Map(app, new NewsEndpointOptions(
     defaultCategories));
 
 app.Run();
-
-// ============================================================
-// 小工具方法:讀取靜態檔案內容、把 HTML 字串寫回 response
-// ============================================================
-static async Task<string> ReadFileAsync(Microsoft.Extensions.FileProviders.IFileInfo file, CancellationToken cancellationToken)
-{
-    using var stream = file.CreateReadStream();
-    using var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
-    return await reader.ReadToEndAsync(cancellationToken);
-}
-
-static async Task WriteHtmlResponseAsync(HttpContext context, string html)
-{
-    var bytes = Encoding.UTF8.GetBytes(html);
-    context.Response.ContentType = "text/html; charset=utf-8";
-    context.Response.ContentLength = bytes.Length;
-    await context.Response.Body.WriteAsync(bytes, context.RequestAborted);
-}

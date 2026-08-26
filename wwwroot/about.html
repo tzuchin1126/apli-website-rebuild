@@ -18,13 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-  <link rel="preload" as="image" href="public/images/about/about-hero-container-yard.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="public/images/about/about-hero-container-yard-1920.jpg" imagesrcset="public/images/about/about-hero-container-yard-960.jpg 960w, public/images/about/about-hero-container-yard-1920.jpg 1920w" imagesizes="100vw" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260823-nojs-philosophy-v1">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260826-image-loading-v1">
   <link rel="stylesheet" href="css/site.css?v=20260825-page-hero-loading-v1">
 </head>
 
@@ -119,7 +119,7 @@
     <!-- Hero 主視覺與董事長引言 -->
     <section class="about-hero page-hero page-hero--quote" aria-labelledby="about-hero-title">
       <picture class="page-hero__media">
-        <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="sync">
+        <img class="page-hero__image" src="public/images/about/about-hero-container-yard-1920.jpg" srcset="public/images/about/about-hero-container-yard-960.jpg 960w, public/images/about/about-hero-container-yard-1920.jpg 1920w" sizes="100vw" width="1920" height="1274" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
       <div class="about-hero__content page-hero__content site-container">
@@ -149,7 +149,7 @@
         </div>
       </div>
       <figure>
-        <img src="public/images/about/company-facility.jpg" alt="亞太國際物流廠區" loading="eager" decoding="sync">
+        <img src="public/images/about/company-facility-1280.jpg" alt="亞太國際物流廠區" loading="lazy" decoding="async">
       </figure>
     </section>
 
@@ -382,7 +382,7 @@
           <ul class="about-affiliates__grid" aria-label="關係企業">
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-sexin" aria-labelledby="about-affiliate-sexin-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/shih-hsin-container.png" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/shih-hsin-container.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-sexin-name">世新貨櫃企業股份有限公司</span>
                 </span>
@@ -390,7 +390,7 @@
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-oil" aria-labelledby="about-affiliate-oil-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-badminton.png" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-badminton.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-oil-name">亞柏油品事業股份有限公司</span>
                 </span>
@@ -398,7 +398,7 @@
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-club" aria-labelledby="about-affiliate-club-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-energy.png" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-energy.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-club-name">亞柏會舘</span>
                 </span>
@@ -406,7 +406,7 @@
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-taronews" aria-labelledby="about-affiliate-taronews-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/taisounds.png" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/taisounds.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-taronews-name">太報文化股份有限公司</span>
                 </span>
@@ -414,7 +414,7 @@
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-alpha" aria-labelledby="about-affiliate-alpha-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/alpha-total-solution-logo.jpg" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/alpha-total-solution-logo.jpg" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-alpha-name">ALPHA TOTAL SOLUTION PTE LTD</span>
                 </span>
@@ -422,7 +422,7 @@
             </li>
             <li>
               <article class="about-affiliates__card about-affiliates__card--static" aria-labelledby="about-affiliate-yaan-name">
-                <span class="about-affiliates__logo"><img src="public/images/logo/ya-an-logistics-logo.jpg" alt="" loading="eager" decoding="sync"></span>
+                <span class="about-affiliates__logo"><img src="public/images/logo/ya-an-logistics-logo.jpg" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
                   <span class="about-affiliates__name" id="about-affiliate-yaan-name">亞安企業顧問</span>
                 </span>
