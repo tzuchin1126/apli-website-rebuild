@@ -8,6 +8,8 @@
 
 - [ ] 2026-08-25 已新增並執行驗證 `scripts/Publish-Plesk.ps1`，會將 Publish 內容直接壓在 ZIP 根目錄，避免解壓後多出 `/httpdocs/APLI`；產生的 ZIP 需直接解壓至 `/httpdocs`，並保留既有 `App_Data`。
 
+- [ ] 2026-08-26 依戰國策主機限制，Plesk 正式後台帳密改由專案根目錄 `web.config` 的 `Admin__Username`／`Admin__Password` 提供，並隨 `Publish-Plesk.ps1` 產出的 ZIP 覆蓋 `/httpdocs/web.config`；已驗證 Release publish 成功、發布版保留兩個設定節點且 ZIP 根目錄含 `web.config`，目前帳密欄位保留空值，需由維護者在本機填入後重新執行腳本。尚未重新上傳 Plesk；發布 ZIP 上傳解壓後應立即從主機刪除。
+
 - [ ] 完成主要頁面後安排跨瀏覽器、實體裝置與人工無障礙驗收。
 - [ ] 驗證首頁圖片載入策略改善在桌機、手機、冷快取與慢網路下的實際效果；目前已完成來源層級調整，跨裝置與慢網路效果尚未完整驗證。
 - [ ] 驗證共用 Hero 預載與載入前 fallback 在桌機、手機、冷快取與慢網路下的實際效果；目前已完成共用來源層級調整，跨裝置與慢網路效果尚未完整驗證。

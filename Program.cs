@@ -22,6 +22,7 @@ if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminP
 bool isProduction = !builder.Environment.IsDevelopment();
 
 if (isProduction)
+
 {
     var allowedHosts = builder.Configuration["AllowedHosts"];
     if (string.IsNullOrWhiteSpace(allowedHosts) || allowedHosts == "*")
@@ -29,9 +30,7 @@ if (isProduction)
 }
 
 // 開發環境不強制 HTTPS,正式環境一定要 HTTPS 才能傳送 Cookie
-var cookieSecurePolicy = builder.Environment.IsDevelopment()
-    ? CookieSecurePolicy.SameAsRequest
-    : CookieSecurePolicy.Always;
+var cookieSecurePolicy = builder.Environment.IsDevelopment() ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
 
 // ============================================================
 // 服務註冊:Razor Pages、Session、登入驗證
