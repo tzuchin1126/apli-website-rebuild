@@ -11,11 +11,13 @@ using apli_website_rebuild.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ============================================================
-// 管理員帳密直接寫在程式碼 (不使用環境變數)
-// ============================================================
-var adminUsername = "apliadmin123";
-var adminPassword = "apliadmin456";
+// var adminUsername = "apliadmin123";
+// var adminPassword = "apliadmin456";
+var adminUsername = builder.Configuration["Admin:Username"];
+var adminPassword = builder.Configuration["Admin:Password"];
+
+if (string.IsNullOrWhiteSpace(adminUsername) || string.IsNullOrWhiteSpace(adminPassword))
+    throw new InvalidOperationException("管理員帳號或密碼尚未設定。");
 
 bool isProduction = !builder.Environment.IsDevelopment();
 
@@ -23,10 +25,7 @@ if (isProduction)
 {
     var allowedHosts = builder.Configuration["AllowedHosts"];
     if (string.IsNullOrWhiteSpace(allowedHosts) || allowedHosts == "*")
-    {
-        throw new InvalidOperationException(
-            "正式環境的 AllowedHosts 尚未設定,請設定為實際的網站主機名稱(例如 example.com)。");
-    }
+        throw new InvalidOperationException("正式環境的 AllowedHosts 尚未設定,請設定為實際的網站主機名稱(例如 example.com)。");
 }
 
 // 開發環境不強制 HTTPS,正式環境一定要 HTTPS 才能傳送 Cookie
