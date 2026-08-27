@@ -1,4 +1,5 @@
 @import url("components/page-hero.css?v=20260825-page-hero-loading-v1");
+@import url("components/page-loader.css?v=20260827-page-ready-v1");
 @import url("components/breadcrumb.css");
 @import url("components/back-to-top.css?v=20260817-totop-deep-blue-v1");
 @import url("components/touch-buttons.css?v=20260817-touch-buttons-v1");
@@ -12,3 +13,5 @@
   font-size: var(--font-size-body-copy);
   line-height: 1.8;
 }
+picture { display: block; width: 100%; height: 100%; }
+picture > img { display: block; }

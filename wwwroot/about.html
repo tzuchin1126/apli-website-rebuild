@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="js/js-ready.js?v=20260822-v1"></script>
+  <script src="js/js-ready.js?v=20260827-csp-page-loading-v1"></script>
   <link rel="icon" href="/public/images/apliLogo.ico" type="image/x-icon">
   <meta name="description" content="了解亞太國際物流的公司簡介、企業理念與發展方向。">
   <title>關於我們 - 亞太國際物流</title>
@@ -14,24 +14,23 @@
   <meta property="og:locale" content="zh_TW">
   <meta name="twitter:card" content="summary">
   
-  <!-- CSS 樣式表 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-  <link rel="preload" as="image" href="public/images/about/about-hero-container-yard-1920.jpg" imagesrcset="public/images/about/about-hero-container-yard-960.jpg 960w, public/images/about/about-hero-container-yard-1920.jpg 1920w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" href="public/images/about/about-hero-container-yard.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
   <link rel="stylesheet" href="css/pages/about.css?v=20260826-image-loading-v1">
-  <link rel="stylesheet" href="css/site.css?v=20260825-page-hero-loading-v1">
+  <link rel="stylesheet" href="css/site.css?v=20260827-page-ready-v1">
 </head>
 
 <body class="about-page">
+  <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
 
-  <!-- 頁頭 / 導覽列 -->
   <header class="site-header">
     <div class="site-container site-header__inner">
       <a class="site-header__brand" href="/" aria-label="亞太國際物流首頁">
@@ -39,7 +38,6 @@
       </a>
       
       <nav id="main-navigation" class="site-header__nav" aria-label="主選單">
-        <!-- 關於我們 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="about-menu">
             關於我們 
@@ -55,7 +53,6 @@
           </div>
         </div>
 
-        <!-- 服務項目 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="services-menu">
             服務項目 
@@ -77,7 +74,6 @@
         <a href="/contact">聯絡我們</a>
       </nav>
 
-      <!-- 工具按鈕 (電話 / 郵件) -->
       <div class="site-header__tools" aria-label="快速連結">
         <a href="/contact" aria-label="前往聯絡我們頁面">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -92,7 +88,6 @@
         </a>
       </div>
 
-      <!-- 手機版選單開關按鈕 -->
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
         <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
           <path class="menu-toggle__menu" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -103,9 +98,7 @@
     </div>
   </header>
 
-  <!-- 主要內容區 -->
   <main id="main-content" role="main">
-    <!-- 麵包屑導覽 -->
     <div class="about-breadcrumb page-breadcrumb">
       <div class="site-container">
         <a href="/">首頁</a>
@@ -116,10 +109,9 @@
       </div>
     </div>
 
-    <!-- Hero 主視覺與董事長引言 -->
     <section class="about-hero page-hero page-hero--quote" aria-labelledby="about-hero-title">
       <picture class="page-hero__media">
-        <img class="page-hero__image" src="public/images/about/about-hero-container-yard-1920.jpg" srcset="public/images/about/about-hero-container-yard-960.jpg 960w, public/images/about/about-hero-container-yard-1920.jpg 1920w" sizes="100vw" width="1920" height="1274" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="async">
+        <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" width="4000" height="2655" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
       <div class="about-hero__content page-hero__content site-container">
@@ -136,7 +128,6 @@
       </div>
     </section>
 
-    <!-- 公司簡介文字與圖片區 -->
     <section id="company-profile" class="about-profile site-container" aria-labelledby="company-profile-title">
       <div class="about-section-copy">
         <div class="about-profile__heading">
@@ -149,11 +140,12 @@
         </div>
       </div>
       <figure>
-        <img src="public/images/about/company-facility-1280.jpg" alt="亞太國際物流廠區" loading="lazy" decoding="async">
+        <picture>
+          <img src="public/images/about/company-facility.jpg" alt="亞太國際物流廠區" loading="lazy" decoding="async">
+        </picture>
       </figure>
     </section>
 
-    <!-- 經營理念互動區 -->
     <section id="core-values" class="about-philosophy" aria-labelledby="core-values-title">
       <div class="site-container about-section-heading">
         <p class="eyebrow">OUR PHILOSOPHY</p>
@@ -192,7 +184,6 @@
       </div>
     </section>
 
-    <!-- 認證與獎項時間軸 -->
     <section id="certifications" class="about-certifications" aria-labelledby="certifications-title">
       <div class="site-container">
         <div class="about-section-heading about-section-heading--left">
@@ -368,7 +359,6 @@
       </div>
     </section>
 
-    <!-- 關係企業 -->
     <section id="affiliates-overview" class="about-affiliates" aria-labelledby="affiliates-overview-title">
       <div class="site-container">
         <div class="about-section-heading">
@@ -436,7 +426,7 @@
 
   <!-- shared-site-footer -->
 
-  <script src="js/site.js?v=20260823-a11y-nav-v2"></script>
+  <script src="js/site.js?v=20260827-page-ready-v1"></script>
   <script src="js/pages/about.js?v=20260822-nojs-certification-v2"></script>
 </body>
 </html>

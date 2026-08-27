@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/js-ready.js?v=20260827-csp-page-loading-v1"></script>
         <link rel="icon" href="/public/images/apliLogo.ico" type="image/x-icon">
         <meta name="description" content="亞太國際物流服務項目">
         <title>服務項目 - 亞太國際物流</title>
@@ -15,16 +16,17 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-        <link rel="preload" as="image" href="public/images/services/services-hero-1920.jpg" imagesrcset="public/images/services/services-hero-960.jpg 960w, public/images/services/services-hero-1920.jpg 1920w" imagesizes="100vw" fetchpriority="high">
+        <link rel="preload" as="image" href="public/images/services/services-hero.jpg" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
         <link rel="stylesheet" href="css/base/tokens.css?v=20260812-services-pilat">
         <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
         <link rel="stylesheet" href="css/components/buttons.css">
         <link rel="stylesheet" href="css/pages/services.css?v=20260826-image-loading-v1">
-        <link rel="stylesheet" href="css/site.css?v=20260825-page-hero-loading-v1">
+        <link rel="stylesheet" href="css/site.css?v=20260827-page-ready-v1">
     </head>
     <body class="services-page">
+        <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
         <a class="skip-link" href="#main-content">跳至主要內容</a>
 
         <header class="site-header">
@@ -89,7 +91,7 @@
 
             <section class="services-hero page-hero" aria-labelledby="services-hero-title">
                 <picture class="page-hero__media">
-                    <img class="page-hero__image" src="public/images/services/services-hero-1920.jpg" srcset="public/images/services/services-hero-960.jpg 960w, public/images/services/services-hero-1920.jpg 1920w" sizes="100vw" width="1920" height="1280" alt="港區物流作業現場" fetchpriority="high" loading="eager" decoding="async">
+                    <img class="page-hero__image" src="public/images/services/services-hero.jpg" width="6764" height="4509" alt="港區物流作業現場" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
                 <div class="services-hero__overlay page-hero__overlay" aria-hidden="true"></div>
                 <h1 class="page-hero__title" id="services-hero-title">服務項目</h1>
@@ -121,19 +123,29 @@
                             <div class="service-carousel__viewport">
                                 <div class="service-carousel__track">
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 5 張">
-                                        <img src="public/images/services/warehousing-yard-1280.jpg" alt="貨櫃場的倉儲與物流作業" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/services/warehousing-yard.png" alt="貨櫃場的倉儲與物流作業" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 5 張">
-                                        <img src="public/images/services/container-yard-overview-1-1280.jpg" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/services/container-yard-overview-1.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 5 張">
-                                        <img src="public/images/index/container-yard-overview-2-1600.jpg" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/index/container-yard-overview-2.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 4 張，共 5 張">
-                                        <img src="public/images/services/container-yard-overview-3-1280.jpg" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/services/container-yard-overview-3.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 5 張，共 5 張">
-                                        <img src="public/images/services/container-yard-overview-4-1280.jpg" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/services/container-yard-overview-4.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                             </div>
@@ -197,7 +209,9 @@
                             <p>服務據點主要涵蓋亞太本場及萬海碼頭等區域。我們擁有專業修櫃團隊，能靈活配合各大場站與航商需求，提供從基本清潔到結構修繕的完整貨櫃保養服務。</p>
                         </div>
                         <figure class="service-section__media service-section__media--static">
-                            <img src="public/images/services/container-cleaning-1280.jpg" alt="作業人員進行貨櫃內部清洗" loading="lazy" decoding="async">
+                            <picture>
+                                <img src="public/images/services/container-cleaning.jpg" alt="作業人員進行貨櫃內部清洗" loading="lazy" decoding="async">
+                            </picture>
                         </figure>
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
@@ -253,10 +267,14 @@
                             <div class="service-carousel__viewport">
                                 <div class="service-carousel__track">
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 2 張">
-                                        <img src="public/images/index/home-hero-container-handling-1280.jpg" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/index/home-hero-container-handling.png" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 2 張">
-                                        <img src="public/images/index/container-handler-1280.jpg" alt="技術人員進行港區機具維修" loading="lazy" decoding="async">
+                                        <picture>
+                                            <img src="public/images/index/container-handler.png" alt="技術人員進行港區機具維修" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +350,7 @@
 
         <!-- shared-site-footer -->
 
-  <script src="js/site.js?v=20260823-a11y-nav-v2"></script>
+  <script src="js/site.js?v=20260827-page-ready-v1"></script>
         <script src="js/pages/services.js?v=20260822-panel-hidden-v11"></script>
     </body>
 </html>

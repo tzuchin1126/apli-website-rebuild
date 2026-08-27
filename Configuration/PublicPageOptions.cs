@@ -21,14 +21,6 @@ public sealed class PublicPageOptions
         ["/500.html"] = "500.html"
     };
 
-    /// <summary>
-    /// 舊網址轉址對應表。
-    /// 用於處理舊版網站遺留下來、直接帶 .html 的網址
-    /// （例如別人書籤存的 /about.html，或搜尋引擎還沒更新的舊連結）。
-    /// Key：舊的 .html 網址，Value：要轉導到的新網址。
-    /// 這樣可以避免使用者點到舊連結時看到 404，也有利於 SEO
-    /// （搜尋引擎會知道這個頁面已經搬到新網址）。
-    /// </summary>
     public Dictionary<string, string> LegacyPageRedirects { get; init; } = new(StringComparer.OrdinalIgnoreCase)
     {
         ["/index.html"] = "/",
@@ -44,16 +36,7 @@ public sealed class PublicPageOptions
         ["/services.html"] = "/services"
     };
 
-    /// <summary>
-    /// 共用頁尾（footer）在頁面 HTML 裡的標記字串。
-    /// 程式會搜尋這個標記，把它替換成實際的共用頁尾內容，
-    /// 這樣所有頁面只要放這一行標記，就不用每個頁面都重複寫一次頁尾。
-    /// </summary>
     public string SharedFooterMarker { get; init; } = "<!-- shared-site-footer -->";
 
-    /// <summary>
-    /// 共用頁尾的實際檔案路徑，程式會讀取這個檔案的內容，
-    /// 拿去替換上面 SharedFooterMarker 標記的位置。
-    /// </summary>
     public string SharedFooterPath { get; init; } = "Pages/Shared/_Footer.cshtml";
 }

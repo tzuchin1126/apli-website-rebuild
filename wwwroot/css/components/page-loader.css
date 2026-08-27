@@ -1,0 +1,27 @@
+.page-loader { display: none; }
+
+html.page-loading .page-loader {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  background: var(--color-surface);
+  opacity: 1;
+  place-items: center;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+  animation: page-loader-failsafe 0s linear 10s forwards;
+}
+
+html.page-loading.page-ready .page-loader {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@keyframes page-loader-failsafe {
+  to { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.page-loading .page-loader { transition: none; }
+}

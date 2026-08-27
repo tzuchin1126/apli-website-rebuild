@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/js-ready.js?v=20260827-csp-page-loading-v1"></script>
   <link rel="icon" href="/public/images/apliLogo.ico" type="image/x-icon">
   <meta name="description" content="亞太國際物流關係企業介紹">
   <title>關係企業 - 亞太國際物流</title>
@@ -13,24 +14,23 @@
   <meta property="og:locale" content="zh_TW">
   <meta name="twitter:card" content="summary">
 
-  <!-- CSS 樣式表 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-  <link rel="preload" as="image" href="public/images/affiliates/affiliates-hero-1920.jpg" imagesrcset="public/images/affiliates/affiliates-hero-960.jpg 960w, public/images/affiliates/affiliates-hero-1920.jpg 1920w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" href="public/images/affiliates/affiliates-hero.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
   <link rel="stylesheet" href="css/pages/affiliates.css?v=20260818-alpha-two-images-v3">
-  <link rel="stylesheet" href="css/site.css?v=20260825-page-hero-loading-v1">
+  <link rel="stylesheet" href="css/site.css?v=20260827-page-ready-v1">
 </head>
 
 <body class="affiliates-page">
+  <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
 
-  <!-- 頁頭 / 導覽列 -->
   <header class="site-header">
     <div class="site-container site-header__inner">
       <a class="site-header__brand" href="/" aria-label="亞太國際物流首頁">
@@ -38,7 +38,6 @@
       </a>
 
       <nav id="main-navigation" class="site-header__nav" aria-label="主選單">
-        <!-- 關於我們 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="about-menu">
             關於我們 
@@ -53,8 +52,6 @@
             <a href="/operational-resources"><span>營運資源</span></a>
           </div>
         </div>
-
-        <!-- 服務項目 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="services-menu">
             服務項目 
@@ -69,14 +66,11 @@
             <a href="/services#maintenance"><span>機具維修與銷售</span></a>
           </div>
         </div>
-
         <a href="/news">最新消息</a>
         <a href="/careers">人才招募</a>
         <a href="/affiliates" aria-current="page">關係企業</a>
         <a href="/contact">聯絡我們</a>
       </nav>
-
-      <!-- 工具按鈕 (電話 / 郵件) -->
       <div class="site-header__tools" aria-label="快速連結">
         <a href="/contact" aria-label="前往聯絡我們頁面">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -90,8 +84,6 @@
           </svg>
         </a>
       </div>
-
-      <!-- 手機版選單開關按鈕 -->
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
         <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
           <path class="menu-toggle__menu" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -102,9 +94,7 @@
     </div>
   </header>
 
-  <!-- 主要內容區 -->
   <main id="main-content" role="main">
-    <!-- 麵包屑導覽 -->
     <div class="affiliates-breadcrumb page-breadcrumb">
       <div class="site-container">
         <a href="/">首頁</a>
@@ -112,17 +102,15 @@
         <span aria-current="page">關係企業</span>
       </div>
     </div>
-
     <!-- Hero 主視覺區 -->
     <section class="affiliates-hero page-hero" aria-labelledby="affiliates-title">
       <picture class="page-hero__media">
-        <img class="page-hero__image" src="public/images/affiliates/affiliates-hero-1920.jpg" srcset="public/images/affiliates/affiliates-hero-960.jpg 960w, public/images/affiliates/affiliates-hero-1920.jpg 1920w" sizes="100vw" width="1920" height="1280" alt="港區作業現場" fetchpriority="high" loading="eager" decoding="async">
+        <img class="page-hero__image" src="public/images/affiliates/affiliates-hero.jpg" width="5184" height="3456" alt="港區作業現場" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <div class="affiliates-hero__overlay page-hero__overlay" aria-hidden="true"></div>
       <h1 class="page-hero__title" id="affiliates-title">關係企業</h1>
     </section>
 
-    <!-- 關係企業內容區 -->
     <section class="affiliates-content site-container">
       <nav class="affiliate-tabs" role="tablist" aria-label="關係企業選單">
         <div class="affiliate-tabs__track">
@@ -135,7 +123,6 @@
         </div>
       </nav>
 
-      <!-- Panel 1: 世新貨櫃 -->
       <article class="affiliate-panel" id="affiliate-sexin" role="tabpanel" aria-labelledby="affiliate-tab-sexin">
         <div class="affiliate-panel-layout">
           <div class="affiliate-sexin-main">
@@ -190,13 +177,19 @@
             <div class="affiliate-gallery-shell">
               <div class="affiliate-oil-gallery" role="region" tabindex="0" aria-describedby="affiliate-oil-gallery-hint" aria-label="亞柏油品服務圖片">
                 <figure>
-                  <img src="public/images/affiliates/aplus-energy-station-1280.jpg" alt="亞柏油品加油站" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/aplus-energy-station.png" alt="亞柏油品加油站" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
                 <figure>
-                  <img src="public/images/affiliates/太陽板加油站-1280.jpg" alt="亞柏油品太陽能板加油站" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/太陽板加油站.png" alt="亞柏油品太陽能板加油站" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
                 <figure>
-                  <img src="public/images/affiliates/小港加油站-1280.jpg" alt="亞柏油品加油站環境" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/小港加油站.png" alt="亞柏油品加油站環境" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
               </div>
               <span class="affiliate-gallery-hint" aria-hidden="true"><svg class="affiliate-gallery-hint__icon" viewBox="0 0 48 24" focusable="false"><path d="M10 12H2m0 0 6-6M2 12l6 6M38 12h8m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></span>
@@ -273,7 +266,9 @@
                   <img src="public/images/affiliates/aplus-club-meeting-room.jpg" alt="亞柏會舘會議空間" loading="lazy" decoding="async">
                 </figure>
                 <figure>
-                  <img src="public/images/affiliates/aplus-club-sepak-takraw-1280.jpg" alt="亞柏會舘藤球活動" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/aplus-club-sepak-takraw.jpg" alt="亞柏會舘藤球活動" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
               </div>
               <span class="affiliate-gallery-hint" aria-hidden="true"><svg class="affiliate-gallery-hint__icon" viewBox="0 0 48 24" focusable="false"><path d="M10 12H2m0 0 6-6M2 12l6 6M38 12h8m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></span>
@@ -307,10 +302,14 @@
                   <img src="public/images/affiliates/aplus-badminton-player.jpg" alt="亞柏羽球隊選手於賽場比賽" loading="lazy" decoding="async">
                 </figure>
                 <figure>
-                  <img src="public/images/affiliates/aplus-badminton-doubles-1280.jpg" alt="亞柏羽球隊雙打比賽現場" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/aplus-badminton-doubles.jpg" alt="亞柏羽球隊雙打比賽現場" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
                 <figure>
-                  <img src="public/images/affiliates/aplus-badminton-team-1280.jpg" alt="亞柏羽球隊團隊合照" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/aplus-badminton-team.jpg" alt="亞柏羽球隊團隊合照" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
               </div>
               <span class="affiliate-gallery-hint" aria-hidden="true"><svg class="affiliate-gallery-hint__icon" viewBox="0 0 48 24" focusable="false"><path d="M10 12H2m0 0 6-6M2 12l6 6M38 12h8m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></span>
@@ -361,10 +360,14 @@
             <div class="affiliate-gallery-shell">
               <div class="affiliate-alpha-gallery" role="region" tabindex="0" aria-describedby="affiliate-alpha-gallery-hint" aria-label="ALPHA TOTAL SOLUTION 服務照片">
                 <figure>
-                  <img src="public/images/affiliates/port-crane-operation-1280.jpg" alt="港口機具作業" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/affiliates/port-crane-operation.png" alt="港口機具作業" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
                 <figure>
-                  <img src="public/images/services/port-equipment-maintenance-1280.jpg" alt="港口設備維修作業" loading="lazy" decoding="async">
+                  <picture>
+                    <img src="public/images/services/port-equipment-maintenance.jpg" alt="港口設備維修作業" loading="lazy" decoding="async">
+                  </picture>
                 </figure>
               </div>
               <span class="affiliate-gallery-hint" aria-hidden="true"><svg class="affiliate-gallery-hint__icon" viewBox="0 0 48 24" focusable="false"><path d="M10 12H2m0 0 6-6M2 12l6 6M38 12h8m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></span>
@@ -386,7 +389,7 @@
   <!-- shared-site-footer -->
 
   <!-- 頁尾 JS 腳本 -->
-  <script src="js/site.js?v=20260823-a11y-nav-v2"></script>
+  <script src="js/site.js?v=20260827-page-ready-v1"></script>
   <script src="js/pages/affiliates.js?v=20260814-affiliates-tabs-a11y-v2"></script>
 </body>
 </html>

@@ -1,5 +1,70 @@
 
 // ======================================================
+// 0. 首屏就緒遮罩：等待目前視窗內圖片與字型完成
+// ======================================================
+(() => {
+  const loader = document.querySelector("[data-page-loader]");
+  if (!loader) return;
+
+  function waitForImageDecode(image) {
+    return new Promise((resolve) => {
+      function finish() {
+        image.removeEventListener("load", finish);
+        image.removeEventListener("error", finish);
+
+        if (!image.naturalWidth || typeof image.decode !== "function") {
+          resolve();
+          return;
+        }
+
+        image.decode().catch(() => {}).then(resolve);
+      }
+
+      if (image.complete) {
+        finish();
+        return;
+      }
+
+      image.addEventListener("load", finish, { once: true });
+      image.addEventListener("error", finish, { once: true });
+    });
+  }
+
+  async function revealPage() {
+    await new Promise((resolve) => {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+    });
+
+    const readyImages = Array.from(document.images).filter((image) => {
+      if (image.closest("[data-hero-carousel]")) return true;
+      if (image.closest('[aria-hidden="true"]')) return false;
+
+      const bounds = image.getBoundingClientRect();
+      return bounds.bottom > 0
+        && bounds.right > 0
+        && bounds.top < window.innerHeight
+        && bounds.left < window.innerWidth;
+    });
+
+    const readinessTasks = readyImages.map(waitForImageDecode);
+    if (document.fonts?.ready) readinessTasks.push(document.fonts.ready.catch(() => {}));
+
+    await Promise.race([
+      Promise.allSettled(readinessTasks),
+      new Promise((resolve) => window.setTimeout(resolve, 8000))
+    ]);
+
+    document.documentElement.classList.add("page-ready");
+    window.setTimeout(() => {
+      loader.remove();
+      document.documentElement.classList.remove("page-loading");
+    }, 240);
+  }
+
+  revealPage();
+})();
+
+// ======================================================
 // 1. Footer：手機版收合、電腦版展開
 // ======================================================
 (() => {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/js-ready.js?v=20260827-csp-page-loading-v1"></script>
   <link rel="icon" href="/public/images/apliLogo.ico" type="image/x-icon">
   <meta name="description" content="亞太國際物流股份有限公司，位於高雄港，提供貨櫃物流管理、船舶裝卸、機具維修保養與相關物流服務。">
   <title>首頁 - 亞太國際物流</title>
@@ -15,16 +16,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-  <link rel="preload" as="image" href="public/images/index/home-hero-container-terminal-1600.jpg" imagesrcset="public/images/index/home-hero-container-terminal-960.jpg 960w, public/images/index/home-hero-container-terminal-1600.jpg 1600w" imagesizes="100vw" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260822-services-motion-dots-v7">
-  <link rel="stylesheet" href="css/site.css?v=20260817-touch-buttons-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260827-section-cut-v1">
+  <link rel="stylesheet" href="css/site.css?v=20260827-page-ready-v1">
 </head>
 <body class="home-page">
+  <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中">
+  </div>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
   <header class="site-header">
     <div class="site-container site-header__inner">
@@ -95,10 +97,10 @@
     <section class="home-hero" aria-labelledby="home-hero-title" data-hero-carousel>
       <div class="home-hero__slides">
         <picture class="home-hero__slide is-active" data-hero-slide aria-hidden="false">
-          <img src="public/images/index/home-hero-container-terminal-1600.jpg" srcset="public/images/index/home-hero-container-terminal-960.jpg 960w, public/images/index/home-hero-container-terminal-1600.jpg 1600w" sizes="100vw" width="1600" height="854" alt="高雄港貨櫃作業現場" loading="eager" fetchpriority="high" decoding="async">
+          <img src="public/images/index/home-hero-container-terminal.png" width="1717" height="916" alt="高雄港貨櫃作業現場" loading="eager" fetchpriority="high" decoding="async">
         </picture>
         <picture class="home-hero__slide" data-hero-slide aria-hidden="true">
-          <img src="public/images/index/container-yard-overview-2-1600.jpg" srcset="public/images/index/container-yard-overview-2-960.jpg 960w, public/images/index/container-yard-overview-2-1600.jpg 1600w" sizes="100vw" width="1600" height="878" alt="亞太國際物流作業現場" loading="lazy" decoding="async">
+          <img src="public/images/index/container-yard-overview-2.png" width="1692" height="929" alt="亞太國際物流作業現場" loading="eager" fetchpriority="low" decoding="async">
         </picture>
       </div>
       <div class="site-container home-hero__content">
@@ -115,14 +117,12 @@
       </div>
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
+
     <section class="home-intro site-container" aria-labelledby="home-intro-title">
       <div class="home-intro__heading" data-home-reveal="left">
         <p class="eyebrow">ABOUT APLI</p>
         <h2 id="home-intro-title">關於亞太</h2>
       </div>
-      <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
-        <img src="public/images/index/company-facility-1280.jpg" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
-      </figure>
       <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
         <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
         <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
@@ -133,18 +133,25 @@
           </svg>
         </a>
       </div>
+      <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
+        <picture>
+          <img src="public/images/index/company-facility.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
+        </picture>
+      </figure>
     </section>
     <section class="home-services" aria-labelledby="home-services-title">
       <div class="site-container">
-        <div class="home-section-heading" data-home-reveal="up">
+        <div class="home-section-heading">
           <p class="eyebrow">OUR SERVICES</p>
           <h2 id="home-services-title">我們的服務</h2>
         </div>
         <div class="home-service-grid">
-          <a class="home-service-grid__card" href="/services#warehousing" aria-label="查看倉儲物流服務" data-home-reveal="up" data-home-delay="100">
+          <a class="home-service-grid__card" href="/services#warehousing" aria-label="查看倉儲物流服務">
             <article>
               <div class="home-service-grid__media">
-                <img src="public/images/index/home-hero-container-handling-1280.jpg" alt="倉儲物流" loading="lazy" decoding="async">
+                <picture>
+                  <img src="public/images/index/home-hero-container-handling.png" width="1536" height="1024" alt="倉儲物流" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="home-service-grid__body">
                 <h3>倉儲物流</h3>
@@ -153,10 +160,12 @@
               </div>
             </article>
           </a>
-          <a class="home-service-grid__card" href="/services#terminal-handling" aria-label="查看貨櫃清潔與維修服務" data-home-reveal="up" data-home-delay="200">
+          <a class="home-service-grid__card" href="/services#terminal-handling" aria-label="查看貨櫃清潔與維修服務">
             <article>
               <div class="home-service-grid__media">
-                <img src="public/images/services/container-cleaning-1280.jpg" alt="貨櫃清潔與維修" loading="lazy" decoding="async">
+                <picture>
+                  <img src="public/images/services/container-cleaning.jpg" width="4912" height="3264" alt="貨櫃清潔與維修" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="home-service-grid__body">
                 <h3>貨櫃清潔與維修</h3>
@@ -165,10 +174,12 @@
               </div>
             </article>
           </a>
-          <a class="home-service-grid__card" href="/services#maintenance" aria-label="查看機具維修與銷售服務" data-home-reveal="up" data-home-delay="300">
+          <a class="home-service-grid__card" href="/services#maintenance" aria-label="查看機具維修與銷售服務">
             <article>
               <div class="home-service-grid__media">
-                <img src="public/images/services/port-equipment-maintenance-1280.jpg" alt="機具維修與銷售" loading="lazy" decoding="async">
+                <picture>
+                  <img src="public/images/services/port-equipment-maintenance.jpg" width="4912" height="3264" alt="機具維修與銷售" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="home-service-grid__body">
                 <h3>機具維修與銷售</h3>
@@ -180,6 +191,7 @@
         </div>
       </div>
     </section>
+
     <section class="home-latest site-container" aria-labelledby="home-latest-title">
       <div class="home-latest__heading" data-home-reveal="left">
         <div>
@@ -206,7 +218,7 @@
     <section class="home-contact-cta" aria-label="聯絡我們與人才招募">
       <article class="home-contact-cta__panel home-contact-cta__panel--contact" tabindex="0" aria-labelledby="home-contact-cta-title">
         <picture class="home-contact-cta__media">
-          <img src="public/images/index/news-hero-1600.jpg" alt="貨櫃碼頭作業現場" loading="lazy" decoding="async">
+          <img src="public/images/index/news-hero.png" width="1672" height="941" alt="貨櫃碼頭作業現場" loading="lazy" decoding="async">
         </picture>
         <div>
           <h2 id="home-contact-cta-title">優質管理 高效服務</h2>
@@ -221,7 +233,7 @@
       </article>
       <article class="home-contact-cta__panel home-contact-cta__panel--join" tabindex="0" aria-labelledby="home-join-cta-title">
         <picture class="home-contact-cta__media">
-          <img src="public/images/index/core-values-1280.jpg" alt="亞太國際物流現場工作團隊" loading="lazy" decoding="async">
+          <img src="public/images/index/core-values.jpg" width="6000" height="4000" alt="亞太國際物流現場工作團隊" loading="lazy" decoding="async">
         </picture>
         <div>
           <h2 id="home-join-cta-title">加入亞太，與我們一起成長</h2>
@@ -237,7 +249,7 @@
     </section>
   </main>
   <!-- shared-site-footer -->
-  <script src="js/site.js?v=20260823-a11y-nav-v2"></script>
-  <script src="js/pages/home.js?v=20260822-server-news-v2"></script>
+  <script src="js/site.js?v=20260827-page-ready-v1"></script>
+  <script src="js/pages/home.js?v=20260827-page-ready-v2"></script>
 </body>
 </html>

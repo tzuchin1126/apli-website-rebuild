@@ -3,21 +3,23 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/js-ready.js?v=20260827-csp-page-loading-v1"></script>
         <link rel="icon" href="/public/images/apliLogo.ico" type="image/x-icon">
         <!-- news-detail-seo -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-        <link rel="preload" as="image" href="/public/images/index/news-hero-1600.jpg" imagesrcset="/public/images/index/news-hero-960.jpg 960w, /public/images/index/news-hero-1600.jpg 1600w" imagesizes="100vw" fetchpriority="high">
+        <link rel="preload" as="image" href="/public/images/index/news-hero.png" fetchpriority="high">
         <link rel="stylesheet" href="/css/base/reset.css">
         <link rel="stylesheet" href="/css/base/tokens.css">
         <link rel="stylesheet" href="/css/layout/site-header.css?v=20260823-a11y-nav-v1">
         <link rel="stylesheet" href="/css/layout/site-footer.css?v=20260816-footer-typography-v1">
         <link rel="stylesheet" href="/css/components/buttons.css">
         <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260821-news-detail-article-v3">
-        <link rel="stylesheet" href="/css/site.css?v=20260825-page-hero-loading-v1">
+        <link rel="stylesheet" href="/css/site.css?v=20260827-page-ready-v1">
     </head>
     <body class="news-detail-page">
+        <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
         <a class="skip-link" href="#main-content">跳至主要內容</a>
 
         <header class="site-header">
@@ -84,7 +86,7 @@
 
             <section class="news-detail-hero page-hero" aria-labelledby="news-detail-hero-title">
                 <picture class="page-hero__media">
-                    <img class="page-hero__image" src="/public/images/index/news-hero-1600.jpg" srcset="/public/images/index/news-hero-960.jpg 960w, /public/images/index/news-hero-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="港區物流作業現場" fetchpriority="high" loading="eager" decoding="async">
+                    <img class="page-hero__image" src="/public/images/index/news-hero.png" width="1672" height="941" alt="港區物流作業現場" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
                 <div class="news-detail-hero__overlay page-hero__overlay" aria-hidden="true"></div>
                 <p class="page-hero__title" id="news-detail-hero-title">最新消息</p>
@@ -127,7 +129,7 @@
             <!-- shared-site-footer -->
         </footer>
 
-  <script src="/js/site.js?v=20260823-a11y-nav-v2"></script>
+  <script src="/js/site.js?v=20260827-page-ready-v1"></script>
         <script src="/js/pages/news-detail.js?v=20260822-news-seo-v2"></script>
     </body>
 </html>

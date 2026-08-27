@@ -90,17 +90,13 @@ public static class NewsService
     public static bool IsPublicNewsItem(NewsItem item)
     {
         if (!item.Published)
-        {
             return false;
-        }
 
         var isValidDate = DateOnly.TryParseExact(
             item.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date);
 
         if (!isValidDate)
-        {
             return false;
-        }
 
         var today = DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).DateTime);
         return date <= today;
