@@ -261,6 +261,16 @@ app.Use(async (context, next) =>
     headers["X-Content-Type-Options"] = "nosniff";
     headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
     headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+
+    // 後台頁面與管理 API 可能包含草稿、附件資訊或登入狀態，禁止瀏覽器與共用 Proxy 快取。
+    var path = context.Request.Path;
+    if (path.StartsWithSegments("/Admin") ||
+        path.StartsWithSegments("/api/admin") ||
+        path.StartsWithSegments("/api/news"))
+    {
+        headers.CacheControl = "private, no-store";
+    }
+
     await next();
 });
 

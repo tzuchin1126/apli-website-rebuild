@@ -37,7 +37,7 @@ function initNewsDetail() {
   }
 
   // ---- 載入並渲染 ----
-  fetch(`/api/public/news/${encodeURIComponent(id)}`, { cache: "no-store" })
+  fetch(`/api/public/news/${encodeURIComponent(id)}`)
     .then((response) => {
       if (!response.ok) throw new Error("News item not found");
       return response.json();

@@ -2,6 +2,8 @@
 
 ## 待處理事項
 
+- [ ] 2026-08-27 已調整公開新聞 API 60 秒短期快取、公開新聞圖片 7 天快取，並移除前端公開 API 的強制 `no-store`；管理頁面與管理 API 維持 `private, no-store`，附件仍採保守的不快取策略。已完成來源修改、JavaScript 語法檢查、Release 建置（0 警告／0 錯誤）與 `git diff --check`；IIS gzip／Brotli、Plesk 實際回應標頭、正式站快取失效與慢速網路尚未驗證，尚未 commit。
+
 - [ ] 2026-08-26 已完成全站圖片首次載入改善：共用 Hero 改用 960px／桌機尺寸的響應式 JPEG 與匹配的 preload，非首屏內容圖改用 1280px 顯示版、`loading="lazy"`／`decoding="async"`，圖片與字型回應新增 7 天快取、CSS／JS 新增 1 天快取；營運資源進場動畫不再先隱藏內容。已驗證 `dotnet build -c Release`（0 警告／0 錯誤）、`git diff --check`、本機 Edge 1440×900 與 390×844 的 10 個主要路由 Hero 均完成載入且無破圖，Careers 與營運資源桌機／手機畫面正常，圖片／CSS 回應含預期 `Cache-Control`。待重新發布至 Plesk 後驗證正式站冷快取、慢速網路、跨瀏覽器與實體裝置；尚未 commit。
 
 - [ ] 確認正式環境 HTTPS 憑證與部署設定；Development 已維持 HTTP 啟動，不再因找不到 HTTPS 連接埠觸發受限 Windows 帳號的 EventLog 錯誤。

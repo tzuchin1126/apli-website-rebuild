@@ -44,11 +44,11 @@ function initNewsList() {
   // 1. 載入資料並初始化
   // ==========================================
   Promise.all([
-    fetch("/api/public/news", { cache: "no-store" }).then((r) => {
+    fetch("/api/public/news").then((r) => {
       if (!r.ok) throw new Error("Unable to load news");
       return r.json();
     }),
-    fetch("/api/public/news/categories", { cache: "no-store" }).then((r) => {
+    fetch("/api/public/news/categories").then((r) => {
       if (!r.ok) throw new Error("Unable to load categories");
       return r.json();
     }).catch(() => [])

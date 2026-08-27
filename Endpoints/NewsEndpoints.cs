@@ -64,6 +64,8 @@ public static class NewsEndpoints
         const long maxUploadRequestBytes = 16 * 1024 * 1024;
         const string newsUploadsUrlPrefix = "/api/uploads/news";
         const string newsImagesUrlPrefix = "/api/uploads/news/images";
+        const string publicNewsApiCacheControl = "public, max-age=60, s-maxage=60, stale-while-revalidate=30";
+        const string publicNewsImageCacheControl = "public, max-age=604800, immutable";
 
         // ============================================================
         // 後台登入相關:驗證碼、登入、登出、查詢是否已登入
@@ -129,23 +131,28 @@ public static class NewsEndpoints
             .RequireAuthorization()
             .RequireRateLimiting("admin-api");
 
-        app.MapGet("/api/public/news", async () =>
+        app.MapGet("/api/public/news", async (HttpContext context) =>
         {
             var news = await NewsService.ReadAsync(newsFile);
             var publicNews = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem));
+            context.Response.Headers.CacheControl = publicNewsApiCacheControl;
             return Results.Ok(publicNews.Select(ToPublicNewsListItem));
         }).RequireRateLimiting("public-api");
 
-        app.MapGet("/api/public/news/{id}", async (string id) =>
+        app.MapGet("/api/public/news/{id}", async (HttpContext context, string id) =>
         {
             var news = await NewsService.ReadAsync(newsFile);
             var item = news.FirstOrDefault(entry => entry.Id == id && NewsService.IsPublicNewsItem(entry));
-            return item is null
-                ? Results.NotFound()
-                : Results.Ok(ToPublicNewsDetailItem(item));
+            if (item is null)
+            {
+                return Results.NotFound();
+            }
+
+            context.Response.Headers.CacheControl = publicNewsApiCacheControl;
+            return Results.Ok(ToPublicNewsDetailItem(item));
         }).RequireRateLimiting("public-api");
 
-        app.MapGet("/api/public/news/categories", async () =>
+        app.MapGet("/api/public/news/categories", async (HttpContext context) =>
         {
             var news = await NewsService.ReadAsync(newsFile);
             var categories = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem))
@@ -153,6 +160,7 @@ public static class NewsEndpoints
                 .Where(tag => !string.IsNullOrWhiteSpace(tag))
                 .Distinct(StringComparer.Ordinal)
                 .ToList();
+            context.Response.Headers.CacheControl = publicNewsApiCacheControl;
             return Results.Ok(categories);
         }).RequireRateLimiting("public-api");
 
@@ -379,7 +387,11 @@ public static class NewsEndpoints
                 }
             }
 
-            context.Response.Headers.CacheControl = "private, no-store";
+            context.Response.Headers.CacheControl = isAuthenticated
+                ? "private, no-store"
+                : urlPrefix == newsImagesUrlPrefix
+                    ? publicNewsImageCacheControl
+                    : "private, no-store";
             context.Response.Headers["X-Content-Type-Options"] = "nosniff";
             return Results.File(filePath, GetUploadContentType(fileName), enableRangeProcessing: true);
         }

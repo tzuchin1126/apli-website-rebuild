@@ -2,20 +2,8 @@ using System.Collections.Generic;
 
 namespace apli_website_rebuild.Configuration;
 
-/// <summary>
-/// 網站前台頁面的路徑設定。
-/// 統一管理「乾淨網址」對應到實際頁面檔案的規則，
-/// 以及舊網址（.html 結尾）要導向哪個新網址。
-/// </summary>
 public sealed class PublicPageOptions
 {
-    /// <summary>
-    /// 目前正式使用的網址對應表。
-    /// Key：使用者實際瀏覽的路徑（例如 /about）
-    /// Value：對應到的實際頁面檔案（例如 about.html）
-    /// 用 OrdinalIgnoreCase 是為了讓網址不分大小寫都能對應到同一頁
-    /// （例如 /About 和 /about 視為同一個）。
-    /// </summary>
     public Dictionary<string, string> PublicPagePaths { get; init; } = new(StringComparer.OrdinalIgnoreCase)
     {
         ["/"] = "index.html",
