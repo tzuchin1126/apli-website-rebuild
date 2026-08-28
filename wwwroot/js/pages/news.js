@@ -40,9 +40,6 @@ function initNewsList() {
     </span>
   `;
 
-  // ==========================================
-  // 1. 載入資料並初始化
-  // ==========================================
   Promise.all([
     fetch("/api/public/news").then((r) => {
       if (!r.ok) throw new Error("Unable to load news");
@@ -76,9 +73,6 @@ function initNewsList() {
       }
     });
 
-  // ==========================================
-  // 2. 正規化消息物件
-  // ==========================================
   function normalizeNewsItem(item) {
     return {
       id: item.id ?? item.Id,
@@ -92,9 +86,6 @@ function initNewsList() {
     };
   }
 
-  // ==========================================
-  // 3. 建立分類按鈕
-  // ==========================================
   function addCategoryButton(label, value, selected = false) {
     const button = document.createElement("button");
     button.type = "button";

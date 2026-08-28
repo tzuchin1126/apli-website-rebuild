@@ -65,6 +65,7 @@ public static class NewsEndpoints
         const string newsUploadsUrlPrefix = "/api/uploads/news";
         const string newsImagesUrlPrefix = "/api/uploads/news/images";
         const string publicNewsApiCacheControl = "public, max-age=60, s-maxage=60, stale-while-revalidate=30";
+        const string publicNewsListApiCacheControl = "no-store";
         const string publicNewsImageCacheControl = "public, max-age=604800, immutable";
 
         // ============================================================
@@ -131,11 +132,14 @@ public static class NewsEndpoints
             .RequireAuthorization()
             .RequireRateLimiting("admin-api");
 
-        app.MapGet("/api/public/news", async (HttpContext context) =>
+        app.MapGet("/api/public/news", async (HttpContext context, int? limit) =>
         {
             var news = await NewsService.ReadAsync(newsFile);
-            var publicNews = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem));
-            context.Response.Headers.CacheControl = publicNewsApiCacheControl;
+            var orderedPublicNews = SortNewsByLatest(news.Where(NewsService.IsPublicNewsItem));
+            var publicNews = limit is > 0
+                ? orderedPublicNews.Take(limit.Value)
+                : orderedPublicNews;
+            context.Response.Headers.CacheControl = publicNewsListApiCacheControl;
             return Results.Ok(publicNews.Select(ToPublicNewsListItem));
         }).RequireRateLimiting("public-api");
 

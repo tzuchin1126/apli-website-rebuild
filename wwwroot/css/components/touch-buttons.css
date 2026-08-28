@@ -58,8 +58,8 @@
   .home-page .home-intro .home-text-link:active,
   .home-page .home-intro .home-text-link:focus,
   .home-page .home-intro .home-text-link:focus-visible {
-    background: var(--color-secondary);
-    color: var(--color-surface);
+    background: transparent;
+    color: var(--color-secondary);
   }
 
   .home-page .home-contact-cta__link:hover,

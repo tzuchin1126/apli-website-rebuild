@@ -1,7 +1,3 @@
-// ==========================================
-// 公司沿革頁面：年代分頁切換
-// ==========================================
-
 /**
  * 初始化公司沿革頁面分頁互動
  * - 年代標籤切換對應面板
@@ -32,12 +28,12 @@ function initMilestones() {
       const events = [...group.querySelectorAll(".milestone-event")];
       const groupStart = groupIndex * 360;
 
-      yearLabel?.style.setProperty("--milestone-year-delay", `${groupStart}ms`);
+      yearLabel.style.setProperty("--milestone-year-delay", `${groupStart}ms`);
 
       events.forEach((event, eventIndex) => {
         const delay = groupStart + 120 + eventIndex * 70;
-        event.querySelector(".milestone-event__marker")?.style.setProperty("--milestone-info-delay", `${delay}ms`);
-        event.querySelector(".milestone-event__content")?.style.setProperty("--milestone-info-delay", `${delay}ms`);
+        event.querySelector(".milestone-event__marker").style.setProperty("--milestone-info-delay", `${delay}ms`);
+        event.querySelector(".milestone-event__content").style.setProperty("--milestone-info-delay", `${delay}ms`);
       });
     });
   }
@@ -47,8 +43,14 @@ function initMilestones() {
 
     preparePanelReveal(panel);
     panel.classList.remove("is-revealing");
-    void panel.offsetWidth;
+    void panel.offsetWidth; // 強制 reflow，讓移除/加回 class 能重新觸發 CSS 動畫
     panel.classList.add("is-revealing");
+  }
+
+  // 找出目前啟用的面板並重播進場動畫，供初始化與 observer callback 共用
+  function replayActivePanel() {
+    const activePanel = panels.find((panel) => panel.classList.contains("is-active"));
+    if (activePanel) replayPanelReveal(activePanel);
   }
 
   /**
@@ -58,7 +60,6 @@ function initMilestones() {
   function selectTab(tab) {
     const panelId = tab.getAttribute("aria-controls");
 
-    // 更新所有分頁按鈕狀態
     tabs.forEach((item) => {
       const isSelected = item === tab;
       item.setAttribute("aria-selected", String(isSelected));
@@ -73,16 +74,13 @@ function initMilestones() {
       panel.hidden = !isActive;
     });
 
-    const activePanel = panels.find((panel) => panel.id === panelId);
-    if (activePanel && hasEnteredViewport) replayPanelReveal(activePanel);
+    if (hasEnteredViewport) replayActivePanel();
   }
 
   // 綁定每個分頁的點擊與鍵盤事件
   tabs.forEach((tab, index) => {
-    // 滑鼠點擊
     tab.addEventListener("click", () => selectTab(tab));
 
-    // 鍵盤方向鍵切換（循環）
     tab.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
       event.preventDefault();
@@ -96,33 +94,22 @@ function initMilestones() {
     });
   });
 
-  // 初始化：啟用預設分頁（已有 aria-selected="true" 的，或第一個）
   const initialTab = tabs.find((t) => t.getAttribute("aria-selected") === "true") || tabs[0];
   document.body.classList.add("milestones-motion-ready");
   selectTab(initialTab);
 
   if (reduceMotion || !milestonesContent) return;
 
-  if (!("IntersectionObserver" in window)) {
-    hasEnteredViewport = true;
-    const activePanel = panels.find((panel) => panel.classList.contains("is-active"));
-    if (activePanel) replayPanelReveal(activePanel);
-    return;
-  }
-
+  // 內容滾入視窗後才播放一次進場動畫，之後切分頁的重播交給 selectTab
   const contentObserver = new IntersectionObserver((entries, observer) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
 
     hasEnteredViewport = true;
-    const activePanel = panels.find((panel) => panel.classList.contains("is-active"));
-    if (activePanel) replayPanelReveal(activePanel);
+    replayActivePanel();
     observer.disconnect();
   }, { threshold: 0.18 });
 
   contentObserver.observe(milestonesContent);
 }
 
-// ==========================================
-// 啟動
-// ==========================================
 document.addEventListener("DOMContentLoaded", initMilestones);

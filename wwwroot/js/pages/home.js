@@ -1,9 +1,24 @@
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
 function createArrow(direction) {
-  const icon = document.createElement("i");
-  icon.className = direction === "left" ? "ph ph-caret-left" : "ph ph-caret-right";
+  const icon = document.createElementNS(SVG_NAMESPACE, "svg");
+  icon.classList.add("home-latest__arrow-icon");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("width", "18");
+  icon.setAttribute("height", "18");
+  icon.setAttribute("fill", "none");
+  icon.setAttribute("stroke", "currentColor");
+  icon.setAttribute("stroke-width", "1.8");
+  icon.setAttribute("stroke-linecap", "round");
+  icon.setAttribute("stroke-linejoin", "round");
   icon.setAttribute("aria-hidden", "true");
+  const path = document.createElementNS(SVG_NAMESPACE, "path");
+  path.setAttribute(
+    "d",
+    direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7",
+  );
+  icon.append(path);
   return icon;
 }
 
@@ -152,6 +167,7 @@ function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
 
+  const homeNewsLimit = 8;
   const viewport = list.closest(".home-latest__viewport");
   const pager = list.closest(".home-latest")?.querySelector(".home-latest__pager");
   if (!viewport || !pager) return;
@@ -222,12 +238,12 @@ function setupLatestNews() {
 
   // 假設 API 回傳為 camelCase JSON(ASP.NET Core System.Text.Json 預設)。
   // 若後端實際回傳 PascalCase,請直接調整這裡的欄位對應,而不是兩種都猜。
-  fetch("/api/public/news")
+  fetch(`/api/public/news?limit=${homeNewsLimit}`, { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error("Unable to load news");
       return response.json();
     })
-    .then((items) => items.slice().sort(compareLatestNews))
+    .then((items) => items.slice().sort(compareLatestNews).slice(0, homeNewsLimit))
     .then((items) => {
       list.replaceChildren();
       if (!items.length) throw new Error("No news");
@@ -298,11 +314,41 @@ function setupLatestNews() {
     function cardsPerPage() {
       if (window.matchMedia("(max-width: 760px)").matches) return 1;
       if (window.matchMedia("(max-width: 980px)").matches) return 2;
-      return 3;
+      return 4;
     }
 
     const pageSize = cardsPerPage();
-    const pages = Math.max(1, Math.ceil(items.length / pageSize));
+    const isMobile = pageSize === 1;
+
+    function getPagePositions() {
+      const cards = Array.from(list.querySelectorAll(".home-latest__item"));
+      if (!cards.length) return [];
+
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
+      const viewportLeft = viewport.getBoundingClientRect().left;
+      const positions = [];
+
+      for (let index = 0; index < cards.length; index += pageSize) {
+        const card = cards[index];
+        const position = Math.min(
+          maxScroll,
+          Math.max(0, card.getBoundingClientRect().left - viewportLeft + scrollLeft),
+        );
+        if (positions.every((existing) => Math.abs(existing - position) > 1)) {
+          positions.push(position);
+        }
+      }
+
+      const lastPosition = positions[positions.length - 1];
+      if (positions.length && maxScroll - lastPosition > 1) {
+        positions.push(maxScroll);
+      }
+
+      return positions;
+    }
+
+    const pages = Math.max(1, getPagePositions().length);
 
     const controls = document.createElement("div");
     controls.className = "home-latest__controls";
@@ -312,35 +358,38 @@ function setupLatestNews() {
     const previous = document.createElement("button");
     previous.type = "button";
     previous.className = "home-latest__arrow home-latest__arrow--previous";
-    previous.setAttribute("aria-label", "上一組最新消息");
+    previous.setAttribute("aria-label", "上一則最新消息");
     previous.append(createArrow("left"));
 
     const pageButtons = Array.from({ length: pages }, (_, index) => {
+      if (isMobile) return null;
+
       const button = document.createElement("button");
       button.type = "button";
       button.className = "home-latest__page";
       button.setAttribute("aria-label", `顯示第 ${index + 1} 組最新消息`);
       return button;
-    });
+    }).filter(Boolean);
+
+    const counter = isMobile ? document.createElement("span") : null;
+    if (counter) {
+      counter.className = "home-latest__counter";
+      counter.setAttribute("aria-live", "polite");
+      counter.setAttribute("aria-atomic", "true");
+    }
 
     const next = document.createElement("button");
     next.type = "button";
     next.className = "home-latest__arrow home-latest__arrow--next";
-    next.setAttribute("aria-label", "下一組最新消息");
+    next.setAttribute("aria-label", "下一則最新消息");
     next.append(createArrow("right"));
 
-    controls.append(previous, ...pageButtons, next);
+    controls.append(previous);
+    if (counter) controls.append(counter);
+    else controls.append(...pageButtons);
+    controls.append(next);
     pager.replaceChildren(controls);
     pager.removeAttribute("aria-hidden");
-
-    function getPage() {
-      const first = list.querySelector(".home-latest__item");
-      if (!first) return 0;
-
-      const cardWidth = first.getBoundingClientRect().width;
-      const gap = Number.parseFloat(getComputedStyle(list).gap) || 0;
-      return Math.min(pages - 1, Math.round(viewport.scrollLeft / ((cardWidth + gap) * pageSize)));
-    }
 
     function update() {
       const page = getPage();
@@ -350,17 +399,44 @@ function setupLatestNews() {
         if (isActive) button.setAttribute("aria-current", "page");
         else button.removeAttribute("aria-current");
       });
-      previous.disabled = page === 0;
-      next.disabled = page === pages - 1;
+      if (counter) {
+        counter.textContent = `${String(page + 1).padStart(2, "0")} / ${String(pages).padStart(2, "0")}`;
+        counter.setAttribute("aria-label", `第 ${page + 1} 組，共 ${pages} 組最新消息`);
+      }
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
+      const isAtStart = scrollLeft <= 1;
+      const isAtEnd = maxScroll <= 1 || maxScroll - scrollLeft <= 1;
+
+      previous.disabled = isAtStart;
+      previous.setAttribute("aria-disabled", String(isAtStart));
+      next.disabled = isAtEnd;
+      next.setAttribute("aria-disabled", String(isAtEnd));
+    }
+
+    function getPage() {
+      const pagePositions = getPagePositions();
+      if (!pagePositions.length || pages === 1) return 0;
+
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      if (maxScroll <= 1) return 0;
+
+      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
+
+      return pagePositions.reduce((nearestPage, position, page) => {
+        const nearestDistance = Math.abs(pagePositions[nearestPage] - scrollLeft);
+        const distance = Math.abs(position - scrollLeft);
+        return distance < nearestDistance ? page : nearestPage;
+      }, 0);
     }
 
     function goTo(page) {
-      const first = list.querySelector(".home-latest__item");
-      if (!first) return;
+      const pagePositions = getPagePositions();
+      const targetPage = Math.min(pagePositions.length - 1, Math.max(0, page));
+      if (targetPage < 0) return;
 
-      const gap = Number.parseFloat(getComputedStyle(list).gap) || 0;
       viewport.scrollTo({
-        left: page * (first.getBoundingClientRect().width + gap) * pageSize,
+        left: pagePositions[targetPage],
         behavior: reducedMotion.matches ? "auto" : "smooth",
       });
     }
@@ -369,19 +445,37 @@ function setupLatestNews() {
     next.addEventListener("click", () => goTo(Math.min(pages - 1, getPage() + 1)));
     pageButtons.forEach((button, index) => button.addEventListener("click", () => goTo(index)));
 
-    viewport.addEventListener("scroll", update, { passive: true });
+    let updateFrame = 0;
+    function scheduleUpdate() {
+      if (updateFrame) return;
+      updateFrame = window.requestAnimationFrame(() => {
+        updateFrame = 0;
+        update();
+      });
+    }
+
+    viewport.addEventListener("scroll", scheduleUpdate, { passive: true });
 
     function onResize() {
       if (cardsPerPage() !== pageSize) {
-        window.removeEventListener("resize", onResize);
+        cleanup();
         renderControls(items);
         return;
       }
-      update();
+      scheduleUpdate();
     }
     window.addEventListener("resize", onResize, { passive: true });
 
     update();
+
+    function cleanup() {
+      viewport.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", onResize);
+      if (updateFrame) {
+        window.cancelAnimationFrame(updateFrame);
+        updateFrame = 0;
+      }
+    }
   }
 }
 
