@@ -1,23 +1,6 @@
-// ==========================================
+// ---------------------------------------------------------------------------
 // 職業安全衛生頁面：專業證照輪播
-// ==========================================
-
-/** 偏好減少動畫媒體查詢 */
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-/**
- * 建立方向箭頭 icon
- * @param {"left"|"right"} direction
- * @returns {HTMLElement}
- */
-function createArrow(direction) {
-  const icon = document.createElement("i");
-  icon.className = `ph ph-caret-${direction}`;
-  icon.setAttribute("aria-hidden", "true");
-  // Phosphor caret icons: left=E138, right=E13A
-  icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
-  return icon;
-}
+// ---------------------------------------------------------------------------
 
 /**
  * 初始化專業證照輪播
@@ -30,13 +13,30 @@ function setupCredentialsCarousel() {
   const list = document.querySelector("[data-safety-credentials-list]");
   if (!list) return;
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /**
+   * 建立專業證照輪播使用的方向箭頭。
+   * @param {"left"|"right"} direction - 箭頭方向
+   * @returns {HTMLElement} 箭頭 icon 元素
+   */
+  const createArrow = (direction) => {
+    const icon = document.createElement("i");
+    icon.className = `ph ph-caret-${direction}`;
+    icon.setAttribute("aria-hidden", "true");
+    // Phosphor caret icons: left=E138, right=E13A
+    icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
+    return icon;
+  };
+
   const viewport = list.closest(".safety-credentials__viewport");
   const pager = list.closest(".safety-credentials")?.querySelector(".safety-credentials__pager");
   if (!viewport || !pager) return;
 
   const cards = Array.from(list.querySelectorAll(".safety-credential-card"));
 
-  // ===== 滑鼠拖曳捲動 =====
+  // ---------------------------------------------------------------------------
+  // 滑鼠拖曳捲動
+  // ---------------------------------------------------------------------------
   let activePointerId = null;
   let dragStartX = 0;
   let dragStartScrollLeft = 0;
@@ -84,14 +84,18 @@ function setupCredentialsCarousel() {
   }, true);
   viewport.addEventListener("dragstart", (event) => event.preventDefault());
 
-  // ===== 響應式每頁卡片數 =====
+  // ---------------------------------------------------------------------------
+  // 響應式每頁卡片數
+  // ---------------------------------------------------------------------------
   function cardsPerPage() {
     if (window.matchMedia("(max-width: 760px)").matches) return 1;
     if (window.matchMedia("(max-width: 1099px)").matches) return 2;
     return 3;
   }
 
-  // ===== 建立分頁控制器 =====
+  // ---------------------------------------------------------------------------
+  // 建立分頁控制器
+  // ---------------------------------------------------------------------------
   const pageSize = cardsPerPage();
   const pages = Math.max(1, Math.ceil(cards.length / pageSize));
 
@@ -124,7 +128,9 @@ function setupCredentialsCarousel() {
   pager.replaceChildren(controls);
   pager.removeAttribute("aria-hidden");
 
-  // ===== 頁碼計算與同步 =====
+  // ---------------------------------------------------------------------------
+  // 頁碼計算與同步
+  // ---------------------------------------------------------------------------
   function getPage() {
     const first = cards[0];
     if (!first) return 0;
@@ -168,7 +174,9 @@ function setupCredentialsCarousel() {
   // 捲動同步更新
   viewport.addEventListener("scroll", update, { passive: true });
 
-  // ===== 視窗縮放：每頁數量改變時重建控制器 =====
+  // ---------------------------------------------------------------------------
+  // 視窗縮放：每頁數量改變時重建控制器
+  // ---------------------------------------------------------------------------
   function onResize() {
     if (cardsPerPage() !== pageSize) {
       window.removeEventListener("resize", onResize);
@@ -191,7 +199,7 @@ function initOccupationalSafety() {
   setupCredentialsCarousel();
 }
 
-// ==========================================
+// ---------------------------------------------------------------------------
 // 啟動
-// ==========================================
+// ---------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", initOccupationalSafety);

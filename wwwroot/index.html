@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260816-footer-typography-v1">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260829-hero-natural-color-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260829-performance-kpi-v21">
   <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
 </head>
 <body class="home-page">
@@ -139,11 +139,33 @@
         </picture>
       </figure>
     </section>
+    <section class="home-performance" aria-label="企業實績">
+      <div class="site-container">
+        <div class="home-performance__layout">
+          <div class="home-performance__stat">
+            <p class="home-performance__value"><span class="home-performance__number" data-home-counter data-target="50" data-counter-duration="1400" data-counter-easing="easeOutCubic" data-counter-format="number" data-counter-suffix="+">50+</span> <span class="home-performance__unit">年</span></p>
+            <p class="home-performance__label">物流經驗</p>
+          </div>
+          <div class="home-performance__stat home-performance__stat--core">
+            <p class="home-performance__value"><span class="home-performance__number" data-home-counter data-target="76890" data-counter-duration="1600" data-counter-easing="easeOutCubic" data-counter-format="number">76,890</span> <span class="home-performance__unit">m²</span></p>
+            <p class="home-performance__label">貨櫃場</p>
+          </div>
+          <div class="home-performance__stat">
+            <p class="home-performance__value"><span class="home-performance__number" data-home-counter data-target="50000" data-counter-duration="1500" data-counter-easing="easeOutCubic" data-counter-format="number">50,000</span> <span class="home-performance__unit">櫃／月</span></p>
+            <p class="home-performance__label">倉儲作業量</p>
+          </div>
+          <div class="home-performance__stat">
+            <p class="home-performance__value"><span class="home-performance__number" data-home-counter data-target="30000" data-counter-duration="1500" data-counter-easing="easeOutCubic" data-counter-format="number">30,000</span> <span class="home-performance__unit">櫃／月</span></p>
+            <p class="home-performance__label">貨櫃儲轉量</p>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="home-services" aria-labelledby="home-services-title">
       <div class="site-container">
         <div class="home-section-heading">
           <p class="eyebrow">OUR SERVICES</p>
-          <h2 id="home-services-title">我們的服務</h2>
+          <h2 id="home-services-title">服務項目</h2>
         </div>
         <div class="home-service-grid">
           <a class="home-service-grid__card" href="/services#warehousing" aria-label="查看倉儲物流服務">
@@ -156,6 +178,9 @@
               <div class="home-service-grid__body">
                 <div class="home-service-grid__title">
                   <h3>倉儲物流</h3>
+                  <svg class="home-service-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 6 6 6-6 6"></path>
+                  </svg>
                 </div>
                 <p>提供貨櫃裝卸、拆裝櫃、倉儲與貨櫃存放管理服務。</p>
               </div>
@@ -171,6 +196,9 @@
               <div class="home-service-grid__body">
                 <div class="home-service-grid__title">
                   <h3>貨櫃清潔與維修</h3>
+                  <svg class="home-service-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 6 6 6-6 6"></path>
+                  </svg>
                 </div>
                 <p>由專業團隊執行貨櫃清洗、檢查與結構修復。</p>
               </div>
@@ -186,6 +214,9 @@
               <div class="home-service-grid__body">
                 <div class="home-service-grid__title">
                   <h3>機具維修與銷售</h3>
+                  <svg class="home-service-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 6 6 6-6 6"></path>
+                  </svg>
                 </div>
                 <p>提供港區機具保養、維修與設備銷售服務。</p>
               </div>
@@ -194,24 +225,22 @@
         </div>
       </div>
     </section>
-
     <section class="home-latest site-container" aria-labelledby="home-latest-title">
       <div class="home-latest__heading" data-home-reveal="left">
         <div>
           <p class="eyebrow">NEWS &amp; EVENTS</p>
           <h2 id="home-latest-title">最新消息</h2>
         </div>
-        <a class="button--primary home-text-link home-latest__all" href="/news">
-          查看全部
-          <svg class="home-text-link__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false" fill="currentColor">
-            <path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>
-          </svg>
-        </a>
+        <div class="home-latest__actions">
+          <a class="button--primary home-text-link home-latest__all" href="/news">
+            查看全部
+          </a>
+          <div class="home-latest__pager" aria-label="最新消息輪播導覽" aria-hidden="true">
+          </div>
+        </div>
       </div>
       <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
         <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
-      </div>
-      <div class="home-latest__pager" aria-label="最新消息輪播導覽" aria-hidden="true">
       </div>
     </section>
 
@@ -250,6 +279,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260827-page-ready-v1"></script>
-  <script src="js/pages/home.js?v=20260827-page-ready-v2"></script>
+  <script src="js/pages/home.js?v=20260829-performance-kpi-v4"></script>
 </body>
 </html>

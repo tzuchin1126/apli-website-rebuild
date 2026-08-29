@@ -1,34 +1,12 @@
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-
-function createArrow(direction) {
-  const icon = document.createElementNS(SVG_NAMESPACE, "svg");
-  icon.classList.add("home-latest__arrow-icon");
-  icon.setAttribute("viewBox", "0 0 24 24");
-  icon.setAttribute("width", "18");
-  icon.setAttribute("height", "18");
-  icon.setAttribute("fill", "none");
-  icon.setAttribute("stroke", "currentColor");
-  icon.setAttribute("stroke-width", "1.8");
-  icon.setAttribute("stroke-linecap", "round");
-  icon.setAttribute("stroke-linejoin", "round");
-  icon.setAttribute("aria-hidden", "true");
-  const path = document.createElementNS(SVG_NAMESPACE, "path");
-  path.setAttribute(
-    "d",
-    direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7",
-  );
-  icon.append(path);
-  return icon;
-}
-
 // ---------------------------------------------------------------------------
 // Hero 輪播:6 秒自動播放、點擊圓點、手機滑動、鍵盤焦點/分頁切換時暫停
 // ---------------------------------------------------------------------------
+/** 初始化首頁 Hero 輪播與觸控／鍵盤互動。 */
 function setupHeroCarousel() {
   const hero = document.querySelector("[data-hero-carousel]");
   if (!hero) return;
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const slides = hero.querySelectorAll("[data-hero-slide]");
   const dotsContainer = hero.querySelector("[data-hero-dots]");
 
@@ -137,10 +115,15 @@ function setupHeroCarousel() {
 // ---------------------------------------------------------------------------
 // 聯絡/招募 CTA:滑鼠或鍵盤焦點進入左右面板時放大對應側
 // ---------------------------------------------------------------------------
+/** 初始化聯絡／招募 CTA 的面板 hover 與 focus 狀態。 */
 function setupContactCta() {
   const cta = document.querySelector(".home-contact-cta");
   if (!cta) return;
 
+  /**
+   * 設定聯絡／招募 CTA 目前的 hover 或 focus 面板。
+   * @param {"left"|"right"|null} state - 要啟用的面板
+   */
   function setHoverState(state) {
     cta.classList.toggle("hover-left", state === "left");
     cta.classList.toggle("hover-right", state === "right");
@@ -163,9 +146,38 @@ function setupContactCta() {
 // ---------------------------------------------------------------------------
 // 最新消息:載入資料、渲染卡片、分頁控制、滑鼠拖曳捲動
 // ---------------------------------------------------------------------------
+/** 載入首頁最新消息並初始化卡片輪播控制。 */
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+  /**
+   * 建立最新消息輪播使用的方向箭頭。
+   * @param {"left"|"right"} direction - 箭頭方向
+   * @returns {SVGSVGElement} 箭頭 SVG 元素
+   */
+  const createArrow = (direction) => {
+    const icon = document.createElementNS(SVG_NAMESPACE, "svg");
+    icon.classList.add("home-latest__arrow-icon");
+    icon.setAttribute("viewBox", "0 0 24 24");
+    icon.setAttribute("width", "18");
+    icon.setAttribute("height", "18");
+    icon.setAttribute("fill", "none");
+    icon.setAttribute("stroke", "currentColor");
+    icon.setAttribute("stroke-width", "1.8");
+    icon.setAttribute("stroke-linecap", "round");
+    icon.setAttribute("stroke-linejoin", "round");
+    icon.setAttribute("aria-hidden", "true");
+    const path = document.createElementNS(SVG_NAMESPACE, "path");
+    path.setAttribute(
+      "d",
+      direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7",
+    );
+    icon.append(path);
+    return icon;
+  };
 
   const homeNewsLimit = 8;
   const viewport = list.closest(".home-latest__viewport");
@@ -182,6 +194,10 @@ function setupLatestNews() {
   let hasDragged = false;
   let suppressClick = false;
 
+  /**
+   * 結束首頁最新消息的滑鼠拖曳狀態。
+   * @param {PointerEvent} event - 指標事件
+   */
   function finishPointerDrag(event) {
     if (event.pointerId !== activePointerId) return;
     viewport.classList.remove("is-dragging");
@@ -223,11 +239,22 @@ function setupLatestNews() {
   }, true);
   viewport.addEventListener("dragstart", (event) => event.preventDefault());
 
+  /**
+   * 將消息建立時間轉為可排序的時間戳。
+   * @param {string|undefined} value - API 回傳的建立時間
+   * @returns {number} 時間戳；無效值回傳負無限大
+   */
   function parseCreatedAt(value) {
     const timestamp = Date.parse(value || "");
     return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
   }
 
+  /**
+   * 由新到舊比較兩筆最新消息。
+   * @param {Object} left - 第一筆消息
+   * @param {Object} right - 第二筆消息
+   * @returns {number} 排序比較結果
+   */
   function compareLatestNews(left, right) {
     const createdAtDiff = parseCreatedAt(right.createdAt) - parseCreatedAt(left.createdAt);
     if (createdAtDiff !== 0) return createdAtDiff;
@@ -310,6 +337,10 @@ function setupLatestNews() {
       pager.replaceChildren();
     });
 
+  /**
+   * 建立最新消息輪播的分頁與左右箭頭控制。
+   * @param {Object[]} items - 目前顯示的消息
+   */
   function renderControls(items) {
     function cardsPerPage() {
       if (window.matchMedia("(max-width: 760px)").matches) return 1;
@@ -430,6 +461,10 @@ function setupLatestNews() {
       }, 0);
     }
 
+    /**
+     * 捲動到指定的最新消息分頁。
+     * @param {number} page - 目標分頁索引
+     */
     function goTo(page) {
       const pagePositions = getPagePositions();
       const targetPage = Math.min(pagePositions.length - 1, Math.max(0, page));
@@ -480,12 +515,145 @@ function setupLatestNews() {
 }
 
 // ---------------------------------------------------------------------------
+// 績效數據計數器:進入視窗時由 0 平滑遞增至固定數值
+// ---------------------------------------------------------------------------
+/** 初始化首頁績效數據的視窗觸發計數動畫。 */
+function setupPerformanceCounters() {
+  const counterElements = Array.from(document.querySelectorAll("[data-home-counter]"));
+  const performanceSection = document.querySelector(".home-performance");
+  if (!counterElements.length || !performanceSection) return;
+
+  const easingFunctions = {
+    linear: (progress) => progress,
+    easeOutCubic: (progress) => 1 - Math.pow(1 - progress, 3),
+    easeOutQuart: (progress) => 1 - Math.pow(1 - progress, 4),
+  };
+
+  function getNumberOption(value, fallback) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+  }
+
+  function createCounter(element) {
+    const target = Number(element.dataset.target);
+    if (!Number.isFinite(target)) return null;
+
+    const format = element.dataset.counterFormat || "number";
+    const decimals = Math.max(0, Math.floor(getNumberOption(element.dataset.counterDecimals, 0)));
+    const locale = element.dataset.counterLocale || "zh-TW";
+    const options = {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+      useGrouping: element.dataset.counterGrouping !== "false",
+    };
+
+    if (format === "currency") {
+      options.style = "currency";
+      options.currency = element.dataset.counterCurrency || "TWD";
+    } else if (format === "percent") {
+      options.style = "percent";
+    }
+
+    return {
+      element,
+      target,
+      duration: Math.max(0, getNumberOption(element.dataset.counterDuration, 1400)),
+      easing: easingFunctions[element.dataset.counterEasing] || easingFunctions.easeOutCubic,
+      formatter: new Intl.NumberFormat(locale, options),
+      prefix: element.dataset.counterPrefix || "",
+      suffix: element.dataset.counterSuffix || "",
+    };
+  }
+
+  const counters = counterElements.map(createCounter).filter(Boolean);
+  if (!counters.length) return;
+
+  function render(counter, value) {
+    const formattedValue = counter.formatter.format(value);
+    counter.element.textContent = `${counter.prefix}${formattedValue}${counter.suffix}`;
+  }
+
+  function renderFinalValues() {
+    counters.forEach((counter) => render(counter, counter.target));
+  }
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const getNow = () => (typeof performance !== "undefined" && typeof performance.now === "function" ? performance.now() : Date.now());
+  const scheduleFrame = typeof window.requestAnimationFrame === "function"
+    ? (callback) => window.requestAnimationFrame(callback)
+    : (callback) => window.setTimeout(() => callback(getNow()), 16);
+  const cancelFrame = typeof window.cancelAnimationFrame === "function"
+    ? (frame) => window.cancelAnimationFrame(frame)
+    : (frame) => window.clearTimeout(frame);
+
+  let hasStarted = false;
+  let animationFrame = null;
+  let observer = null;
+
+  function startAnimation() {
+    if (hasStarted) return;
+    hasStarted = true;
+    if (reducedMotion.matches) {
+      renderFinalValues();
+      return;
+    }
+
+    counters.forEach((counter) => render(counter, 0));
+    const startTime = getNow();
+    animationFrame = scheduleFrame(function animate(timestamp) {
+      const elapsed = timestamp - startTime;
+      let isComplete = true;
+
+      counters.forEach((counter) => {
+        const progress = counter.duration === 0 ? 1 : Math.min(1, elapsed / counter.duration);
+        if (progress < 1) isComplete = false;
+        render(counter, counter.target * counter.easing(progress));
+      });
+
+      if (isComplete) animationFrame = null;
+      else animationFrame = scheduleFrame(animate);
+    });
+  }
+
+  if (reducedMotion.matches) {
+    hasStarted = true;
+    renderFinalValues();
+    return;
+  }
+
+  // 預先顯示 0，確保尚未進入視窗前不會在背景完成計數。
+  counters.forEach((counter) => render(counter, 0));
+
+  if ("IntersectionObserver" in window) {
+    observer = new IntersectionObserver((entries, currentObserver) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      currentObserver.disconnect();
+      observer = null;
+      startAnimation();
+    }, { threshold: 0.2 });
+    observer.observe(performanceSection);
+  } else {
+    startAnimation();
+  }
+
+  reducedMotion.addEventListener("change", () => {
+    if (!reducedMotion.matches) return;
+    if (observer) observer.disconnect();
+    if (animationFrame !== null) cancelFrame(animationFrame);
+    hasStarted = true;
+    renderFinalValues();
+  }, { once: true });
+}
+
+// ---------------------------------------------------------------------------
 // 區塊進場動畫:進入視窗時加上 .is-visible,reduced-motion 則直接全部顯示
 // ---------------------------------------------------------------------------
+/** 初始化首頁各區塊的 IntersectionObserver 進場動畫。 */
 function setupSectionMotion() {
   const revealTargets = Array.from(document.querySelectorAll("[data-home-reveal]"));
   if (!revealTargets.length) return;
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.body.classList.add("home-motion-ready");
 
   function revealAll() {
@@ -518,5 +686,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeroCarousel();
   setupContactCta();
   setupLatestNews();
+  setupPerformanceCounters();
   setupSectionMotion();
 });

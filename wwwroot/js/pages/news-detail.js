@@ -9,7 +9,9 @@ function initNewsDetail() {
   const detail = document.querySelector("[data-news-detail]");
   if (!detail) return;
 
-  // ---- 取得 DOM 元素 ----
+  // ---------------------------------------------------------------------------
+  // 取得 DOM 元素
+  // ---------------------------------------------------------------------------
   const routeMatch = window.location.pathname.match(/^\/news\/([^/]+)\/?$/i);
   const id = routeMatch
     ? decodeURIComponent(routeMatch[1])
@@ -32,7 +34,9 @@ function initNewsDetail() {
     return;
   }
 
-  // ---- 載入並渲染 ----
+  // ---------------------------------------------------------------------------
+  // 載入並渲染
+  // ---------------------------------------------------------------------------
   fetch(`/api/public/news/${encodeURIComponent(id)}`)
     .then((response) => {
       if (!response.ok) throw new Error("News item not found");
@@ -111,7 +115,7 @@ function initNewsDetail() {
   }
 }
 
-// ==========================================
+// ---------------------------------------------------------------------------
 // 啟動
-// ==========================================
+// ---------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", initNewsDetail);

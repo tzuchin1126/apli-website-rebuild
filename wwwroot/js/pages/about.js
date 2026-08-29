@@ -70,6 +70,7 @@ function initMilestoneTimelines() {
     const showCount = parseInt(container.dataset.initialVisibleCount || "6", 10);
     const recentEvents = allEvents.slice(0, showCount);
     const olderEvents = allEvents.slice(showCount);
+    const pendingHideTimers = new WeakMap();
     let visibleCount = showCount;
 
     // 進場動畫：滑入視窗時才播放，減少動畫模式下就直接靜態顯示
@@ -113,7 +114,7 @@ function initMilestoneTimelines() {
         const rect = e.getBoundingClientRect();
         if (rect.top <= anchorY && rect.bottom >= anchorY) {
           closest = e;
-          break; 
+          break;
         }
         const distance = Math.abs(rect.top + rect.height / 2 - anchorY);
         if (distance < minDistance) {
@@ -166,6 +167,11 @@ function initMilestoneTimelines() {
 
       toShow.forEach((e) => {
         if (!e.hidden && e.classList.contains("is-visible")) return; // 已經是展開狀態，不重跑動畫
+        const pendingHideTimer = pendingHideTimers.get(e);
+        if (pendingHideTimer) {
+          clearTimeout(pendingHideTimer);
+          pendingHideTimers.delete(e);
+        }
         e.hidden = false;
         e.classList.remove("is-collapsed");
       });
@@ -176,8 +182,13 @@ function initMilestoneTimelines() {
         if (e.hidden && !e.classList.contains("is-visible")) return; // 本來就沒展開過
         e.classList.remove("is-visible");
         e.classList.add("is-collapsed");
-        e.addEventListener("transitionend", () => { e.hidden = true; }, { once: true });
-        setTimeout(() => { e.hidden = true; }, reduceMotion ? 0 : 450); // 動畫沒觸發時的保險
+        const pendingHideTimer = pendingHideTimers.get(e);
+        if (pendingHideTimer) clearTimeout(pendingHideTimer);
+        const hideTimer = setTimeout(() => {
+          e.hidden = true;
+          pendingHideTimers.delete(e);
+        }, reduceMotion ? 0 : 450); // 動畫沒觸發時的保險
+        pendingHideTimers.set(e, hideTimer);
       });
 
       // 全部收合回近期事件時，年份標籤要跟著跳回最後一筆近期事件

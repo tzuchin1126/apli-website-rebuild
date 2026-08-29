@@ -1,9 +1,6 @@
-// ==========================================
+// ---------------------------------------------------------------------------
 // 服務項目頁面：服務切換標籤 + 各服務輪播
-// ==========================================
-
-/** 偏好減少動畫媒體查詢 */
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+// ---------------------------------------------------------------------------
 
 /**
  * 1. 服務切換標籤
@@ -28,14 +25,14 @@ function setupServiceTabs() {
       tab.tabIndex = isSelected ? 0 : -1;
     });
 
-     // 顯示/隱藏對應面板：同步 hidden、is-active 與 aria-hidden，
-     // 確保未選取面板不可聚焦、不被螢幕閱讀器朗讀
-     panels.forEach((panel) => {
-       const isActive = panel.id === selectedId;
-       panel.classList.toggle("is-active", isActive);
-       panel.setAttribute("aria-hidden", String(!isActive));
-       panel.hidden = !isActive;
-     });
+    // 顯示/隱藏對應面板：同步 hidden、is-active 與 aria-hidden，
+    // 確保未選取面板不可聚焦、不被螢幕閱讀器朗讀
+    panels.forEach((panel) => {
+      const isActive = panel.id === selectedId;
+      panel.classList.toggle("is-active", isActive);
+      panel.setAttribute("aria-hidden", String(!isActive));
+      panel.hidden = !isActive;
+    });
 
     if (updateHash) history.replaceState(null, "", `#${selectedId}`);
   }
@@ -66,6 +63,7 @@ function setupServiceTabs() {
  * - 無障礙：aria-hidden、aria-current、aria-label
  */
 function setupServiceCarousels() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const carousels = [...document.querySelectorAll("[data-service-carousel]")];
 
   carousels.forEach((carousel) => {
@@ -154,7 +152,9 @@ function setupServiceCarousels() {
       });
     });
 
-    // ===== 觸控/滑鼠拖曳 =====
+    // ---------------------------------------------------------------------------
+    // 觸控/滑鼠拖曳
+    // ---------------------------------------------------------------------------
     /**
      * 完成拖曳，決定是否切換 slide
      * @param {PointerEvent} event
@@ -237,7 +237,7 @@ function initServices() {
   setupServiceCarousels();
 }
 
-// ==========================================
+// ---------------------------------------------------------------------------
 // 啟動
-// ==========================================
+// ---------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", initServices);

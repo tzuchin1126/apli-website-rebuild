@@ -33,4 +33,4 @@ function setupResourcesLocationMotion() {
   }, { once: true });
 }
 
-setupResourcesLocationMotion();
+document.addEventListener("DOMContentLoaded", setupResourcesLocationMotion);

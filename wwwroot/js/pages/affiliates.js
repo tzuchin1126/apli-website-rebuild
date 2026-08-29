@@ -13,11 +13,11 @@ function initAffiliates() {
         item.tabIndex = isSelected ? 0 : -1; // 只有啟用的分頁可被 Tab 聚焦
       });
 
-       panels.forEach((panel) => {
-         const isActive = panel.id === panelId;
-         panel.classList.toggle("is-active", isActive);
-         panel.setAttribute("aria-hidden", String(!isActive));
-       });
+      panels.forEach((panel) => {
+        const isActive = panel.id === panelId;
+        panel.classList.toggle("is-active", isActive);
+        panel.setAttribute("aria-hidden", String(!isActive));
+      });
     }
 
     tabs.forEach((tab, index) => {

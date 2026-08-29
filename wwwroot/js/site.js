@@ -1,8 +1,13 @@
-
+/** 等待頁面初始可見圖片與字型就緒後移除載入狀態。 */
 (() => {
   const loader = document.querySelector("[data-page-loader]");
   if (!loader) return;
 
+  /**
+   * 等待單張圖片載入並完成解碼。
+   * @param {HTMLImageElement} image - 要等待的圖片元素
+   * @returns {Promise<void>} 圖片載入或解碼完成
+   */
   function waitForImageDecode(image) {
     return new Promise((resolve) => {
       function finish() {
@@ -27,6 +32,7 @@
     });
   }
 
+  /** 等待頁面資源就緒並切換至可見狀態。 */
   async function revealPage() {
     await new Promise((resolve) => {
       window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
@@ -34,7 +40,7 @@
 
     const readyImages = Array.from(document.images).filter((image) => {
       if (image.closest("[data-hero-carousel]")) return true;
-      if (image.closest('[aria-hidden="true"]')) return false;
+      if (image.closest("[aria-hidden='true']")) return false;
 
       const bounds = image.getBoundingClientRect();
       return bounds.bottom > 0
@@ -73,6 +79,7 @@
   const mobileScreen = window.matchMedia("(max-width: 840px)");
 
   // 根據螢幕大小決定 Footer 是否展開
+  /** 依目前視窗寬度展開或收合 Footer 欄位。 */
   function updateFooter() {
     footerColumns.forEach((column) => {
       // 手機版：關閉
@@ -96,6 +103,11 @@
   const isHomePage = document.body.classList.contains("home-page");
 
 
+  /**
+   * 移除路徑尾端斜線，統一目前頁面與導覽連結比較格式。
+   * @param {string} path - 原始路徑
+   * @returns {string} 正規化後的路徑
+   */
   function cleanPath(path) {
     const newPath = path.replace(/\/+$/, "");
     return newPath || "/";
@@ -130,6 +142,7 @@
   });
 
 
+  /** 更新首頁 Header 的捲動狀態。 */
   function updateHeaderOnScroll() {
     if (!isHomePage || !header) return;
 
@@ -147,6 +160,11 @@
 
   const dropdowns = [...navigation.querySelectorAll(".nav-dropdown")];
 
+  /**
+   * 設定導覽下拉選單的 CSS 與 ARIA 狀態。
+   * @param {HTMLElement} dropdown - 下拉選單容器
+   * @param {boolean} isOpen - 是否展開
+   */
   function setDropdownState(dropdown, isOpen) {
     const button = dropdown.querySelector(":scope > .nav-link");
     const menu = dropdown.querySelector(":scope > .nav-menu");
@@ -156,6 +174,7 @@
     menu?.setAttribute("aria-hidden", String(!isOpen));
   }
 
+  /** 關閉所有導覽下拉選單。 */
   function closeDropdowns() {
     dropdowns.forEach((dropdown) => setDropdownState(dropdown, false));
   }
@@ -268,11 +287,12 @@
   const button = document.createElement("button"); // 建立按鈕
   button.className = "back-to-top";
   button.type = "button";
-  button.setAttribute("aria-label", "回到頁面頂端");// 無障礙文字
+  button.setAttribute("aria-label", "回到頁面頂端"); // 無障礙文字
   button.innerHTML = `<i class="ph ph-caret-up" aria-hidden="true"></i>`;
   document.body.append(button);
 
 
+  /** 依捲動位置顯示或隱藏回到頂端按鈕。 */
   function updateBackToTop() {
     const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight; // 頁面可以滾動的高度
     if (scrollableHeight < 320) {
