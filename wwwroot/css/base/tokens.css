@@ -20,6 +20,8 @@
   --content-padding: clamp(20px, 2vw, 24px);
   --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
+  --site-laptop-max-width: 1280px;
+  --site-laptop-content-inset: 40px;
   --button-primary-bg: #40403e;
   --button-primary-hover-bg: var(--color-primary);
   --button-primary-color: var(--color-surface);
@@ -58,6 +60,13 @@
   --page-hero-image-duration: 6s;
   --page-hero-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --page-hero-text-duration: 700ms;
+}
+
+@media (min-width: 1200px) and (max-width: 1440px) {
+  :root {
+    --content-max-width: var(--site-laptop-max-width);
+    --site-max-width: var(--site-laptop-max-width);
+  }
 }
 
 @media (max-width: 760px) {

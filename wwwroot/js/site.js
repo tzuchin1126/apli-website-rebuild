@@ -1,7 +1,4 @@
 
-// ======================================================
-// 0. 首屏就緒遮罩：等待目前視窗內圖片與字型完成
-// ======================================================
 (() => {
   const loader = document.querySelector("[data-page-loader]");
   if (!loader) return;
@@ -64,11 +61,7 @@
   revealPage();
 })();
 
-// ======================================================
-// 1. Footer：手機版收合、電腦版展開
-// ======================================================
 (() => {
-  // 找到 Footer 裡所有可收合的區塊
   const footerColumns = document.querySelectorAll(
     ".site-footer .footer-column"
   );
@@ -93,26 +86,16 @@
 })();
 
 
-// ======================================================
-// 2. Header / Navigation：選單、下拉選單、目前頁面狀態
-// ======================================================
 (() => {
   const header = document.querySelector(".site-header");
   const menuButton = document.querySelector(".menu-toggle");
   const navigation = document.querySelector("#main-navigation");
 
-  // 如果找不到選單按鈕或導覽列，就停止執行
   if (!menuButton || !navigation) return;
 
-  // 判斷現在是不是首頁
   const isHomePage = document.body.classList.contains("home-page");
 
 
-  // ------------------------------------------------------
-  // 判斷目前所在頁面，幫對應的導覽連結加上 active 狀態
-  // ------------------------------------------------------
-
-  // 移除網址最後多餘的 /
   function cleanPath(path) {
     const newPath = path.replace(/\/+$/, "");
     return newPath || "/";
@@ -121,22 +104,18 @@
   const currentUrl = new URL(window.location.href);
   const currentPath = cleanPath(currentUrl.pathname);
 
-  // 檢查導覽列裡的所有連結
   navigation.querySelectorAll("a").forEach((link) => {
     const linkUrl = new URL(link.href, document.baseURI);
     const linkPath = cleanPath(linkUrl.pathname);
 
-    // 判斷是不是目前頁面
     const isCurrentPage =
       linkPath === currentPath ||
       (linkPath !== "/" && currentPath.startsWith(linkPath + "/"));
 
     if (!isCurrentPage) return;
 
-    // 告訴瀏覽器 / 輔助工具：這是目前所在頁面
     link.setAttribute("aria-current", "page");
 
-    // 如果連結位於下拉選單裡，也讓父層選單顯示 active
     const dropdown = link.closest(".nav-dropdown");
 
     if (dropdown) {
@@ -151,15 +130,9 @@
   });
 
 
-  // ------------------------------------------------------
-  // 首頁 Header 滾動效果
-  // ------------------------------------------------------
-
   function updateHeaderOnScroll() {
-    // 只有首頁需要這個效果
     if (!isHomePage || !header) return;
 
-    // 往下捲超過 8px，就加上 is-scrolled
     header.classList.toggle("is-scrolled", window.scrollY > 8);
   }
 
@@ -168,14 +141,9 @@
       passive: true
     });
 
-    // 頁面載入時先判斷一次
     updateHeaderOnScroll();
   }
 
-
-  // ------------------------------------------------------
-  // 下拉選單狀態
-  // ------------------------------------------------------
 
   const dropdowns = [...navigation.querySelectorAll(".nav-dropdown")];
 
@@ -192,8 +160,6 @@
     dropdowns.forEach((dropdown) => setDropdownState(dropdown, false));
   }
 
-  // 桌機保留滑入開啟，鍵盤焦點進入時也同步更新 ARIA 狀態。
-  // visibility 由 CSS 同步控制，避免不可見的子選單連結進入 Tab 順序。
   dropdowns.forEach((dropdown) => {
     const button = dropdown.querySelector(":scope > .nav-link");
     const menu = dropdown.querySelector(":scope > .nav-menu");
@@ -223,11 +189,6 @@
     });
   });
 
-
-  // ------------------------------------------------------
-  // 手機版主選單開啟 / 關閉
-  // ------------------------------------------------------
-
   menuButton.addEventListener("click", () => {
     const isOpen =
       menuButton.getAttribute("aria-expanded") === "true";
@@ -246,16 +207,11 @@
       header.classList.toggle("is-menu-open", newState);
     }
 
-    // 主選單關閉時，也把下拉選單一起關閉
     if (!newState) {
       closeDropdowns();
     }
   });
 
-
-  // ------------------------------------------------------
-  // 手機版下拉選單
-  // ------------------------------------------------------
 
   const dropdownButtons =
     navigation.querySelectorAll(".nav-dropdown > .nav-link");
@@ -263,31 +219,23 @@
   dropdownButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
-      // 電腦版不使用點擊開關下拉選單
       if (window.innerWidth >= 841) return;
 
       const dropdown = button.closest(".nav-dropdown");
 
       if (!dropdown) return;
 
-      // 切換開啟 / 關閉
       const isOpen = !dropdown.classList.contains("is-open");
       setDropdownState(dropdown, isOpen);
     });
   });
 
 
-  // ------------------------------------------------------
-  // 點擊導覽連結後，自動關閉手機版選單
-  // ------------------------------------------------------
 
   navigation.addEventListener("click", (event) => {
-
-    // 如果點到的不是連結，不處理
     if (!event.target.closest("a")) return;
 
     menuButton.setAttribute("aria-expanded", "false");
-
     menuButton.classList.remove("is-open");
     navigation.classList.remove("is-open");
 
@@ -298,10 +246,6 @@
     closeDropdowns();
   });
 
-
-  // ------------------------------------------------------
-  // 按 ESC 關閉所有選單
-  // ------------------------------------------------------
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
@@ -320,9 +264,6 @@
 })();
 
 
-// ======================================================
-// 3. Back To Top：回到頁面頂端按鈕
-// ======================================================
 (() => {
   const button = document.createElement("button"); // 建立按鈕
   button.className = "back-to-top";
@@ -332,30 +273,19 @@
   document.body.append(button);
 
 
-  // ------------------------------------------------------
-  // 判斷按鈕要不要顯示
-  // ------------------------------------------------------
-
   function updateBackToTop() {
     const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight; // 頁面可以滾動的高度
-    // 頁面太短就完全不需要回頂端按鈕
     if (scrollableHeight < 320) {
       button.classList.remove("is-visible");
       return;
     }
 
-    // 往下捲超過 300px 才顯示
     if (window.scrollY > 300) {
       button.classList.add("is-visible");
     } else {
       button.classList.remove("is-visible");
     }
   }
-
-
-  // ------------------------------------------------------
-  // 點擊後回到頁面最上方
-  // ------------------------------------------------------
 
   button.addEventListener("click", () => {
     window.scrollTo({
@@ -364,15 +294,11 @@
     });
   });
 
-
-  // 滾動頁面時更新按鈕狀態
   window.addEventListener("scroll", updateBackToTop, {
     passive: true
   });
 
-  // 視窗大小改變時也重新判斷
   window.addEventListener("resize", updateBackToTop);
 
-  // 頁面第一次載入時執行
   updateBackToTop();
 })();
