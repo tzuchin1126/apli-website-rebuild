@@ -4,51 +4,80 @@
             <a class="site-footer__logo" href="/" aria-label="亞太國際物流首頁">
                 <img src="/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
             </a>
+            <address class="site-footer__contact">
+                <p>地址：高雄市小港區東亞路 2 號</p>
+                <p>電話：<a href="tel:+88678111121">07-811-1121</a></p>
+                <p>Email：<a href="mailto:apadm@mail.apli.com.tw">apadm@mail.apli.com.tw</a></p>
+            </address>
         </div>
 
         <nav class="site-footer__nav" aria-label="頁尾導覽">
-            <details class="footer-column" open>
-                <summary><span class="footer-column__title" role="heading" aria-level="2">關於亞太</span></summary>
-                <div class="footer-column__links">
-                    <a href="/about#company-profile">公司簡介</a>
-                    <a href="/about#core-values">經營理念</a>
-                    <a href="/company-history">公司沿革</a>
-                    <a href="/about#certifications">公司認證</a>
-                    <a href="/affiliates">關係企業</a>
-                </div>
-            </details>
-
-            <details class="footer-column" open>
-                <summary><span class="footer-column__title" role="heading" aria-level="2">服務項目</span></summary>
-                <div class="footer-column__links">
-                    <a href="/services#warehousing">倉儲物流</a>
-                    <a href="/services#terminal-handling">貨櫃清洗與維修</a>
-                    <a href="/services#maintenance">機具維修與銷售</a>
-                </div>
-            </details>
-
-            <details class="footer-column" open>
-                <summary><span class="footer-column__title" role="heading" aria-level="2">營運資源</span></summary>
-                <div class="footer-column__links">
-                    <a href="/operational-resources">營運資源</a>
-                    <a href="/operational-resources#facilities">場區設施</a>
-                    <a href="/operational-resources#equipment-config">設備配置</a>
-                    <a href="/occupational-safety">職業安全衛生</a>
-                </div>
-            </details>
-
-            <details class="footer-column footer-column--quick-links" open>
-                <summary><span class="footer-column__title" role="heading" aria-level="2">快速連結</span></summary>
-                <div class="footer-column__links">
-                    <a href="/news">最新消息</a>
-                    <a href="/careers">人才招募</a>
-                    <a href="/contact">聯絡我們</a>
-                    <div class="footer-legal-links">
-                        <a href="/privacy">隱私權政策</a>
-                        <a href="/Admin">員工專區</a>
+            <section class="footer-column" data-footer-open="false">
+                <h2 class="footer-column__heading">
+                    <button class="footer-column__toggle" type="button" aria-expanded="false" aria-controls="footer-about-links">
+                        <span class="footer-column__title">關於亞太</span>
+                    </button>
+                </h2>
+                <div class="footer-column__links" id="footer-about-links">
+                    <div class="footer-column__links-inner">
+                        <a href="/about#company-profile">公司簡介</a>
+                        <a href="/about#core-values">經營理念</a>
+                        <a href="/company-history">公司沿革</a>
+                        <a href="/about#certifications">公司認證</a>
+                        <a href="/affiliates">關係企業</a>
                     </div>
                 </div>
-            </details>
+            </section>
+
+            <section class="footer-column" data-footer-open="false">
+                <h2 class="footer-column__heading">
+                    <button class="footer-column__toggle" type="button" aria-expanded="false" aria-controls="footer-services-links">
+                        <span class="footer-column__title">服務項目</span>
+                    </button>
+                </h2>
+                <div class="footer-column__links" id="footer-services-links">
+                    <div class="footer-column__links-inner">
+                        <a href="/services#warehousing">倉儲物流</a>
+                        <a href="/services#terminal-handling">貨櫃清洗與維修</a>
+                        <a href="/services#maintenance">機具維修與銷售</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="footer-column" data-footer-open="false">
+                <h2 class="footer-column__heading">
+                    <button class="footer-column__toggle" type="button" aria-expanded="false" aria-controls="footer-resources-links">
+                        <span class="footer-column__title">營運資源</span>
+                    </button>
+                </h2>
+                <div class="footer-column__links" id="footer-resources-links">
+                    <div class="footer-column__links-inner">
+                        <a href="/operational-resources">營運資源</a>
+                        <a href="/operational-resources#facilities">場區設施</a>
+                        <a href="/operational-resources#equipment-config">設備配置</a>
+                        <a href="/occupational-safety">職業安全衛生</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="footer-column footer-column--quick-links" data-footer-open="false">
+                <h2 class="footer-column__heading">
+                    <button class="footer-column__toggle" type="button" aria-expanded="false" aria-controls="footer-quick-links">
+                        <span class="footer-column__title">快速連結</span>
+                    </button>
+                </h2>
+                <div class="footer-column__links" id="footer-quick-links">
+                    <div class="footer-column__links-inner">
+                        <a href="/news">最新消息</a>
+                        <a href="/careers">人才招募</a>
+                        <a href="/contact">聯絡我們</a>
+                        <div class="footer-legal-links">
+                            <a href="/privacy">隱私權政策</a>
+                            <a href="/Admin">員工專區</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </nav>
     </div>
 

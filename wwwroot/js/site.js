@@ -72,21 +72,38 @@
     ".site-footer .footer-column"
   );
 
-  
   if (!footerColumns.length) return;
 
   // 840px 以下視為手機 / 平板版
   const mobileScreen = window.matchMedia("(max-width: 840px)");
 
+  function setColumnState(column, isOpen) {
+    const toggle = column.querySelector(".footer-column__toggle");
+    const links = column.querySelector(".footer-column__links");
+
+    column.dataset.footerOpen = String(isOpen);
+    toggle?.setAttribute("aria-expanded", String(isOpen));
+
+    if (links) links.inert = !isOpen;
+  }
+
   // 根據螢幕大小決定 Footer 是否展開
   /** 依目前視窗寬度展開或收合 Footer 欄位。 */
   function updateFooter() {
     footerColumns.forEach((column) => {
-      // 手機版：關閉
-      // 電腦版：展開
-      column.open = !mobileScreen.matches;
+      setColumnState(column, !mobileScreen.matches);
     });
   }
+
+  footerColumns.forEach((column) => {
+    const toggle = column.querySelector(".footer-column__toggle");
+
+    toggle?.addEventListener("click", () => {
+      if (!mobileScreen.matches) return;
+
+      setColumnState(column, column.dataset.footerOpen !== "true");
+    });
+  });
 
   updateFooter();
   mobileScreen.addEventListener("change", updateFooter); // 當螢幕寬度跨過 840px 時重新判斷
