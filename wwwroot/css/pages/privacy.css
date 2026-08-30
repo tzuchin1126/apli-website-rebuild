@@ -13,17 +13,17 @@
   margin: 0 0 clamp(24px, 3vw, 32px);
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.625rem, 3vw, 2.5rem);
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: normal;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .privacy-page .privacy-policy h2 {
   margin: 32px 0 10px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.25rem, 1.1rem + 0.3vw, 1.5rem);
+  font-size: var(--font-size-h3);
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
 }
@@ -31,8 +31,8 @@
 .privacy-page .privacy-policy p {
   margin: 0 0 12px;
   color: var(--color-muted);
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
 }
 
 .privacy-page .privacy-policy a {
@@ -68,13 +68,13 @@
 
   .privacy-page .privacy-policy__title {
     margin-bottom: 24px;
-    font-size: 1.625rem;
-    line-height: 1.45;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-heading);
   }
 
   .privacy-page .privacy-policy h2 {
     margin: 28px 0 8px;
-    font-size: 1.25rem;
-    line-height: 1.5;
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-heading);
   }
 }

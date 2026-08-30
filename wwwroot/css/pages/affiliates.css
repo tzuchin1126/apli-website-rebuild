@@ -7,7 +7,7 @@
 .affiliate-tabs { margin-bottom: var(--affiliates-content-gap); overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
 .affiliate-tabs::-webkit-scrollbar { display: none; }
 .affiliate-tabs__track { display: flex; width: max-content; border-bottom: 1px solid var(--color-line); }
-.affiliate-tabs button { position: relative; flex: 0 0 auto; min-height: 52px; padding: 12px 20px; border: 0; border-radius: var(--card-radius); background: transparent; color: var(--color-muted); cursor: pointer; font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-normal); line-height: 1.5; white-space: nowrap; transition: background-color 0.2s ease, color 0.2s ease; }
+.affiliate-tabs button { position: relative; flex: 0 0 auto; min-height: 52px; padding: 12px 20px; border: 0; border-radius: var(--card-radius); background: transparent; color: var(--color-muted); cursor: pointer; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); letter-spacing: var(--letter-spacing-body); white-space: nowrap; transition: background-color 0.2s ease, color 0.2s ease; }
 .affiliate-tabs button:hover, .affiliate-tabs button:focus-visible { background: var(--color-surface-soft); }
 .affiliate-tabs button[aria-selected="true"] { color: var(--color-ink); }
 .affiliate-tabs button[aria-selected="true"]::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; border-radius: var(--radius-full) var(--radius-full) 0 0; background: var(--color-primary); content: ""; }
@@ -56,10 +56,10 @@
 .affiliate-club-cta-link { width: fit-content; }
 .affiliates-page .button--primary { border-radius: var(--card-radius); background: var(--color-secondary); }
 .affiliates-page .button--primary:hover, .affiliates-page .button--primary:focus-visible { background: var(--color-primary); color: var(--button-primary-color); }
-.affiliate-panel h2 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.625rem, 4vw, 2.5rem); font-weight: 600; line-height: clamp(2rem, 3vw, 2.5rem); letter-spacing: normal; }
-.affiliate-panel h3 { margin: 20px 0 0; padding: 0; color: var(--color-ink); font-family: var(--font-body); font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem); font-weight: var(--font-weight-section-heading); line-height: 1.5; }
-.affiliate-panel p { margin: 0; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-normal); line-height: 1.75; }
-.affiliate-panel ul { display: grid; gap: 10px; margin: 0; padding: 0 0 0 20px; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-normal); line-height: 1.75; list-style-type: circle; }
+.affiliate-panel h2 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-h2); font-weight: var(--font-weight-medium); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-tight); }
+.affiliate-panel h3 { margin: 20px 0 0; padding: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-h3); font-weight: var(--font-weight-medium); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-tight); }
+.affiliate-panel p { margin: 0; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-lg); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); }
+.affiliate-panel ul { display: grid; gap: 10px; margin: 0; padding: 0 0 0 20px; color: var(--color-muted); font-family: var(--font-body); font-size: var(--font-size-body-lg); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); list-style-type: circle; }
 .affiliate-panel li::marker { color: var(--color-ink); }
 .affiliate-oil-locations { display: grid; gap: 14px; margin-top: 0; }
 .affiliate-locations-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }

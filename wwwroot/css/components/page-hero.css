@@ -8,7 +8,7 @@
   border-bottom: clamp(6px, .5vw, 8px) solid var(--color-primary);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: clamp(30px, 3.5vw, 52px);
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .page-hero__media,
@@ -40,12 +40,12 @@
   height: 100%;
   margin: 0;
   place-items: center;
-  color: var(--color-surface);
+  color: var(--color-text-on-dark);
   font-family: var(--font-body);
-  font-size: clamp(2.375rem, 3.5vw, 3.125rem);
-  font-weight: 300;
-  line-height: 1.12;
-  letter-spacing: normal;
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .page-hero > .page-hero__title,
@@ -64,7 +64,7 @@
   min-height: 100%;
   align-content: center;
   gap: clamp(22px, 3vw, 36px);
-  color: var(--color-surface);
+  color: var(--color-text-on-dark);
 }
 
 .page-hero--quote .page-hero__title {
@@ -76,18 +76,18 @@
   max-width: 900px;
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2.1vw, 1.8rem);
-  line-height: 1.65;
-  letter-spacing: 0.04em;
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
   text-shadow: 0 3px 24px rgb(0 0 0 / 36%);
 }
 
 .page-hero--quote cite {
   display: block;
   margin-top: 18px;
-  font-size: 0.95rem;
+  font-size: var(--font-size-label);
   font-style: normal;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--letter-spacing-label);
   text-align: right;
 }
 
@@ -109,7 +109,7 @@
   }
 
   .page-hero__title {
-    line-height: 1;
+    line-height: var(--line-height-heading-tight);
   }
 
   .page-hero--quote .page-hero__content {
@@ -117,8 +117,8 @@
   }
 
   .page-hero--quote blockquote {
-    font-size: clamp(0.85rem, 4vw, 1rem);
-    line-height: 1.55;
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-tight);
   }
 
   .page-hero--quote cite {

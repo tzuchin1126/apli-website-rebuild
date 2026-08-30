@@ -1,5 +1,5 @@
 .admin-page {
-  --admin-background: #f2f4f1;
+  --admin-background: var(--color-surface-subtle);
   --admin-panel: var(--color-surface);
   --admin-ink: var(--color-ink);
   --admin-muted: var(--color-muted);

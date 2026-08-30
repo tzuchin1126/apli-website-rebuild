@@ -23,10 +23,10 @@
 .safety-page .eyebrow {
   margin: 0 0 18px;
   color: var(--color-muted);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  line-height: 1.73;
-  letter-spacing: 0.04em;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-label);
 }
 
 .safety-page .safety-heading h2,
@@ -37,19 +37,19 @@
   color: var(--color-ink);
   font-family: var(--font-heading);
   font-size: var(--safety-title-size);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--safety-title-line-height);
   letter-spacing: 0.04em;
-  filter: drop-shadow(0 2px 10px rgb(15 50 66 / 8%));
+  filter: drop-shadow(0 2px 10px rgb(0 0 0 / 8%));
 }
 
 .safety-page .safety-credentials__heading h2 {
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.625rem, 4vw, 2.5rem);
-  font-weight: 600;
-  line-height: clamp(2rem, 3vw, 2.5rem);
-  letter-spacing: normal;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
   filter: none;
 }
 
@@ -172,10 +172,10 @@
   margin: 0 0 8px;
   color: var(--color-muted);
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  letter-spacing: 0.08em;
-  line-height: 1.5;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-label);
+  line-height: var(--line-height-body-tight);
 }
 
 .safety-page .safety-credentials__heading > p:last-child {
@@ -298,9 +298,9 @@
   margin: 0;
   padding: 0;
   color: var(--color-ink);
-  font-size: clamp(1.05rem, 1.2vw, 1.18rem);
-  font-weight: var(--font-weight-semibold);
-  line-height: 1.35;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
   transform: translateY(20px);
 }
 
@@ -359,7 +359,7 @@
 .safety-page .safety-credentials__page.is-active::before {
   width: 24px;
   border-radius: var(--radius-full);
-  background: #40403e;
+  background: var(--color-surface-inverse);
 }
 
 .safety-page .safety-credentials__arrow .ph {
@@ -435,7 +435,7 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: rgb(34 53 71 / 14%);
+  background: rgb(0 0 0 / 14%);
   content: "";
   pointer-events: none;
 }

@@ -18,12 +18,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
-  <link rel="preload" as="image" href="public/images/contact/contact-us.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260828-laptop-spacing-v1">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260830-neutral-type-tokens-v2">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
-  <link rel="stylesheet" href="css/pages/contact.css?v=20260817-equal-section-spacing-v1">
+  <link rel="stylesheet" href="css/pages/contact.css?v=20260830-contact-editorial-v4">
   <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
 </head>
 
@@ -114,49 +113,46 @@
       </div>
     </div>
 
-    <!-- 聯絡我們 Hero -->
-    <section class="contact-hero page-hero" aria-labelledby="contact-hero-title">
-      <picture class="contact-hero__media page-hero__media">
-        <img class="contact-hero__image page-hero__image" src="public/images/contact/contact-us.jpg" width="5290" height="3527" alt="亞太國際物流聯絡服務" fetchpriority="high" loading="eager" decoding="async">
-      </picture>
-      <div class="contact-hero__overlay page-hero__overlay" aria-hidden="true"></div>
-      <h1 class="page-hero__title" id="contact-hero-title">聯絡我們</h1>
+    <!-- 聯絡我們 Intro -->
+    <section class="contact-intro site-container" aria-labelledby="contact-intro-title">
+      <div class="contact-intro__heading">
+        <p class="eyebrow">CONTACT</p>
+        <h1 class="contact-intro__title" id="contact-intro-title">聯絡我們</h1>
+      </div>
     </section>
 
     <!-- 聯絡我們內容區 -->
-    <section class="contact-content site-container" aria-labelledby="contact-title">
-      <div class="contact-company-location">
-        <!-- 公司資訊 -->
-        <div class="contact-company-info">
-          <p class="eyebrow">COMPANY INFORMATION</p>
-          <h2 class="contact-company-info__title" id="contact-title">公司資訊</h2>
-          <address>
-            <dl class="contact-company-info__list">
-              <div>
-                <dt>公司地址</dt>
-                <dd>高雄市小港區東亞路 2 號</dd>
-              </div>
-              <div>
-                <dt>總機專線</dt>
-                <dd><a href="tel:+88678111121">07-811-1121</a></dd>
-              </div>
-              <div>
-                <dt>服務信箱</dt>
-                <dd><a href="mailto:apadm@mail.apli.com.tw">apadm@mail.apli.com.tw</a></dd>
-              </div>
-              <div>
-                <dt>服務時間</dt>
-                <dd>週一至週五 08:00 - 17:30<br>午休時間 12:00 - 13:30</dd>
-              </div>
-              <div>
-                <dt>停車資訊</dt>
-                <dd>公司備有停車位，來訪前可先與聯絡窗口確認停車安排</dd>
-              </div>
-            </dl>
-          </address>
-        </div>
+    <section class="contact-content site-container" aria-label="聯絡資訊與公司位置">
+      <div class="contact-information">
+        <address>
+          <dl class="contact-information__list">
+            <div class="contact-information__row">
+              <dt>公司地址</dt>
+              <dd>高雄市小港區東亞路 2 號</dd>
+            </div>
+            <div class="contact-information__row">
+              <dt>聯絡方式</dt>
+              <dd class="contact-information__stack">
+                <a href="tel:+88678111121">07-811-1121</a>
+                <a href="mailto:apadm@mail.apli.com.tw">apadm@mail.apli.com.tw</a>
+              </dd>
+            </div>
+            <div class="contact-information__row">
+              <dt>服務時間</dt>
+              <dd class="contact-information__stack">
+                <span>週一至週五 08:00 - 17:30</span>
+                <span>午休時間 12:00 - 13:30</span>
+              </dd>
+            </div>
+            <div class="contact-information__row">
+              <dt>停車資訊</dt>
+              <dd>公司備有停車位，來訪前可先聯絡窗口確認停車安排</dd>
+            </div>
+          </dl>
+        </address>
+      </div>
 
-        <!-- 公司位置地圖 -->
+      <div class="contact-map-section">
         <div class="contact-company-map">
           <iframe
             class="map-canvas"
@@ -168,7 +164,6 @@
           </iframe>
         </div>
       </div>
-
     </section>
   </main>
 

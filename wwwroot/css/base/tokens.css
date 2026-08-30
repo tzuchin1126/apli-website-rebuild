@@ -1,19 +1,55 @@
 :root {
-  --color-primary: #f58214;
-  --color-primary-dark: #9e4e17;
-  --color-secondary: #223547;
-  --color-ink: #141414;
-  --color-muted: #5c5c5c;
-  --color-surface: #fff;
-  --color-surface-soft: #f7f7f7;
-  --color-line: #e3e6e1;
+  /* Brand */
+  --color-primary: #F58214;
+  --color-primary-soft: rgb(245 130 20 / 14%);
+
+  /* Neutral text and surfaces: black, white, and grayscale only. */
+  --color-text-primary: #000000;
+  --color-text-secondary: rgb(0 0 0 / 60%);
+  --color-text-muted: rgb(0 0 0 / 40%);
+  --color-text-on-dark: #ffffff;
+  --color-background: #ffffff;
+  --color-surface-subtle: #f5f5f5;
+  --color-surface-inverse: #000000;
+  --color-border: rgb(0 0 0 / 16%);
+  --color-border-light: rgb(0 0 0 / 10%);
+
+  /* Compatibility aliases for existing components. */
+  --color-primary-dark: var(--color-primary);
+  --color-secondary: var(--color-surface-inverse);
+  --color-ink: var(--color-text-primary);
+  --color-muted: var(--color-text-secondary);
+  --color-surface: var(--color-background);
+  --color-surface-soft: var(--color-surface-subtle);
+  --color-line: var(--color-border);
+
   --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
-  --font-weight-normal: 400;
+  --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
+  --font-weight-normal: var(--font-weight-regular);
   --font-weight-section-heading: var(--font-weight-medium);
-  --font-size-body-copy: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+
+  /* Polestar-inspired type scale, adapted for Chinese text rendering. */
+  --font-size-display: clamp(2.5rem, 5vw, 4rem);
+  --font-size-h1: clamp(2rem, 3.5vw, 3rem);
+  --font-size-h2: clamp(1.625rem, 3vw, 2.5rem);
+  --font-size-h3: clamp(1.25rem, 1.8vw, 1.5rem);
+  --font-size-body-lg: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
+  --font-size-body: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-label: 0.875rem;
+  --font-size-caption: 0.75rem;
+  --font-size-body-copy: var(--font-size-body-lg);
+  --line-height-heading-tight: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-body-tight: 1.5;
+  --line-height-body: 1.75;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-body: -0.01875rem;
+  --letter-spacing-label: 0.08em;
+
   --section-space: clamp(24px, 3vw, 40px);
   --page-content-start-space: clamp(72px, 7vw, 112px);
   --content-max-width: 1324px;
@@ -22,9 +58,9 @@
   --site-padding: clamp(16px, 2.6vw, 24px);
   --site-laptop-max-width: 1280px;
   --site-laptop-content-inset: 40px;
-  --button-primary-bg: #40403e;
+  --button-primary-bg: var(--color-surface-inverse);
   --button-primary-hover-bg: var(--color-primary);
-  --button-primary-color: var(--color-surface);
+  --button-primary-color: var(--color-text-on-dark);
   --button-primary-min-height: 48px;
   --button-primary-gap: 12px;
   --button-primary-icon-size: 16px;
@@ -32,10 +68,10 @@
   --button-primary-radius: var(--radius-sm);
   --button-text-arrow-color: var(--color-primary-dark);
   --button-text-arrow-gap: 8px;
-  --button-text-arrow-font-size: 1rem;
+  --button-text-arrow-font-size: var(--font-size-body);
   --button-text-arrow-font-weight: var(--font-weight-normal);
-  --button-text-arrow-line-height: 1.73;
-  --button-text-arrow-letter-spacing: 0;
+  --button-text-arrow-line-height: var(--line-height-body-tight);
+  --button-text-arrow-letter-spacing: var(--letter-spacing-body);
   --button-text-arrow-icon-size: 16px;
   --button-icon-transition: transform 180ms ease;
   --button-text-arrow-hover-shift-x: 2px;
@@ -46,13 +82,14 @@
   --card-radius: var(--radius-md);
   --card-image-radius: var(--card-radius) var(--card-radius) 0 0;
   --shadow-sm: 0 2px 12px rgb(0 0 0 / 16%);
-  --shadow-lg: 0 12px 32px rgb(20 35 25 / 7%);
-  --shadow-card: 0 6px 18px rgb(15 50 66 / 5%);
-  --footer-background: #f0f0f0;
-  --footer-bottom-background: #40403e;
-  --footer-heading: var(--color-ink);
-  --footer-link: var(--color-muted);
-  --footer-divider: rgb(23 54 70 / 16%);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 7%);
+  --shadow-card: 0 6px 18px rgb(0 0 0 / 5%);
+  --footer-background: var(--color-surface-subtle);
+  --footer-bottom-background: var(--color-surface-inverse);
+  --footer-heading: var(--color-text-secondary);
+  --footer-link: var(--color-text-primary);
+  --footer-muted: var(--color-text-muted);
+  --footer-divider: var(--color-border);
   --page-hero-height: clamp(280px, 26vw, 350px);
   --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);

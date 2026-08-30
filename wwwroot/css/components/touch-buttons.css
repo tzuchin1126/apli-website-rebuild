@@ -197,7 +197,7 @@
   .services-page .service-carousel__control:active,
   .services-page .service-carousel__control:focus,
   .services-page .service-carousel__control:focus-visible {
-    background: rgb(15 50 66 / 72%);
+    background: rgb(0 0 0 / 72%);
   }
 
   .services-page .service-carousel__dot:not(.is-active):hover,

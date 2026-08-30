@@ -144,10 +144,10 @@
 .milestone-year-label time {
   display: block;
   color: var(--color-primary);
-  font-size: clamp(2.25rem, 2.5vw, 2.5rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading-tight);
 }
 
 .milestone-year-events {
@@ -193,9 +193,10 @@
 .milestone-event h2 {
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.25rem, 1.15rem + .15vw, 1.3125rem);
-  font-weight: 600;
-  line-height: 1.45;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .milestone-event p {
@@ -203,7 +204,7 @@
   margin-top: 14px;
   color: var(--color-muted);
   font-size: var(--font-size-body-copy);
-  line-height: 1.8;
+  line-height: var(--line-height-body);
 }
 
 @keyframes milestone-panel-in {
@@ -313,8 +314,8 @@
   }
 
   .milestone-year-label time {
-    font-size: clamp(1.125rem, 5vw, 1.25rem);
-    letter-spacing: -0.06em;
+    font-size: var(--font-size-h3);
+    letter-spacing: var(--letter-spacing-tight);
   }
 
   .milestone-year-events {
@@ -340,14 +341,14 @@
   }
 
   .milestone-event h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-heading);
   }
 
   .milestone-event p {
     margin-top: 10px;
-    line-height: 1.75;
+    line-height: var(--line-height-body);
   }
 
 }

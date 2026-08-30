@@ -35,10 +35,10 @@
   display: grid;
   gap: 6px;
   margin-top: 28px;
-  color: rgb(112 112 112);
-  font-size: 0.875rem;
+  color: var(--footer-muted);
+  font-size: var(--font-size-body-sm);
   font-style: normal;
-  line-height: 1.55;
+  line-height: var(--line-height-body-tight);
 }
 
 .site-footer__contact p {
@@ -78,7 +78,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgb(112 112 112);
+  color: var(--footer-heading);
   font: inherit;
   text-align: left;
   cursor: default;
@@ -86,10 +86,10 @@
 
 .footer-column__title {
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
-  letter-spacing: normal;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-body);
 }
 
 .footer-column__links {
@@ -108,10 +108,10 @@
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  color: var(--footer-heading);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  line-height: 1.45;
+  color: var(--footer-link);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -141,7 +141,9 @@
 
 .footer-copyright {
   margin: 0;
-  color: rgb(112 112 112);
+  color: var(--footer-muted);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-tight);
 }
 
 .footer-legal-links {
@@ -151,7 +153,7 @@
 .footer-legal-links a {
   min-height: 0;
   padding: 0;
-  color: var(--footer-heading);
+  color: var(--footer-link);
   font-size: inherit;
   font-weight: var(--font-weight-normal);
 }
@@ -190,7 +192,7 @@
     position: relative;
     min-height: 68px;
     padding-right: 24px;
-    color: var(--color-muted);
+    color: var(--footer-heading);
     cursor: pointer;
   }
 
@@ -244,7 +246,7 @@
   }
 
   .footer-column a {
-    font-size: 1rem;
+    font-size: var(--font-size-body);
   }
 
   .site-footer__bottom {

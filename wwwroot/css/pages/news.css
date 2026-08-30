@@ -1,7 +1,7 @@
 .news-page {
   --page-hero-image-position: center 75%;
-  --news-filter-text: #40403e;
-  --news-primary-soft: rgb(237 139 26 / 14%);
+  --news-filter-text: var(--color-text-primary);
+  --news-primary-soft: var(--color-primary-soft);
 }
 
 .news-content {
@@ -39,9 +39,10 @@
   background: var(--color-surface-soft);
   color: var(--news-filter-text);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: var(--font-weight-normal);
-  line-height: 1.35;
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-body);
   cursor: pointer;
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
@@ -142,8 +143,8 @@
   align-items: center;
   gap: 16px;
   color: var(--color-muted);
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-tight);
 }
 
 .news-row__date {
@@ -153,9 +154,10 @@
 .news-row__title {
   min-width: 0;
   color: var(--color-ink);
-  font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem);
+  font-size: var(--font-size-h3);
   font-weight: var(--font-weight-medium);
-  line-height: 1.5;
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
   overflow-wrap: anywhere;
   transition: color 180ms ease;
 }
@@ -165,8 +167,8 @@
   align-items: flex-start;
   gap: 8px;
   color: var(--color-muted);
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
 }
 
 .news-row__summary-text {
@@ -309,18 +311,18 @@
   }
 
   .news-row__meta {
-    font-size: 0.82rem;
-    line-height: 1.4;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-body-tight);
   }
 
   .news-row__title {
-    font-size: 1.125rem;
-    line-height: 1.5;
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-heading);
   }
 
   .news-row__summary {
-    font-size: 0.95rem;
-    line-height: 1.65;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
   }
 
   .news-row__icon {

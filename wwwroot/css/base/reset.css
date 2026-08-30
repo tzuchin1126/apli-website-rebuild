@@ -12,10 +12,12 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
 }
 
 img {

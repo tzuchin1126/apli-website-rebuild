@@ -92,8 +92,10 @@
   color: var(--color-muted);
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-body);
   white-space: nowrap;
 }
 
@@ -206,9 +208,9 @@
   max-width: none;
   margin: 0;
   color: var(--color-ink);
-  font-size: var(--font-size-body-copy);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.75;
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
   text-align: left;
 }
 
@@ -228,10 +230,10 @@
   margin: 0;
   color: var(--color-muted);
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  letter-spacing: 0.08em;
-  line-height: 1.5;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-label);
+  line-height: var(--line-height-body-tight);
   text-align: left;
 }
 
@@ -242,10 +244,10 @@
   padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
-  font-weight:600;
-  letter-spacing: normal;
-  line-height: 1.3;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading);
   text-align: left;
 }
 
@@ -265,9 +267,9 @@
   max-width: none;
   margin: 16px 0 0;
   color: var(--color-ink);
-  font-size: var(--font-size-body-copy);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.75;
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
   text-align: left;
 }
 
@@ -390,7 +392,7 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgb(15 50 66 / 72%);
+  background: rgb(0 0 0 / 72%);
   color: var(--color-surface);
   cursor: pointer;
   opacity: 0;
@@ -589,9 +591,10 @@
   padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .services-page .services-advantages__heading h2::after {
@@ -623,17 +626,17 @@
 .services-page .services-advantages__grid h3 {
   margin: 0 0 4px;
   color: var(--color-ink);
-  font-size: var(--font-size-body-copy);
-  font-weight: var(--font-weight-semibold);
-  line-height: 1.5;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
 }
 
 .services-page .services-advantages__grid p {
   max-width: none;
   margin: 0;
   color: var(--color-muted);
-  font-size: var(--font-size-body-copy);
-  line-height: 1.5;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
 }
 
 .services-page .services-contact {
@@ -894,14 +897,14 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--color-surface);
-  background: #102b36 url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
+  background: var(--color-surface-inverse) url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
 }
 
 .services-page .services-contact__card::before {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: rgb(10 37 47 / 30%);
+  background: rgb(0 0 0 / 30%);
   content: "";
 }
 
@@ -999,7 +1002,7 @@
 
   .services-page .services-advantages__heading h2 {
     font-size: var(--services-title-size);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     line-height: var(--services-title-line-height);
   }
 
