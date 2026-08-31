@@ -1,5 +1,0 @@
-2026/08/31-17:25:53.497 5c14 Creating DB C:\Users\U096\apli-website-rebuild\.edge-profile-type-1440\Default\EdgeCoupons/coupons_data.db since it was missing.
-2026/08/31-17:25:53.868 5c14 Reusing MANIFEST C:\Users\U096\apli-website-rebuild\.edge-profile-type-1440\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/08/31-17:25:55.086 3330 Level-0 table #5: started
-2026/08/31-17:25:55.141 3330 Level-0 table #5: 683273 bytes OK
-2026/08/31-17:25:55.143 3330 Delete type=0 #3
