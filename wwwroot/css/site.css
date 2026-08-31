@@ -9,17 +9,6 @@
   margin-inline: auto;
 }
 
-@media (min-width: 1200px) and (max-width: 1440px) {
-  .site-container {
-    padding-inline: var(--site-laptop-content-inset);
-  }
-
-  .site-header > .site-header__inner,
-  body.home-page > .site-header > .site-header__inner {
-    padding-inline: var(--site-laptop-content-inset);
-  }
-}
-
 .privacy-content p {
   font-size: var(--font-size-body-copy);
   line-height: var(--line-height-body);

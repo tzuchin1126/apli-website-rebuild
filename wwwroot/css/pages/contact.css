@@ -62,7 +62,7 @@
 }
 
 .contact-information__row dt {
-  color: var(--color-text-secondary);
+  color: var(--color-text-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-label);
@@ -110,7 +110,7 @@
 
 .eyebrow {
   margin: 0 0 8px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-label);

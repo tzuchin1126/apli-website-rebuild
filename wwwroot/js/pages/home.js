@@ -144,6 +144,85 @@ function setupContactCta() {
 }
 
 // ---------------------------------------------------------------------------
+// 服務卡片:手機點擊展開單一卡片；桌面維持整張卡片導頁
+// ---------------------------------------------------------------------------
+/** 初始化首頁服務卡片的手機 tap-to-reveal 互動。 */
+function setupServiceCards() {
+  const grid = document.querySelector(".home-service-grid");
+  if (!grid) return;
+
+  const cards = Array.from(grid.querySelectorAll(".home-service-grid__card"));
+  const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+  function isMobile() {
+    return mobileQuery.matches;
+  }
+
+  function collapseAll() {
+    cards.forEach((card) => {
+      card.classList.remove("is-expanded");
+      card.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function setMode() {
+    const mobile = isMobile();
+    grid.classList.toggle("is-tap-mode", mobile);
+
+    if (!mobile) collapseAll();
+
+    cards.forEach((card) => {
+      card.tabIndex = 0;
+      card.setAttribute("role", mobile ? "button" : "link");
+      if (mobile) card.setAttribute("aria-expanded", String(card.classList.contains("is-expanded")));
+      else card.removeAttribute("aria-expanded");
+    });
+
+  }
+
+  function toggleCard(card) {
+    const shouldExpand = !card.classList.contains("is-expanded");
+    cards.forEach((item) => {
+      const isExpanded = item === card && shouldExpand;
+      item.classList.toggle("is-expanded", isExpanded);
+      item.setAttribute("aria-expanded", String(isExpanded));
+    });
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a")) return;
+
+      if (isMobile()) {
+        event.preventDefault();
+        toggleCard(card);
+        return;
+      }
+
+      const href = card.dataset.serviceHref;
+      if (href) window.location.assign(href);
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.target.closest("a")) return;
+      if (isMobile()) {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        toggleCard(card);
+        return;
+      }
+
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      if (card.dataset.serviceHref) window.location.assign(card.dataset.serviceHref);
+    });
+  });
+
+  setMode();
+  mobileQuery.addEventListener("change", setMode);
+}
+
+// ---------------------------------------------------------------------------
 // 最新消息:載入資料、渲染卡片、分頁控制、滑鼠拖曳捲動
 // ---------------------------------------------------------------------------
 /** 載入首頁最新消息並初始化卡片輪播控制。 */
@@ -323,6 +402,7 @@ function setupLatestNews() {
         list.append(link);
       });
 
+      viewport.scrollLeft = 0;
       renderControls(items);
     })
     .catch(() => {
@@ -358,13 +438,14 @@ function setupLatestNews() {
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
       const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
       const viewportLeft = viewport.getBoundingClientRect().left;
+      const scrollPaddingStart = parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
       const positions = [];
 
       for (let index = 0; index < cards.length; index += pageSize) {
         const card = cards[index];
         const position = Math.min(
           maxScroll,
-          Math.max(0, card.getBoundingClientRect().left - viewportLeft + scrollLeft),
+          Math.max(0, card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart),
         );
         if (positions.every((existing) => Math.abs(existing - position) > 1)) {
           positions.push(position);
@@ -554,6 +635,7 @@ function setupSectionMotion() {
 document.addEventListener("DOMContentLoaded", () => {
   setupHeroCarousel();
   setupContactCta();
+  setupServiceCards();
   setupLatestNews();
   setupSectionMotion();
 });

@@ -70,8 +70,8 @@
 .affiliate-location-filter button[aria-pressed="true"] { border-color: var(--button-primary-bg); background: var(--button-primary-bg); color: var(--button-primary-color); }
 .affiliate-location-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .affiliate-location-card { min-width: 0; padding: 16px; border: 1px solid var(--color-line); border-radius: var(--card-radius); background: var(--color-surface-soft); }
-.affiliate-location-card h4 { margin: 0 0 8px; color: var(--color-ink); font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-medium); line-height: 1.5; }
-.affiliate-location-details { display: grid; gap: 3px; color: var(--color-muted); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-normal); line-height: 1.6; }
+.affiliate-location-card h4 { margin: 0 0 8px; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-card-title-compact); font-weight: var(--font-weight-medium); line-height: var(--line-height-card-title-compact); }
+.affiliate-location-details { display: grid; gap: 3px; color: var(--color-muted); font-size: var(--font-size-card-description); font-weight: var(--font-weight-normal); line-height: var(--line-height-card-description); }
 .affiliate-oil-quote { position: relative; isolation: isolate; overflow: hidden; margin: 0; padding: 56px clamp(24px, 5vw, 64px) 32px; border-radius: var(--card-radius); background: var(--color-secondary); color: var(--color-surface); font-family: var(--font-heading); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-medium); line-height: 1.8; }
 .affiliate-oil-quote::before { position: absolute; z-index: 0; top: 28px; left: clamp(24px, 5vw, 64px); color: rgb(255 255 255 / 16%); content: "“"; font-family: Georgia, "Times New Roman", serif; font-size: clamp(4rem, 6vw, 5.5rem); font-weight: 700; line-height: 0.7; pointer-events: none; white-space: nowrap; }
 .affiliate-oil-quote > span { position: relative; z-index: 1; display: block; }
@@ -88,7 +88,7 @@
 .affiliates-page #affiliate-sexin .affiliate-sexin-award-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); max-width: 960px; margin-inline: auto; justify-items: center; }
 .affiliates-page #affiliate-sexin .affiliate-sexin-award-grid figure { width: 100%; min-width: 0; margin: 0; }
 .affiliates-page #affiliate-sexin .affiliate-sexin-award-grid img { display: block; width: auto; max-width: 100%; height: clamp(180px, 16vw, 220px); margin-inline: auto; border-radius: var(--card-radius); object-fit: contain; }
-.affiliates-page #affiliate-sexin .affiliate-sexin-award-grid figcaption { margin-top: 10px; color: var(--color-muted); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-normal); line-height: 1.75; text-align: center; }
+.affiliates-page #affiliate-sexin .affiliate-sexin-award-grid figcaption { margin-top: 10px; color: var(--color-muted); font-size: var(--font-size-card-description); font-weight: var(--font-weight-normal); line-height: var(--line-height-card-description); text-align: center; }
 @media (max-width: 840px) { .affiliates-page #affiliate-sexin .affiliate-sexin-main { grid-template-columns: 1fr; } .affiliates-page #affiliate-sexin .affiliate-sexin-feature { justify-self: center; } .affiliates-page #affiliate-taronews .affiliate-taronews-main { grid-template-columns: 1fr; } .affiliates-page #affiliate-taronews .affiliate-taronews-main .affiliate-panel-copy > * { grid-column: 1; grid-row: auto; } .affiliates-page #affiliate-taronews .affiliate-taronews-main > .affiliate-taronews-feature { grid-column: 1; grid-row: auto; order: 5; justify-self: center; } }
 @media (max-width: 840px) { .affiliate-location-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 

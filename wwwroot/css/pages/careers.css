@@ -50,7 +50,7 @@
 
 .join-section-heading .eyebrow {
   margin: 0 0 8px;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-normal);
   letter-spacing: var(--letter-spacing-label);
@@ -98,7 +98,7 @@
 
 .join-intro p:not(.eyebrow) {
   margin: 0;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-body-copy);
   line-height: var(--line-height-body);
 }

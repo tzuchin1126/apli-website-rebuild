@@ -201,13 +201,13 @@
   max-width: none;
   padding-bottom: clamp(20px, 2.5vw, 32px);
   border-bottom: 1px solid var(--color-line);
-  color: var(--color-ink);
+  color: var(--color-text-body);
 }
 
 .services-page .service-section__description p {
   max-width: none;
   margin: 0;
-  color: var(--color-ink);
+  color: var(--color-text-body);
   font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
@@ -228,7 +228,7 @@
 
 .services-page .service-section__heading .eyebrow {
   margin: 0;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-family: var(--font-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-regular);
@@ -266,7 +266,7 @@
 .services-page .service-section__heading > p:not(.eyebrow) {
   max-width: none;
   margin: 16px 0 0;
-  color: var(--color-ink);
+  color: var(--color-text-body);
   font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
@@ -305,8 +305,8 @@
 
   .services-page .service-section__heading > p:not(.eyebrow) {
     grid-column: 1;
-    font-size: clamp(1rem, 1.15vw, 1.2rem);
-    line-height: 1.8;
+    font-size: var(--font-size-card-description);
+    line-height: var(--line-height-card-description);
   }
 }
 
@@ -626,17 +626,17 @@
 .services-page .services-advantages__grid h3 {
   margin: 0 0 4px;
   color: var(--color-ink);
-  font-size: var(--font-size-h3);
+  font-size: var(--font-size-card-title);
   font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-heading);
+  line-height: var(--line-height-card-title);
 }
 
 .services-page .services-advantages__grid p {
   max-width: none;
   margin: 0;
   color: var(--color-muted);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
+  font-size: var(--font-size-card-description);
+  line-height: var(--line-height-card-description);
 }
 
 .services-page .services-contact {
@@ -924,8 +924,9 @@
   border: 0;
   background: transparent;
   color: var(--color-surface);
-  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-size: var(--font-size-card-title);
   font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-card-title);
 }
 
 .services-page .services-contact__details {
@@ -1033,7 +1034,8 @@
   }
 
   .services-page .services-contact__card-heading {
-    font-size: 1.2rem;
+    font-size: var(--font-size-card-title-compact);
+    line-height: var(--line-height-card-title-compact);
   }
 
   .services-page .services-contact__details {
