@@ -186,13 +186,6 @@
     color: var(--color-primary);
   }
 
-  .about-page .philosophy-panels button:hover .philosophy-panel__icon,
-  .about-page .philosophy-panels button:active .philosophy-panel__icon,
-  .about-page .philosophy-panels button:focus .philosophy-panel__icon,
-  .about-page .philosophy-panels button:focus-visible .philosophy-panel__icon {
-    color: var(--color-surface);
-  }
-
   .services-page .service-carousel__control:hover,
   .services-page .service-carousel__control:active,
   .services-page .service-carousel__control:focus,

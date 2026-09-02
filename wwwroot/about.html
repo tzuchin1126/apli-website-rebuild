@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="preload" as="image" href="public/images/about/about-hero-container-yard.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260830-neutral-type-tokens-v2">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260902-hero-title-size-v3">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260831-company-profile-editorial-v3">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260902-about-hero-load-motion-v66">
   <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
 </head>
 
@@ -109,50 +109,29 @@
       </div>
     </div>
 
-    <section class="about-hero page-hero page-hero--quote" aria-labelledby="about-hero-title">
+    <section class="about-hero page-hero" aria-labelledby="about-hero-title">
       <picture class="page-hero__media">
         <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" width="4000" height="2655" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
-      <div class="about-hero__content page-hero__content site-container">
-        <h1 class="sr-only" id="about-hero-title">關於我們</h1>
-        <blockquote>
-          以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。
-          <cite>
-            <svg class="about-hero__cite-rule" viewBox="0 0 44 2" aria-hidden="true" focusable="false">
-              <path d="M0 1H44"></path>
-            </svg>
-            <span>董事長 黃福田</span>
-          </cite>
-        </blockquote>
-      </div>
+      <h1 class="page-hero__title" id="about-hero-title">公司簡介</h1>
     </section>
 
-    <section id="company-profile" class="about-profile site-container" aria-labelledby="company-profile-title">
-      <div class="about-profile__intro">
-        <p class="eyebrow">ABOUT APLI</p>
-        <div class="about-profile__positioning">
-          <p>自1973年起，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
-          <p>結合運輸、報關、包裝、流通加工及資訊服務，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
+    <section id="company-profile" class="about-profile site-container" aria-label="公司簡介">
+      <div class="about-section-copy">
+        <div class="about-profile__heading">
+          <p class="about-profile__lead"><span class="about-profile__lead-primary">50+ 年物流經驗</span><span class="about-profile__lead-secondary">始於 1973</span></p>
+        </div>
+        <div class="about-profile__body">
+          <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
+          <p>以客為尊，提供優質的倉儲管理，並順應全球化風潮及網路時代，運用網路工具提升貨櫃維修、倉儲及碼頭裝卸的品質與效率。同時，我們結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
         </div>
       </div>
-      <div class="about-profile__story">
-        <div class="about-profile__story-copy">
-          <div class="about-profile__heading">
-            <h2 id="company-profile-title">公司簡介</h2>
-          </div>
-          <div class="about-profile__body">
-            <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
-            <p>以客為尊，提供優質的倉儲管理，並順應全球化風潮及網路時代，運用網路工具提升貨櫃維修、倉儲及碼頭裝卸的品質與效率。同時，我們結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
-          </div>
-        </div>
-        <figure>
-          <picture>
-            <img src="public/images/about/company-facility.jpg" alt="亞太國際物流廠區" loading="lazy" decoding="async">
-          </picture>
-        </figure>
-      </div>
-
+      <figure>
+        <picture>
+          <img src="public/images/about/company-facility-web.png" alt="亞太國際物流廠區" loading="lazy" decoding="async">
+        </picture>
+      </figure>
       <dl class="about-profile__facts" aria-label="企業關鍵數據">
         <div class="about-profile__fact">
           <dt>
@@ -183,41 +162,39 @@
       </dl>
     </section>
 
-    <section id="core-values" class="about-philosophy" aria-labelledby="core-values-title">
+    <section class="about-philosophy-editorial" aria-labelledby="core-values-editorial-title">
       <div class="site-container about-section-heading">
         <p class="eyebrow">OUR PHILOSOPHY</p>
-        <h2 id="core-values-title">經營理念</h2>
+        <h2 id="core-values-editorial-title">經營理念</h2>
       </div>
-      <div class="philosophy-gallery" data-philosophy-gallery>
-        <div class="philosophy-panels" role="group" aria-label="經營理念互動選單">
-          <button type="button" data-philosophy-panel="mission" aria-expanded="false" aria-controls="philosophy-description-mission">
-            <span class="philosophy-panel__content">
-              <span class="philosophy-panel__icon philosophy-panel__icon--mission" aria-hidden="true"></span>
-              <span class="philosophy-panel__text">
-                <strong>使命</strong>
-                <span class="philosophy-panel__description" id="philosophy-description-mission">以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</span>
-              </span>
-            </span>
-          </button>
-          <button type="button" data-philosophy-panel="values" aria-expanded="false" aria-controls="philosophy-description-values">
-            <span class="philosophy-panel__content">
-              <span class="philosophy-panel__icon philosophy-panel__icon--values" aria-hidden="true"></span>
-              <span class="philosophy-panel__text">
-                <strong>核心價值觀</strong>
-                <span class="philosophy-panel__description" id="philosophy-description-values">專業團隊精神</span>
-              </span>
-            </span>
-          </button>
-          <button type="button" data-philosophy-panel="vision" aria-expanded="false" aria-controls="philosophy-description-vision">
-            <span class="philosophy-panel__content">
-              <span class="philosophy-panel__icon philosophy-panel__icon--vision" aria-hidden="true"></span>
-              <span class="philosophy-panel__text">
-                <strong>共同願景</strong>
-                <span class="philosophy-panel__description" id="philosophy-description-vision">商品附加價值創造者</span>
-              </span>
-            </span>
-          </button>
-        </div>
+      <div class="site-container about-philosophy-editorial__grid">
+        <article class="about-philosophy-editorial__item">
+          <figure>
+            <img src="public/images/index/heor-new.png" alt="使命：港口物流作業場景" loading="lazy" decoding="async">
+          </figure>
+          <div class="about-philosophy-editorial__copy">
+            <h3>使命</h3>
+            <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
+          </div>
+        </article>
+        <article class="about-philosophy-editorial__item">
+          <figure>
+            <img src="public/images/about/philosophy-values.jpg" alt="核心價值觀：團隊合作場景" loading="lazy" decoding="async">
+          </figure>
+          <div class="about-philosophy-editorial__copy">
+            <h3>核心價值觀</h3>
+            <p>專業團隊精神</p>
+          </div>
+        </article>
+        <article class="about-philosophy-editorial__item">
+          <figure>
+            <img src="public/images/index/container-handler.png" alt="共同願景：貨櫃作業場景" loading="lazy" decoding="async">
+          </figure>
+          <div class="about-philosophy-editorial__copy">
+            <h3>共同願景</h3>
+            <p>商品附加價值創造者</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -260,47 +237,73 @@
               <a class="about-affiliates__card" href="/affiliates#affiliate-sexin" aria-labelledby="about-affiliate-sexin-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/transparent/shih-hsin-container.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-sexin-name">世新貨櫃企業股份有限公司</span>
+                  <span class="about-affiliates__name" id="about-affiliate-sexin-name">貨櫃維修／買賣</span>
                 </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
               </a>
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-oil" aria-labelledby="about-affiliate-oil-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-badminton.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-oil-name">亞柏油品事業股份有限公司</span>
+                  <span class="about-affiliates__name" id="about-affiliate-oil-name">汽、柴油／油脂批發零售／洗車服務</span>
                 </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
               </a>
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-club" aria-labelledby="about-affiliate-club-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-energy.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-club-name">亞柏會舘</span>
+                  <span class="about-affiliates__name" id="about-affiliate-club-name">羽球場／會議室／健身房／交誼廳</span>
                 </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="about-affiliates__card" href="/affiliates#affiliate-badminton" aria-labelledby="about-affiliate-badminton-name">
+                <span class="about-affiliates__logo"><img src="public/images/logo/transparent/aplus-club.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="about-affiliates__body">
+                  <span class="about-affiliates__name" id="about-affiliate-badminton-name">羽球人才培育／辦理羽球學院／羽球冬、夏令營</span>
+                </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
               </a>
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-taronews" aria-labelledby="about-affiliate-taronews-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/transparent/taisounds.png" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-taronews-name">太報文化股份有限公司</span>
+                  <span class="about-affiliates__name" id="about-affiliate-taronews-name">多元媒體／社團經營／影像創意</span>
                 </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
               </a>
             </li>
             <li>
               <a class="about-affiliates__card" href="/affiliates#affiliate-alpha" aria-labelledby="about-affiliate-alpha-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/alpha-total-solution-logo.jpg" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-alpha-name">ALPHA TOTAL SOLUTION PTE LTD</span>
+                  <span class="about-affiliates__name" id="about-affiliate-alpha-name">機具銷售及保固維修</span>
                 </span>
+                <svg class="about-affiliates__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19 19 5M8 5h11v11"></path>
+                </svg>
               </a>
             </li>
             <li>
               <article class="about-affiliates__card about-affiliates__card--static" aria-labelledby="about-affiliate-yaan-name">
                 <span class="about-affiliates__logo"><img src="public/images/logo/ya-an-logistics-logo.jpg" alt="" loading="lazy" decoding="async"></span>
                 <span class="about-affiliates__body">
-                  <span class="about-affiliates__name" id="about-affiliate-yaan-name">亞安企業顧問</span>
+                  <span class="about-affiliates__name" id="about-affiliate-yaan-name">人力資源服務／人力派遣／企業管理顧問</span>
                 </span>
               </article>
             </li>
@@ -313,6 +316,6 @@
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/about.js?v=20260831-about-entry-top-v2"></script>
+  <script src="js/pages/about.js?v=20260902-about-hero-load-motion-v9"></script>
 </body>
 </html>

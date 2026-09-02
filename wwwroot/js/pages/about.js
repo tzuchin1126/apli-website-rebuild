@@ -15,51 +15,6 @@
   window.addEventListener("pageshow", resetEntryPosition);
 })();
 
-/**
- * 經營理念面板：滑鼠移入或點擊切換內容
- * 觸控裝置不吃 hover，所以只綁點擊
- */
-function initPhilosophyGallery() {
-  const gallery = document.querySelector("[data-philosophy-gallery]");
-  if (!gallery) return;
-
-  const panels = [...gallery.querySelectorAll("[data-philosophy-panel]")];
-  const defaultPanel = gallery.dataset.defaultPanel || "";
-
-  function showPanel(name, expanded) {
-    panels.forEach((panel) => {
-      const active = expanded && panel.dataset.philosophyPanel === name;
-      panel.dataset.active = active;
-      panel.setAttribute("aria-expanded", active);
-    });
-  }
-
-  panels.forEach((panel) => {
-    const name = panel.dataset.philosophyPanel;
-
-    panel.addEventListener("pointerenter", (e) => {
-      if (e.pointerType !== "touch") showPanel(name, true);
-    });
-    panel.addEventListener("focus", () => showPanel(name, true));
-    panel.addEventListener("click", () => showPanel(name, true));
-  });
-
-  // 滑鼠或焦點離開整個畫廊，才收回預設面板
-  gallery.addEventListener("pointerleave", (e) => {
-    if (e.pointerType !== "touch" && !gallery.contains(document.activeElement)) {
-      showPanel(defaultPanel, false);
-    }
-  });
-  gallery.addEventListener("focusout", () => {
-    // focusout 觸發時新焦點還沒定位好，延一個 tick 再判斷
-    setTimeout(() => {
-      if (!gallery.contains(document.activeElement)) showPanel(defaultPanel, false);
-    }, 0);
-  });
-
-  showPanel(defaultPanel, false);
-}
-
 const certificationPreviewEvents = [
   { year: "2025", title: "取得職業安全衛生管理系統通過 ISO 45001:2018 驗證" },
   { year: "2025", title: "獲國立體育大學頒發「113年度捐助興學紀念－嘉惠國體」" },
@@ -100,6 +55,22 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
+function initAboutHeroMotion() {
+  const image = document.querySelector(".about-page .about-hero .page-hero__image");
+  if (!image) return;
+
+  const startZoomOut = () => {
+    window.requestAnimationFrame(() => image.classList.add("is-loaded"));
+  };
+
+  if (image.complete) {
+    startZoomOut();
+    return;
+  }
+
+  image.addEventListener("load", startZoomOut, { once: true });
+}
+
 /**
  * 認證與獎項新版區塊：依年代與年份組瀏覽既有獎項資料。
  */
@@ -107,8 +78,9 @@ function initCertificationPreview() {
   const preview = document.querySelector("[data-certification-preview]");
   const nav = preview?.querySelector("[data-certification-preview-nav]");
   const controls = preview?.querySelector("[data-certification-preview-controls]");
+  const viewport = preview?.querySelector(".about-certifications-preview__content-shell");
   const content = preview?.querySelector("[data-certification-preview-content]");
-  if (!preview || !nav || !controls || !content) return;
+  if (!preview || !nav || !controls || !viewport || !content) return;
 
   const groupedEvents = new Map();
   certificationPreviewEvents.forEach(({ year, title }) => {
@@ -201,12 +173,51 @@ function initCertificationPreview() {
     const pageStep = targetPage
       ? targetPage.offsetLeft - firstPage.offsetLeft
       : firstPage.offsetWidth + 16;
-    content.classList.toggle("is-track-advanced", globalPageIndex > 0);
-    track.style.transition = animate && !reduceMotion ? "transform 280ms ease" : "none";
-    track.style.transform = `translate3d(-${pageStep}px, 0, 0)`;
+    viewport.classList.toggle("is-track-advanced", globalPageIndex > 0);
+    viewport.scrollTo({
+      left: pageStep,
+      behavior: animate && !reduceMotion ? "smooth" : "auto",
+    });
     [...track.children].forEach((page, pageIndex) => {
       page.setAttribute("aria-hidden", pageIndex === globalPageIndex ? "false" : "true");
     });
+  }
+
+  function syncStateFromScroll() {
+    const track = content.querySelector("[data-certification-preview-track]");
+    const firstPage = track?.firstElementChild;
+    if (!track || !firstPage || !pageSets.length) return;
+
+    const currentOffset = viewport.scrollLeft;
+    let nearestPageIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    [...track.children].forEach((page, pageIndex) => {
+      const pageOffset = page.offsetLeft - firstPage.offsetLeft;
+      const distance = Math.abs(pageOffset - currentOffset);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestPageIndex = pageIndex;
+      }
+    });
+
+    let nextDecadeIndex = pageOffsets.length - 1;
+    for (let index = 0; index < pageOffsets.length; index += 1) {
+      if (nearestPageIndex < pageOffsets[index] + pageSets[index].length) {
+        nextDecadeIndex = index;
+        break;
+      }
+    }
+    const nextPageIndex = nearestPageIndex - pageOffsets[nextDecadeIndex];
+    if (nextDecadeIndex === activeDecadeIndex && nextPageIndex === activePageIndex) return;
+
+    activeDecadeIndex = nextDecadeIndex;
+    activePageIndex = nextPageIndex;
+    decadeButtons.forEach((button, buttonIndex) => {
+      const active = buttonIndex === activeDecadeIndex;
+      button.dataset.active = active ? "true" : "false";
+      button.setAttribute("aria-current", active ? "true" : "false");
+    });
+    updateControls();
   }
 
   function updateControls() {
@@ -270,8 +281,20 @@ function initCertificationPreview() {
     return page;
   }
 
+  function syncEventHeights() {
+    content.style.removeProperty("--preview-events-height");
+    const eventGroups = [...content.querySelectorAll(".about-certifications-preview__events")];
+    if (!eventGroups.length) return;
+    const maxHeight = Math.max(...eventGroups.map((events) => events.getBoundingClientRect().height));
+    content.style.setProperty("--preview-events-height", `${Math.ceil(maxHeight)}px`);
+  }
+
   function renderTrack() {
     if (!pageSets.length) return;
+    const sharedTimelineTrack = document.createElement("div");
+    sharedTimelineTrack.className = "about-certifications-preview__shared-track";
+    sharedTimelineTrack.setAttribute("aria-hidden", "true");
+
     const track = document.createElement("div");
     track.className = "about-certifications-preview__track";
     track.setAttribute("data-certification-preview-track", "");
@@ -279,7 +302,8 @@ function initCertificationPreview() {
       const decade = decades[decadeIndex];
       pages.forEach((years, pageIndex) => track.append(createPage(years, decade, decadeIndex, pageIndex)));
     });
-    content.replaceChildren(track);
+    content.replaceChildren(sharedTimelineTrack, track);
+    syncEventHeights();
     setTrackPosition(false);
     updateControls();
   }
@@ -312,7 +336,11 @@ function initCertificationPreview() {
       nextDecadeIndex += 1;
       nextPageIndex = 0;
     }
-    if (nextDecadeIndex !== activeDecadeIndex) {
+    if (nextDecadeIndex === activeDecadeIndex) {
+      const boundedPageIndex = Math.max(0, Math.min(nextPageIndex, pages.length - 1));
+      if (boundedPageIndex === activePageIndex) return;
+      activePageIndex = boundedPageIndex;
+    } else {
       activeDecadeIndex = nextDecadeIndex;
       activePageIndex = nextPageIndex;
       decadeButtons.forEach((button, buttonIndex) => {
@@ -320,14 +348,8 @@ function initCertificationPreview() {
         button.dataset.active = active ? "true" : "false";
         button.setAttribute("aria-current", active ? "true" : "false");
       });
-      setTrackPosition(true);
-      updateControls();
       decadeButtons[activeDecadeIndex].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-      return;
     }
-    const boundedPageIndex = Math.max(0, Math.min(nextPageIndex, pages.length - 1));
-    if (boundedPageIndex === activePageIndex) return;
-    activePageIndex = boundedPageIndex;
     setTrackPosition(true);
     updateControls();
   }
@@ -349,51 +371,46 @@ function initCertificationPreview() {
   previousButton.addEventListener("click", () => movePage(-1));
   nextButton.addEventListener("click", () => movePage(1));
   let dragState = null;
-  content.addEventListener("pointerdown", (event) => {
-    if (event.target.closest("button") || (event.pointerType === "mouse" && event.button !== 0)) return;
-    dragState = { pointerId: event.pointerId, startX: event.clientX, distance: 0, moved: false };
-    content.setPointerCapture?.(event.pointerId);
+  viewport.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+    if (event.target.closest("button")) return;
+    dragState = { pointerId: event.pointerId, startX: event.clientX, startScrollLeft: viewport.scrollLeft, distance: 0, moved: false };
+    viewport.setPointerCapture?.(event.pointerId);
   });
-  content.addEventListener("pointermove", (event) => {
+  viewport.addEventListener("pointermove", (event) => {
     if (!dragState || event.pointerId !== dragState.pointerId) return;
     dragState.distance = event.clientX - dragState.startX;
     if (Math.abs(dragState.distance) <= 4) return;
     dragState.moved = true;
-    content.classList.add("is-dragging");
-    const track = content.querySelector("[data-certification-preview-track]");
-    if (track) {
-      track.style.transition = "none";
-      const firstPage = track.firstElementChild;
-      const globalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
-      const targetPage = track.children[globalPageIndex];
-      const pageStep = targetPage
-        ? targetPage.offsetLeft - firstPage.offsetLeft
-        : firstPage.offsetWidth + 16;
-      track.style.transform = `translate3d(${-(pageStep) + dragState.distance}px, 0, 0)`;
-    }
+    viewport.classList.add("is-dragging");
+    viewport.scrollLeft = dragState.startScrollLeft - dragState.distance;
     event.preventDefault();
   });
   function stopDragging(event) {
     if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
-    const { distance, moved, pointerId } = dragState;
+    const { pointerId } = dragState;
     dragState = null;
-    content.classList.remove("is-dragging");
-    if (event && content.hasPointerCapture?.(pointerId)) content.releasePointerCapture(pointerId);
-    const threshold = Math.min(120, Math.max(48, content.clientWidth * 0.12));
-    if (moved && Math.abs(distance) >= threshold) movePage(distance < 0 ? 1 : -1);
-    else setTrackPosition(true);
+    viewport.classList.remove("is-dragging");
+    if (event && viewport.hasPointerCapture?.(pointerId)) viewport.releasePointerCapture(pointerId);
+    syncStateFromScroll();
+    setTrackPosition(true);
   }
-  content.addEventListener("pointerup", stopDragging);
-  content.addEventListener("pointercancel", stopDragging);
-  content.addEventListener("lostpointercapture", stopDragging);
-  content.addEventListener("wheel", (event) => {
+  viewport.addEventListener("pointerup", stopDragging);
+  viewport.addEventListener("pointercancel", stopDragging);
+  viewport.addEventListener("lostpointercapture", stopDragging);
+  viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
+  viewport.addEventListener("wheel", (event) => {
     if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 16) return;
     event.preventDefault();
     movePage(event.deltaX > 0 ? 1 : -1);
   }, { passive: false });
   window.addEventListener("resize", () => {
     const nextPageSize = getPageSize();
-    if (nextPageSize === pageSize) return;
+    if (nextPageSize === pageSize) {
+      syncEventHeights();
+      setTrackPosition(false);
+      return;
+    }
     pageSize = nextPageSize;
     activePageIndex = 0;
     rebuildPageSets();
@@ -407,6 +424,6 @@ function initCertificationPreview() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initPhilosophyGallery();
+  initAboutHeroMotion();
   initCertificationPreview();
 });
