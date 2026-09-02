@@ -55,20 +55,107 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
-function initAboutHeroMotion() {
-  const image = document.querySelector(".about-page .about-hero .page-hero__image");
-  if (!image) return;
+/** 初始化 About 頁面各區塊的捲動進場效果。 */
+function setupAboutScrollMotion() {
+  const page = document.querySelector(".about-page");
+  const lead = page?.querySelector(".about-profile__lead");
+  const facts = page?.querySelector(".about-profile__facts");
+  const certifications = page?.querySelector(".about-certifications-preview");
+  const targets = [lead, facts, certifications].filter(Boolean);
+  if (!page || !targets.length) return;
 
-  const startZoomOut = () => {
-    window.requestAnimationFrame(() => image.classList.add("is-loaded"));
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const counters = [...(facts?.querySelectorAll(".about-profile__fact-value") || [])]
+    .map((value) => {
+      const originalText = value.textContent.trim();
+      const target = Number(originalText.replace(/[^\d.-]/g, ""));
+      const suffix = originalText.includes("+") ? "+" : "";
+      return { value, target, suffix };
+    })
+    .filter(({ target }) => Number.isFinite(target));
+
+  page.classList.add("about-motion-ready");
+
+  const setFinalCounterValues = () => {
+    counters.forEach(({ value, target, suffix }) => {
+      value.textContent = `${target.toLocaleString("en-US")}${suffix}`;
+    });
   };
 
-  if (image.complete) {
-    startZoomOut();
+  const animateCounters = () => {
+    if (reducedMotion.matches) {
+      setFinalCounterValues();
+      return;
+    }
+
+    counters.forEach(({ value, target, suffix }, index) => {
+      const duration = 1100;
+      const delay = index * 80;
+      const startTime = performance.now() + delay;
+
+      const update = (timestamp) => {
+        if (timestamp < startTime) {
+          window.requestAnimationFrame(update);
+          return;
+        }
+
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const easedProgress = 1 - ((1 - progress) ** 3);
+        value.textContent = `${Math.round(target * easedProgress).toLocaleString("en-US")}${suffix}`;
+        if (progress < 1) window.requestAnimationFrame(update);
+      };
+
+      value.textContent = `0${suffix}`;
+      window.requestAnimationFrame(update);
+    });
+  };
+
+  const reveal = (target) => {
+    target.classList.add("is-visible");
+    if (target === facts) animateCounters();
+  };
+
+  if (reducedMotion.matches) {
+    targets.forEach(reveal);
+    setFinalCounterValues();
     return;
   }
 
-  image.addEventListener("load", startZoomOut, { once: true });
+  if (!("IntersectionObserver" in window)) {
+    const revealVisibleTargets = () => {
+      targets.forEach((target) => {
+        if (target.classList.contains("is-visible")) return;
+        const { top, bottom } = target.getBoundingClientRect();
+        if (top < window.innerHeight * 0.88 && bottom > window.innerHeight * 0.12) reveal(target);
+      });
+      if (targets.every((target) => target.classList.contains("is-visible"))) {
+        window.removeEventListener("scroll", revealVisibleTargets);
+        window.removeEventListener("resize", revealVisibleTargets);
+      }
+    };
+
+    window.addEventListener("scroll", revealVisibleTargets, { passive: true });
+    window.addEventListener("resize", revealVisibleTargets);
+    revealVisibleTargets();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      reveal(entry.target);
+      currentObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
+
+  targets.forEach((target) => observer.observe(target));
+
+  reducedMotion.addEventListener("change", () => {
+    if (!reducedMotion.matches) return;
+    observer.disconnect();
+    targets.forEach(reveal);
+    setFinalCounterValues();
+  }, { once: true });
 }
 
 /**
@@ -424,6 +511,6 @@ function initCertificationPreview() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initAboutHeroMotion();
+  setupAboutScrollMotion();
   initCertificationPreview();
 });

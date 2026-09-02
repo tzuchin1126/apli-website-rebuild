@@ -97,9 +97,9 @@
   --page-hero-height: clamp(280px, 26vw, 350px);
   --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);
-  --page-hero-image-scale: 1.08;
-  --page-hero-image-duration: 6s;
-  --page-hero-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-hero-image-scale: 1.1;
+  --page-hero-image-duration: 1.7s;
+  --page-hero-motion-easing: ease;
   --page-hero-text-duration: 700ms;
 }
 

@@ -18,12 +18,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
         <link rel="preload" as="image" href="public/images/index/news-hero.png" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
-        <link rel="stylesheet" href="css/base/tokens.css?v=20260902-hero-title-size-v3">
+        <link rel="stylesheet" href="css/base/tokens.css?v=20260902-page-hero-load-motion-v1">
         <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/news.css?v=20260821-news-image-list-v4">
-        <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
+        <link rel="stylesheet" href="css/pages/news.css?v=20260902-news-card-grid-v9">
+        <link rel="stylesheet" href="css/site.css?v=20260902-page-hero-load-motion-v1">
     </head>
     <body class="news-page">
         <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
@@ -113,6 +113,7 @@
                         <span class="news-empty__message">沒有符合條件的最新消息。</span>
                     </p>
                 </div>
+                <nav class="news-pagination" data-news-pagination aria-label="新聞分頁"></nav>
             </section>
         </main>
 
@@ -120,7 +121,7 @@
             <!-- shared-site-footer -->
         </footer>
 
-  <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-        <script src="js/pages/news.js?v=20260822-server-news-v2"></script>
+      <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
+        <script src="js/pages/news.js?v=20260902-news-card-grid-v6"></script>
     </body>
 </html>

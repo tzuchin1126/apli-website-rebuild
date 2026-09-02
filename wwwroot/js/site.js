@@ -67,6 +67,25 @@
   revealPage();
 })();
 
+/** 圖片載入完成後，讓非首頁 Hero 由放大狀態縮回正常比例。 */
+(() => {
+  const images = document.querySelectorAll(".page-hero .page-hero__image");
+  if (!images.length) return;
+
+  const startZoomOut = (image) => {
+    window.requestAnimationFrame(() => image.classList.add("is-loaded"));
+  };
+
+  images.forEach((image) => {
+    if (image.complete) {
+      startZoomOut(image);
+      return;
+    }
+
+    image.addEventListener("load", () => startZoomOut(image), { once: true });
+  });
+})();
+
 (() => {
   const footerColumns = document.querySelectorAll(
     ".site-footer .footer-column"

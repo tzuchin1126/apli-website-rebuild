@@ -1,5 +1,5 @@
 .operational-resources-page {
-  --page-hero-image-position: center 60%;
+  --page-hero-image-position: center 95%;
   --page-hero-image-origin: 35% 66%;
   --resources-section-space: var(--section-space);
   --resources-feature-gap: clamp(48px, 6.7vw, 96px);
@@ -176,11 +176,6 @@
   color: var(--color-ink);
   font-size: 0.9rem;
   line-height: 1.7;
-}
-
-.operational-resources-page .resources-hero .page-hero__image,
-.operational-resources-page .resources-hero > .page-hero__title {
-  animation: none;
 }
 
 .operational-resources-page .resource-link {

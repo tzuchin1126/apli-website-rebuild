@@ -32,7 +32,7 @@
   width: fit-content;
   margin: 0;
   color: var(--color-ink);
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-heading);
@@ -41,6 +41,8 @@
 }
 
 .safety-page .safety-credentials__heading h2 {
+  position: relative;
+  margin: 0;
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-h2);
@@ -152,11 +154,11 @@
   gap: 4px;
   margin: 0;
   padding-left: 1.25em;
-  list-style-type: circle;
+  list-style-type: square;
 }
 
 .safety-page .safety-intro__health li::marker {
-  color: var(--color-ink);
+  color: var(--color-primary);
 }
 
 .safety-page .safety-credentials__heading {
@@ -301,16 +303,6 @@
   transform: translateY(20px);
 }
 
-.safety-page .safety-credential-card__title h3::after {
-  display: block;
-  width: 40px;
-  height: 2px;
-  margin-top: 8px;
-  border-radius: var(--radius-full);
-  background: var(--safety-credential-accent);
-  content: "";
-}
-
 .safety-page .safety-credentials__pager {
   min-height: 32px;
   margin-top: 28px;
@@ -395,7 +387,6 @@
   position: relative;
   min-height: 0;
   padding: 10px 0 10px 30px;
-  border-top: 1px solid var(--color-line);
   color: var(--color-ink);
   font-size: 0.9rem;
   line-height: 1.5;
@@ -407,8 +398,8 @@
 
 .safety-page .safety-credential-card:hover,
 .safety-page .safety-credential-card:focus-within {
-  box-shadow: 0 10px 24px rgb(0 0 0 / 14%);
-  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgb(0 0 0 / 18%);
+  transform: translateY(-6px);
 }
 
 .safety-page .safety-credential-card__media {
