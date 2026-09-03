@@ -1,6 +1,128 @@
 # 專案進度與待辦
 
 ## 已完成
+### 2026-09-03 獎項年份與頒發單位元件化
+
+- 將每張獎項卡片的年份與頒發單位包在 `affiliate-award-meta` 元件內，由單一 flex 結構控制同列對齊與間距；獎項名稱保留為獨立第二排。
+- 實際驗證：`dotnet build -c Release --no-restore`、`git diff --check`；Edge Desktop `1366×900` 確認三張獎項卡片皆有 `affiliate-award-meta` 且包含年份與頒發單位兩個子元素，兩者同列、獎項名稱位於下一排。
+- 未建立 commit。
+
+### 2026-09-03 移除服務品質肯定區塊背景與邊線
+
+- 移除三個獎項卡片、圖片區與文字區的背景色及邊線，保留上方獎牌圖片、下方獎項敘述、原有尺寸與文字樣式。
+- 實際驗證：`dotnet build -c Release --no-restore`、`git diff --check`；Edge Desktop `1366×900` 確認三張獎項卡片、圖片區與文字區背景皆為透明且邊線為 `0px`；Mobile `390×844` 確認單欄與無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃獎項年份與頒發單位文字統一
+
+- 將 2005 FLORENS、2006 TEXTAINER、2008 TEXTAINER 的年份與頒發單位統一為品牌橘色與相同字級，保留獎項名稱原有層級。
+- 實際驗證：`dotnet build -c Release --no-restore`、`git diff --check`；Edge Desktop `1366×900` 確認 2005 FLORENS、2006 TEXTAINER、2008 TEXTAINER 的年份與頒發單位皆為品牌橘色、`18px`，三組樣式一致。
+- 未建立 commit。
+
+### 2026-09-03 恢復世新貨櫃上一版內容結構
+
+- 撤回本次新增的月桂徽章與服務圖片移位，恢復企業介紹右側輪播、服務項目獨立列表及下方服務品質肯定獎牌卡片。
+- 保留進度線輪播動畫、右至左圖片轉場、獎牌卡片灰階配色與兩排獎項文字；未修改左側 Navigation、Header、Hero、Footer 或其他企業內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge Desktop `1366×900` 與 Mobile `390×844` 確認企業介紹右側輪播、服務獨立列表、下方三張獎牌卡片已恢復，月桂徽章與服務圖片移位已移除，獎牌圖片未溢出且手機無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃企業殊榮月桂徽章與服務圖文重排
+
+- 將三項既有獎項文字移至企業介紹文字下方，以原生細線月桂 SVG 徽章呈現；年份、頒發單位與獎項名稱均保留，未使用實心背景、陰影或金色獎牌。
+- 移除下方原大型獎牌卡片區，將既有四張企業作業圖片輪播移至服務項目右側，Desktop／Laptop 左文右圖，Tablet／Mobile 單欄。
+- 未修改左側關係企業導覽、Header、Hero、Footer 或其他企業內容。
+- 實際驗證：待執行。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃獎項資訊改為兩排
+
+- 獎項卡片改為第一排顯示「年份＋頒發單位」，第二排顯示獎項名稱；包含 2008 TEXTAINER／台灣區最佳櫃場，保留原有文字內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`git diff --check`；Edge Desktop `1366×900` 確認三張獎項卡片的年份與頒發單位同列、獎項名稱位於第二排。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃獎項卡片灰階配色
+
+- 獎牌圖片區改用淺灰 `#f3f3f3`，下方獎項敘述區改用較深灰 `#e5e5e5`，保留品牌橘色年份與既有卡片結構。
+- 實際驗證：`dotnet build -c Release --no-restore`、`git diff --check`；Edge Desktop `1366×900` 與 Mobile `390×844` 確認圖片區為 `#f3f3f3`、敘述區為 `#e5e5e5`、獎項卡片高度一致、手機單欄且無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃間距、服務標記與獎項卡片修正
+
+- 世新貨櫃內容區專用 section gap 調整為桌機 `clamp(40px, 4vw, 56px)`、小螢幕 `40px`，收斂企業介紹、服務項目與服務品質肯定的上下留白。
+- 服務項目 bullet 改為參考職業安全衛生頁面的品牌橘色小方框。
+- 服務品質肯定改為參考關於亞太經營理念的「上方圖片、下方敘述」卡片結構，圖片區比例與高度統一，避免獎牌圖片溢出；未修改既有獎項內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge Desktop `1366×900` 與 Mobile `390×844`，確認世新區 section gap 分別為約 `54.64px`／`40px`、服務 bullet 為 `8px` 橘色方框、獎項三欄／單欄卡片高度一致且獎牌圖片未溢出圖片區、手機無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃輪播滑動轉場與進度線置中
+
+- 進度線縮短為最大 `128px` 並置中於圖片下方；保留四段可點擊進度線與 Active 填滿動畫。
+- 圖片切換改為下一張由右側滑入、目前圖片向左側滑出，並在轉場完成後清理離場狀態，避免瞬間替換；未修改左側 Vertical Navigation、Header、Hero、Footer 或其他企業內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge Desktop `1366×900` 確認進度線寬度 `128px` 且置中、轉場中下一張由右至左進場、轉場完成後離場狀態清除、點擊第 2 張成功；Mobile `390×844` 確認置中與無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃進度線動畫與寬度調整
+
+- 進度線改為 Active 線段由左至右填滿品牌橘色，填滿後以 `animationend` 切換下一張圖片；滑入／聚焦時保留暫停，reduced-motion 時停用自動切換並顯示完整 Active 線段。
+- 進度線群組限制最大寬度為 `320px`，保留四張既有圖片、點擊切換功能與其他企業內容；未修改左側 Vertical Navigation、Header、Hero、Footer。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge Desktop `1366×900` 確認動畫中填色、約 5 秒後自動切換、點擊第 4 段切換成功且無上一張／下一張按鈕；Mobile `390×844` 確認進度線寬度 `320px`、四段線與無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃輪播進度線調整
+
+- 移除輪播「上一張／下一張」文字按鈕與圓點指示，改為圖片下方四段式進度線；目前圖片使用品牌橘色，其餘可切換圖片使用細灰線，進度線仍可點擊切換。
+- 保留四張既有企業作業圖片、自動輪播、滑入／聚焦暫停與 reduced-motion 行為；未修改左側 Vertical Navigation、Header、Hero、Footer 或其他企業內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge Desktop `1366×900` 與 Mobile `390×844`，確認已移除上一張／下一張按鈕與圓點、改為四段式進度線、可點擊切換圖片、目前線段為品牌橘色、手機無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃企業圖片輪播與獎項卡片調整
+
+- 企業介紹區塊維持無上邊線，右側改為使用既有 `container-cleaning.jpg`、`container-handler-operation.png`、`equipment-maintenance.png`、`port-equipment-maintenance.jpg` 的四張圖片輪播。
+- 移除世新「服務項目」與「服務品質肯定」英文標語；獎項改為統一圖片區高度、上方圖片下方文字的細框卡片樣式，保留年份、頒發單位與獎項名稱。
+- 未修改左側 Vertical Navigation、Header、Hero、Footer、Services／Service Recognition 內容順序或其他企業 Tab。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge 瀏覽器 Desktop `1366×900` 與 Mobile `390×844`，確認四張企業圖片輪播、輪播下一張控制、企業介紹無上邊線、Services／Service Recognition 英文標語已移除、獎項圖片 wrapper 高度一致與手機無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 移除世新貨櫃 Company Header
+
+- 移除右側「專業服務・贏得殊榮」與「世新貨櫃企業股份有限公司」Company Header，不保留原 Header 的空白高度或分隔線。
+- 「企業介紹」直接成為世新貨櫃右側第一個正式 Section Heading，維持企業介紹文字＋圖片、服務項目、服務品質肯定的既有順序與版型。
+- 內容區上方 spacing 收斂為桌機／筆電 `clamp(40px, 4vw, 56px)`、手機 32px；未修改左側 Vertical Navigation、Header、Hero、Footer 或其他企業內容。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge 瀏覽器 1366×900 與 390×844，確認 Company Header 已移除、第一個 Section 為「企業介紹」、無上方 border／padding、Hero 後留白已收斂且手機無水平溢出。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃 Company Header 層級調整
+
+- 移除 Company Header 的 `SPECIALIZED CONTAINER SERVICES`，將現有「專業服務・贏得殊榮」移至公司名稱上方並改為較小的品牌橘色 Eyebrow。
+- 公司名稱維持為主要 Content Heading，兩者間距調整為 8px；下方企業介紹＋圖片、服務項目、服務品質肯定順序不變。
+- 未修改左側 Vertical Navigation、Header、Hero、Footer 或其他關係企業內容。
+- 實際驗證：待執行。
+- 未建立 commit。
+
+### 2026-09-03 世新貨櫃右側內容順序與圖文版型調整
+
+- 僅調整右側 `#affiliate-sexin` 內容：固定為「公司名稱＋小標語 → 企業介紹文字＋圖片 → 服務項目 → 服務品質肯定」。
+- 企業介紹改為 Desktop／Laptop 左文右圖，圖片使用現有 `equipment-maintenance.png` 並改為橫向 `3:2`；Tablet／Mobile 改為文字後接圖片的單欄順序。
+- 服務項目移除下方大型圖片，保留既有四項服務並改為無卡片的雙欄／單欄清單；三個獎項保留三欄並統一圖片 wrapper 高度。
+- 未修改左側 Vertical Navigation、Header、Hero、Footer、其他企業 Tab 或既有內容資料。
+- 實際驗證：依需求未執行任何驗證。
+- 未建立 commit。
+
+### 2026-09-03 關係企業 Editorial Content Area 重構
+
+- Desktop／Laptop 改為左側企業 Vertical Navigation Rail、右側 Editorial Content；rail 使用連續 `#e5e5e5` 2px 線，Active 區段使用品牌橘色，未新增右側分隔線、卡片背景或圓形 Icon。
+- Tablet／Mobile 改為頂部可水平滑動且不換行的 Tabs，內容改為單欄；世新服務圖片改為文字後的大型 16:7.5 Editorial Image，Recognition 改為三欄並拆出年份、頒發單位與獎項名稱。
+- 其他企業依既有資料保留各自圖片數量與內容結構，維持 Editorial section 層級與細分隔線；未新增 placeholder，也未刪除既有企業文字、圖片、據點、連結或篩選功能。
+- 目前來源已有「太報」內容但沒有「大都」資料，因此保留「太報」既有 Tab 與 panel，未建立無內容的「大都」入口。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check`；Edge 瀏覽器 1366×900、1024×768、768×1024、390×844，確認 rail／Tabs breakpoint、服務圖片比例、無水平溢出、六個既有企業切換、油品南部據點篩選與鍵盤方向鍵。
+- 未驗證項目：實體裝置、其他瀏覽器、人工無障礙驗收；未建立 commit。
+
+### 2026-09-03 移除關係企業英文小標題
+
+- 移除關係企業頁面所有英文 Eyebrow 小標題及其專屬 CSS，保留既有中文標題、內容、圖片與 Editorial 版型。
+- 依需求未執行建置、語法、差異或瀏覽器驗證。
+- 未建立 commit。
+
 ### 2026-09-03 世新貨櫃三區塊版型
 
 - 世新貨櫃內容拆分為三個獨立區塊，保留原本「世新貨櫃企業股份有限公司」標題文字：標題與公司介紹、左側服務項目搭配右側圖片、服務品質肯定獎項區。
@@ -394,3 +516,24 @@
 ## 待辦
 
 - 依各次變更補充實際驗證結果與 commit 紀錄。
+### 2026-09-03 獎項卡片圖片與文字欄位對齊
+
+- 調整關係企業頁面的三張獎項卡片，讓圖片區與下方年份／頒發單位／獎項名稱共用同一個垂直欄位與左右邊界，維持圖片在上、文字在下且不恢復背景或邊線。
+- 實際驗證：`dotnet build -c Release --no-restore`、`node --check wwwroot/js/pages/affiliates.js`、`git diff --check` 均通過；Edge Desktop `1366×900` 與 Mobile `390×844` 確認三張卡片的圖片區與文字區左右邊界一致、圖片在上文字在下、手機單欄且無水平溢出。
+- 調整關係企業服務品質肯定區塊的 Mobile RWD：獎項改為左圖右文的 compact horizontal list，並將 Mobile Tabs 固定為單列水平滑動；Desktop `>=768px` 維持原三欄排列。
+- 亞柏油品依序整理為「品牌理念 → 企業介紹＋圖片輪播 → 服務據點」，保留既有文字、三張油品圖片與全部服務據點資料。
+- 亞柏油品輪播新增 `加油站-2.png`、`加油站-3.png`，輪播與進度線同步更新為 5 張。
+- 優化亞柏油品企業介紹敘述間距、五張輪播進度線單列顯示，並為企業理念加入引號與淡色背景。
+- 亞柏油品企業介紹間距與世新貨櫃一致；企業理念移除左橘線、改為底部橘線，並改用左右雙引號裝飾。
+- 放寬亞柏油品企業理念文字 span 的最大寬度，讓桌機版使用完整內容寬度並保留手機自然換行。
+- 縮小亞柏油品企業理念區塊的水平內距，讓放寬後的文字寬度在桌機版更充分使用。
+- 企業理念文字取消突然短尾換行，改用平衡換行讓桌機版在可用寬度足夠時單行呈現，手機版維持自然折行。
+- 企業理念僅保留左側開頭雙引號，移除右側結尾雙引號。
+- 企業理念文字移除平衡換行，恢復依容器實際寬度自然排版。
+- 亞柏油品服務據點改為 `tw.svg` 台灣地圖搭配可點擊站點標記，點擊後顯示電話與地址，保留地區篩選。
+### 2026-09-03 亞柏油品服務據點互動調整
+- 移除區域篩選列，預設顯示第一筆站點資訊，新增地圖點擊提示並校正各站點標記位置；完成桌機與手機互動確認。
+### 2026-09-03 亞柏油品服務據點地圖視覺調整
+- 將站點提示移至服務據點標題下方，並將 `tw.svg` 改為灰底搭配據點縣市綠色標示；完成桌機與手機版檢查。
+### 2026-09-03 亞柏油品服務據點站點標籤
+- 據點區域改為品牌橘色，地圖標記加入站點名稱與引導線；站點名稱與圓點可點擊切換右側地址、電話，手機版隱藏標籤避免水平溢出。
