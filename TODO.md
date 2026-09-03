@@ -2,6 +2,15 @@
 
 ## 已完成
 
+### 2026-09-03 News 預設公告橫幅圖
+
+- 新增 `wwwroot/public/images/index/news-default-banner.png`，尺寸為 1983x793（約 2.5:1）。
+- 預設公告圖改用專用橫幅資產，完整保留「公告資訊／ANNOUNCEMENT」、橘色波浪與 AP Logo。
+- 實際新聞照片仍沿用原本的 `object-fit: cover`；未改動 News Card 容器高度與三欄版型。
+- 實際驗證：圖片內容與尺寸已檢查（1983x793，約 2.5:1）；`node --check wwwroot/js/pages/news.js` 成功；`git diff --check` 通過。
+- 未驗證項目：實機與瀏覽器畫面；依需求不執行。
+- Commit：本地 HEAD commit（本次變更）。
+
 ### 2026-09-03 News 卡片視覺層級與間距調整
 
 - 新聞圖片比例由 16:9 調整為 2.5:1，維持原有三欄與圖片寬度。
