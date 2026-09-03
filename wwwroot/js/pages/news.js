@@ -12,6 +12,7 @@
 function initNewsList() {
   const root = document.querySelector("[data-news-filter]");
   const list = document.querySelector("[data-news-list]");
+  const newsContent = document.querySelector(".news-content");
   const pagination = document.querySelector("[data-news-pagination]");
   const empty = document.querySelector("[data-news-empty]");
   const emptyMessage = empty?.querySelector(".news-empty__message");
@@ -173,16 +174,9 @@ function initNewsList() {
     currentPage = Math.min(currentPage, pageCount);
     const pageStart = (currentPage - 1) * pageSize;
     const pageEnd = pageStart + pageSize;
-    const mobileLatestItem = matchingItems[pageStart];
-
-    items.forEach((item) => {
-      const matches = !selectedCategory || item.dataset.category === selectedCategory;
-      const matchingIndex = matchingItems.indexOf(item);
-      item.hidden = !matches || matchingIndex < pageStart || matchingIndex >= pageEnd;
-      item.classList.toggle("news-item--mobile-latest", item === mobileLatestItem);
-    });
-
     if (empty) empty.hidden = matchingItems.length !== 0;
+    applyPageVisibility(matchingItems, pageStart, pageEnd);
+    reserveListHeight(matchingItems, pageStart, pageEnd);
     renderPagination(pageCount);
 
     // 觸發篩選動畫（CSS 控制）
@@ -191,6 +185,38 @@ function initNewsList() {
       void list.offsetWidth; // 強制重繪
       list.classList.add("news-list--filtering");
     }
+  }
+
+  function applyPageVisibility(matchingItems, pageStart, pageEnd) {
+    const mobileLatestItem = matchingItems[pageStart];
+
+    items.forEach((item) => {
+      const matchingIndex = matchingItems.indexOf(item);
+      item.hidden = matchingIndex < pageStart || matchingIndex >= pageEnd;
+      item.classList.toggle("news-item--mobile-latest", item === mobileLatestItem);
+    });
+  }
+
+  /** 保留完整一頁的列表高度，避免較少資料的頁面讓 Footer 上移。 */
+  function reserveListHeight(matchingItems, pageStart, pageEnd) {
+    if (!matchingItems.length) {
+      list.style.minHeight = "";
+      return;
+    }
+
+    const previousMinHeight = list.style.minHeight;
+    list.style.minHeight = "0px";
+    applyPageVisibility(matchingItems, 0, Math.min(pageSize, matchingItems.length));
+    const fullPageHeight = list.offsetHeight;
+    applyPageVisibility(matchingItems, pageStart, pageEnd);
+    list.style.minHeight = fullPageHeight > 0 ? `${fullPageHeight}px` : previousMinHeight;
+  }
+
+  function scrollToNewsContent() {
+    if (!newsContent) return;
+    const top = Math.max(0, window.scrollY + newsContent.getBoundingClientRect().top - 16);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    window.scrollTo({ top, behavior });
   }
 
   function renderPagination(pageCount) {
@@ -263,6 +289,13 @@ function initNewsList() {
     if (!button || button.disabled) return;
     currentPage = Number(button.dataset.page);
     render(true);
+    window.requestAnimationFrame(scrollToNewsContent);
+  });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => render(), 120);
   });
 }
 
