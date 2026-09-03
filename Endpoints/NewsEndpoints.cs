@@ -79,7 +79,7 @@ public static class NewsEndpoints
             context.Response.Headers.CacheControl = "no-store, no-cache";
             context.Response.Headers.Pragma = "no-cache";
             return Results.Content(CreateCaptchaSvg(code), "image/svg+xml", Encoding.UTF8);
-        }).RequireRateLimiting("admin-login");
+        }).RequireRateLimiting("admin-captcha");
 
         app.MapPost("/api/admin/login", async (
             HttpContext context,

@@ -146,8 +146,11 @@ builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-    // 管理員登入畫面:1 分鐘最多 5 次,防止有人猜密碼
+    // 管理員登入:同一個 IP 每分鐘最多 5 次,防止有人猜密碼
     options.AddPolicy("admin-login", context => IpLimiter(context, permitLimit: 5));
+
+    // 驗證碼重新整理與登入分開限流,避免登入失敗後換碼被登入限流擋住
+    options.AddPolicy("admin-captcha", context => IpLimiter(context, permitLimit: 30));
 
     // 公開 API 跟後台 API:1 分鐘最多 60 次
     options.AddPolicy("public-api", context => IpLimiter(context, permitLimit: 60));
