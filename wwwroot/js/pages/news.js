@@ -6,7 +6,7 @@
  * 初始化最新消息列表頁
  * - 從公開 API 載入已發布消息與分類
  * - 渲染分類篩選按鈕
- * - 渲染消息列表（每頁 15 筆，支援數字分頁）
+ * - 渲染消息列表（每頁 9 筆，支援數字分頁）
  * - 分類篩選切換、空狀態處理
  */
 function initNewsList() {
@@ -19,7 +19,7 @@ function initNewsList() {
   if (!root || !list) return;
 
   const categoriesContainer = root.querySelector("[data-news-categories]");
-  const pageSize = 15;
+  const pageSize = 9;
   const defaultNewsImage = "/public/images/index/news.png?v=20260821-default-v2";
   let currentPage = 1;
   let items = []; // 所有消息 DOM 元素

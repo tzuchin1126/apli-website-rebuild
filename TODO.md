@@ -2,6 +2,13 @@
 
 ## 已完成
 
+### 2026-09-03 News 頁面分頁數量調整
+
+- news 頁面每頁顯示數量由 15 筆調整為 9 筆，保留既有前端數字分頁功能。
+- 實際驗證：`node --check wwwroot/js/pages/news.js` 成功；`git diff --check` 通過。
+- 未驗證項目：瀏覽器操作與桌機／手機 RWD。
+- Commit：本地 HEAD commit（本次變更）。
+
 ### 2026-09-03 Admin 驗證碼限流修正
 
 - 驗證碼 API 改用獨立的 `admin-captcha` 限流政策，每個 IP 每分鐘最多 30 次。
