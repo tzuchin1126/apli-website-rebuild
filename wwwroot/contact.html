@@ -18,11 +18,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
+  <link rel="preload" as="image" href="public/images/contact/contact-us.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260902-hero-title-size-v3">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260903-text-body-token-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
-  <link rel="stylesheet" href="css/pages/contact.css?v=20260830-contact-editorial-v4">
+  <link rel="stylesheet" href="css/pages/contact.css?v=20260903-contact-hero-position-v2">
   <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
 </head>
 
@@ -113,12 +114,13 @@
       </div>
     </div>
 
-    <!-- 聯絡我們 Intro -->
-    <section class="contact-intro site-container" aria-labelledby="contact-intro-title">
-      <div class="contact-intro__heading">
-        <p class="eyebrow">CONTACT</p>
-        <h1 class="contact-intro__title" id="contact-intro-title">聯絡我們</h1>
-      </div>
+    <!-- Hero 聯絡我們主視覺 -->
+    <section class="contact-hero page-hero" aria-labelledby="contact-hero-title">
+      <picture class="page-hero__media">
+        <img class="page-hero__image" src="public/images/contact/contact-us.jpg" width="5290" height="3527" alt="客服人員使用筆記型電腦" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
+      <div class="contact-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+      <h1 class="page-hero__title" id="contact-hero-title">聯絡我們</h1>
     </section>
 
     <!-- 聯絡我們內容區 -->

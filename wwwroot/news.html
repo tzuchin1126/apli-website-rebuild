@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
         <link rel="preload" as="image" href="public/images/index/news-hero.png" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
-        <link rel="stylesheet" href="css/base/tokens.css?v=20260902-page-hero-load-motion-v1">
+        <link rel="stylesheet" href="css/base/tokens.css?v=20260903-text-body-token-v1">
         <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
         <link rel="stylesheet" href="css/components/buttons.css">
@@ -97,14 +97,16 @@
                 <h1 class="page-hero__title" id="news-hero-title">最新消息</h1>
             </section>
 
-            <section class="news-content site-container" aria-labelledby="news-list-title">
-                <h2 id="news-list-title" class="sr-only">最新消息列表</h2>
-                
-                <div class="news-filter" data-news-filter>
-                    <div class="news-categories" data-news-categories role="group" aria-label="新聞類別">
+            <nav class="news-filter" data-news-filter aria-label="新聞類別切換">
+                <div class="news-filter__inner site-container">
+                    <div class="news-filter__list" data-news-categories role="group" aria-label="新聞類別">
                         <button type="button" data-category="" aria-pressed="true">全部</button>
                     </div>
                 </div>
+            </nav>
+
+            <section class="news-content site-container" aria-labelledby="news-list-title">
+                <h2 id="news-list-title" class="sr-only">最新消息列表</h2>
 
                 <div class="news-list" data-news-list>
                     <!-- news-list-items -->

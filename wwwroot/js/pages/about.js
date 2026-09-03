@@ -1,15 +1,17 @@
-(() => {
-  if (window.location.hash) return;
+(function () {
+  if (window.location.hash) {
+    return;
+  }
 
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
   }
 
-  const resetEntryPosition = () => {
+  function resetEntryPosition() {
     if (!window.location.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
-  };
+  }
 
   resetEntryPosition();
   window.addEventListener("pageshow", resetEntryPosition);
@@ -55,65 +57,83 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
-/** 初始化 About 頁面各區塊的捲動進場效果。 */
 function setupAboutScrollMotion() {
   const page = document.querySelector(".about-page");
-  const lead = page?.querySelector(".about-profile__lead");
-  const facts = page?.querySelector(".about-profile__facts");
-  const certifications = page?.querySelector(".about-certifications-preview");
-  const targets = [lead, facts, certifications].filter(Boolean);
-  if (!page || !targets.length) return;
+  if (!page) {
+    return;
+  }
+
+  const lead = page.querySelector(".about-profile__lead");
+  const facts = page.querySelector(".about-profile__facts");
+  const certifications = page.querySelector(".about-certifications-preview");
+
+  const targets = [];
+  if (lead) targets.push(lead);
+  if (facts) targets.push(facts);
+  if (certifications) targets.push(certifications);
+  if (targets.length === 0) {
+    return;
+  }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const counters = [...(facts?.querySelectorAll(".about-profile__fact-value") || [])]
-    .map((value) => {
-      const originalText = value.textContent.trim();
+
+  const counters = [];
+  if (facts) {
+    const factValues = facts.querySelectorAll(".about-profile__fact-value");
+    for (let i = 0; i < factValues.length; i++) {
+      const el = factValues[i];
+      const originalText = el.textContent.trim();
       const target = Number(originalText.replace(/[^\d.-]/g, ""));
-      const suffix = originalText.includes("+") ? "+" : "";
-      return { value, target, suffix };
-    })
-    .filter(({ target }) => Number.isFinite(target));
+      const suffix = originalText.indexOf("+") !== -1 ? "+" : "";
+      if (Number.isFinite(target)) {
+        counters.push({ el: el, target: target, suffix: suffix });
+      }
+    }
+  }
 
   page.classList.add("about-motion-ready");
 
-  const setFinalCounterValues = () => {
-    counters.forEach(({ value, target, suffix }) => {
-      value.textContent = `${target.toLocaleString("en-US")}${suffix}`;
+  function setFinalCounterValues() {
+    counters.forEach(function (counter) {
+      counter.el.textContent = counter.target.toLocaleString("en-US") + counter.suffix;
     });
-  };
+  }
 
-  const animateCounters = () => {
+  function animateCounters() {
     if (reducedMotion.matches) {
       setFinalCounterValues();
       return;
     }
 
-    counters.forEach(({ value, target, suffix }, index) => {
+    counters.forEach(function (counter, index) {
       const duration = 1100;
       const delay = index * 80;
       const startTime = performance.now() + delay;
 
-      const update = (timestamp) => {
+      function update(timestamp) {
         if (timestamp < startTime) {
           window.requestAnimationFrame(update);
           return;
         }
-
         const progress = Math.min((timestamp - startTime) / duration, 1);
-        const easedProgress = 1 - ((1 - progress) ** 3);
-        value.textContent = `${Math.round(target * easedProgress).toLocaleString("en-US")}${suffix}`;
-        if (progress < 1) window.requestAnimationFrame(update);
-      };
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.el.textContent = Math.round(counter.target * eased).toLocaleString("en-US") + counter.suffix;
+        if (progress < 1) {
+          window.requestAnimationFrame(update);
+        }
+      }
 
-      value.textContent = `0${suffix}`;
+      counter.el.textContent = "0" + counter.suffix;
       window.requestAnimationFrame(update);
     });
-  };
+  }
 
-  const reveal = (target) => {
+  function reveal(target) {
     target.classList.add("is-visible");
-    if (target === facts) animateCounters();
-  };
+    if (target === facts) {
+      animateCounters();
+    }
+  }
 
   if (reducedMotion.matches) {
     targets.forEach(reveal);
@@ -122,17 +142,23 @@ function setupAboutScrollMotion() {
   }
 
   if (!("IntersectionObserver" in window)) {
-    const revealVisibleTargets = () => {
-      targets.forEach((target) => {
+    // 舊瀏覽器沒有 IntersectionObserver，改用 scroll/resize 自己算元素是否進入畫面
+    function revealVisibleTargets() {
+      targets.forEach(function (target) {
         if (target.classList.contains("is-visible")) return;
-        const { top, bottom } = target.getBoundingClientRect();
-        if (top < window.innerHeight * 0.88 && bottom > window.innerHeight * 0.12) reveal(target);
+        const rect = target.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
+          reveal(target);
+        }
       });
-      if (targets.every((target) => target.classList.contains("is-visible"))) {
+      const allVisible = targets.every(function (target) {
+        return target.classList.contains("is-visible");
+      });
+      if (allVisible) {
         window.removeEventListener("scroll", revealVisibleTargets);
         window.removeEventListener("resize", revealVisibleTargets);
       }
-    };
+    }
 
     window.addEventListener("scroll", revealVisibleTargets, { passive: true });
     window.addEventListener("resize", revealVisibleTargets);
@@ -140,17 +166,19 @@ function setupAboutScrollMotion() {
     return;
   }
 
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach((entry) => {
+  const observer = new IntersectionObserver(function (entries, currentObserver) {
+    entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
       reveal(entry.target);
       currentObserver.unobserve(entry.target);
     });
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  targets.forEach((target) => observer.observe(target));
+  targets.forEach(function (target) {
+    observer.observe(target);
+  });
 
-  reducedMotion.addEventListener("change", () => {
+  reducedMotion.addEventListener("change", function () {
     if (!reducedMotion.matches) return;
     observer.disconnect();
     targets.forEach(reveal);
@@ -158,39 +186,56 @@ function setupAboutScrollMotion() {
   }, { once: true });
 }
 
-/**
- * 認證與獎項新版區塊：依年代與年份組瀏覽既有獎項資料。
- */
 function initCertificationPreview() {
   const preview = document.querySelector("[data-certification-preview]");
-  const nav = preview?.querySelector("[data-certification-preview-nav]");
-  const controls = preview?.querySelector("[data-certification-preview-controls]");
-  const viewport = preview?.querySelector(".about-certifications-preview__content-shell");
-  const content = preview?.querySelector("[data-certification-preview-content]");
-  if (!preview || !nav || !controls || !viewport || !content) return;
+  if (!preview) {
+    return;
+  }
+  const nav = preview.querySelector("[data-certification-preview-nav]");
+  const controls = preview.querySelector("[data-certification-preview-controls]");
+  const viewport = preview.querySelector(".about-certifications-preview__content-shell");
+  const content = preview.querySelector("[data-certification-preview-content]");
+  if (!nav || !controls || !viewport || !content) {
+    return;
+  }
 
-  const groupedEvents = new Map();
-  certificationPreviewEvents.forEach(({ year, title }) => {
-    if (!groupedEvents.has(year)) groupedEvents.set(year, []);
-    groupedEvents.get(year).push(title);
+  // 第一步：把獎項依年份分組
+  const eventsByYear = {};
+  certificationPreviewEvents.forEach(function (item) {
+    if (!eventsByYear[item.year]) {
+      eventsByYear[item.year] = [];
+    }
+    eventsByYear[item.year].push(item.title);
   });
 
-  const decadesByStart = new Map();
-  groupedEvents.forEach((events, year) => {
+  // 第二步：把年份依「年代」分組，例如 2021、2023、2024 都屬於 2020s
+  const yearsByDecade = {};
+  Object.keys(eventsByYear).forEach(function (year) {
     const yearNumber = Number(year);
     if (!Number.isInteger(yearNumber)) return;
     const decadeStart = Math.floor(yearNumber / 10) * 10;
-    if (!decadesByStart.has(decadeStart)) decadesByStart.set(decadeStart, []);
-    decadesByStart.get(decadeStart).push({ year, events });
+    if (!yearsByDecade[decadeStart]) {
+      yearsByDecade[decadeStart] = [];
+    }
+    yearsByDecade[decadeStart].push({ year: year, events: eventsByYear[year] });
   });
-  const decades = [...decadesByStart.entries()]
-    .sort(([first], [second]) => second - first)
-    .map(([start, years]) => ({
-      start,
-      label: `${start}s`,
-      years: years.sort((first, second) => Number(second.year) - Number(first.year)),
-    }));
-  if (!decades.length) return;
+
+  const decadeStarts = Object.keys(yearsByDecade).map(Number);
+  decadeStarts.sort(function (a, b) {
+    return b - a;
+  });
+
+  const decades = decadeStarts.map(function (start) {
+    const years = yearsByDecade[start].slice();
+    years.sort(function (a, b) {
+      return Number(b.year) - Number(a.year);
+    });
+    return { start: start, label: start + "s", years: years };
+  });
+
+  if (decades.length === 0) {
+    return;
+  }
 
   const decadeButtons = [];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -208,7 +253,7 @@ function initCertificationPreview() {
   }
 
   function getPages(decade) {
-    const entries = [...decade.years];
+    const entries = decade.years.slice();
     const pages = [];
     for (let index = 0; index < entries.length; index += pageSize) {
       pages.push(entries.slice(index, index + pageSize));
@@ -216,28 +261,36 @@ function initCertificationPreview() {
     return pages;
   }
 
+  // pageOffsets[i] 記錄第 i 個年代的第一頁，攤平到整條 track 之後排在第幾頁，
+  // 用來把「第幾個年代、第幾頁」換算成 track 裡的單一頁碼
   function rebuildPageSets() {
-    pageSets = decades.map((decade) => getPages(decade));
+    pageSets = decades.map(getPages);
     pageOffsets = [];
     let offset = 0;
-    pageSets.forEach((pages) => {
+    pageSets.forEach(function (pages) {
       pageOffsets.push(offset);
       offset += pages.length;
     });
   }
 
-  decades.forEach((decade, decadeIndex) => {
-    const buttonId = `certification-preview-decade-${decade.start}`;
+  function markActiveDecadeButton(index) {
+    decadeButtons.forEach(function (button, buttonIndex) {
+      const active = buttonIndex === index;
+      button.dataset.active = active ? "true" : "false";
+      button.setAttribute("aria-current", active ? "true" : "false");
+    });
+  }
+
+  decades.forEach(function (decade) {
     const tab = document.createElement("button");
     tab.type = "button";
-    tab.id = buttonId;
+    tab.id = "certification-preview-decade-" + decade.start;
     tab.setAttribute("aria-controls", "certification-preview-content");
-    tab.setAttribute("aria-current", decadeIndex === 0 ? "true" : "false");
-    tab.dataset.active = decadeIndex === 0 ? "true" : "false";
     tab.textContent = decade.label;
     nav.append(tab);
     decadeButtons.push(tab);
   });
+  markActiveDecadeButton(0);
 
   const previousButton = document.createElement("button");
   previousButton.type = "button";
@@ -251,46 +304,56 @@ function initCertificationPreview() {
   nextButton.textContent = "→";
   controls.replaceChildren(previousButton, nextButton);
 
-  function setTrackPosition(animate = true) {
+  function setTrackPosition(animate) {
+    if (animate === undefined) animate = true;
     const track = content.querySelector("[data-certification-preview-track]");
-    const firstPage = track?.firstElementChild;
-    if (!track || !firstPage) return;
+    if (!track) return;
+    const firstPage = track.firstElementChild;
+    if (!firstPage) return;
+
     const globalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
     const targetPage = track.children[globalPageIndex];
-    const pageStep = targetPage
-      ? targetPage.offsetLeft - firstPage.offsetLeft
-      : firstPage.offsetWidth + 16;
+    let pageStep;
+    if (targetPage) {
+      pageStep = targetPage.offsetLeft - firstPage.offsetLeft;
+    } else {
+      pageStep = firstPage.offsetWidth + 16;
+    }
+
     viewport.classList.toggle("is-track-advanced", globalPageIndex > 0);
     viewport.scrollTo({
       left: pageStep,
       behavior: animate && !reduceMotion ? "smooth" : "auto",
     });
-    [...track.children].forEach((page, pageIndex) => {
-      page.setAttribute("aria-hidden", pageIndex === globalPageIndex ? "false" : "true");
-    });
+
+    for (let i = 0; i < track.children.length; i++) {
+      track.children[i].setAttribute("aria-hidden", i === globalPageIndex ? "false" : "true");
+    }
   }
 
   function syncStateFromScroll() {
     const track = content.querySelector("[data-certification-preview-track]");
-    const firstPage = track?.firstElementChild;
-    if (!track || !firstPage || !pageSets.length) return;
+    if (!track) return;
+    const firstPage = track.firstElementChild;
+    if (!firstPage || pageSets.length === 0) return;
 
     const currentOffset = viewport.scrollLeft;
     let nearestPageIndex = 0;
     let nearestDistance = Number.POSITIVE_INFINITY;
-    [...track.children].forEach((page, pageIndex) => {
+    for (let i = 0; i < track.children.length; i++) {
+      const page = track.children[i];
       const pageOffset = page.offsetLeft - firstPage.offsetLeft;
       const distance = Math.abs(pageOffset - currentOffset);
       if (distance < nearestDistance) {
         nearestDistance = distance;
-        nearestPageIndex = pageIndex;
+        nearestPageIndex = i;
       }
-    });
+    }
 
     let nextDecadeIndex = pageOffsets.length - 1;
-    for (let index = 0; index < pageOffsets.length; index += 1) {
-      if (nearestPageIndex < pageOffsets[index] + pageSets[index].length) {
-        nextDecadeIndex = index;
+    for (let i = 0; i < pageOffsets.length; i++) {
+      if (nearestPageIndex < pageOffsets[i] + pageSets[i].length) {
+        nextDecadeIndex = i;
         break;
       }
     }
@@ -299,11 +362,7 @@ function initCertificationPreview() {
 
     activeDecadeIndex = nextDecadeIndex;
     activePageIndex = nextPageIndex;
-    decadeButtons.forEach((button, buttonIndex) => {
-      const active = buttonIndex === activeDecadeIndex;
-      button.dataset.active = active ? "true" : "false";
-      button.setAttribute("aria-current", active ? "true" : "false");
-    });
+    markActiveDecadeButton(activeDecadeIndex);
     updateControls();
   }
 
@@ -320,13 +379,13 @@ function initCertificationPreview() {
     const page = document.createElement("section");
     page.className = "about-certifications-preview__page";
     page.dataset.previewYearCount = String(years.length);
-    const pageHeadingId = `certification-preview-${decade.start}-${pageIndex}`;
+    const pageHeadingId = "certification-preview-" + decade.start + "-" + pageIndex;
     page.setAttribute("aria-labelledby", pageHeadingId);
 
     const timeline = document.createElement("div");
     timeline.className = "about-certifications-preview__timeline";
     timeline.style.setProperty("--preview-year-count", String(years.length));
-    years.forEach((yearEntry, yearIndex) => {
+    years.forEach(function (yearEntry, yearIndex) {
       const node = document.createElement("span");
       node.className = "about-certifications-preview__timeline-node";
       node.dataset.active = yearIndex === 0 ? "true" : "false";
@@ -339,7 +398,10 @@ function initCertificationPreview() {
     yearsElement.className = "about-certifications-preview__years";
     yearsElement.dataset.yearCount = String(years.length);
     yearsElement.style.setProperty("--preview-year-count", String(years.length));
-    years.forEach(({ year, events: yearEvents }) => {
+    years.forEach(function (yearEntry) {
+      const year = yearEntry.year;
+      const yearEvents = yearEntry.events;
+
       const yearColumn = document.createElement("article");
       yearColumn.className = "about-certifications-preview__year-column";
 
@@ -347,15 +409,14 @@ function initCertificationPreview() {
       yearHeading.className = "about-certifications-preview__year";
       yearHeading.id = year === years[0].year
         ? pageHeadingId
-        : `certification-preview-year-${decadeIndex}-${pageIndex}-${year}`;
+        : "certification-preview-year-" + decadeIndex + "-" + pageIndex + "-" + year;
       yearHeading.textContent = year;
 
       const events = document.createElement("div");
       events.className = "about-certifications-preview__events";
-      yearEvents.forEach((title, eventIndex) => {
+      yearEvents.forEach(function (title) {
         const event = document.createElement("article");
         event.className = "about-certifications-preview__event";
-
         const heading = document.createElement("h4");
         heading.textContent = title;
         event.append(heading);
@@ -370,14 +431,18 @@ function initCertificationPreview() {
 
   function syncEventHeights() {
     content.style.removeProperty("--preview-events-height");
-    const eventGroups = [...content.querySelectorAll(".about-certifications-preview__events")];
-    if (!eventGroups.length) return;
-    const maxHeight = Math.max(...eventGroups.map((events) => events.getBoundingClientRect().height));
-    content.style.setProperty("--preview-events-height", `${Math.ceil(maxHeight)}px`);
+    const eventGroups = content.querySelectorAll(".about-certifications-preview__events");
+    if (eventGroups.length === 0) return;
+    let maxHeight = 0;
+    for (let i = 0; i < eventGroups.length; i++) {
+      const height = eventGroups[i].getBoundingClientRect().height;
+      if (height > maxHeight) maxHeight = height;
+    }
+    content.style.setProperty("--preview-events-height", Math.ceil(maxHeight) + "px");
   }
 
   function renderTrack() {
-    if (!pageSets.length) return;
+    if (pageSets.length === 0) return;
     const sharedTimelineTrack = document.createElement("div");
     sharedTimelineTrack.className = "about-certifications-preview__shared-track";
     sharedTimelineTrack.setAttribute("aria-hidden", "true");
@@ -385,9 +450,11 @@ function initCertificationPreview() {
     const track = document.createElement("div");
     track.className = "about-certifications-preview__track";
     track.setAttribute("data-certification-preview-track", "");
-    pageSets.forEach((pages, decadeIndex) => {
+    pageSets.forEach(function (pages, decadeIndex) {
       const decade = decades[decadeIndex];
-      pages.forEach((years, pageIndex) => track.append(createPage(years, decade, decadeIndex, pageIndex)));
+      pages.forEach(function (years, pageIndex) {
+        track.append(createPage(years, decade, decadeIndex, pageIndex));
+      });
     });
     content.replaceChildren(sharedTimelineTrack, track);
     syncEventHeights();
@@ -395,20 +462,18 @@ function initCertificationPreview() {
     updateControls();
   }
 
-  function activateDecade(index, moveFocus = false) {
+  function activateDecade(index, moveFocus) {
     if (index < 0 || index >= decadeButtons.length) return;
     activeDecadeIndex = index;
     activePageIndex = 0;
-    decadeButtons.forEach((button, buttonIndex) => {
-      const active = buttonIndex === index;
-      button.dataset.active = active ? "true" : "false";
-      button.setAttribute("aria-current", active ? "true" : "false");
-    });
+    markActiveDecadeButton(index);
     setTrackPosition(true);
     updateControls();
-    if (moveFocus) decadeButtons[index].focus();
-    if (moveFocus && decadeButtons[index].scrollIntoView) {
-      decadeButtons[index].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
+    if (moveFocus) {
+      decadeButtons[index].focus();
+      if (decadeButtons[index].scrollIntoView) {
+        decadeButtons[index].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
+      }
     }
   }
 
@@ -416,6 +481,7 @@ function initCertificationPreview() {
     const pages = getPages(decades[activeDecadeIndex]);
     let nextDecadeIndex = activeDecadeIndex;
     let nextPageIndex = activePageIndex + offset;
+
     if (nextPageIndex < 0 && activeDecadeIndex > 0) {
       nextDecadeIndex -= 1;
       nextPageIndex = getPages(decades[nextDecadeIndex]).length - 1;
@@ -423,6 +489,7 @@ function initCertificationPreview() {
       nextDecadeIndex += 1;
       nextPageIndex = 0;
     }
+
     if (nextDecadeIndex === activeDecadeIndex) {
       const boundedPageIndex = Math.max(0, Math.min(nextPageIndex, pages.length - 1));
       if (boundedPageIndex === activePageIndex) return;
@@ -430,20 +497,18 @@ function initCertificationPreview() {
     } else {
       activeDecadeIndex = nextDecadeIndex;
       activePageIndex = nextPageIndex;
-      decadeButtons.forEach((button, buttonIndex) => {
-        const active = buttonIndex === activeDecadeIndex;
-        button.dataset.active = active ? "true" : "false";
-        button.setAttribute("aria-current", active ? "true" : "false");
-      });
+      markActiveDecadeButton(activeDecadeIndex);
       decadeButtons[activeDecadeIndex].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
     }
     setTrackPosition(true);
     updateControls();
   }
 
-  decadeButtons.forEach((button, index) => {
-    button.addEventListener("click", () => activateDecade(index));
-    button.addEventListener("keydown", (event) => {
+  decadeButtons.forEach(function (button, index) {
+    button.addEventListener("click", function () {
+      activateDecade(index);
+    });
+    button.addEventListener("keydown", function (event) {
       let nextIndex = index;
       if (event.key === "ArrowRight") nextIndex = Math.min(index + 1, decadeButtons.length - 1);
       if (event.key === "ArrowLeft") nextIndex = Math.max(index - 1, 0);
@@ -455,43 +520,52 @@ function initCertificationPreview() {
     });
   });
 
-  previousButton.addEventListener("click", () => movePage(-1));
-  nextButton.addEventListener("click", () => movePage(1));
-  let dragState = null;
-  viewport.addEventListener("pointerdown", (event) => {
-    if (event.pointerType !== "mouse" || event.button !== 0) return;
-    if (event.target.closest("button")) return;
-    dragState = { pointerId: event.pointerId, startX: event.clientX, startScrollLeft: viewport.scrollLeft, distance: 0, moved: false };
-    viewport.setPointerCapture?.(event.pointerId);
+  previousButton.addEventListener("click", function () {
+    movePage(-1);
   });
-  viewport.addEventListener("pointermove", (event) => {
-    if (!dragState || event.pointerId !== dragState.pointerId) return;
-    dragState.distance = event.clientX - dragState.startX;
-    if (Math.abs(dragState.distance) <= 4) return;
-    dragState.moved = true;
-    viewport.classList.add("is-dragging");
-    viewport.scrollLeft = dragState.startScrollLeft - dragState.distance;
+  nextButton.addEventListener("click", function () {
+    movePage(1);
+  });
+
+  // 滑鼠拖曳 viewport 也能翻頁；觸控裝置本來就有原生 scroll，不用另外處理
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
+
+  viewport.addEventListener("mousedown", function (event) {
+    if (event.button !== 0) return;
+    if (event.target.closest("button")) return;
+    isDragging = true;
+    dragStartX = event.clientX;
+    dragStartScrollLeft = viewport.scrollLeft;
     event.preventDefault();
   });
-  function stopDragging(event) {
-    if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
-    const { pointerId } = dragState;
-    dragState = null;
+
+  document.addEventListener("mousemove", function (event) {
+    if (!isDragging) return;
+    const distance = event.clientX - dragStartX;
+    if (Math.abs(distance) > 4) {
+      viewport.classList.add("is-dragging");
+      viewport.scrollLeft = dragStartScrollLeft - distance;
+    }
+  });
+
+  document.addEventListener("mouseup", function () {
+    if (!isDragging) return;
+    isDragging = false;
     viewport.classList.remove("is-dragging");
-    if (event && viewport.hasPointerCapture?.(pointerId)) viewport.releasePointerCapture(pointerId);
     syncStateFromScroll();
     setTrackPosition(true);
-  }
-  viewport.addEventListener("pointerup", stopDragging);
-  viewport.addEventListener("pointercancel", stopDragging);
-  viewport.addEventListener("lostpointercapture", stopDragging);
+  });
+
   viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
-  viewport.addEventListener("wheel", (event) => {
+  viewport.addEventListener("wheel", function (event) {
     if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 16) return;
     event.preventDefault();
     movePage(event.deltaX > 0 ? 1 : -1);
   }, { passive: false });
-  window.addEventListener("resize", () => {
+
+  window.addEventListener("resize", function () {
     const nextPageSize = getPageSize();
     if (nextPageSize === pageSize) {
       syncEventHeights();
@@ -510,7 +584,7 @@ function initCertificationPreview() {
   activateDecade(0);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   setupAboutScrollMotion();
   initCertificationPreview();
 });

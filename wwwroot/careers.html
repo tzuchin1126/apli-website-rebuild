@@ -18,26 +18,22 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="preload" as="image" href="public/images/careers-hero.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260902-page-hero-load-motion-v1">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260903-text-body-token-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260823-a11y-nav-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
-  <link rel="stylesheet" href="css/pages/careers.css?v=20260825-careers-hero-overlay-v1">
+  <link rel="stylesheet" href="css/pages/careers.css?v=20260903-careers-recruitment-spacing-v1">
   <link rel="stylesheet" href="css/site.css?v=20260902-page-hero-load-motion-v1">
 </head>
 
 <body class="join-page">
   <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
-
-  <!-- 頁頭 / 導覽列 -->
   <header class="site-header">
     <div class="site-container site-header__inner">
       <a class="site-header__brand" href="/" aria-label="亞太國際物流首頁">
         <img src="public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" loading="eager" decoding="sync">
       </a>
-      
       <nav id="main-navigation" class="site-header__nav" aria-label="主選單">
-        <!-- 關於我們 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="about-menu">
             關於我們 
@@ -52,8 +48,6 @@
             <a href="/operational-resources"><span>營運資源</span></a>
           </div>
         </div>
-
-        <!-- 服務項目 下拉選單 -->
         <div class="nav-dropdown">
           <button class="nav-link" type="button" aria-expanded="false" aria-controls="services-menu">
             服務項目 
@@ -68,14 +62,11 @@
             <a href="/services#maintenance"><span>機具維修與銷售</span></a>
           </div>
         </div>
-
         <a href="/news">最新消息</a>
         <a href="/careers" aria-current="page">人才招募</a>
         <a href="/affiliates">關係企業</a>
         <a href="/contact">聯絡我們</a>
       </nav>
-
-      <!-- 工具按鈕 (電話 / 郵件) -->
       <div class="site-header__tools" aria-label="快速連結">
         <a href="/contact" aria-label="前往聯絡我們頁面">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -89,8 +80,6 @@
           </svg>
         </a>
       </div>
-
-      <!-- 手機版選單開關按鈕 -->
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
         <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
           <path class="menu-toggle__menu" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -100,8 +89,6 @@
       </button>
     </div>
   </header>
-
-  <!-- 主要內容區 -->
   <main id="main-content" role="main">
     <!-- 麵包屑導覽 -->
     <div class="join-breadcrumb page-breadcrumb">
@@ -111,8 +98,6 @@
         <span aria-current="page">人才招募</span>
       </div>
     </div>
-
-    <!-- Hero 主視覺區 -->
     <section class="join-hero page-hero" aria-labelledby="join-title">
       <picture class="page-hero__media">
         <img class="page-hero__image" src="public/images/careers-hero.jpg" width="6178" height="4119" alt="物流作業場景" fetchpriority="high" loading="eager" decoding="async">
@@ -120,8 +105,6 @@
       <div class="join-hero__overlay page-hero__overlay" aria-hidden="true"></div>
       <h1 class="page-hero__title" id="join-title">人才招募</h1>
     </section>
-
-    <!-- 人才招募內容區 -->
     <section class="join-content site-container">
       <!-- Panel 1: 職缺資訊 -->
       <article class="join-panel" id="join-career" aria-labelledby="join-intro-title">
@@ -138,10 +121,7 @@
             <img src="public/images/join/careers-workplace.jpg" alt="亞太國際物流工作環境" loading="lazy" decoding="async">
           </picture>
         </div>
-
       </article>
-
-      <!-- Panel 2: 公司福利 -->
       <article class="join-panel" id="join-benefits" role="region" aria-labelledby="join-benefits-title">
         <div class="join-section-heading join-section-heading--left join-benefits-heading">
           <p class="eyebrow">BENEFITS</p>
@@ -198,7 +178,6 @@
           </tbody>
         </table>
       </article>
-
       <section class="join-recruitment" aria-labelledby="join-recruitment-title">
         <div class="join-section-heading">
           <p class="eyebrow">CAREER OPPORTUNITIES</p>

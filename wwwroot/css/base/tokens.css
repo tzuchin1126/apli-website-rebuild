@@ -5,8 +5,7 @@
 
   /* Neutral text and surfaces: black, white, and grayscale only. */
   --color-text-primary: #000000;
-  --color-text-body: #5C5C5C;
-  --color-text-secondary: rgb(0 0 0 / 60%);
+  --color-text-body: #5c5c5c;
   --color-text-muted: rgb(0 0 0 / 40%);
   --color-text-on-dark: #ffffff;
   --color-background: #ffffff;
@@ -19,7 +18,7 @@
   --color-primary-dark: var(--color-primary);
   --color-secondary: var(--color-surface-inverse);
   --color-ink: var(--color-text-primary);
-  --color-muted: var(--color-text-secondary);
+  --color-muted: var(--color-text-body);
   --color-surface: var(--color-background);
   --color-surface-soft: var(--color-surface-subtle);
   --color-line: var(--color-border);
@@ -90,7 +89,7 @@
   --shadow-card: 0 6px 18px rgb(0 0 0 / 5%);
   --footer-background: var(--color-surface-subtle);
   --footer-bottom-background: var(--color-surface-inverse);
-  --footer-heading: var(--color-text-secondary);
+  --footer-heading: var(--color-text-body);
   --footer-link: var(--color-text-primary);
   --footer-muted: var(--color-text-muted);
   --footer-divider: var(--color-border);

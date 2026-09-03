@@ -7,12 +7,12 @@
   min-height: 40px;
   align-items: center;
   gap: 10px;
-  color: var(--color-muted);
-  font-size: 0.88rem;
+  color: #5c5c5c;
+  font-size: var(--font-size-body-sm);
 }
 
 .page-breadcrumb a {
-  color: var(--color-ink);
+  color: #5c5c5c;
   text-decoration: none;
 }
 
