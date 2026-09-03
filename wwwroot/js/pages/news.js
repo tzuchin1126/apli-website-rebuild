@@ -20,7 +20,7 @@ function initNewsList() {
 
   const categoriesContainer = root.querySelector("[data-news-categories]");
   const pageSize = 9;
-  const defaultNewsImage = "/public/images/index/news-default-banner.png?v=20260903-news-default-banner-v1";
+  const defaultNewsImage = "/public/images/index/news.png?v=20260821-default-v2";
   let currentPage = 1;
   let items = []; // 所有消息 DOM 元素
 

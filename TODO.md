@@ -2,6 +2,15 @@
 
 ## 已完成
 
+### 2026-09-03 News 圖片恢復原始比例
+
+- News Card 圖片容器與手機縮圖恢復為 `16:9`。
+- 預設公告圖片恢復使用原本的 `news.png`。
+- 保留既有新聞標題、摘要層級與三欄版型設定。
+- 實際驗證：`node --check wwwroot/js/pages/news.js` 成功；`git diff --check` 通過。
+- 未驗證項目：實機與瀏覽器畫面；依需求不執行。
+- Commit：本地 HEAD commit（本次變更）。
+
 ### 2026-09-03 News 預設公告橫幅圖
 
 - 新增 `wwwroot/public/images/index/news-default-banner.png`，尺寸為 1983x793（約 2.5:1）。
