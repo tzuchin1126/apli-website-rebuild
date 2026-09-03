@@ -253,35 +253,44 @@
 
 .news-pagination {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  margin-top: -8px;
+  gap: 8px;
+  margin-top: 24px;
 }
 
 .news-pagination__control,
 .news-pagination__page {
-  min-width: 24px;
-  min-height: 32px;
-  padding: 4px 2px;
-  border: 0;
-  background: transparent;
+  display: inline-flex;
+  min-width: 40px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
-  font-size: var(--font-size-caption);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
   line-height: 1;
   cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 
 .news-pagination__arrow {
-  color: var(--color-text-secondary);
-  font-size: 1rem;
+  padding-inline: 8px;
+  font-size: 1.125rem;
 }
 
 .news-pagination__control:hover:not(:disabled),
 .news-pagination__control:focus-visible,
 .news-pagination__page:hover,
 .news-pagination__page:focus-visible {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
   color: var(--color-primary);
 }
 
@@ -292,19 +301,23 @@
 }
 
 .news-pagination__control:disabled {
+  border-color: transparent;
+  background: transparent;
   color: var(--color-text-muted);
   cursor: default;
 }
 
 .news-pagination__page.is-current {
-  border-bottom: 2px solid var(--color-primary);
-  color: var(--color-text-primary);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-text-on-dark);
 }
 
 .news-pagination__ellipsis {
-  min-width: 24px;
+  min-width: 20px;
+  padding-inline: 2px;
   color: var(--color-text-secondary);
-  font-size: var(--font-size-caption);
+  font-size: var(--font-size-body-sm);
   text-align: center;
 }
 
@@ -448,7 +461,20 @@
   }
 
   .news-pagination {
-    gap: 10px;
+    gap: 4px;
+    margin-top: 16px;
+  }
+
+  .news-pagination__control,
+  .news-pagination__page {
+    min-width: 34px;
+    min-height: 36px;
+    padding: 7px 8px;
+    font-size: 0.8125rem;
+  }
+
+  .news-pagination__arrow {
+    padding-inline: 6px;
   }
 }
 
