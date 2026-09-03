@@ -176,7 +176,6 @@ function initNewsList() {
     const pageEnd = pageStart + pageSize;
     if (empty) empty.hidden = matchingItems.length !== 0;
     applyPageVisibility(matchingItems, pageStart, pageEnd);
-    reserveListHeight(matchingItems, pageStart, pageEnd);
     renderPagination(pageCount);
 
     // 觸發篩選動畫（CSS 控制）
@@ -195,21 +194,6 @@ function initNewsList() {
       item.hidden = matchingIndex < pageStart || matchingIndex >= pageEnd;
       item.classList.toggle("news-item--mobile-latest", item === mobileLatestItem);
     });
-  }
-
-  /** 保留完整一頁的列表高度，避免較少資料的頁面讓 Footer 上移。 */
-  function reserveListHeight(matchingItems, pageStart, pageEnd) {
-    if (!matchingItems.length) {
-      list.style.minHeight = "";
-      return;
-    }
-
-    const previousMinHeight = list.style.minHeight;
-    list.style.minHeight = "0px";
-    applyPageVisibility(matchingItems, 0, Math.min(pageSize, matchingItems.length));
-    const fullPageHeight = list.offsetHeight;
-    applyPageVisibility(matchingItems, pageStart, pageEnd);
-    list.style.minHeight = fullPageHeight > 0 ? `${fullPageHeight}px` : previousMinHeight;
   }
 
   function scrollToNewsContent() {
@@ -292,11 +276,6 @@ function initNewsList() {
     window.requestAnimationFrame(scrollToNewsContent);
   });
 
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => render(), 120);
-  });
 }
 
 // ---------------------------------------------------------------------------
