@@ -81,11 +81,19 @@ function initNewsDetail() {
       contentEl.append(p);
     }
 
-    // 圖片
-    if (item.imageUrl) {
+    // 圖片：列表頁的系統預設圖不視為新聞自訂圖片。
+    const hasCustomImage = !isDefaultNewsImage(item.imageUrl);
+    detail.classList.toggle("news-detail--with-image", hasCustomImage);
+    detail.classList.toggle("news-detail--without-image", !hasCustomImage);
+
+    if (imageEl && hasCustomImage) {
       imageEl.src = item.imageUrl;
       imageEl.alt = item.title;
       imageEl.hidden = false;
+    } else if (imageEl) {
+      imageEl.removeAttribute("src");
+      imageEl.alt = "";
+      imageEl.hidden = true;
     }
 
     // 附件連結
@@ -105,6 +113,15 @@ function initNewsDetail() {
 
     // 顯示詳細區塊
     detail.hidden = false;
+  }
+
+  function isDefaultNewsImage(value) {
+    const imageUrl = String(value || "").trim();
+    if (!imageUrl) return true;
+
+    const imagePath = imageUrl.split(/[?#]/, 1)[0];
+    return imagePath === "/public/images/index/news.png"
+      || imagePath === "public/images/index/news.png";
   }
 
   // 顯示錯誤狀態
