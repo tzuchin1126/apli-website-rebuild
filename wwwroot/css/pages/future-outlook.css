@@ -1,33 +1,45 @@
-.future-outlook-page {
-  --future-content-max-width: 960px;
-  --page-hero-image-position: center 58%;
-  --page-hero-image-origin: 50% 58%;
-}
-
 .future-outlook-page .future-outlook-content {
-  width: min(100% - (var(--content-padding) * 2), var(--future-content-max-width));
-  margin-inline: auto;
-  padding-block: var(--page-content-start-space) var(--section-space);
-}
-
-.future-outlook-page .future-outlook-content h1,
-.future-outlook-page .future-outlook-content p {
+  --future-content-edge-space: 32px;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 520px;
   margin: 0;
+  padding-block: var(--future-content-edge-space);
+  background: var(--color-background);
+  display: grid;
+  align-items: center;
 }
 
-.future-outlook-page .future-outlook-content h1 {
-  color: var(--color-ink);
-  font-family: var(--font-heading);
-  font-size: var(--font-size-body-lg);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-tight);
-  line-height: var(--line-height-heading);
+.future-outlook-page .future-outlook-content::before {
+  position: absolute;
+  inset: var(--future-content-edge-space) 0;
+  z-index: -1;
+  /* background: url("../../public/images/future-outlook/01.jpg") center / cover no-repeat; */
+  background: url("../../public/images/future-outlook/hero.png") center 20% / cover no-repeat;
+  content: "";
+}
+
+.future-outlook-page .future-outlook-content__inner {
+  display: grid;
+  gap: 8px;
+  width: min(100% - (var(--content-padding) * 2), var(--content-max-width));
+  margin-inline: auto;
 }
 
 .future-outlook-page .future-outlook-content p {
-  max-width: 840px;
-  margin-top: var(--section-space);
-  color: var(--color-text-body);
-  font-size: var(--font-size-body-copy);
-  line-height: var(--line-height-body);
+  max-width: 720px;
+  margin: 0;
+  color: var(--color-text-on-dark);
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: .04em;
+  line-height: clamp(32px, 32px + 0vw, 35px);
+  text-shadow: 0 2px 8px rgb(0 0 0 / 45%);
+  text-wrap: pretty;
+}
+
+.future-outlook-page .future-outlook-content__emphasis {
+  color: var(--color-text-on-dark);
 }
