@@ -18,7 +18,7 @@
 .future-outlook-page .future-outlook-content h1 {
   color: var(--color-ink);
   font-family: var(--font-heading);
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);

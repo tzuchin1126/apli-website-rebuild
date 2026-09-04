@@ -14,6 +14,8 @@
 - 未來展望頁面收斂為單一內容區塊，更新指定標題與內文；標題使用 `var(--font-heading)` 與全域字級變數。
 - 未來展望頁面恢復原本 Hero 圖片與「未來展望」標題，內容區塊仍僅保留指定標題與內文。
 - 未來展望 Hero 標題改由共用 `.page-hero__title` 完整控制，避免內容標題樣式覆蓋 Hero 的字體與顏色。
+- 未來展望內容標題改用較小的全域 `--font-size-h3`，保留 Noto Serif TC；Hero 標題維持共用樣式。
+- 未來展望內容標題再收斂為全域 `--font-size-body-lg`，保留 Noto Serif TC；Hero 標題維持共用樣式。
 - 全站 Header／Footer 的服務項目連結統一導向 `/services`，不再附帶區段錨點。
 - 修正最新消息詳細頁圖片狀態 placeholder 混入 `class` 屬性的問題。
 - 確保 `.site-container` 在有圖片與無圖片新聞詳細頁都能正常套用置中與響應式內距。
