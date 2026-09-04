@@ -1,13 +1,26 @@
 // ---------------------------------------------------------------------------
+// 共用小工具
+// ---------------------------------------------------------------------------
+
+// 把 NodeList 轉成一般陣列，方便用 for 迴圈處理
+function toArray(nodeList) {
+  const result = [];
+  for (let i = 0; i < nodeList.length; i++) {
+    result.push(nodeList[i]);
+  }
+  return result;
+}
+
+// ---------------------------------------------------------------------------
 // Hero 輪播:6 秒自動播放、點擊圓點、手機滑動、鍵盤焦點/分頁切換時暫停
 // ---------------------------------------------------------------------------
-/** 初始化首頁 Hero 輪播與觸控／鍵盤互動。 */
+
 function setupHeroCarousel() {
   const hero = document.querySelector("[data-hero-carousel]");
   if (!hero) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const slides = hero.querySelectorAll("[data-hero-slide]");
+  const slides = toArray(hero.querySelectorAll("[data-hero-slide]"));
   const dotsContainer = hero.querySelector("[data-hero-dots]");
 
   let activeIndex = 0;
@@ -18,25 +31,29 @@ function setupHeroCarousel() {
   let startY = 0;
   let pointerId = null;
 
-  slides.forEach((slide, index) => {
-    if (slide.classList.contains("is-active")) activeIndex = index;
-  });
+  // 找出一開始就有 is-active 的投影片，記住它的索引
+  for (let i = 0; i < slides.length; i++) {
+    if (slides[i].classList.contains("is-active")) activeIndex = i;
+  }
 
   function render() {
-    slides.forEach((slide, index) => {
-      const isActive = index === activeIndex;
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i];
+      const isActive = i === activeIndex;
       slide.classList.toggle("is-active", isActive);
       slide.setAttribute("aria-hidden", String(!isActive));
-    });
+    }
 
     if (!dotsContainer) return;
 
-    dotsContainer.querySelectorAll(".home-hero__dot").forEach((dot, index) => {
-      const isActive = index === activeIndex;
+    const dots = toArray(dotsContainer.querySelectorAll(".home-hero__dot"));
+    for (let i = 0; i < dots.length; i++) {
+      const dot = dots[i];
+      const isActive = i === activeIndex;
       dot.classList.toggle("is-active", isActive);
       if (isActive) dot.setAttribute("aria-current", "true");
       else dot.removeAttribute("aria-current");
-    });
+    }
   }
 
   function goTo(index) {
@@ -54,22 +71,26 @@ function setupHeroCarousel() {
   function startAutoplay() {
     stopAutoplay();
     if (slides.length < 2 || reducedMotion.matches || document.hidden || hasFocus) return;
-    autoplayId = setInterval(() => goTo(activeIndex + 1), 6000);
+    autoplayId = setInterval(function () {
+      goTo(activeIndex + 1);
+    }, 6000);
   }
 
   if (dotsContainer) {
-    slides.forEach((slide, index) => {
+    for (let index = 0; index < slides.length; index++) {
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = "home-hero__dot";
-      dot.setAttribute("aria-label", `顯示第 ${index + 1} 張主視覺`);
-      dot.addEventListener("click", () => goTo(index));
+      dot.setAttribute("aria-label", "顯示第 " + (index + 1) + " 張主視覺");
+      dot.addEventListener("click", function () {
+        goTo(index);
+      });
       dotsContainer.appendChild(dot);
-    });
+    }
   }
 
   // 手機滑動切換(僅處理 touch/pen,滑鼠不觸發)
-  hero.addEventListener("pointerdown", (event) => {
+  hero.addEventListener("pointerdown", function (event) {
     if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
     if (event.target.closest("a, button")) return;
 
@@ -78,7 +99,7 @@ function setupHeroCarousel() {
     startY = event.clientY;
   });
 
-  hero.addEventListener("pointerup", (event) => {
+  hero.addEventListener("pointerup", function (event) {
     if (event.pointerId !== pointerId) return;
 
     const distanceX = event.clientX - startX;
@@ -90,18 +111,18 @@ function setupHeroCarousel() {
     pointerId = null;
   });
 
-  hero.addEventListener("focusin", () => {
+  hero.addEventListener("focusin", function () {
     hasFocus = true;
     stopAutoplay();
   });
 
-  hero.addEventListener("focusout", (event) => {
+  hero.addEventListener("focusout", function (event) {
     if (hero.contains(event.relatedTarget)) return;
     hasFocus = false;
     startAutoplay();
   });
 
-  document.addEventListener("visibilitychange", () => {
+  document.addEventListener("visibilitychange", function () {
     if (document.hidden) stopAutoplay();
     else startAutoplay();
   });
@@ -115,43 +136,46 @@ function setupHeroCarousel() {
 // ---------------------------------------------------------------------------
 // 聯絡/招募 CTA:滑鼠或鍵盤焦點進入左右面板時放大對應側
 // ---------------------------------------------------------------------------
-/** 初始化聯絡／招募 CTA 的面板 hover 與 focus 狀態。 */
+
 function setupContactCta() {
   const cta = document.querySelector(".home-contact-cta");
   if (!cta) return;
 
-  /**
-   * 設定聯絡／招募 CTA 目前的 hover 或 focus 面板。
-   * @param {"left"|"right"|null} state - 要啟用的面板
-   */
+  // 設定聯絡／招募 CTA 目前的 hover 或 focus 面板（state 為 "left"、"right" 或 null）
   function setHoverState(state) {
     cta.classList.toggle("hover-left", state === "left");
     cta.classList.toggle("hover-right", state === "right");
   }
 
-  cta.querySelectorAll(".home-contact-cta__panel").forEach((panel) => {
+  const panels = toArray(cta.querySelectorAll(".home-contact-cta__panel"));
+  for (let i = 0; i < panels.length; i++) {
+    const panel = panels[i];
     const state = panel.classList.contains("home-contact-cta__panel--join") ? "right" : "left";
 
-    panel.addEventListener("mouseenter", () => setHoverState(state));
-    panel.addEventListener("mouseleave", () => {
+    panel.addEventListener("mouseenter", function () {
+      setHoverState(state);
+    });
+    panel.addEventListener("mouseleave", function () {
       if (!panel.contains(document.activeElement)) setHoverState(null);
     });
-    panel.addEventListener("focusin", () => setHoverState(state));
-    panel.addEventListener("focusout", (event) => {
+    panel.addEventListener("focusin", function () {
+      setHoverState(state);
+    });
+    panel.addEventListener("focusout", function (event) {
       if (!panel.contains(event.relatedTarget)) setHoverState(null);
     });
-  });
+  }
 }
 
 // ---------------------------------------------------------------------------
 // 服務卡片:手機點擊展開單一卡片；桌面維持整張卡片導頁
 // ---------------------------------------------------------------------------
-/** 初始化首頁服務卡片的手機 tap-to-reveal 互動。 */
+
 function setupServiceCards() {
   const grid = document.querySelector(".home-service-grid");
   if (!grid) return;
 
-  const cards = Array.from(grid.querySelectorAll(".home-service-grid__card"));
+  const cards = toArray(grid.querySelectorAll(".home-service-grid__card"));
   const mobileQuery = window.matchMedia("(max-width: 767px)");
 
   function isMobile() {
@@ -159,10 +183,10 @@ function setupServiceCards() {
   }
 
   function collapseAll() {
-    cards.forEach((card) => {
-      card.classList.remove("is-expanded");
-      card.setAttribute("aria-expanded", "false");
-    });
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove("is-expanded");
+      cards[i].setAttribute("aria-expanded", "false");
+    }
   }
 
   function setMode() {
@@ -171,26 +195,29 @@ function setupServiceCards() {
 
     if (!mobile) collapseAll();
 
-    cards.forEach((card) => {
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
       card.tabIndex = 0;
       card.setAttribute("role", mobile ? "button" : "link");
       if (mobile) card.setAttribute("aria-expanded", String(card.classList.contains("is-expanded")));
       else card.removeAttribute("aria-expanded");
-    });
-
+    }
   }
 
   function toggleCard(card) {
     const shouldExpand = !card.classList.contains("is-expanded");
-    cards.forEach((item) => {
+    for (let i = 0; i < cards.length; i++) {
+      const item = cards[i];
       const isExpanded = item === card && shouldExpand;
       item.classList.toggle("is-expanded", isExpanded);
       item.setAttribute("aria-expanded", String(isExpanded));
-    });
+    }
   }
 
-  cards.forEach((card) => {
-    card.addEventListener("click", (event) => {
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+
+    card.addEventListener("click", function (event) {
       if (event.target.closest("a")) return;
 
       if (isMobile()) {
@@ -203,7 +230,7 @@ function setupServiceCards() {
       if (href) window.location.assign(href);
     });
 
-    card.addEventListener("keydown", (event) => {
+    card.addEventListener("keydown", function (event) {
       if (event.target.closest("a")) return;
       if (isMobile()) {
         if (event.key !== "Enter" && event.key !== " ") return;
@@ -216,7 +243,7 @@ function setupServiceCards() {
       event.preventDefault();
       if (card.dataset.serviceHref) window.location.assign(card.dataset.serviceHref);
     });
-  });
+  }
 
   setMode();
   mobileQuery.addEventListener("change", setMode);
@@ -225,42 +252,56 @@ function setupServiceCards() {
 // ---------------------------------------------------------------------------
 // 最新消息:載入資料、渲染卡片、分頁控制、滑鼠拖曳捲動
 // ---------------------------------------------------------------------------
-/** 載入首頁最新消息並初始化卡片輪播控制。 */
+
+// 建立最新消息輪播使用的方向箭頭 SVG（direction 為 "left" 或 "right"）
+function createArrow(direction) {
+  const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+  const icon = document.createElementNS(SVG_NAMESPACE, "svg");
+  icon.classList.add("home-latest__arrow-icon");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("width", "18");
+  icon.setAttribute("height", "18");
+  icon.setAttribute("fill", "none");
+  icon.setAttribute("stroke", "currentColor");
+  icon.setAttribute("stroke-width", "1.8");
+  icon.setAttribute("stroke-linecap", "round");
+  icon.setAttribute("stroke-linejoin", "round");
+  icon.setAttribute("aria-hidden", "true");
+
+  const path = document.createElementNS(SVG_NAMESPACE, "path");
+  const pathData = direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7";
+  path.setAttribute("d", pathData);
+  icon.append(path);
+  return icon;
+}
+
+// 把消息建立時間轉為可排序的時間戳；沒有值或格式不對就當作最舊的
+function parseCreatedAt(value) {
+  const timestamp = Date.parse(value || "");
+  return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
+}
+
+// 由新到舊比較兩筆最新消息
+function compareLatestNews(left, right) {
+  const createdAtDiff = parseCreatedAt(right.createdAt) - parseCreatedAt(left.createdAt);
+  if (createdAtDiff !== 0) return createdAtDiff;
+
+  const dateDiff = String(right.date || "").localeCompare(String(left.date || ""));
+  if (dateDiff !== 0) return dateDiff;
+
+  return String(right.id || "").localeCompare(String(left.id || ""));
+}
+
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-  /**
-   * 建立最新消息輪播使用的方向箭頭。
-   * @param {"left"|"right"} direction - 箭頭方向
-   * @returns {SVGSVGElement} 箭頭 SVG 元素
-   */
-  const createArrow = (direction) => {
-    const icon = document.createElementNS(SVG_NAMESPACE, "svg");
-    icon.classList.add("home-latest__arrow-icon");
-    icon.setAttribute("viewBox", "0 0 24 24");
-    icon.setAttribute("width", "18");
-    icon.setAttribute("height", "18");
-    icon.setAttribute("fill", "none");
-    icon.setAttribute("stroke", "currentColor");
-    icon.setAttribute("stroke-width", "1.8");
-    icon.setAttribute("stroke-linecap", "round");
-    icon.setAttribute("stroke-linejoin", "round");
-    icon.setAttribute("aria-hidden", "true");
-    const path = document.createElementNS(SVG_NAMESPACE, "path");
-    path.setAttribute(
-      "d",
-      direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7",
-    );
-    icon.append(path);
-    return icon;
-  };
-
   const homeNewsLimit = 8;
   const viewport = list.closest(".home-latest__viewport");
-  const pager = list.closest(".home-latest")?.querySelector(".home-latest__pager");
+
+  const latestSection = list.closest(".home-latest");
+  const pager = latestSection ? latestSection.querySelector(".home-latest__pager") : null;
   if (!viewport || !pager) return;
 
   const loadingMessage = list.querySelector(".home-latest__empty");
@@ -273,10 +314,7 @@ function setupLatestNews() {
   let hasDragged = false;
   let suppressClick = false;
 
-  /**
-   * 結束首頁最新消息的滑鼠拖曳狀態。
-   * @param {PointerEvent} event - 指標事件
-   */
+  // 結束首頁最新消息的滑鼠拖曳狀態
   function finishPointerDrag(event) {
     if (event.pointerId !== activePointerId) return;
     viewport.classList.remove("is-dragging");
@@ -285,7 +323,7 @@ function setupLatestNews() {
     activePointerId = null;
   }
 
-  viewport.addEventListener("pointerdown", (event) => {
+  viewport.addEventListener("pointerdown", function (event) {
     if (event.pointerType !== "mouse" || event.button !== 0) return;
     activePointerId = event.pointerId;
     dragStartX = event.clientX;
@@ -294,7 +332,7 @@ function setupLatestNews() {
     suppressClick = false;
   });
 
-  viewport.addEventListener("pointermove", (event) => {
+  viewport.addEventListener("pointermove", function (event) {
     if (event.pointerId !== activePointerId) return;
 
     const distance = event.clientX - dragStartX;
@@ -310,117 +348,107 @@ function setupLatestNews() {
   viewport.addEventListener("pointerup", finishPointerDrag);
   viewport.addEventListener("pointercancel", finishPointerDrag);
 
-  viewport.addEventListener("click", (event) => {
+  viewport.addEventListener("click", function (event) {
     if (!suppressClick) return;
     suppressClick = false;
     event.preventDefault();
     event.stopPropagation();
   }, true);
-  viewport.addEventListener("dragstart", (event) => event.preventDefault());
 
-  /**
-   * 將消息建立時間轉為可排序的時間戳。
-   * @param {string|undefined} value - API 回傳的建立時間
-   * @returns {number} 時間戳；無效值回傳負無限大
-   */
-  function parseCreatedAt(value) {
-    const timestamp = Date.parse(value || "");
-    return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
+  viewport.addEventListener("dragstart", function (event) {
+    event.preventDefault();
+  });
+
+  // 用一則消息資料建立一張卡片（一個 <a> 連結）
+  function buildNewsCard(item) {
+    const link = document.createElement("a");
+    link.className = "home-latest__item";
+    link.href = "/news/" + encodeURIComponent(item.id);
+
+    const media = document.createElement("span");
+    media.className = "home-latest__media";
+    if (item.imageUrl) {
+      const image = document.createElement("img");
+      image.src = item.imageUrl;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.addEventListener("error", function () {
+        image.remove();
+      }, { once: true });
+      media.append(image);
+    }
+
+    const action = document.createElement("span");
+    action.className = "button--text-arrow home-latest__action";
+    action.setAttribute("aria-hidden", "true");
+    const actionIcon = document.createElement("i");
+    actionIcon.className = "ph ph-arrow-bend-up-right";
+    action.append(actionIcon);
+    media.append(action);
+
+    const meta = document.createElement("span");
+    meta.className = "home-latest__meta";
+    const time = document.createElement("time");
+    time.textContent = item.date;
+    const tag = document.createElement("span");
+    tag.textContent = item.tag;
+    meta.append(time, tag);
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+
+    const summary = document.createElement("span");
+    summary.className = "home-latest__summary";
+    summary.textContent = (item.content || "").replace(/\s+/g, " ").trim();
+
+    const body = document.createElement("span");
+    body.className = "home-latest__body";
+    body.append(meta, title, summary);
+
+    link.append(media, body);
+    return link;
   }
 
-  /**
-   * 由新到舊比較兩筆最新消息。
-   * @param {Object} left - 第一筆消息
-   * @param {Object} right - 第二筆消息
-   * @returns {number} 排序比較結果
-   */
-  function compareLatestNews(left, right) {
-    const createdAtDiff = parseCreatedAt(right.createdAt) - parseCreatedAt(left.createdAt);
-    if (createdAtDiff !== 0) return createdAtDiff;
+  function showEmptyMessage() {
+    // 伺服器端已渲染最新消息時保留原內容,不顯示錯誤訊息
+    if (list.querySelector(".home-latest__item")) return;
 
-    const dateDiff = String(right.date || "").localeCompare(String(left.date || ""));
-    return dateDiff || String(right.id || "").localeCompare(String(left.id || ""));
+    list.replaceChildren();
+    const message = document.createElement("p");
+    message.className = "home-latest__empty";
+    message.textContent = "目前沒有可顯示的最新消息。";
+    list.append(message);
+    pager.replaceChildren();
   }
 
   // 假設 API 回傳為 camelCase JSON(ASP.NET Core System.Text.Json 預設)。
   // 若後端實際回傳 PascalCase,請直接調整這裡的欄位對應,而不是兩種都猜。
-  fetch(`/api/public/news?limit=${homeNewsLimit}`, { cache: "no-store" })
-    .then((response) => {
+  async function loadNews() {
+    try {
+      const response = await fetch("/api/public/news?limit=" + homeNewsLimit, { cache: "no-store" });
       if (!response.ok) throw new Error("Unable to load news");
-      return response.json();
-    })
-    .then((items) => items.slice().sort(compareLatestNews).slice(0, homeNewsLimit))
-    .then((items) => {
+
+      const rawItems = await response.json();
+      const items = rawItems.slice().sort(compareLatestNews).slice(0, homeNewsLimit);
+
       list.replaceChildren();
-      if (!items.length) throw new Error("No news");
+      if (items.length === 0) throw new Error("No news");
 
-      items.forEach((item) => {
-        const link = document.createElement("a");
-        link.className = "home-latest__item";
-        link.href = `/news/${encodeURIComponent(item.id)}`;
-
-        const media = document.createElement("span");
-        media.className = "home-latest__media";
-        if (item.imageUrl) {
-          const image = document.createElement("img");
-          image.src = item.imageUrl;
-          image.alt = "";
-          image.loading = "lazy";
-          image.decoding = "async";
-          image.addEventListener("error", () => image.remove(), { once: true });
-          media.append(image);
-        }
-
-        const action = document.createElement("span");
-        action.className = "button--text-arrow home-latest__action";
-        action.setAttribute("aria-hidden", "true");
-        const actionIcon = document.createElement("i");
-        actionIcon.className = "ph ph-arrow-bend-up-right";
-        action.append(actionIcon);
-        media.append(action);
-
-        const meta = document.createElement("span");
-        meta.className = "home-latest__meta";
-        const time = document.createElement("time");
-        time.textContent = item.date;
-        const tag = document.createElement("span");
-        tag.textContent = item.tag;
-        meta.append(time, tag);
-
-        const title = document.createElement("strong");
-        title.textContent = item.title;
-
-        const summary = document.createElement("span");
-        summary.className = "home-latest__summary";
-        summary.textContent = (item.content || "").replace(/\s+/g, " ").trim();
-
-        const body = document.createElement("span");
-        body.className = "home-latest__body";
-        body.append(meta, title, summary);
-
-        link.append(media, body);
-        list.append(link);
-      });
+      for (let i = 0; i < items.length; i++) {
+        list.append(buildNewsCard(items[i]));
+      }
 
       viewport.scrollLeft = 0;
       renderControls(items);
-    })
-    .catch(() => {
-      // 伺服器端已渲染最新消息時保留原內容,不顯示錯誤訊息
-      if (list.querySelector(".home-latest__item")) return;
+    } catch (error) {
+      showEmptyMessage();
+    }
+  }
 
-      list.replaceChildren();
-      const message = document.createElement("p");
-      message.className = "home-latest__empty";
-      message.textContent = "目前沒有可顯示的最新消息。";
-      list.append(message);
-      pager.replaceChildren();
-    });
+  loadNews();
 
-  /**
-   * 建立最新消息輪播的分頁與左右箭頭控制。
-   * @param {Object[]} items - 目前顯示的消息
-   */
+  // 建立最新消息輪播的分頁與左右箭頭控制
   function renderControls(items) {
     function cardsPerPage() {
       if (window.matchMedia("(max-width: 760px)").matches) return 1;
@@ -431,9 +459,17 @@ function setupLatestNews() {
     const pageSize = cardsPerPage();
     const isMobile = pageSize === 1;
 
+    // 檢查某個位置是不是已經在 positions 陣列裡了（誤差在 1px 內都算重複）
+    function containsPosition(positions, position) {
+      for (let i = 0; i < positions.length; i++) {
+        if (Math.abs(positions[i] - position) <= 1) return true;
+      }
+      return false;
+    }
+
     function getPagePositions() {
-      const cards = Array.from(list.querySelectorAll(".home-latest__item"));
-      if (!cards.length) return [];
+      const cards = toArray(list.querySelectorAll(".home-latest__item"));
+      if (cards.length === 0) return [];
 
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
       const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
@@ -443,18 +479,18 @@ function setupLatestNews() {
 
       for (let index = 0; index < cards.length; index += pageSize) {
         const card = cards[index];
-        const position = Math.min(
-          maxScroll,
-          Math.max(0, card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart),
-        );
-        if (positions.every((existing) => Math.abs(existing - position) > 1)) {
+        const rawPosition = card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart;
+        const position = Math.min(maxScroll, Math.max(0, rawPosition));
+        if (!containsPosition(positions, position)) {
           positions.push(position);
         }
       }
 
-      const lastPosition = positions[positions.length - 1];
-      if (positions.length && maxScroll - lastPosition > 1) {
-        positions.push(maxScroll);
+      if (positions.length > 0) {
+        const lastPosition = positions[positions.length - 1];
+        if (maxScroll - lastPosition > 1) {
+          positions.push(maxScroll);
+        }
       }
 
       return positions;
@@ -473,15 +509,17 @@ function setupLatestNews() {
     previous.setAttribute("aria-label", "上一則最新消息");
     previous.append(createArrow("left"));
 
-    const pageButtons = Array.from({ length: pages }, (_, index) => {
-      if (isMobile) return null;
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "home-latest__page";
-      button.setAttribute("aria-label", `顯示第 ${index + 1} 組最新消息`);
-      return button;
-    }).filter(Boolean);
+    // 桌面用一排小圓點分頁按鈕；手機改用「01 / 04」這種文字計數器
+    const pageButtons = [];
+    if (!isMobile) {
+      for (let index = 0; index < pages; index++) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "home-latest__page";
+        button.setAttribute("aria-label", "顯示第 " + (index + 1) + " 組最新消息");
+        pageButtons.push(button);
+      }
+    }
 
     const counter = isMobile ? document.createElement("span") : null;
     if (counter) {
@@ -497,24 +535,37 @@ function setupLatestNews() {
     next.append(createArrow("right"));
 
     controls.append(previous);
-    if (counter) controls.append(counter);
-    else controls.append(...pageButtons);
+    if (counter) {
+      controls.append(counter);
+    } else {
+      for (let i = 0; i < pageButtons.length; i++) {
+        controls.append(pageButtons[i]);
+      }
+    }
     controls.append(next);
     pager.replaceChildren(controls);
     pager.removeAttribute("aria-hidden");
 
+    function padNumber(value) {
+      return String(value).padStart(2, "0");
+    }
+
     function update() {
       const page = getPage();
-      pageButtons.forEach((button, index) => {
-        const isActive = index === page;
+
+      for (let i = 0; i < pageButtons.length; i++) {
+        const button = pageButtons[i];
+        const isActive = i === page;
         button.classList.toggle("is-active", isActive);
         if (isActive) button.setAttribute("aria-current", "page");
         else button.removeAttribute("aria-current");
-      });
-      if (counter) {
-        counter.textContent = `${String(page + 1).padStart(2, "0")} / ${String(pages).padStart(2, "0")}`;
-        counter.setAttribute("aria-label", `第 ${page + 1} 組，共 ${pages} 組最新消息`);
       }
+
+      if (counter) {
+        counter.textContent = padNumber(page + 1) + " / " + padNumber(pages);
+        counter.setAttribute("aria-label", "第 " + (page + 1) + " 組，共 " + pages + " 組最新消息");
+      }
+
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
       const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
       const isAtStart = scrollLeft <= 1;
@@ -528,24 +579,27 @@ function setupLatestNews() {
 
     function getPage() {
       const pagePositions = getPagePositions();
-      if (!pagePositions.length || pages === 1) return 0;
+      if (pagePositions.length === 0 || pages === 1) return 0;
 
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
       if (maxScroll <= 1) return 0;
 
       const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
 
-      return pagePositions.reduce((nearestPage, position, page) => {
-        const nearestDistance = Math.abs(pagePositions[nearestPage] - scrollLeft);
-        const distance = Math.abs(position - scrollLeft);
-        return distance < nearestDistance ? page : nearestPage;
-      }, 0);
+      // 找出離目前捲動位置最近的那一頁
+      let nearestPage = 0;
+      let nearestDistance = Math.abs(pagePositions[0] - scrollLeft);
+      for (let page = 1; page < pagePositions.length; page++) {
+        const distance = Math.abs(pagePositions[page] - scrollLeft);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestPage = page;
+        }
+      }
+      return nearestPage;
     }
 
-    /**
-     * 捲動到指定的最新消息分頁。
-     * @param {number} page - 目標分頁索引
-     */
+    // 捲動到指定的最新消息分頁
     function goTo(page) {
       const pagePositions = getPagePositions();
       const targetPage = Math.min(pagePositions.length - 1, Math.max(0, page));
@@ -557,14 +611,23 @@ function setupLatestNews() {
       });
     }
 
-    previous.addEventListener("click", () => goTo(Math.max(0, getPage() - 1)));
-    next.addEventListener("click", () => goTo(Math.min(pages - 1, getPage() + 1)));
-    pageButtons.forEach((button, index) => button.addEventListener("click", () => goTo(index)));
+    previous.addEventListener("click", function () {
+      goTo(Math.max(0, getPage() - 1));
+    });
+    next.addEventListener("click", function () {
+      goTo(Math.min(pages - 1, getPage() + 1));
+    });
+    for (let i = 0; i < pageButtons.length; i++) {
+      const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
+      pageButtons[i].addEventListener("click", function () {
+        goTo(pageIndex);
+      });
+    }
 
     let updateFrame = 0;
     function scheduleUpdate() {
       if (updateFrame) return;
-      updateFrame = window.requestAnimationFrame(() => {
+      updateFrame = window.requestAnimationFrame(function () {
         updateFrame = 0;
         update();
       });
@@ -598,16 +661,18 @@ function setupLatestNews() {
 // ---------------------------------------------------------------------------
 // 區塊進場動畫:進入視窗時加上 .is-visible,reduced-motion 則直接全部顯示
 // ---------------------------------------------------------------------------
-/** 初始化首頁各區塊的 IntersectionObserver 進場動畫。 */
+
 function setupSectionMotion() {
-  const revealTargets = Array.from(document.querySelectorAll("[data-home-reveal]"));
-  if (!revealTargets.length) return;
+  const revealTargets = toArray(document.querySelectorAll("[data-home-reveal]"));
+  if (revealTargets.length === 0) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.body.classList.add("home-motion-ready");
 
   function revealAll() {
-    revealTargets.forEach((target) => target.classList.add("is-visible"));
+    for (let i = 0; i < revealTargets.length; i++) {
+      revealTargets[i].classList.add("is-visible");
+    }
   }
 
   if (reducedMotion.matches || !("IntersectionObserver" in window)) {
@@ -615,24 +680,31 @@ function setupSectionMotion() {
     return;
   }
 
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+  const observer = new IntersectionObserver(function (entries, currentObserver) {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      if (!entry.isIntersecting) continue;
       entry.target.classList.add("is-visible");
       currentObserver.unobserve(entry.target);
-    });
+    }
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  revealTargets.forEach((target) => observer.observe(target));
+  for (let i = 0; i < revealTargets.length; i++) {
+    observer.observe(revealTargets[i]);
+  }
 
-  reducedMotion.addEventListener("change", () => {
+  reducedMotion.addEventListener("change", function () {
     if (!reducedMotion.matches) return;
     observer.disconnect();
     revealAll();
   }, { once: true });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// ---------------------------------------------------------------------------
+// 啟動
+// ---------------------------------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
   setupContactCta();
   setupServiceCards();

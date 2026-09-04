@@ -2,43 +2,37 @@
 // 管理後台：登入、消息管理、分類管理
 // ---------------------------------------------------------------------------
 
-/**
- * 初始化管理後台
- * - 綁定表單提交、按鈕點擊事件
- * - 檢查現有 Session 自動登入
- * - 載入驗證碼、設定預設日期
- */
-function initAdmin() {
-  // ---------------------------------------------------------------------------
-  // 取得主要 DOM 元素
-  // ---------------------------------------------------------------------------
-  const loginForm = document.querySelector("#loginForm");
-  const loginPanel = document.querySelector("#loginPanel");
-  const workspace = document.querySelector("#workspace");
-  const newsForm = document.querySelector("#newsForm");
-  const newsRows = document.querySelector("#newsRows");
-  const categoryForm = document.querySelector("#categoryForm");
-  const categoryRows = document.querySelector("#categoryRows");
-  const tagSelect = document.querySelector("#newsTag");
-  const captchaImage = document.querySelector("#captchaImage");
-  const logoutButton = document.querySelector("#logoutButton");
-  const resetButton = document.querySelector("#resetButton");
-  const refreshCaptchaButton = document.querySelector("#refreshCaptcha");
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || "";
+// 頁面載入完成後才開始執行
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.getElementById("loginForm");
+  const loginPanel = document.getElementById("loginPanel");
+  const workspace = document.getElementById("workspace");
+  const newsForm = document.getElementById("newsForm");
+  const newsRows = document.getElementById("newsRows");
+  const categoryForm = document.getElementById("categoryForm");
+  const categoryRows = document.getElementById("categoryRows");
+  const tagSelect = document.getElementById("newsTag");
+  const captchaImage = document.getElementById("captchaImage");
+  const logoutButton = document.getElementById("logoutButton");
+  const resetButton = document.getElementById("resetButton");
+  const refreshCaptchaButton = document.getElementById("refreshCaptcha");
 
-  // 必要元素檢查：缺少任一則不啟動
   if (!loginForm || !loginPanel || !workspace || !newsForm || !newsRows || !categoryForm || !categoryRows || !tagSelect) {
     return;
   }
 
-  // ---------------------------------------------------------------------------
-  // 狀態變數
-  // ---------------------------------------------------------------------------
-  let news = [];        // 消息列表資料
-  let categories = [];  // 分類列表資料
-  const maxSourceImageBytes = 5 * 1024 * 1024;
-  const maxStoredImageBytes = 1 * 1024 * 1024;
-  const maxImageEdge = 1920;
+  // 取得 CSRF Token（防止跨站請求偽造）
+  const csrfTokenTag = document.querySelector('meta[name="csrf-token"]');
+  const csrfToken = csrfTokenTag ? csrfTokenTag.content : "";
+
+  // 目前的消息、分類資料，先放空陣列，等登入後會重新指派
+  let news = [];
+  let categories = [];
+
+  // 圖片上傳的限制
+  const MAX_SOURCE_IMAGE_BYTES = 5 * 1024 * 1024; // 原始圖片最大 5MB
+  const MAX_STORED_IMAGE_BYTES = 1 * 1024 * 1024; // 壓縮後最大 1MB
+  const MAX_IMAGE_EDGE = 1920; // 圖片最長邊不超過 1920px
 
   // ---------------------------------------------------------------------------
   // 綁定事件
@@ -48,52 +42,84 @@ function initAdmin() {
   categoryForm.addEventListener("submit", onCategorySave);
   newsRows.addEventListener("click", onNewsRowClick);
   categoryRows.addEventListener("click", onCategoryRowClick);
-  // These controls are optional so the initializer remains safe if a reduced
-  // Admin markup variant omits a secondary action or the captcha image.
-  logoutButton?.addEventListener("click", onLogout);
-  resetButton?.addEventListener("click", onResetForm);
-  refreshCaptchaButton?.addEventListener("click", loadCaptcha);
+
+  if (logoutButton) logoutButton.addEventListener("click", onLogout);
+  if (resetButton) resetButton.addEventListener("click", onResetForm);
+  if (refreshCaptchaButton) refreshCaptchaButton.addEventListener("click", loadCaptcha);
 
   // ---------------------------------------------------------------------------
-  // 啟動流程
+  // 一開始要做的事
   // ---------------------------------------------------------------------------
   setDefaultDate();
   loadCaptcha();
   restoreSession();
 
   // ---------------------------------------------------------------------------
-  // 共用工具函式
+  // 共用小工具
   // ---------------------------------------------------------------------------
 
-  /** 產生帶 CSRF Token 的 Header */
-  function csrfHeaders(extra = {}) {
-    return { ...extra, "X-CSRF-TOKEN": csrfToken };
+  // 幫 fetch 加上 CSRF Header
+  function csrfHeaders(extraHeaders) {
+    const headers = extraHeaders || {};
+    headers["X-CSRF-TOKEN"] = csrfToken;
+    return headers;
   }
 
-  /** 載入/重新整理驗證碼圖片 */
+  // 重新載入驗證碼圖片
   function loadCaptcha() {
     if (captchaImage) {
-      captchaImage.src = `/api/admin/captcha?ts=${Date.now()}`;
+      captchaImage.src = "/api/admin/captcha?ts=" + Date.now();
     }
   }
 
-  /** 格式化本地日期為 YYYY-MM-DD */
+  // 把日期轉成 YYYY-MM-DD 格式
   function formatLocalDate(date) {
+    const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    return `${date.getFullYear()}-${month}-${day}`;
+    return year + "-" + month + "-" + day;
   }
 
-  /** 讀取本機圖片，供 Canvas 縮圖與轉檔使用 */
+  // 避免使用者輸入的文字被當成 HTML 執行（防止 XSS）
+  function escapeHtml(value) {
+    let text = String(value);
+    text = text.replaceAll("&", "&amp;");
+    text = text.replaceAll("<", "&lt;");
+    text = text.replaceAll(">", "&gt;");
+    text = text.replaceAll('"', "&quot;");
+    text = text.replaceAll("'", "&#39;");
+    return text;
+  }
+
+  // 放進 HTML 屬性裡的文字，除了上面之外還要多轉義反引號
+  function escapeAttribute(value) {
+    return escapeHtml(value).replaceAll("`", "&#96;");
+  }
+
+  // 把「日期 時間」字串拆成兩行顯示
+  function renderTimestamp(value) {
+    if (!value) return "-";
+    const parts = String(value).trim().split(/\s+/);
+    const datePart = parts[0] || "";
+    const timePart = parts.slice(1).join(" ");
+    return "<span class=\"admin-table__timestamp\"><span>" + escapeHtml(datePart) +
+      "</span><span>" + escapeHtml(timePart) + "</span></span>";
+  }
+
+  // ---------------------------------------------------------------------------
+  // 圖片壓縮：把上傳的圖片縮小、轉成 WebP，控制檔案大小
+  // ---------------------------------------------------------------------------
+
+  // 讀取使用者選的圖片檔案，回傳一個 <img> 物件方便畫到 canvas 上
   function loadLocalImage(file) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function (resolve, reject) {
       const objectUrl = URL.createObjectURL(file);
       const image = new Image();
-      image.onload = () => {
+      image.onload = function () {
         URL.revokeObjectURL(objectUrl);
         resolve(image);
       };
-      image.onerror = () => {
+      image.onerror = function () {
         URL.revokeObjectURL(objectUrl);
         reject(new Error("無法讀取圖片，請確認檔案內容是否正確。"));
       };
@@ -101,10 +127,10 @@ function initAdmin() {
     });
   }
 
-  /** 將 Canvas 內容輸出成 WebP Blob */
+  // 把 canvas 畫面輸出成 WebP 檔案
   function canvasToWebp(canvas, quality) {
-    return new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (blob) {
         if (!blob || blob.type !== "image/webp") {
           reject(new Error("目前瀏覽器無法將圖片轉成 WebP，請改用最新版瀏覽器。"));
           return;
@@ -114,9 +140,9 @@ function initAdmin() {
     });
   }
 
-  /** 圖片最長邊縮至 1920px，轉成 WebP 並控制在 1 MB 內 */
+  // 主要流程：檢查檔案大小 -> 讀取圖片 -> 縮圖 -> 轉 WebP -> 檢查是否小於 1MB
   async function optimizeNewsImage(file) {
-    if (file.size <= 0 || file.size > maxSourceImageBytes) {
+    if (file.size <= 0 || file.size > MAX_SOURCE_IMAGE_BYTES) {
       throw new Error("原始圖片必須小於 5 MB。");
     }
 
@@ -127,69 +153,59 @@ function initAdmin() {
       throw new Error("無法取得圖片尺寸，請改用其他圖片。");
     }
 
-    const initialScale = Math.min(1, maxImageEdge / Math.max(sourceWidth, sourceHeight));
-    let width = Math.max(1, Math.round(sourceWidth * initialScale));
-    let height = Math.max(1, Math.round(sourceHeight * initialScale));
-    let lastBlob = null;
+    // 算出縮圖後的寬高，長邊不超過 MAX_IMAGE_EDGE
+    let scale = 1;
+    if (Math.max(sourceWidth, sourceHeight) > MAX_IMAGE_EDGE) {
+      scale = MAX_IMAGE_EDGE / Math.max(sourceWidth, sourceHeight);
+    }
+    let width = Math.max(1, Math.round(sourceWidth * scale));
+    let height = Math.max(1, Math.round(sourceHeight * scale));
 
-    // 若第一次仍超過 1 MB，逐次降低品質與尺寸，避免大圖占滿主機空間。
-    for (let attempt = 0; attempt < 6; attempt += 1) {
+    // 如果壓縮後還是太大，就降低畫質、縮小尺寸，最多試 6 次
+    let resultBlob = null;
+    for (let attempt = 0; attempt < 6; attempt++) {
       const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
       const context = canvas.getContext("2d");
-      if (!context) throw new Error("瀏覽器無法處理圖片，請改用其他圖片。");
-
+      if (!context) {
+        throw new Error("瀏覽器無法處理圖片，請改用其他圖片。");
+      }
       context.drawImage(image, 0, 0, width, height);
-      const quality = Math.max(0.57, 0.82 - attempt * 0.05);
-      lastBlob = await canvasToWebp(canvas, quality);
-      if (lastBlob.size <= maxStoredImageBytes) break;
+
+      let quality = 0.82 - attempt * 0.05;
+      if (quality < 0.57)
+        quality = 0.57;
+
+      resultBlob = await canvasToWebp(canvas, quality);
+      if (resultBlob.size <= MAX_STORED_IMAGE_BYTES) {
+        break;
+      }
 
       width = Math.max(1, Math.round(width * 0.85));
       height = Math.max(1, Math.round(height * 0.85));
     }
 
-    if (!lastBlob || lastBlob.size > maxStoredImageBytes) {
+    if (!resultBlob || resultBlob.size > MAX_STORED_IMAGE_BYTES) {
       throw new Error("圖片壓縮後仍超過 1 MB，請先縮小圖片再上傳。");
     }
 
-    const baseName = file.name.replace(/\.[^.]+$/, "") || "news-image";
-    return new File([lastBlob], `${baseName}.webp`, {
+    let baseName = file.name.replace(/\.[^.]+$/, "");
+    if (!baseName) baseName = "news-image";
+
+    return new File([resultBlob], baseName + ".webp", {
       type: "image/webp",
       lastModified: file.lastModified,
     });
-  }
-
-  /** 將時間戳字串轉為「日期 時間」雙行 HTML */
-  function renderTimestamp(value) {
-    if (!value) return "-";
-    const parts = String(value).trim().split(/\s+/);
-    return `<span class="admin-table__timestamp"><span>${escapeHtml(parts[0])}</span><span>${escapeHtml(parts.slice(1).join(" "))}</span></span>`;
-  }
-
-    /** HTML 轉義：防止 XSS */
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
-  }
-
-  /** 屬性值轉義：比 escapeHtml 多處理 backtick */
-  function escapeAttribute(value) {
-    return escapeHtml(value).replaceAll("`", "&#96;");
   }
 
   // ---------------------------------------------------------------------------
   // 登入 / Session
   // ---------------------------------------------------------------------------
 
-  /** 登入表單送出 */
   async function onLoginSubmit(event) {
     event.preventDefault();
-    const messageEl = document.querySelector("#loginMessage");
+    const messageEl = document.getElementById("loginMessage");
     messageEl.textContent = "登入中...";
 
     try {
@@ -197,46 +213,48 @@ function initAdmin() {
         method: "POST",
         headers: csrfHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
-          username: document.querySelector("#loginUsername").value,
-          password: document.querySelector("#loginPassword").value,
-          captcha: document.querySelector("#loginCaptcha").value,
+          username: document.getElementById("loginUsername").value,
+          password: document.getElementById("loginPassword").value,
+          captcha: document.getElementById("loginCaptcha").value,
         }),
       });
 
       if (response.ok) {
-        location.reload(); // 登入成功重新整理頁面
+        location.reload(); // 登入成功就重新整理頁面
         return;
       }
 
-      // 登入失敗：顯示錯誤、清空驗證碼、重新載入圖片
-      messageEl.textContent = response.status === 429
-        ? "登入嘗試過於頻繁，請稍後再試。"
-        : "帳號、密碼或驗證碼錯誤。";
-      document.querySelector("#loginCaptcha").value = "";
+      if (response.status === 429) {
+        messageEl.textContent = "登入嘗試過於頻繁，請稍後再試。";
+      } else {
+        messageEl.textContent = "帳號、密碼或驗證碼錯誤。";
+      }
+      document.getElementById("loginCaptcha").value = "";
       loadCaptcha();
-    } catch {
+    } catch (error) {
       messageEl.textContent = "目前無法連線，請稍後再試。";
     }
   }
 
-  /** 檢查現有 Session 是否有效 */
+  // 檢查目前有沒有已登入的 session，有的話直接顯示工作區
   async function restoreSession() {
     try {
       const response = await fetch("/api/admin/session", { cache: "no-store" });
-      if (response.ok) await showWorkspace();
-    } catch {
-      // Session 檢查失敗時保留登入表單，不做處理
+      if (response.ok) {
+        await showWorkspace();
+      }
+    } catch (error) {
+      // 檢查失敗就當作沒有登入，維持在登入畫面
     }
   }
 
-  /** 顯示工作區（隱藏登入、載入資料） */
   async function showWorkspace() {
     loginPanel.hidden = true;
     workspace.hidden = false;
-    await Promise.all([loadCategories(), loadNews()]);
+    await loadCategories();
+    await loadNews();
   }
 
-  /** 登出 */
   async function onLogout() {
     await fetch("/api/admin/logout", { method: "POST", headers: csrfHeaders() });
     location.reload();
@@ -246,97 +264,139 @@ function initAdmin() {
   // 資料載入與渲染
   // ---------------------------------------------------------------------------
 
-  /** 載入消息列表 */
   async function loadNews() {
-    const response = await fetch(`/api/news?ts=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch("/api/news?ts=" + Date.now(), { cache: "no-store" });
     if (!response.ok) return;
-    const raw = await response.json();
-    news = raw.map(normalizeNewsItem);
+    const rawList = await response.json();
+
+    news = [];
+    for (let i = 0; i < rawList.length; i++) {
+      news.push(normalizeNewsItem(rawList[i]));
+    }
     renderNewsRows();
   }
 
-  /** 載入分類列表 */
   async function loadCategories() {
-    const response = await fetch(`/api/news/categories?ts=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch("/api/news/categories?ts=" + Date.now(), { cache: "no-store" });
     categories = response.ok ? await response.json() : [];
     renderCategoryRows();
     renderCategoryOptions(tagSelect.value);
   }
 
-  /** 正規化消息物件：相容 camelCase 與 PascalCase */
+  // 後端有時候回傳 camelCase，有時候是 PascalCase，這裡統一轉成小寫開頭
   function normalizeNewsItem(item) {
-    const source = item ?? {};
+    const source = item || {};
     return {
-      id: source.id ?? source.Id ?? "",
-      date: source.date ?? source.Date ?? "",
-      tag: source.tag ?? source.Tag ?? "",
-      title: source.title ?? source.Title ?? "",
-      content: source.content ?? source.Content ?? "",
-      url: source.url ?? source.Url ?? "",
-      imageUrl: source.imageUrl ?? source.ImageUrl ?? "",
-      imageName: source.imageName ?? source.ImageName ?? "",
-      attachmentName: source.attachmentName ?? source.AttachmentName ?? "",
-      published: source.published ?? source.Published,
-      createdAt: source.createdAt ?? source.CreatedAt ?? "",
-      updatedAt: source.updatedAt ?? source.UpdatedAt ?? "",
+      id: source.id != null ? source.id : source.Id || "",
+      date: source.date != null ? source.date : source.Date || "",
+      tag: source.tag != null ? source.tag : source.Tag || "",
+      title: source.title != null ? source.title : source.Title || "",
+      content: source.content != null ? source.content : source.Content || "",
+      url: source.url != null ? source.url : source.Url || "",
+      imageUrl: source.imageUrl != null ? source.imageUrl : source.ImageUrl || "",
+      imageName: source.imageName != null ? source.imageName : source.ImageName || "",
+      attachmentName: source.attachmentName != null ? source.attachmentName : source.AttachmentName || "",
+      published: source.published != null ? source.published : source.Published,
+      createdAt: source.createdAt != null ? source.createdAt : source.CreatedAt || "",
+      updatedAt: source.updatedAt != null ? source.updatedAt : source.UpdatedAt || "",
     };
   }
 
-  /** 渲染消息表格列 */
+  // 畫出消息列表的每一列
   function renderNewsRows() {
-    newsRows.innerHTML = news.length
-      ? news.map(item => {
-        const isPublished = item.published !== false;
-        const statusClass = isPublished ? "" : " admin-table__status--hidden";
-        const statusText = isPublished ? "發布" : "隱藏";
-        return `<tr>
-          <td data-label="日期">${escapeHtml(item.date)}</td>
-          <td data-label="分類">${escapeHtml(item.tag)}</td>
-          <td data-label="標題">${escapeHtml(item.title)}</td>
-          <td data-label="狀態"><span class="admin-table__status${statusClass}">${statusText}</span></td>
-          <td data-label="建立">${renderTimestamp(item.createdAt)}</td>
-          <td data-label="修改">${renderTimestamp(item.updatedAt)}</td>
-          <td data-label="操作"><div class="admin-table__actions">
-            <button class="admin-table__action" type="button" data-action="edit" data-id="${escapeAttribute(item.id)}">編輯</button>
-            <button class="admin-table__action admin-table__action--danger" type="button" data-action="delete" data-id="${escapeAttribute(item.id)}">刪除</button>
-          </div></td>
-        </tr>`;
-      }).join("")
-      : '<tr><td class="admin-table__empty" colspan="7">目前尚無消息。</td></tr>';
+    if (news.length === 0) {
+      newsRows.innerHTML = '<tr><td class="admin-table__empty" colspan="7">目前尚無消息。</td></tr>';
+      return;
+    }
+
+    let html = "";
+    for (let i = 0; i < news.length; i++) {
+      const item = news[i];
+      const isPublished = item.published !== false;
+      const statusClass = isPublished ? "" : " admin-table__status--hidden";
+      const statusText = isPublished ? "發布" : "隱藏";
+
+      html += "<tr>";
+      html += '<td data-label="日期">' + escapeHtml(item.date) + "</td>";
+      html += '<td data-label="分類">' + escapeHtml(item.tag) + "</td>";
+      html += '<td data-label="標題">' + escapeHtml(item.title) + "</td>";
+      html += '<td data-label="狀態"><span class="admin-table__status' + statusClass + '">' + statusText + "</span></td>";
+      html += '<td data-label="建立">' + renderTimestamp(item.createdAt) + "</td>";
+      html += '<td data-label="修改">' + renderTimestamp(item.updatedAt) + "</td>";
+      html += '<td data-label="操作"><div class="admin-table__actions">';
+      html += '<button class="admin-table__action" type="button" data-action="edit" data-id="' + escapeAttribute(item.id) + '">編輯</button>';
+      html += '<button class="admin-table__action admin-table__action--danger" type="button" data-action="delete" data-id="' + escapeAttribute(item.id) + '">刪除</button>';
+      html += "</div></td>";
+      html += "</tr>";
+    }
+    newsRows.innerHTML = html;
   }
 
-  /** 渲染分類列表 */
+  // 畫出分類列表
   function renderCategoryRows() {
-    categoryRows.innerHTML = categories.length
-      ? categories.map(cat => `<div class="admin-category-item">
-          <span>${escapeHtml(cat)}</span>
-          <button type="button" data-action="delete" data-name="${escapeAttribute(cat)}">刪除</button>
-        </div>`).join("")
-      : '<p class="admin-help">尚無分類。</p>';
+    if (categories.length === 0) {
+      categoryRows.innerHTML = '<p class="admin-help">尚無分類。</p>';
+      return;
+    }
+
+    let html = "";
+    for (let i = 0; i < categories.length; i++) {
+      const name = categories[i];
+      html += '<div class="admin-category-item">';
+      html += "<span>" + escapeHtml(name) + "</span>";
+      html += '<button type="button" data-action="delete" data-name="' + escapeAttribute(name) + '">刪除</button>';
+      html += "</div>";
+    }
+    categoryRows.innerHTML = html;
   }
 
-  /** 渲染分類下拉選單（合併既有分類 + 消息使用的標籤） */
-  function renderCategoryOptions(selectedValue = "") {
-    const merged = [...new Set(categories.concat(news.map(item => item.tag).filter(Boolean)))];
-    tagSelect.innerHTML = merged.map(cat => `<option value="${escapeAttribute(cat)}">${escapeHtml(cat)}</option>`).join("");
-    tagSelect.value = merged.includes(selectedValue) ? selectedValue : merged[0] || "";
+  // 畫出新增/編輯表單裡的分類下拉選單
+  // 選單內容 = 既有分類 + 消息目前有在用、但還沒被列為分類的標籤
+  function renderCategoryOptions(selectedValue) {
+    const merged = categories.slice(); // 複製一份，避免動到原本的陣列
+
+    for (let i = 0; i < news.length; i++) {
+      const tag = news[i].tag;
+      if (tag && merged.indexOf(tag) === -1) {
+        merged.push(tag);
+      }
+    }
+
+    let html = "";
+    for (let j = 0; j < merged.length; j++) {
+      html += '<option value="' + escapeAttribute(merged[j]) + '">' + escapeHtml(merged[j]) + "</option>";
+    }
+    tagSelect.innerHTML = html;
+
+    if (selectedValue && merged.indexOf(selectedValue) !== -1) {
+      tagSelect.value = selectedValue;
+    } else if (merged.length > 0) {
+      tagSelect.value = merged[0];
+    }
   }
 
   // ---------------------------------------------------------------------------
   // 列表點擊處理
   // ---------------------------------------------------------------------------
 
-  /** 消息列表點擊：編輯 / 刪除 */
   function onNewsRowClick(event) {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
-    const item = news.find(entry => entry.id === button.dataset.id);
+
+    const id = button.dataset.id;
+    let item = null;
+    for (let i = 0; i < news.length; i++) {
+      if (news[i].id === id) {
+        item = news[i];
+        break;
+      }
+    }
     if (!item) return;
+
     if (button.dataset.action === "edit") editNews(item);
     if (button.dataset.action === "delete") deleteNews(item.id);
   }
 
-  /** 分類列表點擊：刪除 */
   function onCategoryRowClick(event) {
     const button = event.target.closest("button[data-action='delete']");
     if (button) deleteCategory(button.dataset.name);
@@ -346,60 +406,56 @@ function initAdmin() {
   // 編輯 / 新增 消息
   // ---------------------------------------------------------------------------
 
-  /** 填入表單進行編輯 */
   function editNews(item) {
-    document.querySelector("#newsId").value = item.id;
-    document.querySelector("#newsDate").value = item.date || formatLocalDate(new Date());
+    document.getElementById("newsId").value = item.id;
+    document.getElementById("newsDate").value = item.date || formatLocalDate(new Date());
     renderCategoryOptions(item.tag);
-    document.querySelector("#newsTitle").value = item.title;
-    document.querySelector("#newsContent").value = item.content || "";
-    document.querySelector("#newsUrl").value = item.url || "";
-    document.querySelector("#newsImageUrl").value = item.imageUrl || "";
-    document.querySelector("#currentImageName").textContent = item.imageName || "未上傳";
-    document.querySelector("#currentAttachmentName").textContent = item.attachmentName || (item.url ? item.url.split("/").pop() : "未上傳");
-    document.querySelector("#removeNewsImage").checked = false;
-    document.querySelector("#removeNewsAttachment").checked = false;
-    document.querySelector("#newsPublished").value = String(item.published !== false);
-    document.querySelector("#createdAtInfo").textContent = item.createdAt || "尚未紀錄";
-    document.querySelector("#updatedAtInfo").textContent = item.updatedAt || "尚未紀錄";
+    document.getElementById("newsTitle").value = item.title;
+    document.getElementById("newsContent").value = item.content || "";
+    document.getElementById("newsUrl").value = item.url || "";
+    document.getElementById("newsImageUrl").value = item.imageUrl || "";
+    document.getElementById("currentImageName").textContent = item.imageName || "未上傳";
+    document.getElementById("currentAttachmentName").textContent =
+      item.attachmentName || (item.url ? item.url.split("/").pop() : "未上傳");
+    document.getElementById("removeNewsImage").checked = false;
+    document.getElementById("removeNewsAttachment").checked = false;
+    document.getElementById("newsPublished").value = String(item.published !== false);
+    document.getElementById("createdAtInfo").textContent = item.createdAt || "尚未紀錄";
+    document.getElementById("updatedAtInfo").textContent = item.updatedAt || "尚未紀錄";
 
-    const messageEl = document.querySelector("#formMessage");
+    const messageEl = document.getElementById("formMessage");
     messageEl.textContent = "";
     messageEl.removeAttribute("data-state");
 
-    document.querySelector("#editor-title").scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("editor-title").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  /** 儲存消息（新增或更新） */
   async function onNewsSave(event) {
     event.preventDefault();
-    const messageEl = document.querySelector("#formMessage");
+    const messageEl = document.getElementById("formMessage");
     messageEl.removeAttribute("data-state");
     messageEl.textContent = "儲存中...";
 
-    // 收集表單資料
+    // 把表單欄位收集起來
     const formData = new FormData();
-    const fields = {
-      id: document.querySelector("#newsId").value,
-      date: document.querySelector("#newsDate").value,
-      tag: tagSelect.value,
-      title: document.querySelector("#newsTitle").value,
-      content: document.querySelector("#newsContent").value,
-      url: document.querySelector("#newsUrl").value,
-      published: document.querySelector("#newsPublished").value === "true",
-    };
-    Object.entries(fields).forEach(([key, value]) => formData.append(key, String(value)));
+    formData.append("id", document.getElementById("newsId").value);
+    formData.append("date", document.getElementById("newsDate").value);
+    formData.append("tag", tagSelect.value);
+    formData.append("title", document.getElementById("newsTitle").value);
+    formData.append("content", document.getElementById("newsContent").value);
+    formData.append("url", document.getElementById("newsUrl").value);
+    formData.append("published", document.getElementById("newsPublished").value === "true");
 
-    // 圖片/附件相關
-    const currentImageName = document.querySelector("#currentImageName").textContent;
-    const currentAttachmentName = document.querySelector("#currentAttachmentName").textContent;
+    const currentImageName = document.getElementById("currentImageName").textContent;
+    const currentAttachmentName = document.getElementById("currentAttachmentName").textContent;
     formData.append("imageName", currentImageName === "未上傳" ? "" : currentImageName);
     formData.append("attachmentName", currentAttachmentName === "未上傳" ? "" : currentAttachmentName);
-    formData.append("removeImage", String(document.querySelector("#removeNewsImage").checked));
-    formData.append("removeAttachment", String(document.querySelector("#removeNewsAttachment").checked));
+    formData.append("removeImage", document.getElementById("removeNewsImage").checked);
+    formData.append("removeAttachment", document.getElementById("removeNewsAttachment").checked);
 
-    const imageFile = document.querySelector("#newsImageFile").files[0];
-    const attachmentFile = document.querySelector("#newsAttachmentFile").files[0];
+    const imageFile = document.getElementById("newsImageFile").files[0];
+    const attachmentFile = document.getElementById("newsAttachmentFile").files[0];
+
     if (imageFile) {
       try {
         messageEl.textContent = "圖片最佳化中...";
@@ -407,11 +463,13 @@ function initAdmin() {
         formData.append("image", optimizedImage);
       } catch (error) {
         messageEl.dataset.state = "error";
-        messageEl.textContent = error instanceof Error ? error.message : "圖片處理失敗。";
+        messageEl.textContent = error.message || "圖片處理失敗。";
         return;
       }
     }
-    if (attachmentFile) formData.append("attachment", attachmentFile);
+    if (attachmentFile) {
+      formData.append("attachment", attachmentFile);
+    }
 
     try {
       messageEl.textContent = "儲存中...";
@@ -423,17 +481,17 @@ function initAdmin() {
 
       if (!ensureAuthorized(response)) return;
 
-      const errorText = response.ok ? "" : await response.text();
       if (response.ok) {
         onResetForm();
         await loadNews();
         messageEl.dataset.state = "success";
         messageEl.textContent = "消息已成功儲存。";
       } else {
+        const errorText = await response.text();
         messageEl.dataset.state = "error";
         messageEl.textContent = errorText || "儲存失敗，請檢查欄位內容。";
       }
-    } catch {
+    } catch (error) {
       messageEl.textContent = "目前無法連線，請稍後再試。";
     }
   }
@@ -442,10 +500,10 @@ function initAdmin() {
   // 分類管理
   // ---------------------------------------------------------------------------
 
-  /** 儲存分類 */
   async function onCategorySave(event) {
     event.preventDefault();
-    const input = document.querySelector("#categoryName");
+    const input = document.getElementById("categoryName");
+
     const response = await fetch("/api/news/categories", {
       method: "POST",
       headers: csrfHeaders({ "Content-Type": "application/json" }),
@@ -453,7 +511,7 @@ function initAdmin() {
     });
     if (!ensureAuthorized(response)) return;
 
-    document.querySelector("#categoryMessage").textContent = response.ok ? "分類已更新。" : "分類儲存失敗。";
+    document.getElementById("categoryMessage").textContent = response.ok ? "分類已更新。" : "分類儲存失敗。";
     if (!response.ok) return;
 
     input.value = "";
@@ -462,16 +520,18 @@ function initAdmin() {
     renderCategoryOptions(tagSelect.value);
   }
 
-  /** 刪除分類 */
   async function deleteCategory(name) {
     if (!window.confirm("確定刪除這個分類？既有消息不會被刪除。")) return;
-    const response = await fetch(`/api/news/categories/${encodeURIComponent(name)}`, {
+
+    const response = await fetch("/api/news/categories/" + encodeURIComponent(name), {
       method: "DELETE",
       headers: csrfHeaders(),
     });
     if (!ensureAuthorized(response)) return;
-    document.querySelector("#categoryMessage").textContent = response.ok ? "分類已刪除。" : "分類刪除失敗。";
+
+    document.getElementById("categoryMessage").textContent = response.ok ? "分類已刪除。" : "分類刪除失敗。";
     if (!response.ok) return;
+
     categories = await response.json();
     renderCategoryRows();
     renderCategoryOptions(tagSelect.value);
@@ -481,57 +541,59 @@ function initAdmin() {
   // 刪除消息
   // ---------------------------------------------------------------------------
 
-  /** 刪除消息 */
   async function deleteNews(id) {
-    if (!window.confirm("確定刪除這則消息？")) return;
-    const response = await fetch(`/api/news/delete/${encodeURIComponent(id)}`, {
+    if (!window.confirm("確定刪除這則消息？"))
+      return;
+
+    const response = await fetch("/api/news/delete/" + encodeURIComponent(id), {
       method: "DELETE",
       headers: csrfHeaders(),
     });
-    if (!ensureAuthorized(response)) return;
-    if (response.ok) await loadNews();
+    if (!ensureAuthorized(response))
+      return;
+
+    if (response.ok) {
+      await loadNews();
+    }
   }
 
   // ---------------------------------------------------------------------------
   // 共用輔助
   // ---------------------------------------------------------------------------
 
-  /** 檢查回應是否為 401 未授權，是則導回登入 */
+  // 檢查回應是不是「401 未授權」，如果是，就導回登入畫面
   function ensureAuthorized(response) {
-    if (response.status !== 401) return true;
+    if (response.status !== 401)
+      return true;
+
     workspace.hidden = true;
     loginPanel.hidden = false;
-    document.querySelector("#loginMessage").textContent = "登入已逾時，請重新登入。";
+    document.getElementById("loginMessage").textContent = "登入已逾時，請重新登入。";
     return false;
   }
 
-  /** 重設消息表單 */
+  // 重設消息表單
   function onResetForm() {
-    // 原生 reset 會清空 newsId、newsUrl、newsImageUrl、檔案欄位、
-    // removeImage、removeAttachment 與其他 input/textarea/select。
+    // newsForm.reset() 會自動清空大部分欄位（文字框、下拉選單、檔案欄位等）
     newsForm.reset();
 
-    // 這些狀態文字不是表單控制項，必須另外重設。
-    document.querySelector("#currentImageName").textContent = "未上傳";
-    document.querySelector("#currentAttachmentName").textContent = "未上傳";
-    document.querySelector("#createdAtInfo").textContent = "儲存後自動紀錄";
-    document.querySelector("#updatedAtInfo").textContent = "儲存後自動紀錄";
+    // 但這幾個是純顯示用的文字，不是表單控制項，要自己手動重設
+    document.getElementById("currentImageName").textContent = "未上傳";
+    document.getElementById("currentAttachmentName").textContent = "未上傳";
+    document.getElementById("createdAtInfo").textContent = "儲存後自動紀錄";
+    document.getElementById("updatedAtInfo").textContent = "儲存後自動紀錄";
 
     renderCategoryOptions();
     setDefaultDate();
 
-    const messageEl = document.querySelector("#formMessage");
+    const messageEl = document.getElementById("formMessage");
     messageEl.removeAttribute("data-state");
     messageEl.textContent = "";
   }
 
-  /** 設定預設日期為今天 */
+  // 把日期欄位設成今天
   function setDefaultDate() {
-    document.querySelector("#newsDate").value = formatLocalDate(new Date());
+    document.getElementById("newsDate").value = formatLocalDate(new Date());
   }
-}
 
-// ---------------------------------------------------------------------------
-// 啟動
-// ---------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", initAdmin);
+});

@@ -125,10 +125,14 @@
 }
 
 .affiliate-club-redesign {
-  gap: clamp(40px, 4vw, 56px);
+  gap: clamp(32px, 3.5vw, 48px);
 }
 
 .affiliate-badminton-redesign {
+  gap: clamp(40px, 4vw, 56px);
+}
+
+.affiliate-alpha-redesign {
   gap: clamp(40px, 4vw, 56px);
 }
 
@@ -201,7 +205,7 @@
 .affiliate-sexin-services-redesign,
 .affiliate-sexin-awards-redesign,
 .affiliate-oil-locations,
-.affiliate-club-cta,
+.affiliate-club-facilities-contact,
 .affiliate-panel-details {
   min-width: 0;
   padding-top: clamp(32px, 4vw, 48px);
@@ -510,6 +514,11 @@
   min-width: 0;
 }
 
+.affiliate-oil-locations {
+  --affiliate-location-label-color: #5c5c5c;
+  --affiliate-location-value-color: #4a4a4a;
+}
+
 .affiliate-location-detail-hint {
   margin: 0 0 20px;
   font-size: var(--font-size-body-sm);
@@ -526,6 +535,7 @@
 }
 
 .affiliate-oil-location-detail .affiliate-location-card h4 {
+  margin-bottom: 24px;
   font-size: var(--font-size-h3);
 }
 
@@ -555,48 +565,80 @@
 
 .affiliate-location-details {
   display: grid;
-  gap: 20px;
+  gap: 22px;
 }
 
 .affiliate-location-detail {
   display: grid;
-  gap: 4px;
+  gap: 10px;
 }
 
 .affiliate-location-label {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-body-sm);
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #f2f2f2;
+  color: var(--affiliate-location-label-color);
+  font-size: 13px;
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-body-tight);
 }
 
 .affiliate-location-value {
-  color: var(--color-text-body);
+  color: var(--affiliate-location-value-color);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-body);
 }
 
+.affiliate-oil-location-detail .affiliate-location-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.affiliate-oil-location-detail .affiliate-location-value {
+  min-width: 0;
+}
+
 .affiliate-taronews-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
-  gap: clamp(48px, 6vw, 80px);
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: clamp(36px, 3vw, 40px);
 }
 
 .affiliate-taronews-feature {
   width: 100%;
-  max-width: 400px;
+  max-width: none;
   margin: 0;
-  justify-self: end;
+  aspect-ratio: 3.15;
+  overflow: hidden;
+  border-radius: var(--card-radius);
 }
 
 .affiliate-taronews-feature img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: var(--card-radius);
-  object-fit: contain;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.affiliate-taronews-copy {
+  display: grid;
+  gap: 24px;
+}
+
+.affiliate-taronews-copy .affiliate-panel-intro {
+  max-width: none;
+  margin-top: -4px;
+}
+
+.affiliate-taronews-copy .affiliate-tagline {
+  font-size: var(--font-size-label);
 }
 
 .affiliate-taronews-cta,
@@ -604,9 +646,40 @@
   width: fit-content;
 }
 
+.affiliate-club-facilities-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 32px);
+  align-items: start;
+  padding-top: clamp(24px, 3vw, 36px);
+}
+
+.affiliate-club-facilities-contact > .affiliate-club-facilities,
+.affiliate-club-facilities-contact > .affiliate-club-cta {
+  min-width: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .affiliate-club-cta {
+  --affiliate-location-label-color: #5c5c5c;
+  --affiliate-location-value-color: #4a4a4a;
   display: grid;
   gap: 20px;
+}
+
+.affiliate-club-contact-details {
+  margin-top: 14px;
+}
+
+.affiliate-club-contact-details .affiliate-location-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.affiliate-club-contact-details .affiliate-location-value {
+  min-width: 0;
 }
 
 .affiliate-club-cta-copy {
@@ -630,6 +703,18 @@
   gap: 48px;
 }
 
+.affiliate-alpha-details {
+  --affiliate-location-label-color: #5c5c5c;
+  --affiliate-location-value-color: #4a4a4a;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 32px);
+}
+
+.affiliate-alpha-details .affiliate-section-heading h3 {
+  font-size: var(--font-size-card-title-compact);
+  line-height: var(--line-height-card-title-compact);
+}
+
 .affiliate-panel-details section {
   min-width: 0;
 }
@@ -638,12 +723,50 @@
   margin-bottom: 20px;
 }
 
+.affiliate-badminton-awards {
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+.affiliate-badminton-awards .affiliate-section-heading {
+  margin-bottom: 0;
+}
+
+.affiliate-badminton-award-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.affiliate-badminton-award-list li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+}
+
+.affiliate-badminton-award-list li::before {
+  align-self: start;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.55em;
+  background: var(--color-primary);
+  content: "";
+}
+
 .affiliate-panel ul {
   display: grid;
   gap: 10px;
   margin: 0;
   padding-left: 20px;
   list-style: square;
+}
+
+.affiliate-panel ul.affiliate-badminton-award-list {
+  padding-left: 0;
 }
 
 .affiliate-panel li::marker {
@@ -717,6 +840,7 @@
 .affiliate-sexin-profile-carousel {
   position: relative;
   min-width: 0;
+  touch-action: pan-y;
 }
 
 .affiliate-sexin-profile-slides {
@@ -776,9 +900,20 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.affiliate-club-company-profile .affiliate-sexin-profile-carousel-progress,
 .affiliate-badminton-company-profile .affiliate-sexin-profile-carousel-progress {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel-progress {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.affiliate-alpha-company-profile .affiliate-sexin-profile-slide img[src*="port-crane-operation"] {
+  object-position: center bottom;
+}
+
+.affiliate-club-company-profile .affiliate-sexin-profile-carousel-progress {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .affiliate-sexin-profile-carousel-progress-bar {
@@ -819,6 +954,11 @@
   animation-play-state: paused;
 }
 
+.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel:hover .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill,
+.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel:focus-within .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill {
+  animation-play-state: running;
+}
+
 .affiliate-sexin-profile-carousel-progress-bar:focus-visible {
   outline: 1px solid var(--color-primary);
   outline-offset: 4px;
@@ -848,6 +988,15 @@
   list-style: none;
 }
 
+.affiliate-club-facilities .affiliate-sexin-services-list ul {
+  width: min(100%, 380px);
+  column-gap: 24px;
+}
+
+.affiliate-alpha-services-list ul {
+  width: min(100%, 720px);
+}
+
 .affiliate-sexin-services-list li {
   display: grid;
   grid-template-columns: 12px minmax(0, 1fr);
@@ -862,6 +1011,26 @@
   margin-top: 0.55em;
   background: var(--color-primary);
   content: "";
+}
+
+.affiliate-alpha-contact-details {
+  display: grid;
+  gap: 16px;
+}
+
+.affiliate-alpha-contact-details .affiliate-location-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.affiliate-alpha-contact-details .affiliate-location-value {
+  min-width: 0;
+}
+
+.affiliate-alpha-contact-details .affiliate-location-value a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .affiliate-sexin-award-grid {
@@ -969,6 +1138,57 @@
   transition: var(--button-icon-transition);
 }
 
+.affiliate-club-cta-link.button--text-arrow .affiliate-cta__icon,
+.affiliate-taronews-cta.button--text-arrow .affiliate-cta__icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.affiliate-club-cta-link.button--text-arrow,
+.affiliate-taronews-cta.button--text-arrow {
+  position: relative;
+  padding-bottom: 6px;
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: .02em;
+  line-height: 1.5;
+  transition: color 200ms ease;
+}
+
+.affiliate-club-cta-link.button--text-arrow::after,
+.affiliate-taronews-cta.button--text-arrow::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--color-primary);
+  content: "";
+  opacity: .5;
+  transform: scaleX(.35);
+  transform-origin: left center;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.affiliate-club-cta-link.button--text-arrow:hover,
+.affiliate-club-cta-link.button--text-arrow:focus-visible,
+.affiliate-taronews-cta.button--text-arrow:hover,
+.affiliate-taronews-cta.button--text-arrow:focus-visible {
+  background: transparent;
+  color: var(--color-secondary);
+}
+
+.affiliate-club-cta-link.button--text-arrow:hover::after,
+.affiliate-club-cta-link.button--text-arrow:focus-visible::after,
+.affiliate-taronews-cta.button--text-arrow:hover::after,
+.affiliate-taronews-cta.button--text-arrow:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 .affiliate-club-cta-link:hover .affiliate-cta__icon,
 .affiliate-club-cta-link:focus-visible .affiliate-cta__icon,
 .affiliate-taronews-cta:hover .affiliate-cta__icon,
@@ -1052,14 +1272,6 @@
     margin-right: 0;
   }
 
-  .affiliate-taronews-main {
-    grid-template-columns: 1fr;
-  }
-
-  .affiliate-taronews-feature {
-    justify-self: start;
-    order: 2;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1077,6 +1289,10 @@
   .affiliate-panel-details {
     gap: 32px;
   }
+
+  .affiliate-badminton-awards {
+    gap: 28px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -1093,12 +1309,40 @@
     gap: 40px;
   }
 
+  .affiliate-alpha-redesign {
+    gap: 40px;
+  }
+
   .affiliate-editorial-section,
   .affiliate-sexin-services-redesign,
   .affiliate-oil-locations,
-  .affiliate-club-cta,
+  .affiliate-club-facilities-contact,
   .affiliate-panel-details {
     padding-top: 32px;
+  }
+
+  .affiliate-oil-quote {
+    padding-top: 52px;
+  }
+
+  .affiliate-oil-quote > span::before {
+    top: 16px;
+  }
+
+  .affiliate-oil-location-map-visual {
+    overflow: hidden;
+  }
+
+  .affiliate-oil-location-map-visual > img {
+    transform: translateX(-15%);
+  }
+
+  .affiliate-oil-location-map-visual > .affiliate-location-marker {
+    margin-left: -15%;
+  }
+
+  .affiliate-club-facilities-contact {
+    padding-top: 24px;
   }
 
   .affiliate-oil-gallery,
@@ -1152,19 +1396,16 @@
     gap: 16px;
   }
 
-  .affiliate-club-cta,
+  .affiliate-club-facilities-contact,
   .affiliate-panel-details {
     grid-template-columns: 1fr;
   }
 
-  .affiliate-club-cta-link,
-  .affiliate-taronews-cta {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
+  .affiliate-sexin-services-list ul {
+    grid-template-columns: 1fr;
   }
 
-  .affiliate-sexin-services-list ul {
+  .affiliate-badminton-award-list {
     grid-template-columns: 1fr;
   }
 
@@ -1185,7 +1426,60 @@
 
 @media (max-width: 767px) {
   .affiliate-location-marker__label {
-    display: none;
+    display: block;
+    max-width: 48px;
+    padding: 1px 3px;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 88%);
+    color: var(--color-text-body);
+    font-size: 12px;
+    line-height: 1.25;
+    cursor: pointer;
+  }
+
+  .affiliate-location-marker__label::before {
+    width: 48px;
+    background: var(--color-text-body);
+  }
+
+  .affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label {
+    right: auto;
+    left: calc(100% + 48px);
+  }
+
+  .affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label,
+  .affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label {
+    right: calc(100% + 48px);
+    left: auto;
+  }
+
+  .affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label::before {
+    width: 48px;
+    right: 100%;
+    left: auto;
+  }
+
+  .affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label::before,
+  .affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label::before {
+    width: 48px;
+    right: auto;
+    left: 100%;
+  }
+
+  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label {
+    top: calc(50% - 14px);
   }
 
   .affiliate-tabs__track {

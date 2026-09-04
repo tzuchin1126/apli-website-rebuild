@@ -1,38 +1,37 @@
 // ---------------------------------------------------------------------------
 // 職業安全衛生頁面：專業證照輪播
+// - 滑鼠拖曳捲動
+// - 分頁控制器（上一頁/下一頁/頁碼按鈕）
+// - 響應式每頁顯示數量（手機1、平板2、桌機3）
+// - 視窗縮放時重新計算
 // ---------------------------------------------------------------------------
 
-/**
- * 初始化專業證照輪播
- * - 滑鼠拖曳捲動
- * - 分頁控制器（上一頁/下一頁/頁碼按鈕）
- * - 響應式每頁顯示數量（手機1、平板2、桌機3）
- * - 視窗縮放時重新計算
- */
+// 建立專業證照輪播使用的方向箭頭（direction 為 "left" 或 "right"）
+function createArrow(direction) {
+  const icon = document.createElement("i");
+  icon.className = "ph ph-caret-" + direction;
+  icon.setAttribute("aria-hidden", "true");
+  // Phosphor caret icons: left=E138, right=E13A
+  icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
+  return icon;
+}
+
 function setupCredentialsCarousel() {
   const list = document.querySelector("[data-safety-credentials-list]");
   if (!list) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  /**
-   * 建立專業證照輪播使用的方向箭頭。
-   * @param {"left"|"right"} direction - 箭頭方向
-   * @returns {HTMLElement} 箭頭 icon 元素
-   */
-  const createArrow = (direction) => {
-    const icon = document.createElement("i");
-    icon.className = `ph ph-caret-${direction}`;
-    icon.setAttribute("aria-hidden", "true");
-    // Phosphor caret icons: left=E138, right=E13A
-    icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
-    return icon;
-  };
 
   const viewport = list.closest(".safety-credentials__viewport");
-  const pager = list.closest(".safety-credentials")?.querySelector(".safety-credentials__pager");
+  const safetySection = list.closest(".safety-credentials");
+  const pager = safetySection ? safetySection.querySelector(".safety-credentials__pager") : null;
   if (!viewport || !pager) return;
 
-  const cards = Array.from(list.querySelectorAll(".safety-credential-card"));
+  const cards = [];
+  const cardNodes = list.querySelectorAll(".safety-credential-card");
+  for (let i = 0; i < cardNodes.length; i++) {
+    cards.push(cardNodes[i]);
+  }
 
   // ---------------------------------------------------------------------------
   // 滑鼠拖曳捲動
@@ -51,7 +50,7 @@ function setupCredentialsCarousel() {
     activePointerId = null;
   }
 
-  viewport.addEventListener("pointerdown", (event) => {
+  viewport.addEventListener("pointerdown", function (event) {
     // 僅左鍵滑鼠
     if (event.pointerType !== "mouse" || event.button !== 0) return;
     activePointerId = event.pointerId;
@@ -63,7 +62,7 @@ function setupCredentialsCarousel() {
     viewport.setPointerCapture(event.pointerId);
   });
 
-  viewport.addEventListener("pointermove", (event) => {
+  viewport.addEventListener("pointermove", function (event) {
     if (event.pointerId !== activePointerId) return;
     const distance = event.clientX - dragStartX;
     if (Math.abs(distance) < 4) return;
@@ -76,13 +75,16 @@ function setupCredentialsCarousel() {
   viewport.addEventListener("pointercancel", finishPointerDrag);
 
   // 拖曳後抑制 click（防止點擊卡片內連結誤觸發）
-  viewport.addEventListener("click", (event) => {
+  viewport.addEventListener("click", function (event) {
     if (!suppressClick) return;
     suppressClick = false;
     event.preventDefault();
     event.stopPropagation();
   }, true);
-  viewport.addEventListener("dragstart", (event) => event.preventDefault());
+
+  viewport.addEventListener("dragstart", function (event) {
+    event.preventDefault();
+  });
 
   // ---------------------------------------------------------------------------
   // 響應式每頁卡片數
@@ -110,13 +112,14 @@ function setupCredentialsCarousel() {
   previous.setAttribute("aria-label", "上一組專業證照");
   previous.append(createArrow("left"));
 
-  const pageButtons = Array.from({ length: pages }, (_, index) => {
+  const pageButtons = [];
+  for (let index = 0; index < pages; index++) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "safety-credentials__page";
-    button.setAttribute("aria-label", `顯示第 ${index + 1} 組專業證照`);
-    return button;
-  });
+    button.setAttribute("aria-label", "顯示第 " + (index + 1) + " 組專業證照");
+    pageButtons.push(button);
+  }
 
   const next = document.createElement("button");
   next.type = "button";
@@ -124,7 +127,12 @@ function setupCredentialsCarousel() {
   next.setAttribute("aria-label", "下一組專業證照");
   next.append(createArrow("right"));
 
-  controls.append(previous, ...pageButtons, next);
+  controls.append(previous);
+  for (let i = 0; i < pageButtons.length; i++) {
+    controls.append(pageButtons[i]);
+  }
+  controls.append(next);
+
   pager.replaceChildren(controls);
   pager.removeAttribute("aria-hidden");
 
@@ -141,17 +149,21 @@ function setupCredentialsCarousel() {
     // 已捲動到底 → 最後一頁
     if (maxScroll > 0 && viewport.scrollLeft >= maxScroll - 1) return pages - 1;
 
-    return Math.min(pages - 1, Math.round(viewport.scrollLeft / ((cardWidth + gap) * pageSize)));
+    const page = Math.round(viewport.scrollLeft / ((cardWidth + gap) * pageSize));
+    return Math.min(pages - 1, page);
   }
 
   function update() {
     const page = getPage();
-    pageButtons.forEach((button, index) => {
-      const isActive = index === page;
+
+    for (let i = 0; i < pageButtons.length; i++) {
+      const button = pageButtons[i];
+      const isActive = i === page;
       button.classList.toggle("is-active", isActive);
       if (isActive) button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");
-    });
+    }
+
     previous.disabled = page === 0;
     next.disabled = page === pages - 1;
   }
@@ -167,9 +179,18 @@ function setupCredentialsCarousel() {
   }
 
   // 綁定控制器事件
-  previous.addEventListener("click", () => goTo(Math.max(0, getPage() - 1)));
-  next.addEventListener("click", () => goTo(Math.min(pages - 1, getPage() + 1)));
-  pageButtons.forEach((button, index) => button.addEventListener("click", () => goTo(index)));
+  previous.addEventListener("click", function () {
+    goTo(Math.max(0, getPage() - 1));
+  });
+  next.addEventListener("click", function () {
+    goTo(Math.min(pages - 1, getPage() + 1));
+  });
+  for (let i = 0; i < pageButtons.length; i++) {
+    const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
+    pageButtons[i].addEventListener("click", function () {
+      goTo(pageIndex);
+    });
+  }
 
   // 捲動同步更新
   viewport.addEventListener("scroll", update, { passive: true });
@@ -192,9 +213,6 @@ function setupCredentialsCarousel() {
   update();
 }
 
-/**
- * 初始化職業安全衛生頁面
- */
 function initOccupationalSafety() {
   setupCredentialsCarousel();
 }
