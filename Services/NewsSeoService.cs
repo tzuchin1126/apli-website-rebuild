@@ -11,8 +11,8 @@ public static class NewsSeoService
   public const string DateMarker = "<!-- news-detail-date -->";
   public const string TagMarker = "<!-- news-detail-tag -->";
   public const string TitleMarker = "<!-- news-detail-title -->";
-  public const string ImageMarker = "<!-- news-detail-image -->";
-  public const string ImageStateMarker = "<!-- news-detail-image-state -->";
+  public const string MediaMarker = "<!-- news-detail-media -->";
+  public const string ImageStateMarker = "news-detail-image-state";
   public const string ContentMarker = "<!-- news-detail-content -->";
   public const string HomeLatestMarker = "<!-- home-latest-items -->";
   public const string NewsListMarker = "<!-- news-list-items -->";
@@ -41,7 +41,7 @@ public static class NewsSeoService
       ImageStateMarker,
       HasCustomNewsImage(item) ? " news-detail--with-image" : " news-detail--without-image",
       StringComparison.Ordinal);
-    result = result.Replace(ImageMarker, BuildImageMarkup(item), StringComparison.Ordinal);
+    result = result.Replace(MediaMarker, BuildMediaMarkup(item), StringComparison.Ordinal);
     result = result.Replace(ContentMarker, BuildContentMarkup(item.Content), StringComparison.Ordinal);
 
     return result;
@@ -241,16 +241,21 @@ public static class NewsSeoService
             """;
   }
 
-  // 新聞詳細頁的主圖 <img> 標籤。
-  // 沒有圖片時,先放一個「隱藏起來」的 <img>,保留這個標籤的位置,
-  // 讓前端 JavaScript 之後如果需要,還是找得到這個元素。
-  private static string BuildImageMarkup(NewsItem item)
+  // 新聞詳細頁的媒體欄位。
+  // 沒有自訂圖片時直接不輸出 media wrapper,避免留下空欄位或 placeholder。
+  private static string BuildMediaMarkup(NewsItem item)
   {
     if (!HasCustomNewsImage(item))
     {
-      return "<img class=\"news-detail__image\" data-news-image alt=\"\" hidden loading=\"eager\" decoding=\"sync\">";
+      return string.Empty;
     }
 
+    return $"<div class=\"news-detail__media\" data-news-media>{BuildImageMarkup(item)}</div>";
+  }
+
+  // 新聞詳細頁的主圖 <img> 標籤。
+  private static string BuildImageMarkup(NewsItem item)
+  {
     var encodedImageUrl = Encode(item.ImageUrl);
     var encodedTitle = Encode(item.Title);
 

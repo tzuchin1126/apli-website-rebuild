@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/css/layout/site-header.css?v=20260904-header-hover-v3">
         <link rel="stylesheet" href="/css/layout/site-footer.css?v=20260830-polestar-footer-v15">
         <link rel="stylesheet" href="/css/components/buttons.css">
-        <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260904-news-detail-content-image-v1">
+        <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260904-news-detail-background-v6">
         <link rel="stylesheet" href="/css/site.css?v=20260902-page-hero-load-motion-v1">
     </head>
     <body class="news-detail-page">
@@ -35,6 +35,7 @@
                             <a href="/about"><span>公司簡介</span></a>
                             <a href="/company-history"><span>公司沿革</span></a>
                             <a href="/operational-resources"><span>營運資源</span></a>
+                            <a href="/future-outlook"><span>未來展望</span></a>
                         </div>
                     </div>
                     <div class="nav-dropdown">
@@ -43,9 +44,9 @@
                         </button>
                         <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
                             <span class="nav-menu__title">營業項目</span>
-                            <a href="/services#warehousing"><span>倉儲物流</span></a>
-                            <a href="/services#terminal-handling"><span>貨櫃清洗與維修</span></a>
-                            <a href="/services#maintenance"><span>機具維修與銷售</span></a>
+                            <a href="/services"><span>倉儲物流</span></a>
+                            <a href="/services"><span>貨櫃清洗與維修</span></a>
+                            <a href="/services"><span>機具維修與銷售</span></a>
                         </div>
                     </div>
                     <a href="/news" aria-current="page">最新消息</a>
@@ -83,7 +84,7 @@
             <p class="news-detail-error site-container" data-news-error hidden>
                 找不到這則最新消息，請返回<a href="/news">最新消息列表</a>。
             </p>
-            <article class="news-detail site-container<!-- news-detail-image-state -->" data-news-detail>
+            <article class="news-detail site-container news-detail-image-state" data-news-detail>
                 <a class="news-detail__back button--primary" href="/news">
                     <i class="ph ph-arrow-u-up-left" aria-hidden="true"></i>
                     <span>返回最新消息</span>
@@ -106,9 +107,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="news-detail__media" data-news-media>
-                        <!-- news-detail-image -->
-                    </div>
+                    <!-- news-detail-media -->
                 </div>
             </article>
         </main>

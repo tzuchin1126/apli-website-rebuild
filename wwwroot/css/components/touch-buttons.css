@@ -172,7 +172,7 @@
   .news-filter__list button:focus,
   .news-filter__list button:focus-visible {
     border-color: transparent;
-    background: var(--color-surface-soft);
+    background: transparent;
     color: var(--news-filter-text);
   }
 
@@ -181,9 +181,9 @@
   .news-filter__list button[aria-pressed="true"]:active,
   .news-filter__list button[aria-pressed="true"]:focus,
   .news-filter__list button[aria-pressed="true"]:focus-visible {
-    border-color: var(--color-primary);
-    background: var(--news-primary-soft);
-    color: var(--color-primary);
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-ink);
   }
 
   .services-page .service-carousel__control:hover,
