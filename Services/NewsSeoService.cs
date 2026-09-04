@@ -12,6 +12,7 @@ public static class NewsSeoService
   public const string TagMarker = "<!-- news-detail-tag -->";
   public const string TitleMarker = "<!-- news-detail-title -->";
   public const string ImageMarker = "<!-- news-detail-image -->";
+  public const string ImageStateMarker = "<!-- news-detail-image-state -->";
   public const string ContentMarker = "<!-- news-detail-content -->";
   public const string HomeLatestMarker = "<!-- home-latest-items -->";
   public const string NewsListMarker = "<!-- news-list-items -->";
@@ -20,7 +21,8 @@ public static class NewsSeoService
   private const int HomeLatestItemCount = 8;
 
   // 新聞沒有自己的圖片時,列表頁要用哪張圖片頂替
-  private const string DefaultNewsImageUrl = "/public/images/index/news.png?v=20260821-default-v2";
+  private const string DefaultNewsImagePath = "/public/images/index/news.png";
+  private const string DefaultNewsImageUrl = DefaultNewsImagePath + "?v=20260821-default-v2";
 
 
   public static string RenderDetailPage(string pageMarkup, NewsItem item)
@@ -35,6 +37,7 @@ public static class NewsSeoService
     result = result.Replace(DateMarker, Encode(item.Date), StringComparison.Ordinal);
     result = result.Replace(TagMarker, Encode(item.Tag), StringComparison.Ordinal);
     result = result.Replace(TitleMarker, encodedTitle, StringComparison.Ordinal);
+    result = result.Replace(ImageStateMarker, HasCustomNewsImage(item) ? " news-detail--with-image" : " news-detail--without-image", StringComparison.Ordinal);
     result = result.Replace(ImageMarker, BuildImageMarkup(item), StringComparison.Ordinal);
     result = result.Replace(ContentMarker, BuildContentMarkup(item.Content), StringComparison.Ordinal);
 
@@ -240,7 +243,7 @@ public static class NewsSeoService
   // 讓前端 JavaScript 之後如果需要,還是找得到這個元素。
   private static string BuildImageMarkup(NewsItem item)
   {
-    if (string.IsNullOrWhiteSpace(item.ImageUrl))
+    if (!HasCustomNewsImage(item))
     {
       return "<img class=\"news-detail__image\" data-news-image alt=\"\" hidden loading=\"eager\" decoding=\"sync\">";
     }
@@ -249,6 +252,24 @@ public static class NewsSeoService
     var encodedTitle = Encode(item.Title);
 
     return $"<img class=\"news-detail__image\" data-news-image src=\"{encodedImageUrl}\" alt=\"{encodedTitle}\" loading=\"eager\" decoding=\"sync\">";
+  }
+
+  private static bool HasCustomNewsImage(NewsItem item)
+  {
+    if (string.IsNullOrWhiteSpace(item.ImageUrl))
+      return false;
+
+    var imagePath = item.ImageUrl.Trim();
+    var queryIndex = imagePath.IndexOf('?');
+    if (queryIndex >= 0)
+      imagePath = imagePath[..queryIndex];
+
+    var fragmentIndex = imagePath.IndexOf('#');
+    if (fragmentIndex >= 0)
+      imagePath = imagePath[..fragmentIndex];
+
+    return !string.Equals(imagePath, DefaultNewsImagePath, StringComparison.OrdinalIgnoreCase) &&
+           !string.Equals(imagePath, DefaultNewsImagePath.TrimStart('/'), StringComparison.OrdinalIgnoreCase);
   }
 
   // 把新聞內文依照換行字元切成一段一段,每一段包成一個 <p> 標籤,

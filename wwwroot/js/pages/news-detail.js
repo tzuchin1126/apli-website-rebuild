@@ -33,6 +33,10 @@ function initNewsDetail() {
   const descriptionEl = document.querySelector('meta[name="description"]');
   const ogTitleEl = document.querySelector('meta[property="og:title"]');
   const ogDescriptionEl = document.querySelector('meta[property="og:description"]');
+  const defaultNewsImagePaths = [
+    "/public/images/index/news.png",
+    "public/images/index/news.png",
+  ];
 
   if (!id) {
     showError();
@@ -51,6 +55,14 @@ function initNewsDetail() {
       attachmentName: item.attachmentName || item.AttachmentName || "",
       imageUrl: item.imageUrl || item.ImageUrl || "",
     };
+  }
+
+  function isDefaultNewsImage(value) {
+    const imageUrl = String(value || "").trim();
+    if (!imageUrl) return true;
+
+    const imagePath = imageUrl.split(/[?#]/, 1)[0];
+    return defaultNewsImagePaths.indexOf(imagePath) >= 0;
   }
 
   // 渲染消息詳細內容
@@ -81,11 +93,21 @@ function initNewsDetail() {
       contentEl.append(p);
     }
 
-    // 圖片
-    if (item.imageUrl) {
-      imageEl.src = item.imageUrl;
-      imageEl.alt = item.title;
-      imageEl.hidden = false;
+    // 只有自訂圖片才使用 Editorial 雙欄；空值與系統預設圖都改為單欄。
+    const hasCustomImage = !isDefaultNewsImage(item.imageUrl);
+    detail.classList.toggle("news-detail--with-image", hasCustomImage);
+    detail.classList.toggle("news-detail--without-image", !hasCustomImage);
+
+    if (imageEl) {
+      if (hasCustomImage) {
+        imageEl.src = item.imageUrl;
+        imageEl.alt = item.title;
+        imageEl.hidden = false;
+      } else {
+        imageEl.removeAttribute("src");
+        imageEl.alt = "";
+        imageEl.hidden = true;
+      }
     }
 
     // 附件連結
