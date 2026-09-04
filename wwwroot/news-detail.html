@@ -9,12 +9,13 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
+        <link rel="preload" as="image" href="/public/images/index/news-hero.png" fetchpriority="high">
         <link rel="stylesheet" href="/css/base/reset.css">
         <link rel="stylesheet" href="/css/base/tokens.css?v=20260903-text-body-token-v1">
         <link rel="stylesheet" href="/css/layout/site-header.css?v=20260904-header-hover-v3">
         <link rel="stylesheet" href="/css/layout/site-footer.css?v=20260830-polestar-footer-v15">
         <link rel="stylesheet" href="/css/components/buttons.css">
-        <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260904-news-detail-image-state-v1">
+        <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260904-news-detail-spacing-icon-v1">
         <link rel="stylesheet" href="/css/site.css?v=20260902-page-hero-load-motion-v1">
     </head>
     <body class="news-detail-page">
@@ -80,35 +81,36 @@
                     <span aria-current="page"><!-- news-detail-breadcrumb --></span>
                 </div>
             </div>
+            <section class="news-detail-hero page-hero" aria-labelledby="news-detail-hero-title">
+                <picture class="page-hero__media">
+                    <img class="page-hero__image" src="/public/images/index/news-hero.png" width="1672" height="941" alt="港區物流作業現場" fetchpriority="high" loading="eager" decoding="async">
+                </picture>
+                <div class="news-detail-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+                <p class="page-hero__title" id="news-detail-hero-title">最新消息</p>
+            </section>
             <p class="news-detail-error site-container" data-news-error hidden>
                 找不到這則最新消息，請返回<a href="/news">最新消息列表</a>。
             </p>
-            <article class="news-detail site-container<!-- news-detail-image-state -->" data-news-detail>
+            <article class="news-detail site-container" data-news-detail>
                 <a class="news-detail__back button--primary" href="/news">
                     <i class="ph ph-arrow-u-up-left" aria-hidden="true"></i>
                     <span>返回最新消息</span>
                 </a>
-                <div class="news-detail__layout">
-                    <div class="news-detail__main">
-                        <header class="news-detail__header">
-                            <div class="news-detail__meta">
-                                <time data-news-date><!-- news-detail-date --></time>
-                                <span data-news-tag><!-- news-detail-tag --></span>
-                            </div>
-                            <h1 data-news-title><!-- news-detail-title --></h1>
-                        </header>
-                        <!-- news-detail-image -->
+                <header class="news-detail__header">
+                    <div class="news-detail__meta">
+                        <time data-news-date><!-- news-detail-date --></time>
+                        <span data-news-tag><!-- news-detail-tag --></span>
                     </div>
-                    <div class="news-detail__aside">
-                        <div class="news-detail__content" data-news-content><!-- news-detail-content --></div>
-                        <div class="news-detail__attachment" data-news-attachment-wrap hidden>
-                            <p class="news-detail__attachment-heading">附件下載</p>
-                            <a class="news-detail__attachment-link" data-news-attachment target="_blank" rel="noopener">
-                                <i class="ph ph-paperclip" aria-hidden="true"></i>
-                                <span data-news-attachment-name></span>
-                            </a>
-                        </div>
-                    </div>
+                    <h1 data-news-title><!-- news-detail-title --></h1>
+                </header>
+                <!-- news-detail-image -->
+                <div class="news-detail__content" data-news-content><!-- news-detail-content --></div>
+                <div class="news-detail__attachment" data-news-attachment-wrap hidden>
+                    <p class="news-detail__attachment-heading">附件：</p>
+                    <a class="news-detail__attachment-link" data-news-attachment target="_blank" rel="noopener">
+                        <i class="ph ph-paperclip" aria-hidden="true"></i>
+                        <span data-news-attachment-name></span>
+                    </a>
                 </div>
             </article>
         </main>
@@ -117,6 +119,6 @@
         </footer>
 
         <script src="/js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="/js/pages/news-detail.js?v=20260904-news-detail-image-state-v1"></script>
+        <script src="/js/pages/news-detail.js?v=20260822-news-seo-v2"></script>
     </body>
 </html>
