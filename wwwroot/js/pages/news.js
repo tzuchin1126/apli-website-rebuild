@@ -215,7 +215,12 @@ function initNewsList() {
       button.dataset.page = String(page);
       button.disabled = disabled;
       button.setAttribute("aria-label", label);
-      button.textContent = className === "news-pagination__arrow" ? (page < currentPage ? "←" : "→") : String(page).padStart(2, "0");
+      const direction = page < currentPage ? "left" : "right";
+      const icon = document.createElement("i");
+      icon.className = "ph ph-caret-" + direction;
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
+      button.append(icon);
       fragment.append(button);
     };
 
