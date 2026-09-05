@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260904-header-hover-v3">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260902-hero-title-size-v2">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260905-home-about-hero-accent-v44">
   <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
 </head>
 <body class="home-page">
@@ -50,9 +50,6 @@
             </a>
             <a href="/operational-resources">
               <span>營運資源</span>
-            </a>
-            <a href="/future-outlook">
-              <span>未來展望</span>
             </a>
           </div>
         </div>
@@ -121,76 +118,76 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
 
-    <section class="home-intro site-container" aria-labelledby="home-intro-title">
-      <div class="home-intro__heading" data-home-reveal="left">
-        <p class="eyebrow">ABOUT APLI</p>
-        <h2 id="home-intro-title">關於亞太</h2>
-      </div>
-      <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
-        <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
-        <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
-        <a class="button--primary home-text-link" href="/about">
-          了解更多
-          <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 19 19 5M8 5h11v11"></path>
-          </svg>
-        </a>
-      </div>
-      <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
-        <picture>
-          <img src="public/images/index/09.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
-        </picture>
-      </figure>
-    </section>
-    <section class="home-services" aria-labelledby="home-services-title">
+    <section class="home-services-compare" aria-labelledby="home-services-compare-title">
       <div class="site-container">
-        <div class="home-section-heading" data-home-reveal="up">
+        <div class="home-services-compare__heading" data-home-reveal="up">
           <p class="eyebrow">OUR SERVICES</p>
-          <h2 id="home-services-title">服務項目</h2>
+          <h2 id="home-services-compare-title">我們的服務</h2>
+          <p>亞太整合貨櫃物流、清潔維修與港區機具服務，提供完整的物流作業支援。</p>
         </div>
-        <div class="home-service-grid">
-          <article class="home-service-grid__card" data-home-reveal="up" data-home-delay="100" data-service-href="/services#warehousing" role="button" tabindex="0" aria-label="查看倉儲物流服務" aria-expanded="false" aria-controls="home-service-warehousing-content">
-              <div class="home-service-grid__media">
-                <picture>
-                  <img src="public/images/index/home-hero-container-handling.png" width="1536" height="1024" alt="倉儲物流" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <div class="home-service-grid__body" id="home-service-warehousing-content">
-                <div class="home-service-grid__title">
-                  <h3>倉儲物流</h3>
-                </div>
+        <div class="home-services-compare__grid">
+          <a class="home-services-compare__card" href="/services#warehousing" data-home-reveal="up" data-home-delay="100">
+            <div class="home-services-compare__media">
+              <img src="public/images/index/home-hero-container-handling.png" width="1536" height="1024" alt="倉儲物流作業" loading="lazy" decoding="async">
+            </div>
+            <div class="home-services-compare__shade" aria-hidden="true"></div>
+            <div class="home-services-compare__body">
+              <h3>倉儲物流</h3>
+              <div class="home-services-compare__details">
                 <p>提供貨櫃裝卸、拆裝櫃、倉儲與貨櫃存放管理服務。</p>
-                <a class="home-service-grid__link" href="/services#warehousing">了解更多 ↗</a>
               </div>
-          </article>
-          <article class="home-service-grid__card" data-home-reveal="up" data-home-delay="200" data-service-href="/services#terminal-handling" role="button" tabindex="0" aria-label="查看貨櫃清潔與維修服務" aria-expanded="false" aria-controls="home-service-terminal-handling-content">
-              <div class="home-service-grid__media">
-                <picture>
-                  <img src="public/images/services/container-cleaning.jpg" width="4912" height="3264" alt="貨櫃清潔與維修" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <div class="home-service-grid__body" id="home-service-terminal-handling-content">
-                <div class="home-service-grid__title">
-                  <h3>貨櫃清潔與維修</h3>
-                </div>
+            </div>
+          </a>
+          <a class="home-services-compare__card" href="/services#terminal-handling" data-home-reveal="up" data-home-delay="200">
+            <div class="home-services-compare__media">
+              <img src="public/images/services/container-cleaning.jpg" width="4912" height="3264" alt="貨櫃清潔與維修作業" loading="lazy" decoding="async">
+            </div>
+            <div class="home-services-compare__shade" aria-hidden="true"></div>
+            <div class="home-services-compare__body">
+              <h3>貨櫃清潔與維修</h3>
+              <div class="home-services-compare__details">
                 <p>由專業團隊執行貨櫃清洗、檢查與結構修復。</p>
-                <a class="home-service-grid__link" href="/services#terminal-handling">了解更多 ↗</a>
               </div>
-          </article>
-          <article class="home-service-grid__card" data-home-reveal="up" data-home-delay="300" data-service-href="/services#maintenance" role="button" tabindex="0" aria-label="查看機具維修與銷售服務" aria-expanded="false" aria-controls="home-service-maintenance-content">
-              <div class="home-service-grid__media">
-                <picture>
-                  <img src="public/images/services/port-equipment-maintenance.jpg" width="1538" height="1022" alt="機具維修與銷售" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <div class="home-service-grid__body" id="home-service-maintenance-content">
-                <div class="home-service-grid__title">
-                  <h3>機具維修與銷售</h3>
-                </div>
+            </div>
+          </a>
+          <a class="home-services-compare__card" href="/services#maintenance" data-home-reveal="up" data-home-delay="300">
+            <div class="home-services-compare__media">
+              <img src="public/images/services/port-equipment-maintenance.jpg" width="1538" height="1022" alt="港區機具維修與銷售作業" loading="lazy" decoding="async">
+            </div>
+            <div class="home-services-compare__shade" aria-hidden="true"></div>
+            <div class="home-services-compare__body">
+              <h3>機具維修與銷售</h3>
+              <div class="home-services-compare__details">
                 <p>提供港區機具保養、維修與設備銷售服務。</p>
-                <a class="home-service-grid__link" href="/services#maintenance">了解更多 ↗</a>
               </div>
-          </article>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="home-intro-section" aria-labelledby="home-intro-title">
+      <div class="home-intro site-container">
+        <div class="home-intro__heading" data-home-reveal="left">
+          <p class="eyebrow">ABOUT APLI</p>
+          <h2 id="home-intro-title">關於亞太</h2>
+        </div>
+        <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
+          <picture>
+            <img src="public/images/index/09.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
+          <h3 class="home-intro__subtitle">以客為尊，專業服務</h3>
+          <div class="home-intro__copy">
+            <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
+            <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
+          </div>
+          <a class="button--primary home-text-link" href="/about">
+            了解更多
+            <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 19 19 5M8 5h11v11"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>

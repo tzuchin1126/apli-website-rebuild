@@ -168,88 +168,6 @@ function setupContactCta() {
 }
 
 // ---------------------------------------------------------------------------
-// 服務卡片:手機點擊展開單一卡片；桌面維持整張卡片導頁
-// ---------------------------------------------------------------------------
-
-function setupServiceCards() {
-  const grid = document.querySelector(".home-service-grid");
-  if (!grid) return;
-
-  const cards = toArray(grid.querySelectorAll(".home-service-grid__card"));
-  const mobileQuery = window.matchMedia("(max-width: 767px)");
-
-  function isMobile() {
-    return mobileQuery.matches;
-  }
-
-  function collapseAll() {
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove("is-expanded");
-      cards[i].setAttribute("aria-expanded", "false");
-    }
-  }
-
-  function setMode() {
-    const mobile = isMobile();
-    grid.classList.toggle("is-tap-mode", mobile);
-
-    if (!mobile) collapseAll();
-
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-      card.tabIndex = 0;
-      card.setAttribute("role", mobile ? "button" : "link");
-      if (mobile) card.setAttribute("aria-expanded", String(card.classList.contains("is-expanded")));
-      else card.removeAttribute("aria-expanded");
-    }
-  }
-
-  function toggleCard(card) {
-    const shouldExpand = !card.classList.contains("is-expanded");
-    for (let i = 0; i < cards.length; i++) {
-      const item = cards[i];
-      const isExpanded = item === card && shouldExpand;
-      item.classList.toggle("is-expanded", isExpanded);
-      item.setAttribute("aria-expanded", String(isExpanded));
-    }
-  }
-
-  for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
-
-    card.addEventListener("click", function (event) {
-      if (event.target.closest("a")) return;
-
-      if (isMobile()) {
-        event.preventDefault();
-        toggleCard(card);
-        return;
-      }
-
-      const href = card.dataset.serviceHref;
-      if (href) window.location.assign(href);
-    });
-
-    card.addEventListener("keydown", function (event) {
-      if (event.target.closest("a")) return;
-      if (isMobile()) {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        toggleCard(card);
-        return;
-      }
-
-      if (event.key !== "Enter") return;
-      event.preventDefault();
-      if (card.dataset.serviceHref) window.location.assign(card.dataset.serviceHref);
-    });
-  }
-
-  setMode();
-  mobileQuery.addEventListener("change", setMode);
-}
-
-// ---------------------------------------------------------------------------
 // 最新消息:載入資料、渲染卡片、分頁控制、滑鼠拖曳捲動
 // ---------------------------------------------------------------------------
 
@@ -707,7 +625,6 @@ function setupSectionMotion() {
 document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
   setupContactCta();
-  setupServiceCards();
   setupLatestNews();
   setupSectionMotion();
 });
