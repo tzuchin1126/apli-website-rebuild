@@ -1,5 +1,20 @@
 # APLI 專案進度
 
+## 2026-09-06
+
+### 已完成
+
+- Footer Logo 與聯絡資訊間距由 12px 調整為 20px，改善 Logo 與地址區塊過於靠近的視覺問題。
+- Footer 聯絡資訊 SVG icon：縮小內部 padding 並允許線條完整繪製，避免電話圖示在圓形背景內顯示不完整。
+
+### 已驗證
+
+- Release 建置：`dotnet build -c Release --no-restore`，0 warnings／0 errors。
+
+### 未驗證
+
+- 瀏覽器桌機版、手機版與實體裝置的實際視覺驗收。
+
 ## 2026-09-04
 
 ### 已完成
