@@ -22,8 +22,8 @@
         <link rel="stylesheet" href="css/layout/site-header.css?v=20260904-header-hover-v3">
         <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/occupational-safety.css?v=20260902-safety-card-refinement-v1">
-  <link rel="stylesheet" href="css/site.css?v=20260902-page-hero-load-motion-v1">
+        <link rel="stylesheet" href="css/pages/occupational-safety.css?v=20260906-section-horizontal-padding-v2">
+  <link rel="stylesheet" href="css/site.css?v=20260906-section-horizontal-padding-v1">
     </head>
     <body class="safety-page">
         <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中"></div>
@@ -126,9 +126,12 @@
             <section class="safety-section safety-credentials" aria-labelledby="safety-credentials-title">
                 <div class="site-container">
                     <header class="safety-credentials__heading">
-                        <p class="eyebrow">PROFESSIONAL CERTIFICATIONS</p>
-                        <h2 id="safety-credentials-title">專業證照</h2>
-                        <p>亞太人員目前已取得的職業安全、特殊作業及物流場站相關專業證照與資格。</p>
+                        <div class="safety-credentials__heading-copy">
+                            <p class="eyebrow">PROFESSIONAL CERTIFICATIONS</p>
+                            <h2 id="safety-credentials-title">專業證照</h2>
+                            <p>亞太人員目前已取得的職業安全、特殊作業及物流場站相關專業證照與資格。</p>
+                        </div>
+                        <div class="safety-credentials__pager" aria-hidden="true"></div>
                     </header>
                     <div class="safety-credentials__viewport">
                         <div class="safety-credentials__grid" data-safety-credentials-list>
@@ -196,9 +199,6 @@
                         </article>
                         </div>
                     </div>
-                    <div class="safety-credentials__pager" aria-hidden="true">
-                        <span class="is-active"></span>
-                    </div>
                 </div>
             </section>
         </main>
@@ -206,6 +206,6 @@
         <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="js/pages/occupational-safety.js"></script>
+        <script src="js/pages/occupational-safety.js?v=20260906-credentials-carousel-title-v1"></script>
     </body>
 </html>

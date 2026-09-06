@@ -87,19 +87,46 @@ function setupCredentialsCarousel() {
   });
 
   // ---------------------------------------------------------------------------
-  // 響應式每頁卡片數
+  // 每次切換推進一張卡片，讓前一張卡片自然被推出左側
   // ---------------------------------------------------------------------------
   function cardsPerPage() {
-    if (window.matchMedia("(max-width: 760px)").matches) return 1;
-    if (window.matchMedia("(max-width: 1099px)").matches) return 2;
-    return 3;
+    return 1;
   }
 
   // ---------------------------------------------------------------------------
   // 建立分頁控制器
   // ---------------------------------------------------------------------------
   const pageSize = cardsPerPage();
-  const pages = Math.max(1, Math.ceil(cards.length / pageSize));
+  function containsPosition(positions, position) {
+    for (let i = 0; i < positions.length; i++) {
+      if (Math.abs(positions[i] - position) <= 1) return true;
+    }
+    return false;
+  }
+
+  function getPagePositions() {
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
+    const viewportLeft = viewport.getBoundingClientRect().left;
+    const scrollPaddingStart = parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
+    const positions = [];
+
+    for (let index = 0; index < cards.length; index += pageSize) {
+      const card = cards[index];
+      const rawPosition = card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart;
+      const position = Math.min(maxScroll, Math.max(0, rawPosition));
+      if (!containsPosition(positions, position)) positions.push(position);
+    }
+
+    if (positions.length > 0) {
+      const lastPosition = positions[positions.length - 1];
+      if (maxScroll - lastPosition > 1) positions.push(maxScroll);
+    }
+
+    return positions;
+  }
+
+  const pages = Math.max(1, getPagePositions().length);
 
   const controls = document.createElement("div");
   controls.className = "safety-credentials__controls";
@@ -140,17 +167,21 @@ function setupCredentialsCarousel() {
   // 頁碼計算與同步
   // ---------------------------------------------------------------------------
   function getPage() {
-    const first = cards[0];
-    if (!first) return 0;
-    const cardWidth = first.getBoundingClientRect().width;
-    const gap = Number.parseFloat(getComputedStyle(list).gap) || 0;
-    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+    const positions = getPagePositions();
+    if (positions.length <= 1) return 0;
 
-    // 已捲動到底 → 最後一頁
-    if (maxScroll > 0 && viewport.scrollLeft >= maxScroll - 1) return pages - 1;
-
-    const page = Math.round(viewport.scrollLeft / ((cardWidth + gap) * pageSize));
-    return Math.min(pages - 1, page);
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
+    let nearestPage = 0;
+    let nearestDistance = Math.abs(positions[0] - scrollLeft);
+    for (let page = 1; page < positions.length; page++) {
+      const distance = Math.abs(positions[page] - scrollLeft);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestPage = page;
+      }
+    }
+    return Math.min(pages - 1, nearestPage);
   }
 
   function update() {
@@ -169,11 +200,11 @@ function setupCredentialsCarousel() {
   }
 
   function goTo(page) {
-    const first = cards[0];
-    if (!first) return;
-    const gap = Number.parseFloat(getComputedStyle(list).gap) || 0;
+    const positions = getPagePositions();
+    const targetPage = Math.min(positions.length - 1, Math.max(0, page));
+    if (targetPage < 0) return;
     viewport.scrollTo({
-      left: page * (first.getBoundingClientRect().width + gap) * pageSize,
+      left: positions[targetPage],
       behavior: reducedMotion.matches ? "auto" : "smooth",
     });
   }

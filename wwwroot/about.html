@@ -23,8 +23,8 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260904-header-hover-v3">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260903-certification-content-motion-v1">
-  <link rel="stylesheet" href="css/site.css?v=20260902-page-hero-load-motion-v1">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260906-about-profile-gradient-v8">
+  <link rel="stylesheet" href="css/site.css?v=20260906-section-horizontal-padding-v1">
 </head>
 
 <body class="about-page">
@@ -115,6 +115,34 @@
       </picture>
       <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
       <h1 class="page-hero__title" id="about-hero-title">公司簡介</h1>
+      <dl class="about-hero__facts site-container" aria-label="企業關鍵數據">
+        <div class="about-hero__fact">
+          <dt>
+            <span class="about-hero__fact-value">1973</span>
+          </dt>
+          <dd>創立年份</dd>
+        </div>
+        <div class="about-hero__fact">
+          <dt>
+            <span class="about-hero__fact-value">76,890</span>
+            <span class="about-hero__fact-unit">m²</span>
+          </dt>
+          <dd>營運場域規模</dd>
+        </div>
+        <div class="about-hero__fact">
+          <dt>
+            <span class="about-hero__fact-value">400+</span>
+          </dt>
+          <dd>團隊人數</dd>
+        </div>
+        <div class="about-hero__fact">
+          <dt>
+            <span class="about-hero__fact-value">50,000</span>
+            <span class="about-hero__fact-unit">噸/月</span>
+          </dt>
+          <dd>倉儲作業量</dd>
+        </div>
+      </dl>
     </section>
 
     <section id="company-profile" class="about-profile site-container" aria-label="公司簡介">
@@ -132,34 +160,6 @@
           <img src="public/images/about/company-facility-web.png" alt="亞太國際物流廠區" loading="lazy" decoding="async">
         </picture>
       </figure>
-      <dl class="about-profile__facts" aria-label="企業關鍵數據">
-        <div class="about-profile__fact">
-          <dt>
-            <span class="about-profile__fact-value">1973</span>
-          </dt>
-          <dd>創立年份</dd>
-        </div>
-        <div class="about-profile__fact">
-          <dt>
-            <span class="about-profile__fact-value">76,890</span>
-            <span class="about-profile__fact-unit">m²</span>
-          </dt>
-          <dd>營運場域規模</dd>
-        </div>
-        <div class="about-profile__fact">
-          <dt>
-            <span class="about-profile__fact-value">400+</span>
-          </dt>
-          <dd>團隊人數</dd>
-        </div>
-        <div class="about-profile__fact">
-          <dt>
-            <span class="about-profile__fact-value">50,000</span>
-            <span class="about-profile__fact-unit">噸/月</span>
-          </dt>
-          <dd>倉儲作業量</dd>
-        </div>
-      </dl>
     </section>
 
     <section class="about-philosophy-editorial" aria-labelledby="core-values-editorial-title">
@@ -170,7 +170,7 @@
       <div class="site-container about-philosophy-editorial__grid">
         <article class="about-philosophy-editorial__item">
           <figure>
-            <img src="public/images/index/heor-new.png" alt="使命：港口物流作業場景" loading="lazy" decoding="async">
+            <img src="public/images/index/heor-new.png" alt="使命：港口物流作業場景" loading="eager" decoding="async">
           </figure>
           <div class="about-philosophy-editorial__copy">
             <h3>使命</h3>
@@ -179,7 +179,7 @@
         </article>
         <article class="about-philosophy-editorial__item">
           <figure>
-            <img src="public/images/about/philosophy-values.jpg" alt="核心價值觀：團隊合作場景" loading="lazy" decoding="async">
+            <img src="public/images/about/philosophy-values.jpg" alt="核心價值觀：團隊合作場景" loading="eager" decoding="async">
           </figure>
           <div class="about-philosophy-editorial__copy">
             <h3>核心價值觀</h3>
@@ -188,7 +188,7 @@
         </article>
         <article class="about-philosophy-editorial__item">
           <figure>
-            <img src="public/images/index/container-handler.png" alt="共同願景：貨櫃作業場景" loading="lazy" decoding="async">
+            <img src="public/images/index/container-handler.png" alt="共同願景：貨櫃作業場景" loading="eager" decoding="async">
           </figure>
           <div class="about-philosophy-editorial__copy">
             <h3>共同願景</h3>
@@ -316,6 +316,6 @@
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20260902-about-scroll-motion-v2"></script>
+  <script src="js/pages/about.js?v=20260906-about-hero-facts-animation-v1"></script>
 </body>
 </html>

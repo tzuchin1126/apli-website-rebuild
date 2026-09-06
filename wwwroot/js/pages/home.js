@@ -369,9 +369,7 @@ function setupLatestNews() {
   // 建立最新消息輪播的分頁與左右箭頭控制
   function renderControls(items) {
     function cardsPerPage() {
-      if (window.matchMedia("(max-width: 760px)").matches) return 1;
-      if (window.matchMedia("(max-width: 980px)").matches) return 2;
-      return 4;
+      return 1;
     }
 
     const pageSize = cardsPerPage();

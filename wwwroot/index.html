@@ -21,8 +21,8 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260904-header-hover-v3">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260830-polestar-footer-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260905-home-about-hero-accent-v44">
-  <link rel="stylesheet" href="css/site.css?v=20260828-laptop-spacing-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260906-home-latest-carousel-padding-v2">
+  <link rel="stylesheet" href="css/site.css?v=20260906-section-horizontal-padding-v1">
 </head>
 <body class="home-page">
   <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中">
@@ -118,6 +118,32 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
 
+    <section class="home-intro-section" aria-labelledby="home-intro-title">
+      <div class="home-intro site-container">
+        <div class="home-intro__heading" data-home-reveal="left">
+          <p class="eyebrow">ABOUT APLI</p>
+          <h2 id="home-intro-title">關於亞太</h2>
+        </div>
+        <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
+          <picture>
+            <img src="public/images/index/09.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
+          <h3 class="home-intro__subtitle">以客為尊，專業服務</h3>
+          <div class="home-intro__copy">
+            <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
+            <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
+          </div>
+          <a class="button--primary home-text-link" href="/about">
+            了解更多
+            <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 19 19 5M8 5h11v11"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
     <section class="home-services-compare" aria-labelledby="home-services-compare-title">
       <div class="site-container">
         <div class="home-services-compare__heading" data-home-reveal="up">
@@ -161,32 +187,6 @@
                 <p>提供港區機具保養、維修與設備銷售服務。</p>
               </div>
             </div>
-          </a>
-        </div>
-      </div>
-    </section>
-    <section class="home-intro-section" aria-labelledby="home-intro-title">
-      <div class="home-intro site-container">
-        <div class="home-intro__heading" data-home-reveal="left">
-          <p class="eyebrow">ABOUT APLI</p>
-          <h2 id="home-intro-title">關於亞太</h2>
-        </div>
-        <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
-          <picture>
-            <img src="public/images/index/09.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
-          </picture>
-        </figure>
-        <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
-          <h3 class="home-intro__subtitle">以客為尊，專業服務</h3>
-          <div class="home-intro__copy">
-            <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
-            <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
-          </div>
-          <a class="button--primary home-text-link" href="/about">
-            了解更多
-            <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 19 19 5M8 5h11v11"></path>
-            </svg>
           </a>
         </div>
       </div>
@@ -245,6 +245,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/home.js?v=20260830-remove-performance-v1"></script>
+  <script src="js/pages/home.js?v=20260906-home-latest-carousel-padding-v2"></script>
 </body>
 </html>

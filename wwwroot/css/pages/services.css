@@ -6,7 +6,7 @@
   --services-feature-gap: clamp(48px, 6.7vw, 96px);
   --services-content-gap: 24px;
   --services-content-max-width: 1280px;
-  --services-title-size: clamp(1.625rem, 4vw, 2.5rem);
+  --services-title-size: clamp(1.875rem, 2.3vw, 2.5rem);
   --services-title-line-height: clamp(2rem, 3vw, 2.5rem);
   --services-contact-card-width: 820px;
 }
@@ -244,7 +244,7 @@
   padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--font-size-h2);
+  font-size: var(--services-title-size);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
@@ -535,7 +535,6 @@
 }
 
 .services-page .services-advantages__inner {
-  width: min(100% - (var(--content-padding) * 2), var(--services-content-max-width));
   margin-inline: auto;
 }
 
@@ -641,14 +640,14 @@
 
 .services-page .services-contact__inner {
   display: grid;
-  width: min(100%, 920px);
+  max-width: var(--services-content-max-width);
   justify-items: center;
   margin-inline: auto;
   padding-inline: var(--site-padding);
 }
 
 .services-page .services-contact__card {
-  width: min(100%, var(--services-contact-card-width));
+  width: 100%;
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: var(--card-radius);
@@ -877,7 +876,6 @@
 }
 
 .services-page .services-contact__inner {
-  width: min(100% - (var(--content-padding) * 2), var(--content-max-width));
   padding-inline: 0;
 }
 

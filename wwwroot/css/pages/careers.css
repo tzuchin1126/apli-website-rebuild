@@ -86,8 +86,8 @@
   padding-bottom: 20px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
+  font-size: clamp(1.875rem, 2.3vw, 2.5rem);
+  font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
