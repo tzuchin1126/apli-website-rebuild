@@ -471,6 +471,7 @@
   color: var(--color-muted);
   font-size: clamp(1.18rem, 1.45vw, 1.32rem);
   text-align: center;
+  grid-column: 1 / -1;
 }
 
 .news-empty .ph {

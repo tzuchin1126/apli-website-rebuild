@@ -79,6 +79,10 @@
   margin-bottom: clamp(28px, 4vw, 48px);
 }
 
+.benefit-legal-summary { margin-bottom: clamp(32px, 4vw, 56px); padding-bottom: clamp(20px, 2.5vw, 32px); border-bottom: 1px solid var(--color-line); }
+.benefit-legal-summary h3 { margin: 0 0 8px; color: var(--color-text-primary); font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: var(--font-weight-medium); line-height: var(--line-height-heading); }
+.benefit-legal-summary p { max-width: 960px; margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-copy); line-height: var(--line-height-body); }
+
 .join-section-heading h2 {
   position: relative;
   width: fit-content;
@@ -124,12 +128,17 @@
   object-fit: cover;
 }
 
-.benefits-table {
-  width: 100%;
-  border: 1px solid var(--color-line);
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: var(--font-size-body-copy);
+.benefits-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; }
+.benefit-card { display: grid; align-content: start; min-height: 100%; padding: clamp(12px, 1.5vw, 20px) clamp(12px, 1.5vw, 24px); }
+.benefit-card__icon { display: grid; width: 60px; height: 60px; margin-bottom: 16px; place-items: center; border-radius: 50%; background: var(--color-primary); color: var(--color-text-on-dark); }
+.benefit-card__icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+.benefit-card__icon img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+.benefit-card h3 { min-height: 1.2em; margin: 0 0 12px; color: var(--color-text-primary); font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: var(--font-weight-medium); line-height: var(--line-height-heading); }
+.benefit-card ul { display: grid; gap: 4px; min-height: 0; margin: 0; padding-left: 1.25em; list-style-type: square; color: var(--color-text-body); font-size: var(--font-size-body-copy); line-height: 1.5; }
+.benefit-card li::marker { color: var(--color-primary); }
+
+@media (min-width: 841px) and (max-width: 1200px) {
+  .benefits-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .benefits-table th,
@@ -254,6 +263,7 @@
 }
 
 @media (max-width: 840px) {
+  .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .join-intro {
     grid-template-columns: 1fr;
   }
@@ -265,6 +275,9 @@
 }
 
 @media (max-width: 760px) {
+  .benefits-grid { grid-template-columns: 1fr; }
+  .benefit-card:last-child { border-bottom: 0; }
+  .benefit-card ul { min-height: 0; }
   .join-content {
     gap: var(--section-space);
     padding-top: var(--page-content-start-space);

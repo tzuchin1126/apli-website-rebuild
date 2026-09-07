@@ -63,12 +63,10 @@ function setupAboutScrollMotion() {
     return;
   }
 
-  const lead = page.querySelector(".about-profile__lead");
-  const facts = page.querySelector(".about-hero__facts");
+  const facts = page.querySelector(".about-profile__facts");
   const certifications = page.querySelector(".about-certifications-preview");
 
   const targets = [];
-  if (lead) targets.push(lead);
   if (facts) targets.push(facts);
   if (certifications) targets.push(certifications);
   if (targets.length === 0) {
@@ -79,7 +77,7 @@ function setupAboutScrollMotion() {
 
   const counters = [];
   if (facts) {
-    const factValues = facts.querySelectorAll(".about-hero__fact-value");
+    const factValues = facts.querySelectorAll(".about-profile__fact-value");
     for (let i = 0; i < factValues.length; i++) {
       const el = factValues[i];
       const originalText = el.textContent.trim();

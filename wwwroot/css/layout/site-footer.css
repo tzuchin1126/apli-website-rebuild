@@ -70,7 +70,7 @@
   color: var(--footer-heading);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
 }
 
@@ -105,6 +105,10 @@
   color: var(--color-primary);
 }
 
+.footer-legal-links a[href$="/privacy"]:hover {
+  color: var(--footer-bottom-text);
+}
+
 .footer-column a.footer-column__title--link {
   display: inline-flex;
   color: var(--footer-heading);
@@ -116,8 +120,8 @@
 }
 
 .site-footer__bottom {
-  min-height: 48px;
-  padding: 4px 0;
+  min-height: 28px;
+  padding: 2px 0;
   border-top-left-radius: 0;
   border-top-right-radius: clamp(32px, 3.5vw, 52px) clamp(12px, 1.1vw, 16px);
   border-bottom-right-radius: 0;
@@ -131,7 +135,7 @@
   display: flex;
   align-items: center;
   width: var(--content-width);
-  min-height: 40px;
+  min-height: 24px;
   font-size: clamp(0.85rem, 0.9vw, 0.95rem);
 }
 
@@ -151,12 +155,12 @@
   display: flex;
   align-items: center;
   gap: clamp(18px, 3vw, 36px);
-  min-height: 48px;
+  min-height: 24px;
 }
 
 .footer-legal-links a {
-  min-height: 40px;
-  padding: 8px 0;
+  min-height: 24px;
+  padding: 0;
   color: var(--footer-bottom-text);
   font-size: 0.92rem;
   font-weight: var(--font-weight-regular);
