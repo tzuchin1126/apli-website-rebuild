@@ -4,6 +4,8 @@
 
 .page-breadcrumb .site-container {
   display: flex;
+  width: 100%;
+  padding-inline: var(--content-inset);
   min-height: 40px;
   align-items: center;
   gap: 10px;
@@ -14,6 +16,19 @@
 .page-breadcrumb a {
   color: #5c5c5c;
   text-decoration: none;
+}
+
+/* Match the Header's logo inset at each layout breakpoint. */
+@media (min-width: 981px) {
+  .page-breadcrumb .site-container {
+    padding-inline: var(--content-inset);
+  }
+}
+
+@media (max-width: 840px) {
+  .page-breadcrumb .site-container {
+    padding-inline: var(--content-inset);
+  }
 }
 
 .page-breadcrumb a:hover,

@@ -18,7 +18,7 @@
   position: sticky;
   top: 24px;
   min-width: 0;
-  margin: 0 0 0 -40px;
+  margin: 0;
 }
 
 .affiliate-tabs__track {
@@ -105,14 +105,14 @@
 
 .affiliate-sexin-redesign {
   gap: clamp(40px, 4vw, 56px);
-  width: calc(100% + var(--content-padding));
-  margin-right: calc(var(--content-padding) * -1);
+  width: 100%;
+  margin-right: 0;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
   .affiliates-content {
-    --content-max-width: 1200px;
-    --content-padding: 32px;
+    
+    
   }
 
   .affiliate-tabs {

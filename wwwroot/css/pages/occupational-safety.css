@@ -1,5 +1,5 @@
 .safety-page {
-  --safety-content-gutter: var(--content-padding);
+  --safety-content-gutter: var(--content-inset);
   --page-hero-image-position: center 88%;
   --page-hero-image-origin: 50% 58%;
   --safety-section-space: var(--section-space);
@@ -323,7 +323,7 @@
 
 @media (min-width: 981px) {
   .safety-page {
-    --safety-content-gutter: max(var(--content-padding), 7vw);
+    --safety-content-gutter: var(--content-inset);
   }
 }
 
@@ -503,7 +503,7 @@
   }
 
   .safety-page .safety-credentials > .site-container {
-    width: calc(100% - 40px);
+    width: var(--content-width);
     margin-inline: 20px;
   }
 

@@ -1,87 +1,30 @@
 # APLI 專案進度
 
-## 2026-09-06
+## 2026-09-07 首頁跨尺寸寬度與文字調整
+
+原工作樹的 TODO.md 已刪除；本檔依專案規則僅記錄本次工作，未還原舊進度。
 
 ### 已完成
-
-- Footer Logo 與聯絡資訊間距由 12px 調整為 20px，改善 Logo 與地址區塊過於靠近的視覺問題。
-- Footer 聯絡資訊 SVG icon：縮小內部 padding 並允許線條完整繪製，避免電話圖示在圓形背景內顯示不完整。
-
-### 已驗證
-
-- Release 建置：`dotnet build -c Release --no-restore`，0 warnings／0 errors。
-
-### 未驗證
-
-- 瀏覽器桌機版、手機版與實體裝置的實際視覺驗收。
-
-## 2026-09-04
-
-### 已完成
-
-- Services 頁面恢復至服務項目導覽連結修正時的原本排版，保留原有標題、實景圖片／輪播、主要服務項目與優勢區塊。
-- Services「我們的優勢」改用既有副標題字級，優勢卡片標題改用 compact card title 字級，未修改全域 typography variables。
-- Services 主要服務項目的箭頭 icon 改為參考 Affiliates 的 8px 品牌橘色小方形，並同步收窄 icon 欄位。
-- Services 主要內容、優勢區、CTA 與 service-switcher 恢復原本寬度規則。
-- Services 服務描述區移除下底線，保留原有內容間距與容器對齊。
-- Services 移除「我們的優勢」副標題下方的品牌橘色底線，保留其他標題 accent 線。
-- 全站 Header／Footer 的服務項目連結統一導向 `/services`，不再附帶區段錨點。
-- 修正最新消息詳細頁圖片狀態 placeholder 混入 `class` 屬性的問題。
-- 確保 `.site-container` 在有圖片與無圖片新聞詳細頁都能正常套用置中與響應式內距。
-- 修正短內容新聞詳細頁的 Footer 未貼齊 viewport 底部問題。
-- 保留有圖片／無圖片自適應方向，調整桌機雙欄比例與右側圖片垂直位置。
-- 無自訂圖片時由伺服器端移除 media wrapper，避免留下 image column 或 placeholder。
-- 恢復有自訂圖片時依序顯示文字、附件、圖片的垂直版型。
-- 圖片沿用內容區下方的受控寬度，避免恢復垂直排列後放大成整欄圖片。
-- 沿用既有 media marker 輸出圖片，兼容目前開發服務組件。
-- 圖片輸出已恢復為附件下方的垂直 media 區塊，避免現有開發服務因組件版本差異而漏圖。
-- News Detail 詳細頁：年份與類別改為置中且分開的背景標籤；標題下方恢復分隔線；內容、附件與圖片各自使用獨立背景區塊。
+- 共用 tokens 新增 content-gutter 與 content-width，首頁套用連續側邊留白與 1324px 最大內容寬度；服務區保留 1200px 上限。
+- 收斂首頁區塊標題至 30–36px（預設根字級），服務卡片標題與關於副標題使用 24px token；新聞與服務介紹使用正文 token。
+- 更新首頁 CSS 版本參數，保留既有內容、排列及上下區塊間距。
 
 ### 已驗證
-
-- Release 建置：`dotnet build -c Release --no-restore -p:OutDir=.\obj\build-check\`，0 warnings／0 errors。
-- JavaScript 語法檢查：`node --check wwwroot/js/site.js`、`node --check wwwroot/js/pages/news-detail.js`，通過。
-- 瀏覽器桌機版：預設 1912px viewport，容器置中並與共用 Footer 對齊。
-- 瀏覽器手機版：390x844，容器左右各 20px，圖片寬 335px。
-- 有圖片與無圖片新聞詳細頁：容器與圖片狀態均正常。
-- `git diff --check`：通過。
-- 服務項目導覽連結靜態檢查：全站 Header／Footer 均導向 `/services`；首頁服務卡片的區段錨點保留。
-- Services 原本排版瀏覽器桌機版：1366px 確認三個分頁皆保留標題、敘述、實景圖片／輪播、主要服務項目與優勢區塊，文件無水平溢出。
-- Services 原本排版瀏覽器手機版：390px 確認三個分頁皆可切換，內容寬度 335px、圖片與清單單欄；倉儲與機具輪播控制點分別為 5 與 2 個，文件無水平溢出。
-- Services 優勢字級瀏覽器檢查：1366px「我們的優勢」為 24px、卡片標題為 20px；390px 分別為 20px 與 20px，且無水平溢出。
-- Services 服務項目 icon 瀏覽器檢查：桌機與手機三個分頁皆顯示 8px 小方形，使用品牌橘色且無水平溢出。
-- Services 原本寬度瀏覽器檢查：1366px 主內容與 service-switcher 為 1280px，CTA 恢復共用容器寬度；390px 維持內容寬度 335px，無水平溢出。
-- Services 優勢標題底線瀏覽器檢查：1366px 與 390px 三個分頁皆無該橘色底線，其他版面無水平溢出。
-- Services 服務描述區瀏覽器檢查：1366px 與 390px 三個分頁皆無 description 下底線，且頁面無水平溢出。
-- Release 建置：`dotnet build -c Release --no-restore -p:OutDir=.\\obj\\build-check-services-links-20260904\\`，0 warnings／0 errors。
-- Footer sticky layout：1366x900 無圖片短內容頁 Footer 底部為 900px，白色空隙為 0px；390x844 有圖片頁版面正常。
-- News Detail layout：恢復文字／附件／圖片垂直排列；桌機圖片最大寬度 640px，無圖片不輸出 media wrapper；Mobile 維持單欄。
-- News Detail layout：5127 實際回應與瀏覽器均確認有圖片時 media／image 位於附件後方；無圖片 media／image 均為 0；Mobile 390px 單欄。
-- News Detail layout：有圖片時圖片位於附件下方且最大寬度 640px；無圖片不輸出 media wrapper。
-- News Detail layout：改由附件後輸出單一 media wrapper 與圖片；無圖片狀態不輸出 media wrapper。
-- News Detail 詳細頁區塊樣式：瀏覽器桌機版確認年份／類別分色置中、標題分隔線，以及內容／附件／圖片共用連續背景容器。
-- News Detail 無圖片狀態：瀏覽器確認不輸出 media／image，內容背景區塊與 880px 內容寬度維持正常。
-- News Detail 詳細頁：標題改為置中；內容、附件與圖片背景統一為同一套淺灰色內容區塊。
-- News Detail 詳細頁：將內容、附件與圖片改為共用連續背景容器，並將內容區塊最大寬度收斂至 880px。
-- News Detail 詳細頁：將共用內容背景容器水平置中，保留容器內文字、附件與圖片的垂直排列。
-- News Detail 詳細頁：依東元頁面風格改為主要內容、標題與年份／類別列靠左對齊。
-- News Detail 詳細頁：移除內容容器背景色，將桌機內容依主要 grid 內縮，並縮短標題與分隔線的間距；Mobile 清除桌機內縮。
-- News Detail 詳細頁：將返回連結、標題／標籤、分隔線與正文統一至同一個左側內縮起點，正文改為無左右額外內距以維持對齊。
-- News Detail 詳細頁：收緊分隔線至內容、內容至附件、附件至圖片及內容容器上下的垂直間距，改用全域 content-padding。
-- News Detail 詳細頁：移除標題分隔線下方重複 margin，將分隔線至內容的間距收斂為單一 content-padding。
-- News Detail 詳細頁：增加返回按鈕至標題區的垂直距離，使用 section-space 加 content-padding 的全域間距組合。
-- News Detail Mobile：將返回按鈕至標題區收斂為 section-space，移除分隔線至內容的重複間距，讓各段落維持一致節奏。
-- News Detail 詳細頁：依 Desktop／Mobile 指定值重整返回、Meta、H1、摘要、附件、圖片與底部的垂直 spacing；Mobile 隱藏 H1 分隔線，圖片改為 detail container 全寬。
-- News Detail 詳細頁：重新建立群組化 vertical rhythm，避免所有元素使用近似間距；Desktop 圖片改為 detail container 的 85% 且上限 800px，Mobile 維持全寬。
-- News Detail Desktop：返回按鈕至 Meta 間距修正為 32px，與指定群組化節奏一致。
-- News Detail：背景圖片延伸涵蓋文章區塊左右兩側，使用 86% 白色遮罩降低對比，僅保留線條作為淡雅點綴。
-- News List Filter：將 hover 背景限制於支援 hover 且使用精準指標的裝置，並獨立保留 focus-visible 樣式，避免觸控裝置點擊後殘留 hover 背景。
-- News List Filter：觸控／粗略指標裝置維持與桌面預設相同的透明背景，同時保留 focus 外框。
-- News List Filter：觸控裝置點擊時維持原文字顏色，不因 hover／focus／active 狀態變色；已選取分類的既有 active 文字樣式保留。
-- News List Filter：明確統一 filter、inner、list 三層背景為桌面版基準，並於 760px 以下維持點擊時透明背景與非 active 文字顏色。
+- 本機靜態首頁，無頭 Edge：1920、1440、1366、1200、981、980、768、767、390px 視窗寬度。
+- documentElement 無水平溢出，服務卡片文字高度未超過卡片。
+- 1366px 關於／最新消息左右留白約 54.64px；390px 為 20px。
+- 1920px 區塊標題 35.52px；1366px 為 32.196px；390px 為 30px。
+- git diff --check 通過。
 
 ### 未驗證
+- ASP.NET 動態新聞資料、共用 Footer 注入、其他內頁、正式部署、實體装置及跨瀏覽器驗收。
+- 未變更 C#、Razor 或 JavaScript，未執行 Release 建置或 JavaScript 語法檢查。
+- 依本次 AGENTS.md 未自行 commit 或 push；保留既有未提交修改。
 
-- 正式 IIS、實體裝置、跨瀏覽器與人工無障礙驗收。
-- 本次區塊樣式調整的 390px 實際瀏覽器 viewport 未驗證；目前 Edge 連線不接受 viewport 覆寫，僅確認既有 Mobile 單欄 CSS 規則仍保留。
-- News List Filter：修正 touch-buttons.css 後置選取規則覆蓋，讓行動裝置選取分類沿用桌面版透明背景與文字色，不再顯示橘色底。
+## 2026-09-07 麵包屑對齊 Header Logo
+- 共用麵包屑容器改用 Header 相同的左右內距與 981px／840px 斷點，未改動 Header 或內容區。
+- 更新 breadcrumb.css 載入版本。
+- 已驗證：本機靜態 About 頁、無頭 Edge，1912／1366／980／840／390px，麵包屑首個連結與 Logo 左側座標一致；1912px 皆為 294px，390px 皆為 16px。
+- 已驗證：git diff --check。
+- 未驗證：其他內頁逐頁驗收、實體裝置、其他瀏覽器與正式部署。未修改 C#／Razor／JS，未執行其建置或語法檢查。
+- 未 commit 或 push。

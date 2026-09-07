@@ -1,19 +1,15 @@
 @import url("components/page-hero.css?v=20260902-page-hero-load-motion-v1");
 @import url("components/page-loader.css?v=20260827-page-ready-v1");
-@import url("components/breadcrumb.css?v=20260903-breadcrumb-typography-v1");
+@import url("components/breadcrumb.css?v=20260907-breadcrumb-alignment-v1");
 @import url("components/back-to-top.css?v=20260817-totop-deep-blue-v1");
 @import url("components/touch-buttons.css?v=20260904-news-filter-touch-v1");
 
 .site-container {
-  width: min(86%, 1760px);
+  width: var(--content-width);
   margin-inline: auto;
 }
 
-@media (max-width: 980px) {
-  .site-container {
-    width: calc(100% - 40px);
-  }
-}
+
 
 .privacy-content p {
   font-size: var(--font-size-body-copy);

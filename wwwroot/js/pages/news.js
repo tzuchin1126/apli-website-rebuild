@@ -27,7 +27,6 @@ function initNewsList() {
 
   const categoriesContainer = root.querySelector("[data-news-categories]");
   const pageSize = 9;
-  const defaultNewsImage = "/public/images/index/news.png?v=20260821-default-v2";
   let currentPage = 1;
   let items = []; // 目前列表裡所有消息的 DOM 元素
 
@@ -85,49 +84,46 @@ function initNewsList() {
 
       article.innerHTML =
         '<a class="news-card" href="/news/' + encodeURIComponent(item.id) + '">' +
-        '<span class="news-card__media">' +
-        '<img class="news-card__image" alt="" loading="lazy" decoding="async">' +
-        "</span>" +
+        '<span class="news-card__media"></span>' +
         '<span class="news-card__body">' +
         '<span class="news-card__meta">' +
-        '<time class="news-card__date"></time>' +
         '<span class="news-card__tag"></span>' +
-        "</span>" +
-        '<span class="news-card__title"></span>' +
-        '<span class="news-card__summary">' +
-        '<span class="news-card__attachment" hidden>' +
+        '<time class="news-card__date"></time>' +
+        '<span class="news-card__attachment" aria-label="含附件" hidden>' +
         '<i class="ph ph-paperclip" aria-hidden="true"></i>' +
-        '<span class="sr-only">含附件：</span>' +
+        '<span class="sr-only">含附件</span>' +
         "</span>" +
-        '<span class="news-card__summary-text"></span>' +
         "</span>" +
-        '<span class="news-card__read-more">閱讀更多 <span aria-hidden="true">→</span></span>' +
-        "</span>" +
-        '<span class="news-card__icon" aria-hidden="true">' +
-        '<svg viewBox="0 0 24 24">' +
-        '<path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-        "</svg>" +
+        '<strong class="news-card__title"></strong>' +
+        '<span class="news-card__read-more">查看更多 <span aria-hidden="true">↗</span></span>' +
         "</span>" +
         "</a>";
 
       const row = article.querySelector(".news-card");
-      const image = row.querySelector(".news-card__image");
+      const media = row.querySelector(".news-card__media");
       const date = row.querySelector(".news-card__date");
-      const summary = row.querySelector(".news-card__summary");
-      const summaryText = row.querySelector(".news-card__summary-text");
       const attachment = row.querySelector(".news-card__attachment");
 
-      image.src = item.imageUrl || defaultNewsImage;
-      image.addEventListener("error", function () {
-        if (!image.src.endsWith(defaultNewsImage)) image.src = defaultNewsImage;
-      });
+      media.classList.add(item.imageUrl ? "has-image" : "is-default");
+      if (item.imageUrl) {
+        const image = document.createElement("img");
+        image.className = "news-card__image";
+        image.alt = "";
+        image.loading = "lazy";
+        image.decoding = "async";
+        image.src = item.imageUrl;
+        image.addEventListener("error", function () {
+          image.remove();
+          media.classList.remove("has-image");
+          media.classList.add("is-default");
+        }, { once: true });
+        media.append(image);
+      }
       date.dateTime = item.date || "";
       date.textContent = formatNewsDate(item.date);
-      row.querySelector(".news-card__tag").textContent = item.tag || "";
-      row.querySelector(".news-card__title").textContent = item.title || "";
-      summaryText.textContent = item.content.replace(/\s+/g, " ").trim();
+      row.querySelector(".news-card__tag").textContent = item.tag || "最新消息";
+      row.querySelector(".news-card__title").textContent = item.title || "最新消息";
       attachment.hidden = !item.hasAttachment;
-      summary.hidden = !summaryText.textContent && !item.hasAttachment;
 
       list.insertBefore(article, empty);
     }
@@ -174,13 +170,10 @@ function initNewsList() {
   }
 
   function applyPageVisibility(matchingItems, pageStart, pageEnd) {
-    const mobileLatestItem = matchingItems[pageStart];
-
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const matchingIndex = matchingItems.indexOf(item);
       item.hidden = matchingIndex < pageStart || matchingIndex >= pageEnd;
-      item.classList.toggle("news-item--mobile-latest", item === mobileLatestItem);
     }
   }
 

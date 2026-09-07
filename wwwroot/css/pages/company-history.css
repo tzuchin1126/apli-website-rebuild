@@ -1,5 +1,5 @@
 .milestones-page {
-  --milestone-content-shift: clamp(32px, 4vw, 56px);
+
   --milestone-reveal-duration: 520ms;
   --milestone-reveal-ease: cubic-bezier(.22, .75, .25, 1);
   --page-hero-image-position: center 28%;
@@ -258,7 +258,7 @@
 
 @media (min-width: 761px) {
   .milestones-content {
-    padding-inline-start: var(--milestone-content-shift);
+    padding-inline-start: 0;
   }
 
   .milestone-tabs,

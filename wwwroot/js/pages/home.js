@@ -277,6 +277,10 @@ function setupLatestNews() {
     event.preventDefault();
   });
 
+  function formatNewsCardDate(value) {
+    return value || "";
+  }
+
   // 用一則消息資料建立一張卡片（一個 <a> 連結）
   function buildNewsCard(item) {
     const link = document.createElement("a");
@@ -285,6 +289,7 @@ function setupLatestNews() {
 
     const media = document.createElement("span");
     media.className = "home-latest__media";
+    media.classList.add(item.imageUrl ? "has-image" : "is-default");
     if (item.imageUrl) {
       const image = document.createElement("img");
       image.src = item.imageUrl;
@@ -293,36 +298,37 @@ function setupLatestNews() {
       image.decoding = "async";
       image.addEventListener("error", function () {
         image.remove();
+        media.classList.remove("has-image");
+        media.classList.add("is-default");
       }, { once: true });
       media.append(image);
     }
 
-    const action = document.createElement("span");
-    action.className = "button--text-arrow home-latest__action";
-    action.setAttribute("aria-hidden", "true");
-    const actionIcon = document.createElement("i");
-    actionIcon.className = "ph ph-arrow-bend-up-right";
-    action.append(actionIcon);
-    media.append(action);
-
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
-    const time = document.createElement("time");
-    time.textContent = item.date;
     const tag = document.createElement("span");
-    tag.textContent = item.tag;
-    meta.append(time, tag);
+    tag.textContent = item.tag || "最新消息";
+
+    const time = document.createElement("time");
+    time.className = "home-latest__date";
+    time.dateTime = item.date || "";
+    time.textContent = formatNewsCardDate(item.date);
+    meta.append(tag, time);
 
     const title = document.createElement("strong");
-    title.textContent = item.title;
+    title.textContent = item.title || "最新消息";
 
-    const summary = document.createElement("span");
-    summary.className = "home-latest__summary";
-    summary.textContent = (item.content || "").replace(/\s+/g, " ").trim();
+    const more = document.createElement("span");
+    more.className = "home-latest__more";
+    more.append(document.createTextNode("查看更多 "));
+    const arrow = document.createElement("span");
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "↗";
+    more.append(arrow);
 
     const body = document.createElement("span");
     body.className = "home-latest__body";
-    body.append(meta, title, summary);
+    body.append(meta, title, more);
 
     link.append(media, body);
     return link;

@@ -5,7 +5,7 @@
   --services-switcher-space: clamp(40px, 5vw, 64px);
   --services-feature-gap: clamp(48px, 6.7vw, 96px);
   --services-content-gap: 24px;
-  --services-content-max-width: 1280px;
+  --services-content-max-width: var(--content-max-width);
   --services-title-size: clamp(1.875rem, 2.3vw, 2.5rem);
   --services-title-line-height: clamp(2rem, 3vw, 2.5rem);
   --services-contact-card-width: 820px;
@@ -963,7 +963,7 @@
   }
 
   .services-page .services-advantages__inner {
-    width: min(100% - (var(--content-padding) * 2), 1280px);
+    width: var(--content-width);
   }
 
   .services-page .services-advantages__layout {

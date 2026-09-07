@@ -20,9 +20,8 @@ public static class NewsSeoService
   // 首頁「最新消息」區塊最多顯示幾則新聞
   private const int HomeLatestItemCount = 8;
 
-  // 新聞沒有自己的圖片時,列表頁要用哪張圖片頂替
+  // 舊資料若使用預設新聞圖,詳細頁用此路徑辨識
   private const string DefaultNewsImagePath = "/public/images/index/news.png";
-  private const string DefaultNewsImageUrl = DefaultNewsImagePath + "?v=20260821-default-v2";
 
 
   public static string RenderDetailPage(string pageMarkup, NewsItem item)
@@ -136,6 +135,7 @@ public static class NewsSeoService
     var imageHtml = "";
     if (!string.IsNullOrWhiteSpace(item.ImageUrl))
       imageHtml = $"<img src=\"{Encode(item.ImageUrl)}\" alt=\"\" loading=\"lazy\" decoding=\"async\">";
+    var mediaClass = string.IsNullOrWhiteSpace(item.ImageUrl) ? "is-default" : "has-image";
 
     var summaryHtml = "";
     if (!string.IsNullOrEmpty(summary))
@@ -143,7 +143,7 @@ public static class NewsSeoService
 
     return $"""
             <a class="home-latest__item" href="{link}">
-              <span class="home-latest__media">{imageHtml}</span>
+              <span class="home-latest__media {mediaClass}">{imageHtml}</span>
               <span class="home-latest__body">
                 <span class="home-latest__meta">
                   <time datetime="{Encode(item.Date)}">{Encode(item.Date)}</time>
@@ -157,51 +157,33 @@ public static class NewsSeoService
   }
 
   // 「最新消息」列表頁,一則新聞長這樣:
-  //   圖片 + 日期分類 + 標題 + 摘要(可能含附件圖示) + 右邊箭頭
+  //   背景圖片 + 分類日期 + 標題 + 附件提示 + 閱讀更多
   private static string BuildNewsListItemHtml(NewsItem item)
   {
     var newsId = item.Id ?? string.Empty;
     var link = $"/news/{Uri.EscapeDataString(newsId)}";
-    var encodedTag = Encode(item.Tag);
-    var summary = Summarize(item.Content);
+    var encodedTag = Encode(string.IsNullOrWhiteSpace(item.Tag) ? "最新消息" : item.Tag);
     var hasAttachment = !string.IsNullOrWhiteSpace(item.Url);
-
-    // 如果既沒有摘要文字、也沒有附件,那整段摘要區塊就不需要顯示,
-    // 用 HTML 的 hidden 屬性把它藏起來。
-    var hasSummaryText = !string.IsNullOrEmpty(summary);
-    var shouldShowSummaryBlock = hasSummaryText || hasAttachment;
-    var summaryHiddenAttribute = shouldShowSummaryBlock ? "" : " hidden";
-
-    // 附件小圖示:有附件才顯示，沒有就用 hidden 屬性藏起來
-    var attachmentHiddenAttribute = hasAttachment ? "" : " hidden";
-
-    // 新聞自己沒有圖片時,用預設圖片頂替,列表頁的版面才不會空一塊
-    var imageUrl = string.IsNullOrWhiteSpace(item.ImageUrl) ? DefaultNewsImageUrl : item.ImageUrl;
+    var imageHtml = "";
+    var mediaClass = string.IsNullOrWhiteSpace(item.ImageUrl) ? "is-default" : "has-image";
+    if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+      imageHtml = $"<img class=\"news-card__image\" src=\"{Encode(item.ImageUrl)}\" alt=\"\" loading=\"lazy\" decoding=\"async\">";
+    var attachmentHtml = hasAttachment
+      ? "<span class=\"news-card__attachment\" aria-label=\"含附件\"><i class=\"ph ph-paperclip\" aria-hidden=\"true\"></i><span class=\"sr-only\">含附件</span></span>"
+      : "";
 
     return $"""
             <article class="news-item" data-news-item data-category="{encodedTag}">
-              <a class="news-row" href="{link}">
-                <span class="news-row__media">
-                  <img class="news-row__image" src="{Encode(imageUrl)}" alt="" loading="lazy" decoding="async">
-                </span>
-                <span class="news-row__body">
-                  <span class="news-row__meta">
-                    <time class="news-row__date" datetime="{Encode(item.Date)}">{Encode(item.Date)}</time>
-                    <span class="news-row__tag">{encodedTag}</span>
+              <a class="news-card" href="{link}">
+                <span class="news-card__media {mediaClass}">{imageHtml}</span>
+                <span class="news-card__body">
+                  <span class="news-card__meta">
+                    <span class="news-card__tag">{encodedTag}</span>
+                    <time class="news-card__date" datetime="{Encode(item.Date)}">{Encode(item.Date)}</time>
+                    {attachmentHtml}
                   </span>
-                  <span class="news-row__title">{Encode(item.Title)}</span>
-                  <span class="news-row__summary"{summaryHiddenAttribute}>
-                    <span class="news-row__attachment"{attachmentHiddenAttribute}>
-                      <i class="ph ph-paperclip" aria-hidden="true"></i>
-                      <span class="sr-only">含附件：</span>
-                    </span>
-                    <span class="news-row__summary-text">{Encode(summary)}</span>
-                  </span>
-                </span>
-                <span class="news-row__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <strong class="news-card__title">{Encode(string.IsNullOrWhiteSpace(item.Title) ? "最新消息" : item.Title)}</strong>
+                  <span class="news-card__read-more">查看更多 <span aria-hidden="true">↗</span></span>
                 </span>
               </a>
             </article>
