@@ -225,7 +225,7 @@ function initNewsList() {
       button.type = "button";
       button.className = "news-pagination__page";
       button.dataset.page = String(page);
-      button.textContent = String(page).padStart(2, "0");
+      button.textContent = String(page);
       button.setAttribute("aria-label", "第 " + page + " 頁");
       button.setAttribute("aria-current", page === currentPage ? "page" : "false");
       if (page === currentPage) button.classList.add("is-current");

@@ -10,11 +10,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
         <link rel="stylesheet" href="/css/base/reset.css">
-  <link rel="stylesheet" href="/css/base/tokens.css?v=20260907-footer-orange-v14">
+        <link rel="stylesheet" href="/css/base/tokens.css?v=20260907-footer-orange-v14">
         <link rel="stylesheet" href="/css/layout/site-header.css?v=20260904-header-hover-v3">
-  <link rel="stylesheet" href="/css/layout/site-footer.css?v=20260907-footer-orange-v14">
+        <link rel="stylesheet" href="/css/layout/site-footer.css?v=20260908-footer-top-line-v7">
         <link rel="stylesheet" href="/css/components/buttons.css">
-        <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260904-news-detail-background-v6">
+        <link rel="stylesheet" href="/css/pages/news.css?v=20260908-news-pagination-ui-v1">
+        <link rel="stylesheet" href="/css/components/page-hero.css?v=20260902-page-hero-load-motion-v1">
+    <link rel="stylesheet" href="/css/pages/news-detail.css?v=20260908-news-related-smooth-v1">
         <link rel="stylesheet" href="/css/site.css?v=20260906-section-horizontal-padding-v1">
     </head>
     <body class="news-detail-page">
@@ -80,6 +82,16 @@
                     <span aria-current="page"><!-- news-detail-breadcrumb --></span>
                 </div>
             </div>
+            <section class="news-hero page-hero" aria-labelledby="news-detail-hero-title">
+                <picture class="page-hero__media">
+                    <img class="page-hero__image" src="/public/images/new/pexels-ilkinefendiyev-21134318.jpg" width="3456" height="5184" alt="最新消息與企業動態" fetchpriority="high" loading="eager" decoding="async">
+                </picture>
+                <div class="news-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+                <div class="news-hero__content page-hero__content">
+                    <h1 class="page-hero__title" id="news-detail-hero-title">最新消息</h1>
+                    <p class="news-hero__article-title" data-news-hero-title></p>
+                </div>
+            </section>
             <p class="news-detail-error site-container" data-news-error hidden>
                 找不到這則最新消息，請返回<a href="/news">最新消息列表</a>。
             </p>
@@ -109,10 +121,27 @@
                     <!-- news-detail-media -->
                 </div>
             </article>
+            <section class="news-detail-related news-page" data-news-related hidden aria-labelledby="news-detail-related-title">
+                <div class="site-container">
+                    <h2 class="news-detail-related__title" id="news-detail-related-title">其他消息</h2>
+                    <div class="news-detail-related__carousel">
+                        <button class="news-detail-related__control" type="button" data-news-related-previous aria-label="上一組其他消息">
+                            <i class="ph ph-caret-left" aria-hidden="true">&#xe138;</i>
+                        </button>
+                        <div class="news-detail-related__viewport" data-news-related-viewport aria-live="polite">
+                            <div class="news-list" data-news-related-list></div>
+                        </div>
+                        <button class="news-detail-related__control" type="button" data-news-related-next aria-label="下一組其他消息">
+                            <i class="ph ph-caret-right" aria-hidden="true">&#xe13a;</i>
+                        </button>
+                    </div>
+                    <a class="news-detail-related__back button--primary" href="/news">返回最新消息</a>
+                </div>
+            </section>
         </main>
         <!-- shared-site-footer -->
 
         <script src="/js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="/js/pages/news-detail.js?v=20260904-news-detail-content-image-v1"></script>
+    <script src="/js/pages/news-detail.js?v=20260908-news-related-smooth-v2"></script>
     </body>
 </html>
