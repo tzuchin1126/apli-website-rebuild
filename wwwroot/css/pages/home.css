@@ -158,7 +158,11 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 @media (prefers-reduced-motion: reduce) { body.home-page > .site-header .site-header__inner, .home-page .home-hero__slide, .home-page .home-hero__slide img, .home-page .home-hero__copy > p, .home-page .home-hero__copy h1, .home-page .home-hero__cta, .home-page .home-hero__cta-icon, .home-page .home-hero__dots, .home-page .home-hero__dot::before { transition: none; animation: none; } }
 
 /* Home sections below the Hero: source-faithful, page-scoped styles. */
-.home-page { --home-section-padding: clamp(56px, 5.5vw, 80px); }
+.home-page {
+  --home-section-space: clamp(56px, 5.5vw, 80px);
+  --home-section-space-sm: clamp(48px, 5vw, 64px);
+  --home-section-padding: clamp(56px, 5.5vw, 80px);
+}
 .home-page .home-intro {
   position: relative;
   z-index: 1;
@@ -631,7 +635,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest__action .ph-arrow-bend-up-right::before { content: "\e026"; }
 .home-page .home-latest__item:hover .home-latest__action,
 .home-page .home-latest__item:focus-visible .home-latest__action { opacity: 1; transform: translate(2px, -2px); }
-.home-page .home-latest__body { --home-latest-card-text: var(--color-surface); --home-latest-card-more: var(--color-surface); --home-latest-card-meta: rgb(255 255 255 / 78%); --home-latest-card-tag-bg: rgb(255 255 255 / 22%); position: relative; z-index: 2; display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: clamp(22px, 2vw, 28px); padding-bottom: 20px; }
+.home-page .home-latest__body { --home-latest-card-text: var(--color-surface); --home-latest-card-more: var(--color-surface); --home-latest-card-meta: rgb(255 255 255 / 78%); --home-latest-card-tag-bg: rgb(255 255 255 / 22%); position: relative; z-index: 2; display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: clamp(32px, 2.5vw, 40px); padding-bottom: 20px; }
 .home-page .home-latest__media.is-default + .home-latest__body { --home-latest-card-text: var(--color-ink); --home-latest-card-more: var(--color-text-body); --home-latest-card-meta: var(--color-text-body); --home-latest-card-tag-bg: rgb(8 32 58 / 10%); }
 .home-page .home-latest__meta { display: flex; min-height: 0; align-items: center; gap: 8px; color: var(--home-latest-card-meta); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.2; }
 .home-page .home-latest__meta time,
@@ -907,7 +911,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   .home-page .home-latest__body {
     grid-template-rows: 20px minmax(clamp(44px, 2.5vw, 48px), auto) minmax(clamp(50px, 2.85vw, 54.4px), auto);
     gap: clamp(7px, .52vw, 10px);
-    padding-top: clamp(22px, 2vw, 28px);
+    padding-top: clamp(32px, 2.5vw, 40px);
     align-content: start;
   }
 
@@ -1010,16 +1014,41 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   }
 
   .home-page .home-latest__viewport {
-    width: calc(100% + (50vw - 50%));
-    margin-left: 0;
-    scroll-padding-inline-start: 0;
+    width: 100vw;
+    margin-left: calc(-1 * var(--content-inset));
+    scroll-padding-inline-start: var(--content-inset);
   }
 
   .home-page .home-latest__list {
-    padding-inline-start: 0;
+    padding-inline-start: var(--content-inset);
   }
 
   .home-page .home-latest__item {
     flex-basis: min(380px, calc((100% - 78px) / 3.5));
+  }
+}
+
+/* Final homepage design-system overrides: keep the visual rhythm stable across widths. */
+.home-page .home-intro,
+.home-page .home-latest,
+.home-page .home-services-compare {
+  padding-block: var(--home-section-space);
+}
+
+.home-page .home-intro p:not(.eyebrow),
+.home-page .home-services-compare__details {
+  max-width: 50rem;
+}
+
+.home-page .home-latest__all {
+  border-radius: var(--radius-sm);
+  background: var(--color-ink);
+}
+
+@media (max-width: 760px) {
+  .home-page .home-intro,
+  .home-page .home-latest,
+  .home-page .home-services-compare {
+    padding-block: var(--home-section-space-sm);
   }
 }

@@ -394,15 +394,12 @@ function setupLatestNews() {
       if (cards.length === 0) return [];
 
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
-      const viewportLeft = viewport.getBoundingClientRect().left;
-      const scrollPaddingStart = parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
+      const firstCard = cards[0];
       const positions = [];
 
       for (let index = 0; index < cards.length; index += pageSize) {
         const card = cards[index];
-        const rawPosition = card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart;
-        const position = Math.min(maxScroll, Math.max(0, rawPosition));
+        const position = Math.min(maxScroll, Math.max(0, card.offsetLeft - firstCard.offsetLeft));
         if (!containsPosition(positions, position)) {
           positions.push(position);
         }
@@ -523,21 +520,42 @@ function setupLatestNews() {
 
     // 捲動到指定的最新消息分頁
     function goTo(page) {
-      const pagePositions = getPagePositions();
-      const targetPage = Math.min(pagePositions.length - 1, Math.max(0, page));
-      if (targetPage < 0) return;
+      const cards = toArray(list.querySelectorAll(".home-latest__item"));
+      if (cards.length === 0) return;
+
+      const targetPage = Math.min(pages - 1, Math.max(0, page));
+      const targetCard = cards[targetPage * pageSize];
+      const firstCard = cards[0];
+      if (!targetCard || !firstCard) return;
+
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const targetPosition = Math.min(maxScroll, Math.max(0, targetCard.offsetLeft - firstCard.offsetLeft));
 
       viewport.scrollTo({
-        left: pagePositions[targetPage],
+        left: targetPosition,
+        behavior: reducedMotion.matches ? "auto" : "smooth",
+      });
+    }
+
+    function moveByCard(offset) {
+      const cards = toArray(list.querySelectorAll(".home-latest__item"));
+      if (cards.length < 2) return;
+
+      const cardStep = cards[1].offsetLeft - cards[0].offsetLeft;
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const targetPosition = Math.min(maxScroll, Math.max(0, viewport.scrollLeft + (cardStep * offset)));
+
+      viewport.scrollTo({
+        left: targetPosition,
         behavior: reducedMotion.matches ? "auto" : "smooth",
       });
     }
 
     previous.addEventListener("click", function () {
-      goTo(Math.max(0, getPage() - 1));
+      moveByCard(-1);
     });
     next.addEventListener("click", function () {
-      goTo(Math.min(pages - 1, getPage() + 1));
+      moveByCard(1);
     });
     for (let i = 0; i < pageButtons.length; i++) {
       const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
