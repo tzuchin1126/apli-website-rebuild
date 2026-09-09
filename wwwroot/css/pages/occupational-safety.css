@@ -20,7 +20,7 @@
 }
 
 .safety-page .eyebrow {
-  margin: 0 0 18px;
+  margin: 0 0 4px;
   color: var(--color-text-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-regular);

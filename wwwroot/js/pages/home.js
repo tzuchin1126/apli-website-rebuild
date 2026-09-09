@@ -321,9 +321,18 @@ function setupLatestNews() {
     const more = document.createElement("span");
     more.className = "home-latest__more";
     more.append(document.createTextNode("查看更多 "));
-    const arrow = document.createElement("span");
+    const arrow = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    arrow.classList.add("home-text-link__icon");
+    arrow.setAttribute("viewBox", "0 0 24 24");
+    arrow.setAttribute("fill", "none");
+    arrow.setAttribute("stroke", "currentColor");
+    arrow.setAttribute("stroke-width", "1.8");
+    arrow.setAttribute("stroke-linecap", "round");
+    arrow.setAttribute("stroke-linejoin", "round");
     arrow.setAttribute("aria-hidden", "true");
-    arrow.textContent = "↗";
+    const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    arrowPath.setAttribute("d", "M5 19 19 5M8 5h11v11");
+    arrow.append(arrowPath);
     more.append(arrow);
 
     const body = document.createElement("span");

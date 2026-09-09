@@ -465,7 +465,7 @@ function initCertificationPreview() {
     activeDecadeIndex = index;
     activePageIndex = 0;
     markActiveDecadeButton(index);
-    setTrackPosition(true);
+    setTrackPosition(false);
     updateControls();
     if (moveFocus) {
       decadeButtons[index].focus();

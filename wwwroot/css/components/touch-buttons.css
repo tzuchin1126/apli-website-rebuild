@@ -223,7 +223,7 @@
   .footer-legal-links a:active,
   .footer-legal-links a:focus,
   .footer-legal-links a:focus-visible {
-    color: var(--color-surface);
+    color: var(--footer-link);
   }
 
   .back-to-top:hover,

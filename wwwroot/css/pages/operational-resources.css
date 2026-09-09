@@ -50,7 +50,7 @@
 }
 
 .operational-resources-page .eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   color: var(--color-text-body);
   font-family: var(--font-body);
   font-size: var(--font-size-label);
