@@ -4,7 +4,7 @@
   position: relative;
   height: var(--page-hero-height);
   overflow: hidden;
-  isolation: isolate;
+  isolation: auto;
   border-bottom: clamp(6px, .5vw, 8px) solid var(--color-primary);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: clamp(30px, 3.5vw, 52px);
@@ -12,7 +12,6 @@
 }
 
 .page-hero__media,
-.page-hero__image,
 .page-hero__overlay {
   position: absolute;
   inset: 0;
@@ -21,16 +20,21 @@
 }
 
 .page-hero__image {
+  position: absolute;
+  top: -15%;
+  left: 0;
+  width: 100%;
+  height: 130%;
   max-width: none;
   object-fit: cover;
   object-position: var(--page-hero-image-position, center);
   transform-origin: var(--page-hero-image-origin, var(--page-hero-image-position, center));
-  transform: scale(var(--page-hero-image-scale));
-  transition: transform var(--page-hero-image-duration) var(--page-hero-motion-easing);
+  transform: scale(var(--page-hero-image-scale)) translateY(var(--hero-offset, 0px));
+  will-change: transform;
 }
 
 .page-hero__image.is-loaded {
-  transform: scale(1);
+  transform: scale(1) translateY(var(--hero-offset, 0px));
 }
 
 .page-hero__overlay {
@@ -137,7 +141,6 @@
   }
 
   .page-hero__image {
-    transform: scale(1);
-    transition: none;
+    transform: scale(1) translateY(0);
   }
 }

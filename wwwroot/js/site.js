@@ -86,6 +86,35 @@
   });
 })();
 
+/** 非首頁 Hero 捲動時緩慢位移，讓背景露出較完整的原始影像。 */
+(() => {
+  if (document.body.classList.contains("home-page")) return;
+
+  const heroes = [...document.querySelectorAll(".page-hero")];
+  if (!heroes.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let frame = 0;
+  const updateHeroPosition = () => {
+    frame = 0;
+    heroes.forEach((hero) => {
+      const image = hero.querySelector(".page-hero__image");
+      if (!image) return;
+
+      const bounds = hero.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, -bounds.top / Math.max(bounds.height, 1)));
+      image.style.setProperty("--hero-offset", `${(progress * 56).toFixed(2)}px`);
+    });
+  };
+
+  const requestUpdate = () => {
+    if (!frame) frame = window.requestAnimationFrame(updateHeroPosition);
+  };
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate, { passive: true });
+  requestUpdate();
+})();
+
 (() => {
   const footerColumns = document.querySelectorAll(
     ".site-footer .footer-column"

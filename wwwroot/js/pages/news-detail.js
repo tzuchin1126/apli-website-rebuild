@@ -137,11 +137,13 @@ function initNewsDetail() {
     contentEl.replaceChildren();
     const paragraphs = item.content.split("\n");
     const titleText = String(item.title || "").trim();
+    const contentLines = paragraphs.map((paragraph) => paragraph.trim()).filter(Boolean);
+    const hasAdditionalContent = contentLines.some((line) => line !== titleText);
     let isFirstContentLine = true;
     for (let i = 0; i < paragraphs.length; i++) {
       const trimmed = paragraphs[i].trim();
       if (!trimmed) continue;
-      if (isFirstContentLine && trimmed === titleText) {
+      if (isFirstContentLine && hasAdditionalContent && trimmed === titleText) {
         isFirstContentLine = false;
         continue;
       }

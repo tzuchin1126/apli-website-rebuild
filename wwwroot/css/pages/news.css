@@ -381,15 +381,15 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 1.6vw, 20px);
-  margin-top: clamp(32px, 4vw, 48px);
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-top: clamp(28px, 3vw, 40px);
 }
 
 .news-pagination__control,
 .news-pagination__page {
   display: inline-flex;
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 30px;
+  min-height: 30px;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -406,9 +406,9 @@
 }
 
 .news-pagination__arrow {
-  min-width: 32px;
-  min-height: 32px;
-  font-size: 1.25rem;
+  min-width: 30px;
+  min-height: 30px;
+  font-size: 1.125rem;
 }
 
 .news-pagination__control:hover:not(:disabled),
@@ -432,8 +432,8 @@
 }
 
 .news-pagination__page.is-current {
-  min-width: 50px;
-  min-height: 50px;
+  min-width: 44px;
+  min-height: 44px;
   background: var(--color-surface-inverse);
   color: var(--color-text-on-dark);
   cursor: default;

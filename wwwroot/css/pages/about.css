@@ -49,7 +49,7 @@
 
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
-.about-page .about-philosophy-editorial { padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: var(--color-surface-subtle); }
+.about-page .about-philosophy-editorial { padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; }
 .about-page .about-philosophy-editorial .about-section-heading { margin-bottom: clamp(20px, 2.5vw, 32px); }
 .about-page .about-philosophy-editorial .about-section-heading h2 { position: relative; border-bottom: 0; }
 .about-page .about-philosophy-editorial__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); width: var(--content-width); margin-inline: auto; }
@@ -58,9 +58,9 @@
 .about-page .about-philosophy-editorial__icon { display: none; }
 .about-page .about-philosophy-editorial__item img { display: block; width: 100%; height: 100%; object-fit: cover; filter: contrast(0.97) saturate(0.96); }
 .about-page .about-philosophy-editorial__item:nth-child(3) img { object-position: 30% center; }
-.about-page .about-philosophy-editorial__copy { flex: 1; padding: clamp(18px, 2vw, 24px); background: var(--color-surface-dark); }
-.about-page .about-philosophy-editorial__copy h3 { margin: 0 0 12px; color: var(--color-text-on-dark); font-family: var(--font-body); font-size: var(--font-size-h3); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); text-align: left; }
-.about-page .about-philosophy-editorial__copy p { margin: 0; color: var(--color-text-on-dark); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body); text-align: left; }
+.about-page .about-philosophy-editorial__copy { flex: 1; padding: clamp(18px, 2vw, 24px); background: #edf0f5; }
+.about-page .about-philosophy-editorial__copy h3 { margin: 0 0 12px; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-h3); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); text-align: left; }
+.about-page .about-philosophy-editorial__copy p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body); text-align: left; }
 
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
 .about-page .about-certifications-preview { --preview-track-inset: var(--content-inset); --preview-page-inset: var(--content-inset); margin-top: 0; padding-block: clamp(40px, 4vw, 56px); background: transparent; color: var(--color-text-primary); }
@@ -97,9 +97,9 @@
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, 1fr)); column-gap: var(--preview-column-gap); align-items: start; }
 .about-page .about-certifications-preview__year-column { min-width: 0; }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
-.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: var(--color-surface-dark); }
+.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: #edf0f5; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; padding: 0; border: 0; }
-.about-page .about-certifications-preview__event h4 { display: block; margin: 0; color: var(--color-text-on-dark); font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.65; overflow-wrap: anywhere; }
+.about-page .about-certifications-preview__event h4 { display: block; margin: 0; color: var(--color-text-primary); font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.65; overflow-wrap: anywhere; }
 .about-page .about-certifications-preview__event h4::before { display: none; }
 .about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-sm); }
 

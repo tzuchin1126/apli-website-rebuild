@@ -33,7 +33,7 @@
   width: fit-content;
   margin: 0;
   color: var(--color-ink);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(1.875rem, 2.3vw, 2.5rem);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-heading);
@@ -51,20 +51,6 @@
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: none;
-}
-
-.safety-page .safety-credentials__heading h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: var(--safety-rule-width);
-  height: 2px;
-  background: var(--color-primary);
-}
-
-.safety-page .safety-credentials__heading h2 {
-  padding-bottom: 20px;
 }
 
 .safety-page .safety-intro__layout {
@@ -485,10 +471,6 @@
 @media (max-width: 760px) {
   .safety-page .safety-section {
   padding-block: var(--section-space);
-  }
-
-  .safety-page .safety-credentials__heading h2 {
-    padding-bottom: 16px;
   }
 
   .safety-page .safety-credentials__heading {

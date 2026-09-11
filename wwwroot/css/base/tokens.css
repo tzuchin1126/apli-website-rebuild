@@ -5,6 +5,9 @@
 
   /* Neutral text and surfaces: black, white, and grayscale only. */
   --color-text-primary: #172538;
+  --dark-blue: #172538;
+  --blue-700: #172538;
+  --blue-300: #476799;
   --color-text-body: #44505f;
   --color-text-muted: rgb(23 37 56 / 52%);
   --color-text-on-dark: #ffffff;

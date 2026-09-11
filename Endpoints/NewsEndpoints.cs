@@ -377,9 +377,9 @@ public static class NewsEndpoints
             // 沒登入的人只能看「已發布新聞正在用的圖片/附件」,其他一律當作不存在
             var publicPath = $"{urlPrefix}/{fileName}";
             var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
+            var news = await NewsService.ReadAsync(newsFile);
             if (!isAuthenticated)
             {
-                var news = await NewsService.ReadAsync(newsFile);
                 var isPublishedReference = news.Any(item =>
                     NewsService.IsPublicNewsItem(item) &&
                     (string.Equals(item.ImageUrl, publicPath, StringComparison.Ordinal) ||
@@ -397,6 +397,21 @@ public static class NewsEndpoints
                     ? publicNewsImageCacheControl
                     : "private, no-store";
             context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+            if (urlPrefix == newsUploadsUrlPrefix)
+            {
+                var attachmentName = news
+                    .Where(item => string.Equals(item.Url, publicPath, StringComparison.Ordinal))
+                    .Select(item => item.AttachmentName)
+                    .FirstOrDefault(name => !string.IsNullOrWhiteSpace(name));
+
+                if (!string.IsNullOrWhiteSpace(attachmentName))
+                {
+                    var safeAttachmentName = Path.GetFileName(attachmentName);
+                    context.Response.Headers.ContentDisposition =
+                        $"attachment; filename*=UTF-8''{Uri.EscapeDataString(safeAttachmentName)}";
+                }
+            }
+
             return Results.File(filePath, GetUploadContentType(fileName), enableRangeProcessing: true);
         }
 

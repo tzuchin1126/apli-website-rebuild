@@ -27,7 +27,7 @@
 .join-content {
   display: grid;
   gap: var(--section-space);
-  padding-top: clamp(48px, 5vw, 80px);
+  padding-top: clamp(36px, 4vw, 56px);
 }
 
 .join-panel,
@@ -77,7 +77,7 @@
   display: grid;
   grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.3fr);
   gap: clamp(48px, 7vw, 104px);
-  width: min(100%, 1120px);
+  width: 100%;
   margin-inline: auto;
   padding-block: clamp(28px, 3vw, 40px);
   border-bottom: 1px solid var(--color-border-light);
@@ -87,6 +87,10 @@
 .join-intro > div {
   display: grid;
   gap: 20px;
+}
+
+.join-intro > .join-section-heading {
+  gap: 0;
 }
 
 .join-section-heading {
@@ -113,42 +117,26 @@
 }
 
 .join-benefits-heading {
-  width: min(100%, 1120px);
+  width: 100%;
   margin-inline: auto;
-  margin-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: clamp(16px, 2vw, 24px);
 }
 
 #join-benefits {
-  margin-top: clamp(24px, 3vw, 48px);
+  margin-top: 0;
 }
 
 .join-section-heading h2 {
   position: relative;
   width: fit-content;
   margin: 0;
-  padding-bottom: 20px;
+  padding-bottom: 0;
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.875rem, 2.3vw, 2.5rem);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
-}
-
-.join-section-heading h2::after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: clamp(48px, 5vw, 72px);
-  height: 2px;
-  background: var(--color-primary);
-  content: "";
-  transform: translateX(-50%);
-}
-
-.join-section-heading--left h2::after {
-  left: 0;
-  transform: none;
 }
 
 .join-intro p:not(.eyebrow) {
@@ -160,7 +148,7 @@
 
 .benefits-list {
   width: 100%;
-  max-width: 1200px;
+  max-width: none;
   margin-inline: auto;
   padding: clamp(28px, 3vw, 40px) clamp(24px, 4vw, 48px);
   background: var(--color-surface-soft);
@@ -361,7 +349,7 @@
   .benefits-list__row:last-child { padding-bottom: 0; }
   .join-content {
     gap: var(--section-space);
-    padding-top: 48px;
+    padding-top: 36px;
   }
 
   .join-intro {
