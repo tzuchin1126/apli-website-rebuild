@@ -1,5 +1,11 @@
 # APLI 專案進度
 
+## 2026-09-13
+
+- [x] 首頁「我們的服務」區塊移除背景顏色，並收斂與「以客為尊，專業服務」區塊交界的上下留白；已完成 CSS／cache-busting 調整。瀏覽器桌機 1432px 與手機 390px 均確認背景透明、間距生效且無水平溢出；`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過。實體裝置、跨瀏覽器與人工無障礙尚未驗證。
+- [x] P1 首頁／關係企業 heading 層級與首頁 CSS 間距覆寫整理完成；首頁將「以客為尊，專業服務」及關係企業首層企業標題調整為 H2，並移除已被最終規則覆蓋的首頁舊間距宣告。首頁最新消息少量卡片填滿網格的實驗已依視覺需求撤回，恢復原本橫向卡片尺寸。已完成 cache-busting；ASP.NET 實際路由瀏覽器桌機 1440px、平板 1024px、手機 390px 確認服務區塊透明背景、原有手機滑動卡片與無水平溢出；`dotnet build -c Release --no-restore`、全頁 JavaScript `node --check`、`git diff --check` 通過。實體裝置、跨瀏覽器、Lighthouse／axe 與人工無障礙尚未驗證。
+- [x] About 公司簡介 `about-profile` 依參考版型改為左側文字敘述、右側三張不規則背景影像卡片；左側標題改為「ABOUT APLI／關於亞太」標題群組，使用與「OUR PHILOSOPHY／經營理念」相同的 eyebrow `4px` 下間距，標題至內文的局部間距調整為 `24px`，影像區改為左右配置，左欄直立並以完整鋪滿、調整 Logo 至視覺中心的公司大樓背景圖顯示「創立於」，三張卡片統一使用深色漸層與白色文字，右欄上下分別顯示「員工數／營運場規模」，以下方較高的營運場規模卡片保留不規則設計感，保留原本 `dt/dd` 語意與計數動畫。已完成 cache-busting；ASP.NET 實際路由瀏覽器桌機 1440px、平板 1024px、手機 390px 確認標題層級、標題群組間距、卡片比例、文字／數據順序、背景影像與無水平溢出；`dotnet build -c Release --no-restore`、全頁 JavaScript `node --check`、`git diff --check` 通過。實體裝置、跨瀏覽器、Lighthouse／axe 與人工無障礙尚未驗證。
+
 ## 2026-09-11
 
 - [x] 依 About 標題基準統一 Services 與 Occupational Safety 的標題群組間距、英文小標題下距與標題字體；尚未進行瀏覽器畫面驗證。
