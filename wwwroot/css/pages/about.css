@@ -103,8 +103,9 @@
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, 1fr)); column-gap: var(--preview-column-gap); align-items: start; }
 .about-page .about-certifications-preview__year-column { min-width: 0; }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
-.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: #edf0f5; }
+.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: transparent; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; padding: 0; border: 0; }
+.about-page .about-certifications-preview__event + .about-certifications-preview__event { padding-top: 18px; border-top: 1px dashed var(--color-border); }
 .about-page .about-certifications-preview__event h4 { display: block; margin: 0; color: var(--color-text-primary); font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.65; overflow-wrap: anywhere; }
 .about-page .about-certifications-preview__event h4::before { display: none; }
 .about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-sm); }

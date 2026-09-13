@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/tokens.css?v=20260907-site-alignment-v2">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260907-site-alignment-v2">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
-  <link rel="stylesheet" href="css/pages/company-history.css?v=20260907-site-alignment-v2">
+  <link rel="stylesheet" href="css/pages/company-history.css?v=20260913-horizontal-history-v11">
   <link rel="stylesheet" href="css/site.css?v=20260907-site-alignment-v2">
 </head>
 
@@ -126,18 +126,23 @@
     </section>
 
     <!-- 沿革內容區 -->
-    <section class="milestones-content site-container" aria-label="公司沿革內容">
-      <!-- 年代切換頁籤 -->
-      <div class="milestone-tabs" role="tablist" aria-label="公司沿革年代">
-        <div class="milestone-tabs__track">
-          <button id="milestone-tab-current" type="button" role="tab" aria-selected="true" aria-controls="era-current" data-era="era-current">2013 - 至今</button>
-          <button id="milestone-tab-middle" type="button" role="tab" aria-selected="false" aria-controls="era-middle" data-era="era-middle" tabindex="-1">1993 - 2013</button>
-          <button id="milestone-tab-start" type="button" role="tab" aria-selected="false" aria-controls="era-start" data-era="era-start" tabindex="-1">1973 - 1993</button>
+    <section class="milestones-content" aria-label="公司沿革內容" data-milestones-preview>
+      <div class="site-container">
+        <div class="milestones-preview__header">
+          <div class="milestones-section-heading">
+            <p class="eyebrow">COMPANY HISTORY</p>
+            <h2 id="milestones-content-title">公司沿革</h2>
+          </div>
+          <div class="milestones-preview__header-tools">
+            <div class="milestones-preview__controls" aria-label="公司沿革年份控制" data-milestone-controls></div>
+          </div>
         </div>
       </div>
 
-      <!-- 2013 - 至今 -->
-      <div class="milestone-panel" id="era-current" role="tabpanel" aria-labelledby="milestone-tab-current">
+      <div class="milestone-content-shell">
+        <div id="milestone-preview-content" class="milestone-preview-content" aria-label="公司沿革里程碑" aria-live="polite" data-milestone-content>
+          <!-- 2013 - 至今：JavaScript 啟用後會轉成與 About 認證區一致的水平年份卡片。 -->
+          <div class="milestone-panel" id="era-current" role="tabpanel" aria-labelledby="milestone-tab-current">
         <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-2023">
             <div class="milestone-year-label">
@@ -204,10 +209,10 @@
             </div>
           </section>
         </div>
-      </div>
+          </div>
 
-      <!-- 1993 - 2013 -->
-      <div class="milestone-panel" id="era-middle" role="tabpanel" aria-labelledby="milestone-tab-middle">
+          <!-- 1993 - 2013 -->
+          <div class="milestone-panel" id="era-middle" role="tabpanel" aria-labelledby="milestone-tab-middle">
         <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-2011">
             <div class="milestone-year-label"><time id="milestone-year-2011">2011</time></div>
@@ -277,10 +282,10 @@
             </div>
           </section>
         </div>
-      </div>
+          </div>
 
-      <!-- 1973 - 1993 -->
-      <div class="milestone-panel" id="era-start" role="tabpanel" aria-labelledby="milestone-tab-start">
+          <!-- 1973 - 1993 -->
+          <div class="milestone-panel" id="era-start" role="tabpanel" aria-labelledby="milestone-tab-start">
         <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-1986">
             <div class="milestone-year-label"><time id="milestone-year-1986">1986</time></div>
@@ -310,6 +315,8 @@
             </div>
           </section>
         </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -318,6 +325,6 @@
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/company-history.js?v=20260822-panel-hidden-v4"></script>
+  <script src="js/pages/company-history.js?v=20260913-horizontal-history-v7"></script>
 </body>
 </html>
