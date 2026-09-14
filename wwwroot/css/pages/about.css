@@ -103,7 +103,7 @@
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, 1fr)); column-gap: var(--preview-column-gap); align-items: start; }
 .about-page .about-certifications-preview__year-column { min-width: 0; }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
-.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: transparent; }
+.about-page .about-certifications-preview__events { display: flex; width: 100%; min-height: var(--preview-events-height, auto); flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: #edf0f5; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; padding: 0; border: 0; }
 .about-page .about-certifications-preview__event + .about-certifications-preview__event { padding-top: 18px; border-top: 1px dashed var(--color-border); }
 .about-page .about-certifications-preview__event h4 { display: block; margin: 0; color: var(--color-text-primary); font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.65; overflow-wrap: anywhere; }
@@ -165,7 +165,7 @@
 .about-page .about-affiliates__card[href$="#affiliate-club"] .about-affiliates__logo img { transform: scale(1.12); }
 .about-page .about-affiliates__card[href$="#affiliate-club"]:hover .about-affiliates__logo img, .about-page .about-affiliates__card[href$="#affiliate-club"]:focus-within .about-affiliates__logo img { transform: scale(1.21); }
 .about-page .about-affiliates__body { position: relative; display: flex; min-width: 0; min-height: 72px; align-items: center; box-sizing: border-box; padding: 16px 36px 16px 16px; background: var(--color-surface-subtle); }
-.about-page .about-affiliates__name { display: block; min-width: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-medium); line-height: var(--line-height-body-tight); overflow-wrap: anywhere; }
+.about-page .about-affiliates__name { display: block; min-width: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-body); line-height: var(--line-height-body-tight); overflow-wrap: anywhere; }
 
 @media (max-width: 980px) {
   .about-page .about-hero .page-hero__title { height: 100%; }
