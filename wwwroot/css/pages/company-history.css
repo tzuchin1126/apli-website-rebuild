@@ -33,7 +33,7 @@
 .milestones-section-heading h2 {
   margin: 0;
   color: var(--color-text-primary);
-  font-size: var(--font-size-h2);
+  font-size: clamp(1.875rem, 2.3vw, 2.5rem);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
@@ -343,6 +343,14 @@
 }
 
 @media (min-width: 768px) {
+  .milestone-preview__event h4 {
+    font-size: var(--font-size-body-lg);
+  }
+
+  .milestone-preview__event p {
+    font-size: var(--font-size-body);
+  }
+
   .milestone-preview__page {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

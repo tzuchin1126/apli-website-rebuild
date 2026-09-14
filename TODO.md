@@ -1,5 +1,9 @@
 # APLI 專案進度
 
+## 2026-09-14
+
+- [x] 將首頁 `.home-services-compare__heading h2`、`.home-latest h2`、`.home-intro h2` 與 Company History `.milestones-section-heading h2` 字級調整為與其他主要頁面區塊標題一致的 `clamp(1.875rem, 2.3vw, 2.5rem)`，首頁主要內容 H2 字重統一為 `--font-weight-medium`；Company History 在 `768px` 以上將時間軸事件標題提升為 `--font-size-body-lg`、說明提升為 `--font-size-body`，手機維持原尺寸；首頁服務卡片依原圖色調套用低濃度中性藍灰遮罩，第二張略加強並共用底部深藍漸層，使圖片保留自然色彩且維持一致主題；移除首頁最新消息圖片卡片遮罩及相關 Hover 規則；已更新兩頁 CSS cache-busting 並執行 `git diff --check`，未進行瀏覽器畫面驗證。
+
 ## 2026-09-13
 
 - [x] Company History 時間軸改為與 About 認證與獎項一致的水平資訊瀏覽 UI，移除 `milestone-tabs__track` 年份切換，只保留左右控制；資訊直接呈現、資訊區取消背景色，同年份多筆資訊以 24px 間距及灰色虛線區隔，移除先前加入的品牌 Logo 背景，保留原 HTML 沿革內容作為停用 JavaScript 時的可讀 fallback。已完成 CSS／JavaScript cache-busting；ASP.NET 實際路由瀏覽器桌機 1440px、平板 1024px、手機 390px 確認左右按鈕、最後 1970s 邊界、透明資訊區、同年份資訊間距與虛線、文字內容、卡片寬度與無文件水平溢出；`dotnet build -c Release`、`node --check wwwroot/js/pages/company-history.js`、`git diff --check` 通過。實體裝置、跨瀏覽器與人工無障礙尚未驗證。

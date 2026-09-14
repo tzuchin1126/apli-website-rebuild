@@ -337,7 +337,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   padding-bottom: 0;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: clamp(1.875rem, 1.5rem + .6vw, 2.25rem);
+  font-size: clamp(1.875rem, 2.3vw, 2.5rem);
   font-weight: var(--font-weight-medium);
   letter-spacing: 0;
   line-height: var(--line-height-heading);
@@ -359,6 +359,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   margin-top: clamp(32px, 3.5vw, 48px);
 }
 .home-page .home-services-compare__card {
+  --services-card-tint: rgb(11 35 52 / 8%);
   position: relative;
   display: block;
   aspect-ratio: .9;
@@ -370,6 +371,8 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   text-decoration: none;
   transition: transform 300ms ease-out;
 }
+.home-page .home-services-compare__card:nth-child(2) { --services-card-tint: rgb(11 35 52 / 16%); }
+.home-page .home-services-compare__card:nth-child(3) { --services-card-tint: rgb(11 35 52 / 10%); }
 .home-page .home-services-compare__card:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
@@ -399,7 +402,9 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   display: flex;
   align-items: flex-end;
   padding: 0;
-  background: linear-gradient(180deg, transparent 38%, rgb(10 31 55 / 28%) 56%, rgb(8 27 49 / 92%) 100%);
+  background:
+    linear-gradient(180deg, transparent 38%, rgb(10 31 55 / 24%) 58%, rgb(8 27 49 / 91%) 100%),
+    linear-gradient(var(--services-card-tint), var(--services-card-tint));
   text-align: center;
 }
 .home-page .home-services-compare__content {
@@ -542,7 +547,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest { --home-latest-gutter: var(--content-inset); position: relative; z-index: 1; max-width: calc(var(--site-max-width) + 60px); }
 .home-page .home-latest__heading { align-items: end; padding-bottom: 24px; border-bottom: 1px solid var(--color-line); }
 .home-page .home-latest__heading .eyebrow { margin-bottom: 4px; color: var(--color-text-body); letter-spacing: .08em; line-height: 1.5; }
-.home-page .home-latest h2 { padding-bottom: 0; color: var(--color-text-primary); font-size: clamp(1.875rem, 1.5rem + .6vw, 2.25rem); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
+.home-page .home-latest h2 { padding-bottom: 0; color: var(--color-text-primary); font-size: clamp(1.875rem, 2.3vw, 2.5rem); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
 .home-page .home-latest__actions { display: flex; align-items: center; gap: 12px; }
 .home-page .home-latest__all { min-height: 42px; margin-top: 0; padding-inline: 18px; border-radius: var(--radius-full); background: var(--color-secondary); font-size: .875rem; text-decoration: none; }
 .home-page .home-latest__viewport { width: calc(100% + (var(--home-latest-gutter) * 2)); margin-left: calc(-1 * var(--home-latest-gutter)); overflow-x: auto; padding-top: 6px; padding-bottom: 16px; overscroll-behavior-inline: contain; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-inline-start: var(--home-latest-gutter); touch-action: pan-x; -webkit-overflow-scrolling: touch; }
@@ -556,15 +561,12 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-latest__item:focus-visible { box-shadow: none; color: var(--color-surface); }
 .home-page .home-latest__media { position: absolute; z-index: 0; inset: 0; display: block; width: 100%; height: 100%; overflow: hidden; isolation: isolate; }
 .home-page .home-latest__media::before { position: absolute; z-index: 0; inset: 0; background: url("../../public/images/index/公告資訊.png?v=20260907-home-latest-card") right center / cover no-repeat; content: ""; transition: transform 420ms cubic-bezier(.22, 1, .36, 1); }
-.home-page .home-latest__media::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgb(8 32 58 / 32%) 0%, rgb(8 32 58 / 44%) 44%, rgb(3 18 34 / 72%) 100%); content: ""; pointer-events: none; }
-.home-page .home-latest__media.is-default::after { display: none; }
+.home-page .home-latest__media::after { display: none; content: none; }
 .home-page .home-latest__media img { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 420ms cubic-bezier(.22, 1, .36, 1); }
 .home-page .home-latest__item:hover .home-latest__media::before,
 .home-page .home-latest__item:focus-visible .home-latest__media::before,
 .home-page .home-latest__item:hover .home-latest__media img,
 .home-page .home-latest__item:focus-visible .home-latest__media img { transform: scale(1.08); }
-.home-page .home-latest__item:hover .home-latest__media::after,
-.home-page .home-latest__item:focus-visible .home-latest__media::after { opacity: 1; }
 .home-page .home-latest__action {
   position: absolute;
   z-index: 2;
@@ -818,7 +820,6 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 @media (hover: none), (pointer: coarse) {
   .home-page .home-latest__item:hover .home-latest__media::before,
   .home-page .home-latest__item:hover .home-latest__media img { transform: none; }
-  .home-page .home-latest__item:hover .home-latest__media::after { opacity: 0; }
   .home-page .home-latest__item:hover strong { text-decoration-line: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -831,7 +832,6 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   .home-page .home-latest__item,
   .home-page .home-latest__media::before,
   .home-page .home-latest__media img { opacity: 1; transition: none; transform: none; animation: none; }
-  .home-page .home-latest__media::after,
   .home-page .home-latest__item strong { transition: none; }
   .home-page.home-motion-ready [data-home-reveal] {
     opacity: 1;
@@ -896,8 +896,8 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   margin: 0;
 }
 .home-page .home-intro h2:not(.home-intro__subtitle) {
-  font-size: clamp(1.875rem, 1.5rem + .6vw, 2.25rem);
-  font-weight: var(--font-weight-semibold);
+  font-size: clamp(1.875rem, 2.3vw, 2.5rem);
+  font-weight: var(--font-weight-medium);
 }
 .home-page .home-intro__subtitle {
   margin: 0 0 16px;
