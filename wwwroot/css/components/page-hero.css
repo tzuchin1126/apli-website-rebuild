@@ -30,6 +30,7 @@
   object-position: var(--page-hero-image-position, center);
   transform-origin: var(--page-hero-image-origin, var(--page-hero-image-position, center));
   transform: scale(var(--page-hero-image-scale)) translateY(var(--hero-offset, 0px));
+  transition: transform var(--page-hero-image-duration) var(--page-hero-motion-easing);
   will-change: transform;
 }
 

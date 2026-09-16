@@ -1,5 +1,9 @@
 # APLI 專案進度
 
+## 2026-09-16
+
+- [x] 恢復共用 Hero 圖片載入完成後由放大比例回到正常比例的 `transform` 過渡效果；已完成靜態 CSS 檢查與 `git diff --check`，未進行瀏覽器畫面驗證。
+
 ## 2026-09-14
 
 - [x] 將首頁 `.home-services-compare__heading h2`、`.home-latest h2`、`.home-intro h2` 與 Company History `.milestones-section-heading h2` 字級調整為與其他主要頁面區塊標題一致的 `clamp(1.875rem, 2.3vw, 2.5rem)`，首頁主要內容 H2 字重統一為 `--font-weight-medium`；Company History 在 `768px` 以上將時間軸事件標題提升為 `--font-size-body-lg`、說明提升為 `--font-size-body`，手機維持原尺寸；首頁服務卡片依原圖色調套用低濃度中性藍灰遮罩，第二張略加強並共用底部深藍漸層，使圖片保留自然色彩且維持一致主題；移除首頁最新消息圖片卡片遮罩及相關 Hover 規則；已更新兩頁 CSS cache-busting 並執行 `git diff --check`，未進行瀏覽器畫面驗證。
