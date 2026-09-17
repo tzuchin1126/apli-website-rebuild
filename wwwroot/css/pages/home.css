@@ -1121,17 +1121,34 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   .home-page .home-affiliates__description { transition: none; }
 }
 
-/* About: share the homepage content edges and card proportions. */
+/* About: a curved backdrop connects the white sections above and below. */
 .home-page .home-intro-section {
-  padding-block: clamp(36px, 3vw, 48px);
-  background-color: var(--color-surface-soft);
-  background-image:
-    linear-gradient(90deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 42%, transparent 70%),
-    url("../../public/images/index/world-dot-map-plain-light.svg");
-  background-position: right 125%;
-  background-size: auto 108%;
-  background-repeat: no-repeat;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: clamp(36px, 3vw, 48px) clamp(56px, 5vw, 72px);
+  background: var(--color-surface);
   border: 0;
+}
+.home-page .home-intro-section::before,
+.home-page .home-intro-section::after {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+}
+.home-page .home-intro-section::before,
+.home-page .home-intro-section::after {
+  inset: clamp(128px, 11vw, 168px) -5% 0;
+  border-radius: 50% 50% 0 0 / clamp(180px, 18vw, 280px) clamp(180px, 18vw, 280px) 0 0;
+}
+.home-page .home-intro-section::before {
+  background: linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 40%, var(--color-surface) 100%);
+}
+.home-page .home-intro-section::after {
+  background: url("../../public/images/index/world-dot-map-plain-light.svg") right center / auto 100% no-repeat;
+  opacity: .38;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 62%, transparent 100%);
 }
 .home-page .home-intro {
   width: var(--content-width);
@@ -1226,12 +1243,23 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
     gap: 28px;
   }
   .home-page .home-intro__media { aspect-ratio: 1.8; }
+  .home-page .home-intro-section::before,
+  .home-page .home-intro-section::after {
+    top: calc((100vw - 2 * var(--content-gutter)) / 1.8 + 144px);
+  }
 }
 @media (max-width: 760px) {
   .home-page .home-intro-section {
-    padding-block: 36px;
-    background-size: auto 360px;
-    background-position: center bottom;
+    padding-block: 24px 40px;
+  }
+  .home-page .home-intro-section::before,
+  .home-page .home-intro-section::after {
+    inset: calc((100vw - 2 * var(--content-gutter)) / 1.5 + 132px) -15% 0;
+    border-radius: 50% 50% 0 0 / 140px 140px 0 0;
+  }
+  .home-page .home-intro-section::after {
+    background-size: auto 320px;
+    opacity: .24;
   }
   .home-page .home-intro__media { aspect-ratio: 1.5; }
   .home-page .home-intro__heading { margin-bottom: 20px; }
