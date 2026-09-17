@@ -31,7 +31,7 @@
   --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
   --font-weight-regular: 400;
-  --font-weight-medium: 500;
+  --font-weight-medium: 600;
   --font-weight-semibold: 600;
   --font-weight-normal: var(--font-weight-regular);
   --font-weight-section-heading: var(--font-weight-medium);

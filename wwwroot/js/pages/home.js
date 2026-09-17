@@ -611,6 +611,118 @@ function setupLatestNews() {
 // 區塊進場動畫:進入視窗時加上 .is-visible,reduced-motion 則直接全部顯示
 // ---------------------------------------------------------------------------
 
+function setupAffiliatesCarousel() {
+  const section = document.querySelector(".home-affiliates");
+  if (!section) return;
+
+  const viewport = section.querySelector(".home-affiliates__viewport");
+  const track = section.querySelector("[data-affiliates-track]");
+  const cards = toArray(section.querySelectorAll(".home-affiliates__card"));
+  const previous = section.querySelector("[data-affiliates-previous]");
+  const next = section.querySelector("[data-affiliates-next]");
+  if (!viewport || !track || cards.length === 0 || !previous || !next) return;
+
+  previous.replaceChildren(createArrow("left"));
+  next.replaceChildren(createArrow("right"));
+
+  let activeStart = 0;
+  let carouselTimer = null;
+  let isPaused = false;
+  const originalCount = cards.length;
+
+  for (let index = 0; index < getVisibleCount(); index++) {
+    const clone = cards[index].cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.setAttribute("tabindex", "-1");
+    track.appendChild(clone);
+  }
+  section.classList.add("is-carousel-ready");
+
+  function getVisibleCount() {
+    if (window.innerWidth <= 760) return 1;
+    if (window.innerWidth <= 980) return 2;
+    return 4;
+  }
+
+  function getMaxStart() {
+    return originalCount;
+  }
+
+  function render() {
+    const firstCard = cards[0];
+    const cardStyle = window.getComputedStyle(track);
+    const gap = parseFloat(cardStyle.columnGap || cardStyle.gap) || 0;
+    const cardStep = firstCard.getBoundingClientRect().width + gap;
+    const maxStart = getMaxStart();
+
+    activeStart = Math.min(activeStart, maxStart);
+    track.style.transform = "translate3d(" + (-activeStart * cardStep) + "px, 0, 0)";
+    previous.disabled = activeStart === 0;
+    next.disabled = false;
+    previous.setAttribute("aria-disabled", String(previous.disabled));
+    next.setAttribute("aria-disabled", String(next.disabled));
+  }
+
+  previous.addEventListener("click", function () {
+    activeStart = Math.max(0, activeStart - getVisibleCount());
+    render();
+  });
+
+  next.addEventListener("click", function () {
+    const maxStart = getMaxStart();
+    if (activeStart >= maxStart) {
+      track.style.transition = "none";
+      activeStart = 0;
+      render();
+      window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
+      return;
+    }
+    activeStart += 1;
+    render();
+  });
+
+  function moveToNextGroup() {
+    if (isPaused) return;
+    const maxStart = getMaxStart();
+    if (activeStart >= maxStart) {
+      track.style.transition = "none";
+      activeStart = 0;
+      render();
+      window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
+      return;
+    }
+    activeStart += 1;
+    render();
+  }
+
+  function startAutoPlay() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    window.clearInterval(carouselTimer);
+    carouselTimer = window.setInterval(moveToNextGroup, 5000);
+  }
+
+  section.addEventListener("mouseenter", function () { isPaused = true; });
+  section.addEventListener("mouseleave", function () { isPaused = false; });
+  section.addEventListener("focusin", function () { isPaused = true; });
+  section.addEventListener("focusout", function (event) {
+    if (!section.contains(event.relatedTarget)) isPaused = false;
+  });
+
+  window.addEventListener("resize", render, { passive: true });
+  track.addEventListener("focusin", function (event) {
+    const focusedCard = event.target.closest(".home-affiliates__card");
+    const index = cards.indexOf(focusedCard);
+    if (index < 0) return;
+    if (index < activeStart || index >= activeStart + getVisibleCount()) {
+      activeStart = Math.min(index, getMaxStart());
+    }
+    viewport.scrollLeft = 0;
+    render();
+  });
+  render();
+  startAutoPlay();
+}
+
 function setupSectionMotion() {
   const revealTargets = toArray(document.querySelectorAll("[data-home-reveal]"));
   if (revealTargets.length === 0) return;
@@ -657,5 +769,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
   setupContactCta();
   setupLatestNews();
+  setupAffiliatesCarousel();
   setupSectionMotion();
 });

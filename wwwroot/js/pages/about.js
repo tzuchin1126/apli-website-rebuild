@@ -58,6 +58,8 @@ const certificationPreviewEvents = [
 ];
 
 function setupAboutScrollMotion() {
+  // This function controls the profile cards and the certification section
+  // that appear while the visitor scrolls down the page.
   const page = document.querySelector(".about-page");
   if (!page) {
     return;
@@ -67,8 +69,13 @@ function setupAboutScrollMotion() {
   const certifications = page.querySelector(".about-certifications-preview");
 
   const targets = [];
-  if (facts) targets.push(facts);
-  if (certifications) targets.push(certifications);
+  if (facts) {
+    targets.push(facts);
+  }
+
+  if (certifications) {
+    targets.push(certifications);
+  }
   if (targets.length === 0) {
     return;
   }
@@ -77,10 +84,10 @@ function setupAboutScrollMotion() {
 
   const counters = [];
   if (facts) {
-    const factValues = facts.querySelectorAll(".about-profile__fact-value");
-    for (let i = 0; i < factValues.length; i++) {
-      const el = factValues[i];
-      const originalText = el.textContent.trim();
+      const factValues = facts.querySelectorAll(".about-profile__fact-value");
+      for (let i = 0; i < factValues.length; i++) {
+        const el = factValues[i];
+        const originalText = el.textContent.trim();
       const target = Number(originalText.replace(/[^\d.-]/g, ""));
       const suffix = originalText.indexOf("+") !== -1 ? "+" : "";
       if (Number.isFinite(target)) {
@@ -185,6 +192,7 @@ function setupAboutScrollMotion() {
 }
 
 function initCertificationPreview() {
+  // This function builds the certification timeline and connects its controls.
   const preview = document.querySelector("[data-certification-preview]");
   if (!preview) {
     return;
@@ -210,7 +218,10 @@ function initCertificationPreview() {
   const yearsByDecade = {};
   Object.keys(eventsByYear).forEach(function (year) {
     const yearNumber = Number(year);
-    if (!Number.isInteger(yearNumber)) return;
+    if (!Number.isInteger(yearNumber)) {
+      return;
+    }
+
     const decadeStart = Math.floor(yearNumber / 10) * 10;
     if (!yearsByDecade[decadeStart]) {
       yearsByDecade[decadeStart] = [];
@@ -244,18 +255,29 @@ function initCertificationPreview() {
   let pageOffsets = [];
 
   function getPageSize() {
-    if (window.matchMedia("(min-width: 1440px)").matches) return 4;
-    if (window.matchMedia("(min-width: 1200px)").matches) return 3;
-    if (window.matchMedia("(min-width: 768px)").matches) return 2;
+    if (window.matchMedia("(min-width: 1440px)").matches) {
+      return 4;
+    }
+
+    if (window.matchMedia("(min-width: 1200px)").matches) {
+      return 3;
+    }
+
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      return 2;
+    }
+
     return 1;
   }
 
   function getPages(decade) {
     const entries = decade.years.slice();
     const pages = [];
+
     for (let index = 0; index < entries.length; index += pageSize) {
       pages.push(entries.slice(index, index + pageSize));
     }
+
     return pages;
   }
 
@@ -303,11 +325,19 @@ function initCertificationPreview() {
   controls.replaceChildren(previousButton, nextButton);
 
   function setTrackPosition(animate) {
-    if (animate === undefined) animate = true;
+    if (animate === undefined) {
+      animate = true;
+    }
+
     const track = content.querySelector("[data-certification-preview-track]");
-    if (!track) return;
+    if (!track) {
+      return;
+    }
+
     const firstPage = track.firstElementChild;
-    if (!firstPage) return;
+    if (!firstPage) {
+      return;
+    }
 
     const globalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
     const targetPage = track.children[globalPageIndex];
@@ -331,9 +361,14 @@ function initCertificationPreview() {
 
   function syncStateFromScroll() {
     const track = content.querySelector("[data-certification-preview-track]");
-    if (!track) return;
+    if (!track) {
+      return;
+    }
+
     const firstPage = track.firstElementChild;
-    if (!firstPage || pageSets.length === 0) return;
+    if (!firstPage || pageSets.length === 0) {
+      return;
+    }
 
     const currentOffset = viewport.scrollLeft;
     let nearestPageIndex = 0;
@@ -356,7 +391,12 @@ function initCertificationPreview() {
       }
     }
     const nextPageIndex = nearestPageIndex - pageOffsets[nextDecadeIndex];
-    if (nextDecadeIndex === activeDecadeIndex && nextPageIndex === activePageIndex) return;
+    const stateHasNotChanged = nextDecadeIndex === activeDecadeIndex
+      && nextPageIndex === activePageIndex;
+
+    if (stateHasNotChanged) {
+      return;
+    }
 
     activeDecadeIndex = nextDecadeIndex;
     activePageIndex = nextPageIndex;
@@ -369,6 +409,7 @@ function initCertificationPreview() {
     const pages = getPages(decade);
     const isFirstPage = activeDecadeIndex === 0 && activePageIndex === 0;
     const isLastPage = activeDecadeIndex === decades.length - 1 && activePageIndex === pages.length - 1;
+
     previousButton.disabled = isFirstPage;
     nextButton.disabled = isLastPage;
   }
@@ -440,7 +481,10 @@ function initCertificationPreview() {
   }
 
   function renderTrack() {
-    if (pageSets.length === 0) return;
+    if (pageSets.length === 0) {
+      return;
+    }
+
     const sharedTimelineTrack = document.createElement("div");
     sharedTimelineTrack.className = "about-certifications-preview__shared-track";
     sharedTimelineTrack.setAttribute("aria-hidden", "true");
@@ -461,7 +505,11 @@ function initCertificationPreview() {
   }
 
   function activateDecade(index, moveFocus) {
-    if (index < 0 || index >= decadeButtons.length) return;
+    const isInvalidIndex = index < 0 || index >= decadeButtons.length;
+    if (isInvalidIndex) {
+      return;
+    }
+
     activeDecadeIndex = index;
     activePageIndex = 0;
     markActiveDecadeButton(index);
@@ -490,7 +538,10 @@ function initCertificationPreview() {
 
     if (nextDecadeIndex === activeDecadeIndex) {
       const boundedPageIndex = Math.max(0, Math.min(nextPageIndex, pages.length - 1));
-      if (boundedPageIndex === activePageIndex) return;
+      if (boundedPageIndex === activePageIndex) {
+        return;
+      }
+
       activePageIndex = boundedPageIndex;
     } else {
       activeDecadeIndex = nextDecadeIndex;
@@ -506,13 +557,30 @@ function initCertificationPreview() {
     button.addEventListener("click", function () {
       activateDecade(index);
     });
+
     button.addEventListener("keydown", function (event) {
       let nextIndex = index;
-      if (event.key === "ArrowRight") nextIndex = Math.min(index + 1, decadeButtons.length - 1);
-      if (event.key === "ArrowLeft") nextIndex = Math.max(index - 1, 0);
-      if (event.key === "Home") nextIndex = 0;
-      if (event.key === "End") nextIndex = decadeButtons.length - 1;
-      if (nextIndex === index) return;
+
+      if (event.key === "ArrowRight") {
+        nextIndex = Math.min(index + 1, decadeButtons.length - 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        nextIndex = Math.max(index - 1, 0);
+      }
+
+      if (event.key === "Home") {
+        nextIndex = 0;
+      }
+
+      if (event.key === "End") {
+        nextIndex = decadeButtons.length - 1;
+      }
+
+      if (nextIndex === index) {
+        return;
+      }
+
       event.preventDefault();
       activateDecade(nextIndex, true);
     });
@@ -531,8 +599,14 @@ function initCertificationPreview() {
   let dragStartScrollLeft = 0;
 
   viewport.addEventListener("mousedown", function (event) {
-    if (event.button !== 0) return;
-    if (event.target.closest("button")) return;
+    if (event.button !== 0) {
+      return;
+    }
+
+    if (event.target.closest("button")) {
+      return;
+    }
+
     isDragging = true;
     dragStartX = event.clientX;
     dragStartScrollLeft = viewport.scrollLeft;
@@ -558,13 +632,20 @@ function initCertificationPreview() {
 
   viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
   viewport.addEventListener("wheel", function (event) {
-    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 16) return;
+    const isMostlyVertical = Math.abs(event.deltaX) <= Math.abs(event.deltaY);
+    const horizontalMovementIsSmall = Math.abs(event.deltaX) < 16;
+
+    if (isMostlyVertical || horizontalMovementIsSmall) {
+      return;
+    }
+
     event.preventDefault();
     movePage(event.deltaX > 0 ? 1 : -1);
   }, { passive: false });
 
   window.addEventListener("resize", function () {
     const nextPageSize = getPageSize();
+
     if (nextPageSize === pageSize) {
       syncEventHeights();
       setTrackPosition(false);
