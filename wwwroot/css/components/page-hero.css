@@ -29,13 +29,13 @@
   object-fit: cover;
   object-position: var(--page-hero-image-position, center);
   transform-origin: var(--page-hero-image-origin, var(--page-hero-image-position, center));
-  transform: scale(var(--page-hero-image-scale)) translateY(var(--hero-offset, 0px));
+  transform: scale(var(--page-hero-image-scale));
   transition: transform var(--page-hero-image-duration) var(--page-hero-motion-easing);
   will-change: transform;
 }
 
 .page-hero__image.is-loaded {
-  transform: scale(1) translateY(var(--hero-offset, 0px));
+  transform: scale(1);
 }
 
 .page-hero__overlay {

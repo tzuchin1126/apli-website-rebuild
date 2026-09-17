@@ -1,5 +1,9 @@
 # APLI 專案進度
 
+## 2026-09-17
+
+- [x] 移除非首頁 Hero 圖片隨頁面上下捲動產生的垂直位移，保留圖片載入時的縮放動畫；已完成 `git diff --check`、`node --check wwwroot/js/site.js`，未進行瀏覽器畫面驗證。
+
 ## 2026-09-16
 
 - [x] 恢復共用 Hero 圖片載入完成後由放大比例回到正常比例的 `transform` 過渡效果；已完成靜態 CSS 檢查與 `git diff --check`，未進行瀏覽器畫面驗證。
