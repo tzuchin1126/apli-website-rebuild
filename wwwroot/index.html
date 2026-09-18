@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260907-site-alignment-v2">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
   <link rel="stylesheet" href="css/components/buttons.css">
-    <link rel="stylesheet" href="css/pages/home.css?v=20260917-about-curve-v4">
+    <link rel="stylesheet" href="css/pages/home.css?v=20260918-home-news-cards-v24">
   <link rel="stylesheet" href="css/site.css?v=20260907-site-alignment-v2">
 </head>
 <body class="home-page">
@@ -118,10 +118,19 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
 
+    <section class="home-latest site-container" aria-labelledby="home-latest-title">
+      <div class="home-latest__heading" data-home-reveal="left">
+        <h2 id="home-latest-title">最新消息</h2>
+        <a class="home-latest__all home-text-link" href="/news">更多 <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"></path></svg></a>
+      </div>
+      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
+        <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+      </div>
+    </section>
+
     <section class="home-services-compare" aria-labelledby="home-services-compare-title">
       <div class="site-container">
         <div class="home-services-compare__heading" data-home-reveal="up">
-          <p class="eyebrow">OUR SERVICES</p>
           <h2 id="home-services-compare-title">我們的服務</h2>
         </div>
         <div class="home-services-compare__grid">
@@ -200,7 +209,6 @@
         </figure>
         <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
           <div class="home-intro__heading">
-            <p class="eyebrow">ABOUT APLI</p>
             <h2 id="home-intro-title">關於亞太</h2>
           </div>
           <div class="home-intro__copy">
@@ -217,27 +225,8 @@
       </div>
     </section>
 
-    <section class="home-latest site-container" aria-labelledby="home-latest-title">
-      <div class="home-latest__heading" data-home-reveal="left">
-        <div>
-          <p class="eyebrow">NEWS &amp; EVENTS</p>
-          <h2 id="home-latest-title">最新消息</h2>
-        </div>
-        <div class="home-latest__actions">
-          <a class="button--primary home-text-link home-latest__all" href="/news">
-            查看全部
-          </a>
-          <div class="home-latest__pager" aria-label="最新消息輪播導覽" aria-hidden="true">
-          </div>
-        </div>
-      </div>
-      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
-        <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
-      </div>
-    </section>
     <section class="home-affiliates site-container" aria-labelledby="home-affiliates-title">
       <div class="home-affiliates__heading">
-        <p class="eyebrow">RELATED COMPANIES</p>
         <h2 id="home-affiliates-title">關係企業</h2>
       </div>
       <div class="home-affiliates__showcase">
@@ -336,6 +325,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/home.js?v=20260917-affiliates-image-rise"></script>
+  <script src="js/pages/home.js?v=20260918-home-news-cards-v10"></script>
 </body>
 </html>

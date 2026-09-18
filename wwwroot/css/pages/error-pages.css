@@ -24,7 +24,7 @@
   color: var(--color-ink);
   font-family: var(--font-heading);
   font-size: var(--font-size-display);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading-tight);
   letter-spacing: var(--letter-spacing-tight);
 }

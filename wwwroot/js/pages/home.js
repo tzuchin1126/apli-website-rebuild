@@ -213,14 +213,28 @@ function compareLatestNews(left, right) {
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
-
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const homeNewsLimit = 8;
   const viewport = list.closest(".home-latest__viewport");
 
-  const latestSection = list.closest(".home-latest");
-  const pager = latestSection ? latestSection.querySelector(".home-latest__pager") : null;
-  if (!viewport || !pager) return;
+  if (!viewport) return;
+
+  // 每張卡片直接管理滑鼠進出狀態，讓右下箭頭在各瀏覽器穩定顯示。
+  function setupCardHoverStates() {
+    const cards = toArray(list.querySelectorAll(".home-latest__item"));
+
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      card.addEventListener("mouseenter", function () {
+        card.classList.add("is-pointer-hovered");
+      });
+      card.addEventListener("mouseleave", function () {
+        card.classList.remove("is-pointer-hovered");
+      });
+    }
+  }
+
+  setupCardHoverStates();
 
   const loadingMessage = list.querySelector(".home-latest__empty");
   if (loadingMessage) loadingMessage.textContent = "最新消息載入中。";
@@ -239,6 +253,11 @@ function setupLatestNews() {
     if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
     if (hasDragged) suppressClick = true;
     activePointerId = null;
+
+    const cards = toArray(list.querySelectorAll(".home-latest__item"));
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove("is-pointer-hovered");
+    }
   }
 
   viewport.addEventListener("pointerdown", function (event) {
@@ -281,28 +300,20 @@ function setupLatestNews() {
     return value || "";
   }
 
+  function summarizeNewsCardContent(value) {
+    const content = (value || "").replace(/\s+/g, " ").trim();
+    const maximumLength = 68;
+
+    if (content.length <= maximumLength) return content;
+
+    return content.slice(0, maximumLength).trimEnd() + "…";
+  }
+
   // 用一則消息資料建立一張卡片（一個 <a> 連結）
   function buildNewsCard(item) {
     const link = document.createElement("a");
     link.className = "home-latest__item";
     link.href = "/news/" + encodeURIComponent(item.id);
-
-    const media = document.createElement("span");
-    media.className = "home-latest__media";
-    media.classList.add(item.imageUrl ? "has-image" : "is-default");
-    if (item.imageUrl) {
-      const image = document.createElement("img");
-      image.src = item.imageUrl;
-      image.alt = "";
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.addEventListener("error", function () {
-        image.remove();
-        media.classList.remove("has-image");
-        media.classList.add("is-default");
-      }, { once: true });
-      media.append(image);
-    }
 
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
@@ -318,28 +329,19 @@ function setupLatestNews() {
     const title = document.createElement("strong");
     title.textContent = item.title || "最新消息";
 
+    const summary = document.createElement("span");
+    summary.className = "home-latest__summary";
+    summary.textContent = summarizeNewsCardContent(item.content);
+
     const more = document.createElement("span");
     more.className = "home-latest__more";
-    more.append(document.createTextNode("查看更多 "));
-    const arrow = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    arrow.classList.add("home-text-link__icon");
-    arrow.setAttribute("viewBox", "0 0 24 24");
-    arrow.setAttribute("fill", "none");
-    arrow.setAttribute("stroke", "currentColor");
-    arrow.setAttribute("stroke-width", "1.8");
-    arrow.setAttribute("stroke-linecap", "round");
-    arrow.setAttribute("stroke-linejoin", "round");
-    arrow.setAttribute("aria-hidden", "true");
-    const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    arrowPath.setAttribute("d", "M5 19 19 5M8 5h11v11");
-    arrow.append(arrowPath);
-    more.append(arrow);
+    more.append(createArrow("right"));
 
     const body = document.createElement("span");
     body.className = "home-latest__body";
-    body.append(meta, title, more);
+    body.append(meta, title, summary, more);
 
-    link.append(media, body);
+    link.append(body);
     return link;
   }
 
@@ -352,7 +354,6 @@ function setupLatestNews() {
     message.className = "home-latest__empty";
     message.textContent = "目前沒有可顯示的最新消息。";
     list.append(message);
-    pager.replaceChildren();
   }
 
   // 假設 API 回傳為 camelCase JSON(ASP.NET Core System.Text.Json 預設)。
@@ -372,8 +373,8 @@ function setupLatestNews() {
         list.append(buildNewsCard(items[i]));
       }
 
+      setupCardHoverStates();
       viewport.scrollLeft = 0;
-      renderControls(items);
     } catch (error) {
       showEmptyMessage();
     }
@@ -382,229 +383,7 @@ function setupLatestNews() {
   loadNews();
 
   // 建立最新消息輪播的分頁與左右箭頭控制
-  function renderControls(items) {
-    function cardsPerPage() {
-      return 1;
-    }
 
-    const pageSize = cardsPerPage();
-    const isMobile = pageSize === 1;
-
-    // 檢查某個位置是不是已經在 positions 陣列裡了（誤差在 1px 內都算重複）
-    function containsPosition(positions, position) {
-      for (let i = 0; i < positions.length; i++) {
-        if (Math.abs(positions[i] - position) <= 1) return true;
-      }
-      return false;
-    }
-
-    function getPagePositions() {
-      const cards = toArray(list.querySelectorAll(".home-latest__item"));
-      if (cards.length === 0) return [];
-
-      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const firstCard = cards[0];
-      const positions = [];
-
-      for (let index = 0; index < cards.length; index += pageSize) {
-        const card = cards[index];
-        const position = Math.min(maxScroll, Math.max(0, card.offsetLeft - firstCard.offsetLeft));
-        if (!containsPosition(positions, position)) {
-          positions.push(position);
-        }
-      }
-
-      if (positions.length > 0) {
-        const lastPosition = positions[positions.length - 1];
-        if (maxScroll - lastPosition > 1) {
-          positions.push(maxScroll);
-        }
-      }
-
-      return positions;
-    }
-
-    const pages = Math.max(1, getPagePositions().length);
-
-    const controls = document.createElement("div");
-    controls.className = "home-latest__controls";
-    controls.setAttribute("role", "group");
-    controls.setAttribute("aria-label", "最新消息輪播控制");
-
-    const previous = document.createElement("button");
-    previous.type = "button";
-    previous.className = "home-latest__arrow home-latest__arrow--previous";
-    previous.setAttribute("aria-label", "上一則最新消息");
-    previous.append(createArrow("left"));
-
-    // 桌面用一排小圓點分頁按鈕；手機改用「01 / 04」這種文字計數器
-    const pageButtons = [];
-    if (!isMobile) {
-      for (let index = 0; index < pages; index++) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "home-latest__page";
-        button.setAttribute("aria-label", "顯示第 " + (index + 1) + " 組最新消息");
-        pageButtons.push(button);
-      }
-    }
-
-    const counter = isMobile ? document.createElement("span") : null;
-    if (counter) {
-      counter.className = "home-latest__counter";
-      counter.setAttribute("aria-live", "polite");
-      counter.setAttribute("aria-atomic", "true");
-    }
-
-    const next = document.createElement("button");
-    next.type = "button";
-    next.className = "home-latest__arrow home-latest__arrow--next";
-    next.setAttribute("aria-label", "下一則最新消息");
-    next.append(createArrow("right"));
-
-    controls.append(previous);
-    if (counter) {
-      controls.append(counter);
-    } else {
-      for (let i = 0; i < pageButtons.length; i++) {
-        controls.append(pageButtons[i]);
-      }
-    }
-    controls.append(next);
-    pager.replaceChildren(controls);
-    pager.removeAttribute("aria-hidden");
-
-    function padNumber(value) {
-      return String(value).padStart(2, "0");
-    }
-
-    function update() {
-      const page = getPage();
-
-      for (let i = 0; i < pageButtons.length; i++) {
-        const button = pageButtons[i];
-        const isActive = i === page;
-        button.classList.toggle("is-active", isActive);
-        if (isActive) button.setAttribute("aria-current", "page");
-        else button.removeAttribute("aria-current");
-      }
-
-      if (counter) {
-        counter.textContent = padNumber(page + 1) + " / " + padNumber(pages);
-        counter.setAttribute("aria-label", "第 " + (page + 1) + " 組，共 " + pages + " 組最新消息");
-      }
-
-      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
-      const isAtStart = scrollLeft <= 1;
-      const isAtEnd = maxScroll <= 1 || maxScroll - scrollLeft <= 1;
-
-      previous.disabled = isAtStart;
-      previous.setAttribute("aria-disabled", String(isAtStart));
-      next.disabled = isAtEnd;
-      next.setAttribute("aria-disabled", String(isAtEnd));
-    }
-
-    function getPage() {
-      const pagePositions = getPagePositions();
-      if (pagePositions.length === 0 || pages === 1) return 0;
-
-      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      if (maxScroll <= 1) return 0;
-
-      const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
-
-      // 找出離目前捲動位置最近的那一頁
-      let nearestPage = 0;
-      let nearestDistance = Math.abs(pagePositions[0] - scrollLeft);
-      for (let page = 1; page < pagePositions.length; page++) {
-        const distance = Math.abs(pagePositions[page] - scrollLeft);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestPage = page;
-        }
-      }
-      return nearestPage;
-    }
-
-    // 捲動到指定的最新消息分頁
-    function goTo(page) {
-      const cards = toArray(list.querySelectorAll(".home-latest__item"));
-      if (cards.length === 0) return;
-
-      const targetPage = Math.min(pages - 1, Math.max(0, page));
-      const targetCard = cards[targetPage * pageSize];
-      const firstCard = cards[0];
-      if (!targetCard || !firstCard) return;
-
-      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const targetPosition = Math.min(maxScroll, Math.max(0, targetCard.offsetLeft - firstCard.offsetLeft));
-
-      viewport.scrollTo({
-        left: targetPosition,
-        behavior: reducedMotion.matches ? "auto" : "smooth",
-      });
-    }
-
-    function moveByCard(offset) {
-      const cards = toArray(list.querySelectorAll(".home-latest__item"));
-      if (cards.length < 2) return;
-
-      const cardStep = cards[1].offsetLeft - cards[0].offsetLeft;
-      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const targetPosition = Math.min(maxScroll, Math.max(0, viewport.scrollLeft + (cardStep * offset)));
-
-      viewport.scrollTo({
-        left: targetPosition,
-        behavior: reducedMotion.matches ? "auto" : "smooth",
-      });
-    }
-
-    previous.addEventListener("click", function () {
-      moveByCard(-1);
-    });
-    next.addEventListener("click", function () {
-      moveByCard(1);
-    });
-    for (let i = 0; i < pageButtons.length; i++) {
-      const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
-      pageButtons[i].addEventListener("click", function () {
-        goTo(pageIndex);
-      });
-    }
-
-    let updateFrame = 0;
-    function scheduleUpdate() {
-      if (updateFrame) return;
-      updateFrame = window.requestAnimationFrame(function () {
-        updateFrame = 0;
-        update();
-      });
-    }
-
-    viewport.addEventListener("scroll", scheduleUpdate, { passive: true });
-
-    function onResize() {
-      if (cardsPerPage() !== pageSize) {
-        cleanup();
-        renderControls(items);
-        return;
-      }
-      scheduleUpdate();
-    }
-    window.addEventListener("resize", onResize, { passive: true });
-
-    update();
-
-    function cleanup() {
-      viewport.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", onResize);
-      if (updateFrame) {
-        window.cancelAnimationFrame(updateFrame);
-        updateFrame = 0;
-      }
-    }
-  }
 }
 
 // ---------------------------------------------------------------------------

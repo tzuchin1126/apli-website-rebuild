@@ -49,16 +49,6 @@
   align-self: end;
 }
 
-.operational-resources-page .eyebrow {
-  margin: 0 0 4px;
-  color: var(--color-text-body);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body-tight);
-  letter-spacing: var(--letter-spacing-label);
-}
-
 .operational-resources-page .resource-heading h2,
 .operational-resources-page .resources-section-heading h2 {
   position: relative;
@@ -68,7 +58,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--resources-title-size);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--resources-title-line-height);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -174,7 +164,7 @@
   box-shadow: none;
   color: var(--color-secondary);
   font-size: 1rem;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   gap: 8px;
   letter-spacing: .02em;
   line-height: 1.5;

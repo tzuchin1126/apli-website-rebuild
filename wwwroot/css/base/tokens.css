@@ -31,6 +31,7 @@
   --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
   --font-weight-regular: 400;
+  --font-weight-heading: 500;
   --font-weight-medium: 600;
   --font-weight-semibold: 600;
   --font-weight-normal: var(--font-weight-regular);
@@ -62,6 +63,7 @@
 
   --section-space: clamp(24px, 3vw, 40px);
   --section-space-sm: clamp(48px, 5vw, 64px);
+  --section-heading-content-gap: 40px;
   --page-content-start-space: clamp(72px, 7vw, 112px);
   --content-max-width: 1324px;
   --content-gutter: clamp(20px, 4vw, 64px);

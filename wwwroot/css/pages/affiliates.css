@@ -160,6 +160,7 @@
 .affiliate-section-heading h3,
 .affiliate-sexin-intro-heading h2 {
   margin: 0;
+  font-weight: var(--font-weight-heading);
 }
 
 .affiliate-tagline {
@@ -175,7 +176,7 @@
 .affiliate-panel h3 {
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
 }
@@ -559,7 +560,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-card-title-compact);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-card-title-compact);
 }
 
@@ -808,6 +809,7 @@
 .affiliate-sexin-profile-copy h2,
 .affiliate-sexin-profile-copy h3 {
   margin: 0;
+  font-weight: var(--font-weight-heading);
 }
 
 .affiliate-sexin-section-heading h3 {

@@ -53,7 +53,7 @@
   color: var(--color-text-on-dark);
   font-family: var(--font-body);
   font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading-tight);
   letter-spacing: var(--letter-spacing-tight);
 }

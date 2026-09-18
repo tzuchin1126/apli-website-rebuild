@@ -50,21 +50,12 @@
   box-shadow: var(--shadow-lg);
 }
 
-.admin-eyebrow {
-  margin: 0 0 12px;
-  color: var(--admin-muted);
-  font-size: .78rem;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: .12em;
-  line-height: 1.4;
-}
-
 .admin-login h1,
 .admin-header h1 {
   margin: 0;
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-heading);
   line-height: 1.25;
 }
 
@@ -261,12 +252,8 @@
   margin: 0;
   font-family: var(--font-heading);
   font-size: clamp(1.35rem, 2vw, 1.75rem);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-heading);
   line-height: 1.35;
-}
-
-.admin-card__heading .admin-eyebrow {
-  margin-bottom: 8px;
 }
 
 .admin-form__row {

@@ -259,7 +259,7 @@
   color: var(--news-card-text);
   font-family: var(--font-body);
   font-size: clamp(1.125rem, 1.4vw, 1.375rem);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   letter-spacing: .01em;
   line-height: 1.5;
   overflow-wrap: anywhere;

@@ -1,5 +1,59 @@
 # APLI 專案進度
 
+## 2026-09-18
+
+- [x] 將 `wwwroot/js/site.js` 的 `var` 改為區塊作用域的 `const`／`let`，同步修正迴圈事件 callback 的變數作用域；未改變功能流程；已執行 `node --check wwwroot/js/site.js` 與 `git diff --check`；未進行瀏覽器、手機、跨瀏覽器與完整人工無障礙驗證；未 commit。
+
+- [x] 補充 `site.js` 的圖片解碼與頁面載入流程註解，未變更執行邏輯；已執行 `node --check wwwroot/js/site.js` 與 `git diff --check`；未進行瀏覽器、手機、跨瀏覽器與完整人工無障礙驗證；未 commit。
+
+- [x] 透過實機焦點畫面與計算樣式定位首頁最新消息箭頭問題：箭頭 hover／focus 時 opacity 已為 1，但被舊規則覆寫為白色，於白色卡片上不可見。最終顯示規則改為固定深色，保留 opacity／位移。重新載入本機首頁後以鍵盤 focus 實機確認右下箭頭深色可見；hover 與 focus 共用同一最終顯示規則。更新 CSS cache-busting，`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+
+- [x] 依實際桌機首頁畫面確認最新消息卡片 hover 箭頭未顯示後，將事件委派改為每張卡片直接綁定 mouseenter／mouseleave；初始伺服器卡片與 API 重繪卡片都會綁定，拖曳結束仍清除狀態。更新 JavaScript cache-busting；待執行靜態檢查與實際 hover 複驗；未 commit。
+
+- [x] 修正首頁最新消息卡片 hover 箭頭未顯示：新增滑鼠進入／離開卡片的 JavaScript 狀態 class，CSS 以該狀態或鍵盤 focus 顯示右下箭頭；拖曳結束時清除狀態。更新 CSS／JavaScript cache-busting，`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；hover 畫面、手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+
+- [x] 補做首頁最新消息功能確認：本機首頁實際載入 5 張卡片，橫向列寬大於容器；點擊上一則後，下一則控制恢復可用，確認輪播控制可切換；瀏覽器 console 無錯誤，DOM 確認每張卡片均含右下箭頭 SVG。hover 視覺顯示、手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+
+- [x] 修正首頁最新消息卡片 hover 右下箭頭未出現：伺服器端卡片原本缺少箭頭標記且仍輸出圖片／摘要，現改為與 JavaScript 卡片相同的分類、日期、標題與線條右箭頭結構，讓前端 API 尚未完成載入時也能顯示。更新 CSS cache-busting，`dotnet build -c Release` 0 warnings／0 errors、`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；未進行瀏覽器驗證；未 commit。
+
+- [x] 依使用者澄清，恢復首頁最新消息右上角「更多」原本的膠囊外框、白底與細邊線；保留線條式 `>` chevron，避免 SVG 顯示為實心三角形。更新 CSS cache-busting，`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；未進行瀏覽器驗證；未 commit。
+
+- [x] 修正首頁最新消息右上角「更多」控制：移除不符合設計的膠囊外框，改為純文字連結；將 SVG fill 明確設為 none，固定顯示線條式 `>` chevron。更新 CSS cache-busting，`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；未進行瀏覽器驗證；未 commit。
+
+- [x] 移除首頁最新消息卡片列滑鼠移入時的左右晃動，保留 grab／grabbing 游標；標題右上角「更多」改用單純的 `>` 型 chevron 圖示。更新 CSS／JavaScript cache-busting，`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；未進行瀏覽器驗證；未 commit。
+
+- [x] 首頁最新消息卡片依參考圖調整：標題右上角的「更多」使用共用標準右箭頭，卡片第一列為分類與日期、第二列為標題，降低卡片高度，右下箭頭只在 hover／鍵盤 focus 顯示；滑鼠每次移入消息列時播放一次左右晃動提示並顯示 grab／grabbing 游標。首頁伺服器與 JavaScript 載入上限均提高為最新 8 則，現有公開消息可完整加入橫向拖曳列。已更新 CSS／JavaScript cache-busting，`dotnet build -c Release` 0 warnings／0 errors、`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過；未進行瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗證；未 commit。
+
+- [x] 依提供參考圖將首頁 Hero 下方「最新消息」由公告列恢復為可橫向瀏覽的白色文字卡片：日期置頂、標題置中段落、分類與箭頭置底，卡片列下方保留了解更多與左右輪播控制；恢復 JavaScript 最新三則資料載入，停止建立與載入新聞圖片。更新首頁 CSS／JavaScript cache-busting，已執行 `node --check wwwroot/js/pages/home.js` 與 `git diff --check`；尚未進行桌機／手機瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗證；未 commit。
+
+- [x] 標題層級統一使用 `--font-weight-heading: 500`，未修改一般文字、按鈕或其他共用角色的字重 token；已執行 `git diff --check` 與 `dotnet build -c Release`；未進行瀏覽器、手機、跨瀏覽器與完整人工無障礙驗證；未 commit。
+- [x] 全站移除公開頁面與管理後台的英文小標 HTML 標記及對應 CSS 規則，保留標題、內文與功能；已執行 `git diff --check` 與 `dotnet build -c Release`；未進行全站瀏覽器、手機、跨瀏覽器與完整人工無障礙驗證；未 commit。
+- [x] 首頁關係企業卡片改為桌機預設只顯示 Logo，hover／鍵盤 focus 顯示標題與敘述；觸控與手機維持文字可見。已執行 `git diff --check`；未進行瀏覽器、實體裝置、跨瀏覽器與完整人工無障礙驗證；未 commit。
+- [x] 撤回關於亞太文字區的白色閱讀層，改以地圖／圓弧起點下移避開標題與段落，讓背景裝飾從內容下方自然展開；保留主要按鈕樣式。更新 CSS cache-busting，已執行 git diff --check；待重新瀏覽器驗證。未 commit。
+- [x] 完成撤回後驗證：Edge 桌機畫面確認文字區恢復透明、地圖自內容下方展開，主要按鈕維持深色 48px；DOM 確認文字區背景透明且桌機無水平溢出。手機尺寸測試頁亦確認無水平溢出；因瀏覽器尺寸重設時截圖回到預設寬度，手機畫面細節未作為通過依據。實體裝置、跨瀏覽器與完整人工無障礙未驗證；未 commit。
+- [x] 提高首頁關於亞太可讀性：降低點陣地圖在文案區的對比，為文字內容增加白色閱讀層；恢復「了解更多」使用主要按鈕的深色底與橘色 hover，避免按鈕融入背景。更新 CSS cache-busting。已執行 git diff --check；本次待重新進行桌機／手機瀏覽器驗證。未 commit。
+- [x] 補做首頁關於亞太可讀性驗證：Edge 1440×1000 與 390×844 畫面確認文案背景層、主要按鈕辨識度及無水平溢出；DOM 確認按鈕桌機／手機皆為 48px 深色底。實體裝置、跨瀏覽器與完整人工無障礙未驗證；未 commit。
+
+- [x] 參考英業達地圖的滿幅延伸，調整首頁關於亞太／關係企業／CTA 銜接：點陣地圖依背景全寬縮放並提高辨識度，圓弧與淡出終點收於區塊內，增加圖片下方地圖展示空間；關係企業上方留白改為 24px、下方桌機 40–64px／手機 40px，銜接 CTA。保留既有 SVG、白色企業區塊及輪播互動。已以 Edge 1440×1000、390×844 畫面及 DOM 確認地圖淡出、企業與 CTA 排版、無水平溢出；git diff --check 通過。實體裝置、跨瀏覽器及完整人工無障礙未驗證；未 commit。
+
+- [x] 最新消息卡片底部長箭頭改為 20px SVG mask 右向 chevron（> 型），保留橘色、hover／focus 向右位移與 reduced-motion，更新 CSS 版本。git diff --check 通過；本次未進行桌機／手機瀏覽器及跨瀏覽器驗證。未 commit。
+
+- [x] 依使用者要求撤回最新消息淡藍灰漸層試套，恢復原本 color-surface-soft 背景、了解更多 medium 字重與試套前 CSS 版本；保留先前卡片分隔線、hover 及閱讀更多調整。git diff --check 通過；未重新進行瀏覽器驗證，未 commit。
+
+- [x] 試套最新消息背景為關係企業卡片相同的淡藍灰漸層（#edf0f5／#e3e8ef／#d8e0e9），保留直線分欄；了解更多字重降為 400，並更新 CSS cache-busting。git diff --check 通過；本次未進行桌機／手機瀏覽器及實體裝置驗證，視覺效果待確認。未 commit。
+
+- [x] 最新消息最後一張卡片補右側分隔線（手機不顯示直線）；了解更多 hover／focus 改為與關於亞太一致的透明背景、橘色文字、底線展開與斜箭頭位移。卡片底部改為閱讀更多與箭頭並略縮高度。已執行 git diff --check；本次桌機／手機瀏覽器、hover 實測與實體裝置未驗證。未 commit。
+
+- [x] 確認首頁最新消息伺服器輸出最多三則，並將 JavaScript 備援載入上限同步改為三則；消息列表頁不變。已執行 node 語法檢查與 git diff --check；本次未重新建置或瀏覽器驗證，執行中的舊版伺服器需重新啟動以載入既有 C# 上限修改。未 commit。
+
+- [x] 首頁最新消息「查看全部」改為「了解更多」，套用關於亞太的文字連結樣式；消息分類／日期移至標題上方，卡片箭頭於 hover／focus 向右移動 6px，並支援 reduced-motion。已以 Edge 桌機 1366×900、手機 390×844 畫面與 DOM 確認順序及無水平溢出，鍵盤 focus 的箭頭位移已確認；滑鼠 hover、實體裝置、跨瀏覽器與完整無障礙人工驗收未驗證。未 commit。
+
+- [x] 依使用者提供的緯創圖片將 Hero 下方最新消息改為橫向分欄公告帶：左側標題與查看全部，右側各則消息以直線分隔、標題在上、日期／分類在下並加上箭頭；依實際消息數平均分欄，手機改為上下排列。Edge 1366×900／390×844 實際畫面與 DOM 確認換行、鍵盤焦點及無水平溢出，`git diff --check` 通過。現有兩則公開消息，三則資料、實體裝置、跨瀏覽器與完整人工無障礙尚未驗證；未 commit。
+- [x] 補做首頁公告列 Edge 實際畫面驗證並修正兩項舊樣式殘留：清除公告內文固定列高，消除每則消息下方大段空白；恢復手機標題群組並固定查看全部連結不拆字。1366×900 桌機、768×900 平板、390×844 手機畫面及 DOM 確認 Hero／公告／服務順序、對齊、換行與無水平溢出，點擊公告可進入對應詳細頁。目前公開資料為兩則，尚未實測三則資料版型；實體裝置、跨瀏覽器與完整人工無障礙驗收未驗證。更新 CSS cache-busting，`git diff --check` 通過；未 commit。
+- [x] 將首頁最新消息移至 Hero 下方、服務項目上方，參考提供圖片改為淺灰公告列：桌機左側標題／查看全部、右側最新三則日期／分類／標題，手機改為上下排列；不顯示新聞圖片並停用該區輪播與進場隱藏，保留伺服器輸出及無 JavaScript 閱讀。Release 隔離輸出建置 0 warnings／0 errors、`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過，靜態確認區塊順序與唯一資料標記。尚未進行桌機／手機瀏覽器、實體裝置、跨瀏覽器與人工無障礙驗證；未 commit。
+- [x] 將首頁關係企業區塊背景明確固定為白色，避免受到全域背景 token 變更影響，並更新 CSS cache-busting。已完成 `git diff --check`；尚未進行瀏覽器桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗證；未 commit。
+- [x] 依英業達首頁的視覺方向調整首頁「關於亞太」背景：保留既有 `world-dot-map-plain-light.svg`，放大並下移點陣地圖、提高可見度與向下延伸範圍，重新調整淺灰半圓弧的起點、垂直半徑與底部銜接，並更新 CSS cache-busting。已完成 `git diff --check`；尚未進行瀏覽器桌機／手機、實體裝置、跨瀏覽器與人工無障礙驗證；未 commit。
+
 ## 2026-09-17
 
 - [x] 加強首頁「關於亞太」地球圓弧曲率：縮小背景水平外擴並加大垂直半徑，讓中央至兩側的落差更明顯，保留標題下方起點與底部淡出；同步調整手機曲率與 CSS cache-busting。Edge 1432px／390px 畫面確認、1920px DOM 檢查，無水平溢出；子代理完成曲率與圓角高度風險審查，`git diff --check` 通過。未驗證實體裝置、跨瀏覽器與人工無障礙；未 commit。
@@ -286,3 +340,18 @@
 - [x] 統一 careers 主要區塊左右寬度，移除局部 `1120px` 限制並沿用共用 `.site-container` 內容寬度；尚未進行瀏覽器驗證。
 - [x] 收緊「加入亞太」與「公司福利」區塊間距，移除福利區塊額外的上方 margin；尚未進行瀏覽器驗證。
 - [x] 移除 services 頁面三個服務區塊的 eyebrow 文案；聯絡區原本已隱藏，尚未進行瀏覽器驗證。
+- [x] 首頁最新消息卡片：標題字級調降為 `clamp(1.125rem, 1.02rem + .3vw, 1.3rem)`，標題下新增最多兩行的內文摘要（前端與 SSR 皆處理，長度最多 68 字）。已重新載入本機首頁確認摘要載入；`node --check wwwroot/js/pages/home.js`、`dotnet build -c Release` 及 `git diff --check` 通過。桌機畫面已檢視；手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 移除首頁最新消息的 `home-latest__footer`、左右切換按鈕、分頁控制與相關 CSS／JavaScript；保留卡片的原生橫向捲動與拖曳。已重新載入本機首頁確認控制列不再出現；`node --check wwwroot/js/pages/home.js` 與 `git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息摘要改用全域 `--color-text-body` 與 `--font-size-body`，卡片靜態與 hover 陰影改用全域 `--shadow-card`、`--shadow-lg`。已重新載入本機首頁並讀取實際樣式：摘要為 16px、`rgb(68, 80, 95)`，卡片陰影為 `0 6px 18px rgb(0 0 0 / 5%)`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息日期改用全域 `--color-text-body`，與摘要文字一致。已重新載入本機首頁並確認計算後色值為 `rgb(68, 80, 95)`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息卡片預設陰影改為 `none`，僅在 hover 或鍵盤 focus 時保留 `--shadow-lg`。已重新載入本機首頁確認靜止狀態計算陰影為 `none`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息卡片背景改用全域 `--color-surface-soft`，讓預設無陰影的卡片仍具有明確區隔。已重新載入本機首頁並確認實際背景為 `rgb(245, 245, 245)`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息卡片背景改為指定漸層 `linear-gradient(135deg, #edf0f5 0%, #e3e8ef 52%, #d8e0e9 100%)`。已重新載入本機首頁並確認瀏覽器計算後漸層；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 移除首頁最新消息卡片預設與 hover 的邊線規則，保留漸層背景和 hover 陰影。已重新載入本機首頁並確認計算後邊線為 `0px none`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 移除誤加在首頁最新消息標題列 `.home-latest__heading` 的邊線；卡片樣式未因本次修正變更。已重新載入本機首頁並確認標題列 `border-top-width` 為 `0px`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 移除首頁最新消息標題列下方原有的共用邊線，最終 `.home-latest__heading` 明確設為 `border: 0`。已重新載入本機首頁並確認 `border-bottom-width` 為 `0px`；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁最新消息標題與卡片的間距由 48px 收為 40px，卡片 hover／focus 的右下角標準右箭頭由 22px、1.8px 線寬調為 24px、2.2px 線寬。已重新載入本機首頁確認實際間距為 40px、箭頭為 24px／2.2px；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 新增全域 `--section-heading-content-gap: 40px`，首頁最新消息標題至卡片改為使用此 token；後續頁面區塊標題與主體內容沿用同一 token。已確認 CSS token 定義與首頁引用；`git diff --check` 通過。瀏覽器介面未回傳 CSS custom property 計算值，未將此列為實機樣式驗證；手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁服務卡片至 About 主體、About 主體至關係企業標題的視覺區塊距離統一為 80px：服務區下方、About 區塊上下方與關係企業上方均改為使用既有全域 `--section-space`（40px）組合。已重新載入本機首頁並確認兩段實際距離皆為 80px；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 依使用者要求，恢復首頁服務區、About 區塊與關係企業的原始區塊間距設定；全域標題到主體 40px token 保留。已重新載入本機首頁確認恢復後服務至 About 為 126px、About 至關係企業為 207px；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] 首頁「我們的服務」標題至卡片網格間距改用全域 `--section-heading-content-gap`，與最新消息一致為 40px。已重新載入本機首頁並確認實際距離為 40px；`git diff --check` 通過。手機、實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。

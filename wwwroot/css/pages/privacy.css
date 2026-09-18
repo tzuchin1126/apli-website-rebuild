@@ -14,7 +14,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -24,7 +24,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: 1.5;
 }
 

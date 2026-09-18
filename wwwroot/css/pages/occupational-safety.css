@@ -19,15 +19,6 @@
   padding-top: var(--section-space);
 }
 
-.safety-page .eyebrow {
-  margin: 0 0 4px;
-  color: var(--color-text-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body-tight);
-  letter-spacing: var(--letter-spacing-label);
-}
-
 .safety-page .safety-heading h2 {
   position: relative;
   width: fit-content;
@@ -35,7 +26,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.875rem, 2.3vw, 2.5rem);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: drop-shadow(0 2px 10px rgb(0 0 0 / 8%));
@@ -47,7 +38,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: clamp(1.875rem, 2.3vw, 2.5rem);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: none;
@@ -160,16 +151,6 @@
   display: grid;
   min-width: 0;
   gap: 0;
-}
-
-.safety-page .safety-credentials__heading .eyebrow {
-  margin: 0 0 8px;
-  color: var(--color-text-body);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-label);
-  line-height: var(--line-height-body-tight);
 }
 
 .safety-page .safety-credentials__heading > p:last-child {
@@ -290,7 +271,7 @@
   padding: 0;
   color: var(--color-ink);
   font-size: var(--font-size-card-title-compact);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-card-title);
   transform: translateY(20px);
 }

@@ -14,6 +14,7 @@
 .services-page .service-section__heading h2,
 .services-page .service-section__details h3 {
   font-family: var(--font-body);
+  font-weight: var(--font-weight-heading);
 }
 
 .services-page .services-content,
@@ -226,17 +227,6 @@
   text-align: left;
 }
 
-.services-page .service-section__heading .eyebrow {
-  margin: 0 0 4px;
-  color: var(--color-text-body);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-label);
-  line-height: var(--line-height-body-tight);
-  text-align: left;
-}
-
 .services-page .service-section__heading h2 {
   position: relative;
   width: fit-content;
@@ -245,13 +235,13 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--services-title-size);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
   text-align: left;
 }
 
-.services-page .service-section__heading > p:not(.eyebrow) {
+.services-page .service-section__heading > p {
   max-width: none;
   margin: 16px 0 0;
   color: var(--color-text-body);
@@ -261,7 +251,7 @@
   text-align: left;
 }
 
-.services-page .service-section__heading > p:not(.eyebrow) + p {
+.services-page .service-section__heading > p + p {
   margin-top: 12px;
 }
 
@@ -276,16 +266,12 @@
     text-align: left;
   }
 
-  .services-page .service-section__heading .eyebrow {
-    text-align: left;
-  }
-
   .services-page .service-section__heading h2 {
     margin-left: 0;
     text-align: left;
   }
 
-  .services-page .service-section__heading > p:not(.eyebrow) {
+  .services-page .service-section__heading > p {
     grid-column: 1;
     font-size: var(--font-size-card-description);
     line-height: var(--line-height-card-description);
@@ -476,7 +462,7 @@
   margin: 0;
   color: var(--color-ink);
   font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   letter-spacing: normal;
   line-height: 1.5;
 }
@@ -578,7 +564,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -602,7 +588,7 @@
   margin: 0 0 4px;
   color: var(--color-ink);
   font-size: var(--font-size-card-title-compact);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-card-title);
 }
 
@@ -643,7 +629,7 @@
   color: var(--color-secondary);
   font-family: var(--font-body);
   font-size: clamp(1.1rem, 1rem + 0.25vw, 1.25rem);
-  font-weight: var(--font-weight-section-heading);
+  font-weight: var(--font-weight-heading);
   letter-spacing: 0.04em;
   line-height: 1.5;
   text-align: left;
@@ -780,10 +766,6 @@
     text-align: left;
   }
 
-  .services-page .service-section__heading .eyebrow {
-    text-align: left;
-  }
-
   .services-page .service-section__heading h2 {
     margin-left: 0;
     font-size: var(--services-title-size);
@@ -797,7 +779,7 @@
     background: transparent;
   }
 
-  .services-page .service-section__heading > p:not(.eyebrow) {
+  .services-page .service-section__heading > p {
     grid-area: description;
     width: min(100%, 760px);
     max-width: 760px;
@@ -882,10 +864,6 @@
   padding: 24px clamp(28px, 4vw, 48px);
 }
 
-.services-page .services-contact__copy .eyebrow {
-  display: none;
-}
-
 .services-page .services-contact__card-heading {
   margin: 0;
   padding: 0;
@@ -893,7 +871,7 @@
   background: transparent;
   color: var(--color-surface);
   font-size: var(--font-size-card-title);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-card-title);
 }
 
@@ -971,7 +949,7 @@
 
   .services-page .services-advantages__heading h2 {
     font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-heading);
     line-height: var(--line-height-card-title);
   }
 

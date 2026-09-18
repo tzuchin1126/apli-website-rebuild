@@ -40,7 +40,7 @@ body.news-detail-page > main {
   color: var(--color-text-on-dark);
   font-family: var(--font-body);
   font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading-tight);
   letter-spacing: var(--letter-spacing-tight);
   overflow-wrap: anywhere;
@@ -99,7 +99,7 @@ body.news-detail-page > main {
   background: transparent;
 }
 .news-detail__meta > span { background: var(--color-primary-soft); }
-.news-detail h1 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-h2); font-weight: var(--font-weight-regular); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-tight); text-align: left; }
+.news-detail h1 { margin: 0; color: var(--color-ink); font-family: var(--font-body); font-size: var(--font-size-h2); font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-tight); text-align: left; }
 .news-detail__layout {
   display: block;
   width: 100%;
@@ -256,7 +256,7 @@ body.news-detail-page > main {
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
 }
