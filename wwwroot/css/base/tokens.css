@@ -40,6 +40,7 @@
   --font-size-display: clamp(2.5rem, 5vw, 4rem);
   --font-size-h1: clamp(2rem, 3.5vw, 3rem);
   --font-size-h2: clamp(1.625rem, 3vw, 2.5rem);
+  --font-size-section-heading: clamp(1.875rem, 2.3vw, 2.5rem);
   --font-size-h3: clamp(1.25rem, 1.8vw, 1.5rem);
   --font-size-card-title: 1.5rem;
   --font-size-card-title-compact: 1.25rem;

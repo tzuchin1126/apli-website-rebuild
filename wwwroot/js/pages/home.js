@@ -168,7 +168,7 @@ function setupContactCta() {
 }
 
 // ---------------------------------------------------------------------------
-// 最新消息:載入資料、渲染卡片、分頁控制、滑鼠拖曳捲動
+// 最新消息:載入資料並支援卡片列拖曳
 // ---------------------------------------------------------------------------
 
 // 建立最新消息輪播使用的方向箭頭 SVG（direction 為 "left" 或 "right"）
@@ -213,51 +213,130 @@ function compareLatestNews(left, right) {
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const homeNewsLimit = 8;
   const viewport = list.closest(".home-latest__viewport");
-
   if (!viewport) return;
-
-  // 每張卡片直接管理滑鼠進出狀態，讓右下箭頭在各瀏覽器穩定顯示。
-  function setupCardHoverStates() {
-    const cards = toArray(list.querySelectorAll(".home-latest__item"));
-
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-      card.addEventListener("mouseenter", function () {
-        card.classList.add("is-pointer-hovered");
-      });
-      card.addEventListener("mouseleave", function () {
-        card.classList.remove("is-pointer-hovered");
-      });
-    }
-  }
-
-  setupCardHoverStates();
-
+  const homeNewsLimit = 8;
+  const dotsContainer = document.querySelector("[data-home-latest-dots]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const loadingMessage = list.querySelector(".home-latest__empty");
   if (loadingMessage) loadingMessage.textContent = "最新消息載入中。";
 
-  // 滑鼠拖曳捲動
+  let dotsUpdateFrame = null;
+  let dotsPageStep = 1;
+
+  function getLatestPageStep(cards) {
+    if (cards.length === 0) return 1;
+
+    const viewportStyle = getComputedStyle(viewport);
+    const listStyle = getComputedStyle(list);
+    const paddingStart = Number.parseFloat(viewportStyle.scrollPaddingInlineStart) || 0;
+    const paddingEnd = Number.parseFloat(viewportStyle.scrollPaddingInlineEnd) || 0;
+    const gap = Number.parseFloat(listStyle.columnGap) || 0;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const stride = cardWidth + gap;
+    const availableWidth = viewport.clientWidth - paddingStart - paddingEnd;
+
+    if (stride <= 0) return 1;
+    return Math.max(1, Math.floor((availableWidth + gap + 1) / stride));
+  }
+
+  function updateLatestDots() {
+    if (!dotsContainer || dotsContainer.hidden) return;
+
+    const cards = toArray(list.querySelectorAll(".home-latest__item"));
+    const dots = toArray(dotsContainer.querySelectorAll(".home-latest__dot"));
+    if (cards.length === 0 || dots.length === 0) return;
+
+    const viewportLeft = viewport.getBoundingClientRect().left;
+    const scrollPadding = Number.parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
+    const anchorLeft = viewportLeft + scrollPadding;
+    let firstVisibleIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    for (let i = 0; i < cards.length; i++) {
+      const distance = Math.abs(cards[i].getBoundingClientRect().left - anchorLeft);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        firstVisibleIndex = i;
+      }
+    }
+
+    const activeIndex = Math.min(dots.length - 1, Math.floor(firstVisibleIndex / dotsPageStep));
+
+    for (let i = 0; i < dots.length; i++) {
+      const isActive = i === activeIndex;
+      dots[i].classList.toggle("is-active", isActive);
+      if (isActive) dots[i].setAttribute("aria-current", "true");
+      else dots[i].removeAttribute("aria-current");
+    }
+  }
+
+  function renderLatestDots() {
+    if (!dotsContainer) return;
+
+    const oldEndSpacer = list.querySelector(".home-latest__end-spacer");
+    if (oldEndSpacer) oldEndSpacer.remove();
+    const cards = toArray(list.querySelectorAll(".home-latest__item"));
+    dotsPageStep = getLatestPageStep(cards);
+    const pageCount = Math.ceil(cards.length / dotsPageStep);
+    dotsContainer.replaceChildren();
+    dotsContainer.hidden = pageCount < 2;
+    if (dotsContainer.hidden) return;
+
+    for (let i = 0; i < pageCount; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "home-latest__dot";
+      const startIndex = i * dotsPageStep;
+      dot.setAttribute("aria-label", "顯示第 " + (startIndex + 1) + " 則起的最新消息");
+      dot.addEventListener("click", function () {
+        const cardLeft = cards[startIndex].getBoundingClientRect().left;
+        const viewportLeft = viewport.getBoundingClientRect().left;
+        const scrollPadding = Number.parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
+        const targetLeft = Math.max(0, viewport.scrollLeft + cardLeft - viewportLeft - scrollPadding);
+        viewport.scrollTo({ left: targetLeft, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      });
+      dotsContainer.append(dot);
+    }
+
+    const lastPageStartIndex = (pageCount - 1) * dotsPageStep;
+    const lastCardLeft = cards[lastPageStartIndex].getBoundingClientRect().left;
+    const viewportLeft = viewport.getBoundingClientRect().left;
+    const scrollPadding = Number.parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
+    const lastPageScroll = viewport.scrollLeft + lastCardLeft - viewportLeft - scrollPadding;
+    const trailingSpace = Math.max(0, lastPageScroll + viewport.clientWidth - viewport.scrollWidth);
+    const endSpacer = document.createElement("span");
+    endSpacer.className = "home-latest__end-spacer";
+    endSpacer.setAttribute("aria-hidden", "true");
+    endSpacer.style.flex = "0 0 " + Math.ceil(trailingSpace) + "px";
+    list.append(endSpacer);
+
+    updateLatestDots();
+  }
+
+  if (dotsContainer) {
+    viewport.addEventListener("scroll", function () {
+      if (dotsUpdateFrame !== null) return;
+      dotsUpdateFrame = window.requestAnimationFrame(function () {
+        dotsUpdateFrame = null;
+        updateLatestDots();
+      });
+    }, { passive: true });
+    window.addEventListener("resize", renderLatestDots);
+  }
+
   let activePointerId = null;
   let dragStartX = 0;
   let dragStartScrollLeft = 0;
   let hasDragged = false;
   let suppressClick = false;
 
-  // 結束首頁最新消息的滑鼠拖曳狀態
   function finishPointerDrag(event) {
     if (event.pointerId !== activePointerId) return;
     viewport.classList.remove("is-dragging");
     if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
     if (hasDragged) suppressClick = true;
     activePointerId = null;
-
-    const cards = toArray(list.querySelectorAll(".home-latest__item"));
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove("is-pointer-hovered");
-    }
   }
 
   viewport.addEventListener("pointerdown", function (event) {
@@ -268,80 +347,78 @@ function setupLatestNews() {
     hasDragged = false;
     suppressClick = false;
   });
-
   viewport.addEventListener("pointermove", function (event) {
     if (event.pointerId !== activePointerId) return;
-
     const distance = event.clientX - dragStartX;
     if (Math.abs(distance) < 4) return;
-
     hasDragged = true;
     viewport.classList.add("is-dragging");
     if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
     event.preventDefault();
     viewport.scrollLeft = dragStartScrollLeft - distance;
   }, { passive: false });
-
   viewport.addEventListener("pointerup", finishPointerDrag);
   viewport.addEventListener("pointercancel", finishPointerDrag);
-
   viewport.addEventListener("click", function (event) {
     if (!suppressClick) return;
     suppressClick = false;
     event.preventDefault();
     event.stopPropagation();
   }, true);
-
-  viewport.addEventListener("dragstart", function (event) {
-    event.preventDefault();
-  });
-
-  function formatNewsCardDate(value) {
-    return value || "";
-  }
+  viewport.addEventListener("dragstart", function (event) { event.preventDefault(); });
 
   function summarizeNewsCardContent(value) {
     const content = (value || "").replace(/\s+/g, " ").trim();
-    const maximumLength = 68;
-
-    if (content.length <= maximumLength) return content;
-
-    return content.slice(0, maximumLength).trimEnd() + "…";
+    return content.length <= 68 ? content : content.slice(0, 68).trimEnd() + "…";
   }
 
-  // 用一則消息資料建立一張卡片（一個 <a> 連結）
   function buildNewsCard(item) {
     const link = document.createElement("a");
     link.className = "home-latest__item";
     link.href = "/news/" + encodeURIComponent(item.id);
 
-    const meta = document.createElement("span");
-    meta.className = "home-latest__meta";
-    const tag = document.createElement("span");
-    tag.textContent = item.tag || "最新消息";
-
-    const time = document.createElement("time");
-    time.className = "home-latest__date";
-    time.dateTime = item.date || "";
-    time.textContent = formatNewsCardDate(item.date);
-    meta.append(tag, time);
-
-    const title = document.createElement("strong");
-    title.textContent = item.title || "最新消息";
-
-    const summary = document.createElement("span");
-    summary.className = "home-latest__summary";
-    summary.textContent = summarizeNewsCardContent(item.content);
+    const media = document.createElement("span");
+    media.className = "home-latest__media";
+    if (item.imageUrl) {
+      const image = document.createElement("img");
+      image.src = item.imageUrl;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.addEventListener("error", function () { image.remove(); }, { once: true });
+      media.classList.add("has-image");
+      media.append(image);
+    } else {
+      media.classList.add("is-default");
+    }
 
     const more = document.createElement("span");
     more.className = "home-latest__more";
+    more.setAttribute("aria-hidden", "true");
     more.append(createArrow("right"));
+
+    const meta = document.createElement("span");
+    meta.className = "home-latest__meta";
+    const tag = document.createElement("span");
+    tag.className = "home-latest__category";
+    tag.textContent = item.tag || "最新消息";
+    const time = document.createElement("time");
+    time.className = "home-latest__date";
+    time.dateTime = item.date || "";
+    time.textContent = item.date;
+    meta.append(time, tag);
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+    const summary = document.createElement("span");
+    summary.className = "home-latest__summary";
+    summary.textContent = summarizeNewsCardContent(item.content);
 
     const body = document.createElement("span");
     body.className = "home-latest__body";
     body.append(meta, title, summary, more);
 
-    link.append(body);
+    link.append(media, body);
     return link;
   }
 
@@ -372,18 +449,16 @@ function setupLatestNews() {
       for (let i = 0; i < items.length; i++) {
         list.append(buildNewsCard(items[i]));
       }
-
-      setupCardHoverStates();
       viewport.scrollLeft = 0;
+      renderLatestDots();
     } catch (error) {
       showEmptyMessage();
+      renderLatestDots();
     }
   }
 
+  renderLatestDots();
   loadNews();
-
-  // 建立最新消息輪播的分頁與左右箭頭控制
-
 }
 
 // ---------------------------------------------------------------------------
@@ -397,19 +472,21 @@ function setupAffiliatesCarousel() {
   const viewport = section.querySelector(".home-affiliates__viewport");
   const track = section.querySelector("[data-affiliates-track]");
   const cards = toArray(section.querySelectorAll(".home-affiliates__card"));
-  const previous = section.querySelector("[data-affiliates-previous]");
-  const next = section.querySelector("[data-affiliates-next]");
-  if (!viewport || !track || cards.length === 0 || !previous || !next) return;
-
-  previous.replaceChildren(createArrow("left"));
-  next.replaceChildren(createArrow("right"));
+  if (!viewport || !track || cards.length === 0) return;
 
   let activeStart = 0;
   let carouselTimer = null;
   let isPaused = false;
+  let activePointerId = null;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartOffset = 0;
+  let dragDistance = 0;
+  let hasDragged = false;
+  let suppressClick = false;
   const originalCount = cards.length;
 
-  for (let index = 0; index < getVisibleCount(); index++) {
+  for (let index = 0; index < Math.max(4, getVisibleCount()); index++) {
     const clone = cards[index].cloneNode(true);
     clone.setAttribute("aria-hidden", "true");
     clone.setAttribute("tabindex", "-1");
@@ -423,53 +500,100 @@ function setupAffiliatesCarousel() {
     return 4;
   }
 
-  function getMaxStart() {
-    return originalCount;
+  function getCardStep() {
+    const cardStyle = window.getComputedStyle(track);
+    const gap = parseFloat(cardStyle.columnGap || cardStyle.gap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
   }
 
   function render() {
-    const firstCard = cards[0];
-    const cardStyle = window.getComputedStyle(track);
-    const gap = parseFloat(cardStyle.columnGap || cardStyle.gap) || 0;
-    const cardStep = firstCard.getBoundingClientRect().width + gap;
-    const maxStart = getMaxStart();
-
-    activeStart = Math.min(activeStart, maxStart);
-    track.style.transform = "translate3d(" + (-activeStart * cardStep) + "px, 0, 0)";
-    previous.disabled = activeStart === 0;
-    next.disabled = false;
-    previous.setAttribute("aria-disabled", String(previous.disabled));
-    next.setAttribute("aria-disabled", String(next.disabled));
+    activeStart = Math.min(activeStart, originalCount);
+    track.style.transform = "translate3d(" + (-activeStart * getCardStep()) + "px, 0, 0)";
   }
 
-  previous.addEventListener("click", function () {
-    activeStart = Math.max(0, activeStart - getVisibleCount());
+  track.addEventListener("transitionend", function (event) {
+    if (event.target !== track || event.propertyName !== "transform" || activeStart < originalCount) return;
+    track.style.transition = "none";
+    activeStart = 0;
     render();
+    window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
   });
 
-  next.addEventListener("click", function () {
-    const maxStart = getMaxStart();
-    if (activeStart >= maxStart) {
-      track.style.transition = "none";
-      activeStart = 0;
+  function finishDrag(event) {
+    if (event.pointerId !== activePointerId) return;
+    viewport.classList.remove("is-dragging");
+    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+
+    if (hasDragged && event.type === "pointerup") {
+      const step = getCardStep();
+      const threshold = Math.max(32, step * 0.16);
+      if (Math.abs(dragDistance) >= threshold) {
+        const steps = Math.max(1, Math.round(Math.abs(dragDistance) / step));
+        activeStart = dragDistance < 0 ? Math.min(originalCount, activeStart + steps) : Math.max(0, activeStart - steps);
+        if (activeStart >= originalCount) {
+          track.style.transition = "none";
+          activeStart = 0;
+          render();
+          window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
+        } else {
+          render();
+        }
+      } else {
+        render();
+      }
+      suppressClick = true;
+    } else if (hasDragged) {
       render();
-      window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
+    }
+
+    activePointerId = null;
+    hasDragged = false;
+    isPaused = false;
+  }
+
+  viewport.addEventListener("pointerdown", function (event) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (!event.isPrimary) return;
+    activePointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStartOffset = -activeStart * getCardStep();
+    dragDistance = 0;
+    hasDragged = false;
+    suppressClick = false;
+  });
+
+  viewport.addEventListener("pointermove", function (event) {
+    if (event.pointerId !== activePointerId) return;
+    const distanceX = event.clientX - dragStartX;
+    const distanceY = event.clientY - dragStartY;
+    if (!hasDragged && Math.max(Math.abs(distanceX), Math.abs(distanceY)) < 5) return;
+    if (!hasDragged && Math.abs(distanceY) > Math.abs(distanceX)) {
+      activePointerId = null;
       return;
     }
-    activeStart += 1;
-    render();
-  });
+
+    hasDragged = true;
+    isPaused = true;
+    dragDistance = distanceX;
+    viewport.classList.add("is-dragging");
+    if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
+    event.preventDefault();
+    track.style.transform = "translate3d(" + (dragStartOffset + distanceX) + "px, 0, 0)";
+  }, { passive: false });
+
+  viewport.addEventListener("pointerup", finishDrag);
+  viewport.addEventListener("pointercancel", finishDrag);
+  viewport.addEventListener("click", function (event) {
+    if (!suppressClick) return;
+    suppressClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  viewport.addEventListener("dragstart", function (event) { event.preventDefault(); });
 
   function moveToNextGroup() {
     if (isPaused) return;
-    const maxStart = getMaxStart();
-    if (activeStart >= maxStart) {
-      track.style.transition = "none";
-      activeStart = 0;
-      render();
-      window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
-      return;
-    }
     activeStart += 1;
     render();
   }
@@ -477,11 +601,9 @@ function setupAffiliatesCarousel() {
   function startAutoPlay() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     window.clearInterval(carouselTimer);
-    carouselTimer = window.setInterval(moveToNextGroup, 5000);
+    carouselTimer = window.setInterval(moveToNextGroup, 4000);
   }
 
-  section.addEventListener("mouseenter", function () { isPaused = true; });
-  section.addEventListener("mouseleave", function () { isPaused = false; });
   section.addEventListener("focusin", function () { isPaused = true; });
   section.addEventListener("focusout", function (event) {
     if (!section.contains(event.relatedTarget)) isPaused = false;
@@ -493,7 +615,7 @@ function setupAffiliatesCarousel() {
     const index = cards.indexOf(focusedCard);
     if (index < 0) return;
     if (index < activeStart || index >= activeStart + getVisibleCount()) {
-      activeStart = Math.min(index, getMaxStart());
+    activeStart = Math.min(index, originalCount);
     }
     viewport.scrollLeft = 0;
     render();

@@ -132,24 +132,21 @@ public static class NewsSeoService
     var link = $"/news/{Uri.EscapeDataString(newsId)}";
     var tag = Encode(string.IsNullOrWhiteSpace(item.Tag) ? "最新消息" : item.Tag);
     var summary = Summarize(item.Content);
-
     if (summary.Length > 68)
-    {
       summary = $"{summary[..68].TrimEnd()}…";
-    }
+
+    var imageHtml = string.IsNullOrWhiteSpace(item.ImageUrl)
+      ? string.Empty
+      : $"<img src=\"{Encode(item.ImageUrl)}\" alt=\"\" loading=\"lazy\" decoding=\"async\">";
 
     return $"""
             <a class="home-latest__item" href="{link}">
+              <span class="home-latest__media {(string.IsNullOrWhiteSpace(item.ImageUrl) ? "is-default" : "has-image")}">{imageHtml}</span>
               <span class="home-latest__body">
-                <span class="home-latest__meta">
-                  <span>{tag}</span>
-                  <time class="home-latest__date" datetime="{Encode(item.Date)}">{Encode(item.Date)}</time>
-                </span>
+                <span class="home-latest__meta"><time class="home-latest__date" datetime="{Encode(item.Date)}">{Encode(item.Date)}</time><span class="home-latest__category">{tag}</span></span>
                 <strong>{Encode(item.Title)}</strong>
                 <span class="home-latest__summary">{Encode(summary)}</span>
-                <span class="home-latest__more" aria-hidden="true">
-                  <svg class="home-latest__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                </span>
+                <span class="home-latest__more" aria-hidden="true"><svg class="home-latest__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
               </span>
             </a>
             """;

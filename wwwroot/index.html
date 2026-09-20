@@ -17,11 +17,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260907-site-alignment-v2">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260920-section-heading-token-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260907-site-alignment-v2">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
   <link rel="stylesheet" href="css/components/buttons.css">
-    <link rel="stylesheet" href="css/pages/home.css?v=20260918-home-news-cards-v24">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260920-affiliates-fixed-height-v1">
   <link rel="stylesheet" href="css/site.css?v=20260907-site-alignment-v2">
 </head>
 <body class="home-page">
@@ -118,23 +118,13 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
 
-    <section class="home-latest site-container" aria-labelledby="home-latest-title">
-      <div class="home-latest__heading" data-home-reveal="left">
-        <h2 id="home-latest-title">最新消息</h2>
-        <a class="home-latest__all home-text-link" href="/news">更多 <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"></path></svg></a>
-      </div>
-      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
-        <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
-      </div>
-    </section>
-
     <section class="home-services-compare" aria-labelledby="home-services-compare-title">
       <div class="site-container">
         <div class="home-services-compare__heading" data-home-reveal="up">
           <h2 id="home-services-compare-title">我們的服務</h2>
         </div>
         <div class="home-services-compare__grid">
-          <article class="home-services-compare__card" data-home-reveal="up" data-home-delay="100">
+          <a class="home-services-compare__card" href="/services#warehousing" data-home-reveal="up" data-home-delay="100">
             <div class="home-services-compare__media">
               <img src="public/images/index/01.png" width="1536" height="1024" alt="倉儲物流作業" loading="lazy" decoding="async">
             </div>
@@ -144,18 +134,15 @@
                 <div class="home-services-compare__details">
                   <p>提供貨櫃裝卸、拆裝櫃、倉儲與貨櫃存放管理服務。</p>
                 </div>
-                <div class="home-services-compare__actions">
-                  <a class="home-text-link home-services-compare__action" href="/services#warehousing">
-                    查看服務
-                    <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 19 19 5M8 5h11v11"></path>
-                    </svg>
-                  </a>
-                </div>
               </div>
             </div>
-          </article>
-          <article class="home-services-compare__card" data-home-reveal="up" data-home-delay="200">
+            <span class="home-services-compare__arrow" aria-hidden="true">
+              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
+          <a class="home-services-compare__card" href="/services#terminal-handling" data-home-reveal="up" data-home-delay="200">
             <div class="home-services-compare__media">
               <img src="public/images/services/container-yard-teamwork.jpg" width="4912" height="3264" alt="貨櫃清潔與維修作業" loading="lazy" decoding="async">
             </div>
@@ -165,18 +152,15 @@
                 <div class="home-services-compare__details">
                   <p>由專業團隊執行貨櫃清洗、檢查與結構修復。</p>
                 </div>
-                <div class="home-services-compare__actions">
-                  <a class="home-text-link home-services-compare__action" href="/services#terminal-handling">
-                    查看服務
-                    <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 19 19 5M8 5h11v11"></path>
-                    </svg>
-                  </a>
-                </div>
               </div>
             </div>
-          </article>
-          <article class="home-services-compare__card" data-home-reveal="up" data-home-delay="300">
+            <span class="home-services-compare__arrow" aria-hidden="true">
+              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
+          <a class="home-services-compare__card" href="/services#maintenance" data-home-reveal="up" data-home-delay="300">
             <div class="home-services-compare__media">
               <img src="public/images/services/port-equipment-maintenance.jpg" width="1538" height="1022" alt="港區機具維修與銷售作業" loading="lazy" decoding="async">
             </div>
@@ -186,57 +170,71 @@
                 <div class="home-services-compare__details">
                   <p>提供港區機具保養、維修與設備銷售服務。</p>
                 </div>
-                <div class="home-services-compare__actions">
-                  <a class="home-text-link home-services-compare__action" href="/services#maintenance">
-                    查看服務
-                    <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 19 19 5M8 5h11v11"></path>
-                    </svg>
-                  </a>
-                </div>
               </div>
             </div>
-          </article>
+            <span class="home-services-compare__arrow" aria-hidden="true">
+              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>
+
     <section class="home-intro-section" aria-labelledby="home-intro-title">
       <div class="home-intro site-container">
-        <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
-          <picture>
-            <img src="public/images/index/09.png" width="1537" height="1023" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
-          </picture>
-        </figure>
         <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
           <div class="home-intro__heading">
             <h2 id="home-intro-title">關於亞太</h2>
           </div>
-          <div class="home-intro__copy">
-            <p>亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日迄今屆滿五十年。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。</p>
-            <p>結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
+          <div class="home-intro__description">
+            <p>亞太國際物流股份有限公司於1973年8月7日成立，位於高雄港第三貨櫃中心後線，提供貨櫃物流管理、船舶裝卸、機具維修保養，以及運輸、報關、包裝與流通加工等服務，支援海陸進出口與轉運需求。</p>
           </div>
-          <a class="button--primary home-text-link" href="/about">
-            了解更多
-            <svg class="home-text-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 19 19 5M8 5h11v11"></path>
-            </svg>
-          </a>
+          <div class="home-intro__actions">
+            <a class="button--primary home-text-link" href="/about">
+              了解更多
+              <span class="home-intro__arrow-window" aria-hidden="true">
+                <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false">
+                  <path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path>
+                </svg>
+                <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false">
+                  <path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <figure class="home-intro__media" data-home-reveal="right" data-home-delay="100">
+          <picture>
+            <img src="public/images/index/09.png" width="1821" height="864" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+      </div>
+    </section>
+    <section class="home-latest site-container" aria-labelledby="home-latest-title">
+      <div class="home-latest__heading" data-home-reveal="left">
+        <div>
+          <h2 id="home-latest-title">最新消息</h2>
+        </div>
+        <div class="home-latest__actions">
+          <a class="home-latest__all home-text-link" href="/news">更多 <span class="home-intro__arrow-window" aria-hidden="true"><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></a>
         </div>
       </div>
+      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
+        <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+      </div>
+      <div class="home-latest__dots" data-home-latest-dots role="group" aria-label="最新消息輪播" hidden></div>
     </section>
 
     <section class="home-affiliates site-container" aria-labelledby="home-affiliates-title">
       <div class="home-affiliates__heading">
         <h2 id="home-affiliates-title">關係企業</h2>
       </div>
-      <div class="home-affiliates__showcase">
-        <button class="home-affiliates__arrow home-affiliates__arrow--previous" type="button" data-affiliates-previous aria-label="上一組關係企業" disabled>
-          <span aria-hidden="true">←</span>
-        </button>
         <div class="home-affiliates__viewport">
           <div class="home-affiliates__grid" data-affiliates-track>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看世新貨櫃關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/01.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>世新貨櫃</strong>
             <span class="home-affiliates__description">專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</span>
@@ -244,7 +242,7 @@
           </span>
         </a>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏油品關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/小港加油站.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>亞柏油品</strong>
             <span class="home-affiliates__description">提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</span>
@@ -252,7 +250,7 @@
           </span>
         </a>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏會舘關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-club-exterior.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>亞柏會舘</strong>
             <span class="home-affiliates__description">提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</span>
@@ -260,7 +258,7 @@
           </span>
         </a>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-badminton-player.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>亞柏羽球隊</strong>
             <span class="home-affiliates__description">投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</span>
@@ -268,7 +266,7 @@
           </span>
         </a>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看太報關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/transparent/taisounds.png" alt="太報 TaiSounds Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/taisounds.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/taisounds.png" alt="太報 TaiSounds Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>太報 TaiSounds</strong>
             <span class="home-affiliates__description">以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</span>
@@ -276,7 +274,7 @@
           </span>
         </a>
         <a class="home-affiliates__card" href="/affiliates" aria-label="查看 ALPHA TOTAL SOLUTION 關係企業">
-          <span class="home-affiliates__logo"><img src="public/images/logo/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></span>
+          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/alpha-port-equipment.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark home-affiliates__mark--light-source" src="public/images/logo/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>ALPHA TOTAL SOLUTION</strong>
             <span class="home-affiliates__description">提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</span>
@@ -285,10 +283,6 @@
         </a>
           </div>
         </div>
-        <button class="home-affiliates__arrow home-affiliates__arrow--next" type="button" data-affiliates-next aria-label="下一組關係企業">
-          <span aria-hidden="true">→</span>
-        </button>
-      </div>
     </section>
     <section class="home-contact-cta" aria-label="聯絡我們與人才招募">
       <article class="home-contact-cta__panel home-contact-cta__panel--contact" tabindex="0" aria-labelledby="home-contact-cta-title">
@@ -325,6 +319,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/home.js?v=20260918-home-news-cards-v10"></script>
+  <script src="js/pages/home.js?v=20260920-affiliates-loop-v1"></script>
 </body>
 </html>
