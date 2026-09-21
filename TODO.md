@@ -1,6 +1,16 @@
 # APLI 專案進度
 
 ## 2026-09-21
+- [x] 加強首頁「關於亞太」按鈕 hover 底線辨識度：改為 2px 橘線，預設隱藏、hover／focus 展開；更新首頁 CSS cache key。Edge 確認桌機 hover 時 2px 橘線完整顯示，390px 手機無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About 快速連結 CTA 區標題改為「了解更多」，關係企業卡片改用公司建築物照片；「了解更多」hover 下線與雙箭頭滑入效果比照首頁「關於亞太」按鈕，三卡箭頭統一為同一 SVG path；更新 About CSS cache key。Edge 預覽確認載入 v8 CSS、hover 下線展開及箭頭滑入，圖示尺寸維持 16×16；`git diff --check` 通過；未 commit。
+- [x] About CTA 移除上框線與敘述，標題左對齊並改為「關於亞太」，卡片標題字重設為 400；更新 About CSS cache key；Edge 靜態預覽 1440px 桌機與 390px 手機確認標題對齊、卡片排列及無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About 快速連結桌機改為三張圖片卡片同列，調整比例與間距；手機維持單欄；更新 About CSS cache key；Edge 靜態預覽 1440px 桌機確認三卡同列、390px 手機確認單欄與無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About 快速連結依參考改為寬幅圖片 CTA 卡片：桌機雙欄、第三張置中，手機單欄；各卡呈現標題、「了解更多」及雙箭頭動畫，使用公司沿革、營運資源、碼頭吊車照片；更新 About CSS cache key；Edge 靜態預覽 1440px 桌機與 390px 手機確認卡片位置、圖片與無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About 快速連結 CTA 標題改為「繼續探索亞太」，按鈕縮小至 56px 高／16px 字級並保留 hover 邊線原色，箭頭恢復雙箭頭滑入動畫及減少動態偏好；更新 About CSS cache key；Edge 靜態預覽 1440px 桌機與 390px 手機確認排列及無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About「亞太多元事業版圖」改為快速連結 CTA，提供公司沿革、營運資源及關係企業三個頁面入口；更新 About CSS cache key；Edge 靜態預覽 1440px 桌機及 390px 手機確認排列與無水平溢出；`git diff --check` 通過；未 commit。
+- [x] About 經營理念於 840px 以下改為置中、最大寬度 560px 的 16:10 卡片，降低窄螢幕單欄卡片高度；更新 About CSS cache key；`git diff --check` 通過；未做桌機／手機瀏覽器畫面確認；未 commit。
+- [x] 首頁最新消息最多顯示筆數由 8 筆調為 5 筆，更新首頁 JS cache key；`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁最新消息列表標題字級由 22px 調為桌機 20px、手機 18px，更新首頁 CSS cache key；`git diff --check` 通過；未做瀏覽器桌機／手機畫面確認；未 commit。
 - [x] 依需求移除 About Hero 下方快速導覽及其專屬樣式與 anchor scroll margin，保留各內容區塊 ID；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
 - [x] About 快速導覽連結字重限定為 400，導覽項目 gap 統一為 30px，手機維持相同間距並可橫向滑動；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
 - [x] About Hero 下方新增四項區塊錨點導覽（關於亞太、經營理念、認證與獎項、關係企業），桌機深色橫列、手機橫向滑動；設定固定 Header／導覽列高度對應的 anchor scroll margin。更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。

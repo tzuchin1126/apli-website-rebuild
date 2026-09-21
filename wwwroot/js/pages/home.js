@@ -217,7 +217,7 @@ function compareLatestNews(left, right) {
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
-  const homeNewsLimit = 8;
+  const homeNewsLimit = 5;
 
   function buildNewsCard(item) {
     const link = document.createElement("a");

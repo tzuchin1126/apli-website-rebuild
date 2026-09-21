@@ -113,19 +113,34 @@
   .about-page .about-certifications-preview__events { grid-row: 3; }
 }
 
-.about-page .about-affiliates { display: grid; width: 100%; place-items: center; box-sizing: border-box; margin: 0; padding: clamp(64px, 7vw, 96px) var(--content-gutter); isolation: isolate; background: linear-gradient(90deg, rgb(0 0 0 / 62%), rgb(0 0 0 / 32%)), url("../../public/images/affiliates/affiliates-hero.jpg") center 5% / cover; color: var(--color-surface); }
+.about-page .about-affiliates { display: grid; width: 100%; place-items: center; box-sizing: border-box; margin: 0; padding: clamp(56px, 6vw, 88px) var(--content-gutter); background: var(--color-surface); color: var(--color-text-primary); }
 .about-page .about-affiliates > .site-container { width: var(--content-width); }
-.about-page .about-affiliates__content { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: clamp(40px, 8vw, 120px); text-align: left; }
-.about-page .about-affiliates__copy h2 { margin: 0; color: var(--color-surface); font-size: clamp(1.5rem, 2vw, 2rem); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
-.about-page .about-affiliates__action { display: grid; justify-items: start; gap: 24px; }
-.about-page .about-affiliates__action p { margin: 0; color: var(--color-surface); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
-.about-page .about-affiliates__link { position: relative; display: inline-flex; width: fit-content; min-height: 52px; align-items: center; gap: var(--button-primary-gap); margin: 0; padding: 0 24px; border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); background: var(--color-surface); box-shadow: none; color: var(--color-text-primary); font-size: 1.125rem; font-weight: var(--font-weight-regular); line-height: 1; text-decoration: none; transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease; }
-.about-page .about-affiliates__link:hover, .about-page .about-affiliates__link:focus-visible { border-color: var(--color-text-primary); background: var(--color-surface); color: var(--color-text-primary); }
-.about-page .about-affiliates__link .home-intro__arrow-window { position: relative; display: inline-block; width: 16px; height: 16px; flex: 0 0 16px; overflow: hidden; color: inherit; }
-.about-page .about-affiliates__link .home-text-link__icon { position: absolute; inset: 0; display: block; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transform: translateX(0); transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out; }
-.about-page .about-affiliates__link .home-text-link__icon:nth-child(2) { opacity: 0; transform: translateX(-110%); }
-.about-page .about-affiliates__link:hover .home-text-link__icon:first-child, .about-page .about-affiliates__link:focus-visible .home-text-link__icon:first-child { opacity: 0; transform: translateX(110%); }
-.about-page .about-affiliates__link:hover .home-text-link__icon:nth-child(2), .about-page .about-affiliates__link:focus-visible .home-text-link__icon:nth-child(2) { opacity: 1; transform: translateX(0); }
+.about-page .about-affiliates__content { display: grid; gap: clamp(28px, 3vw, 40px); }
+.about-page .about-affiliates__copy { text-align: left; }
+.about-page .about-affiliates__copy h2 { margin: 0; color: var(--color-text-primary); font-size: clamp(1.5rem, 2vw, 2rem); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
+.about-page .about-affiliates__links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.about-page .about-affiliates__link { position: relative; isolation: isolate; display: flex; min-width: 0; aspect-ratio: 14 / 5; align-items: center; justify-content: space-between; gap: 16px; overflow: hidden; padding: clamp(14px, 1.6vw, 28px); background-color: var(--color-text-primary); background-position: center; background-size: cover; color: var(--color-surface); text-decoration: none; }
+.about-page .about-affiliates__link::before { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(10 22 34 / 64%), rgb(10 22 34 / 20%)); content: ""; transition: background-color 180ms ease; }
+.about-page .about-affiliates__link:nth-child(1) { background-image: url("../../public/images/resized/about/milestones-hero-container-yard-1440.jpg"); }
+.about-page .about-affiliates__link:nth-child(2) { background-image: url("../../public/images/operational-resources/operational-resources-hero.jpg"); }
+.about-page .about-affiliates__link:nth-child(3) { background-image: url("../../public/images/resized/about/company-facility-1280.jpg"); }
+.about-page .about-affiliates__link:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.about-page .about-affiliates__title { position: relative; z-index: 1; font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 400; letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
+.about-page .about-affiliates__more { position: relative; z-index: 1; display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; padding-bottom: 6px; font-size: 1rem; font-weight: var(--font-weight-medium); text-decoration: none; }
+.about-page .about-affiliates__more::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: var(--color-primary); content: ""; opacity: .5; transform: scaleX(.35); transform-origin: left center; transition: opacity 200ms ease, transform 200ms ease; }
+.about-page .about-affiliates__arrow { position: relative; display: inline-block; width: 16px; height: 16px; flex: 0 0 16px; overflow: hidden; color: inherit; }
+.about-page .about-affiliates__arrow svg { position: absolute; inset: 0; display: block; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transform: translateX(0); transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out; }
+.about-page .about-affiliates__arrow svg:nth-child(2) { opacity: 0; transform: translateX(-110%); }
+.about-page .about-affiliates__link:hover .about-affiliates__more::after,
+.about-page .about-affiliates__link:focus-visible .about-affiliates__more::after { opacity: 1; transform: scaleX(1); }
+.about-page .about-affiliates__link:hover .about-affiliates__arrow svg:first-child,
+.about-page .about-affiliates__link:focus-visible .about-affiliates__arrow svg:first-child { opacity: 0; transform: translateX(110%); }
+.about-page .about-affiliates__link:hover .about-affiliates__arrow svg:nth-child(2),
+.about-page .about-affiliates__link:focus-visible .about-affiliates__arrow svg:nth-child(2) { opacity: 1; transform: translateX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-affiliates__more::after,
+  .about-page .about-affiliates__arrow svg { transition: none; }
+}
 
 @media (min-width: 981px) {
   .about-page .about-philosophy-editorial__grid { width: var(--content-width); }
@@ -143,8 +158,12 @@
 
 @media (max-width: 840px) {
   .about-page .about-affiliates { padding-block: 56px; }
-  .about-page .about-affiliates__content { gap: 32px; }
+  .about-page .about-affiliates__content { gap: 24px; }
+  .about-page .about-affiliates__links { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .about-page .about-affiliates__link { width: 100%; min-height: 144px; aspect-ratio: auto; }
+  .about-page .about-affiliates__link:nth-child(3) { grid-column: auto; width: 100%; }
   .about-page .about-philosophy-editorial__grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .about-page .about-philosophy-editorial__item { width: min(100%, 560px); aspect-ratio: 16 / 10; margin-inline: auto; }
 }
 
 @media (max-width: 640px) {
@@ -152,7 +171,6 @@
 
 @media (max-width: 640px) {
   .about-page .about-affiliates { padding-block: 48px; }
-  .about-page .about-affiliates__content { grid-template-columns: minmax(0, 1fr); gap: 24px; }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
