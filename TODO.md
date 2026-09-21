@@ -1,5 +1,123 @@
 # APLI 專案進度
 
+## 2026-09-21
+- [x] 依需求移除 About Hero 下方快速導覽及其專屬樣式與 anchor scroll margin，保留各內容區塊 ID；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 快速導覽連結字重限定為 400，導覽項目 gap 統一為 30px，手機維持相同間距並可橫向滑動；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About Hero 下方新增四項區塊錨點導覽（關於亞太、經營理念、認證與獎項、關係企業），桌機深色橫列、手機橫向滑動；設定固定 Header／導覽列高度對應的 anchor scroll margin。更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 認證與獎項區塊上下 padding 改為比照經營理念區塊：上方 `clamp(48px, 4vw, 64px)`、下方 `clamp(56px, 6vw, 88px)`；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 依更正將 About 認證與獎項區塊上下 padding 改用一般全域 `--section-space`（24–40px）；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 認證與獎項區塊上下 padding 改用全域 `--section-space-sm`（48–64px）；更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 認證與獎項資訊區背景改用專案中性淺灰 token `--color-surface-soft`，取代偏藍的色值；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 認證與獎項資訊區恢復水藍背景 `#edf0f5`；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 經營理念卡片遮罩與底色統一改用專案深藍 `#172538`，維持白色文字及背景圖片；更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 關係企業 CTA 按鈕改為比照首頁最新消息「更多資訊」的白底細框樣式與雙箭頭滑入 hover／focus 動畫。更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 關係企業 CTA 標題縮小至 24–32px，並與右欄說明文字頂端對齊；按鈕 hover／focus 套用首頁關於亞太文字連結的橘色底線展開及箭頭位移效果。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 認證獎項 events 移除背景色，圓點改跟隨文字顏色；關係企業 CTA 加回滿版貨櫃場背景與深色遮罩，改用白字確保對比。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 認證獎項資訊卡背景恢復原水藍色 `#edf0f5`，文字配合改回深色；保留使用者指定的白色項目圓點。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 關係企業 CTA 依參考改為淺灰底雙欄版型，左側標題、右側說明與深藍按鈕，移除背景照片；手機改單欄排列。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 重整 About 關係企業 CTA 為桌機左右配置：左側 APLI GROUP 標記與短標題，右側套用全站橘色主按鈕；小螢幕改直向排列。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 關係企業 CTA 標題改為「探索亞太多元事業版圖」，連結按鈕改為「認識關係企業」；`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 將 About 關係企業滿版圖片 CTA 移除 320–480px 最小高度，桌機上下 padding 縮為 36–56px、手機 32px；更新 About CSS cache key。`git diff --check` 通過；尚未做瀏覽器畫面確認；未 commit。
+- [x] About「關係企業」區塊改為滿版貨櫃場背景圖、置中標題及連至 `/affiliates` 的按鈕；移除原企業 Logo 卡片 markup 與對應 CSS，新增桌機及手機區塊樣式並更新 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] About 頁面企業列表區塊標題及清單無障礙名稱由「多角化經營」改為「關係企業」；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] About 認證獎項項目前方圓點改為白色；更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] About 認證獎項資訊移除項目間分隔線，改在各筆文字前顯示圓點；更新 About CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 將 About 認證獎項卡片標題限定設為 `font-weight: 400`，更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 縮小認證與獎項年份導覽項目間距；將 events 卡片背景改為 `#333333`，文字改白並提高分隔線對比；更新 About CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 修正認證獎項導覽橘色作用線被水平捲動容器裁切的定位，恢復完整可見的 2px 粗度；更新 About CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 再加寬 About 認證獎項桌機輪播容器，最大寬度由內容軌道額外 96px 調為 192px；維持 viewport gutter 限制及手機原寬。更新 CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 將認證獎項年份導覽底線連成一條，寬度限於年份導覽列，保留作用中 2px 橘色底線；更新 About CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] 認證與獎項年份導覽底線改為各按鈕各自顯示，不延伸整列；作用中橘色線維持原本 2px 粗度。更新 About CSS cache key；`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+- [x] About「認證與獎項」標題至年份導覽間距比照 About 內文標題間距設為 24px；年份導覽加整條淺色底線與選取項目綠色底線；擴寬桌機內容輪播區，並將切換按鈕改為首頁關係企業相同的 chevron SVG 與 hover 邊框效果。更新 CSS／JS cache key；`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；尚未進行瀏覽器／手機畫面驗證；未 commit。
+- [x] About「經營理念」標題與引言的間距比照「關於亞太」標題下方設定為 24px，移除標題多餘的 16px 底部 padding，並更新 About CSS cache key。瀏覽器幾何量測未完成（本機頁面自動化逾時）；手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收未驗證；`git diff --check` 通過；未 commit。
+- [x] About「認證與獎項」標題置中，年份導覽置於標題下方置中，前後切換鈕移至內容兩側。Edge 桌機已確認標題、年份導覽置中及切換鈕位於內容左右；手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收未驗證；`git diff --check` 通過；未 commit。
+- [x] About「關於亞太」移除區塊底色；「經營理念」改用全域淺色背景，理念卡片加入原對應的港口、團隊及貨櫃作業背景圖，保留正方形並將標題與內容置中；更新 About CSS cache key。Edge 桌機 1892×900 已確認版面；手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收未驗證；`git diff --check` 通過；未 commit。
+- [x] About「經營理念」移除三張圖與圖示，保留「使命／核心價值觀／共同願景」為文字卡片，並於標題下增加理念引言；依既有卡片底色 `#edf0f5` 呈現正方形卡片，更新 About CSS cache key。Edge 桌機 1892×900 已確認正方形與原底色；手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收未驗證；`git diff --check` 通過；未 commit。
+- [x] About「關於亞太」改回左側公司大樓圖片、右側標題與敘述，平板／手機改為圖片在上、文字在下；標題下方間距依首頁「關於亞太」設為 24px，移除區塊 `margin-top`；保留一般內文字體、全域字級／字重 token 與全寬淺灰底色。Edge 桌機已確認左圖右文與全寬底色；本次間距及上緣調整未重新量測瀏覽器畫面；手機畫面、實體裝置、跨瀏覽器與無障礙人工驗收未驗證；`git diff --check` 通過；未 commit。
+- [x] 依需求將非首頁 10 個 Hero 頁面的標題字級縮小約 10%：共用 Hero 改用 `clamp(1.8rem, 3.15vw, 2.7rem)`，News Detail 動態標題同步縮小；首頁與無 Hero 頁面維持原樣。Edge 計算樣式確認 About 桌機 1366×900 為 43.03px、手機 390×844 為 28.8px，News Detail 桌機標題為 43.03px／21.6px；`git diff --check` 通過。News Detail 手機未驗證；實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+- [x] About Hero 圖片與 preload 改用 `public/images/about/company-facility.jpg`，並將尺寸屬性同步為 1638x1335；已確認圖片檔存在並完成 `git diff --check`，未進行瀏覽器畫面驗證；未 commit。
+- [x] 全部 11 個 Hero 頁面的標題改為靠左，並比麵包屑多內縮 16–28px；涵蓋共用內頁 Hero、首頁與 News Detail，更新相關 CSS cache key。`git diff --check` 通過；Edge 確認 About 桌機 1912×914／手機 390×844，首頁與 News Detail 桌機 1366×900／手機 390×844 均靠左並保留內縮；其他內頁未逐頁檢查，未做實體裝置／跨瀏覽器驗證；未 commit。
+- [x] 麵包屑加入文字層級：可點連結使用 `--color-text-body`，當前頁使用 `--color-text-primary` 與 `--font-weight-medium`；hover／focus 維持 `--color-primary`。更新共用 CSS cache key 與 11 個頁面引用。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 全站麵包屑文字色統一改用 `--color-text-body`，移除聯絡頁重複的色彩覆寫；hover／focus 維持 `--color-primary`。更新 11 個麵包屑頁面的 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 全站麵包屑桌機左緣改與 Header Logo 對齊，分隔符統一為 `/`；連結 hover/focus 延用主題橘色。更新共用 CSS cache key。`git diff --check` 通過；未做桌機/手機瀏覽器畫面確認；未 commit。
+- [x] 精簡 `site.js` 的逐行註解與冗長區段說明，合併過度拆行的 selector、事件處理與 Footer Accordion 程式；保留載入失敗、路徑比對、下拉選單與捲動門檻等必要行為說明。`node --check wwwroot/js/site.js`、`git diff --check` 通過；未做瀏覽器互動驗證；未 commit。
+- [x] 將首頁 Hero 文案底部板狀漸層改為低對比柔焦暈染，保留文字可讀性並減少遮罩存在感；更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 為首頁 Hero 文案後方加入局部淡黑漸層，僅加深文字周圍；手機版將暗部置於置中文字後方，不改動整張 Hero 遮罩。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁桌機 Hero 內容容器改為沿用共用 Header 的左右內距，使 Hero 文案左緣與 Logo 對齊；手機版版位不變。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 修正共用 Header 981px 以上的舊 media query 覆蓋，所有桌機頁面現在與首頁採用相同的左右間距；沿用已更新的共用 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 移除首頁 Header 預設暗色遮罩；桌機加寬邊界移至共用 Header 樣式，所有頁面採用一致間距，手機版間距維持原值。同步更新共用 Header 快取版本。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁桌機 Header 左右邊界加寬，Logo 與導覽列向視窗兩側延伸；頂端預設加淡黑半透明底，捲動／hover 時切回白底。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 Hero CTA 恢復原始外觀：透明底、白色外框與文字、原本的圖示及 hover 白底樣式；保留 Hero 遮罩已移除的設定。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 Hero CTA 預設背景恢復白色、文字使用深色；保留品牌橘 hover 與箭頭滑入效果。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 Hero CTA 改為預設顯示共用按鈕底色，圖示替換成 16px 細線右箭頭，hover／focus 沿用「關於亞太」了解更多按鈕的雙箭滑入效果；支援減少動態偏好。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 移除首頁 Hero 全尺寸遮罩，包含手機版覆寫，保留圖片與文字版面。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 依參考圖加深首頁 Hero 左側遮罩，讓暗區覆蓋標題區並延伸至畫面中段，再淡出至透明；右側主體保留亮度。手機版置中標題遮罩維持原樣。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 Hero 桌機遮罩改為左側較深、向右漸淡至透明，凸顯左側標題並保留右側圖片亮度；手機版置中標題的原遮罩維持不變。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁聯絡／招募 CTA 標題恢復使用全站標題字體，內文維持一般字體，讓標題層級與首頁其他區塊一致。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 移除首頁聯絡／招募 CTA 標題與內文的文字陰影，保留圖片遮罩；更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 聯絡／招募 CTA 標題改用一般內文字體；按鈕預設顯示，箭頭使用與「更多資訊」一致的 16px 雙箭滑入動畫。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 關係企業區塊桌機上方留白增加、下方留白略減，讓標題與卡片組視覺下移並平衡卡片下方空間；手機留白維持原值。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 `home-contact-cta` 還原為原有全寬聯絡／招募雙面板，恢復原文案、圖片裁切、hover 展開與按鈕互動；其他首頁區塊變更保留。更新首頁 CSS／JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 為首頁「關於亞太」描述段落指定可讀的內文字色 `--color-text-body`，避免受外層文字色繼承影響；更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面確認；未 commit。
+- [x] 首頁 CTA 恢復聯絡資訊與職缺資訊兩張圖片卡片，桌機並排、手機直向排列；沿用聯絡與招募各自的原背景圖，不加區塊底色或地圖背景。更新首頁 CSS cache key。`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+- [x] 首頁單一卡片改為聯絡資訊，使用原聯絡卡背景圖 `news-hero.png`，列出已在聯絡頁使用的電話、電子郵件與地址，並連至聯絡頁。更新首頁 CSS cache key。`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+- [x] 恢復首頁職缺資訊原有的 `core-values.jpg` 背景圖片，使用深色遮罩維持文字對比，保留透明區塊底色與單一職缺內容。更新首頁 CSS cache key。`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+- [x] 首頁 CTA 簡化為單一人才招募資訊，移除聯絡卡、世界地圖與裝飾點、圖片及面板底色；保留職缺頁連結並移除不再需要的左右面板互動。更新首頁 CSS／JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+- [x] 首頁聯絡／招募 CTA 改為置中的雙欄圖片卡片，加入點陣世界地圖與品牌色標記；標題及按鈕置中，手機改為直向排列，保留原圖片與連結。更新首頁 CSS cache key。`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+- [x] 首頁區塊順序試調為主視覺 → 我們的服務 → 最新消息 → 關於亞太 → 關係企業，後依需求恢復原順序主視覺 → 關於亞太 → 我們的服務 → 最新消息 → 關係企業；內容與樣式保留。`git diff --check` 通過；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 關係企業輪播初次載入時直接定位第一組卡片，避免初始 transform 套用切換動畫而暫時偏移；後續切換動畫保留。更新首頁 JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 關係企業區塊上下內距改為一致：桌機共用 `clamp(40px, 4vw, 60px)`，手機上下均為 40px；更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「最新消息」區塊改用全寬 `#333333` 深色背景，標題、日期、類別、分隔線與前往圖示調整為淺色，保留白底「更多資訊」按鈕。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 最新消息列表寬度收窄並置中；「更多資訊」按鈕桌機高度／字級增大，手機版同步加高加字。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 最新消息標題調整為區塊置中，列表與下方「更多資訊」按鈕位置維持不變；更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 最新消息列表恢復與標題左緣對齊；「更多資訊」按鈕移至列表下方置中。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 移除最新消息標題下方分隔線；桌機列表起點改與標題文字右緣對齊，手機維持完整可讀寬度。更新首頁 CSS cache key。`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 最新消息列表可見時左右內縮；每則恢復公告類別，hover／鍵盤 focus 顯示前往箭頭。更新首頁 CSS／JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁最新消息改為垂直條列，逐則顯示日期與標題並以細線分隔；移除卡片摘要及水平輪播互動，保留全寬淺灰底與標題分隔線。更新首頁 CSS／JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁最新消息卡片移除圖片 markup、圖片載入程式與預設圖片 CSS，保留日期、標題、摘要及連結；更新首頁 CSS／JS cache key。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；未做瀏覽器畫面驗證；未 commit。
+
+- [x] 最新消息圖片區恢復原 2:1 比例，減少縮小卡片時 `object-fit: cover` 導致的裁切；保留卡片尺寸與標題間距調整，更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「最新消息」卡片寬度縮至最多 360px、圖片比例縮短，卡片內距與標題上方間距增加；更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 恢復首頁「最新消息」標題下方原有的分隔線；保留全寬淺灰背景與上下留白，更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「最新消息」淺灰背景延伸至全視窗寬度，區塊保留上下留白並移除標題下方分隔線；更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「最新消息」區塊加上淺灰背景（`--color-surface-soft`），更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 移除首頁「我們的服務」區塊上下邊線，維持無背景色；更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 移除首頁「我們的服務」區塊背景色，標題恢復深色、上下邊線恢復淡色；更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「我們的服務」背景改為 `#2a3139`，標題與區塊上下邊線調整為深底可讀的淺色；更新首頁 CSS cache key。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁「我們的服務」改用淺灰背景並加入上下細邊線；移除「關係企業」區塊的背景色與上下邊線，保留版型。已執行 `git diff --check`；未進行瀏覽器畫面驗證；未 commit。
+
+- [x] 首頁關係企業輪播調整為桌機一次顯示 4 張，卡片置中並保留間距，左右切換鈕改用 SVG chevron icon；平板顯示 2 張、手機顯示 1 張，hover／focus 敘述樣式保留。Edge 桌機約 1920px 畫面確認置中四張卡片與切換按鈕，並確認點擊下一張可移動；`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過。手機瀏覽器畫面、實體裝置、跨瀏覽器與完整人工無障礙尚未驗證；未 commit。
+
+- [x] 將首頁關係企業輪播改為置中的固定最大寬版型，桌機同時顯示 4 張卡片，左右新增可鍵盤操作的切換按鈕；保留窄螢幕卡片列、拖曳與自動輪播。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；Edge 桌機畫面已確認，手機瀏覽器畫面、實體觸控、跨瀏覽器與完整人工無障礙尚未驗證；未 commit。
+
+- [x] 關係企業輪播切換按鈕 hover 時改為黑色邊線，SVG icon 保持原色；完成 `git diff --check`，未 commit。
+
+- [x] 整理首頁區塊整體節奏：服務、關於、最新消息與關係企業統一使用置中的內容寬度；服務卡列對齊內容容器，關係企業改為與關於區塊一致的淺底色區段，卡片列與切換按鈕仍維持置中。Edge 桌機畫面確認內容欄位對齊與企業區塊淺底色；手機斷點僅檢視 CSS，未實際確認手機瀏覽器畫面。`git diff --check` 通過；未 commit。
+
+- [x] 試作聯發科風格的 APLI 橘色／深藍大面積區段，依使用者回饋色彩過強，已完整撤回配色試作；恢復各區段既有白色／淺灰底色，同時保留首頁內容寬度對齊。Edge 桌機已確認恢復淺色版面，手機畫面未驗證；`git diff --check` 通過；未 commit。
+
+- [x] 將首頁「關於亞太」移至主視覺後、服務區塊前，先介紹公司再呈現服務內容；其他區塊順序與樣式不變。Edge 桌機畫面確認 About 後接續服務區；`git diff --check` 通過；手機畫面未驗證；未 commit。
+
+- [x] 移除關於亞太區塊的底色、保留點陣地圖；我們的服務區塊改用淡橘品牌色背景（`--color-primary-soft`）。Edge 桌機確認關於區塊透明且點陣圖仍顯示、服務區塊為淡橘色；手機畫面未驗證；未 commit。
+
 ## 2026-09-20
 
 - [x] 關係企業輪播切換間隔由 5 秒改為 4 秒；hover 時保持輪播，循序滑入第一張的複製卡後於 transitionend 無動畫歸位，消除循環停頓與跳位。Edge 確認桌機 hover 時輪播持續推進，桌機與 390px 手機尺寸都能從最後一張接回第一張。`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過；實體觸控、跨瀏覽器與人工無障礙尚未驗證；未 commit。

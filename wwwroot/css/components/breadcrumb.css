@@ -5,24 +5,22 @@
 .page-breadcrumb .site-container {
   display: flex;
   width: 100%;
-  padding-inline: var(--content-inset);
+  padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2));
   min-height: 40px;
   align-items: center;
   gap: 10px;
-  color: #5c5c5c;
+  color: var(--color-text-body);
   font-size: var(--font-size-body-sm);
 }
 
 .page-breadcrumb a {
-  color: #5c5c5c;
+  color: var(--color-text-body);
   text-decoration: none;
 }
 
-/* Match the Header's logo inset at each layout breakpoint. */
-@media (min-width: 981px) {
-  .page-breadcrumb .site-container {
-    padding-inline: var(--content-inset);
-  }
+.page-breadcrumb [aria-current="page"] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
 }
 
 @media (max-width: 840px) {

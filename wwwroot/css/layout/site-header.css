@@ -1,5 +1,5 @@
 .site-header { position: relative; z-index: 30; opacity: 1; background-color: #fff; background-image: none; border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); }
-.site-header > .site-header__inner { display: flex; width: 100%; min-height: 78px; max-width: none; margin: 0; align-items: center; gap: 28px; padding-inline: var(--content-inset); }
+.site-header > .site-header__inner { display: flex; width: 100%; min-height: 78px; max-width: none; margin: 0; align-items: center; gap: 28px; padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2)); }
 .site-header__brand { display: inline-flex; flex: 0 0 auto; align-items: center; width: 154px; }
 .site-header__brand img { width: 100%; height: auto; }
 .site-header__nav { display: flex; min-width: 0; flex: 1; align-items: center; justify-content: flex-end; gap: clamp(14px, 2.1vw, 32px); }
@@ -45,7 +45,7 @@
 }
 
 @media (min-width: 981px) {
-  .site-header > .site-header__inner { padding-inline: var(--content-inset); }
+  .site-header > .site-header__inner { padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2)); }
 }
 
 @media (max-width: 840px) {

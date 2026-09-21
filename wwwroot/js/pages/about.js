@@ -58,136 +58,59 @@ const certificationPreviewEvents = [
 ];
 
 function setupAboutScrollMotion() {
-  // This function controls the profile cards and the certification section
-  // that appear while the visitor scrolls down the page.
+  // This function reveals the certification section as it enters the viewport.
   const page = document.querySelector(".about-page");
   if (!page) {
     return;
   }
 
-  const facts = page.querySelector(".about-profile__facts");
   const certifications = page.querySelector(".about-certifications-preview");
-
-  const targets = [];
-  if (facts) {
-    targets.push(facts);
-  }
-
-  if (certifications) {
-    targets.push(certifications);
-  }
-  if (targets.length === 0) {
+  if (!certifications) {
     return;
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const counters = [];
-  if (facts) {
-      const factValues = facts.querySelectorAll(".about-profile__fact-value");
-      for (let i = 0; i < factValues.length; i++) {
-        const el = factValues[i];
-        const originalText = el.textContent.trim();
-      const target = Number(originalText.replace(/[^\d.-]/g, ""));
-      const suffix = originalText.indexOf("+") !== -1 ? "+" : "";
-      if (Number.isFinite(target)) {
-        counters.push({ el: el, target: target, suffix: suffix });
-      }
-    }
-  }
-
   page.classList.add("about-motion-ready");
 
-  function setFinalCounterValues() {
-    counters.forEach(function (counter) {
-      counter.el.textContent = counter.target.toLocaleString("en-US") + counter.suffix;
-    });
-  }
-
-  function animateCounters() {
-    if (reducedMotion.matches) {
-      setFinalCounterValues();
-      return;
-    }
-
-    counters.forEach(function (counter, index) {
-      const duration = 1100;
-      const delay = index * 80;
-      const startTime = performance.now() + delay;
-
-      function update(timestamp) {
-        if (timestamp < startTime) {
-          window.requestAnimationFrame(update);
-          return;
-        }
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        counter.el.textContent = Math.round(counter.target * eased).toLocaleString("en-US") + counter.suffix;
-        if (progress < 1) {
-          window.requestAnimationFrame(update);
-        }
-      }
-
-      counter.el.textContent = "0" + counter.suffix;
-      window.requestAnimationFrame(update);
-    });
-  }
-
-  function reveal(target) {
-    target.classList.add("is-visible");
-    if (target === facts) {
-      animateCounters();
-    }
+  function revealCertifications() {
+    certifications.classList.add("is-visible");
   }
 
   if (reducedMotion.matches) {
-    targets.forEach(reveal);
-    setFinalCounterValues();
+    revealCertifications();
     return;
   }
 
   if (!("IntersectionObserver" in window)) {
     // 舊瀏覽器沒有 IntersectionObserver，改用 scroll/resize 自己算元素是否進入畫面
-    function revealVisibleTargets() {
-      targets.forEach(function (target) {
-        if (target.classList.contains("is-visible")) return;
-        const rect = target.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
-          reveal(target);
-        }
-      });
-      const allVisible = targets.every(function (target) {
-        return target.classList.contains("is-visible");
-      });
-      if (allVisible) {
-        window.removeEventListener("scroll", revealVisibleTargets);
-        window.removeEventListener("resize", revealVisibleTargets);
+    function revealCertificationWhenVisible() {
+      const rect = certifications.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
+        revealCertifications();
+        window.removeEventListener("scroll", revealCertificationWhenVisible);
+        window.removeEventListener("resize", revealCertificationWhenVisible);
       }
     }
 
-    window.addEventListener("scroll", revealVisibleTargets, { passive: true });
-    window.addEventListener("resize", revealVisibleTargets);
-    revealVisibleTargets();
+    window.addEventListener("scroll", revealCertificationWhenVisible, { passive: true });
+    window.addEventListener("resize", revealCertificationWhenVisible);
+    revealCertificationWhenVisible();
     return;
   }
 
   const observer = new IntersectionObserver(function (entries, currentObserver) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      reveal(entry.target);
-      currentObserver.unobserve(entry.target);
-    });
+    if (!entries[0].isIntersecting) return;
+    revealCertifications();
+    currentObserver.disconnect();
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  targets.forEach(function (target) {
-    observer.observe(target);
-  });
+  observer.observe(certifications);
 
   reducedMotion.addEventListener("change", function () {
     if (!reducedMotion.matches) return;
     observer.disconnect();
-    targets.forEach(reveal);
-    setFinalCounterValues();
+    revealCertifications();
   }, { once: true });
 }
 
@@ -316,12 +239,12 @@ function initCertificationPreview() {
   previousButton.type = "button";
   previousButton.className = "about-certifications-preview__control";
   previousButton.setAttribute("aria-label", "較新的年份");
-  previousButton.textContent = "←";
+  previousButton.append(createCertificationArrow("left"));
   const nextButton = document.createElement("button");
   nextButton.type = "button";
   nextButton.className = "about-certifications-preview__control";
   nextButton.setAttribute("aria-label", "較舊的年份");
-  nextButton.textContent = "→";
+  nextButton.append(createCertificationArrow("right"));
   controls.replaceChildren(previousButton, nextButton);
 
   function setTrackPosition(animate) {
@@ -661,6 +584,24 @@ function initCertificationPreview() {
   rebuildPageSets();
   renderTrack();
   activateDecade(0);
+}
+
+function createCertificationArrow(direction) {
+  const namespace = "http://www.w3.org/2000/svg";
+  const icon = document.createElementNS(namespace, "svg");
+  icon.classList.add("about-certifications-preview__arrow-icon");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("fill", "none");
+  icon.setAttribute("stroke", "currentColor");
+  icon.setAttribute("stroke-width", "1.8");
+  icon.setAttribute("stroke-linecap", "round");
+  icon.setAttribute("stroke-linejoin", "round");
+  icon.setAttribute("aria-hidden", "true");
+
+  const path = document.createElementNS(namespace, "path");
+  path.setAttribute("d", direction === "left" ? "M15 18 9 12l6-6" : "m9 18 6-6-6-6");
+  icon.append(path);
+  return icon;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
