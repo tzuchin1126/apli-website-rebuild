@@ -1,6 +1,37 @@
 # APLI 專案進度
 
 ## 2026-09-22
+- [x] 依視覺檢視移除最新消息區塊的幾何線條與節點背景，保留 `#efefef` 純色背景與新聞卡片層次。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 為首頁最新消息區塊加入低對比幾何線條與節點背景，使用 CSS 原生繪製並置於內容底層，保留卡片與文字可讀性。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 依視覺確認將首頁最新消息區塊背景由 `#e8eaed` 調整為 `#efefef`。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息區塊背景由淡白灰調整為 `#e8eaed` 冷灰色，拉開與預設新聞圖片的明度差並保留白色卡片層次。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息圖片容器比例調整為 16:9，搭配 `object-fit: contain` 完整顯示圖片並移除上下白色留白。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 為首頁最新消息區塊加入既有 `--color-surface-subtle` 淡色背景，保留白色新聞卡片與內容層次。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 依視覺檢視恢復首頁最新消息日期為原本單行格式，移除過度強調的大日期資訊塊；保留圖片卡片、橘色分類、左右切換與既有版型。已完成 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息日期改為大日數搭配月份／年份的資訊塊，日數使用主題橘色並以分隔線建立日期層級；同步更新前端 API 與 SSR 日期結構。已完成 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將最新消息「更多資訊」移回卡片下方中央，恢復原本按鈕樣式；縮小圖片與文字內容的上方間距，並將分類文字改為主題橘色。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將最新消息標題恢復置中，並將右側「更多資訊」按鈕恢復為原本的白底細框樣式；按鈕仍固定於標題右側並保留箭頭 hover 動畫。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將最新消息左右切換按鈕改為與關係企業一致的方形；「更多資訊」移至標題右側並補上深色背景，保留原本按鈕箭頭 hover 滑動效果。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息 hover 箭頭與卡片標題放入同一列，讓箭頭依標題高度對齊，並同步 SSR 與前端 API 產生的卡片結構。已完成 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息桌機顯示數量由四筆調整為三筆，放大卡片圖片與文字閱讀尺寸；窄桌機顯示兩筆、手機顯示一筆，左右切換功能維持不變。已完成 `node --check wwwroot/js/pages/home.js`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁最新消息桌機版改為每次顯示四筆並加入左右切換按鈕，按鈕位置與樣式對齊關係企業 carousel；新聞圖片改用 `object-fit: contain`，完整保留圖片內容，並同步支援窄桌機、平板與手機欄數。已完成 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁「最新消息」改為圖片搭配文字的新聞卡片：桌機四欄、窄桌機三欄、平板兩欄、手機單欄；補上圖片、日期、分類、標題與 hover 圖片微放大，並同步前端 API 卡片與 SSR fallback 圖片結構。已完成 `node --check wwwroot/js/pages/home.js`、`dotnet build -c Release`、`git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 再降低首頁服務卡片預設遮罩：桌機預設改為較淡的漸層、hover／focus 再淡出至更清楚的圖片；手機維持完整深藍遮罩以確保文字可讀性。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 調整首頁服務卡片 hover 遮罩方向：hover／focus 時淡出實心深藍層，讓圖片比平常狀態更清楚；保留底部漸層以維持文字對比，觸控裝置維持完整遮罩。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 修正首頁服務卡片 hover 遮罩閃爍：將漸層底層與實心深藍遮罩拆成獨立 pseudo-element，改以 opacity 淡入實心層；保留桌機 hover／focus 與觸控裝置遮罩行為。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將首頁「我們的服務」卡片遮罩調整為與 About「經營理念」一致的深藍漸層與 hover／focus 實心遮罩，手機版直接使用完整遮罩；保留服務卡片原有的圖片放大、說明展開與箭頭互動。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
+- [x] 將手機版「相關資訊」CTA 卡片比例由 1.6 調整為 2.2，降低卡片高度與垂直佔用，保留圖片、標題與箭頭導流呈現。已完成 `git diff --check`；手機瀏覽器尚未重新驗證，未 commit。
+- [x] 修正手機 timeline page 之間的斷線：每個 page 的線段向右延伸跨過 16px page gap，讓相鄰年份的線連續顯示；卡片間距維持不變。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；Edge 手機模擬頁待重新確認，未 commit。
+- [x] 修正認證與獎項手機版時間軸線消失：手機改由每個年份 page 的 timeline 個別繪製線段，避免共用線只覆蓋第一頁；同時保留 viewport-based page 寬度以避免 `max-content` 百分比重算造成超寬卡片。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；Edge 手機模擬頁確認 page 寬度與事件文字換行，手機各 page 線段待重新確認，未 commit。
+- [x] 修正認證與獎項手機版：pagination 改為只顯示目前頁前後的鄰近點，避免一次顯示過多；手機內容列固定為 viewport 寬度，事件卡片補上盒模型、最小寬度與長字串斷行規則，避免文字撐寬卡片。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；手機瀏覽器尚未重新驗證，未 commit。
+- [x] 參考 Maersk 最新資訊輪播的進場提示，將認證與獎項內容列改為 1 秒 ease、向左 50px 後回位的單次 hint 動畫，移除原本較強的左右彈性動畫；保留區塊觸發、年份資料與切換行為。已完成 `git diff --check`；Edge 桌機確認 cache key、動畫中段位移、回位與無水平溢出，手機未重新驗證，未 commit。
+- [x] 依拖曳實際行為移除鼠標放開後的自動 smooth snap；鼠標拖到的位置會停留在原處，只同步 active 控制點，控制點點擊與行動裝置滑動行為維持原本效果。桌機鼠標拖曳後停留狀態由程式流程確認，手機未驗證，未 commit。
+- [x] 修正認證與獎項鼠標拖曳在放開後跳到錯誤年份的問題：拖曳期間暫停 scroll 狀態同步，放開後只依最後位置執行一次 smooth snap，避免拖曳途中經過的頁次覆蓋最終位置。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器完整鼠標拖曳仍未可靠驗證，未 commit。
+- [x] 放慢關於亞太左右滑入並增加位移距離；將經營理念改為區塊淡入後三卡平滑依序滑入；認證鼠標拖曳結束後改在下一幀以與控制點相同的 smooth scroll 對齊，拖曳中暫停 scroll-snap 避免卡頓。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；Edge 桌機動畫狀態確認，鼠標拖曳實際切頁仍未由控制介面可靠驗證，手機未驗證，未 commit。
+- [x] 調整 About 進場動畫：關於亞太文字由左至右、圖片由右至左滑入；經營理念三張卡片依序滑入；認證與獎項維持原動畫並將桌機拖曳改為鼠標 Pointer Events，保留行動裝置原生手指滑動。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；Edge 桌機確認方向動畫、卡片依序延遲、認證輪播 7 組內容與無水平溢出，但控制介面未能可靠完成鼠標拖曳切頁，手機未驗證，未 commit。
+- [x] About 頁面的公司簡介、經營理念、認證與獎項、相關資訊區塊加入進入視窗時才執行的滑入效果；保留認證內容既有的水平滑入，並支援減少動態偏好與無 IntersectionObserver fallback。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；Edge 桌機確認初始與捲動觸發狀態及無水平溢出，手機 viewport 覆寫未生效而未驗證，未 commit。
+
+## 2026-09-22
 - [x] Placed each affiliate card's forward icon inline beside its centered title and removed the icon button border/background, while retaining keyboard focus visibility and hover motion.
 - [x] 2026-09-22 驗證：桌機瀏覽器確認標題與箭頭同列且箭頭無外框；`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；手機版未驗證，因目前瀏覽器控制介面無法調整 viewport。
 - [x] 讓關於亞太三張卡片的整個卡片區域成為可點擊連結，並以卡片 hover 與 focus 狀態提示可導向下一頁。

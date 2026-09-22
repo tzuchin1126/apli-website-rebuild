@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260921-header-wide-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260921-home-intro-hover-underline-v1">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260922-home-latest-background-v5">
   <link rel="stylesheet" href="css/site.css?v=20260921-hero-title-left-inset-v1">
 </head>
 <body class="home-page">
@@ -224,8 +224,12 @@
           <a class="home-latest__all home-text-link" href="/news">更多資訊 <span class="home-intro__arrow-window" aria-hidden="true"><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></a>
         </div>
       </div>
-      <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
-        <div class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+      <div class="home-latest__carousel" data-home-latest-carousel>
+        <button class="home-latest__control" type="button" data-home-latest-previous aria-label="上一則最新消息" aria-controls="home-latest-track"></button>
+        <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
+          <div id="home-latest-track" class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+        </div>
+        <button class="home-latest__control" type="button" data-home-latest-next aria-label="下一則最新消息" aria-controls="home-latest-track"></button>
       </div>
     </section>
 
@@ -327,6 +331,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/home.js?v=20260921-home-news-limit-five-v1"></script>
+  <script src="js/pages/home.js?v=20260922-home-latest-carousel-v1"></script>
 </body>
 </html>

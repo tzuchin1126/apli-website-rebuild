@@ -58,59 +58,73 @@ const certificationPreviewEvents = [
 ];
 
 function setupAboutScrollMotion() {
-  // This function reveals the certification section as it enters the viewport.
+  // Reveal each About content section as it enters the viewport.
   const page = document.querySelector(".about-page");
   if (!page) {
     return;
   }
 
-  const certifications = page.querySelector(".about-certifications-preview");
-  if (!certifications) {
+  const sections = Array.from(page.querySelectorAll(
+    ".about-profile, .about-philosophy-editorial, .about-certifications-preview, .about-affiliates"
+  ));
+  if (sections.length === 0) {
     return;
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   page.classList.add("about-motion-ready");
+  sections.forEach(function (section) {
+    section.classList.add("about-scroll-reveal");
+  });
 
-  function revealCertifications() {
-    certifications.classList.add("is-visible");
+  function revealSection(section) {
+    section.classList.add("is-visible");
   }
 
   if (reducedMotion.matches) {
-    revealCertifications();
+    sections.forEach(revealSection);
     return;
   }
 
   if (!("IntersectionObserver" in window)) {
     // 舊瀏覽器沒有 IntersectionObserver，改用 scroll/resize 自己算元素是否進入畫面
-    function revealCertificationWhenVisible() {
-      const rect = certifications.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
-        revealCertifications();
-        window.removeEventListener("scroll", revealCertificationWhenVisible);
-        window.removeEventListener("resize", revealCertificationWhenVisible);
+    function revealSectionsWhenVisible() {
+      sections.forEach(function (section) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
+          revealSection(section);
+        }
+      });
+
+      if (sections.every(function (section) { return section.classList.contains("is-visible"); })) {
+        window.removeEventListener("scroll", revealSectionsWhenVisible);
+        window.removeEventListener("resize", revealSectionsWhenVisible);
       }
     }
 
-    window.addEventListener("scroll", revealCertificationWhenVisible, { passive: true });
-    window.addEventListener("resize", revealCertificationWhenVisible);
-    revealCertificationWhenVisible();
+    window.addEventListener("scroll", revealSectionsWhenVisible, { passive: true });
+    window.addEventListener("resize", revealSectionsWhenVisible);
+    revealSectionsWhenVisible();
     return;
   }
 
   const observer = new IntersectionObserver(function (entries, currentObserver) {
-    if (!entries[0].isIntersecting) return;
-    revealCertifications();
-    currentObserver.disconnect();
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      revealSection(entry.target);
+      currentObserver.unobserve(entry.target);
+    });
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  observer.observe(certifications);
+  sections.forEach(function (section) {
+    observer.observe(section);
+  });
 
   reducedMotion.addEventListener("change", function () {
     if (!reducedMotion.matches) return;
     observer.disconnect();
-    revealCertifications();
+    sections.forEach(revealSection);
   }, { once: true });
 }
 
@@ -278,6 +292,10 @@ function initCertificationPreview() {
   }
 
   function syncStateFromScroll() {
+    if (isDragging) {
+      return;
+    }
+
     const track = content.querySelector("[data-certification-preview-track]");
     if (!track) {
       return;
@@ -328,6 +346,8 @@ function initCertificationPreview() {
       const isActive = index === activeGlobalPageIndex;
       button.dataset.active = String(isActive);
       button.setAttribute("aria-current", isActive ? "true" : "false");
+      button.hidden = window.matchMedia("(max-width: 767px)").matches
+        && Math.abs(index - activeGlobalPageIndex) > 2;
     });
   }
 
@@ -530,13 +550,24 @@ function initCertificationPreview() {
     });
   });
 
-  // 滑鼠拖曳 viewport 也能翻頁；觸控裝置本來就有原生 scroll，不用另外處理
+  // 滑鼠拖曳 viewport 也能翻頁；觸控裝置保留原生水平 scroll-snap
   let isDragging = false;
   let dragStartX = 0;
   let dragStartScrollLeft = 0;
 
-  viewport.addEventListener("mousedown", function (event) {
-    if (event.button !== 0) {
+  function finishMouseDrag(event) {
+    if (!isDragging) return;
+    isDragging = false;
+    viewport.classList.remove("is-dragging");
+    if (event && viewport.hasPointerCapture(event.pointerId)) {
+      viewport.releasePointerCapture(event.pointerId);
+    }
+    syncStateFromScroll();
+  }
+
+  viewport.addEventListener("pointerdown", function (event) {
+    if (event.pointerType !== "mouse" || event.button !== 0) {
+      viewport.classList.remove("is-mouse-dragged");
       return;
     }
 
@@ -547,25 +578,22 @@ function initCertificationPreview() {
     isDragging = true;
     dragStartX = event.clientX;
     dragStartScrollLeft = viewport.scrollLeft;
+    viewport.setPointerCapture(event.pointerId);
     event.preventDefault();
   });
 
-  document.addEventListener("mousemove", function (event) {
+  viewport.addEventListener("pointermove", function (event) {
     if (!isDragging) return;
     const distance = event.clientX - dragStartX;
     if (Math.abs(distance) > 4) {
       viewport.classList.add("is-dragging");
+      viewport.classList.add("is-mouse-dragged");
       viewport.scrollLeft = dragStartScrollLeft - distance;
     }
   });
 
-  document.addEventListener("mouseup", function () {
-    if (!isDragging) return;
-    isDragging = false;
-    viewport.classList.remove("is-dragging");
-    syncStateFromScroll();
-    setTrackPosition(true);
-  });
+  viewport.addEventListener("pointerup", finishMouseDrag);
+  viewport.addEventListener("pointercancel", finishMouseDrag);
 
   viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
   viewport.addEventListener("wheel", function (event) {

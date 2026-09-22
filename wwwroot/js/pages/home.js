@@ -219,10 +219,69 @@ function setupLatestNews() {
   if (!list) return;
   const homeNewsLimit = 5;
 
+  function setupLatestCarousel() {
+    const carousel = document.querySelector("[data-home-latest-carousel]");
+    const viewport = carousel ? carousel.querySelector(".home-latest__viewport") : null;
+    const previousButton = carousel ? carousel.querySelector("[data-home-latest-previous]") : null;
+    const nextButton = carousel ? carousel.querySelector("[data-home-latest-next]") : null;
+    if (!carousel || !viewport || !previousButton || !nextButton) return;
+
+    const cards = toArray(list.querySelectorAll(".home-latest__item"));
+    if (cards.length === 0) return;
+    let activeStart = 0;
+
+    previousButton.append(createArrow("left", "home-latest__arrow-icon", "chevron"));
+    nextButton.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
+    carousel.classList.add("is-carousel-ready");
+
+    function getVisibleCount() {
+      if (window.innerWidth <= 520) return 1;
+      if (window.innerWidth <= 1100) return 2;
+      return 3;
+    }
+
+    function getMaxStart() {
+      return Math.max(0, cards.length - getVisibleCount());
+    }
+
+    function getCardStep() {
+      const listStyle = window.getComputedStyle(list);
+      const gap = parseFloat(listStyle.columnGap || listStyle.gap) || 0;
+      return cards[0].getBoundingClientRect().width + gap;
+    }
+
+    function render() {
+      activeStart = Math.max(0, Math.min(getMaxStart(), activeStart));
+      list.style.transform = "translate3d(" + (-activeStart * getCardStep()) + "px, 0, 0)";
+      previousButton.disabled = activeStart === 0;
+      nextButton.disabled = activeStart === getMaxStart();
+    }
+
+    function moveBy(direction) {
+      activeStart += direction;
+      render();
+    }
+
+    previousButton.addEventListener("click", function () { moveBy(-1); });
+    nextButton.addEventListener("click", function () { moveBy(1); });
+    window.addEventListener("resize", render, { passive: true });
+    render();
+  }
+
   function buildNewsCard(item) {
     const link = document.createElement("a");
     link.className = "home-latest__item";
     link.href = "/news/" + encodeURIComponent(item.id);
+
+    const media = document.createElement("span");
+    const imageUrl = item.imageUrl || "/public/images/index/news1.png";
+    media.className = "home-latest__media" + (item.imageUrl ? " has-image" : " is-default");
+    const image = document.createElement("img");
+    image.src = imageUrl;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    media.append(image);
 
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
@@ -243,10 +302,14 @@ function setupLatestNews() {
     more.setAttribute("aria-hidden", "true");
     more.append(createArrow("right"));
 
+    const titleRow = document.createElement("span");
+    titleRow.className = "home-latest__title-row";
+    titleRow.append(title, more);
+
     const body = document.createElement("span");
     body.className = "home-latest__body";
-    body.append(meta, title, more);
-    link.append(body);
+    body.append(meta, titleRow);
+    link.append(media, body);
     return link;
   }
 
@@ -264,8 +327,13 @@ function setupLatestNews() {
       for (let i = 0; i < items.length; i++) {
         list.append(buildNewsCard(items[i]));
       }
+      setupLatestCarousel();
     } catch (error) {
-      showEmptyMessage();
+      list.replaceChildren();
+      const empty = document.createElement("p");
+      empty.className = "home-latest__empty";
+      empty.textContent = "目前沒有可顯示的最新消息。";
+      list.append(empty);
     }
   }
 
