@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260921-header-wide-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260921-about-quicklink-image-cards-v8">
+    <link rel="stylesheet" href="css/pages/about.css?v=20260922-certifications-mobile-v1">
   <link rel="stylesheet" href="css/site.css?v=20260921-nonhome-hero-title-size-v1">
 </head>
 
@@ -135,29 +135,34 @@
     </section>
 
     <section id="core-values" class="about-philosophy-editorial" aria-labelledby="core-values-editorial-title">
-      <div class="site-container about-section-heading">
-        <h2 id="core-values-editorial-title">經營理念</h2>
-        <p class="about-philosophy-editorial__intro">亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
-      </div>
-      <div class="site-container about-philosophy-editorial__grid">
-        <article class="about-philosophy-editorial__item">
-          <div class="about-philosophy-editorial__copy">
-            <h3>使命</h3>
-            <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
-          </div>
-        </article>
-        <article class="about-philosophy-editorial__item">
-          <div class="about-philosophy-editorial__copy">
-            <h3>核心價值觀</h3>
-            <p>專業團隊精神</p>
-          </div>
-        </article>
-        <article class="about-philosophy-editorial__item">
-          <div class="about-philosophy-editorial__copy">
-            <h3>共同願景</h3>
-            <p>商品附加價值創造者</p>
-          </div>
-        </article>
+      <div class="site-container">
+        <div class="about-section-heading">
+          <h2 id="core-values-editorial-title">經營理念</h2>
+          <p class="about-philosophy-editorial__intro">亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
+        </div>
+        <div class="about-philosophy-editorial__cards">
+          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--mission">
+            <div class="about-philosophy-editorial__copy">
+              <img class="about-philosophy-editorial__icon" src="public/images/icon/icons8-wedding-rings-100.png" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <h3>使命</h3>
+              <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局</p>
+            </div>
+          </article>
+          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--values">
+            <div class="about-philosophy-editorial__copy">
+              <img class="about-philosophy-editorial__icon" src="public/images/icon/hand-heart-light.svg" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <h3>核心價值觀</h3>
+              <p>專業團隊精神</p>
+            </div>
+          </article>
+          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--vision">
+            <div class="about-philosophy-editorial__copy">
+              <img class="about-philosophy-editorial__icon" src="public/images/icon/icons8-target-100.png" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <h3>共同願景</h3>
+              <p>商品附加價值創造者</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -171,10 +176,10 @@
         </div>
       </div>
       <div class="site-container about-certifications-preview__carousel">
-        <div class="about-certifications-preview__controls" aria-label="認證與獎項年份組控制" data-certification-preview-controls></div>
         <div class="about-certifications-preview__content-shell">
           <div id="certification-preview-content" class="about-certifications-preview__content" aria-label="認證與獎項里程碑" aria-live="polite" data-certification-preview-content></div>
         </div>
+        <div class="about-certifications-preview__controls" role="group" aria-label="認證與獎項內容切換" data-certification-preview-controls></div>
       </div>
       <div class="site-container">
         <noscript>
@@ -185,24 +190,31 @@
 
     <section id="affiliates-overview" class="about-affiliates" aria-labelledby="affiliates-overview-title">
       <div class="site-container">
-        <div class="about-affiliates__content">
-          <div class="about-affiliates__copy">
-            <h2 id="affiliates-overview-title">了解更多</h2>
+        <div class="about-affiliates__promo">
+          <h2 class="about-affiliates__heading" id="affiliates-overview-title">相關資訊</h2>
+          <div class="about-affiliates__grid">
+            <a class="about-affiliates__card about-affiliates__card-link" href="/company-history" aria-label="前往公司沿革">
+              <div class="about-affiliates__promo-media about-affiliates__promo-media--history" aria-hidden="true"></div>
+              <div class="about-affiliates__promo-copy">
+                <h3>公司沿革</h3>
+                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
+              </div>
+            </a>
+            <a class="about-affiliates__card about-affiliates__card-link" href="/operational-resources" aria-label="前往營運資源">
+              <div class="about-affiliates__promo-media about-affiliates__promo-media--resources" aria-hidden="true"></div>
+              <div class="about-affiliates__promo-copy">
+                <h3>營運資源</h3>
+                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
+              </div>
+            </a>
+            <a class="about-affiliates__card about-affiliates__card-link" href="/affiliates" aria-label="前往關係企業">
+              <div class="about-affiliates__promo-media about-affiliates__promo-media--affiliates" aria-hidden="true"></div>
+              <div class="about-affiliates__promo-copy">
+                <h3>關係企業</h3>
+                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
+              </div>
+            </a>
           </div>
-          <nav class="about-affiliates__links" aria-label="亞太相關頁面">
-            <a class="about-affiliates__link" href="/company-history">
-              <span class="about-affiliates__title">公司沿革</span>
-              <span class="about-affiliates__more"><span>了解更多</span><span class="about-affiliates__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></span>
-            </a>
-            <a class="about-affiliates__link" href="/operational-resources">
-              <span class="about-affiliates__title">營運資源</span>
-              <span class="about-affiliates__more"><span>了解更多</span><span class="about-affiliates__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></span>
-            </a>
-            <a class="about-affiliates__link" href="/affiliates">
-              <span class="about-affiliates__title">關係企業</span>
-              <span class="about-affiliates__more"><span>了解更多</span><span class="about-affiliates__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></span>
-            </a>
-          </nav>
         </div>
       </div>
     </section>
@@ -211,6 +223,6 @@
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20260921-certifications-controls-v1"></script>
+  <script src="js/pages/about.js?v=20260922-certification-pagination-v1"></script>
 </body>
 </html>

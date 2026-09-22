@@ -235,17 +235,12 @@ function initCertificationPreview() {
   });
   markActiveDecadeButton(0);
 
-  const previousButton = document.createElement("button");
-  previousButton.type = "button";
-  previousButton.className = "about-certifications-preview__control";
-  previousButton.setAttribute("aria-label", "較新的年份");
-  previousButton.append(createCertificationArrow("left"));
-  const nextButton = document.createElement("button");
-  nextButton.type = "button";
-  nextButton.className = "about-certifications-preview__control";
-  nextButton.setAttribute("aria-label", "較舊的年份");
-  nextButton.append(createCertificationArrow("right"));
-  controls.replaceChildren(previousButton, nextButton);
+  const pagination = document.createElement("div");
+  pagination.className = "about-certifications-preview__pagination";
+  pagination.setAttribute("role", "group");
+  pagination.setAttribute("aria-label", "認證與獎項內容頁次");
+  controls.replaceChildren(pagination);
+  let paginationButtons = [];
 
   function setTrackPosition(animate) {
     if (animate === undefined) {
@@ -328,13 +323,38 @@ function initCertificationPreview() {
   }
 
   function updateControls() {
-    const decade = decades[activeDecadeIndex];
-    const pages = getPages(decade);
-    const isFirstPage = activeDecadeIndex === 0 && activePageIndex === 0;
-    const isLastPage = activeDecadeIndex === decades.length - 1 && activePageIndex === pages.length - 1;
+    const activeGlobalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
+    paginationButtons.forEach(function (button, index) {
+      const isActive = index === activeGlobalPageIndex;
+      button.dataset.active = String(isActive);
+      button.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  }
 
-    previousButton.disabled = isFirstPage;
-    nextButton.disabled = isLastPage;
+  function renderPagination() {
+    paginationButtons = [];
+    pagination.replaceChildren();
+    let globalPageIndex = 0;
+    pageSets.forEach(function (pages, decadeIndex) {
+      pages.forEach(function (_, pageIndex) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "about-certifications-preview__dot";
+        button.setAttribute("aria-label", "顯示第 " + (globalPageIndex + 1) + " 組認證與獎項");
+        button.setAttribute("aria-current", "false");
+        button.dataset.active = "false";
+        button.addEventListener("click", function () {
+          activeDecadeIndex = decadeIndex;
+          activePageIndex = pageIndex;
+          markActiveDecadeButton(activeDecadeIndex);
+          setTrackPosition(true);
+          updateControls();
+        });
+        pagination.append(button);
+        paginationButtons.push(button);
+        globalPageIndex += 1;
+      });
+    });
   }
 
   function createPage(years, decade, decadeIndex, pageIndex) {
@@ -422,6 +442,7 @@ function initCertificationPreview() {
       });
     });
     content.replaceChildren(sharedTimelineTrack, track);
+    renderPagination();
     syncEventHeights();
     setTrackPosition(false);
     updateControls();
@@ -509,13 +530,6 @@ function initCertificationPreview() {
     });
   });
 
-  previousButton.addEventListener("click", function () {
-    movePage(-1);
-  });
-  nextButton.addEventListener("click", function () {
-    movePage(1);
-  });
-
   // 滑鼠拖曳 viewport 也能翻頁；觸控裝置本來就有原生 scroll，不用另外處理
   let isDragging = false;
   let dragStartX = 0;
@@ -584,24 +598,6 @@ function initCertificationPreview() {
   rebuildPageSets();
   renderTrack();
   activateDecade(0);
-}
-
-function createCertificationArrow(direction) {
-  const namespace = "http://www.w3.org/2000/svg";
-  const icon = document.createElementNS(namespace, "svg");
-  icon.classList.add("about-certifications-preview__arrow-icon");
-  icon.setAttribute("viewBox", "0 0 24 24");
-  icon.setAttribute("fill", "none");
-  icon.setAttribute("stroke", "currentColor");
-  icon.setAttribute("stroke-width", "1.8");
-  icon.setAttribute("stroke-linecap", "round");
-  icon.setAttribute("stroke-linejoin", "round");
-  icon.setAttribute("aria-hidden", "true");
-
-  const path = document.createElementNS(namespace, "path");
-  path.setAttribute("d", direction === "left" ? "M15 18 9 12l6-6" : "m9 18 6-6-6-6");
-  icon.append(path);
-  return icon;
 }
 
 document.addEventListener("DOMContentLoaded", function () {

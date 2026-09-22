@@ -1,5 +1,69 @@
 # APLI 專案進度
 
+## 2026-09-22
+- [x] Placed each affiliate card's forward icon inline beside its centered title and removed the icon button border/background, while retaining keyboard focus visibility and hover motion.
+- [x] 2026-09-22 驗證：桌機瀏覽器確認標題與箭頭同列且箭頭無外框；`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；手機版未驗證，因目前瀏覽器控制介面無法調整 viewport。
+- [x] 讓關於亞太三張卡片的整個卡片區域成為可點擊連結，並以卡片 hover 與 focus 狀態提示可導向下一頁。
+- [x] 修正整張卡片連結改造後箭頭繼承頁面文字色的問題，讓標題與箭頭維持一致的白色。
+- [x] 讓認證與獎項區塊使用滿版柔和背景，保留右側切換控制欄，並以白底內容卡片建立內容與控制的層次。
+- [x] 將桌機認證與獎項卡片改為固定寬度的橫向延伸展示，讓卡片可延伸至右側邊界，並將右側切換按鈕浮於邊界上方。
+- [x] 移除桌機認證 carousel 的右側內容容器限制，讓卡片列從內容左側一路延伸至 viewport 右邊界。
+- [x] 修正延伸 carousel 使用 `100vw` 造成的整頁水平捲軸，改以實際區塊寬度計算右側延伸範圍。
+- [x] 將認證第一張卡片對齊上方經營理念第一張卡片，改以浮動左側控制按鈕避免控制欄推動內容向右偏移。
+- [x] 將認證與獎項左右切換按鈕改為卡片底部的可操作分頁點，避免右側延伸卡片遮蔽切換提示。
+- [x] 更新 About 頁面 JavaScript cache query，確保瀏覽器載入新的認證分頁點互動邏輯。
+- [x] 將認證分頁點對齊主要內容容器，並補上 5 張卡片的固定欄位規則，修正最後卡片間距不一致。
+- [x] 將桌機 carousel page 之間的間距改為沿用卡片欄位間距，修正跨 page 卡片靠近的視覺問題。
+- [x] 讓桌機 carousel 各 page 的 flex 寬度包含完整欄位與欄距，避免跨 page 卡片重疊造成最後間距縮小。
+- [x] 為桌機 carousel track 補上實際響應式欄距，修正 page 間距變成 `normal` 的問題。
+- [x] 將認證與獎項區塊改用 `about/01.jpg` 滿版背景與深色遮罩，並調整標題、年代導覽、時間線與分頁點的對比色，獎項卡片維持白底。
+- [x] 依視覺檢視移除認證與獎項區塊的圖片背景，恢復柔和色背景；保留卡片延伸、分頁點與跨 page 間距調整。
+- [x] 將認證區塊的水平溢出限制在內部 carousel，避免卡片延伸造成整個頁面出現水平捲軸。
+- [x] 將認證與獎項區塊改用 `future-outlook/hero.png` 作為極淡背景，保留高透明度淺色遮罩以維持內容可讀性。
+- [x] 精修認證背景遮罩，改為左淡右稍深的漸層，讓右側貨輪意象更自然地透出並維持文字對比。
+- [x] 將 About 關係企業導流區標題改為置中的「相關資訊」，移除說明文字，並使用與 Footer 有明顯區隔的淺藍灰背景。
+- [x] 將 About「相關資訊」區塊背景色調整為 `#e5e5e5`。
+- [x] 縮小「相關資訊」CTA 區塊的上下留白與標題至卡片間距，讓導流區更精簡。
+- [x] 將「相關資訊」CTA 標題字重調整為一般字重，避免視覺過重。
+- [x] 將「相關資訊」CTA 標題尺寸調整為 `--font-size-h3`，與導流區定位一致。
+- [x] Converted the About quick-link cards to image-overlay navigation: a shared dark image mask now supports centered titles and icon-only forward CTAs, while the CTA labels remain available to assistive technology.
+- [x] Tightened the same-row title/CTA area in the About quick-link cards from 96px to 80px desktop height, with a 72px mobile fallback, to reduce the visual separation between each image and its card content.
+- [x] Reflowed the About quick-link card copy rows so each title and 「了解更多」 CTA sit on the same horizontal line, with reduced responsive padding and a consistent minimum row height.
+- [x] Removed the three About quick-link card descriptions and their related CSS; each card now presents only its image, title, and 「了解更多」 CTA with a shorter copy area.
+- [x] Added the global `--font-weight-bold: 700` token and applied it to `.about-page .about-certifications-preview__year` for the heaviest year-number emphasis.
+- [x] Added a light surface behind the philosophy card copy, changed the philosophy section back to a white background, standardized card/image radius tokens, and aligned copy padding/minimum height so each image-and-text card reads as one unit.
+- [x] Applied the global `--card-radius` token to `.about-page .about-profile__media` and its `img`, including overflow clipping on the media wrapper, so the About profile image visibly follows the shared card radius.
+- [x] Applied the global `--card-radius` token to the About affiliate cards and their image tops, replacing the local pixel radius so the card media follows the site-wide radius system.
+- [x] Corrected the company-history card image from a transparent anniversary logo to the available history photo asset after desktop visual verification showed an empty-looking card image.
+- [x] Renamed the About quick-link section heading from 「探索亞太」 to 「關於亞太」 and reduced its card CTA buttons to the homepage About CTA sizing: 40px height, 18px horizontal padding, regular text weight, and light border.
+- [x] Updated the About stylesheet cache key after converting the exploration section from tabs to cards, so browsers load the new three-card presentation instead of the previous promo-panel rules.
+- [x] Replaced the About quick-link tab switcher with three responsive cards for company history, operational resources, and affiliates. Each card now combines a distinct image, short description, and link; removed the obsolete affiliate-switcher JavaScript.
+- [x] Matched philosophy card descriptions to the homepage services-card copy style: `font-size-card-description`, regular weight, body tracking, and 1.6 line height; applied the same description token on mobile.
+- [x] Matched philosophy card headings to the homepage services-card heading token set (`font-size-card-title`, regular weight, normal tracking, card-title line height) and added a shared 14% deep-blue image overlay for more consistent image treatment.
+- [x] Replaced the philosophy tab switcher with a straightforward three-card row: each card now presents its own image, title, and description, with two-column tablet and single-column mobile fallbacks. Removed the no-longer-needed philosophy tab JavaScript.
+- [x] Tightened the desktop philosophy switcher to a 1080px content group with a fixed navigation column, shorter internal spacing, and a smaller media width so the tabs, copy, and image read as one composition instead of three widely separated columns.
+- [x] Tightened the philosophy tab composition after visual review: aligned navigation and panel content to the same top edge, reduced the perceived empty space, and preserved the smaller media/text balance. Browser-reviewed the desktop About section; mobile remains unverified.
+- [x] Replaced the About philosophy editorial rows with an accessible tab switcher inspired by the referenced tab-change interaction: vertical desktop navigation, one focused image-and-copy panel, horizontal mobile tabs, keyboard support, and responsive CSS. Updated `about.html`, `about.css`, and `about.js`; static checks pending.
+- [x] 微調經營理念 editorial 版型：圖片欄縮至約 40%、文字欄擴大，圖片限制最大寬度與比例，降低段落間距以改善圖片過大及短文案留白問題；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 經營理念由三張等大圖片卡改為三段交錯 editorial 版型：桌機左右交錯、手機依標題／圖片／內容排列，保留使命、核心價值觀與共同願景原文；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將探索亞太導流內容標題縮小為 `clamp(1.5rem, 2vw, 2rem)`，與 About 頁面主要標題拉開級距；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將探索亞太「了解更多」按鈕改為比照首頁最新消息「更多資訊」的白底細框與雙箭頭滑入 hover／focus 效果，尺寸比照首頁關於亞太按鈕（48px 高、左右 24px 內距）；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 快速導流右側 `.about-affiliates__promo-copy` 背景改為 `#333333`，並調整文字與按鈕對比色確保可讀性；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 依視覺節奏將「探索亞太」標題至 tab 導覽間距調整為 24px；此處 tab 屬導覽列，與認證導覽的 24px 間距一致，不套用一般 heading-to-content 的 40px token。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將「探索亞太」標題至快速導流 tab 的間距改用全域 `--section-heading-content-gap`，移除手機覆寫值，確保各尺寸遵循 40px 全域規則；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 `about-affiliates__tabs` 視覺統一為 `about-certifications-preview__nav`：底部基準線、48px tab 高度、active 橘色底線、橫向溢位與 focus 樣式一致；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 在 About 快速導流 tab 上方加入「探索亞太」區塊標題，並將 section `aria-labelledby` 指向該標題；更新 About CSS cache key。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 快速導流 CTA 改為可切換的三個 tab：公司沿革、營運資源、關係企業；各 tab 更新對應圖片、說明與連結，支援鍵盤方向鍵／Home／End，無 JavaScript 時保留第一個面板內容；更新 About JavaScript cache key。已執行 `node --check wwwroot/js/pages/about.js` 與 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 關係企業由重複企業卡片改為單一快速導流 CTA：左側代表性圖片、右側關係企業說明與「了解更多」按鈕，連至 `/affiliates`；桌機左右配置、手機上下堆疊；更新 About CSS cache key。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 關係企業由單列 6 張卡片改為桌機 3 欄 2 列、平板 2 欄、手機 1 欄，增加卡片尺寸與區塊層次；更新 About CSS cache key。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 依首頁企業資料將 About 關係企業整理為 6 張卡片：縮短為企業名稱、桌機同列呈現、各自使用不同背景圖片，手機保留橫向瀏覽；更新 About CSS cache key。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 修正關係企業背景圖 selector：原本卡片位於各自 `li` 內，直接使用卡片 `:nth-child()` 會全部命中第一張；改為依 `li:nth-child()` 正確套用 7 張不同背景圖。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] About 關係企業卡片背景改為對照首頁關係企業的各自照片：世新貨櫃、亞柏油品、亞柏會舘、亞柏羽球隊、太報與 ALPHA 均使用不同圖片；第 7 張企業卡保留獨立背景；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] About 關係企業區塊移除 eyebrow 與標題底線裝飾，將 7 張服務卡改為桌機同列呈現並以既有照片作背景襯托；手機保留橫向瀏覽；更新 About CSS cache key。已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 將 About 關係企業區塊恢復為標題「關係企業」的舊版 Logo／服務卡片呈現；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 依需求恢復認證與獎項區塊下方的原本關係企業快速連結區塊及其專用 CSS；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+- [x] 移除 About 頁面的「了解更多」快速連結區塊及其專用 CSS；已完成 `git diff --check`，未進行瀏覽器桌機／手機畫面驗證，未 commit。
+
 ## 2026-09-21
 - [x] 加強首頁「關於亞太」按鈕 hover 底線辨識度：改為 2px 橘線，預設隱藏、hover／focus 展開；更新首頁 CSS cache key。Edge 確認桌機 hover 時 2px 橘線完整顯示，390px 手機無水平溢出；`git diff --check` 通過；未 commit。
 - [x] About 快速連結 CTA 區標題改為「了解更多」，關係企業卡片改用公司建築物照片；「了解更多」hover 下線與雙箭頭滑入效果比照首頁「關於亞太」按鈕，三卡箭頭統一為同一 SVG path；更新 About CSS cache key。Edge 預覽確認載入 v8 CSS、hover 下線展開及箭頭滑入，圖示尺寸維持 16×16；`git diff --check` 通過；未 commit。
@@ -654,3 +718,35 @@
 - [x] 首頁最新消息移除標題英文小標；標題與「我們的服務」共用 `--font-size-section-heading` 及 `--font-weight-heading`（500），並以 `--color-surface-soft` 套用全寬淺灰底；移除列表頂線，消息標題字重設為 500。Edge 實測桌機 1440px 為 33.12px、手機 390px 為 30px，兩處標題尺寸／字重一致，背景滿版、第一則上方無邊線且無水平溢位；`dotnet build -c Release`、`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過。實體裝置、跨瀏覽器及人工無障礙未驗證；未 commit。
 - [x] 依參考圖將首頁最新消息改為「亞太動態／最新消息／簡介」標題區與消息卡片；桌機每列 3 張、平板 2 張、手機 1 張，卡片顯示日期、標題、最多 128 字摘要與箭頭；摘要與標題重複時省略。首頁前端及 SSR 均限制最新 3 則，並更新首頁 CSS／JS cache-busting。Edge 實測 1440px 三欄、980px 雙欄、390px 單欄，均無頁面水平溢位；確認三卡片高度一致、SSR/API 均顯示 3 則；`dotnet build -c Release`（0 warnings／0 errors）、`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過。實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
 - [x] 依使用者澄清，首頁最新消息恢復至本輪改版前的水平文字卡片列（最多 8 則、原生橫向捲動與拖曳、卡片日期／類別／標題／摘要、hover 箭頭及右側「更多」）；移除本輪加入的置中列表、淺灰滿版底色及列表專屬標題設定。Edge 瀏覽器確認桌機 1440px、手機 390px 均有 5 張卡片、卡片列可橫向捲動且頁面本身無水平溢位；`dotnet build -c Release`（0 warnings／0 errors）、`node --check wwwroot/js/pages/home.js`、`git diff --check` 通過。實體裝置、跨瀏覽器與人工無障礙未驗證；未 commit。
+# 2026-09-22: Increased About philosophy card heading weight to the shared heading token; static CSS diff check pending.
+# 2026-09-22: Increased the About related-information heading to the shared H2 size while retaining regular weight; static CSS diff check pending.
+# 2026-09-22: Reworked About profile and philosophy into formal left-copy/right-image editorial rows with mobile stacking; static CSS diff check pending.
+# 2026-09-22: Bumped the About stylesheet cache key so the editorial layout loads in browsers; desktop visual verification pending.
+# 2026-09-22: Changed About profile to a 70/30 text-to-image split, removed its internal title, and bumped the stylesheet cache key; static CSS diff check pending.
+# 2026-09-22: Applied the 70/30 editorial split to About philosophy with one shared right-side image and removed the unused philosophy media markup; static CSS diff check pending.
+# 2026-09-22: Removed the About philosophy intro copy and reduced its H2 to a regular-weight subheading style; static CSS diff check pending.
+# 2026-09-22: Aligned About philosophy copy with the profile section by removing gray card surfaces and retaining a clean text-column treatment; static CSS diff check pending.
+# 2026-09-22: Balanced About philosophy to a 55/45 text-image split and added restrained separators between the three principles; static CSS diff check pending.
+# 2026-09-22: Restored About philosophy to the prior 70/30 text-image split without separators after visual review; static CSS diff check pending.
+# 2026-09-22: Restored About profile and philosophy to the pre-editorial-split layout: profile image-left/text-right and three philosophy cards; static CSS diff check pending.
+# 2026-09-22: Adjusted the About profile to a 60/40 text-to-image balance while preserving the restored image-left/text-right layout; static CSS diff check pending.
+# 2026-09-22: Changed the About profile reading order to text-left/image-right on desktop and text-first/image-second on mobile; static CSS diff check pending.
+# 2026-09-22: Matched About philosophy to the profile's 60/40 text-left/image-right layout with one shared image; static CSS diff check pending.
+# 2026-09-22: Matched About philosophy body copy to the profile's larger body text and line-height treatment; static CSS diff check pending.
+# 2026-09-22: Aligned About philosophy heading and intro to the left 60% content column like the profile section; static CSS diff check pending.
+# 2026-09-22: Moved About philosophy heading and intro inside the editorial grid's left column, with the shared image starting beside the principles; static CSS diff check pending.
+# 2026-09-22: Added an accessible philosophy accordion: activating each principle updates the shared right-side image; static checks pending.
+# 2026-09-22: Removed the philosophy accordion and restored static text plus shared image presentation; static checks pending.
+# 2026-09-22: Matched the philosophy section structure to About profile: left heading and copy column, right 16:10 shared image aligned to the column top; static checks pending.
+# 2026-09-22: Added orange circular philosophy selectors with keyboard-accessible image switching and a dark image caption overlay for the active description; static checks pending.
+# 2026-09-22: Arranged the philosophy circular selectors in one horizontal row and reduced their size and typography; static checks pending.
+# 2026-09-22: Replaced the circular philosophy switcher with three image cards that reveal each principle description on hover or focus; static checks pending.
+# 2026-09-22: Left-aligned the certifications heading and decade navigation within the section header; static checks pending.
+# 2026-09-22: Removed the certifications section background image and background color, retaining the existing content styling; static checks pending.
+# 2026-09-22: Restored a subtle surface color to each certifications event card while keeping the section background transparent; static checks pending.
+# 2026-09-22: Aligned About typography, card gaps, heading spacing, certification event text, and related-information heading with the verified Index rules and shared tokens; static checks pending.
+# 2026-09-22: Updated mobile About ordering to image-before-copy and made philosophy card descriptions visible on touch devices without Hover; static checks pending.
+# 2026-09-22: Reduced mobile certifications carousel page width and removed the desktop bleed calculation so event cards stay within the mobile content column; static checks pending.
+# 2026-09-22: Left-aligned the philosophy heading and positioned hidden card descriptions independently so all card slogans stay vertically centered; static checks pending.
+# 2026-09-22: Added the wedding-rings, team, and target icons above the three philosophy card headings; static checks pending.
+# 2026-09-22: Replaced the core-values icon with `hand-heart-light.svg` to better express care and shared values; static checks pending.

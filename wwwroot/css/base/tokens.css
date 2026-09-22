@@ -34,6 +34,7 @@
   --font-weight-heading: 500;
   --font-weight-medium: 600;
   --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   --font-weight-normal: var(--font-weight-regular);
   --font-weight-section-heading: var(--font-weight-medium);
   /* Polestar-inspired type scale, adapted for Chinese text rendering. */
