@@ -1,7 +1,5 @@
 (function () {
-  if (window.location.hash) {
-    return;
-  }
+  if (window.location.hash) return;
 
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
@@ -17,12 +15,10 @@
   window.addEventListener("pageshow", resetEntryPosition);
 })();
 
-// 公司沿革沿用 About 認證與獎項的水平資訊瀏覽方式，資料仍以 HTML 為來源，
-// 因此停用 JavaScript 時仍可讀取原本的完整沿革內容。
 function toArray(nodeList) {
   const result = [];
-  for (let i = 0; i < nodeList.length; i++) {
-    result.push(nodeList[i]);
+  for (let index = 0; index < nodeList.length; index++) {
+    result.push(nodeList[index]);
   }
   return result;
 }
@@ -37,13 +33,9 @@ function readMilestoneEvents(content) {
 
     const year = yearElement.textContent.trim();
     if (!/^\d{4}$/.test(year)) return;
+    if (!eventsByYear[year]) eventsByYear[year] = [];
 
-    if (!eventsByYear[year]) {
-      eventsByYear[year] = [];
-    }
-
-    const events = toArray(group.querySelectorAll(".milestone-event"));
-    events.forEach(function (eventElement) {
+    toArray(group.querySelectorAll(".milestone-event")).forEach(function (eventElement) {
       const titleElement = eventElement.querySelector("h2");
       if (!titleElement) return;
 
@@ -55,27 +47,12 @@ function readMilestoneEvents(content) {
     });
   });
 
-  const yearsByDecade = {};
-  Object.keys(eventsByYear).forEach(function (year) {
-    const yearNumber = Number(year);
-    const decadeStart = Math.floor(yearNumber / 10) * 10;
-    if (!yearsByDecade[decadeStart]) {
-      yearsByDecade[decadeStart] = [];
-    }
-    yearsByDecade[decadeStart].push({ year: year, events: eventsByYear[year] });
-  });
-
-  return Object.keys(yearsByDecade)
-    .map(Number)
-    .sort(function (a, b) { return b - a; })
-    .map(function (start) {
-      return {
-        start: start,
-        label: start + "s",
-        years: yearsByDecade[start].sort(function (a, b) {
-          return Number(b.year) - Number(a.year);
-        }),
-      };
+  return Object.keys(eventsByYear)
+    .map(function (year) {
+      return { year: year, events: eventsByYear[year] };
+    })
+    .sort(function (first, second) {
+      return Number(second.year) - Number(first.year);
     });
 }
 
@@ -83,251 +60,97 @@ function initMilestonePreview() {
   const preview = document.querySelector("[data-milestones-preview]");
   if (!preview) return;
 
-  const controls = preview.querySelector("[data-milestone-controls]");
   const viewport = preview.querySelector(".milestone-content-shell");
   const content = preview.querySelector("[data-milestone-content]");
-  if (!controls || !viewport || !content) return;
+  if (!viewport || !content) return;
 
-  const decades = readMilestoneEvents(content);
-  if (decades.length === 0) return;
+  const years = readMilestoneEvents(content);
+  if (years.length === 0) return;
 
-  const years = [];
-  decades.forEach(function (decade) {
-    decade.years.forEach(function (yearEntry) {
-      years.push(yearEntry);
-    });
-  });
+  const stickyTimeline = document.createElement("div");
+  stickyTimeline.className = "milestone-sticky";
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let activePageIndex = 0;
-  let pageSize = getPageSize();
-  let pages = [];
+  const scrollViewport = document.createElement("div");
+  scrollViewport.className = "milestone-sticky__scroll-viewport";
+  scrollViewport.setAttribute("tabindex", "0");
+  scrollViewport.setAttribute("aria-label", "Company history timeline");
 
-  function getPageSize() {
-    if (window.matchMedia("(min-width: 1440px)").matches) return 4;
-    if (window.matchMedia("(min-width: 1200px)").matches) return 3;
-    if (window.matchMedia("(min-width: 768px)").matches) return 2;
-    return 1;
-  }
+  const items = document.createElement("div");
+  items.className = "milestone-sticky__items";
 
-  function rebuildPages() {
-    pages = [];
-    for (let index = 0; index < years.length; index += pageSize) {
-      pages.push(years.slice(index, index + pageSize));
-    }
-  }
+  const scrollHint = document.createElement("div");
+  scrollHint.className = "milestone-sticky__scroll-hint";
+  scrollHint.setAttribute("aria-hidden", "true");
+  scrollHint.innerHTML = '<span class="milestone-sticky__scroll-hint-icon"></span><span>SCROLL</span>';
 
-  const track = document.createElement("div");
-  track.className = "milestone-preview__track";
-  track.setAttribute("data-milestone-track", "");
+  years.forEach(function (yearEntry, yearIndex) {
+    const item = document.createElement("article");
+    item.className = "milestone-sticky__item";
+    item.classList.add(yearIndex % 2 === 0 ? "is-left" : "is-right");
 
-  const sharedTimelineTrack = document.createElement("div");
-  sharedTimelineTrack.className = "milestone-preview__shared-track";
-  sharedTimelineTrack.setAttribute("aria-hidden", "true");
+    const side = document.createElement("div");
+    side.className = "milestone-sticky__side";
 
-  function createPage(pageYears, pageIndex) {
-    const page = document.createElement("section");
-    page.className = "milestone-preview__page";
-    page.dataset.yearCount = String(pageYears.length);
-    page.setAttribute("aria-label", "公司沿革");
+    const heading = document.createElement("h2");
+    heading.className = "milestone-sticky__heading";
+    heading.textContent = yearEntry.year;
+    side.append(heading);
 
-    const pageHeadingId = "milestone-preview-page-" + pageIndex;
-    page.setAttribute("aria-labelledby", pageHeadingId);
+    const events = document.createElement("div");
+    events.className = "milestone-sticky__events";
+    yearEntry.events.forEach(function (eventEntry) {
+      const event = document.createElement("article");
+      event.className = "milestone-sticky__event";
 
-    const timeline = document.createElement("div");
-    timeline.className = "milestone-preview__timeline";
-    timeline.style.setProperty("--milestone-year-count", String(pageYears.length));
-    pageYears.forEach(function (yearEntry, yearIndex) {
-      const node = document.createElement("span");
-      node.className = "milestone-preview__timeline-node";
-      node.dataset.active = yearIndex === 0 ? "true" : "false";
-      node.setAttribute("aria-hidden", "true");
-      timeline.append(node);
-    });
-    page.append(timeline);
+      const title = document.createElement("h3");
+      title.textContent = eventEntry.title;
+      event.append(title);
 
-    const yearsElement = document.createElement("div");
-    yearsElement.className = "milestone-preview__years";
-    yearsElement.style.setProperty("--milestone-year-count", String(pageYears.length));
-
-    pageYears.forEach(function (yearEntry, yearIndex) {
-      const yearColumn = document.createElement("article");
-      yearColumn.className = "milestone-preview__year-column";
-
-      const yearHeading = document.createElement("h3");
-      yearHeading.className = "milestone-preview__year";
-      yearHeading.id = yearIndex === 0
-        ? pageHeadingId
-        : "milestone-preview-year-" + pageIndex + "-" + yearEntry.year;
-      yearHeading.textContent = yearEntry.year;
-
-      const events = document.createElement("div");
-      events.className = "milestone-preview__events";
-      yearEntry.events.forEach(function (eventEntry) {
-        const event = document.createElement("article");
-        event.className = "milestone-preview__event";
-
-        const title = document.createElement("h4");
-        title.textContent = eventEntry.title;
-        event.append(title);
-
-        if (eventEntry.description) {
-          const description = document.createElement("p");
-          description.textContent = eventEntry.description;
-          event.append(description);
-        }
-        events.append(event);
-      });
-
-      yearColumn.append(yearHeading, events);
-      yearsElement.append(yearColumn);
-    });
-
-    page.append(yearsElement);
-    return page;
-  }
-
-  function syncEventHeights() {
-    content.style.removeProperty("--milestone-events-height");
-    const eventGroups = content.querySelectorAll(".milestone-preview__events");
-    let maxHeight = 0;
-    for (let index = 0; index < eventGroups.length; index++) {
-      maxHeight = Math.max(maxHeight, eventGroups[index].getBoundingClientRect().height);
-    }
-    if (maxHeight > 0) {
-      content.style.setProperty("--milestone-events-height", Math.ceil(maxHeight) + "px");
-    }
-  }
-
-  const previousButton = document.createElement("button");
-  previousButton.type = "button";
-  previousButton.className = "milestones-preview__control";
-  previousButton.setAttribute("aria-label", "較新的年份");
-  previousButton.textContent = "←";
-
-  const nextButton = document.createElement("button");
-  nextButton.type = "button";
-  nextButton.className = "milestones-preview__control";
-  nextButton.setAttribute("aria-label", "較舊的年份");
-  nextButton.textContent = "→";
-
-  function updateControls() {
-    previousButton.disabled = activePageIndex === 0;
-    nextButton.disabled = activePageIndex === pages.length - 1;
-  }
-
-  function setTrackPosition(animate) {
-    const renderedPages = track.children;
-    const firstPage = track.firstElementChild;
-    if (!firstPage) return;
-
-    const targetPage = renderedPages[activePageIndex];
-    const pageStep = targetPage
-      ? targetPage.offsetLeft - firstPage.offsetLeft
-      : firstPage.offsetWidth + 16;
-
-    viewport.scrollTo({
-      left: pageStep,
-      behavior: animate && !reduceMotion ? "smooth" : "auto",
-    });
-
-    viewport.classList.toggle("is-track-advanced", activePageIndex > 0);
-  }
-
-  function renderTrack() {
-    track.replaceChildren();
-    pages.forEach(function (pageYears, pageIndex) {
-      track.append(createPage(pageYears, pageIndex));
-    });
-    content.replaceChildren(sharedTimelineTrack, track);
-    syncEventHeights();
-    setTrackPosition(false);
-    updateControls();
-  }
-
-  function syncStateFromScroll() {
-    const firstPage = track.firstElementChild;
-    if (!firstPage || pages.length === 0) return;
-
-    const currentOffset = viewport.scrollLeft;
-    let nearestPageIndex = 0;
-    let nearestDistance = Number.POSITIVE_INFINITY;
-    for (let index = 0; index < track.children.length; index++) {
-      const pageOffset = track.children[index].offsetLeft - firstPage.offsetLeft;
-      const distance = Math.abs(pageOffset - currentOffset);
-      if (distance < nearestDistance) {
-        nearestDistance = distance;
-        nearestPageIndex = index;
+      if (eventEntry.description) {
+        const description = document.createElement("p");
+        description.textContent = eventEntry.description;
+        event.append(description);
       }
+      events.append(event);
+    });
+    side.append(events);
+
+    const marker = document.createElement("span");
+    marker.className = "milestone-sticky__marker";
+    marker.setAttribute("aria-hidden", "true");
+
+    const emptySide = document.createElement("span");
+    emptySide.className = "milestone-sticky__empty-side";
+    emptySide.setAttribute("aria-hidden", "true");
+
+    if (yearIndex % 2 === 0) {
+      item.append(side, marker, emptySide);
+    } else {
+      item.append(emptySide, marker, side);
     }
-
-    if (nearestPageIndex === activePageIndex) return;
-    activePageIndex = nearestPageIndex;
-    updateControls();
-  }
-
-  function movePage(offset) {
-    activePageIndex = Math.max(0, Math.min(activePageIndex + offset, pages.length - 1));
-    setTrackPosition(true);
-    updateControls();
-  }
-
-  controls.replaceChildren(previousButton, nextButton);
-  previousButton.addEventListener("click", function () { movePage(-1); });
-  nextButton.addEventListener("click", function () { movePage(1); });
-
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartScrollLeft = 0;
-
-  viewport.addEventListener("mousedown", function (event) {
-    if (event.button !== 0 || event.target.closest("button")) return;
-    isDragging = true;
-    dragStartX = event.clientX;
-    dragStartScrollLeft = viewport.scrollLeft;
-    event.preventDefault();
+    items.append(item);
   });
 
-  document.addEventListener("mousemove", function (event) {
-    if (!isDragging) return;
-    const distance = event.clientX - dragStartX;
-    if (Math.abs(distance) > 4) {
-      viewport.classList.add("is-dragging");
-      viewport.scrollLeft = dragStartScrollLeft - distance;
-    }
+  const axis = document.createElement("span");
+  axis.className = "milestone-sticky__axis";
+  axis.setAttribute("aria-hidden", "true");
+  scrollViewport.append(items);
+  stickyTimeline.append(axis, scrollViewport, scrollHint);
+  content.replaceChildren(stickyTimeline);
+
+  preview.querySelectorAll("[data-milestone-controls]").forEach(function (controls) {
+    controls.hidden = true;
   });
-
-  document.addEventListener("mouseup", function () {
-    if (!isDragging) return;
-    isDragging = false;
-    viewport.classList.remove("is-dragging");
-    syncStateFromScroll();
-    setTrackPosition(true);
-  });
-
-  viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
-  viewport.addEventListener("wheel", function (event) {
-    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 16) return;
-    event.preventDefault();
-    movePage(event.deltaX > 0 ? 1 : -1);
-  }, { passive: false });
-
-  window.addEventListener("resize", function () {
-    const nextPageSize = getPageSize();
-    if (nextPageSize === pageSize) {
-      syncEventHeights();
-      setTrackPosition(false);
-      return;
-    }
-    pageSize = nextPageSize;
-    activePageIndex = 0;
-    rebuildPages();
-    renderTrack();
-  });
-
+  viewport.classList.add("is-vertical-timeline");
   document.body.classList.add("milestones-motion-ready");
-  rebuildPages();
-  renderTrack();
+  scrollViewport.scrollTop = 0;
+
+  function updateScrollHint() {
+    scrollHint.classList.toggle("is-hidden", scrollViewport.scrollTop > 12);
+  }
+
+  scrollViewport.addEventListener("scroll", updateScrollHint, { passive: true });
+  updateScrollHint();
 }
 
 document.addEventListener("DOMContentLoaded", initMilestonePreview);

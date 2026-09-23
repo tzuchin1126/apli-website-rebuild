@@ -104,9 +104,9 @@
   --footer-bottom-background: linear-gradient(100deg, #d96508 0%, var(--color-primary) 48%, #e9780f 100%);
   --footer-heading: #40403e;
   --footer-link: #81817e;
-  --footer-muted: var(--color-text-muted);
-  --footer-divider: rgb(23 54 70 / 16%);
-  --footer-bottom-text: #fff;
+  --footer-muted: #81817e;
+  --footer-divider: rgb(64 64 62 / 16%);
+  --footer-bottom-text: #40403e;
   --page-hero-height: clamp(280px, 26vw, 350px);
   --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);

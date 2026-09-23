@@ -781,3 +781,133 @@
 # 2026-09-22: Left-aligned the philosophy heading and positioned hidden card descriptions independently so all card slogans stay vertically centered; static checks pending.
 # 2026-09-22: Added the wedding-rings, team, and target icons above the three philosophy card headings; static checks pending.
 # 2026-09-22: Replaced the core-values icon with `hand-heart-light.svg` to better express care and shared values; static checks pending.
+# 2026-09-23: Removed the homepage latest-news section background and applied the same subtle background to the services section; `git diff --check` and `dotnet build -c Release` passed, browser desktop/mobile verification not run.
+# 2026-09-23: Changed the homepage latest-news carousel to show four cards on desktop while retaining two-card tablet and one-card mobile breakpoints; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Reduced latest-news carousel side and card gaps to enlarge the four desktop news cards while preserving responsive breakpoints; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the homepage latest-news carousel to three desktop cards per view while keeping the reduced spacing and responsive tablet/mobile counts; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Harmonized homepage service/latest-news card hierarchy with shared heading spacing, subtle card elevation, consistent image radius, and a light section divider; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restyled the homepage latest-news link as a centered news-center row with a circular arrow and bottom divider to match the supplied reference; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the latest-news link label to `更多資訊` and centered both arrow SVG states inside the circular icon; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed the homepage contact/recruitment CTA markup, its dedicated styles, and its interaction setup; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Made the homepage related-company section and carousel use the full available width without content-gutter or max-width side constraints; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed the bottom padding from the homepage related-company section on desktop and mobile; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Adjusted the related-company image crop positions for 亞柏會舘 and 亞柏羽球隊 so the upper subject area, including the player's head, remains visible; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Set the 亞柏會舘 and 亞柏羽球隊 image crops to the top edge so the upper subject area and player head are explicitly retained; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Applied dedicated crop classes to the 亞柏會舘 and 亞柏羽球隊 cards so carousel clones retain the top-aligned image position on desktop; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Tuned the 亞柏羽球隊 focal point to 35% on desktop and 25% below 1100px so the player's head and lower body remain balanced across screen widths; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Lowered the 亞柏會舘 image focal point to 68% on desktop and 55% below 1100px so more of the building remains visible instead of excess sky; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Added the shared subtle surface background to the homepage related-company section to separate its white brand cards from the page surface; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Added a subtle bottom border to separate the related-company section from the similar-toned footer without restoring bottom spacing; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed the related-company background and bottom border, and left-aligned its section heading; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the related-company section heading to centered alignment; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Changed the homepage services section background from `#efefef` to `#fafafa`; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Unified homepage content rails, section heading typography, heading-to-content gaps, and vertical section spacing while preserving the full-width affiliates carousel and its zero bottom spacing; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Clarified homepage section roles with service-capability, latest-news, and group-ecosystem labels/descriptions plus distinct heading rhythm; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed the homepage section-role labels, descriptions, and related editorial grid overrides while retaining the unified container, heading, and spacing rules; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Unified homepage media radius/shadow tokens and circular arrow controls across services, latest news, and affiliates while preserving the service cards' vertical ratio; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the original homepage carousel, service-card, and latest-news arrow treatments while retaining the shared image radius and shadow rules; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restyled the homepage affiliates section as a dark full-width logo showcase with left-aligned branded heading, dark rounded cards, centered identity marks, and header-level carousel controls; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the homepage affiliates section after removing the dark logo-showcase experiment; existing transparent background, image cards, and carousel layout are retained, along with the shared media radius/shadow rules; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Left-aligned the homepage affiliates heading on the shared About content rail and moved its carousel controls into the heading area's upper-right corner; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Added a subtle `#f7f8fa` background to the homepage affiliates card pseudo-element so each card has clearer separation from the white page surface; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Changed homepage affiliates cards to square image tiles with company name and description revealed on hover/focus, while keeping the text visible on touch layouts; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Restored the previous homepage affiliates card proportions and below-image text layout after removing the square hover-overlay experiment; the card background, left heading, and header controls remain unchanged; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed the homepage affiliates card pseudo-element background so the cards return to a transparent surface; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Reduced the desktop homepage affiliates card height from `280px` to `240px` to remove excess space below the company names while preserving the mobile card height; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Balanced the shorter affiliates cards by moving hover descriptions upward, tightening their line-height, and adding a restrained bottom buffer before the footer; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Strengthened mobile homepage Hero copy contrast to follow the desktop readability treatment, using a localized dark radial overlay, stronger text shadow, and CTA shadow without changing other pages; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Softened the mobile Hero contrast treatment with a wider, lighter radial overlay and reduced text/CTA shadows for a more natural image presentation; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Updated mobile homepage order and interaction: About now presents the image first, service cards use the desktop overlay with always-visible text at a shorter height, latest news supports pointer/touch dragging, and mobile section spacing was rebalanced; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Removed homepage mobile header utility links, enlarged the menu toggle hit area/icon, and applied the primary orange color with an orange focus ring; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Refined the homepage mobile menu: kept the toggle at the right edge, added a smooth hamburger-to-close rotation/fade transition, and increased menu row height, typography, padding, and separators to follow the supplied mobile reference; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Verified the homepage mobile menu in the local browser at a 440px viewport, reduced the mobile homepage Header/nav start from `72px` to `64px`, and enlarged the close icon while retaining the measured `58px` menu rows and `17px` text; static checks pending, browser desktop/mobile verification not run.
+# 2026-09-23: Followed up the real-device check by cache-busting the homepage stylesheet so the intended `64px` mobile Header/nav alignment is actually loaded; mobile browser recheck passed at the local 440px viewport, while desktop browser verification remains unrun.
+# 2026-09-23: Replaced the mobile menu icon shadow workaround with interaction-state styling: clicked menus retain the background and orange hamburger/close icon, while leaving a closed header restores the transparent background and white hamburger; desktop browser verification remains unrun.
+# 2026-09-23: Fixed the mobile Header hover/focus cascade so any visible Header background now forces the hamburger icon orange; white is reserved for the transparent Header state.
+# 2026-09-23: Removed separators between homepage mobile submenu items while retaining the main navigation row dividers.
+# 2026-09-23: Unified non-homepage mobile Headers with the homepage mobile layout: 64px Header, 52px menu button, 36px icon, orange icon on the always-background Header, matching 58px navigation rows, typography, spacing, carets, and separator-free submenus; desktop browser verification remains unrun.
+# 2026-09-23: Unified desktop Footer main-section vertical padding with `padding-block: clamp(42px, 5vw, 64px)` while preserving the existing mobile footer padding; desktop browser verification remains unrun.
+# 2026-09-23: Changed the shared Footer background to `#3b3b3b`, updated Footer text and divider tokens to light-on-dark values, and added company information directly below the Footer logo before the navigation; browser verification remains unrun.
+# 2026-09-23: Repositioned the shared Footer dividers so the first line sits directly below the logo and the second line sits below company information before the navigation, matching the supplied reference layout; browser verification remains unrun.
+# 2026-09-23: Positioned company information as a full-width Footer block aligned with the `關於亞太` column, kept `關於亞太` as the first navigation column, changed the desktop navigation grid to four columns, and removed the `最新消息` Footer column; browser verification remains unrun.
+# 2026-09-23: Rebuilt the shared Footer to match the supplied reference: Logo and horizontal navigation in the first row, divider, company information below, and copyright/legal links in the bottom row; `最新消息` remains removed.
+# 2026-09-23: Matched the reference company-information format: Chinese address, English address, and TEL line; removed the separate company-name and email rows from the Footer information block.
+# 2026-09-23: Matched the reference company-information typography: enlarged the Chinese address, aligned the English address and TEL line to a lighter scale, and adjusted letter spacing and line rhythm for desktop and mobile.
+# 2026-09-23: Reorganized the shared Footer into left-side company information and right-side menu groups for 關於亞太, 服務項目, and 快速連結; company information now uses 18px Chinese text and 14px English/TEL text.
+# 2026-09-23: Reduced the desktop vertical padding of `site-footer__main` to tighten the shared Footer while preserving the existing mobile spacing.
+# 2026-09-23: Reduced `.site-footer__top` bottom padding so the Footer logo sits closer to its divider on desktop and mobile.
+# 2026-09-23: Added the company Email address back to the shared Footer company-information block below the TEL line.
+# 2026-09-23: Updated the mobile Footer order to show the expandable navigation below the logo divider before company information, with up/down chevron controls for each submenu.
+# 2026-09-23: Corrected the mobile Footer submenu controls by removing the inherited plus-icon background, forcing full-width rows, and aligning clean chevrons to the right edge.
+# 2026-09-23: Fixed mobile Footer alignment by stretching the content and navigation containers so submenu chevrons remain at the far right edge.
+# 2026-09-23: Changed only the homepage Footer to a light surface with dark text and dividers, matching the other-page Footer presentation while preserving the dark Footer on inner pages.
+# 2026-09-23: Matched the homepage Footer text hierarchy to the light reference: dark primary color for menu headings, arrows, and copyright; muted body color for company details and submenu links.
+# 2026-09-23: Corrected the homepage Footer copyright cascade so it retains the same dark primary text color as the light reference.
+# 2026-09-23: Forced every homepage Footer navigation heading, submenu link, toggle button, and arrow to use the same dark primary text color as the reference light Footer.
+# 2026-09-23: Unified the Footer interface across homepage and inner pages with `#f3f4f3` background, `#40403e` menu headings, and `#81817e` submenu/legal links.
+# 2026-09-23: Added an operational-resources quick navigation bar below the Hero with anchors for facilities, equipment, capacity, safety, and location; mobile supports horizontal scrolling.
+# 2026-09-23: Removed the quick-navigation background color and made it sticky below the fixed Header; adjusted anchor scroll margins so sections remain visible below both controls.
+# 2026-09-23: Restored an opaque surface background for the sticky operational-resources quick navigation so content does not show through while scrolling.
+# 2026-09-23: Added active-state synchronization for the operational-resources quick navigation on click and scroll, including the orange underline under the current section.
+# 2026-09-23: Stabilized quick-navigation active-state switching with forward/backward hysteresis and a short anchor-click lock to prevent underline flicker.
+# 2026-09-23: Matched the facilities section spacing to About's company-profile section with the shared compact section padding and a 32px-to-64px content gap.
+# 2026-09-23: Matched the facilities section desktop image-to-copy ratio to About's company-profile layout at 6:4; other operational-resource sections remain unchanged.
+# 2026-09-23: Applied the same 6:4 About-style image-to-copy proportions and spacing to equipment configuration, capacity, and occupational safety sections, mirrored for reverse layouts.
+# 2026-09-23: Explicitly set `.footer-column a.footer-column__title--link` and its mobile title counterpart to `#40403e`.
+# 2026-09-23: Reduced the Footer Chinese company address text size to 16px on desktop and mobile; English address, TEL, and Email remain 14px.
+# 2026-09-23: Explicitly set `.footer-column__title` to `#40403e` across the shared Footer.
+# 2026-09-23: Corrected the homepage Footer cascade so `.footer-column__title` remains `#40403e` while only submenu links use `#81817e`.
+# 2026-09-23: Removed the background color from the About certifications preview events container.
+# 2026-09-23: Kept `public/images/about/02.png` exclusively in the About profile section and softened it with a translucent white overlay.
+# 2026-09-23: Added the softened `public/images/about/03.png` decoration exclusively to the About certifications and awards section.
+# 2026-09-23: Aligned the company-history timeline header and circular previous/next controls with the About certifications timeline while preserving company-history text sizes.
+# 2026-09-23: Replaced company-history arrow controls with the same bottom pagination-dot controls used by the About certifications timeline.
+# 2026-09-23: Matched company-history dragging to the About certification carousel with pointer capture, mouse-drag snap suspension, and guarded scroll-state syncing.
+# 2026-09-23: Removed the company-history `milestones-preview__header` markup and its unused heading-layout styles.
+# 2026-09-23: Left-aligned the 2023 `public/images/index/50.png` decoration with the `2023` year label while preserving timeline alignment.
+# 2026-09-23: Added year-above representative images for 2018 (`affiliates/taisounds.jpg`) and 2016 (`affiliates/小港加油站.png`) using the same aligned treatment as 2023.
+# 2026-09-23: Removed all company-history year representative images and restored the original timeline spacing and shared-line position.
+# 2026-09-23: Matched desktop gaps between company-history carousel pages to the year-column gap so years split across pages do not appear unusually close; mobile keeps its compact gap.
+# 2026-09-23: Added `public/images/affiliates/123456.jpg` as a softened cover background for `.milestones-content` only.
+# 2026-09-23: Removed the background color from `.milestone-preview__events`; the section background image remains unchanged.
+# 2026-09-23: Removed the company-history Hero markup, preload, and page-specific Hero positioning so the timeline content follows the breadcrumb directly.
+# 2026-09-23: Horizontally flipped the independent company-history background image layer so its visual focus shifts from the left toward the right and stays clear of the timeline text.
+# 2026-09-23: Polished the existing company-history four-column timeline: constrained desktop width, tightened year/timeline/event spacing, softened the line and nodes, removed dotted separators, reduced pagination, lowered background opacity, and kept four columns from 1200px upward.
+# 2026-09-23: Restored company-history to the state before the requested timeline polish: original full-width carousel sizing, spacing, line/node treatment, dotted event separators, pagination scale, background opacity, and desktop page-size breakpoints are restored; the earlier background flip, transparent events, drag behavior, and pagination-dot controls remain.
+# 2026-09-23: Further softened the company-history port background image by reducing the overlay layer opacity from .28 to .18 without changing timeline layout or content.
+# 2026-09-23: Converted company-history to a vertical year-navigation timeline: desktop uses a left year rail with an active event panel, mobile uses a horizontal year selector, and the existing milestone source content and background remain unchanged.
+# 2026-09-23: Revised company-history to a single central vertical timeline: all years render from newest to oldest with alternating left/right event content; mobile collapses the content to one side of the axis.
+# 2026-09-23: Converted the company-history central timeline into a sticky feature section: the stage stays fixed while the visible year and events change as the user scrolls through newest-to-oldest steps.
+# 2026-09-23: Refined the sticky company-history stage to a single viewport-sized fixed presentation with non-visible scroll steps, preventing each year from creating a large visible block.
+# 2026-09-23: Changed company-history to a fixed-height inner scroll viewport: the outer section stays at one height while the central-axis timeline content scrolls internally from newest to oldest.
+# 2026-09-23: Fixed the inner-scroll timeline axis by moving the line outside the scrolling content layer so it remains visible from the newest year through the oldest year.
+# 2026-09-23: Reset the internal timeline scroll position on page load and bumped the JavaScript cache version so the corrected axis and lower-year content are loaded consistently.
+# 2026-09-23: Reversed the alternating timeline order so 2023 starts on the right, followed by 2018 on the left and subsequent years alternating left and right.
+# 2026-09-23: Restored the previous timeline order so 2023 starts on the left and the following years alternate from the right.
+# 2026-09-23: Reduced the fixed company-history inner viewport height to make the `milestones-content` section more compact while preserving internal scrolling.
+# 2026-09-23: Added an animated orange downward scroll hint to the fixed company-history viewport; it fades out after the user begins scrolling.
+# 2026-09-23: Changed the company-history scroll hint text to `Scroll Down`, moved the arrow after the text, and repositioned the hint at the fixed viewport's bottom center.
+# 2026-09-23: Restored the previous company-history scroll hint presentation with `向下滑動`, the arrow before the text, and the original hint offset.
+# 2026-09-23: Moved the company-history scroll hint away from the central axis line; desktop sits to the line's right and mobile stays clear of the left axis.
+# 2026-09-23: Relocated the company-history scroll hint to the fixed viewport's upper-right whitespace so it no longer overlaps the 2018 content or central axis.
+# 2026-09-23: Repositioned the company-history scroll hint below the central axis endpoint, with a small gap from the line so it reads as the next-scroll cue.
+# 2026-09-23: Removed the direct background color from `.milestones-content`; the existing softened port image layer remains.
+# 2026-09-23: Aligned the mobile company-history axis with its event markers and restored the scroll hint to the bottom center of the fixed viewport.
+# 2026-09-23: Aligned mobile timeline markers with the year headings and moved the bottom-center scroll hint below the scrolling content so it no longer overlaps the next year.
+# 2026-09-23: Added a 20px mobile right inset to company-history timeline content so text keeps a consistent edge gap.
+# 2026-09-23: Changed desktop left-side company-history titles and descriptions to left alignment for normal left-to-right reading.
+# 2026-09-23: Restored the previous right alignment for desktop left-side company-history content; mobile remains left aligned.
+# 2026-09-23: Applied left alignment to desktop left-side company-history content for more consistent Chinese reading flow while keeping the column on the left of the axis.
+# 2026-09-23: Kept left-side company-history text left aligned while anchoring its content block toward the central axis to reduce the visual gap.
+# 2026-09-23: Changed the company-history scroll hint label from `向下滑動` to `SCROLL` without changing its arrow or animation.
+# 2026-09-23: Moved the About Hero image focal point upward so more of the upper image area is visible on mobile and desktop.
+# 2026-09-23: Moved the About Hero image focal point slightly further upward for the requested framing adjustment.
+# 2026-09-23: Reverted the later company-history timeline-line extension; the shared line now uses the pre-polish full-width track behavior again.
+# 2026-09-23: Restored the homepage mobile related-company carousel; each visible card now directly shows its image, title, and description without requiring hover, while keeping one-card-at-a-time navigation.
+# 2026-09-23: Slightly reduced homepage service-card height by changing the desktop aspect ratio to `1` and mobile aspect ratio to `1.12`.
+# 2026-09-23: Tightened homepage latest-news card body vertical spacing to 8px above and 18px below the metadata and title content across desktop and mobile.
+# 2026-09-23: Changed dynamically generated homepage latest-news titles from `<strong>` to semantic `<h3>` elements and updated the title-row/body containers to valid block structure without changing visual styling.
+# 2026-09-23: Set only the homepage Hero main title `.home-hero__copy h1` to font weight 400 on desktop and mobile; lower section headings remain unchanged.
+# 2026-09-23: Removed the later mobile cascade override that restored the Hero title to the heading weight; mobile now also resolves to 400.
+# 2026-09-23: Unified the Footer interface across homepage and inner pages with `#f3f4f3` background, `#40403e` menu headings, and `#81817e` submenu/legal links.
+# 2026-09-23: Refined the homepage mobile menu states: the closed toggle remains white and closer to the right edge, the open toggle changes to orange, and expanded navigation rows now use a consistent 16px normal-weight type scale, 58px rhythm, letter spacing, and caret spacing; the reloaded 440px mobile closed state was visually checked, while expanded-state interaction and desktop browser verification remain unrun.

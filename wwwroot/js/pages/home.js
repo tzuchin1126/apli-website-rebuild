@@ -134,39 +134,6 @@ function setupHeroCarousel() {
 }
 
 // ---------------------------------------------------------------------------
-// 聯絡/招募 CTA:滑鼠或鍵盤焦點進入左右面板時放大對應側
-// ---------------------------------------------------------------------------
-
-function setupContactCta() {
-  const cta = document.querySelector(".home-contact-cta");
-  if (!cta) return;
-
-  // 設定聯絡／招募 CTA 目前的 hover 或 focus 面板（state 為 "left"、"right" 或 null）
-  function setHoverState(state) {
-    cta.classList.toggle("hover-left", state === "left");
-    cta.classList.toggle("hover-right", state === "right");
-  }
-
-  const panels = toArray(cta.querySelectorAll(".home-contact-cta__panel"));
-  for (let i = 0; i < panels.length; i++) {
-    const panel = panels[i];
-    const state = panel.classList.contains("home-contact-cta__panel--join") ? "right" : "left";
-
-    panel.addEventListener("mouseenter", function () {
-      setHoverState(state);
-    });
-    panel.addEventListener("mouseleave", function () {
-      if (!panel.contains(document.activeElement)) setHoverState(null);
-    });
-    panel.addEventListener("focusin", function () {
-      setHoverState(state);
-    });
-    panel.addEventListener("focusout", function (event) {
-      if (!panel.contains(event.relatedTarget)) setHoverState(null);
-    });
-  }
-}
-// ---------------------------------------------------------------------------
 // 最新消息:載入資料並支援卡片列拖曳
 // ---------------------------------------------------------------------------
 
@@ -264,6 +231,77 @@ function setupLatestNews() {
 
     previousButton.addEventListener("click", function () { moveBy(-1); });
     nextButton.addEventListener("click", function () { moveBy(1); });
+
+    let activePointerId = null;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragDistance = 0;
+    let hasDragged = false;
+    let suppressClick = false;
+
+    function finishLatestDrag(event) {
+      if (event.pointerId !== activePointerId) return;
+      viewport.classList.remove("is-dragging");
+      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+
+      if (hasDragged && event.type === "pointerup") {
+        const step = getCardStep();
+        const threshold = Math.max(32, step * .16);
+        if (Math.abs(dragDistance) >= threshold) {
+          const steps = Math.max(1, Math.round(Math.abs(dragDistance) / step));
+          const nextStart = dragDistance < 0 ? activeStart + steps : activeStart - steps;
+          activeStart = Math.max(0, Math.min(getMaxStart(), nextStart));
+        }
+        render();
+        suppressClick = true;
+      } else if (hasDragged) {
+        render();
+      }
+
+      activePointerId = null;
+      hasDragged = false;
+    }
+
+    viewport.addEventListener("pointerdown", function (event) {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      if (!event.isPrimary) return;
+      activePointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      dragDistance = 0;
+      hasDragged = false;
+      suppressClick = false;
+    });
+
+    viewport.addEventListener("pointermove", function (event) {
+      if (event.pointerId !== activePointerId) return;
+      const distanceX = event.clientX - dragStartX;
+      const distanceY = event.clientY - dragStartY;
+      if (!hasDragged && Math.max(Math.abs(distanceX), Math.abs(distanceY)) < 5) return;
+      if (!hasDragged && Math.abs(distanceY) > Math.abs(distanceX)) {
+        activePointerId = null;
+        return;
+      }
+
+      hasDragged = true;
+      dragDistance = distanceX;
+      viewport.classList.add("is-dragging");
+      if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
+      event.preventDefault();
+      const startOffset = -activeStart * getCardStep();
+      list.style.transform = "translate3d(" + (startOffset + distanceX) + "px, 0, 0)";
+    }, { passive: false });
+
+    viewport.addEventListener("pointerup", finishLatestDrag);
+    viewport.addEventListener("pointercancel", finishLatestDrag);
+    viewport.addEventListener("click", function (event) {
+      if (!suppressClick) return;
+      suppressClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+    viewport.addEventListener("dragstart", function (event) { event.preventDefault(); });
+
     window.addEventListener("resize", render, { passive: true });
     render();
   }
@@ -294,7 +332,7 @@ function setupLatestNews() {
     time.textContent = item.date;
     meta.append(time, category);
 
-    const title = document.createElement("strong");
+    const title = document.createElement("h3");
     title.textContent = item.title;
 
     const more = document.createElement("span");
@@ -302,11 +340,11 @@ function setupLatestNews() {
     more.setAttribute("aria-hidden", "true");
     more.append(createArrow("right"));
 
-    const titleRow = document.createElement("span");
+    const titleRow = document.createElement("div");
     titleRow.className = "home-latest__title-row";
     titleRow.append(title, more);
 
-    const body = document.createElement("span");
+    const body = document.createElement("div");
     body.className = "home-latest__body";
     body.append(meta, titleRow);
     link.append(media, body);
@@ -585,7 +623,6 @@ function setupSectionMotion() {
 
 document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
-  setupContactCta();
   setupLatestNews();
   setupAffiliatesCarousel();
   setupSectionMotion();

@@ -238,9 +238,20 @@
     menuButton.setAttribute("aria-expanded", String(newState));
     menuButton.classList.toggle("is-open", newState);
     navigation.classList.toggle("is-open", newState);
-    if (header) header.classList.toggle("is-menu-open", newState);
+    if (header) {
+      header.classList.toggle("is-menu-open", newState);
+      if (isHomePage) header.classList.add("is-menu-interacted");
+    }
     if (!newState) closeDropdowns();
   });
+
+  if (isHomePage && header) {
+    header.addEventListener("mouseleave", function () {
+      if (window.innerWidth > 760 || menuButton.classList.contains("is-open")) return;
+      header.classList.remove("is-menu-interacted");
+      menuButton.blur();
+    });
+  }
 
   const dropdownButtons = navigation.querySelectorAll(".nav-dropdown > .nav-link");
   for (let i = 0; i < dropdownButtons.length; i++) {

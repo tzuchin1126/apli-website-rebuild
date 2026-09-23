@@ -19,10 +19,10 @@
         <link rel="preload" as="image" href="public/images/index/home-hero-terminal.jpg" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css?v=20260907-site-alignment-v2">
-        <link rel="stylesheet" href="css/layout/site-header.css?v=20260921-header-wide-v1">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
+  <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
+  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260923-footer-reference-layout-v13">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260907-site-alignment-v2">
+        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260923-resource-sections-about-ratio-v8">
         <link rel="stylesheet" href="css/site.css?v=20260921-nonhome-hero-title-size-v1">
     </head>
     <body class="operational-resources-page">
@@ -98,6 +98,16 @@
                 <div class="resources-hero__overlay page-hero__overlay" aria-hidden="true"></div>
                 <h1 class="page-hero__title" id="resources-title">營運資源</h1>
             </section>
+
+            <nav class="resources-quick-nav" aria-label="營運資源快速導向">
+                <div class="resources-quick-nav__inner site-container">
+                    <a class="resources-quick-nav__link" href="#facilities" aria-current="location">廠區資訊</a>
+                    <a class="resources-quick-nav__link" href="#equipment-config">機具配置</a>
+                    <a class="resources-quick-nav__link" href="#capacity">作業量能</a>
+                    <a class="resources-quick-nav__link" href="#occupational-safety">職業安全衛生</a>
+                    <a class="resources-quick-nav__link" href="#location">地理優勢</a>
+                </div>
+            </nav>
 
             <section class="resource-section resource-section--slide-right" id="facilities" aria-labelledby="facilities-title">
                 <div class="resource-feature site-container">
@@ -221,6 +231,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="js/pages/operational-resources.js?v=20260827-location-motion-only-v1"></script>
+        <script src="js/pages/operational-resources.js?v=20260923-quick-nav-stable-v3"></script>
     </body>
 </html>

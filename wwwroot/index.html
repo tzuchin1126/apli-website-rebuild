@@ -18,10 +18,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css?v=20260920-section-heading-token-v1">
-  <link rel="stylesheet" href="css/layout/site-header.css?v=20260921-header-wide-v1">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260908-footer-top-line-v7">
+  <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
+  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260923-footer-reference-layout-v13">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260922-home-latest-background-v5">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260923-home-mobile-submenu-v17">
   <link rel="stylesheet" href="css/site.css?v=20260921-hero-title-left-inset-v1">
 </head>
 <body class="home-page">
@@ -257,7 +257,7 @@
             <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
           </span>
         </a>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏會舘關係企業">
+        <a class="home-affiliates__card home-affiliates__card--club" href="/affiliates" aria-label="查看亞柏會舘關係企業">
           <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-club-exterior.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>亞柏會舘</strong>
@@ -265,7 +265,7 @@
             <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
           </span>
         </a>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
+        <a class="home-affiliates__card home-affiliates__card--team" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
           <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-badminton-player.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
           <span class="home-affiliates__body">
             <strong>亞柏羽球隊</strong>
@@ -294,43 +294,9 @@
         <button class="home-affiliates__control" type="button" data-affiliates-next aria-label="下一個關係企業" aria-controls="home-affiliates-track"></button>
       </div>
     </section>
-    <section class="home-contact-cta" aria-label="聯絡我們與人才招募">
-      <article class="home-contact-cta__panel home-contact-cta__panel--contact" tabindex="0" aria-labelledby="home-contact-cta-title">
-        <picture class="home-contact-cta__media">
-          <img src="public/images/index/news-hero.png" width="1672" height="941" alt="貨櫃碼頭作業現場" loading="lazy" decoding="async">
-        </picture>
-        <div>
-          <h2 id="home-contact-cta-title">優質管理 高效服務</h2>
-          <p>結合倉儲、運輸、報關、流通加工，提供海路一條龍優質物流服務。</p>
-          <a class="home-contact-cta__link" href="/contact">
-            聯絡我們
-            <span class="home-intro__arrow-window" aria-hidden="true">
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-            </span>
-          </a>
-        </div>
-      </article>
-      <article class="home-contact-cta__panel home-contact-cta__panel--join" tabindex="0" aria-labelledby="home-join-cta-title">
-        <picture class="home-contact-cta__media">
-          <img src="public/images/index/core-values.jpg" width="6000" height="4000" alt="亞太國際物流現場工作團隊" loading="lazy" decoding="async">
-        </picture>
-        <div>
-          <h2 id="home-join-cta-title">加入亞太，與我們一起成長</h2>
-          <p>發揮你的專業，和我們一起打造更值得信賴的物流服務。</p>
-          <a class="home-contact-cta__link" href="/careers">
-            查看職缺
-            <span class="home-intro__arrow-window" aria-hidden="true">
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-            </span>
-          </a>
-        </div>
-      </article>
-    </section>
   </main>
   <!-- shared-site-footer -->
-  <script src="js/site.js?v=20260830-footer-accordion-v5"></script>
-  <script src="js/pages/home.js?v=20260922-home-latest-carousel-v1"></script>
+  <script src="js/site.js?v=20260923-home-menu-state-v1"></script>
+  <script src="js/pages/home.js?v=20260923-home-latest-three-v2"></script>
 </body>
 </html>
