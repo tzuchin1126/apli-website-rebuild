@@ -1,13 +1,6 @@
 .services-page {
   --page-hero-image-position: center 28%;
   --page-hero-image-origin: 50% 28%;
-  --services-section-space: clamp(40px, 5vw, 64px);
-  --services-switcher-space: clamp(40px, 5vw, 64px);
-  --services-feature-gap: clamp(48px, 6.7vw, 96px);
-  --services-content-gap: 24px;
-  --services-content-max-width: var(--content-max-width);
-  --services-title-size: clamp(1.875rem, 2.3vw, 2.5rem);
-  --services-title-line-height: clamp(2rem, 3vw, 2.5rem);
   --services-contact-card-width: 820px;
 }
 
@@ -56,61 +49,61 @@
 }
 
 .services-page .service-switcher {
-  padding-top: var(--services-switcher-space);
+  position: sticky;
+  z-index: 20;
+  top: 78px;
+  overflow-x: auto;
+  scrollbar-width: none;
   background: var(--color-surface);
 }
+
+.services-page .service-switcher::-webkit-scrollbar { display: none; }
 
 .services-page .service-switcher__inner {
   display: flex;
   align-items: stretch;
-  overflow-x: auto;
-  scrollbar-width: none;
-  touch-action: pan-x;
-  -webkit-overflow-scrolling: touch;
+  justify-content: space-between;
+  min-width: max-content;
+  border-bottom: 1px solid var(--color-border);
 }
-
-.services-page .service-switcher__inner::-webkit-scrollbar { display: none; }
 
 .services-page .service-switcher__list {
   display: flex;
   align-items: stretch;
   flex: 0 0 auto;
   flex-wrap: nowrap;
-  width: max-content;
+  width: 100%;
   gap: 0;
-  max-width: none;
+  max-width: var(--content-max-width);
   overflow: visible;
-  border-bottom: 1px solid var(--color-line);
 }
 
 .services-page .service-switcher__tab {
   position: relative;
-  flex: 0 0 auto;
-  min-height: 52px;
-  padding: 12px 20px;
+  min-height: 56px;
+  flex: 1 0 0;
+  padding: 0 20px;
   border: 0;
-  border-radius: var(--card-radius) var(--card-radius) 0 0;
   background: transparent;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body-tight);
+  line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
   white-space: nowrap;
 }
 
 .services-page .service-switcher__tab:hover,
-.services-page .service-switcher__tab:focus-visible { background: var(--color-surface-soft); color: var(--color-ink); }
-.services-page .service-switcher__tab[aria-selected="true"] { color: var(--color-ink); }
+.services-page .service-switcher__tab:focus-visible { color: var(--color-primary); }
+.services-page .service-switcher__tab[aria-selected="true"] { color: var(--color-text-body); }
 .services-page .service-switcher__tab[aria-selected="true"]::after {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   height: 2px;
-  border-radius: var(--radius-full) var(--radius-full) 0 0;
   background: var(--color-primary);
   content: "";
 }
@@ -121,17 +114,17 @@
 
 .services-page .service-section__inner {
   display: grid;
-  max-width: var(--services-content-max-width);
+  max-width: var(--content-max-width);
   grid-template-areas:
     "heading heading"
     "description description"
     "media details";
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   grid-template-rows: auto auto auto;
-  column-gap: var(--services-feature-gap);
-  row-gap: var(--services-content-gap);
+  column-gap: var(--content-column-gap);
+  row-gap: var(--section-content-gap);
   align-items: start;
-  padding-block: var(--services-section-space);
+  padding-block: var(--section-space-sm);
 }
 
 .services-page .service-section--reverse .service-section__inner {
@@ -216,7 +209,7 @@
 }
 
 .services-page .service-section__description p + p {
-  margin-top: 12px;
+  margin-top: var(--section-content-gap);
 }
 
 .services-page .service-section__heading-top {
@@ -234,7 +227,7 @@
   padding: 0;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--services-title-size);
+  font-size: var(--font-size-section-heading);
   font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
@@ -243,7 +236,7 @@
 
 .services-page .service-section__heading > p {
   max-width: none;
-  margin: 16px 0 0;
+  margin: var(--section-content-gap) 0 0;
   color: var(--color-text-body);
   font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-regular);
@@ -252,7 +245,7 @@
 }
 
 .services-page .service-section__heading > p + p {
-  margin-top: 12px;
+  margin-top: var(--section-content-gap);
 }
 
 @media (min-width: 1100px) {
@@ -436,7 +429,7 @@
   grid-area: details;
   display: grid;
   align-content: start;
-  gap: 20px;
+  gap: var(--section-content-gap);
   max-width: 720px;
   align-self: start;
 }
@@ -461,10 +454,10 @@
 .services-page .service-section__details h3 {
   margin: 0;
   color: var(--color-ink);
-  font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+  font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
   letter-spacing: normal;
-  line-height: 1.5;
+  line-height: var(--line-height-card-title-compact);
 }
 
 .services-page .service-section__details ul {
@@ -482,7 +475,7 @@
   padding: 12px 0;
   color: var(--color-ink);
   font-size: var(--font-size-body-copy);
-  line-height: 1.65;
+  line-height: var(--line-height-body);
 }
 
 .services-page .service-list__icon {
@@ -498,7 +491,7 @@
 }
 
 .services-page .services-advantages {
-  padding-block: clamp(24px, 3vw, 40px);
+  padding-block: var(--section-space);
   background: var(--color-surface);
 }
 
@@ -511,7 +504,7 @@
   width: 100%;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   grid-template-areas: "media content";
-  column-gap: var(--services-feature-gap);
+  column-gap: var(--content-column-gap);
   margin: 0;
   overflow: hidden;
   border: 0;
@@ -553,7 +546,7 @@
 }
 
 .services-page .services-advantages__heading {
-  margin-bottom: clamp(20px, 3vw, 32px);
+  margin-bottom: var(--section-content-gap);
 }
 
 .services-page .services-advantages__heading h2 {
@@ -608,7 +601,7 @@
 
 .services-page .services-contact__inner {
   display: grid;
-  max-width: var(--services-content-max-width);
+  max-width: var(--content-max-width);
   justify-items: center;
   margin-inline: auto;
   padding-inline: var(--site-padding);
@@ -696,10 +689,6 @@
 }
 
 @media (max-width: 1099px) {
-  .services-page {
-    --services-content-gap: clamp(28px, 4vw, 40px);
-  }
-
   .services-page .service-section__inner,
   .services-page .service-section--reverse .service-section__inner {
     grid-template-areas:
@@ -708,7 +697,7 @@
       "description"
       "details";
     grid-template-columns: minmax(0, 1fr);
-    row-gap: var(--services-content-gap);
+    row-gap: var(--section-content-gap);
   }
 
   .services-page .service-section__heading,
@@ -738,9 +727,24 @@
 }
 
 @media (max-width: 760px) {
+  .services-page .service-switcher {
+    top: 64px;
+  }
+
+  .services-page .service-switcher__inner {
+    width: max-content;
+    min-width: 100%;
+  }
+
   .services-page .service-switcher__list {
     width: max-content;
     row-gap: 0;
+  }
+
+  .services-page .service-switcher__tab {
+    min-height: 48px;
+    flex: 0 0 auto;
+    padding-inline: 16px;
   }
 
   .services-page .service-section__inner,
@@ -750,8 +754,8 @@
       "description"
       "media"
       "details";
-    row-gap: 16px;
-    padding-block: var(--services-section-space);
+    row-gap: var(--section-content-gap);
+    padding-block: var(--section-space-sm);
   }
 
   .services-page .service-section__heading {
@@ -768,7 +772,7 @@
 
   .services-page .service-section__heading h2 {
     margin-left: 0;
-    font-size: var(--services-title-size);
+    font-size: var(--font-size-section-heading);
     text-align: left;
   }
 
@@ -785,7 +789,7 @@
     max-width: 760px;
     margin: 0 auto;
     font-size: var(--font-size-body-copy);
-    line-height: 1.75;
+    line-height: var(--line-height-body);
   }
 
   .services-page .service-section__media,
@@ -944,7 +948,7 @@
 
   .services-page .services-advantages__heading {
     grid-area: auto;
-    margin-bottom: 12px;
+    margin-bottom: var(--section-content-gap);
   }
 
   .services-page .services-advantages__heading h2 {
@@ -964,7 +968,7 @@
 
   .services-page .services-advantages__grid {
     grid-area: content;
-    gap: 24px;
+    gap: var(--section-content-gap);
     align-content: start;
     padding-block: 0 28px;
   }

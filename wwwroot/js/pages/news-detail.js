@@ -31,11 +31,6 @@ function initNewsDetail() {
   const attachmentNameEl = detail.querySelector("[data-news-attachment-name]");
   const attachmentWrapEl = detail.querySelector("[data-news-attachment-wrap]");
   const errorEl = document.querySelector("[data-news-error]");
-  const relatedSection = document.querySelector("[data-news-related]");
-  const relatedList = document.querySelector("[data-news-related-list]");
-  const relatedViewport = document.querySelector("[data-news-related-viewport]");
-  const relatedPrevious = document.querySelector("[data-news-related-previous]");
-  const relatedNext = document.querySelector("[data-news-related-next]");
   const descriptionEl = document.querySelector('meta[name="description"]');
   const ogTitleEl = document.querySelector('meta[property="og:title"]');
   const ogDescriptionEl = document.querySelector('meta[property="og:description"]');
@@ -202,92 +197,6 @@ function initNewsDetail() {
     if (errorEl) errorEl.hidden = false;
   }
 
-  let relatedItems = [];
-  let relatedPage = 0;
-
-  function isRelatedMobile() {
-    return window.matchMedia("(max-width: 768px)").matches;
-  }
-
-  function getRelatedPageSize() {
-    return isRelatedMobile() ? 0 : 3;
-  }
-
-  function renderRelatedPage(direction) {
-    if (!relatedList) return;
-
-    if (isRelatedMobile()) {
-      relatedList.classList.remove("is-entering-next", "is-entering-previous");
-      relatedList.replaceChildren();
-      for (let i = 0; i < relatedItems.length; i++) {
-        relatedList.append(createRelatedCard(relatedItems[i]));
-      }
-      if (relatedViewport) relatedViewport.scrollLeft = 0;
-      if (relatedPrevious) relatedPrevious.disabled = true;
-      if (relatedNext) relatedNext.disabled = true;
-      return;
-    }
-
-    const pageSize = getRelatedPageSize();
-    const pageCount = Math.max(1, Math.ceil(relatedItems.length / pageSize));
-    relatedPage = Math.min(relatedPage, pageCount - 1);
-    const start = relatedPage * pageSize;
-    const end = Math.min(start + pageSize, relatedItems.length);
-
-    relatedList.classList.remove("is-entering-next", "is-entering-previous");
-    void relatedList.offsetWidth;
-    relatedList.replaceChildren();
-    for (let i = start; i < end; i++) {
-      relatedList.append(createRelatedCard(relatedItems[i]));
-    }
-    if (direction === "next" || direction === "previous") {
-      relatedList.classList.add("is-entering-" + direction);
-    }
-
-    if (relatedPrevious) relatedPrevious.disabled = relatedPage === 0;
-    if (relatedNext) relatedNext.disabled = relatedPage >= pageCount - 1;
-  }
-
-  async function loadRelatedNews() {
-    if (!relatedSection || !relatedList) return;
-
-    try {
-      const response = await fetch("/api/public/news");
-      if (!response.ok) throw new Error("Unable to load related news");
-
-      const rawItems = await response.json();
-      relatedItems = rawItems
-        .map(normalizeNewsItem)
-        .filter(function (item) { return String(item.id) !== String(id); });
-
-      if (!relatedItems.length) return;
-      relatedPage = 0;
-      renderRelatedPage();
-      relatedSection.hidden = false;
-    } catch (error) {
-      relatedSection.hidden = true;
-    }
-  }
-
-  if (relatedPrevious) {
-    relatedPrevious.addEventListener("click", function () {
-      relatedPage = Math.max(0, relatedPage - 1);
-      renderRelatedPage("previous");
-    });
-  }
-
-  if (relatedNext) {
-    relatedNext.addEventListener("click", function () {
-      relatedPage += 1;
-      renderRelatedPage("next");
-    });
-  }
-
-  window.addEventListener("resize", function () {
-    if (!relatedItems.length) return;
-    renderRelatedPage();
-  });
-
   // 載入並渲染
   async function loadNewsDetail() {
     try {
@@ -296,7 +205,6 @@ function initNewsDetail() {
 
       const rawItem = await response.json();
       renderNewsDetail(normalizeNewsItem(rawItem));
-      loadRelatedNews();
     } catch (error) {
       showError();
     }

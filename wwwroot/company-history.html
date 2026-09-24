@@ -18,11 +18,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
+  <link rel="preload" as="image" href="public/images/about/milestones-hero-container-yard.png" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css?v=20260907-site-alignment-v2">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260923-footer-reference-layout-v13">
-  <link rel="stylesheet" href="css/pages/company-history.css?v=20260923-left-readable-near-axis-v63">
+  <link rel="stylesheet" href="css/pages/company-history.css?v=20260924-company-history-hero-v1">
   <link rel="stylesheet" href="css/site.css?v=20260921-nonhome-hero-title-size-v1">
 </head>
 
@@ -114,6 +115,15 @@
         <span aria-current="page">公司沿革</span>
       </div>
     </div>
+
+    <!-- Hero 主視覺區 -->
+    <section class="milestones-hero page-hero" aria-labelledby="milestones-title">
+      <picture class="page-hero__media">
+        <img class="page-hero__image" src="public/images/about/milestones-hero-container-yard.png" width="1448" height="1086" alt="港區貨櫃作業現場" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
+      <div class="milestones-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+      <h1 class="page-hero__title" id="milestones-title">公司沿革</h1>
+    </section>
 
     <!-- 沿革內容區 -->
     <section class="milestones-content" aria-label="公司沿革內容" data-milestones-preview>

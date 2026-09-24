@@ -1,5 +1,86 @@
 # APLI 專案進度
 
+## 2026-09-24
+- [x] 將 index「我們的服務」hover 效果收斂為僅圖片放大，鎖定文字、卡片、箭頭與文字區塊不位移、不變色、不變背景；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 移除 index「我們的服務」卡片在 hover／focus 時的箭頭 icon 顯示，保留圖片微放大效果；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 為 index「我們的服務」圖片加入輕微全域 `--radius-sm` 圓角，文字區維持透明直角，保留編輯型列表而不回到卡片式設計；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 修正 index 服務列表 hover：移除舊規則殘留的卡片陰影與 `translateY` 位移，hover／focus 時卡片與文字區維持透明且不影響下方區塊位置；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 微調 index 服務列表：文字區塊維持透明背景，箭頭預設隱藏、hover／focus 才顯示；`home-services-compare__details` 改用全域 `--font-size-card-description` 與 `--line-height-card-description`，提升閱讀性；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 重新設計 index「我們的服務」區塊，移除與最新消息相似的卡片感、圓角陰影與圓形箭頭，改為圖片加文字的編輯型服務列表；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 重整 index「我們的服務」卡片視覺：改為上方圖片、下方白底資訊的乾淨版型，服務描述預設顯示，取消整面圖片遮罩，箭頭改為主題橘圓形導引；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 調整 index「我們的服務」卡片遮罩：移除整面深色 `::after` 覆蓋，改為只在圖片下方保留柔和漸層，降低畫面髒感並維持文字辨識度；已完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 清理 index 舊的首頁 spacing alias：移除 `--home-section-space`、`--home-section-space-sm`、`--home-section-padding` 與 `--home-heading-content-gap`，所有區塊間距直接使用全域 spacing token；已完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 統一 index 首頁主要區塊的全域間距與部分元件 token：關於亞太、服務、最新消息、關係企業改引用全域 section spacing，Hero CTA 與 Footer 顏色改引用共用 token；已完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
+- [x] 重整 news 手機版列表結構，每筆新聞以同一個內容容器呈現，上方為日期與公告類別，下方為標題；已更新 HTML/CSS/JS cache，尚未進行瀏覽器畫面驗證。
+- [x] 調整 news 手機版日期、公告類別與標題為約 18px，並將新聞列分隔線加粗至 2px；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 停用 news 手機觸控裝置的 hover 標題變色與箭頭效果，避免點擊後 hover 狀態殘留；桌機 hover 保留，已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [ ] Unified careers page typography, page and section spacing, colors, and benefits list sizing with global design tokens; removed unused legacy benefits-table styles. Static verification pending; desktop/mobile browser verification not run.
+- [x] 將人才招募頁 `join-intro` 改為上方置中小標題、下方置中敘述的上下堆疊版型，參考 BenQ Materials 人才頁的比例；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 依參考頁 DevTools 比例收斂人才招募 `join-intro` 至約 750px 內容寬度與 60px 上下內距，並縮小介紹標題；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將人才招募頁 `join-content` 上方距離改用全域 `--section-space`，縮短 Hero 與 `join-intro` 的空白；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 合併人才招募 `join-intro-copy` 的兩段 `<p>` 為單一內容段落，避免不必要的段落切分與間距；尚未進行瀏覽器畫面驗證。
+- [x] 將公司福利標題縮小至與 `join-intro` 一致的介紹標題尺寸，並將福利圖示改為主題橘；福利列表保留較寬資料版面，避免內容過度換行；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 修正公司福利標題被通用 `.join-section-heading h2` 覆蓋的 selector 優先權，確保約 30px 標題尺寸實際生效；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將 `join-recruitment` 按鈕尺寸、間距、圓角與 hover 配色行為改用全域按鈕 token，保留招募區塊的白色按鈕基礎配色；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將 careers 各區塊剩餘的固定間距改用全域 spacing／button token，包含 `join-intro`、福利列、福利列表手機內距與招募按鈕群組；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將 affiliates 的 `affiliate-club-cta-link` 與 `affiliate-taronews-cta` 改為使用全域 `.button--text-arrow` 樣式，移除頁面專用的文字、底線、padding 與 hover 覆蓋；保留外部連結 icon 線條與位移效果，已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將 affiliates 兩個外部 CTA 改為全域 `.button--primary`，並重用 index 關於亞太 CTA 的雙箭頭滑入 hover 動畫；外部連結保留 `target="_blank"`、`rel="noopener noreferrer"` 與開啟新分頁提示，已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 將 affiliates 兩個外部 CTA 的箭頭改為明確外部連結／開新分頁 icon，保留 hover 動畫與安全屬性；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 統一 contact 頁面的欄位間距、響應式區塊間距、聯絡資訊列表間距、標籤字級與顏色至全域 token，並移除多餘 Breadcrumb 字級覆寫；已更新 CSS cache，尚未進行瀏覽器畫面驗證。
+- [x] 恢復新聞詳細頁原本的 Hero 圖片 `public/images/new/news-detail-hero.jpg`。
+- [x] 將新聞詳細頁 Hero 圖片改為 `public/images/about/hero1.png`，列表頁 Hero 不變。
+- [x] 移除 news 頁面重複的 `news-room-heading site-container` 標題區塊及專用 CSS，保留 Hero 的「最新消息」標題、分類 Tab 與列表。
+- [x] 將 news 列表頁區塊標題由「新聞室」改為「最新消息」。
+- [x] 將共用 Footer 的「營運資源」連結移至「關於亞太」選單底下，快速連結保留人才招募、員工專區與聯絡我們。
+- [x] 在共用 Footer 的快速連結選單加入 `/Admin` 員工專區連結；待瀏覽器確認桌機與手機 Footer 展開狀態。
+- [x] 移除 news-detail 的其他消息區塊與相關載入流程，避免詳情頁再次顯示相關新聞；已更新 JS cache。
+- [x] 移除 news-detail 相關消息區塊多餘的 `news-page` class，避免套用新聞列表頁專屬樣式。
+- [x] 更新 news JavaScript cache，確保新聞列 hover 箭頭 DOM 與 About 同款滑入動畫載入最新版本。
+- [x] news 分類 Tab 維持原文字色並以橘色底線表示選取；新聞列 hover 移除灰底、標題改橘色並加入參考 About 的箭頭滑入動畫。
+- [x] 將 news-card__title 桌機與手機文字大小統一為 1.15rem，並更新 CSS cache。
+- [x] 移除 news-filter__year 年份篩選的 HTML、CSS 與 JavaScript，新聞列表改為只使用分類篩選；已更新 CSS cache，待瀏覽器確認。
+- [x] 修正 news 列表因附件標記被 Grid 排入額外項目而造成的列高差異，統一每列上下間距；已更新 CSS cache，待瀏覽器確認。
+- [x] 將 news 列表拆成「日期／類別／標題」三欄，手機版改為日期與類別同列、標題下一列；已更新 CSS cache，待瀏覽器確認。
+- [x] 縮小 news 列表每筆資料的上下留白與手機版日期／標題間距，降低列表過寬的視覺感；已更新 CSS cache，待瀏覽器重新確認桌機與手機畫面。
+- [x] 將職業安全衛生專業證照卡片的桌機寬度收斂至最多 380px，保留平板雙欄與手機滑動卡片設定，降低卡片空白並集中閱讀焦點。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 修正職業安全衛生「專業證照」說明文字 selector，改為命中 `.safety-credentials__heading-copy` 內的段落，使全域文字顏色、字級、粗細與行高實際生效；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 依全域一致性檢查調整 `occupational-safety`：移除未使用頁面 token，標題／內文改用全域字級與行高，標題內容與主要區塊間距改用全域間距 token；保留卡片與輪播專用布局。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將職業安全衛生頁 `safety-intro-title` 的標題字體改為首頁 Hero 使用的全域特殊標題字體 `var(--font-heading)`；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將 `.operational-resources-page .resource-link` 前後段文字顏色統一為全域 `var(--color-text-primary)`（`#151515`），並完成標題／內文間距、區塊間距與表格尺寸 token 化；已完成 `git diff --check`，尚未進行全站瀏覽器畫面驗證，尚未 commit。
+- [x] 以營運資源頁面的色彩層級建立全域 token：標題、內文、輔助文字、柔和背景、深色表面與邊框；同步將營運資源頁固定色值改為共用 token，其他使用共用 token 的頁面會跟進。已完成 `git diff --check`，尚未進行全站瀏覽器畫面驗證，尚未 commit。
+- [x] 將 `resources-quick-nav` 文字大小改為與 `resource-intro resource-animate` 一致的全域 `--font-size-body-lg`，桌機與手機同步；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 調整 quick nav 定位狀態：`aria-current="location"` 文字維持內文色，只顯示橘色底線；滑入與鍵盤 focus 變色效果保留。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 調整 `resources-quick-nav`：文字改用下方內容區塊的內文色、全域內文字級與行高，桌機高度由 72px 縮為 56px、手機由 56px 縮為 48px，並同步更新 anchor offset；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 依需求恢復職業安全衛生區塊原本的 reverse 排列，圖片回左、文字回右；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將職業安全衛生區塊改為文字在左、圖片在右的標準版型，移除該區塊的 reverse 排列；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將職業安全衛生「了解更多」按鈕改為與首頁「關於亞太」CTA 相同的尺寸、邊框、顏色、focus 狀態與滑入箭頭切換效果；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將 `.resources-location__node strong` 距離數字改為全域主題橘 `var(--color-primary)`；其餘節點文字與版面維持不變。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將地理優勢網絡節點內的距離數字與說明文字顏色，分別統一為上方區塊的標題色與內文色；Logo、背景與連線維持不變。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將地理優勢區塊的標題與說明文字調整為參考上方資料區塊的全域字級、粗細、顏色與 20px 標題內容間距；保留距離節點的資訊層級。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將機具配置與職業安全衛生區塊的背景調整為比原本 `--color-surface-soft` 更淺的頁面專屬混合色，維持全域色彩 token 基礎；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將職業安全衛生區塊的標題與敘述調整為與上方資料區塊一致的全域字級、粗細、行高與文字顏色；地理優勢未修改。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 檢查並統一職業安全衛生與地理優勢區塊的上下間距，桌機與手機皆改用全域 `--section-space-sm`，與前三個資料區塊一致；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 統一 `operational-resources` 前三個資料區塊的上下間距，改用全域 `--section-space-sm`，使廠區資訊、機具配置與作業量能保持一致；職業安全衛生與地理優勢維持不變。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將 `operational-resources` 前三個資料區塊的標題、敘述與表格文字尺寸改為使用全域 typography token，移除固定 `px` 字級與行高；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 依畫面回饋縮小 `operational-resources` 前三個資料區塊的標題與敘述視覺間距，由 40px 調整為約 20px；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] 將 `operational-resources` 前三個資料區塊的標題與 `resource-intro` 間距改為沿用全域 `--section-heading-content-gap`（桌機實際 40px），手機維持響應式緊湊間距；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證，尚未 commit。
+- [x] Adjusted the first three operational-resources data sections so resource-note stays immediately below the table and the right-side image aligns to the table row height; git diff --check passed, browser visual verification and commit remain pending.
+- [x] 將三個資料區塊拆為「標題、說明、表格／圖片並排」結構，使圖片與表格共用資料列並保持高度對齊；平板與手機維持單欄順序；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將廠區資訊、機具配置與作業量能改為桌機標題滿版、左側敘述與表格、右側圖片的雙欄版面；平板與手機回到單欄，避免表格過窄；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將廠區資訊、機具配置與作業量能圖片縮小至最多 560px，改用全域 `var(--card-radius)` 圓角並靠左對齊；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將廠區資訊、機具配置與作業量能三個資料區塊的圖片移至標題下方、敘述與表格上方；職業安全衛生與地理優勢維持不變；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 依 BenQ Materials「永續推動目標」頁面的實際 computed style，將廠區資訊、機具配置與作業量能的標題、正文、表頭、表格列、欄線、備註與間距調整為相同規則；職業安全衛生與地理優勢維持不變；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 參考 BenQ Materials 健康管理頁面的資料閱讀順序，強化三個營運資源資料區塊的全寬表格：加入欄線、交錯列背景、深色表頭與更清楚的內容間距；職業安全衛生與地理優勢維持不變；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 重新整理 `operational-resources` 的廠區資訊、機具配置與作業量能：改為標題、說明、完整寬度表格與次要圖片的資料優先版面；新增表頭、表格改為左對齊，職業安全衛生與地理優勢維持不變；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將 `operational-resources` 的「機具配置」、「作業量能」與「職業安全衛生」桌機版圖片與文字欄位調整為 5:5；「廠區資訊」維持 5:5，手機單欄排列不變；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將 `operational-resources` 的「廠區資訊」桌機版圖片與文字欄位由 6:4 調整為 5:5，並讓「作業量能」維持原本 6:4；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 依需求回復 About「經營理念」最初的圖片卡片造型、icon、遮罩與 hover/focus 敘述呈現；保留上方「關於亞太」及其他頁面修改，已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將 About「經營理念」改為不使用圖片的純 CSS 穿插造型，移除三個裝飾性圖片 icon，改用不同圓弧、色面與線條呈現三張理念卡片；已完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 將 About「經營理念」三張卡片調整為等比例圓形，並將敘述改為圓形內直接置中顯示；已更新 CSS cache version 並完成 `git diff --check`，桌機與手機瀏覽器尚未驗證，未 commit。
+- [x] 調整 About「經營理念」卡片，讓敘述預設直接顯示，不再等待 hover 或 focus；保留原有卡片遮罩與互動樣式，已完成 `git diff --check`，瀏覽器桌機與手機驗證尚未執行，未 commit。
+- [x] 移除 About 頁面 `.about-affiliates` 區塊的背景色，保留原有間距、卡片與內容；已完成 `git diff --check`，瀏覽器桌機與手機驗證尚未執行，未 commit。
+- [x] 恢復 `company-history` 頁面的完整 Hero 區塊：補回 Hero 圖片 preload、共用 `.page-hero` markup、公司沿革頁圖片焦點位置與 CSS cache version；已完成 `git diff --check`、`node --check wwwroot/js/pages/company-history.js`、`dotnet build -c Release`；桌機與手機瀏覽器尚未驗證，未 commit。
+
 ## 2026-09-22
 - [x] 依視覺檢視移除最新消息區塊的幾何線條與節點背景，保留 `#efefef` 純色背景與新聞卡片層次。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
 - [x] 為首頁最新消息區塊加入低對比幾何線條與節點背景，使用 CSS 原生繪製並置於內容底層，保留卡片與文字可讀性。已完成 `git diff --check`；桌機與手機瀏覽器尚未重新驗證，未 commit。
@@ -904,6 +985,24 @@
 # 2026-09-23: Moved the About Hero image focal point slightly further upward for the requested framing adjustment.
 # 2026-09-23: Reverted the later company-history timeline-line extension; the shared line now uses the pre-polish full-width track behavior again.
 # 2026-09-23: Restored the homepage mobile related-company carousel; each visible card now directly shows its image, title, and description without requiring hover, while keeping one-card-at-a-time navigation.
+# 2026-09-24: Updated the occupational-safety certification carousel controls to match the About certification section's pagination-dot style while retaining the safety-specific class names and behavior.
+# 2026-09-24: Moved the occupational-safety certification pagination dots below the card carousel and centered them, while keeping the heading row free of controls.
+# 2026-09-24: Fixed certification pagination visibility by removing the single-page hide condition and refreshed the occupational-safety CSS/JS cache versions; browser verification remains pending.
+# 2026-09-24: Fixed mobile certification pagination count to use one dot per credential card, so horizontal swiping can update the corresponding active dot; browser verification remains pending.
+# 2026-09-24: Updated certification pagination visibility to show dots only when the card viewport actually overflows; desktop layouts with all four cards visible no longer show unnecessary carousel controls.
+# 2026-09-24: Unified occupational-safety credential card radius and base/hover shadows with the global `--card-radius`, `--shadow-card`, and `--shadow-lg` tokens; browser verification remains pending.
+# 2026-09-24: Restored global table cell horizontal padding on mobile operational-resources tables so text no longer touches the border lines; browser verification remains pending.
+# 2026-09-24: Unified services page section spacing, content column gap, heading/body typography, and advantage spacing with global tokens; retained services-specific carousel and contact-card behavior; browser verification remains pending.
+# 2026-09-24: Restyled the services `service-switcher__inner` and tabs to match the operational-resources quick navigation pattern, including sticky positioning, full-width underline, equal desktop tabs, and horizontal mobile scrolling; browser verification remains pending.
+# 2026-09-24: Matched services switcher tab text size to operational-resources quick navigation by using the global `--font-size-body-lg` token; browser verification remains pending.
+# 2026-09-24: Matched the services switcher tab line height to the operational-resources quick navigation typography; browser verification remains pending.
+# 2026-09-24: Unified news page typography, filter navigation, list spacing, card radius, content padding, pagination spacing, and empty-state sizing with global tokens; retained news filtering and card interactions; browser verification remains pending.
+# 2026-09-24: Changed the news results from image cards to Synology-inspired list rows with date/category, title, and action columns; mobile collapses each row to a readable single-column flow while preserving filtering and pagination; browser verification remains pending.
+# 2026-09-24: Restyled `news-filter__inner site-container` to match the quick-navigation pattern with sticky positioning, a full-width bottom border, equal desktop categories, and horizontal mobile scrolling; browser verification remains pending.
+# 2026-09-24: Corrected the news filter reference to the supplied Synology news design: removed sticky/equal-width quick-nav behavior and changed categories to a left-aligned, spaced text filter row with a lightweight active underline; browser verification remains pending.
+# 2026-09-24: Refined the news filter/list hierarchy against the supplied reference screenshot by adding the full-width divider beneath the category row while retaining the left metadata, centered title, and right action row layout; browser verification remains pending.
+# 2026-09-24: Performed an actual local news-page render check and removed the duplicate list-top divider and excess gap below the category filter so the first news row follows the reference layout more closely; browser verification is partially checked on desktop only.
+# 2026-09-24: Increased news metadata text size, reduced the metadata-to-title gap, and removed the news row's right-side read-more element from the rendered list; browser verification remains pending.
 # 2026-09-23: Slightly reduced homepage service-card height by changing the desktop aspect ratio to `1` and mobile aspect ratio to `1.12`.
 # 2026-09-23: Tightened homepage latest-news card body vertical spacing to 8px above and 18px below the metadata and title content across desktop and mobile.
 # 2026-09-23: Changed dynamically generated homepage latest-news titles from `<strong>` to semantic `<h3>` elements and updated the title-row/body containers to valid block structure without changing visual styling.

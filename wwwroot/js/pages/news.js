@@ -63,6 +63,7 @@ function initNewsList() {
     return year + "." + month + "." + day;
   }
 
+
   // ---------------------------------------------------------------------------
   // 渲染消息列表
   // ---------------------------------------------------------------------------
@@ -84,11 +85,10 @@ function initNewsList() {
 
       article.innerHTML =
         '<a class="news-card" href="/news/' + encodeURIComponent(item.id) + '">' +
-        '<span class="news-card__media"></span>' +
         '<span class="news-card__body">' +
         '<span class="news-card__meta">' +
-        '<span class="news-card__tag"></span>' +
         '<time class="news-card__date"></time>' +
+        '<span class="news-card__tag"></span>' +
         '<span class="news-card__attachment" aria-label="含附件" hidden>' +
         '<i class="ph ph-paperclip" aria-hidden="true"></i>' +
         '<span class="sr-only">含附件</span>' +
@@ -100,25 +100,20 @@ function initNewsList() {
         "</a>";
 
       const row = article.querySelector(".news-card");
-      const media = row.querySelector(".news-card__media");
       const date = row.querySelector(".news-card__date");
       const attachment = row.querySelector(".news-card__attachment");
+      const readMore = row.querySelector(".news-card__read-more");
 
-      media.classList.add(item.imageUrl ? "has-image" : "is-default");
-      if (item.imageUrl) {
-        const image = document.createElement("img");
-        image.className = "news-card__image";
-        image.alt = "";
-        image.loading = "lazy";
-        image.decoding = "async";
-        image.src = item.imageUrl;
-        image.addEventListener("error", function () {
-          image.remove();
-          media.classList.remove("has-image");
-          media.classList.add("is-default");
-        }, { once: true });
-        media.append(image);
-      }
+      if (readMore) readMore.remove();
+
+      const arrowWindow = document.createElement("span");
+      arrowWindow.className = "news-card__arrow-window";
+      arrowWindow.setAttribute("aria-hidden", "true");
+      arrowWindow.innerHTML =
+        '<svg class="news-card__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>' +
+        '<svg class="news-card__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>';
+      row.append(arrowWindow);
+
       date.dateTime = item.date || "";
       date.textContent = formatNewsDate(item.date);
       row.querySelector(".news-card__tag").textContent = item.tag || "最新消息";

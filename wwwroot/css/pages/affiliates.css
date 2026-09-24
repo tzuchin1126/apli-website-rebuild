@@ -1122,81 +1122,56 @@
   line-height: var(--line-height-body-tight);
 }
 
-.affiliates-page .button--primary {
-  border-radius: var(--card-radius);
-  background: var(--color-secondary);
-}
-
-.affiliates-page .button--primary:hover,
-.affiliates-page .button--primary:focus-visible {
-  background: var(--color-primary);
-  color: var(--button-primary-color);
-}
-
-.affiliate-cta__icon {
-  flex: 0 0 auto;
+.affiliate-cta__arrow-window {
+  position: relative;
+  display: inline-block;
   width: var(--button-primary-icon-size);
   height: var(--button-primary-icon-size);
-  fill: currentColor;
-  transition: var(--button-icon-transition);
+  flex: 0 0 var(--button-primary-icon-size);
+  overflow: hidden;
+  color: currentColor;
 }
 
-.affiliate-club-cta-link.button--text-arrow .affiliate-cta__icon,
-.affiliate-taronews-cta.button--text-arrow .affiliate-cta__icon {
+.affiliate-cta__arrow-window .affiliate-cta__icon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: var(--button-primary-icon-size);
+  height: var(--button-primary-icon-size);
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transform: translateX(0);
+  transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out;
 }
 
-.affiliate-club-cta-link.button--text-arrow,
-.affiliate-taronews-cta.button--text-arrow {
-  position: relative;
-  padding-bottom: 6px;
-  color: var(--color-secondary);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: .02em;
-  line-height: 1.5;
-  transition: color 200ms ease;
+.affiliate-cta__arrow-window .affiliate-cta__icon:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-110%);
 }
 
-.affiliate-club-cta-link.button--text-arrow::after,
-.affiliate-taronews-cta.button--text-arrow::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background: var(--color-primary);
-  content: "";
-  opacity: .5;
-  transform: scaleX(.35);
-  transform-origin: left center;
-  transition: opacity 200ms ease, transform 200ms ease;
+.affiliate-club-cta-link:hover .affiliate-cta__icon:first-child,
+.affiliate-club-cta-link:focus-visible .affiliate-cta__icon:first-child,
+.affiliate-taronews-cta:hover .affiliate-cta__icon:first-child,
+.affiliate-taronews-cta:focus-visible .affiliate-cta__icon:first-child {
+  opacity: 0;
+  transform: translateX(110%);
 }
 
-.affiliate-club-cta-link.button--text-arrow:hover,
-.affiliate-club-cta-link.button--text-arrow:focus-visible,
-.affiliate-taronews-cta.button--text-arrow:hover,
-.affiliate-taronews-cta.button--text-arrow:focus-visible {
-  background: transparent;
-  color: var(--color-secondary);
-}
-
-.affiliate-club-cta-link.button--text-arrow:hover::after,
-.affiliate-club-cta-link.button--text-arrow:focus-visible::after,
-.affiliate-taronews-cta.button--text-arrow:hover::after,
-.affiliate-taronews-cta.button--text-arrow:focus-visible::after {
+.affiliate-club-cta-link:hover .affiliate-cta__icon:nth-child(2),
+.affiliate-club-cta-link:focus-visible .affiliate-cta__icon:nth-child(2),
+.affiliate-taronews-cta:hover .affiliate-cta__icon:nth-child(2),
+.affiliate-taronews-cta:focus-visible .affiliate-cta__icon:nth-child(2) {
   opacity: 1;
-  transform: scaleX(1);
+  transform: translateX(0);
 }
 
-.affiliate-club-cta-link:hover .affiliate-cta__icon,
-.affiliate-club-cta-link:focus-visible .affiliate-cta__icon,
-.affiliate-taronews-cta:hover .affiliate-cta__icon,
-.affiliate-taronews-cta:focus-visible .affiliate-cta__icon {
-  transform: translateX(var(--button-text-arrow-hover-shift-x));
+@media (prefers-reduced-motion: reduce) {
+  .affiliate-cta__arrow-window .affiliate-cta__icon {
+    transition: none;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1199px) {

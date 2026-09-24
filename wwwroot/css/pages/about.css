@@ -3,7 +3,7 @@
 }
 
 @media (min-width: 761px) {
-  .about-page { --page-hero-image-position: center 30%; }
+  .about-page { --page-hero-image-position: center 40%; }
 }
 
 .about-page .about-profile { padding-block: var(--section-space-sm); background-color: var(--color-background); background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/02.png"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; }
@@ -166,7 +166,7 @@
   .about-page .about-certifications-preview__events { grid-row: 3; }
 }
 
-.about-page .about-affiliates { padding-block: clamp(40px, 4vw, 56px); background: #e5e5e5; }
+.about-page .about-affiliates { padding-block: clamp(40px, 4vw, 56px); }
 .about-page .about-affiliates__promo { width: min(100%, 1120px); margin-inline: auto; }
 .about-page .about-affiliates__heading { margin: 0 0 var(--section-heading-content-gap); color: var(--color-text-primary); font-size: clamp(1.875rem, 2.3vw, 2.5rem); font-weight: var(--font-weight-heading); letter-spacing: 0; line-height: var(--line-height-heading); text-align: center; }
 .about-page .about-affiliates__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 2.5vw, 32px); }

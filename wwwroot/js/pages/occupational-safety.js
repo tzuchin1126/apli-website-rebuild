@@ -1,20 +1,10 @@
 // ---------------------------------------------------------------------------
 // 職業安全衛生頁面：專業證照輪播
 // - 滑鼠拖曳捲動
-// - 分頁控制器（上一頁/下一頁/頁碼按鈕）
+// - 分頁控制器（圓點頁碼按鈕）
 // - 響應式每頁顯示數量（手機1、平板2、桌機3）
 // - 視窗縮放時重新計算
 // ---------------------------------------------------------------------------
-
-// 建立專業證照輪播使用的方向箭頭（direction 為 "left" 或 "right"）
-function createArrow(direction) {
-  const icon = document.createElement("i");
-  icon.className = "ph ph-caret-" + direction;
-  icon.setAttribute("aria-hidden", "true");
-  // Phosphor caret icons: left=E138, right=E13A
-  icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
-  return icon;
-}
 
 function setupCredentialsCarousel() {
   const list = document.querySelector("[data-safety-credentials-list]");
@@ -126,18 +116,19 @@ function setupCredentialsCarousel() {
     return positions;
   }
 
-  const pages = Math.max(1, getPagePositions().length);
+  // 每張證照卡都是一個可滑動頁面，避免手機捲動距離尚未完成計算時只產生一個圓點。
+  const pages = Math.max(1, cards.length);
+  let i = 0;
 
   const controls = document.createElement("div");
   controls.className = "safety-credentials__controls";
   controls.setAttribute("role", "group");
-  controls.setAttribute("aria-label", "專業證照卡片輪播控制");
+  controls.setAttribute("aria-label", "專業證照內容頁次");
 
-  const previous = document.createElement("button");
-  previous.type = "button";
-  previous.className = "safety-credentials__arrow safety-credentials__arrow--previous";
-  previous.setAttribute("aria-label", "上一組專業證照");
-  previous.append(createArrow("left"));
+  const pagination = document.createElement("div");
+  pagination.className = "safety-credentials__pagination";
+  pagination.setAttribute("role", "group");
+  pagination.setAttribute("aria-label", "專業證照內容頁次");
 
   const pageButtons = [];
   for (let index = 0; index < pages; index++) {
@@ -145,21 +136,12 @@ function setupCredentialsCarousel() {
     button.type = "button";
     button.className = "safety-credentials__page";
     button.setAttribute("aria-label", "顯示第 " + (index + 1) + " 組專業證照");
+    button.setAttribute("aria-current", "false");
+    button.dataset.active = "false";
+    pagination.append(button);
     pageButtons.push(button);
   }
-
-  const next = document.createElement("button");
-  next.type = "button";
-  next.className = "safety-credentials__arrow safety-credentials__arrow--next";
-  next.setAttribute("aria-label", "下一組專業證照");
-  next.append(createArrow("right"));
-
-  controls.append(previous);
-  for (let i = 0; i < pageButtons.length; i++) {
-    controls.append(pageButtons[i]);
-  }
-  controls.append(next);
-
+  controls.append(pagination);
   pager.replaceChildren(controls);
   pager.removeAttribute("aria-hidden");
 
@@ -186,17 +168,14 @@ function setupCredentialsCarousel() {
 
   function update() {
     const page = getPage();
+    controls.hidden = viewport.scrollWidth <= viewport.clientWidth + 1;
 
     for (let i = 0; i < pageButtons.length; i++) {
       const button = pageButtons[i];
       const isActive = i === page;
-      button.classList.toggle("is-active", isActive);
-      if (isActive) button.setAttribute("aria-current", "page");
-      else button.removeAttribute("aria-current");
+      button.dataset.active = String(isActive);
+      button.setAttribute("aria-current", isActive ? "true" : "false");
     }
-
-    previous.disabled = page === 0;
-    next.disabled = page === pages - 1;
   }
 
   function goTo(page) {
@@ -209,13 +188,15 @@ function setupCredentialsCarousel() {
     });
   }
 
-  // 綁定控制器事件
-  previous.addEventListener("click", function () {
-    goTo(Math.max(0, getPage() - 1));
-  });
-  next.addEventListener("click", function () {
-    goTo(Math.min(pages - 1, getPage() + 1));
-  });
+  for (let buttonIndex = 0; buttonIndex < pageButtons.length; buttonIndex++) {
+    const targetPage = buttonIndex;
+    pageButtons[buttonIndex].addEventListener("click", function () {
+      goTo(targetPage);
+    });
+  }
+
+  // 綁定頁碼控制器事件
+  // 綁定頁碼控制器事件
   for (let i = 0; i < pageButtons.length; i++) {
     const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
     pageButtons[i].addEventListener("click", function () {

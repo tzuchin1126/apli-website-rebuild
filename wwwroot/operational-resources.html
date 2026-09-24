@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260923-footer-reference-layout-v13">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260923-resource-sections-about-ratio-v8">
+        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20260924-table-image-aligned-v1">
         <link rel="stylesheet" href="css/site.css?v=20260921-nonhome-hero-title-size-v1">
     </head>
     <body class="operational-resources-page">
@@ -114,14 +114,19 @@
                     <header class="resource-heading resource-animate">
                         <h2 id="facilities-title">廠區資訊</h2>
                     </header>
+                    <div class="resource-intro resource-animate">
+                        <p>廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。</p>
+                    </div>
                     <figure class="resource-media resource-animate">
                         <picture>
                             <img src="public/images/services/container-yard-overview-1.png" width="1670" height="705" alt="高雄港後線貨櫃儲運場" loading="lazy" decoding="async">
                         </picture>
                     </figure>
                     <div class="resource-body resource-animate">
-                        <p>廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。</p>
                         <table aria-label="廠區面積統計">
+                            <thead>
+                                <tr><th scope="col">項目</th><th scope="col">面積</th></tr>
+                            </thead>
                             <tbody>
                                 <tr><th scope="row">貨櫃儲運場</th><td>66,115 m²</td></tr>
                                 <tr><th scope="row">倉庫</th><td>11,628 m²</td></tr>
@@ -138,14 +143,19 @@
                     <header class="resource-heading resource-animate">
                         <h2 id="equipment-title">機具配置</h2>
                     </header>
+                    <div class="resource-intro resource-animate">
+                        <p>廠區依作業需求配置多元化機具設備，並定期保養維護，維持設備妥善率與作業穩定性。</p>
+                    </div>
                     <figure class="resource-media resource-animate">
                         <picture>
                             <img src="public/images/index/container-handler.png" width="1734" height="907" alt="正面吊與堆高機作業" loading="lazy" decoding="async">
                         </picture>
                     </figure>
                     <div class="resource-body resource-animate">
-                        <p>廠區依作業需求配置多元化機具設備，並定期保養維護，維持設備妥善率與作業穩定性。</p>
                         <table aria-label="機具配置統計">
+                            <thead>
+                                <tr><th scope="col">設備類別</th><th scope="col">配置內容</th></tr>
+                            </thead>
                             <tbody>
                                 <tr><th scope="row">起重設備</th><td>軌道式起重機 2 台（40 噸）；移動式起重機 2 台（35 噸）</td></tr>
                                 <tr><th scope="row">堆高設備</th><td>重型堆高機 2 台（25–28 噸）；空櫃堆高機 8 台（10–18 噸）；CFS 堆高機 25 台</td></tr>
@@ -162,14 +172,19 @@
                     <header class="resource-heading resource-animate">
                         <h2 id="capacity-title">作業量能</h2>
                     </header>
+                    <div class="resource-intro resource-animate">
+                        <p>亞太位於高雄港後線核心基地，擁有充足廠域與專業機具支撐月度高強度作業量能，確保貨櫃流轉高效穩定。</p>
+                    </div>
                     <figure class="resource-media resource-animate">
                         <picture>
                             <img src="public/images/services/container-handler-operation.png" width="1672" height="941" alt="高雄港後線貨櫃作業量能" loading="lazy" decoding="async">
                         </picture>
                     </figure>
                     <div class="resource-body resource-animate">
-                        <p>亞太位於高雄港後線核心基地，擁有充足廠域與專業機具支撐月度高強度作業量能，確保貨櫃流轉高效穩定。</p>
                         <table aria-label="作業量能統計">
+                            <thead>
+                                <tr><th scope="col">項目</th><th scope="col">作業量能</th></tr>
+                            </thead>
                             <tbody>
                                 <tr><th scope="row">貨櫃儲運場最大儲存量</th><td>5,000 個</td></tr>
                                 <tr><th scope="row">倉庫最大儲存量</th><td>14,000 噸</td></tr>
@@ -195,7 +210,10 @@
                         <p>亞太將人員安全與健康置於日常營運的重要位置。面對貨櫃場、倉儲、機具維修及車輛往來等不同作業情境，我們持續把安全要求納入作業規劃與現場管理。</p>
                         <a class="button--primary resource-link" href="/occupational-safety">
                             了解更多
-                            <svg class="resource-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M8 5h11v11"></path></svg>
+                            <span class="resource-link__arrow-window" aria-hidden="true">
+                                <svg class="resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+                                <svg class="resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+                            </span>
                         </a>
                     </div>
                 </div>
