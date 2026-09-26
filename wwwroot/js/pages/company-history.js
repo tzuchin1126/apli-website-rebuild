@@ -67,40 +67,72 @@ function initMilestonePreview() {
   const years = readMilestoneEvents(content);
   if (years.length === 0) return;
 
-  const stickyTimeline = document.createElement("div");
-  stickyTimeline.className = "milestone-sticky";
+  const timeline = document.createElement("div");
+  timeline.className = "milestone-vertical";
 
-  const scrollViewport = document.createElement("div");
-  scrollViewport.className = "milestone-sticky__scroll-viewport";
-  scrollViewport.setAttribute("tabindex", "0");
-  scrollViewport.setAttribute("aria-label", "Company history timeline");
+  const navigation = document.createElement("nav");
+  navigation.className = "milestone-vertical__navigation";
+  navigation.setAttribute("aria-label", "公司沿革年份");
 
-  const items = document.createElement("div");
-  items.className = "milestone-sticky__items";
+  const yearList = document.createElement("div");
+  yearList.className = "milestone-vertical__year-list";
+  yearList.setAttribute("role", "tablist");
 
-  const scrollHint = document.createElement("div");
-  scrollHint.className = "milestone-sticky__scroll-hint";
-  scrollHint.setAttribute("aria-hidden", "true");
-  scrollHint.innerHTML = '<span class="milestone-sticky__scroll-hint-icon"></span><span>SCROLL</span>';
+  const panels = document.createElement("div");
+  panels.className = "milestone-vertical__panels";
+
+  const panelEntries = [];
+
+  function setActiveYear(year) {
+    yearList.querySelectorAll(".milestone-vertical__year").forEach(function (button) {
+      const isActive = button.dataset.year === year;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-selected", String(isActive));
+    });
+  }
 
   years.forEach(function (yearEntry, yearIndex) {
-    const item = document.createElement("article");
-    item.className = "milestone-sticky__item";
-    item.classList.add(yearIndex % 2 === 0 ? "is-left" : "is-right");
+    const panelId = "milestone-panel-" + yearEntry.year;
+    const tabId = "milestone-tab-" + yearEntry.year;
 
-    const side = document.createElement("div");
-    side.className = "milestone-sticky__side";
+    const yearButton = document.createElement("button");
+    yearButton.className = "milestone-vertical__year";
+    yearButton.type = "button";
+    yearButton.id = tabId;
+    yearButton.dataset.year = yearEntry.year;
+    yearButton.setAttribute("role", "tab");
+    yearButton.setAttribute("aria-controls", panelId);
+    yearButton.setAttribute("aria-selected", String(yearIndex === 0));
+    yearButton.textContent = yearEntry.year;
+    yearButton.addEventListener("click", function () {
+      const panel = document.getElementById(panelId);
+      if (!panel) return;
+
+      setActiveYear(yearEntry.year);
+      panel.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+    yearList.append(yearButton);
+
+    const panel = document.createElement("section");
+    panel.className = "milestone-vertical__panel";
+    panel.id = panelId;
+    panel.dataset.year = yearEntry.year;
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", tabId);
 
     const heading = document.createElement("h2");
-    heading.className = "milestone-sticky__heading";
+    heading.className = "milestone-vertical__heading";
     heading.textContent = yearEntry.year;
-    side.append(heading);
+    panel.append(heading);
 
     const events = document.createElement("div");
-    events.className = "milestone-sticky__events";
+    events.className = "milestone-vertical__events";
     yearEntry.events.forEach(function (eventEntry) {
       const event = document.createElement("article");
-      event.className = "milestone-sticky__event";
+      event.className = "milestone-vertical__event";
 
       const title = document.createElement("h3");
       title.textContent = eventEntry.title;
@@ -113,44 +145,30 @@ function initMilestonePreview() {
       }
       events.append(event);
     });
-    side.append(events);
-
-    const marker = document.createElement("span");
-    marker.className = "milestone-sticky__marker";
-    marker.setAttribute("aria-hidden", "true");
-
-    const emptySide = document.createElement("span");
-    emptySide.className = "milestone-sticky__empty-side";
-    emptySide.setAttribute("aria-hidden", "true");
-
-    if (yearIndex % 2 === 0) {
-      item.append(side, marker, emptySide);
-    } else {
-      item.append(emptySide, marker, side);
-    }
-    items.append(item);
+    panel.append(events);
+    panels.append(panel);
+    panelEntries.push({ panel: panel, year: yearEntry.year });
   });
 
-  const axis = document.createElement("span");
-  axis.className = "milestone-sticky__axis";
-  axis.setAttribute("aria-hidden", "true");
-  scrollViewport.append(items);
-  stickyTimeline.append(axis, scrollViewport, scrollHint);
-  content.replaceChildren(stickyTimeline);
+  navigation.append(yearList);
+  timeline.append(navigation, panels);
+  content.replaceChildren(timeline);
 
   preview.querySelectorAll("[data-milestone-controls]").forEach(function (controls) {
     controls.hidden = true;
   });
   viewport.classList.add("is-vertical-timeline");
   document.body.classList.add("milestones-motion-ready");
-  scrollViewport.scrollTop = 0;
 
-  function updateScrollHint() {
-    scrollHint.classList.toggle("is-hidden", scrollViewport.scrollTop > 12);
+  setActiveYear(years[0].year);
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActiveYear(entry.target.dataset.year);
+      });
+    }, { rootMargin: "-18% 0px -65%", threshold: 0 });
+    panelEntries.forEach(function (entry) { observer.observe(entry.panel); });
   }
-
-  scrollViewport.addEventListener("scroll", updateScrollHint, { passive: true });
-  updateScrollHint();
 }
 
 document.addEventListener("DOMContentLoaded", initMilestonePreview);

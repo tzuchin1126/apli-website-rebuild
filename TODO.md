@@ -1,6 +1,29 @@
 # APLI 專案進度
 
+## 2026-09-26
+- [x] 將 company-history 年份與資訊之間的中性灰分隔線恢復為原本 1px 粗細；年份文字與事件分隔線維持不變。完成 `git diff --check`。
+- [x] 恢復 company-history 年份標題與資訊之間的分隔線，改用 2px 中性灰線；年份文字維持品牌橘，事件之間仍使用較淡的 1px 灰線。完成 `git diff --check`，並以靜態服務確認線條顏色、層級與無水平溢位。
+- [x] 移除 company-history 年份標題與資訊之間的淡橘分隔線，將 `milestone-vertical__heading` 年份文字改為品牌橘色；事件之間的淺灰分隔線維持不變。完成 `git diff --check`，並以靜態服務確認桌機／手機標題顏色、分隔線與無水平溢位。
+- [x] 區分 company-history 年份與資訊、資訊與資訊的分隔線層級：年份標題下方改為 2px 淡橘實線，事件之間維持 1px 淺灰實線。完成 `git diff --check`，並以靜態服務確認桌機／手機線條層級與無水平溢位。
+- [x] 再將 company-history 桌機年份導覽向右移，桌機內縮提高至響應式 56–80px；右側資訊欄與手機版維持不變。完成 `git diff --check`，並以靜態服務確認 1440px 年份位置、390px 手機原位及無水平溢位。
+- [x] 將 company-history 桌機左側年份導覽向內移，僅增加年份欄自身左側內縮，右側資訊欄與手機版位置維持不變；完成 `git diff --check`，並以靜態服務確認桌機年份位置、手機維持原位及無水平溢位。
+- [x] 依參考畫面重新校正 company-history 主要間距：恢復沿革內容區最大寬度與中央留白，並將左側年份欄與右側資訊欄調整為中等欄距；事件背景維持透明。完成 `git diff --check`，並以靜態服務確認桌機／手機邊界與無水平溢位。
+- [x] 收窄 company-history 整個沿革內容區塊的桌機左右 padding，讓年份欄與資訊欄整體靠近視窗兩側；手機維持原本內容 gutter。完成 `git diff --check`，並以靜態服務確認桌機／手機左右邊界與無水平溢位。
+- [x] 再次收窄 company-history 桌機年份欄與資訊欄距離至較緊湊的欄寬／欄距，移除 `milestone-vertical__event` 背景色與左右內縮；完成 `git diff --check`，並以靜態服務確認桌機／手機無水平溢位與事件背景已移除。
+- [x] 收窄 company-history 桌機左側年份欄與右側資訊欄的總間距，並為每筆 `milestone-vertical__event` 加入低對比淺色背景與內縮，維持輕量而非卡片式的視覺；完成 `git diff --check`，並以靜態服務確認桌機／手機無水平溢位與事件背景。
+- [x] 重新調整 company-history 桌機與手機間距：增加內容區上下呼吸距離、左右欄距、年份導覽行距、年份標題與第一筆事件的間距，並保留手機獨立的緊湊值；完成 `git diff --check`，並以靜態服務確認桌機／手機無水平溢位與最終間距值。
+- [x] 將 company-history 年份 active 圓點移至年份文字前方，並重新設計右側年份標題為 APLI 自有的橘色短線＋底部分隔線樣式，移除參考網站式整條標題底色；完成 `git diff --check`，並以靜態服務重新確認 1440px／390px 桌機與手機瀏覽器、年份圓點位置與無水平溢位。
+- [x] 移除 company-history 沿革區塊的背景圖片，改為純色背景並收斂年份標題與事件文字層級，降低背景噪音與過重字重；完成 `git diff --check`，桌機／手機瀏覽器畫面已以靜態服務確認，ASP.NET 乾淨路由／Footer SSR、實體裝置、跨瀏覽器及無障礙人工驗收尚待完成。
+- [x] 將 company-history 沿革內容改為參考遠東新世紀的大事記左右搭配模式：桌機使用左側年份導覽與右側分年度內容，手機改為可橫向瀏覽的年份導覽並維持單欄內容；保留原有沿革資料、鍵盤操作、無 JavaScript fallback 與減少動態偏好。完成 Release build、`node --check wwwroot/js/pages/company-history.js`、`git diff --check`，並以靜態服務完成 1440px／390px 瀏覽器畫面、無水平溢位與 2000 年導覽互動確認；ASP.NET 乾淨路由／Footer SSR、實體裝置、跨瀏覽器及無障礙人工驗收尚待完成。
+
+## 2026-09-25
+- [x] 恢復 index 最新消息區塊至 BenQ 參考版調整前的版本：保留原 3 張桌機卡片、日期／類別／標題排列、控制鈕與「更多資訊」文案；同步確認 SSR、首頁 CSS／JS 未保留本次參考版變更。完成 `dotnet build -c Release`、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`；桌機／手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收尚未驗證。
+
 ## 2026-09-24
+- [x] 將所有含 Hero 的非首頁頁面麵包屑移入 Hero，置於頁面標題上方；隱私權政策因無 Hero 維持原本 breadcrumb 位置。已更新共用 Hero CSS 與 cache key，完成 `git diff --check`；桌機／手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收尚未驗證。
+- [x] 修正 Hero 內麵包屑被舊共用規則覆蓋的問題：恢復白色文字、移除底線，並強制與 Hero 標題共用左側對齊；已同步更新所有頁面的共用 CSS cache key，完成桌機／手機 DOM 幾何確認，實體裝置、跨瀏覽器及無障礙人工驗收尚未驗證。
+- [x] 調整 news 消息列表整體比例：內容最大寬度放寬至 1120px、日期／類別／標題欄位重新收斂，metadata 字級提高、標題改為較輕字重，列高與內距重新平衡；Hero 與手機列表結構維持不變，已更新 news CSS cache key，並完成 desktop 1432px／mobile 390px live page 驗證；實體裝置、跨瀏覽器及無障礙人工驗收尚未驗證。
+- [x] 移除新聞詳細頁 Hero 標題下方重複的動態消息標題，保留 Hero 的「最新消息」與內容區正式文章標題；同步清理 JS／CSS 與更新 cache key，並完成 live page 動態資料確認；實體裝置、跨瀏覽器及無障礙人工驗收尚未驗證。
 - [x] 將 index「我們的服務」hover 效果收斂為僅圖片放大，鎖定文字、卡片、箭頭與文字區塊不位移、不變色、不變背景；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
 - [x] 移除 index「我們的服務」卡片在 hover／focus 時的箭頭 icon 顯示，保留圖片微放大效果；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。
 - [x] 為 index「我們的服務」圖片加入輕微全域 `--radius-sm` 圓角，文字區維持透明直角，保留編輯型列表而不回到卡片式設計；已更新 CSS cache，完成靜態檢查，尚未進行桌機／手機瀏覽器驗證。

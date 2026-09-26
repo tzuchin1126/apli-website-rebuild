@@ -22,7 +22,6 @@ function initNewsDetail() {
   }
 
   const titleEl = detail.querySelector("[data-news-title]");
-  const heroTitleEl = document.querySelector("[data-news-hero-title]");
   const dateEl = detail.querySelector("[data-news-date]");
   const tagEl = detail.querySelector("[data-news-tag]");
   const contentEl = detail.querySelector("[data-news-content]");
@@ -123,7 +122,6 @@ function initNewsDetail() {
 
     // 基本資料
     titleEl.textContent = item.title;
-    if (heroTitleEl) heroTitleEl.textContent = item.title;
     dateEl.textContent = item.date;
     dateEl.dateTime = item.date;
     tagEl.textContent = item.tag;

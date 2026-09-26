@@ -33,3 +33,26 @@
 .page-breadcrumb a:focus-visible {
   color: var(--color-primary);
 }
+
+/* Hero breadcrumbs sit over the image and share the Hero content alignment. */
+.page-breadcrumb.page-hero__breadcrumb {
+  border-bottom: 0;
+  color: var(--color-text-on-dark);
+}
+
+.page-breadcrumb.page-hero__breadcrumb .site-container {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+  color: inherit;
+}
+
+.page-breadcrumb.page-hero__breadcrumb a,
+.page-breadcrumb.page-hero__breadcrumb [aria-current="page"] {
+  color: inherit;
+}
+
+.page-breadcrumb.page-hero__breadcrumb a:hover,
+.page-breadcrumb.page-hero__breadcrumb a:focus-visible {
+  color: var(--color-primary);
+}

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260923-footer-reference-layout-v13">
   <link rel="stylesheet" href="css/pages/careers.css?v=20260924-careers-spacing-global-v1">
-  <link rel="stylesheet" href="css/site.css?v=20260921-nonhome-hero-title-size-v1">
+  <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 
 <body class="join-page">
@@ -90,20 +90,21 @@
     </div>
   </header>
   <main id="main-content" role="main">
-    <!-- 麵包屑導覽 -->
-    <div class="join-breadcrumb page-breadcrumb">
-      <div class="site-container">
-        <a href="/">首頁</a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">人才招募</span>
-      </div>
-    </div>
     <section class="join-hero page-hero" aria-labelledby="join-title">
       <picture class="page-hero__media">
         <img class="page-hero__image" src="public/images/join/hero.jpg" width="6178" height="4119" alt="物流作業場景" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <div class="join-hero__overlay page-hero__overlay" aria-hidden="true"></div>
-      <h1 class="page-hero__title" id="join-title">人才招募</h1>
+      <div class="page-hero__content">
+        <nav class="join-breadcrumb page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
+          <div class="site-container">
+            <a href="/">首頁</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">人才招募</span>
+          </div>
+        </nav>
+        <h1 class="page-hero__title" id="join-title">人才招募</h1>
+      </div>
     </section>
     <section class="join-content site-container">
       <!-- Panel 1: 職缺資訊 -->
