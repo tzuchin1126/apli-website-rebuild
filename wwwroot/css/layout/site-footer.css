@@ -1,4 +1,11 @@
 .site-footer {
+  --footer-background: #3b3b3b;
+  --footer-heading: #f3f4f3;
+  --footer-link: #d8d8d6;
+  --footer-muted: #c4c4c0;
+  --footer-divider: rgb(255 255 255 / 18%);
+  --footer-bottom-text: #d8d8d6;
+  --footer-accent: #fa881c;
   position: relative;
   margin-top: 0;
   background: var(--footer-background);
@@ -169,7 +176,7 @@
 
 .site-footer__nav > a:hover,
 .site-footer__nav > a:focus-visible {
-  color: var(--color-primary);
+  color: var(--footer-accent);
 }
 
 .site-footer__company {
@@ -246,7 +253,13 @@
 }
 
 .site-footer__logo:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 4px;
+}
+
+.site-footer a:focus-visible,
+.site-footer button:focus-visible {
+  outline: 2px solid var(--footer-accent);
   outline-offset: 4px;
 }
 
@@ -362,12 +375,12 @@
 .footer-column a:focus-visible,
 .footer-legal-links a:hover,
 .footer-legal-links a:focus-visible {
-  color: var(--color-primary);
+  color: var(--footer-accent);
 }
 
 .footer-column a.footer-column__title--link {
   display: inline-flex;
-  color: #40403e;
+  color: var(--footer-heading);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 500;
@@ -413,11 +426,11 @@
 }
 
 .site-footer .footer-column__title--link {
-  color: #40403e;
+  color: var(--footer-heading);
 }
 
 .site-footer .footer-column__title {
-  color: #40403e;
+  color: var(--footer-heading);
 }
 
 @media (max-width: 840px) {
@@ -624,7 +637,7 @@
 
 .site-footer__nav > a:hover,
 .site-footer__nav > a:focus-visible {
-  color: var(--color-primary);
+  color: var(--footer-accent);
 }
 
 .site-footer__company {

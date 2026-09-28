@@ -1,5 +1,9 @@
 # APLI 專案進度
 
+## 2026-09-28
+- [x] 將 About「認證與獎項」的 `.about-certifications-preview__events` 背景改為 `#3b3b3b`，事件文字與圓點改為 `#f3f4f3`；保留年份、時間軸、導覽與資料內容，並更新 About CSS cache key。完成 `git diff --check`，並以 ASP.NET 實際路由驗證 Edge 1440px／390px：18 組 events 容器與文字色均正確，動畫結束後年份和內容完整對齊且無文件水平溢位；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
+- [x] 將共用 Footer 背景改為 `#3b3b3b`，標題、公司資訊、導覽連結、隱私權與版權文字改為淺色；保留橘色 Logo，並使用較亮的 Footer 互動橘與 2px focus 外框維持深色背景上的辨識度。色彩限定在 `.site-footer`，未影響其他引用 Footer token 的頁面區塊；同步更新 14 個公開頁面的 Footer CSS cache key。完成 `dotnet build -c Release`、`git diff --check`，並以 ASP.NET 實際路由驗證 Edge 1440px 首頁／About 與 390px About：背景、文字、分隔線、cache key、手機 accordion／ARIA、鍵盤 focus 及 Footer 無水平溢位皆正常；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
+
 ## 2026-09-26
 - [x] 將 company-history 年份與資訊之間的中性灰分隔線恢復為原本 1px 粗細；年份文字與事件分隔線維持不變。完成 `git diff --check`。
 - [x] 恢復 company-history 年份標題與資訊之間的分隔線，改用 2px 中性灰線；年份文字維持品牌橘，事件之間仍使用較淡的 1px 灰線。完成 `git diff --check`，並以靜態服務確認線條顏色、層級與無水平溢位。

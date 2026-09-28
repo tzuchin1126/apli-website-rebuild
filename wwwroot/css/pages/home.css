@@ -13,7 +13,7 @@
 .home-page .site-footer .footer-column a,
 .home-page .site-footer .footer-legal-links a { color: var(--footer-link); }
 .home-page .site-footer .footer-column__toggle::before { border-color: currentColor; }
-.home-page .site-footer .site-footer__bottom { color: var(--color-text-primary); }
+.home-page .site-footer .site-footer__bottom { color: var(--footer-heading); }
 .home-page .site-footer .site-footer__nav .footer-column .footer-column__toggle,
 .home-page .site-footer .site-footer__nav .footer-column .footer-column__title { color: var(--footer-heading); }
 .home-page .site-footer .site-footer__nav .footer-column a { color: var(--footer-link); }
