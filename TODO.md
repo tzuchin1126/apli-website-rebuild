@@ -1,7 +1,8 @@
 # APLI 專案進度
 
 ## 2026-09-28
-- [x] 將 About「認證與獎項」的 `.about-certifications-preview__events` 背景改為 `#3b3b3b`，事件文字與圓點改為 `#f3f4f3`；保留年份、時間軸、導覽與資料內容，並更新 About CSS cache key。完成 `git diff --check`，並以 ASP.NET 實際路由驗證 Edge 1440px／390px：18 組 events 容器與文字色均正確，動畫結束後年份和內容完整對齊且無文件水平溢位；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
+- [x] 參考 BenQ Materials ESG 經營理念頁，將 About「經營理念」由三張背景圖 hover 卡片改為桌機單列三欄資訊版型：每欄依序呈現線性圖示、中文標題、精簡英文標題與常態可讀說明，欄間以細直線區隔；重新收斂字級、字重、字距與行高，840px 以下改為單欄分隔排列。保留 APLI 原文案、品牌橘、既有進場動畫與語意結構。已以 ASP.NET 實際路由驗證 Edge 1440px 為同列三欄、390px 為單欄分隔排列，內容完整可讀且未見水平溢位；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
+- [x] 將 About「認證與獎項」整個 `.about-certifications-preview` 區塊背景改為 `#f6f6f6`，移除原區塊背景圖，內層 `.about-certifications-preview__events` 維持透明；事件文字與圓點使用深色以維持對比，並更新 About CSS cache key。完成 Release build、JavaScript 語法與 `git diff --check`；以 ASP.NET 實際路由驗證 Edge 1440px／390px，動態 class 為 `about-certifications-preview about-scroll-reveal is-visible`，整段淺灰背景、文字與時間軸均正常；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
 - [x] 將共用 Footer 背景改為 `#3b3b3b`，標題、公司資訊、導覽連結、隱私權與版權文字改為淺色；保留橘色 Logo，並使用較亮的 Footer 互動橘與 2px focus 外框維持深色背景上的辨識度。色彩限定在 `.site-footer`，未影響其他引用 Footer token 的頁面區塊；同步更新 14 個公開頁面的 Footer CSS cache key。完成 `dotnet build -c Release`、`git diff --check`，並以 ASP.NET 實際路由驗證 Edge 1440px 首頁／About 與 390px About：背景、文字、分隔線、cache key、手機 accordion／ARIA、鍵盤 focus 及 Footer 無水平溢位皆正常；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
 
 ## 2026-09-26

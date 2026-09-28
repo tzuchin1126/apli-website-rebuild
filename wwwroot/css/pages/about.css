@@ -71,21 +71,17 @@
 .about-page .about-philosophy-editorial .about-section-heading { justify-items: start; width: 100%; margin: 0 0 var(--section-heading-content-gap); text-align: left; }
 .about-page .about-philosophy-editorial .about-section-heading h2 { position: relative; width: fit-content; padding-bottom: 0; border-bottom: 0; }
 .about-page .about-philosophy-editorial__intro { max-width: 48rem; margin: 24px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); }
-.about-page .about-philosophy-editorial__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 1.1vw, 32px); }
-.about-page .about-philosophy-editorial__card { position: relative; min-height: 320px; overflow: hidden; border-radius: var(--card-radius); background-position: center; background-size: cover; color: var(--color-surface); }
-.about-page .about-philosophy-editorial__card::before { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(23 37 56 / 14%) 20%, rgb(23 37 56 / 78%) 100%); content: ""; transition: background 260ms ease; }
-.about-page .about-philosophy-editorial__card--mission { background-image: url("../../public/images/future-outlook/hero.png"); }
-.about-page .about-philosophy-editorial__card--values { background-image: url("../../public/images/about/philosophy-values.jpg"); }
-.about-page .about-philosophy-editorial__card--vision { background-image: url("../../public/images/index/12.jpg"); }
-.about-page .about-philosophy-editorial__copy { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px; text-align: center; }
-.about-page .about-philosophy-editorial__icon { display: block; width: 50px; height: 50px; margin: 0 0 16px; object-fit: contain; }
-.about-page .about-philosophy-editorial__copy h3 { margin: 0; color: var(--color-surface); font-family: var(--font-body); font-size: var(--font-size-card-title); font-weight: var(--font-weight-regular); letter-spacing: normal; line-height: var(--line-height-card-title); }
-.about-page .about-philosophy-editorial__copy p { position: absolute; right: 28px; bottom: 28px; left: 28px; max-width: 30em; margin: 0; color: var(--color-surface); font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; opacity: 0; transform: translateY(14px); transition: opacity 260ms ease, transform 260ms ease; }
-.about-page .about-philosophy-editorial__card:hover::before, .about-page .about-philosophy-editorial__card:focus-within::before { background: rgb(23 37 56 / 82%); }
-.about-page .about-philosophy-editorial__card:hover .about-philosophy-editorial__copy p, .about-page .about-philosophy-editorial__card:focus-within .about-philosophy-editorial__copy p { opacity: 1; transform: translateY(0); }
+.about-page .about-philosophy-editorial__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.about-page .about-philosophy-editorial__card { min-width: 0; padding: clamp(28px, 3vw, 44px) clamp(28px, 3.5vw, 56px); }
+.about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { border-left: 1px solid var(--color-border); }
+.about-page .about-philosophy-editorial__copy { display: grid; grid-template-rows: auto auto 1fr; align-content: start; height: 100%; text-align: center; }
+.about-page .about-philosophy-editorial__icon { display: block; width: 64px; height: 64px; margin: 0 auto 18px; object-fit: contain; filter: brightness(0) saturate(100%) invert(59%) sepia(95%) saturate(2490%) hue-rotate(353deg) brightness(102%) contrast(92%); }
+.about-page .about-philosophy-editorial__copy h3 { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: clamp(1.15rem, 1.1vw, 1.35rem); font-weight: var(--font-weight-medium); letter-spacing: .01em; line-height: 1.4; text-align: center; }
+.about-page .about-philosophy-editorial__copy h3 span { display: block; margin-top: 4px; font-size: .72em; font-weight: var(--font-weight-regular); letter-spacing: .05em; line-height: 1.35; white-space: nowrap; }
+.about-page .about-philosophy-editorial__copy p { max-width: 24rem; margin: 24px auto 0; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.75; text-align: left; }
 
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
-.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background-color: var(--color-background); background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/03.png"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; color: var(--color-text-primary); }
+.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: #f6f6f6; color: var(--color-text-primary); }
 .about-page .about-certifications-preview .about-section-heading { justify-items: start; width: 100%; margin: 0; text-align: left; }
 .about-page .about-certifications-preview .about-section-heading h2 { position: relative; margin: 0; padding-block: 0; border: 0; color: var(--color-text-primary); font-weight: var(--font-weight-heading); text-align: left; }
 .about-page .about-certifications-preview .about-section-heading h2::before,
@@ -122,10 +118,10 @@
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, 1fr)); column-gap: var(--preview-column-gap); align-items: start; }
 .about-page .about-certifications-preview__year-column { min-width: 0; }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
-.about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: #3b3b3b; }
+.about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 16px; background: transparent; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; padding: 0; border: 0; }
 .about-page .about-certifications-preview__event + .about-certifications-preview__event { padding-top: 0; border-top: 0; }
-.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: #f3f4f3; font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 .about-page .about-certifications-preview__event h4::before { position: absolute; top: .67em; left: 2px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; content: ""; }
 .about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-sm); }
 
@@ -188,7 +184,6 @@
   .about-page .about-profile__media { grid-column: 1; grid-row: 1; }
   .about-page .about-profile__copy { grid-column: 1; grid-row: 2; }
   .about-page .about-profile__media { aspect-ratio: 16 / 9; }
-  .about-page .about-philosophy-editorial__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1100px) {
@@ -199,18 +194,17 @@
   .about-page .about-affiliates__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: 0; text-align: left; }
   .about-page .about-philosophy-editorial .about-section-heading .about-philosophy-editorial__intro { width: 100%; }
-  .about-page .about-philosophy-editorial__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-page .about-philosophy-editorial__cards { grid-template-columns: minmax(0, 1fr); }
+  .about-page .about-philosophy-editorial__card { padding: 32px 0; }
+  .about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { border-top: 1px solid var(--color-border); border-left: 0; }
+  .about-page .about-philosophy-editorial__copy p { max-width: 32rem; }
 }
 
 @media (max-width: 640px) {
-  .about-page .about-philosophy-editorial__cards { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .about-page .about-philosophy-editorial__card { min-height: 260px; }
-  .about-page .about-philosophy-editorial__copy h3 { font-size: var(--font-size-card-title-compact); }
-}
-
-@media (hover: none), (max-width: 640px) {
-  .about-page .about-philosophy-editorial__card::before { background: rgb(23 37 56 / 82%); }
-  .about-page .about-philosophy-editorial__copy p { position: static; max-width: 30em; margin-top: 20px; opacity: 1; transform: none; }
+  .about-page .about-philosophy-editorial__card { padding-block: 30px; }
+  .about-page .about-philosophy-editorial__icon { width: 56px; height: 56px; margin-bottom: 14px; }
+  .about-page .about-philosophy-editorial__copy h3 { font-size: 1.125rem; }
+  .about-page .about-philosophy-editorial__copy p { margin-top: 20px; }
 }
 
 @media (max-width: 640px) {
