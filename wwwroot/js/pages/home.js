@@ -204,7 +204,7 @@ function setupLatestNews() {
     function getVisibleCount() {
       if (window.innerWidth <= 520) return 1;
       if (window.innerWidth <= 1100) return 2;
-      return 3;
+      return 4;
     }
 
     function getMaxStart() {

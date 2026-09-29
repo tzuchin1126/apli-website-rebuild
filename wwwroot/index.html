@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260920-section-heading-token-v1">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20260929-section-surface-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
@@ -151,6 +151,7 @@
         </figure>
       </div>
     </section>
+
     <section class="home-services-compare" aria-labelledby="home-services-compare-title">
       <div class="site-container">
         <div class="home-services-compare__heading" data-home-reveal="up">
@@ -169,15 +170,10 @@
                 </div>
               </div>
             </div>
-            <span class="home-services-compare__arrow" aria-hidden="true">
-              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </span>
           </a>
           <a class="home-services-compare__card" href="/services#terminal-handling" data-home-reveal="up" data-home-delay="200">
             <div class="home-services-compare__media">
-              <img src="public/images/services/container-yard-teamwork.jpg" width="4912" height="3264" alt="貨櫃清潔與維修作業" loading="lazy" decoding="async">
+              <img src="public/images/services/container-cleaning.jpg" width="4912" height="3264" alt="貨櫃清潔與維修作業" loading="lazy" decoding="async">
             </div>
             <div class="home-services-compare__body">
               <div class="home-services-compare__content">
@@ -187,11 +183,6 @@
                 </div>
               </div>
             </div>
-            <span class="home-services-compare__arrow" aria-hidden="true">
-              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </span>
           </a>
           <a class="home-services-compare__card" href="/services#maintenance" data-home-reveal="up" data-home-delay="300">
             <div class="home-services-compare__media">
@@ -205,11 +196,6 @@
                 </div>
               </div>
             </div>
-            <span class="home-services-compare__arrow" aria-hidden="true">
-              <svg class="home-services-compare__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </span>
           </a>
         </div>
       </div>
@@ -233,70 +219,9 @@
       </div>
     </section>
 
-    <section class="home-affiliates site-container" aria-labelledby="home-affiliates-title">
-      <div class="home-affiliates__heading">
-        <h2 id="home-affiliates-title">關係企業</h2>
-      </div>
-      <div class="home-affiliates__carousel">
-        <button class="home-affiliates__control" type="button" data-affiliates-previous aria-label="上一個關係企業" aria-controls="home-affiliates-track"></button>
-        <div class="home-affiliates__viewport">
-          <div id="home-affiliates-track" class="home-affiliates__grid" data-affiliates-track>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看世新貨櫃關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/01.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>世新貨櫃</strong>
-            <span class="home-affiliates__description">專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏油品關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/小港加油站.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>亞柏油品</strong>
-            <span class="home-affiliates__description">提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-        <a class="home-affiliates__card home-affiliates__card--club" href="/affiliates" aria-label="查看亞柏會舘關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-club-exterior.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>亞柏會舘</strong>
-            <span class="home-affiliates__description">提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-        <a class="home-affiliates__card home-affiliates__card--team" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-badminton-player.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>亞柏羽球隊</strong>
-            <span class="home-affiliates__description">投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看太報關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/taisounds.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/taisounds.png" alt="太報 TaiSounds Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>太報 TaiSounds</strong>
-            <span class="home-affiliates__description">以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-        <a class="home-affiliates__card" href="/affiliates" aria-label="查看 ALPHA TOTAL SOLUTION 關係企業">
-          <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/alpha-port-equipment.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark home-affiliates__mark--light-source" src="public/images/logo/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></span>
-          <span class="home-affiliates__body">
-            <strong>ALPHA TOTAL SOLUTION</strong>
-            <span class="home-affiliates__description">提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</span>
-            <span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span>
-          </span>
-        </a>
-          </div>
-        </div>
-        <button class="home-affiliates__control" type="button" data-affiliates-next aria-label="下一個關係企業" aria-controls="home-affiliates-track"></button>
-      </div>
-    </section>
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260923-home-menu-state-v1"></script>
-  <script src="js/pages/home.js?v=20260923-home-latest-three-v2"></script>
+  <script src="js/pages/home.js?v=20260929-home-latest-four-v1"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@ function setupAboutScrollMotion() {
   }
 
   const sections = Array.from(page.querySelectorAll(
-    ".about-profile, .about-philosophy-editorial, .about-certifications-preview, .about-affiliates"
+    ".about-profile, .about-philosophy-editorial, .about-certifications-preview"
   ));
   if (sections.length === 0) {
     return;

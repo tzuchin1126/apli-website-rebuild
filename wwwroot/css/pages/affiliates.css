@@ -157,8 +157,7 @@
 }
 
 .affiliate-panel-header h2,
-.affiliate-section-heading h3,
-.affiliate-sexin-intro-heading h2 {
+.affiliate-section-heading h3 {
   margin: 0;
   font-weight: var(--font-weight-heading);
 }
@@ -220,15 +219,13 @@
   gap: 28px;
 }
 
-.affiliate-panel-intro,
-.affiliate-editorial-copy {
+.affiliate-panel-intro {
   display: grid;
   gap: 12px;
   max-width: 720px;
 }
 
-.affiliate-gallery-shell,
-.affiliate-media-section {
+.affiliate-gallery-shell {
   min-width: 0;
 }
 

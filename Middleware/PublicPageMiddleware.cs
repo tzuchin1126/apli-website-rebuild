@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Http;
 using apli_website_rebuild.Services;
 
 namespace apli_website_rebuild.Middleware;
 
-public sealed class PublicPageMiddleware
+public class PublicPageMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly PublicPageRenderer _renderer;
@@ -16,19 +15,23 @@ public sealed class PublicPageMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var requestPath = context.Request.Path.Value ?? string.Empty;
-        var result = await _renderer.TryRenderAsync(context, requestPath, context.RequestAborted);
+        string requestPath = context.Request.Path.Value ?? "";
+        string? html = await _renderer.TryRenderAsync(context, requestPath, context.RequestAborted);
 
-        if (result is null)
+        // null = 這個網址不是公開頁面，交給下一個 middleware
+        if (html == null)
         {
             await _next(context);
             return;
         }
 
-        if (!string.IsNullOrEmpty(result))
+        // 空字串 = 轉址或 404 已經處理完了，不用再輸出內容
+        if (html == "")
         {
-            await _renderer.WriteHtmlResponseAsync(context, result, context.RequestAborted);
+            return;
         }
+
+        await _renderer.WriteHtmlResponseAsync(context, html, context.RequestAborted);
     }
 }
 

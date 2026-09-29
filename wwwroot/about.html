@@ -23,7 +23,8 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-    <link rel="stylesheet" href="css/pages/about.css?v=20260928-philosophy-columns-v6">
+  <link rel="stylesheet" href="css/pages/home.css?v=20260929-about-affiliates-move-v1">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260929-remove-explore-more-v1">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 
@@ -189,41 +190,51 @@
       </div>
     </section>
 
-    <section id="affiliates-overview" class="about-affiliates" aria-labelledby="affiliates-overview-title">
-      <div class="site-container">
-        <div class="about-affiliates__promo">
-          <h2 class="about-affiliates__heading" id="affiliates-overview-title">相關資訊</h2>
-          <div class="about-affiliates__grid">
-            <a class="about-affiliates__card about-affiliates__card-link" href="/company-history" aria-label="前往公司沿革">
-              <div class="about-affiliates__promo-media about-affiliates__promo-media--history" aria-hidden="true"></div>
-              <div class="about-affiliates__promo-copy">
-                <h3>公司沿革</h3>
-                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
-              </div>
-            </a>
-            <a class="about-affiliates__card about-affiliates__card-link" href="/operational-resources" aria-label="前往營運資源">
-              <div class="about-affiliates__promo-media about-affiliates__promo-media--resources" aria-hidden="true"></div>
-              <div class="about-affiliates__promo-copy">
-                <h3>營運資源</h3>
-                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
-              </div>
-            </a>
-            <a class="about-affiliates__card about-affiliates__card-link" href="/affiliates" aria-label="前往關係企業">
-              <div class="about-affiliates__promo-media about-affiliates__promo-media--affiliates" aria-hidden="true"></div>
-              <div class="about-affiliates__promo-copy">
-                <h3>關係企業</h3>
-                <span class="about-affiliates__arrow-window" aria-hidden="true"><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="about-affiliates__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span>
-              </div>
-            </a>
-          </div>
+    <div class="home-page about-home-affiliates-scope">
+      <section class="home-affiliates site-container" aria-labelledby="home-affiliates-title">
+        <div class="home-affiliates__heading">
+          <h2 id="home-affiliates-title">關係企業</h2>
         </div>
-      </div>
-    </section>
+        <div class="home-affiliates__carousel">
+          <button class="home-affiliates__control" type="button" data-affiliates-previous aria-label="上一個關係企業" aria-controls="home-affiliates-track"></button>
+          <div class="home-affiliates__viewport">
+            <div id="home-affiliates-track" class="home-affiliates__grid" data-affiliates-track>
+              <a class="home-affiliates__card" href="/affiliates" aria-label="查看世新貨櫃關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/01.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>世新貨櫃</strong><span class="home-affiliates__description">專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+              <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏油品關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/小港加油站.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>亞柏油品</strong><span class="home-affiliates__description">提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+              <a class="home-affiliates__card home-affiliates__card--club" href="/affiliates" aria-label="查看亞柏會舘關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-club-exterior.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>亞柏會舘</strong><span class="home-affiliates__description">提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+              <a class="home-affiliates__card home-affiliates__card--team" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-badminton-player.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>亞柏羽球隊</strong><span class="home-affiliates__description">投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+              <a class="home-affiliates__card" href="/affiliates" aria-label="查看太報關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/taisounds.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/taisounds.png" alt="太報 TaiSounds Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>太報 TaiSounds</strong><span class="home-affiliates__description">以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+              <a class="home-affiliates__card" href="/affiliates" aria-label="查看 ALPHA TOTAL SOLUTION 關係企業">
+                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/alpha-port-equipment.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark home-affiliates__mark--light-source" src="public/images/logo/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></span>
+                <span class="home-affiliates__body"><strong>ALPHA TOTAL SOLUTION</strong><span class="home-affiliates__description">提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
+              </a>
+            </div>
+          </div>
+          <button class="home-affiliates__control" type="button" data-affiliates-next aria-label="下一個關係企業" aria-controls="home-affiliates-track"></button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
   <script src="js/pages/about.js?v=20260922-about-motion-drag-stop-v4"></script>
+  <script src="js/pages/home.js?v=20260929-home-latest-four-v1"></script>
 </body>
 </html>

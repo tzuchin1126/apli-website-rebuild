@@ -138,6 +138,7 @@ builder.Services.AddSingleton<string>(sp =>
 });
 
 builder.Services.AddSingleton<PublicPageRenderer>();
+builder.Services.AddSingleton<UploadScanner>();
 
 // ============================================================
 // 限流:同一個 IP 在時間內打太多次就擋掉
@@ -343,6 +344,7 @@ NewsEndpoints.Map(app, new NewsEndpointOptions(
     categoriesFile,
     uploadsRoot,
     imageUploadsRoot,
-    defaultCategories));
+    defaultCategories,
+    app.Services.GetRequiredService<UploadScanner>()));
 
 app.Run();

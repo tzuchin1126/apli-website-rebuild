@@ -1,5 +1,23 @@
 # APLI 專案進度
 
+## 2026-09-29
+- [x] 盤點 HTML、CSS、JavaScript 與 C# 的引用關係，移除已確認無 HTML／JS／C# 消費者的舊 CSS：首頁服務箭頭／舊介紹容器、Footer 標題連結、關係企業三組舊 selector；保留 Company History 仍可能支援目前動態時間軸的共用規則。已完成 Release build、全頁 JavaScript 語法檢查與引用盤點，未 commit。
+- [x] 移除首頁「最新消息」背景色與左右延伸背景，改由「我們的服務」區塊使用淺灰 `--color-surface-section` 背景；已更新 CSS cache，完成 Release build 與本機 Edge 桌機計算樣式確認，手機沿用相同 CSS 規則，未 commit。
+- [x] 依需求將首頁區塊順序恢復為「關於亞太 → 我們的服務 → 最新消息 → 關係企業」，保留 Hero 與最新消息左右延伸背景設定；已完成 HTML 結構調整，未 commit。
+- [x] 將首頁「最新消息」淺灰背景延伸至整個視窗寬度，補足左右兩側背景色；內容容器與卡片位置維持不變，已更新 CSS cache，完成 Release build 與本機 Edge 桌機計算樣式確認，手機沿用相同 CSS 規則，未 commit。
+- [x] 移除首頁「我們的服務」區塊背景色，改由「最新消息」區塊使用淺灰 `--color-surface-section` 背景；已更新 CSS cache，完成 Release build 與本機 Edge 桌機計算樣式確認，手機沿用相同 CSS 規則，未 commit。
+- [x] 首頁主要區塊順序調整為「我們的服務 → 最新消息 → 關於亞太」，Hero 與關係企業維持原位置；已完成 HTML 結構調整、Release build 與本機 Edge 桌機 DOM 順序確認，手機沿用相同 HTML 順序，未 commit。
+- [x] 首頁「我們的服務」區塊加入淺灰背景，使用共用 `--color-surface-section` token；已更新 CSS cache，完成 Release build、桌機瀏覽器計算樣式與手機媒體規則確認，未 commit。
+- [x] 首頁最新消息桌機版左右切換按鈕移至標題列右上方、與標題對齊並內縮至主要內容右邊界，手機維持卡片兩側控制。已通過 Release build，並以本機 Edge 確認桌機按鈕位置與標題頂部對齊；手機版 CSS 規則已靜態確認，尚未完成手機瀏覽器實際畫面驗證。`git diff --check` 仍有既有的 `wwwroot/js/site.js` trailing whitespace，非本次修改造成。未 commit。
+- [x] 首頁最新消息輪播比照 About 認證與獎項區塊，桌機卡片輪播向右延伸至視窗邊線並預設顯示 4 筆，標題與更多資訊維持原內容軌道，平板 2 筆、手機 1 筆。已通過 Release build、home.js 語法檢查與 git diff --check，並以本機 Edge 確認桌機輪播右側延伸、4 張卡片可視、原起點、標題／更多資訊位置與無整頁水平捲軸；手機版 CSS 單卡規則已靜態確認，尚未完成手機瀏覽器實際畫面驗證。未 commit。
+- [x] 首頁服務項目保留長榮風格卡片：圖片置頂、白色資訊區、細邊框與圓角，移除 Discover now；服務標題恢復首頁原本的置中、無底線樣式，並移除服務項目與最新消息之間的分隔線。已通過 Release build、home.js 語法檢查與 git diff --check，並以本機 Edge 確認桌機標題、卡片結構、圖片／內容比例、三個連結、無 CTA 與連續區塊表面；手機版 CSS 單欄規則已靜態確認，尚未完成手機瀏覽器實際畫面驗證。未 commit。
+- [x] 首頁服務項目依參考圖改為上方圖片、下方白色內容面板、標題／描述／分隔線與 Discover now 箭頭；保留原本三個服務連結與鍵盤 focus。已通過 Release build、home.js 語法檢查與 git diff --check，並以本機 Edge 確認桌機卡片結構、圖片比例、白色內容面板、CTA 與原有服務連結；手機版 CSS 單欄規則已靜態確認，尚未完成手機瀏覽器實際畫面驗證。未 commit。
+- [x] 首頁最新消息區塊依參考圖調整為左對齊標題、圖片改為較低的 4:3 比例並強化圖片下方標題與日期的視覺重點；保留既有輪播切換按鈕，並將更多資訊按鈕恢復至輪播下方置中位置。已通過 Release build、git diff --check，並以本機 Edge 確認桌機畫面與 DOM 版面；手機版 CSS 響應式規則已靜態確認，尚未完成手機瀏覽器實際畫面驗證。未 commit。
+- [x] About「相關資訊」標題改為「探索更多」，三張導覽卡片改為左側標題、右側圖片在上與文字在下的參考版型，移除圖片遮罩與箭頭覆蓋，保留既有連結、圖片資產與手機單欄排列；hover 強化為卡片上移、圖片以獨立偽元素放大與標題品牌橘色，避免 `background-size` 造成圖片接縫，並保留鍵盤 focus 與減少動態偏好；已以本機 Edge 確認桌機畫面，手機版完成響應式 CSS 靜態確認。未 commit。
+- [x] About「認證與獎項」每個年份的 `.about-certifications-preview__events` 整個資訊區塊改為白色背景、18px 圓角與柔和陰影，事件文字維持區塊內排列，保留原本時間軸、年份與手機橫向瀏覽結構；已完成靜態檢查，瀏覽器畫面尚待確認。未 commit。
+- [x] About「經營理念」區塊改為淺灰背景，三張理念卡片改為白底、無邊線、18px 圓角與柔和陰影，內容置中並保留 `about-philosophy-editorial__card--vision` 結構；同步更新 About CSS cache key。已以本機 Edge 實際確認桌機畫面；手機 CSS 單欄規則已靜態確認，手機瀏覽器畫面尚未完成驗證。未 commit。
+- [x] 強化新聞安全輸入與附件上傳：新增新聞時伺服器忽略前端偽造的 `Url`／`ImageUrl`，編輯時只沿用伺服器既有的內部上傳路徑；上傳檔案先寫入暫存檔、完成格式簽章檢查後交由 Windows Defender `MpCmdRun.exe` 掃描，掃描發現威脅或掃描服務不可用時不公開檔案。已完成 `dotnet build -c Release`、JavaScript 語法、`git diff --check`、實際 Defender 乾淨檔案掃描、正常上傳端對端驗證、掃描器逾時回傳 503、未寫入資料與暫存檔清理驗證，以及 `dotnet run` 啟動、公開 API、未登入拒絕與無 Id 新增新聞產生唯一 Id 驗證；尚未完成惡意樣本、IIS、實體裝置與瀏覽器原生檔案選擇器驗證。測試留下未發布的安全測試新聞與圖片記錄（依需求不還原）；保留既有未提交的首頁圖片變更，未 commit。
+
 ## 2026-09-28
 - [x] 參考 BenQ Materials ESG 經營理念頁，將 About「經營理念」由三張背景圖 hover 卡片改為桌機單列三欄資訊版型：每欄依序呈現線性圖示、中文標題、精簡英文標題與常態可讀說明，欄間以細直線區隔；重新收斂字級、字重、字距與行高，840px 以下改為單欄分隔排列。保留 APLI 原文案、品牌橘、既有進場動畫與語意結構。已以 ASP.NET 實際路由驗證 Edge 1440px 為同列三欄、390px 為單欄分隔排列，內容完整可讀且未見水平溢位；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
 - [x] 將 About「認證與獎項」整個 `.about-certifications-preview` 區塊背景改為 `#f6f6f6`，移除原區塊背景圖，內層 `.about-certifications-preview__events` 維持透明；事件文字與圓點使用深色以維持對比，並更新 About CSS cache key。完成 Release build、JavaScript 語法與 `git diff --check`；以 ASP.NET 實際路由驗證 Edge 1440px／390px，動態 class 為 `about-certifications-preview about-scroll-reveal is-visible`，整段淺灰背景、文字與時間軸均正常；實體裝置、其他瀏覽器與完整人工無障礙驗收尚未執行。
@@ -1038,3 +1056,7 @@
 # 2026-09-23: Removed the later mobile cascade override that restored the Hero title to the heading weight; mobile now also resolves to 400.
 # 2026-09-23: Unified the Footer interface across homepage and inner pages with `#f3f4f3` background, `#40403e` menu headings, and `#81817e` submenu/legal links.
 # 2026-09-23: Refined the homepage mobile menu states: the closed toggle remains white and closer to the right edge, the open toggle changes to orange, and expanded navigation rows now use a consistent 16px normal-weight type scale, 58px rhythm, letter spacing, and caret spacing; the reloaded 440px mobile closed state was visually checked, while expanded-state interaction and desktop browser verification remain unrun.
+# 2026-09-29: Changed the homepage visual section order to Services, Latest News, About APLI, then Affiliates using the main-content layout order; restored the About APLI section to its original two-column left-text/right-image layout; existing section markup and interactions remain unchanged, and desktop/mobile browser verification remains pending.
+# 2026-09-29: Set the homepage visual order to About APLI, Services, Latest News, then Affiliates; retained the rounded service-card treatment and restored Latest News to its previous card UI, with desktop/mobile browser verification remaining pending.
+# 2026-09-29: Moved the homepage related-enterprise carousel to the bottom of the About page after the certification and awards content; About now loads the shared carousel markup, styling, and behavior, with desktop/mobile browser verification remaining pending.
+# 2026-09-29: Removed the About page Explore More block and its page-specific styles and reveal selector; the related-enterprise carousel remains as the final About content section, with desktop/mobile browser verification remaining pending.

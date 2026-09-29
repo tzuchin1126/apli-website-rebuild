@@ -1,235 +1,123 @@
-// ---------------------------------------------------------------------------
-// 職業安全衛生頁面：專業證照輪播
-// - 滑鼠拖曳捲動
-// - 分頁控制器（圓點頁碼按鈕）
-// - 響應式每頁顯示數量（手機1、平板2、桌機3）
-// - 視窗縮放時重新計算
-// ---------------------------------------------------------------------------
+// 營運資源頁：地理優勢區塊進場動畫、快速導覽列
 
-function setupCredentialsCarousel() {
-  const list = document.querySelector("[data-safety-credentials-list]");
-  if (!list) return;
+// 地理優勢區塊進場動畫
+function setupResourcesLocationMotion() {
+  const locationNetwork = document.querySelector(".resources-location__network");
+  if (!locationNetwork) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.body.classList.add("resources-location-motion-ready");
 
-  const viewport = list.closest(".safety-credentials__viewport");
-  const safetySection = list.closest(".safety-credentials");
-  const pager = safetySection ? safetySection.querySelector(".safety-credentials__pager") : null;
-  if (!viewport || !pager) return;
+  const reveal = () => locationNetwork.classList.add("is-visible");
 
-  const cards = [];
-  const cardNodes = list.querySelectorAll(".safety-credential-card");
-  for (let i = 0; i < cardNodes.length; i++) {
-    cards.push(cardNodes[i]);
+  // 若使用者偏好減少動畫，或瀏覽器不支援 IntersectionObserver，就直接顯示
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+    reveal();
+    return;
   }
 
-  // ---------------------------------------------------------------------------
-  // 滑鼠拖曳捲動
-  // ---------------------------------------------------------------------------
-  let activePointerId = null;
-  let dragStartX = 0;
-  let dragStartScrollLeft = 0;
-  let hasDragged = false;
-  let suppressClick = false;
-
-  function finishPointerDrag(event) {
-    if (event.pointerId !== activePointerId) return;
-    viewport.classList.remove("is-dragging");
-    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-    if (hasDragged) suppressClick = true;
-    activePointerId = null;
-  }
-
-  viewport.addEventListener("pointerdown", function (event) {
-    // 僅左鍵滑鼠
-    if (event.pointerType !== "mouse" || event.button !== 0) return;
-    activePointerId = event.pointerId;
-    dragStartX = event.clientX;
-    dragStartScrollLeft = viewport.scrollLeft;
-    hasDragged = false;
-    suppressClick = false;
-    viewport.classList.add("is-dragging");
-    viewport.setPointerCapture(event.pointerId);
-  });
-
-  viewport.addEventListener("pointermove", function (event) {
-    if (event.pointerId !== activePointerId) return;
-    const distance = event.clientX - dragStartX;
-    if (Math.abs(distance) < 4) return;
-    hasDragged = true;
-    event.preventDefault();
-    viewport.scrollLeft = dragStartScrollLeft - distance;
-  }, { passive: false });
-
-  viewport.addEventListener("pointerup", finishPointerDrag);
-  viewport.addEventListener("pointercancel", finishPointerDrag);
-
-  // 拖曳後抑制 click（防止點擊卡片內連結誤觸發）
-  viewport.addEventListener("click", function (event) {
-    if (!suppressClick) return;
-    suppressClick = false;
-    event.preventDefault();
-    event.stopPropagation();
-  }, true);
-
-  viewport.addEventListener("dragstart", function (event) {
-    event.preventDefault();
-  });
-
-  // ---------------------------------------------------------------------------
-  // 每次切換推進一張卡片，讓前一張卡片自然被推出左側
-  // ---------------------------------------------------------------------------
-  function cardsPerPage() {
-    return 1;
-  }
-
-  // ---------------------------------------------------------------------------
-  // 建立分頁控制器
-  // ---------------------------------------------------------------------------
-  const pageSize = cardsPerPage();
-  function containsPosition(positions, position) {
-    for (let i = 0; i < positions.length; i++) {
-      if (Math.abs(positions[i] - position) <= 1) return true;
+  // 進入視窗就播放動畫，播完即停止觀察
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      reveal();
+      observer.disconnect();
     }
-    return false;
-  }
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
 
-  function getPagePositions() {
-    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
-    const viewportLeft = viewport.getBoundingClientRect().left;
-    const scrollPaddingStart = parseFloat(getComputedStyle(viewport).scrollPaddingInlineStart) || 0;
-    const positions = [];
+  observer.observe(locationNetwork);
 
-    for (let index = 0; index < cards.length; index += pageSize) {
-      const card = cards[index];
-      const rawPosition = card.getBoundingClientRect().left - viewportLeft + scrollLeft - scrollPaddingStart;
-      const position = Math.min(maxScroll, Math.max(0, rawPosition));
-      if (!containsPosition(positions, position)) positions.push(position);
+  // 監聽系統設定切換
+  reducedMotion.addEventListener("change", () => {
+    if (reducedMotion.matches) {
+      observer.disconnect();
+      reveal();
     }
+  }, { once: true });
+}
 
-    if (positions.length > 0) {
-      const lastPosition = positions[positions.length - 1];
-      if (maxScroll - lastPosition > 1) positions.push(maxScroll);
-    }
 
-    return positions;
-  }
+// 2. 快速導覽列 (Scrollspy)
+function setupResourcesQuickNav() {
+  const quickNav = document.querySelector(".resources-quick-nav");
+  if (!quickNav) return;
 
-  // 每張證照卡都是一個可滑動頁面，避免手機捲動距離尚未完成計算時只產生一個圓點。
-  const pages = Math.max(1, cards.length);
-  let i = 0;
+  const quickNavLinks = Array.from(quickNav.querySelectorAll(".resources-quick-nav__link"));
+  const quickNavSections = quickNavLinks
+    .map(link => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean); // 確保對應的區塊存在
 
-  const controls = document.createElement("div");
-  controls.className = "safety-credentials__controls";
-  controls.setAttribute("role", "group");
-  controls.setAttribute("aria-label", "專業證照內容頁次");
+  if (!quickNavLinks.length || !quickNavSections.length) return;
 
-  const pagination = document.createElement("div");
-  pagination.className = "safety-credentials__pagination";
-  pagination.setAttribute("role", "group");
-  pagination.setAttribute("aria-label", "專業證照內容頁次");
+  let activeIndex = 0;
+  let lockedIndex = -1;
+  let lockUntil = 0;
+  let scrollFrameId = 0;
 
-  const pageButtons = [];
-  for (let index = 0; index < pages; index++) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "safety-credentials__page";
-    button.setAttribute("aria-label", "顯示第 " + (index + 1) + " 組專業證照");
-    button.setAttribute("aria-current", "false");
-    button.dataset.active = "false";
-    pagination.append(button);
-    pageButtons.push(button);
-  }
-  controls.append(pagination);
-  pager.replaceChildren(controls);
-  pager.removeAttribute("aria-hidden");
-
-  // ---------------------------------------------------------------------------
-  // 頁碼計算與同步
-  // ---------------------------------------------------------------------------
-  function getPage() {
-    const positions = getPagePositions();
-    if (positions.length <= 1) return 0;
-
-    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    const scrollLeft = Math.min(maxScroll, Math.max(0, viewport.scrollLeft));
-    let nearestPage = 0;
-    let nearestDistance = Math.abs(positions[0] - scrollLeft);
-    for (let page = 1; page < positions.length; page++) {
-      const distance = Math.abs(positions[page] - scrollLeft);
-      if (distance < nearestDistance) {
-        nearestDistance = distance;
-        nearestPage = page;
-      }
-    }
-    return Math.min(pages - 1, nearestPage);
-  }
-
-  function update() {
-    const page = getPage();
-    controls.hidden = viewport.scrollWidth <= viewport.clientWidth + 1;
-
-    for (let i = 0; i < pageButtons.length; i++) {
-      const button = pageButtons[i];
-      const isActive = i === page;
-      button.dataset.active = String(isActive);
-      button.setAttribute("aria-current", isActive ? "true" : "false");
-    }
-  }
-
-  function goTo(page) {
-    const positions = getPagePositions();
-    const targetPage = Math.min(positions.length - 1, Math.max(0, page));
-    if (targetPage < 0) return;
-    viewport.scrollTo({
-      left: positions[targetPage],
-      behavior: reducedMotion.matches ? "auto" : "smooth",
+  // 更新導覽列高亮狀態
+  const setActiveIndex = (nextIndex) => {
+    activeIndex = nextIndex;
+    quickNavLinks.forEach((link, i) => {
+      if (i === activeIndex) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
     });
-  }
+  };
 
-  for (let buttonIndex = 0; buttonIndex < pageButtons.length; buttonIndex++) {
-    const targetPage = buttonIndex;
-    pageButtons[buttonIndex].addEventListener("click", function () {
-      goTo(targetPage);
-    });
-  }
+  // 捲動時計算當前位置
+  const updateActiveLink = () => {
+    const navBottom = quickNav.getBoundingClientRect().bottom;
+    const now = window.performance.now();
 
-  // 綁定頁碼控制器事件
-  // 綁定頁碼控制器事件
-  for (let i = 0; i < pageButtons.length; i++) {
-    const pageIndex = i; // 記住當下的 i，避免點擊時用到錯誤的值
-    pageButtons[i].addEventListener("click", function () {
-      goTo(pageIndex);
-    });
-  }
-
-  // 捲動同步更新
-  viewport.addEventListener("scroll", update, { passive: true });
-
-  // ---------------------------------------------------------------------------
-  // 視窗縮放：每頁數量改變時重建控制器
-  // ---------------------------------------------------------------------------
-  function onResize() {
-    if (cardsPerPage() !== pageSize) {
-      window.removeEventListener("resize", onResize);
-      viewport.scrollTo({ left: 0, behavior: "auto" });
-      setupCredentialsCarousel(); // 遞迴重建
+    // 點擊後的 0.7 秒內維持鎖定
+    if (lockedIndex >= 0 && now < lockUntil) {
+      setActiveIndex(lockedIndex);
       return;
     }
-    update();
-  }
-  window.addEventListener("resize", onResize, { passive: true });
+    lockedIndex = -1;
 
-  // 初始化
-  update();
+    let nextIndex = activeIndex;
+
+    // 向下捲動判斷
+    const forwardThreshold = navBottom + 12;
+    for (let i = activeIndex + 1; i < quickNavSections.length; i++) {
+      if (quickNavSections[i].getBoundingClientRect().top <= forwardThreshold) {
+        nextIndex = i;
+      }
+    }
+
+    // 向上捲動判斷
+    const backwardThreshold = navBottom + 44;
+    if (nextIndex === activeIndex && activeIndex > 0) {
+      if (quickNavSections[activeIndex].getBoundingClientRect().top > backwardThreshold) {
+        nextIndex = activeIndex - 1;
+      }
+    }
+
+    setActiveIndex(nextIndex);
+  };
+
+  // 綁定點擊事件 (記錄鎖定時間)
+  quickNavLinks.forEach((link, index) => {
+    link.addEventListener("click", () => {
+      lockedIndex = index;
+      lockUntil = window.performance.now() + 700;
+      setActiveIndex(index);
+    });
+  });
+
+  // 綁定捲動事件 (用 rAF 節流)
+  window.addEventListener("scroll", () => {
+    if (scrollFrameId) return;
+    scrollFrameId = window.requestAnimationFrame(() => {
+      scrollFrameId = 0;
+      updateActiveLink();
+    });
+  }, { passive: true });
+
+  updateActiveLink();
 }
 
-function initOccupationalSafety() {
-  setupCredentialsCarousel();
-}
 
-// ---------------------------------------------------------------------------
-// 啟動
-// ---------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", initOccupationalSafety);
+document.addEventListener("DOMContentLoaded", () => {
+  setupResourcesLocationMotion();
+  setupResourcesQuickNav();
+});
