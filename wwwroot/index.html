@@ -17,11 +17,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260929-section-surface-v1">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20261016-services-gradient-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260928-footer-dark-v7">
+  <link rel="stylesheet" href="css/pages/home.css?v=20261016-news-restored-v1">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 <body class="home-page">
@@ -119,6 +119,60 @@
     </section>
 
 
+    <section class="home-latest" aria-labelledby="home-latest-title">
+      <div class="home-latest__inner">
+        <div class="home-latest__heading">
+          <div>
+            <h2 id="home-latest-title" data-home-reveal="left">最新消息</h2>
+          </div>
+          <div class="home-latest__actions">
+            <a class="home-latest__all home-text-link" href="/news">更多資訊 <span class="home-intro__arrow-window" aria-hidden="true"><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></a>
+          </div>
+        </div>
+        <div class="home-latest__carousel" data-home-latest-carousel>
+          <button class="home-latest__control" type="button" data-home-latest-previous aria-label="上一則最新消息" aria-controls="home-latest-track"></button>
+          <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
+            <div id="home-latest-track" class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+          </div>
+          <button class="home-latest__control" type="button" data-home-latest-next aria-label="下一則最新消息" aria-controls="home-latest-track"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-affiliates" aria-labelledby="home-affiliates-title">
+      <div class="home-affiliates__inner">
+        <div class="home-affiliates__heading" data-home-reveal="up">
+          <h2 id="home-affiliates-title">集團事業群</h2>
+        </div>
+        <div class="home-affiliates__grid">
+          <a class="home-affiliates__card" href="/affiliates#affiliate-sexin" data-home-reveal="up" data-home-delay="100">
+            <div class="home-affiliates__media"><img src="public/images/services/container-handler-operation.png" width="1672" height="941" alt="世新貨櫃港區作業" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>世新貨櫃</h4></div>
+          </a>
+          <a class="home-affiliates__card" href="/affiliates#affiliate-badminton" data-home-reveal="up" data-home-delay="200">
+            <div class="home-affiliates__media"><img src="public/images/affiliates/aplus-badminton-player.jpg" width="1280" height="720" alt="亞柏羽球隊" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>亞柏羽球隊</h4></div>
+          </a>
+          <a class="home-affiliates__card" href="/affiliates#affiliate-club" data-home-reveal="up" data-home-delay="300">
+            <div class="home-affiliates__media"><img src="public/images/affiliates/aplus-club-exterior.jpg" width="1280" height="720" alt="亞柏會舘場館" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>亞柏會舘</h4></div>
+          </a>
+          <a class="home-affiliates__card" href="/affiliates#affiliate-oil" data-home-reveal="up" data-home-delay="400">
+            <div class="home-affiliates__media"><img src="public/images/affiliates/小港加油站.png" width="1280" height="720" alt="亞柏油品能源服務" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>亞柏油品</h4></div>
+          </a>
+          <a class="home-affiliates__card" href="/affiliates#affiliate-taronews" data-home-reveal="up" data-home-delay="500">
+            <div class="home-affiliates__media"><img src="public/images/affiliates/taisounds.jpg" width="1280" height="720" alt="太報媒體服務" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>太報</h4></div>
+          </a>
+          <a class="home-affiliates__card" href="/affiliates#affiliate-alpha" data-home-reveal="up" data-home-delay="600">
+            <div class="home-affiliates__media"><img src="public/images/affiliates/alpha-port-equipment.png" width="1280" height="720" alt="ALPHA TOTAL SOLUTION 港口機具服務" loading="lazy" decoding="async"></div>
+            <div class="home-affiliates__body"><h4>ALPHA TOTAL SOLUTION PTE LTD</h4></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="home-intro-section" aria-labelledby="home-intro-title">
       <div class="home-intro site-container">
         <div class="home-intro__body" data-home-reveal="left" data-home-delay="140">
@@ -201,27 +255,9 @@
       </div>
     </section>
 
-    <section class="home-latest site-container" aria-labelledby="home-latest-title">
-      <div class="home-latest__heading">
-        <div>
-          <h2 id="home-latest-title" data-home-reveal="left">最新消息</h2>
-        </div>
-        <div class="home-latest__actions">
-          <a class="home-latest__all home-text-link" href="/news">更多資訊 <span class="home-intro__arrow-window" aria-hidden="true"><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg><svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg></span></a>
-        </div>
-      </div>
-      <div class="home-latest__carousel" data-home-latest-carousel>
-        <button class="home-latest__control" type="button" data-home-latest-previous aria-label="上一則最新消息" aria-controls="home-latest-track"></button>
-        <div class="home-latest__viewport" data-home-reveal="left-right" data-home-delay="120">
-          <div id="home-latest-track" class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
-        </div>
-        <button class="home-latest__control" type="button" data-home-latest-next aria-label="下一則最新消息" aria-controls="home-latest-track"></button>
-      </div>
-    </section>
-
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260923-home-menu-state-v1"></script>
-  <script src="js/pages/home.js?v=20260929-home-latest-four-v1"></script>
+  <script src="js/pages/home.js?v=20261016-services-cards-v3"></script>
 </body>
 </html>

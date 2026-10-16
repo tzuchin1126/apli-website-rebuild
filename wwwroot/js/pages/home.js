@@ -155,7 +155,7 @@ function createArrow(direction, iconClass, shape) {
   const path = document.createElementNS(SVG_NAMESPACE, "path");
   let pathData;
   if (shape === "chevron") {
-    pathData = direction === "left" ? "M15 18 9 12l6-6" : "m9 18 6-6-6-6";
+    pathData = direction === "left" ? "M16 4 8 12l8 8" : "M8 4l8 8-8 8";
   } else {
     pathData = direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7";
   }
@@ -185,6 +185,21 @@ function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
   const homeNewsLimit = 5;
+  const homeNewsProbeLimit = homeNewsLimit + 1;
+  const moreLink = document.createElement("a");
+  moreLink.className = "home-latest__more-link";
+  moreLink.href = "/news";
+  moreLink.hidden = true;
+  const moreLinkArrow = document.createElement("span");
+  moreLinkArrow.className = "home-intro__arrow-window";
+  moreLinkArrow.setAttribute("aria-hidden", "true");
+  moreLinkArrow.append(
+    createArrow("right", "home-text-link__icon"),
+    createArrow("right", "home-text-link__icon"),
+  );
+  moreLink.append(document.createTextNode("更多資訊"), moreLinkArrow);
+  const latestInner = list.closest(".home-latest__inner");
+  if (latestInner) latestInner.append(moreLink);
 
   function setupLatestCarousel() {
     const carousel = document.querySelector("[data-home-latest-carousel]");
@@ -311,26 +326,9 @@ function setupLatestNews() {
     link.className = "home-latest__item";
     link.href = "/news/" + encodeURIComponent(item.id);
 
-    const media = document.createElement("span");
-    const imageUrl = item.imageUrl || "/public/images/index/news1.png";
-    media.className = "home-latest__media" + (item.imageUrl ? " has-image" : " is-default");
-    const image = document.createElement("img");
-    image.src = imageUrl;
-    image.alt = "";
-    image.loading = "lazy";
-    image.decoding = "async";
-    media.append(image);
-
-    const meta = document.createElement("span");
-    meta.className = "home-latest__meta";
     const category = document.createElement("span");
     category.className = "home-latest__category";
     category.textContent = item.tag || "最新消息";
-    const time = document.createElement("time");
-    time.className = "home-latest__date";
-    time.dateTime = item.date || "";
-    time.textContent = item.date;
-    meta.append(time, category);
 
     const title = document.createElement("h3");
     title.textContent = item.title;
@@ -338,26 +336,21 @@ function setupLatestNews() {
     const more = document.createElement("span");
     more.className = "home-latest__more";
     more.setAttribute("aria-hidden", "true");
-    more.append(createArrow("right"));
+    more.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
 
-    const titleRow = document.createElement("div");
-    titleRow.className = "home-latest__title-row";
-    titleRow.append(title, more);
-
-    const body = document.createElement("div");
-    body.className = "home-latest__body";
-    body.append(meta, titleRow);
-    link.append(media, body);
+    link.append(category, title, more);
     return link;
   }
 
   async function loadNews() {
     try {
-      const response = await fetch("/api/public/news?limit=" + homeNewsLimit, { cache: "no-store" });
+      const response = await fetch("/api/public/news?limit=" + homeNewsProbeLimit, { cache: "no-store" });
       if (!response.ok) throw new Error("Unable to load news");
 
       const rawItems = await response.json();
-      const items = rawItems.slice().sort(compareLatestNews).slice(0, homeNewsLimit);
+      const sortedItems = rawItems.slice().sort(compareLatestNews);
+      const items = sortedItems.slice(0, homeNewsLimit);
+      moreLink.hidden = sortedItems.length <= homeNewsLimit;
 
       list.replaceChildren();
       if (items.length === 0) throw new Error("No news");
@@ -367,6 +360,7 @@ function setupLatestNews() {
       }
       setupLatestCarousel();
     } catch (error) {
+      moreLink.hidden = true;
       list.replaceChildren();
       const empty = document.createElement("p");
       empty.className = "home-latest__empty";
@@ -381,203 +375,6 @@ function setupLatestNews() {
 // ---------------------------------------------------------------------------
 // 區塊進場動畫:進入視窗時加上 .is-visible,reduced-motion 則直接全部顯示
 // ---------------------------------------------------------------------------
-
-function setupAffiliatesCarousel() {
-  const section = document.querySelector(".home-affiliates");
-  if (!section) return;
-
-  const viewport = section.querySelector(".home-affiliates__viewport");
-  const track = section.querySelector("[data-affiliates-track]");
-  const previousButton = section.querySelector("[data-affiliates-previous]");
-  const nextButton = section.querySelector("[data-affiliates-next]");
-  const cards = toArray(section.querySelectorAll(".home-affiliates__card"));
-  if (!viewport || !track || cards.length === 0) return;
-
-  let activeStart = 0;
-  let carouselTimer = null;
-  let isPaused = false;
-  let activePointerId = null;
-  let dragStartX = 0;
-  let dragStartY = 0;
-  let dragStartOffset = 0;
-  let dragDistance = 0;
-  let hasDragged = false;
-  let suppressClick = false;
-  const originalCount = cards.length;
-  const cloneCount = originalCount;
-
-  for (let index = originalCount - 1; index >= originalCount - cloneCount; index--) {
-    const clone = cards[index].cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.setAttribute("tabindex", "-1");
-    track.insertBefore(clone, track.firstChild);
-  }
-
-  for (let index = 0; index < cloneCount; index++) {
-    const clone = cards[index].cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.setAttribute("tabindex", "-1");
-    track.appendChild(clone);
-  }
-
-  if (previousButton) previousButton.append(createArrow("left", "home-affiliates__arrow-icon", "chevron"));
-  if (nextButton) nextButton.append(createArrow("right", "home-affiliates__arrow-icon", "chevron"));
-  section.classList.add("is-carousel-ready");
-
-  function getVisibleCount() {
-    if (window.innerWidth <= 760) return 1;
-    if (window.innerWidth <= 1100) return 2;
-    return 4;
-  }
-
-  function getCardStep() {
-    const cardStyle = window.getComputedStyle(track);
-    const gap = parseFloat(cardStyle.columnGap || cardStyle.gap) || 0;
-    return cards[0].getBoundingClientRect().width + gap;
-  }
-
-  function render() {
-    const trackOffset = cloneCount + activeStart;
-    track.style.transform = "translate3d(" + (-trackOffset * getCardStep()) + "px, 0, 0)";
-  }
-
-  track.addEventListener("transitionend", function (event) {
-    if (event.target !== track || event.propertyName !== "transform") return;
-    if (activeStart < 0 || activeStart >= originalCount) {
-      activeStart = (activeStart + originalCount) % originalCount;
-    } else {
-      return;
-    }
-
-    track.style.transition = "none";
-    render();
-    window.requestAnimationFrame(function () { track.style.removeProperty("transition"); });
-  });
-
-  function finishDrag(event) {
-    if (event.pointerId !== activePointerId) return;
-    viewport.classList.remove("is-dragging");
-    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-
-    if (hasDragged && event.type === "pointerup") {
-      const step = getCardStep();
-      const threshold = Math.max(32, step * 0.16);
-      if (Math.abs(dragDistance) >= threshold) {
-        const steps = Math.max(1, Math.round(Math.abs(dragDistance) / step));
-        const nextStart = dragDistance < 0 ? activeStart + steps : activeStart - steps;
-        activeStart = Math.max(-originalCount, Math.min(originalCount, nextStart));
-        render();
-      } else {
-        render();
-      }
-      suppressClick = true;
-    } else if (hasDragged) {
-      render();
-    }
-
-    activePointerId = null;
-    hasDragged = false;
-    isPaused = false;
-  }
-
-  viewport.addEventListener("pointerdown", function (event) {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    if (!event.isPrimary) return;
-    activePointerId = event.pointerId;
-    dragStartX = event.clientX;
-    dragStartY = event.clientY;
-    dragStartOffset = -(cloneCount + activeStart) * getCardStep();
-    dragDistance = 0;
-    hasDragged = false;
-    suppressClick = false;
-  });
-
-  viewport.addEventListener("pointermove", function (event) {
-    if (event.pointerId !== activePointerId) return;
-    const distanceX = event.clientX - dragStartX;
-    const distanceY = event.clientY - dragStartY;
-    if (!hasDragged && Math.max(Math.abs(distanceX), Math.abs(distanceY)) < 5) return;
-    if (!hasDragged && Math.abs(distanceY) > Math.abs(distanceX)) {
-      activePointerId = null;
-      return;
-    }
-
-    hasDragged = true;
-    isPaused = true;
-    dragDistance = distanceX;
-    viewport.classList.add("is-dragging");
-    if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
-    event.preventDefault();
-    track.style.transform = "translate3d(" + (dragStartOffset + distanceX) + "px, 0, 0)";
-  }, { passive: false });
-
-  viewport.addEventListener("pointerup", finishDrag);
-  viewport.addEventListener("pointercancel", finishDrag);
-  viewport.addEventListener("click", function (event) {
-    if (!suppressClick) return;
-    suppressClick = false;
-    event.preventDefault();
-    event.stopPropagation();
-  }, true);
-  viewport.addEventListener("dragstart", function (event) { event.preventDefault(); });
-
-  function moveByCard(direction) {
-    activeStart = Math.max(-1, Math.min(originalCount, activeStart + direction));
-    render();
-  }
-
-  function moveToNextGroup() {
-    if (isPaused) return;
-    moveByCard(1);
-  }
-
-  function startAutoPlay() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    window.clearInterval(carouselTimer);
-    carouselTimer = window.setInterval(moveToNextGroup, 4000);
-  }
-
-  section.addEventListener("focusin", function () { isPaused = true; });
-  section.addEventListener("focusout", function (event) {
-    if (!section.contains(event.relatedTarget)) isPaused = false;
-  });
-
-  if (previousButton) {
-    previousButton.addEventListener("click", function () {
-      moveByCard(-1);
-      startAutoPlay();
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener("click", function () {
-      moveByCard(1);
-      startAutoPlay();
-    });
-  }
-
-  window.addEventListener("resize", render, { passive: true });
-  track.addEventListener("focusin", function (event) {
-    const focusedCard = event.target.closest(".home-affiliates__card");
-    const index = cards.indexOf(focusedCard);
-    if (index < 0) return;
-    if (index < activeStart || index >= activeStart + getVisibleCount()) {
-    activeStart = Math.min(index, originalCount);
-    }
-    viewport.scrollLeft = 0;
-    render();
-  });
-  function restoreCarouselTransition() {
-    track.style.removeProperty("transition");
-  }
-
-  // Place the carousel at its initial card position without animating from the clone track.
-  track.style.transition = "none";
-  render();
-  track.getBoundingClientRect();
-  window.requestAnimationFrame(restoreCarouselTransition);
-  startAutoPlay();
-}
 
 function setupSectionMotion() {
   const revealTargets = toArray(document.querySelectorAll("[data-home-reveal]"));
@@ -617,6 +414,17 @@ function setupSectionMotion() {
   }, { once: true });
 }
 
+function setupServicesCards() {
+  const cards = toArray(document.querySelectorAll(".home-services-compare__card"));
+  for (let i = 0; i < cards.length; i++) {
+    const content = cards[i].querySelector(".home-services-compare__content");
+    const heading = content ? content.querySelector("h3") : null;
+    if (!heading || heading.querySelector(".home-services-compare__arrow-icon")) continue;
+
+    heading.append(createArrow("right", "home-services-compare__arrow-icon", "chevron"));
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 啟動
 // ---------------------------------------------------------------------------
@@ -624,6 +432,6 @@ function setupSectionMotion() {
 document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
   setupLatestNews();
-  setupAffiliatesCarousel();
+  setupServicesCards();
   setupSectionMotion();
 });

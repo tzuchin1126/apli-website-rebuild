@@ -1,5 +1,13 @@
 # APLI 專案進度
 
+## 2026-10-16
+- [x] 將首頁最新消息區塊移至「關於亞太」上方，改為滿版淺灰背景、左側標題、右側新聞卡片與右上圓形輪播控制；保留既有新聞 API、輪播互動與手機單卡排列。已完成 `dotnet build -c Release`、全頁 JavaScript 語法檢查與 `git diff --check`；尚未進行桌機／手機瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+- [x] 依 APLI 現有 UI／UX 風格修正首頁最新消息視覺：移除參考圖的藍色頂條與幾何裝飾，恢復品牌橘、淺灰背景、既有圖片卡片、圓角與陰影；同步修正首頁 section order，確保最新消息實際位於關於亞太上方。已完成 `git diff --check`；尚未重新進行瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+- [x] 依使用者要求恢復首頁最新消息的參考圖版型：保留最新消息位於關於亞太上方，恢復淺灰背景、藍色頂部裝飾、白色卡片內容與右上圓形輪播控制；已完成 `git diff --check`，尚未重新進行瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+- [x] 依最新參考圖校正首頁最新消息幾何：加入深藍頂線、上方留白、標題／卡片垂直配置與向右延伸的新聞輪播軌道，並保留手機單欄；已完成 `git diff --check`，尚未進行瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+- [x] 依最新提供畫面修正首頁最新消息版型：標題移至卡片上方的共用內容軌道，恢復公告主視覺圖片、三欄大型卡片、橘色分類資訊與上方右側輪播控制；移除左欄標題與藍色頂條效果，保留手機單欄。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+- [x] 依最新指定畫面恢復首頁最新消息的左標題／右側藍色頂部新聞卡片版型；保留最新消息位於關於亞太上方與手機單欄。已完成 `git diff --check`，尚未進行瀏覽器畫面驗證、實體裝置、跨瀏覽器與人工無障礙驗收，未 commit。
+
 ## 2026-09-29
 - [x] 盤點 HTML、CSS、JavaScript 與 C# 的引用關係，移除已確認無 HTML／JS／C# 消費者的舊 CSS：首頁服務箭頭／舊介紹容器、Footer 標題連結、關係企業三組舊 selector；保留 Company History 仍可能支援目前動態時間軸的共用規則。已完成 Release build、全頁 JavaScript 語法檢查與引用盤點，未 commit。
 - [x] 移除首頁「最新消息」背景色與左右延伸背景，改由「我們的服務」區塊使用淺灰 `--color-surface-section` 背景；已更新 CSS cache，完成 Release build 與本機 Edge 桌機計算樣式確認，手機沿用相同 CSS 規則，未 commit。
@@ -1060,3 +1068,81 @@
 # 2026-09-29: Set the homepage visual order to About APLI, Services, Latest News, then Affiliates; retained the rounded service-card treatment and restored Latest News to its previous card UI, with desktop/mobile browser verification remaining pending.
 # 2026-09-29: Moved the homepage related-enterprise carousel to the bottom of the About page after the certification and awards content; About now loads the shared carousel markup, styling, and behavior, with desktop/mobile browser verification remaining pending.
 # 2026-09-29: Removed the About page Explore More block and its page-specific styles and reveal selector; the related-enterprise carousel remains as the final About content section, with desktop/mobile browser verification remaining pending.
+# 2026-10-16: Finalized the homepage latest-news section to match the supplied reference composition: gray band, left heading, blue-cap white cards, circular controls, right-edge card clipping, and mobile stacking fallback. Release build, JavaScript syntax checks, diff check, and desktop browser verification passed; mobile browser, device, cross-browser, and manual accessibility verification remain pending; not committed.
+# 2026-10-16: Fixed the final desktop grid gap so the latest-news heading and first card no longer overlap; desktop browser verification repeated after reload.
+# 2026-10-16: Restored homepage section order so Latest News appears below Services; About remains above Services and Affiliates follows Latest News. Static validation pending for this order-only change; not committed.
+# 2026-10-16: Bumped the homepage CSS cache key after restoring the section order so browsers load the updated ordering rules.
+# 2026-10-16: Changed homepage Latest News from cards to the requested list layout with centered heading, category column, title column, separators, and orange arrow links; updated the CSS cache key. Validation pending; not committed.
+# 2026-10-16: Disabled the existing reveal opacity for the latest-news list so category, title, and arrow content remains visible in the new static list layout.
+# 2026-10-16: Explicitly overrode the homepage reveal state on the latest-news viewport so list text remains visible after scrolling.
+# 2026-10-16: Bumped the homepage JavaScript cache key so the new list-item DOM structure replaces the previous card structure in the browser.
+# 2026-10-16: Changed the latest-news section heading to `最新消息` to match the supplied list reference.
+# 2026-10-16: Raised the latest-news list layout selector priority so legacy carousel positioning no longer overrides the centered heading and full-width list.
+# 2026-10-16: Aligned the latest-news list width and heading typography with homepage global tokens: `--content-width`, `--content-max-width`, `--font-size-section-heading`, `--font-weight-heading`, `--letter-spacing-tight`, and `--line-height-heading`.
+# 2026-10-16: Replaced the latest-news item title color with `var(--color-text-body)` and aligned About section background/border plus affiliates control hover border with existing global tokens. Hero/image overlays remain intentional alpha treatments; mobile browser and cross-browser checks remain pending.
+# 2026-10-16: Increased latest-news category/title typography from body to global body-lg tokens across desktop/mobile while keeping size and weight aligned, matched reference hover styling, removed hover row movement, added a conditional centered `更多資訊` link below the five-item homepage list using the About CTA button treatment when additional published news exists, and tuned the always-visible orange chevrons to a smaller readable size while preserving the thicker stroke. Validation pending; not committed.
+# 2026-10-16: Updated the homepage Services section to use a subtle cool blue-gray gradient background from a shared global token, matching the supplied reference mood while preserving the existing service cards. Validation pending; not committed.
+# 2026-10-16: Restyled homepage service cards as full-image cards with a bottom dark gradient, white title, and two reference-style CTA treatments while leaving the Services section gradient background unchanged and preserving existing service-page links. Validation pending; not committed.
+# 2026-10-16: Fixed homepage service-card content alignment so the title and CTA treatments stay anchored at the bottom of each image card instead of being affected by legacy CSS overrides. Validation pending; not committed.
+# 2026-10-16: Replaced the service-card flex alignment with explicit bottom positioning for the card content, preventing legacy rules from moving the title and CTA treatments to the top. Validation pending; not committed.
+# 2026-10-16: Fixed the remaining service-card overflow by overriding the legacy `height: 100%` content rule with `height: auto`, so the title and CTA group occupy only the bottom overlay area. Validation pending; not committed.
+# 2026-10-16: Removed service-card image zoom on hover, removed card borders, removed the `諮詢專家` CTA, and renamed the remaining CTA to `了解更多`. Validation pending; not committed.
+# 2026-10-16: Changed service-card interaction to reveal the existing description below the title on hover/focus, added a simple forward chevron beside the title, and removed the `了解更多` button. Validation pending; not committed.
+# 2026-10-16: Strengthened the service-card bottom overlay for text readability and slightly reduced the image scale to soften the crop while keeping the full-bleed card composition. Validation pending; not committed.
+# 2026-10-16: Matched the revealed image edge to the services-section background so the reduced image scale does not appear as an unintended white border. Validation pending; not committed.
+# 2026-10-16: Removed the legacy service-card shadow so the cards no longer read as bordered panels after reducing the image scale. Validation pending; not committed.
+# 2026-10-16: Removed the reduced image transform after confirming it exposed the card background as an unintended pale border; service images now fill the card edge-to-edge and remain fixed on hover. Validation pending; not committed.
+# 2026-10-16: Bumped the homepage stylesheet cache version so browsers load the edge-to-edge service-card image fix immediately. Validation pending; not committed.
+# 2026-10-16: Strengthened and extended the service-card bottom gradient overlay so hover descriptions remain readable over bright image areas. Validation pending; not committed.
+# 2026-10-16: Fixed service-card overlay stacking so the gradient renders above the image and below the title/description content instead of remaining behind the image. Validation pending; not committed.
+# 2026-10-16: Reduced the service-card overlay intensity and moved the gradient lower so the image stays bright while the bottom title/description remains readable. Validation pending; not committed.
+# 2026-10-16: Lightened the service-card overlay again, limiting the darker treatment to the lower portion of the image. Validation pending; not committed.
+# 2026-10-16: Increased the spacing between homepage service cards while preserving the existing card proportions and responsive mobile spacing. Validation pending; not committed.
+# 2026-10-16: Slightly widened the homepage service-card grid so each of the three cards has more horizontal room without changing the gap or card layout. Validation pending; not committed.
+# 2026-10-16: Normalized homepage service-card image positioning and applied a restrained shared color treatment for a cleaner, more consistent three-card presentation. Validation pending; not committed.
+# 2026-10-16: Restored the prior homepage service-card image positioning and color treatment at the user's request. Validation pending; not committed.
+# 2026-10-16: Removed the custom gradient from the homepage services section and applied the same services background gradient to the latest-news section. Validation pending; not committed.
+# 2026-10-16: Kept homepage service-card dimensions unchanged while slightly scaling the images inward with a clean white card background and no hover enlargement. Validation pending; not committed.
+# 2026-10-16: Reworked the service-card image reduction to inset the image and its overlay together, keeping an even 2% border on all sides and removing the inconsistent transformed-image edges. Validation pending; not committed.
+# 2026-10-16: Matched the service-card overlay border radius and clipping to the inset image so all four corners render consistently. Validation pending; not committed.
+# 2026-10-16: Reworked the light-blue background into layered section decoration: a lower band behind service cards and a centered upper-middle band behind latest news. Validation pending; not committed.
+# 2026-10-16: Removed the white service-card edge revealed by the inset image and extended the latest-news light-blue band from the section top to avoid a white strip above the heading. Validation pending; not committed.
+# 2026-10-16: Extended the latest-news light-blue background through the entire section so the bottom more-information button is included in the same background area. Validation pending; not committed.
+# 2026-10-16: Replaced the blue decorative background with the project's global neutral surface token for a more consistent visual language. Validation pending; not committed.
+# 2026-10-16: Switched the decorative section backgrounds from neutral gray to the global soft brand-orange token at the user's request. Validation pending; not committed.
+# 2026-10-16: Restored the neutral global surface background after the orange decorative treatment was rejected. Validation pending; not committed.
+# 2026-10-16: Changed latest-news row hover and focus states to the global white surface so the interaction remains visible against the neutral section background. Validation pending; not committed.
+# 2026-10-16: Added a subtle default full-card image overlay to normalize the different service-image styles while preserving the stronger bottom text readability gradient. Validation pending; not committed.
+# 2026-10-16: Added a homepage related-enterprises section below latest news with three linked cards and a link to the full affiliates page. Validation pending; not committed.
+# 2026-10-16: Resolved a collision with the legacy homepage affiliates carousel styles so the new related-enterprises cards retain their full image-and-content height. Validation pending; not committed.
+# 2026-10-16: Centered the related-enterprises heading after visual inspection showed a legacy alignment rule overriding the new card layout. Validation pending; not committed.
+# 2026-10-16: Restructured the related-enterprises cards into a layered five-card grid with two featured cards and a stacked right-side layout inspired by the supplied reference. Validation pending; not committed.
+# 2026-10-16: Adjusted the two featured affiliate cards so their images fill the available feature height and their content stays anchored at the bottom without blank space. Validation pending; not committed.
+# 2026-10-16: Converted related-enterprises cards to full-image overlay cards, placing title, description, and arrow directly over the image instead of using separate image-and-text panels. Validation pending; not committed.
+# 2026-10-16: Removed related-enterprises card borders and hover motion, and changed card text to the global normal font weight. Validation pending; not committed.
+# 2026-10-16: Removed the related-enterprises heading description, card descriptions, and per-card more-information links so cards show only the enterprise name over the image. Validation pending; not committed.
+# 2026-10-16: Reduced the related-enterprises grid row heights so the featured cards remain compact instead of stretching excessively tall. Validation pending; not committed.
+# 2026-10-16: Added the missing ALPHA TOTAL SOLUTION PTE LTD card to the homepage related-enterprises grid and changed the compact layout to display six cards. Validation pending; not committed.
+# 2026-10-16: Removed the related-enterprises all-items link and card overlays/hover motion, and limited the light-gray section background to the upper portion of the section. Validation pending; not committed.
+# 2026-10-16:首頁關係企業卡片改用 About 關係企業區塊的對應圖片：世新貨櫃使用 01.png、亞柏油品使用小港加油站.png、亞柏羽球隊使用 aplus-badminton-player.jpg、ALPHA TOTAL SOLUTION 使用 alpha-port-equipment.png；其餘圖片維持與 About 對應。已完成首頁本機瀏覽器檢查，未提交。
+# 2026-10-16:縮小首頁世新貨櫃卡片的 Grid 區域，從桌機 5 欄 4 列調整為 4 欄 2 列，保留不規則排列但改善與其他關係企業卡片的比例；已完成靜態檢查，瀏覽器畫面需重新確認，未提交。
+# 2026-10-16:首頁關係企業卡片交換亞柏羽球隊與亞柏油品的位置，並同步調整 reveal delay 以符合新的卡片順序；未提交。
+# 2026-10-16:整理首頁關係企業卡片 CSS 為單一不規則 Grid 版型，桌機／窄桌機／手機分別提供響應式排列；標題固定左下並使用正常字重，移除卡片 hover 視覺變化與首頁關係企業 carousel 啟用呼叫。已完成桌機瀏覽器檢查、JavaScript 語法檢查與 git diff --check；手機瀏覽器、跨瀏覽器、裝置與人工無障礙驗證尚未完成；未提交。
+# 2026-10-16:首頁世新貨櫃卡片改用 services/container-handler-operation.png，並更新圖片原始尺寸為 1672x941；標題樣式維持正常字重、左下定位與無 hover 視覺變化。已完成檔案存在與靜態檢查，未提交。
+# 2026-10-16:首頁關係企業卡片標題由 h3 統一調整為 h4，並同步更新首頁 CSS selector；未提交。
+# 2026-10-16:加寬首頁關係企業卡片間距與內距、放大並下移卡片標題，並將亞柏羽球隊圖片焦點下移至 72% 以保留人物畫面；已完成靜態檢查，手機畫面需重新確認，未提交。
+# 2026-10-16:更新首頁 home.css cache key，確保關係企業卡片間距、標題與圖片焦點調整能載入；未提交。
+# 2026-10-16:依畫面回饋縮小首頁關係企業卡片 h4 標題，桌機上限調整為 24px、手機調整為 20px，保留靠底定位與加寬內距；已更新 CSS cache key，未提交。
+# 2026-10-16:將首頁亞柏羽球隊卡片圖片焦點由 72% 上移至 15%，避免人物頭部被卡片裁切；已更新 CSS cache key，未提交。
+# 2026-10-16:將首頁關係企業區塊標題改為「集團事業群」，以更貼近亞太國際物流集團的品牌定位；未提交。
+# 2026-10-16:移除首頁「集團事業群」區塊背景色與裝飾色帶，改為透明背景並保留卡片內容；已更新 CSS cache key，未提交。
+# 2026-10-16:將首頁「集團事業群」與「最新消息」的視覺順序對調，集團事業群改置於最新消息之前；已更新 CSS cache key，未提交。
+# 2026-10-16:恢復首頁「集團事業群」區塊上半部的淺色背景帶，下半部維持透明；已更新 CSS cache key，未提交。
+# 2026-10-16:恢復首頁「最新消息」與「集團事業群」的原本順序，最新消息再次排在集團事業群之前；已更新 CSS cache key，未提交。
+# 2026-10-16:再次移除首頁「集團事業群」區塊的背景色與上半部色帶，恢復整區透明背景；已更新 CSS cache key，未提交。
+# 2026-10-16:調整首頁集團事業群為階梯式 Grid：世新維持主卡、羽球隊與會舘置於上方、油品縮窄為中間垂直卡、太報放寬為右側主卡、ALPHA 置於左下；已更新 CSS cache key，未提交。
+# 2026-10-16:將首頁最新消息區塊改為深色背景，並同步調整標題與新聞文字為白色、保留橘色分類與對比清楚的內容層級；已更新 CSS cache key，未提交。
+# 2026-10-16:修正最新消息深色版的舊優先權覆蓋，確保區塊標題與新聞標題實際使用白色；已更新 CSS cache key，未提交。
+# 2026-10-16:依使用者要求恢復最新消息區塊的淺色背景、深色標題與深色新聞文字；已更新 CSS cache key，未提交。
+# 2026-10-16:將最新消息淺色背景改為低對比斜向色塊與細斜線設計，並提供手機版較收斂的斜向背景；已更新 CSS cache key，未提交。
+# 2026-10-16:依使用者要求恢復最新消息區塊的原本背景，移除斜向色塊與細斜線；已更新 CSS cache key，未提交。
