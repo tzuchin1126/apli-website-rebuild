@@ -724,6 +724,19 @@ function initPhilosophyAccordion() {
   }
 
   function setActive(key) {
+    if (window.innerWidth <= 840) {
+      triggers.forEach(function (trigger) {
+        trigger.setAttribute("aria-expanded", "true");
+        trigger.classList.remove("is-active");
+      });
+      details.forEach(function (detail) {
+        detail.hidden = false;
+        detail.classList.add("is-entering");
+      });
+      detailsPanel.classList.remove("is-connector-entering");
+      return;
+    }
+
     triggers.forEach(function (trigger) {
       const isActive = trigger.dataset.philosophyTrigger === key;
       trigger.setAttribute("aria-expanded", String(isActive));
@@ -743,12 +756,16 @@ function initPhilosophyAccordion() {
 
   triggers.forEach(function (trigger) {
     trigger.addEventListener("click", function () {
+      if (window.innerWidth <= 840) return;
       setActive(trigger.dataset.philosophyTrigger);
     });
   });
 
   setActive("mission");
-  window.addEventListener("resize", syncConnector);
+  window.addEventListener("resize", function () {
+    setActive("mission");
+    syncConnector();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {

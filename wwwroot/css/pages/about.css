@@ -17,8 +17,7 @@
 .about-page .about-profile__lead::after,
 .about-page .about-philosophy-editorial .about-section-heading h2::after,
 .about-page .about-certifications-preview .about-section-heading h2::after,
-.about-page .about-subsidiaries__heading h2::after,
-.about-page .about-outlook__heading h2::after { display: block; width: 100%; height: 3px; margin-top: var(--section-heading-accent-gap); background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%); content: ""; }
+.about-page .about-subsidiaries__heading h2::after { display: block; width: 100%; height: 3px; margin-top: var(--section-heading-accent-gap); background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%); content: ""; }
 .about-page .about-profile__body { display: grid; gap: var(--section-content-gap); margin: 0; padding: 0; }
 .about-page .about-profile__body p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
 .about-section-heading h2 { width: fit-content; margin: 0; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
@@ -166,7 +165,9 @@
 }
 
 @media (max-width: 840px) {
-  .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: 0; text-align: center; }
+  .about-page .about-profile,
+  .about-page .about-philosophy-editorial { background-image: none; }
+  .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: clamp(48px, 12vw, 72px); text-align: center; }
   .about-page .about-philosophy-editorial .about-section-heading .about-philosophy-editorial__intro { width: 100%; }
 }
 
@@ -175,8 +176,7 @@
   .about-page .about-profile__lead::after,
   .about-page .about-philosophy-editorial .about-section-heading h2::after,
   .about-page .about-certifications-preview .about-section-heading h2::after,
-  .about-page .about-subsidiaries__heading h2::after,
-  .about-page .about-outlook__heading h2::after { height: 2px; }
+  .about-page .about-subsidiaries__heading h2::after { height: 2px; }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -273,10 +273,14 @@
 .about-page .about-philosophy-editorial__detail h3 { margin: 0 0 8px; color: var(--color-text-primary); font-size: 24px; font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); }
 .about-page .about-philosophy-editorial__detail p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
 @media (max-width: 840px) {
+  .about-page .about-philosophy-editorial { background-image: none; }
   .about-page .about-philosophy-editorial__arc-stack { max-width: 760px; min-height: 0; }
   .about-page .about-philosophy-editorial__card { width: min(100%, 300px); }
-  .about-page .about-philosophy-editorial__details { position: relative; top: auto; left: auto; width: 100%; margin-top: 36px; padding: 0; text-align: center; }
+  .about-page .about-philosophy-editorial__details { position: relative; top: auto; left: auto; display: grid; gap: clamp(28px, 8vw, 40px); width: 100%; margin-top: 64px; padding: 0; text-align: left; }
   .about-page .about-philosophy-editorial__details::before { display: none; }
+  .about-page .about-philosophy-editorial__detail { display: block; text-align: left; }
+  .about-page .about-philosophy-editorial__detail h3 { font-size: var(--font-size-card-title-compact); font-weight: var(--font-weight-medium); text-align: left; }
+  .about-page .about-philosophy-editorial__detail p { font-weight: var(--font-weight-regular); text-align: left; }
   .about-page .about-philosophy-editorial__card:hover,
   .about-page .about-philosophy-editorial__card:focus-visible,
   .about-page .about-philosophy-editorial__card.is-active { transform: scale(1.015); }
@@ -471,77 +475,6 @@
   font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
-}
-
-.about-page .about-outlook {
-  padding-block: var(--section-space-sm);
-  background: var(--color-background);
-}
-
-.about-page .about-outlook__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
-  align-items: start;
-  gap: clamp(32px, 5vw, 64px);
-}
-
-.about-page .about-outlook__heading h2 {
-  width: fit-content;
-  margin: 0;
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
-  letter-spacing: var(--letter-spacing-tight);
-  line-height: var(--line-height-heading);
-}
-
-.about-page .about-outlook__copy {
-  display: grid;
-  gap: var(--section-content-gap);
-  margin: 0;
-  color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
-  line-height: var(--line-height-body);
-  text-align: left;
-}
-.about-page .about-outlook__copy p { margin: 0; }
-
-.about-page .about-outlook__content {
-  grid-column: 2;
-  grid-row: 1;
-  display: grid;
-  justify-items: start;
-  gap: var(--section-heading-body-gap);
-  text-align: left;
-}
-
-.about-page .about-outlook__media {
-  position: relative;
-  grid-column: 1;
-  grid-row: 1;
-  aspect-ratio: 16 / 10;
-  min-height: 0;
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--card-radius);
-}
-
-.about-page .about-outlook__media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--card-radius);
-  object-fit: cover;
-  object-position: center;
-}
-
-@media (max-width: 980px) {
-  .about-page .about-outlook__inner { grid-template-columns: minmax(0, 1fr); gap: var(--section-space); }
-  .about-page .about-outlook__content,
-  .about-page .about-outlook__media { grid-column: auto; grid-row: auto; }
-  .about-page .about-outlook__content { order: 2; }
-  .about-page .about-outlook__media { order: 1; aspect-ratio: 16 / 9; min-height: 0; }
 }
 
 .about-page .about-subsidiaries__accordion {

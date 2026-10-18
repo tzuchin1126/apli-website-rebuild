@@ -34,83 +34,90 @@ function setupResourcesLocationMotion() {
   }, { once: true });
 }
 
-function setupResourcesQuickNav() {
-  const quickNav = document.querySelector(".resources-quick-nav");
-  if (!quickNav) return;
+function setupResourcesDataTabs() {
+  const tablist = document.querySelector(".resource-data-switcher__tabs");
+  if (!tablist) return;
 
-  const links = Array.from(quickNav.querySelectorAll(".resources-quick-nav__link"));
-  const sections = links
-    .map(function (link) {
-      return document.querySelector(link.getAttribute("href"));
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const panels = tabs
+    .map(function (tab) {
+      return document.getElementById(tab.getAttribute("aria-controls"));
     })
     .filter(Boolean);
-  if (links.length === 0 || sections.length === 0) return;
+  if (tabs.length === 0 || panels.length !== tabs.length) return;
 
+  const description = document.querySelector("#resource-data-description");
+  const panelViewport = document.createElement("div");
+  const panelTrack = document.createElement("div");
+  const mobileViewport = window.matchMedia("(max-width: 760px)");
   let activeIndex = 0;
-  let lockedIndex = -1;
-  let lockUntil = 0;
+  panelViewport.className = "resource-data-switcher__panel-viewport";
+  panelTrack.className = "resource-data-switcher__panel-track";
+  panelViewport.appendChild(panelTrack);
+  panels[0].parentNode.insertBefore(panelViewport, panels[0]);
 
-  function setActiveIndex(nextIndex) {
-    activeIndex = nextIndex;
-    links.forEach(function (link, index) {
-      if (index === activeIndex) {
-        link.setAttribute("aria-current", "location");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  }
-
-  function updateActiveLink() {
-    const navBottom = quickNav.getBoundingClientRect().bottom;
-    const now = window.performance.now();
-
-    if (lockedIndex >= 0 && now < lockUntil) {
-      setActiveIndex(lockedIndex);
-      return;
-    }
-    lockedIndex = -1;
-
-    let nextIndex = activeIndex;
-    const forwardThreshold = navBottom + 12;
-    const backwardThreshold = navBottom + 44;
-
-    for (let index = activeIndex + 1; index < sections.length; index += 1) {
-      if (sections[index].getBoundingClientRect().top <= forwardThreshold) {
-        nextIndex = index;
-      }
-    }
-
-    if (nextIndex === activeIndex && activeIndex > 0) {
-      if (sections[activeIndex].getBoundingClientRect().top > backwardThreshold) {
-        nextIndex = activeIndex - 1;
-      }
-    }
-
-    setActiveIndex(nextIndex);
-  }
-
-  links.forEach(function (link, index) {
-    link.addEventListener("click", function () {
-      lockedIndex = index;
-      lockUntil = window.performance.now() + 700;
-      setActiveIndex(index);
-    });
+  panels.forEach(function (panel, index) {
+    panel.hidden = false;
+    panel.setAttribute("aria-hidden", String(index !== 0));
+    panel.tabIndex = index === 0 ? 0 : -1;
+    panelTrack.appendChild(panel);
   });
 
-  let frameId = 0;
-  window.addEventListener("scroll", function () {
-    if (frameId) return;
-    frameId = window.requestAnimationFrame(function () {
-      frameId = 0;
-      updateActiveLink();
-    });
-  }, { passive: true });
+  function setPanelViewportHeight() {
+    const height = mobileViewport.matches
+      ? panels[activeIndex].scrollHeight
+      : Math.max(...panels.map(function (panel) {
+        return panel.scrollHeight;
+      }));
+    panelViewport.style.height = `${height}px`;
+  }
 
-  updateActiveLink();
+  setPanelViewportHeight();
+  window.addEventListener("resize", setPanelViewportHeight, { passive: true });
+  mobileViewport.addEventListener("change", setPanelViewportHeight);
+
+  function activateTab(nextIndex, moveFocus) {
+    activeIndex = nextIndex;
+    tabs.forEach(function (tab, index) {
+      const selected = index === nextIndex;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      panels[index].setAttribute("aria-hidden", String(!selected));
+      panels[index].tabIndex = selected ? 0 : -1;
+    });
+
+    if (description) description.textContent = tabs[nextIndex].dataset.description || "";
+    panelTrack.style.transform = `translateX(-${nextIndex * 100}%)`;
+
+    if (moveFocus) tabs[nextIndex].focus();
+  }
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener("click", function () {
+      activateTab(index, false);
+    });
+
+    tab.addEventListener("keydown", function (event) {
+      let nextIndex = index;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        nextIndex = (index + 1) % tabs.length;
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        nextIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = tabs.length - 1;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      activateTab(nextIndex, true);
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   setupResourcesLocationMotion();
-  setupResourcesQuickNav();
+  setupResourcesDataTabs();
 });
