@@ -326,6 +326,11 @@ function setupLatestNews() {
     link.className = "home-latest__item";
     link.href = "/news/" + encodeURIComponent(item.id);
 
+    const date = document.createElement("time");
+    date.className = "home-latest__date";
+    date.dateTime = item.date || "";
+    date.textContent = item.date || "";
+
     const category = document.createElement("span");
     category.className = "home-latest__category";
     category.textContent = item.tag || "最新消息";
@@ -338,7 +343,7 @@ function setupLatestNews() {
     more.setAttribute("aria-hidden", "true");
     more.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
 
-    link.append(category, title, more);
+    link.append(date, category, title, more);
     return link;
   }
 

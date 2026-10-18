@@ -3,10 +3,10 @@
   --color-primary: #F58214;
   --color-primary-soft: rgb(245 130 20 / 12%);
 
-  /* Neutral text and surfaces: black, white, and grayscale only. */
-  --color-text-primary: #151515;
-  --color-text-body: #4d4f53;
-  --color-text-muted: #707070;
+  /* Neutral text hierarchy: restrained charcoal and gray, inspired by Cathay's editorial contrast. */
+  --color-text-primary: #333333;
+  --color-text-body: #555555;
+  --color-text-muted: #737373;
   --color-text-on-dark: #ffffff;
   --color-background: #ffffff;
   --color-surface-subtle: #fafafa;
@@ -65,6 +65,9 @@
   --section-space-sm: clamp(48px, 5vw, 64px);
   --section-content-gap: 20px;
   --section-heading-content-gap: 40px;
+  --section-heading-body-gap: var(--section-heading-content-gap);
+  --content-paragraph-gap: clamp(20px, 2vw, 28px);
+  --section-heading-accent-gap: clamp(8px, 1vw, 12px);
   --content-column-gap: clamp(48px, 6.7vw, 96px);
   --page-content-start-space: clamp(72px, 7vw, 112px);
   --content-max-width: 1324px;

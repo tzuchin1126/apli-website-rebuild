@@ -13,8 +13,13 @@
 .about-page .about-profile__media { aspect-ratio: 16 / 10; margin: 0; overflow: hidden; border-radius: var(--card-radius); }
 .about-page .about-profile__media img { display: block; width: 100%; height: 100%; border-radius: var(--card-radius); object-fit: cover; object-position: center; }
 .about-page .about-profile__copy { display: grid; justify-items: start; gap: 0; width: 100%; margin: 0; text-align: left; }
-.about-page .about-profile__lead { margin: 0 0 24px; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
-.about-page .about-profile__body { display: grid; gap: var(--section-space); margin: 0; padding: 0; }
+.about-page .about-profile__lead { position: relative; width: fit-content; margin: 0 0 24px; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
+.about-page .about-profile__lead::after,
+.about-page .about-philosophy-editorial .about-section-heading h2::after,
+.about-page .about-certifications-preview .about-section-heading h2::after,
+.about-page .about-subsidiaries__heading h2::after,
+.about-page .about-outlook__heading h2::after { display: block; width: 100%; height: 3px; margin-top: var(--section-heading-accent-gap); background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%); content: ""; }
+.about-page .about-profile__body { display: grid; gap: var(--section-content-gap); margin: 0; padding: 0; }
 .about-page .about-profile__body p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
 .about-section-heading h2 { width: fit-content; margin: 0; padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
 .about-page.about-motion-ready .about-scroll-reveal { opacity: 0; transform: translateY(36px); will-change: opacity, transform; }
@@ -54,6 +59,7 @@
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
+
 @keyframes about-philosophy-card-in {
   from { opacity: 0; transform: translate3d(0, 28px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -67,24 +73,15 @@
 
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
-.about-page .about-philosophy-editorial { padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: var(--color-surface-subtle); }
-.about-page .about-philosophy-editorial .about-section-heading { justify-items: start; width: 100%; margin: 0 0 var(--section-heading-content-gap); text-align: left; }
-.about-page .about-philosophy-editorial .about-section-heading h2 { position: relative; width: fit-content; padding-bottom: 0; border-bottom: 0; }
-.about-page .about-philosophy-editorial__intro { max-width: 48rem; margin: 24px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); }
-.about-page .about-philosophy-editorial__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2vw, 32px); }
-.about-page .about-philosophy-editorial__card { min-width: 0; padding: clamp(30px, 3vw, 44px) clamp(24px, 2.5vw, 40px); border: 0; border-radius: 18px; background: var(--color-background); box-shadow: var(--shadow-lg); }
-.about-page .about-philosophy-editorial__copy { display: grid; grid-template-rows: auto auto 1fr; align-content: start; height: 100%; text-align: center; }
-.about-page .about-philosophy-editorial__icon { display: block; width: 64px; height: 64px; margin: 0 auto 18px; object-fit: contain; filter: brightness(0) saturate(100%) invert(59%) sepia(95%) saturate(2490%) hue-rotate(353deg) brightness(102%) contrast(92%); }
-.about-page .about-philosophy-editorial__copy h3 { margin: 0; color: var(--color-text-primary); font-family: var(--font-body); font-size: clamp(1.15rem, 1.1vw, 1.35rem); font-weight: var(--font-weight-medium); letter-spacing: .01em; line-height: 1.4; text-align: center; }
-.about-page .about-philosophy-editorial__copy h3 span { display: block; margin-top: 4px; font-size: .72em; font-weight: var(--font-weight-regular); letter-spacing: .05em; line-height: 1.35; white-space: nowrap; }
-.about-page .about-philosophy-editorial__copy p { max-width: 24rem; margin: 20px auto 0; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.75; text-align: center; }
-
+.about-page .about-philosophy-editorial { padding-block: var(--section-space-sm); background: var(--color-surface-subtle); }
+.about-page .about-philosophy-editorial .about-section-heading { justify-items: center; width: 100%; margin: 0 0 var(--section-heading-content-gap); text-align: center; }
+.about-page .about-philosophy-editorial .about-section-heading h2 { position: relative; width: fit-content; padding: 0; border: 0; text-align: center; }
+.about-page .about-philosophy-editorial .about-section-heading h2::after { margin-inline: auto; }
+.about-page .about-philosophy-editorial__intro { max-width: 48rem; margin: 24px auto 0; color: var(--color-text-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); text-align: center; }
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
-.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: #f6f6f6; color: var(--color-text-primary); }
+.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; color: var(--color-text-primary); }
 .about-page .about-certifications-preview .about-section-heading { justify-items: start; width: 100%; margin: 0; text-align: left; }
-.about-page .about-certifications-preview .about-section-heading h2 { position: relative; margin: 0; padding-block: 0; border: 0; color: var(--color-text-primary); font-weight: var(--font-weight-heading); text-align: left; }
-.about-page .about-certifications-preview .about-section-heading h2::before,
-.about-page .about-certifications-preview .about-section-heading h2::after { display: none; content: none; }
+.about-page .about-certifications-preview .about-section-heading h2 { position: relative; width: fit-content; margin: 0; padding-block: 0; border: 0; color: var(--color-text-primary); font-weight: var(--font-weight-heading); text-align: left; }
 .about-page .about-certifications-preview__header { display: grid; justify-items: start; gap: 24px; margin-bottom: clamp(32px, 3vw, 44px); text-align: left; }
 .about-page .about-certifications-preview__nav { display: flex; justify-content: flex-start; gap: clamp(16px, 2vw, 24px); width: max-content; max-width: 100%; margin-inline: 0; border-bottom: 1px solid var(--color-border); overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
 .about-page .about-certifications-preview__nav::-webkit-scrollbar { display: none; width: 0; height: 0; }
@@ -117,7 +114,7 @@
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, 1fr)); column-gap: var(--preview-column-gap); align-items: start; }
 .about-page .about-certifications-preview__year-column { min-width: 0; }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
-.about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 20px; border-radius: 18px; background: var(--color-background); box-shadow: var(--shadow-card); }
+.about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 20px; border: 0; border-radius: 18px; background: #f7f7f7; box-shadow: none; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; padding: 0; border: 0; background: transparent; }
 .about-page .about-certifications-preview__event + .about-certifications-preview__event { border-top: 0; }
 .about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
@@ -169,21 +166,17 @@
 }
 
 @media (max-width: 840px) {
-  .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: 0; text-align: left; }
+  .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: 0; text-align: center; }
   .about-page .about-philosophy-editorial .about-section-heading .about-philosophy-editorial__intro { width: 100%; }
-  .about-page .about-philosophy-editorial__cards { grid-template-columns: minmax(0, 1fr); }
-  .about-page .about-philosophy-editorial__card { padding: 32px 28px; }
-  .about-page .about-philosophy-editorial__copy p { max-width: 32rem; }
 }
 
-@media (max-width: 640px) {
-  .about-page .about-philosophy-editorial__card { padding-block: 30px; }
-  .about-page .about-philosophy-editorial__icon { width: 56px; height: 56px; margin-bottom: 14px; }
-  .about-page .about-philosophy-editorial__copy h3 { font-size: 1.125rem; }
-  .about-page .about-philosophy-editorial__copy p { margin-top: 20px; }
-}
 
 @media (max-width: 640px) {
+  .about-page .about-profile__lead::after,
+  .about-page .about-philosophy-editorial .about-section-heading h2::after,
+  .about-page .about-certifications-preview .about-section-heading h2::after,
+  .about-page .about-subsidiaries__heading h2::after,
+  .about-page .about-outlook__heading h2::after { height: 2px; }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -251,4 +244,502 @@
     transition: none; 
   }
 
+}
+
+/* Philosophy: keep the centered ellipse stack independent from the right detail panel. */
+.about-page .about-philosophy-editorial {
+  background-color: #f7f8fa;
+  background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/04.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.about-page .about-philosophy-editorial__arc-stack { position: relative; display: block; max-width: 1120px; min-height: 336px; margin-inline: auto; }
+.about-page .about-philosophy-editorial__card { position: relative; display: flex; width: 100%; min-height: 128px; align-items: center; justify-content: center; padding: 22px 48px 32px; border: 2px solid rgb(245 130 20 / 78%); border-radius: 50%; background: rgb(245 130 20 / 8%); color: var(--color-primary); cursor: pointer; box-shadow: none; transition: background-color 280ms ease, border-color 280ms ease, color 280ms ease, transform 280ms ease; }
+.about-page .about-philosophy-editorial__card { width: min(100%, 380px); margin-inline: auto; }
+.about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { margin-top: -24px; }
+.about-page .about-philosophy-editorial__card--mission { z-index: 1; }
+.about-page .about-philosophy-editorial__card--values { z-index: 2; }
+.about-page .about-philosophy-editorial__card--vision { z-index: 3; }
+.about-page .about-philosophy-editorial__card:hover,
+.about-page .about-philosophy-editorial__card:focus-visible,
+.about-page .about-philosophy-editorial__card.is-active { border-color: var(--color-primary); background: rgb(245 130 20 / 16%); color: var(--color-primary-dark); transform: scale(1.02); }
+.about-page .about-philosophy-editorial__card:focus-visible { outline: 3px solid var(--color-text-primary); outline-offset: 5px; }
+.about-page .about-philosophy-editorial__card-title { font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
+.about-page .about-philosophy-editorial__details { position: absolute; top: var(--philosophy-detail-top, 50%); left: calc(50% + 230px); width: min(calc(50% - 230px), 400px); min-height: 0; margin: 0; padding: 0 0 0 32px; box-sizing: border-box; background: transparent; text-align: left; }
+.about-page .about-philosophy-editorial__details::before { position: absolute; top: var(--philosophy-connector-top, 50%); left: var(--philosophy-connector-left, -64px); width: var(--philosophy-connector-width, 64px); height: 2px; background: var(--color-primary); content: ""; transform: translateY(-50%); transition: top 420ms ease; }
+.about-page .about-philosophy-editorial__details.is-connector-entering::before { animation: about-philosophy-connector-draw 420ms ease both; }
+.about-page .about-philosophy-editorial__detail.is-entering { animation: about-philosophy-detail-slide-in 420ms ease both; }
+.about-page .about-philosophy-editorial__detail h3 { margin: 0 0 8px; color: var(--color-text-primary); font-size: 24px; font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); }
+.about-page .about-philosophy-editorial__detail p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
+@media (max-width: 840px) {
+  .about-page .about-philosophy-editorial__arc-stack { max-width: 760px; min-height: 0; }
+  .about-page .about-philosophy-editorial__card { width: min(100%, 300px); }
+  .about-page .about-philosophy-editorial__details { position: relative; top: auto; left: auto; width: 100%; margin-top: 36px; padding: 0; text-align: center; }
+  .about-page .about-philosophy-editorial__details::before { display: none; }
+  .about-page .about-philosophy-editorial__card:hover,
+  .about-page .about-philosophy-editorial__card:focus-visible,
+  .about-page .about-philosophy-editorial__card.is-active { transform: scale(1.015); }
+}
+@media (max-width: 640px) {
+  .about-page .about-philosophy-editorial__card { min-height: 100px; padding: 20px 42px 28px 24px; }
+  .about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { margin-top: -14px; }
+  .about-page .about-philosophy-editorial__card-title { font-size: 1.125rem; }
+  .about-page .about-philosophy-editorial__details { padding: 0 8px; }
+  .about-page .about-philosophy-editorial__detail h3 { margin-bottom: 8px; font-size: 24px; }
+  .about-page .about-philosophy-editorial__detail p { font-size: var(--font-size-body); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-philosophy-editorial__card { transition: none; }
+  .about-page .about-philosophy-editorial__details::before { transition: none; }
+  .about-page .about-philosophy-editorial__details.is-connector-entering::before { animation: none; }
+  .about-page .about-philosophy-editorial__detail.is-entering { animation: none; }
+}
+
+@keyframes about-philosophy-detail-slide-in {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes about-philosophy-connector-draw {
+  from { width: 0; }
+  to { width: var(--philosophy-connector-width); }
+}
+
+.about-page .about-affiliates-cta {
+  padding-block: clamp(72px, 8vw, 112px);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.about-page .about-affiliates-cta__inner {
+  display: grid;
+  gap: clamp(32px, 4vw, 52px);
+}
+
+.about-page .about-affiliates-cta__heading {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.about-page .about-affiliates-cta__content {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(32px, 5vw, 64px);
+  text-align: left;
+}
+
+.about-page .about-affiliates-cta__eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-primary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: .16em;
+  line-height: var(--line-height-body-tight);
+}
+
+.about-page .about-affiliates-cta h2 {
+  max-width: 720px;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading);
+}
+
+.about-page .about-affiliates-cta__accent {
+  width: clamp(160px, 18vw, 250px);
+  height: 12px;
+  margin-top: 18px;
+  clip-path: polygon(0 0, 72% 0, 100% 50%, 72% 100%, 0 100%, 10% 50%);
+  background: linear-gradient(90deg, var(--color-primary) 0%, rgb(245 130 20 / 32%) 68%, transparent 100%);
+}
+
+.about-page .about-affiliates-cta__panel {
+  display: grid;
+  grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  box-shadow: 0 12px 32px rgb(31 42 55 / 7%);
+}
+
+.about-page .about-affiliates-cta__description {
+  max-width: 680px;
+  margin: 0;
+  color: var(--color-text-body);
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body);
+}
+
+.about-page .about-affiliates-cta__link {
+  align-self: start;
+  justify-self: start;
+  min-width: 196px;
+  margin-top: 28px;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  transition: background-color 180ms ease;
+}
+
+.about-page .about-affiliates-cta__link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.about-page .about-affiliates-cta__link:hover svg,
+.about-page .about-affiliates-cta__link:focus-visible svg {
+  transform: translateX(4px);
+}
+
+.about-page .about-affiliates-cta__visual {
+  position: relative;
+  display: grid;
+  min-height: clamp(220px, 22vw, 300px);
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(24px, 4vw, 56px);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 5%) 0 50%, transparent 50% 100%),
+    linear-gradient(135deg, #172538 0%, #2d415b 100%);
+}
+
+.about-page .about-affiliates-cta__visual::before,
+.about-page .about-affiliates-cta__visual::after {
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.about-page .about-affiliates-cta__visual::before {
+  width: 320px;
+  height: 320px;
+  top: -190px;
+  right: -90px;
+}
+
+.about-page .about-affiliates-cta__visual::after {
+  width: 240px;
+  height: 240px;
+  bottom: -160px;
+  left: -70px;
+}
+
+.about-page .about-affiliates-cta__visual img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 460px);
+  height: auto;
+}
+
+/* 子公司簡介：以參考圖的標題與口風琴排列呈現各事業群。 */
+.about-page .about-subsidiaries {
+  padding-block: var(--section-space-sm);
+  background: var(--color-surface);
+}
+
+.about-page .about-subsidiaries__inner {
+  display: grid;
+  gap: var(--section-heading-content-gap);
+}
+
+.about-page .about-subsidiaries__heading {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.about-page .about-subsidiaries__heading h2 {
+  width: fit-content;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading);
+}
+
+.about-page .about-outlook {
+  padding-block: var(--section-space-sm);
+  background: var(--color-background);
+}
+
+.about-page .about-outlook__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.about-page .about-outlook__heading h2 {
+  width: fit-content;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading);
+}
+
+.about-page .about-outlook__copy {
+  display: grid;
+  gap: var(--section-content-gap);
+  margin: 0;
+  color: var(--color-text-body);
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body);
+  text-align: left;
+}
+.about-page .about-outlook__copy p { margin: 0; }
+
+.about-page .about-outlook__content {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  justify-items: start;
+  gap: var(--section-heading-body-gap);
+  text-align: left;
+}
+
+.about-page .about-outlook__media {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+}
+
+.about-page .about-outlook__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 980px) {
+  .about-page .about-outlook__inner { grid-template-columns: minmax(0, 1fr); gap: var(--section-space); }
+  .about-page .about-outlook__content,
+  .about-page .about-outlook__media { grid-column: auto; grid-row: auto; }
+  .about-page .about-outlook__content { order: 2; }
+  .about-page .about-outlook__media { order: 1; aspect-ratio: 16 / 9; min-height: 0; }
+}
+
+.about-page .about-subsidiaries__accordion {
+  width: min(100%, 1080px);
+  margin-inline: auto;
+}
+
+.about-page .about-subsidiary {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.about-page .about-subsidiary.is-open {
+  border-bottom: 0;
+}
+
+.about-page .about-subsidiary h3 {
+  margin: 0;
+}
+
+.about-page .about-subsidiary__trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  align-items: center;
+  width: 100%;
+  min-height: 80px;
+  gap: 18px;
+  padding: 16px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-card-title-compact);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.about-page .about-subsidiary__trigger:hover,
+.about-page .about-subsidiary__trigger:focus-visible {
+  background: var(--color-surface-subtle);
+  color: var(--color-primary);
+}
+
+.about-page .about-subsidiary__trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.about-page .about-subsidiary__label {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 16px;
+  font-weight: var(--font-weight-regular);
+}
+
+.about-page .about-subsidiary__logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 160px;
+  height: 56px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.about-page .about-subsidiary__trigger > svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--color-muted);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  transition: transform 180ms ease, stroke 180ms ease;
+}
+
+.about-page .about-subsidiary.is-open .about-subsidiary__trigger > svg {
+  transform: rotate(180deg);
+  stroke: var(--color-primary);
+}
+
+.about-page .about-subsidiary__panel {
+  max-height: 0;
+  overflow: hidden;
+  margin-inline: 0;
+  padding: 0 8px;
+  border-block-start: 1px solid var(--color-line);
+  background: var(--color-surface-subtle);
+  opacity: 0;
+  transition: max-height 280ms ease, padding-block 280ms ease, opacity 180ms ease;
+}
+
+.about-page .about-subsidiary__panel p {
+  max-width: 900px;
+  margin: 0;
+  padding-inline-start: var(--content-padding);
+  color: var(--color-text-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.about-page .about-subsidiary.is-open .about-subsidiary__panel {
+  max-height: 12rem;
+  padding-block: 12px 18px;
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .about-page .about-subsidiary__trigger {
+    grid-template-columns: minmax(0, 1fr) 24px;
+    min-height: 80px;
+    gap: 12px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
+
+  .about-page .about-subsidiary__label {
+    gap: 12px;
+  }
+
+  .about-page .about-subsidiary__logo {
+    width: 128px;
+    height: 46px;
+  }
+
+  .about-page .about-subsidiary__panel {
+    padding-inline: 0;
+  }
+
+  .about-page .about-subsidiary__panel p {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-subsidiary__panel,
+  .about-page .about-subsidiary__trigger,
+  .about-page .about-subsidiary__trigger > svg {
+    transition: none;
+  }
+}
+
+@media (max-width: 840px) {
+  .about-page .about-affiliates-cta__panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-page .about-affiliates-cta__visual {
+    min-height: 220px;
+  }
+
+  .about-page .about-affiliates-cta__content {
+    padding: 32px clamp(24px, 6vw, 48px) 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-page .about-affiliates-cta {
+    padding-block: 56px;
+  }
+
+  .about-page .about-affiliates-cta__eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .about-page .about-affiliates-cta__accent {
+    margin-top: 16px;
+  }
+
+  .about-page .about-affiliates-cta__description {
+    max-width: 32rem;
+    font-size: var(--font-size-body);
+  }
+
+  .about-page .about-affiliates-cta__link {
+    width: min(100%, 240px);
+    margin-top: 24px;
+  }
+
+  .about-page .about-affiliates-cta__visual {
+    min-height: 180px;
+    padding: 24px;
+  }
+
+  .about-page .about-affiliates-cta__visual img {
+    width: 100%;
+  }
+
+  .about-page .about-affiliates-cta__content {
+    padding: 28px 20px 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-affiliates-cta__link,
+  .about-page .about-affiliates-cta__link svg {
+    transition: none;
+  }
 }

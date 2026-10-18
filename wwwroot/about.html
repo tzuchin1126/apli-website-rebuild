@@ -19,12 +19,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="preload" as="image" href="public/images/about/company-facility.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20260907-site-alignment-v2">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20261018-cathay-color-original-font-v7">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/home.css?v=20260929-about-affiliates-move-v1">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260929-remove-explore-more-v1">
+  <link rel="stylesheet" href="css/pages/about.css?v=20261018-about-philosophy-background-v114">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 
@@ -129,6 +128,8 @@
           <div class="about-profile__body">
             <p>
               亞太國際物流股份有限公司，前身為亞太儲運股份有限公司，成立於1973年8月7日。公司位於高雄港第三貨櫃中心後線，專注於貨櫃物流管理、船舶裝卸及機具維修保養等相關業務。
+            </p>
+            <p>
               以客為尊，提供優質的倉儲管理，並順應全球化風潮及網路時代，運用網路工具提升貨櫃維修、倉儲及碼頭裝卸的品質與效率。同時，我們結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。
             </p>
           </div>
@@ -138,32 +139,51 @@
 
     <section id="core-values" class="about-philosophy-editorial" aria-labelledby="core-values-editorial-title">
       <div class="site-container">
-        <div class="about-section-heading">
+        <header class="about-section-heading">
           <h2 id="core-values-editorial-title">經營理念</h2>
           <p class="about-philosophy-editorial__intro">亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
-        </div>
-        <div class="about-philosophy-editorial__cards">
-          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--mission">
-            <div class="about-philosophy-editorial__copy">
-              <img class="about-philosophy-editorial__icon" src="public/images/icon/icons8-wedding-rings-100.png" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
-              <h3>使命 <span lang="en">Mission</span></h3>
+        </header>
+        <div class="about-philosophy-editorial__arc-stack" data-philosophy-accordion>
+          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--mission" type="button" aria-expanded="true" aria-controls="philosophy-details" data-philosophy-trigger="mission">
+            <span class="about-philosophy-editorial__card-title">使命</span>
+          </button>
+          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--values" type="button" aria-expanded="false" aria-controls="philosophy-details" data-philosophy-trigger="values">
+            <span class="about-philosophy-editorial__card-title">核心價值觀</span>
+          </button>
+          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--vision" type="button" aria-expanded="false" aria-controls="philosophy-details" data-philosophy-trigger="vision">
+            <span class="about-philosophy-editorial__card-title">共同願景</span>
+          </button>
+          <aside id="philosophy-details" class="about-philosophy-editorial__details" role="region" aria-live="polite" aria-label="經營理念說明">
+            <article class="about-philosophy-editorial__detail" data-philosophy-detail="mission">
+              <h3>使命</h3>
               <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局</p>
-            </div>
-          </article>
-          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--values">
-            <div class="about-philosophy-editorial__copy">
-              <img class="about-philosophy-editorial__icon" src="public/images/icon/hand-heart-light.svg" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
-              <h3>核心價值觀 <span lang="en">Core Values</span></h3>
+            </article>
+            <article class="about-philosophy-editorial__detail" data-philosophy-detail="values" hidden>
+              <h3>核心價值觀</h3>
               <p>專業團隊精神</p>
-            </div>
-          </article>
-          <article class="about-philosophy-editorial__card about-philosophy-editorial__card--vision">
-            <div class="about-philosophy-editorial__copy">
-              <img class="about-philosophy-editorial__icon" src="public/images/icon/icons8-target-100.png" width="50" height="50" alt="" aria-hidden="true" loading="lazy" decoding="async">
-              <h3>共同願景 <span lang="en">Vision</span></h3>
+            </article>
+            <article class="about-philosophy-editorial__detail" data-philosophy-detail="vision" hidden>
+              <h3>共同願景</h3>
               <p>商品附加價值創造者</p>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-outlook" aria-labelledby="about-outlook-title">
+      <div class="site-container about-outlook__inner">
+        <figure class="about-outlook__media">
+          <img src="public/images/future-outlook/01.jpg" width="5901" height="3934" alt="亞太國際物流集團未來發展意象" loading="lazy" decoding="async">
+        </figure>
+        <div class="about-outlook__content">
+          <header class="about-outlook__heading">
+            <h2 id="about-outlook-title">未來展望</h2>
+          </header>
+            <div class="about-outlook__copy">
+              <p>亞太國際物流集團順應全球化風潮及網路時代的來臨，除運用網路工具提升碼頭倉儲作業品質與效率外，並帶動相關產業的需求帶動高雄經貿永續發展及國家經濟。</p>
+              <p>此外亞太持續跨足多角化經營開發其他事業，並滿足顧客多元化需求，本公司將繼續秉持「善用社會資源，提供優質和親切的服務，滿足顧客、創造利潤、照顧員工、回饋社會」的經營理念，不斷的努力追求卓越，創造美好的未來。</p>
             </div>
-          </article>
         </div>
       </div>
     </section>
@@ -174,7 +194,6 @@
           <div class="about-section-heading">
             <h2 id="certifications-preview-title">認證與獎項</h2>
           </div>
-          <nav class="about-certifications-preview__nav" aria-label="認證與獎項年代導覽" data-certification-preview-nav></nav>
         </div>
       </div>
       <div class="site-container about-certifications-preview__carousel">
@@ -190,51 +209,52 @@
       </div>
     </section>
 
-    <div class="home-page about-home-affiliates-scope">
-      <section class="home-affiliates site-container" aria-labelledby="home-affiliates-title">
-        <div class="home-affiliates__heading">
-          <h2 id="home-affiliates-title">關係企業</h2>
-        </div>
-        <div class="home-affiliates__carousel">
-          <button class="home-affiliates__control" type="button" data-affiliates-previous aria-label="上一個關係企業" aria-controls="home-affiliates-track"></button>
-          <div class="home-affiliates__viewport">
-            <div id="home-affiliates-track" class="home-affiliates__grid" data-affiliates-track>
-              <a class="home-affiliates__card" href="/affiliates" aria-label="查看世新貨櫃關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/01.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>世新貨櫃</strong><span class="home-affiliates__description">專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
-              <a class="home-affiliates__card" href="/affiliates" aria-label="查看亞柏油品關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/小港加油站.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>亞柏油品</strong><span class="home-affiliates__description">提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
-              <a class="home-affiliates__card home-affiliates__card--club" href="/affiliates" aria-label="查看亞柏會舘關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-club-exterior.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>亞柏會舘</strong><span class="home-affiliates__description">提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
-              <a class="home-affiliates__card home-affiliates__card--team" href="/affiliates" aria-label="查看亞柏羽球隊關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/aplus-badminton-player.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>亞柏羽球隊</strong><span class="home-affiliates__description">投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
-              <a class="home-affiliates__card" href="/affiliates" aria-label="查看太報關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/taisounds.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark" src="public/images/logo/transparent/taisounds.png" alt="太報 TaiSounds Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>太報 TaiSounds</strong><span class="home-affiliates__description">以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
-              <a class="home-affiliates__card" href="/affiliates" aria-label="查看 ALPHA TOTAL SOLUTION 關係企業">
-                <span class="home-affiliates__logo"><img class="home-affiliates__photo" src="public/images/affiliates/alpha-port-equipment.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="home-affiliates__mark home-affiliates__mark--light-source" src="public/images/logo/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></span>
-                <span class="home-affiliates__body"><strong>ALPHA TOTAL SOLUTION</strong><span class="home-affiliates__description">提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</span><span class="home-affiliates__more">查看企業 <span aria-hidden="true">↗</span></span></span>
-              </a>
+    <section class="about-subsidiaries" aria-labelledby="about-subsidiaries-title">
+      <div class="site-container about-subsidiaries__inner">
+        <header class="about-subsidiaries__heading">
+          <h2 id="about-subsidiaries-title">子公司簡介</h2>
+        </header>
+        <div class="about-subsidiaries__accordion" data-subsidiary-accordion>
+          <article class="about-subsidiary">
+            <h3>
+              <button type="button" class="about-subsidiary__trigger" aria-label="世新貨櫃" aria-expanded="false" aria-controls="about-subsidiary-sexin-panel" id="about-subsidiary-sexin-trigger">
+                <span class="about-subsidiary__label">世新貨櫃</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+            </h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-sexin-panel" role="region" aria-labelledby="about-subsidiary-sexin-trigger" hidden>
+              <p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p>
             </div>
-          </div>
-          <button class="home-affiliates__control" type="button" data-affiliates-next aria-label="下一個關係企業" aria-controls="home-affiliates-track"></button>
+          </article>
+          <article class="about-subsidiary">
+            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏油品" aria-expanded="false" aria-controls="about-subsidiary-oil-panel" id="about-subsidiary-oil-trigger"><span class="about-subsidiary__label">亞柏油品</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-oil-panel" role="region" aria-labelledby="about-subsidiary-oil-trigger" hidden><p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p></div>
+          </article>
+          <article class="about-subsidiary">
+            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏會舘" aria-expanded="false" aria-controls="about-subsidiary-club-panel" id="about-subsidiary-club-trigger"><span class="about-subsidiary__label">亞柏會舘</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-club-panel" role="region" aria-labelledby="about-subsidiary-club-trigger" hidden><p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p></div>
+          </article>
+          <article class="about-subsidiary">
+            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏羽球隊" aria-expanded="false" aria-controls="about-subsidiary-badminton-panel" id="about-subsidiary-badminton-trigger"><span class="about-subsidiary__label">亞柏羽球隊</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-badminton-panel" role="region" aria-labelledby="about-subsidiary-badminton-trigger" hidden><p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p></div>
+          </article>
+          <article class="about-subsidiary">
+            <h3><button type="button" class="about-subsidiary__trigger" aria-label="太報" aria-expanded="false" aria-controls="about-subsidiary-taronews-panel" id="about-subsidiary-taronews-trigger"><span class="about-subsidiary__label">太報</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-taronews-panel" role="region" aria-labelledby="about-subsidiary-taronews-trigger" hidden><p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p></div>
+          </article>
+          <article class="about-subsidiary">
+            <h3><button type="button" class="about-subsidiary__trigger" aria-label="ALPHA TOTAL SOLUTION" aria-expanded="false" aria-controls="about-subsidiary-alpha-panel" id="about-subsidiary-alpha-trigger"><span class="about-subsidiary__label">ALPHA TOTAL SOLUTION</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
+            <div class="about-subsidiary__panel" id="about-subsidiary-alpha-panel" role="region" aria-labelledby="about-subsidiary-alpha-trigger" hidden><p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p></div>
+          </article>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20260922-about-motion-drag-stop-v4"></script>
-  <script src="js/pages/home.js?v=20260929-home-latest-four-v1"></script>
+  <script src="js/pages/about.js?v=20261018-philosophy-outline-accordion-v15"></script>
 </body>
 </html>
