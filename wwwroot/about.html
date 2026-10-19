@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
   <link rel="preload" as="image" href="public/images/about/company-facility.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20261018-cathay-color-original-font-v7">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20261019-global-font-stack-v8">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
   <link rel="stylesheet" href="css/components/buttons.css">
-  <link rel="stylesheet" href="css/pages/about.css?v=20261018-remove-outlook-v118">
+  <link rel="stylesheet" href="css/pages/about.css?v=20261019-about-text-color-v163">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 
@@ -137,36 +137,40 @@
       </div>
     </section>
 
-    <section id="core-values" class="about-philosophy-editorial" aria-labelledby="core-values-editorial-title">
+    <section id="enterprise-values" class="about-enterprise-values" aria-labelledby="enterprise-values-title">
       <div class="site-container">
         <header class="about-section-heading">
-          <h2 id="core-values-editorial-title">經營理念</h2>
-          <p class="about-philosophy-editorial__intro">亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
+          <h2 id="enterprise-values-title">經營理念</h2>
+          <p>亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
         </header>
-        <div class="about-philosophy-editorial__arc-stack" data-philosophy-accordion>
-          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--mission" type="button" aria-expanded="true" aria-controls="philosophy-details" data-philosophy-trigger="mission">
-            <span class="about-philosophy-editorial__card-title">使命</span>
-          </button>
-          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--values" type="button" aria-expanded="false" aria-controls="philosophy-details" data-philosophy-trigger="values">
-            <span class="about-philosophy-editorial__card-title">核心價值觀</span>
-          </button>
-          <button class="about-philosophy-editorial__card about-philosophy-editorial__card--vision" type="button" aria-expanded="false" aria-controls="philosophy-details" data-philosophy-trigger="vision">
-            <span class="about-philosophy-editorial__card-title">共同願景</span>
-          </button>
-          <aside id="philosophy-details" class="about-philosophy-editorial__details" role="region" aria-live="polite" aria-label="經營理念說明">
-            <article class="about-philosophy-editorial__detail" data-philosophy-detail="mission">
+        <div class="about-enterprise-values__grid">
+          <article class="about-enterprise-values__card about-enterprise-values__card--customer">
+            <figure class="about-enterprise-values__media">
+              <img src="public/images/about/123.jpg" width="3968" height="2976" alt="高雄港貨櫃碼頭空拍景象" loading="lazy" decoding="async">
+            </figure>
+            <div class="about-enterprise-values__body">
               <h3>使命</h3>
-              <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局</p>
-            </article>
-            <article class="about-philosophy-editorial__detail" data-philosophy-detail="values" hidden>
+              <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
+            </div>
+          </article>
+          <article class="about-enterprise-values__card about-enterprise-values__card--professional">
+            <figure class="about-enterprise-values__media">
+              <img src="public/images/about/philosophy-values.jpg" width="1920" height="1080" alt="貨櫃場作業環境" loading="lazy" decoding="async">
+            </figure>
+            <div class="about-enterprise-values__body">
               <h3>核心價值觀</h3>
-              <p>專業團隊精神</p>
-            </article>
-            <article class="about-philosophy-editorial__detail" data-philosophy-detail="vision" hidden>
+              <p>專業團隊精神。</p>
+            </div>
+          </article>
+          <article class="about-enterprise-values__card about-enterprise-values__card--innovation">
+            <figure class="about-enterprise-values__media">
+              <img src="public/images/services/warehouse-storage.png" width="5974" height="3983" alt="物流團隊於貨櫃場協作" loading="lazy" decoding="async">
+            </figure>
+            <div class="about-enterprise-values__body">
               <h3>共同願景</h3>
-              <p>商品附加價值創造者</p>
-            </article>
-          </aside>
+              <p>商品附加價值創造者。</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -197,38 +201,40 @@
         <header class="about-subsidiaries__heading">
           <h2 id="about-subsidiaries-title">子公司簡介</h2>
         </header>
-        <div class="about-subsidiaries__accordion" data-subsidiary-accordion>
-          <article class="about-subsidiary">
-            <h3>
-              <button type="button" class="about-subsidiary__trigger" aria-label="世新貨櫃" aria-expanded="false" aria-controls="about-subsidiary-sexin-panel" id="about-subsidiary-sexin-trigger">
-                <span class="about-subsidiary__label">世新貨櫃</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-              </button>
-            </h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-sexin-panel" role="region" aria-labelledby="about-subsidiary-sexin-trigger" hidden>
-              <p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p>
-            </div>
+        <div class="about-subsidiaries__grid">
+          <article class="about-subsidiary about-subsidiary--container">
+            <h3>世新貨櫃</h3>
+            <p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p>
           </article>
-          <article class="about-subsidiary">
-            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏油品" aria-expanded="false" aria-controls="about-subsidiary-oil-panel" id="about-subsidiary-oil-trigger"><span class="about-subsidiary__label">亞柏油品</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-oil-panel" role="region" aria-labelledby="about-subsidiary-oil-trigger" hidden><p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p></div>
+          <article class="about-subsidiary about-subsidiary--energy">
+            <h3>亞柏油品</h3>
+            <p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p>
           </article>
-          <article class="about-subsidiary">
-            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏會舘" aria-expanded="false" aria-controls="about-subsidiary-club-panel" id="about-subsidiary-club-trigger"><span class="about-subsidiary__label">亞柏會舘</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-club-panel" role="region" aria-labelledby="about-subsidiary-club-trigger" hidden><p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p></div>
+          <article class="about-subsidiary about-subsidiary--club">
+            <h3>亞柏會舘</h3>
+            <p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p>
           </article>
-          <article class="about-subsidiary">
-            <h3><button type="button" class="about-subsidiary__trigger" aria-label="亞柏羽球隊" aria-expanded="false" aria-controls="about-subsidiary-badminton-panel" id="about-subsidiary-badminton-trigger"><span class="about-subsidiary__label">亞柏羽球隊</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-badminton-panel" role="region" aria-labelledby="about-subsidiary-badminton-trigger" hidden><p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p></div>
+          <article class="about-subsidiary about-subsidiary--badminton">
+            <h3>亞柏羽球隊</h3>
+            <p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p>
           </article>
-          <article class="about-subsidiary">
-            <h3><button type="button" class="about-subsidiary__trigger" aria-label="太報" aria-expanded="false" aria-controls="about-subsidiary-taronews-panel" id="about-subsidiary-taronews-trigger"><span class="about-subsidiary__label">太報</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-taronews-panel" role="region" aria-labelledby="about-subsidiary-taronews-trigger" hidden><p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p></div>
+          <article class="about-subsidiary about-subsidiary--media">
+            <h3>太報</h3>
+            <p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p>
           </article>
-          <article class="about-subsidiary">
-            <h3><button type="button" class="about-subsidiary__trigger" aria-label="ALPHA TOTAL SOLUTION" aria-expanded="false" aria-controls="about-subsidiary-alpha-panel" id="about-subsidiary-alpha-trigger"><span class="about-subsidiary__label">ALPHA TOTAL SOLUTION</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></h3>
-            <div class="about-subsidiary__panel" id="about-subsidiary-alpha-panel" role="region" aria-labelledby="about-subsidiary-alpha-trigger" hidden><p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p></div>
+          <article class="about-subsidiary about-subsidiary--alpha">
+            <h3>ALPHA TOTAL SOLUTION</h3>
+            <p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p>
           </article>
+        </div>
+        <div class="about-subsidiaries__actions">
+          <a class="button--primary home-text-link" href="/affiliates">
+            了解更多
+            <span class="home-intro__arrow-window" aria-hidden="true">
+              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -238,6 +244,6 @@
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20261018-philosophy-mobile-details-v16"></script>
+  <script src="js/pages/about.js?v=20261019-subsidiary-logo-cards-v18"></script>
 </body>
 </html>

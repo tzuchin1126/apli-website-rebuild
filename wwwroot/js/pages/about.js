@@ -65,7 +65,7 @@ function setupAboutScrollMotion() {
   }
 
   const sections = Array.from(page.querySelectorAll(
-    ".about-profile, .about-philosophy-editorial, .about-certifications-preview"
+    ".about-profile, .about-certifications-preview"
   ));
   if (sections.length === 0) {
     return;
@@ -628,149 +628,7 @@ function initCertificationPreview() {
   activateDecade(0);
 }
 
-function initSubsidiaryAccordion() {
-  const accordion = document.querySelector("[data-subsidiary-accordion]");
-  if (!accordion) return;
-
-  const items = Array.from(accordion.querySelectorAll(".about-subsidiary"));
-
-  function setItemState(item, isOpen) {
-    const trigger = item.querySelector(".about-subsidiary__trigger");
-    const panel = item.querySelector(".about-subsidiary__panel");
-    if (!trigger || !panel) return;
-    trigger.setAttribute("aria-expanded", String(isOpen));
-
-    if (isOpen) {
-      panel.hidden = false;
-      window.requestAnimationFrame(function () {
-        item.classList.add("is-open");
-      });
-      return;
-    }
-
-    item.classList.remove("is-open");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(function () {
-      if (!item.classList.contains("is-open")) {
-        panel.hidden = true;
-      }
-    }, reduceMotion ? 0 : 300);
-  }
-
-  items.forEach(function (item) {
-    const trigger = item.querySelector(".about-subsidiary__trigger");
-    if (!trigger) return;
-    trigger.addEventListener("click", function () {
-      const shouldOpen = trigger.getAttribute("aria-expanded") !== "true";
-      items.forEach(function (otherItem) {
-        setItemState(otherItem, otherItem === item && shouldOpen);
-      });
-    });
-  });
-}
-
-function initPhilosophyAccordion() {
-  const accordion = document.querySelector("[data-philosophy-accordion]");
-  if (!accordion) return;
-
-  const triggers = Array.from(accordion.querySelectorAll("[data-philosophy-trigger]"));
-  const details = Array.from(accordion.querySelectorAll("[data-philosophy-detail]"));
-  const stack = accordion;
-  const detailsPanel = accordion.querySelector(".about-philosophy-editorial__details");
-
-  function syncConnector() {
-    if (!stack || !detailsPanel || window.innerWidth <= 840) {
-      if (detailsPanel) {
-        detailsPanel.style.removeProperty("--philosophy-connector-top");
-        detailsPanel.style.removeProperty("--philosophy-connector-left");
-        detailsPanel.style.removeProperty("--philosophy-connector-width");
-        detailsPanel.style.removeProperty("--philosophy-detail-top");
-      }
-      return;
-    }
-
-    const activeTrigger = triggers.find(function (trigger) {
-      return trigger.getAttribute("aria-expanded") === "true";
-    });
-    if (!activeTrigger) return;
-    const triggerRect = activeTrigger.getBoundingClientRect();
-    const detailsRect = detailsPanel.getBoundingClientRect();
-    const titleElement = activeTrigger.querySelector(".about-philosophy-editorial__card-title");
-    const titleRect = titleElement ? titleElement.getBoundingClientRect() : triggerRect;
-    const connectorStart = titleRect.right + 18;
-    const cardsRect = accordion.getBoundingClientRect();
-    const detailHeading = detailsPanel.querySelector('[data-philosophy-detail]:not([hidden]) h3');
-    if (detailHeading) {
-      const headingRect = detailHeading.getBoundingClientRect();
-      detailsPanel.style.setProperty(
-        "--philosophy-detail-top",
-        (triggerRect.top + triggerRect.height / 2 - headingRect.height / 2 - cardsRect.top) + "px"
-      );
-    }
-    const updatedDetailsRect = detailsPanel.getBoundingClientRect();
-    const updatedHeadingRect = detailHeading ? detailHeading.getBoundingClientRect() : null;
-    detailsPanel.style.setProperty(
-      "--philosophy-connector-top",
-      (updatedHeadingRect ? updatedHeadingRect.height / 2 : triggerRect.top + triggerRect.height / 2 - updatedDetailsRect.top) + "px"
-    );
-    detailsPanel.style.setProperty(
-      "--philosophy-connector-width",
-      Math.max(0, updatedDetailsRect.left - connectorStart) + "px"
-    );
-    detailsPanel.style.setProperty(
-      "--philosophy-connector-left",
-      (connectorStart - updatedDetailsRect.left) + "px"
-    );
-  }
-
-  function setActive(key) {
-    if (window.innerWidth <= 840) {
-      triggers.forEach(function (trigger) {
-        trigger.setAttribute("aria-expanded", "true");
-        trigger.classList.remove("is-active");
-      });
-      details.forEach(function (detail) {
-        detail.hidden = false;
-        detail.classList.add("is-entering");
-      });
-      detailsPanel.classList.remove("is-connector-entering");
-      return;
-    }
-
-    triggers.forEach(function (trigger) {
-      const isActive = trigger.dataset.philosophyTrigger === key;
-      trigger.setAttribute("aria-expanded", String(isActive));
-      trigger.classList.toggle("is-active", isActive);
-    });
-
-    details.forEach(function (detail) {
-      const isActive = detail.dataset.philosophyDetail === key;
-      detail.hidden = !isActive;
-      detail.classList.toggle("is-entering", isActive);
-    });
-    detailsPanel.classList.remove("is-connector-entering");
-    syncConnector();
-    void detailsPanel.offsetWidth;
-    detailsPanel.classList.add("is-connector-entering");
-  }
-
-  triggers.forEach(function (trigger) {
-    trigger.addEventListener("click", function () {
-      if (window.innerWidth <= 840) return;
-      setActive(trigger.dataset.philosophyTrigger);
-    });
-  });
-
-  setActive("mission");
-  window.addEventListener("resize", function () {
-    setActive("mission");
-    syncConnector();
-  });
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   setupAboutScrollMotion();
   initCertificationPreview();
-  initSubsidiaryAccordion();
-  initPhilosophyAccordion();
 });

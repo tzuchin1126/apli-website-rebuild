@@ -17,7 +17,8 @@
 }
 
 .operational-resources-page .resources-data-overview {
-  width: min(100%, 960px);
+  width: var(--content-width);
+  max-width: var(--content-max-width);
   margin-inline: auto;
   margin-bottom: clamp(28px, 3vw, 40px);
 }
@@ -658,7 +659,8 @@
 
 /* Match the operational-resources overview width and the reference-style safety split panel. */
 .operational-resources-page #occupational-safety .resource-feature {
-  width: min(100%, 960px);
+  width: var(--content-width);
+  max-width: var(--content-max-width);
   grid-template: "media title" "media body" / minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   column-gap: 0;
@@ -725,7 +727,8 @@
 
 /* The three resource datasets share one stable tabbed presentation. */
 .operational-resources-page .resource-feature--data {
-  width: min(100%, 960px);
+  width: var(--content-width);
+  max-width: var(--content-max-width);
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: "body";
   grid-template-rows: auto;

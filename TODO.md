@@ -1,5 +1,50 @@
 # APLI 專案進度
 
+## 2026-10-19
+- [x] 將首頁最新消息區塊英文小標題由 `LATEST NEWS` 改為 `NEWS`。更新 Home CSS cache key 至 `v92`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
+- [x] 依需求移除首頁斜切色塊與圖片斜切效果，恢復原本的首頁背景與圖片樣式；英文小標題及其他既有首頁調整保留。更新 Home CSS cache key 至 `v91`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
+- [x] 將首頁斜切設計由斜向線條改為大面積純色斜切背景：About 與 Services 使用 `clip-path` 色塊，保留 About 圖片斜切；手機版維持圖片不裁切。更新 Home CSS cache key 至 `v90`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
+- [x] 首頁加入斜切面設計：About 背景增加斜向幾何線條與右側圖片左下斜切，Services 增加斜向背景裝飾；手機版取消圖片裁切以維持內容可讀性。更新 Home CSS cache key 至 `v89`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未執行實體裝置、跨瀏覽器及無障礙人工驗收；未 commit、未 push。
+- [x] 修正首頁 About 區塊樣式責任：將原本套用所有 `.home-intro p` 的介紹段落規則限縮為 `.home-intro__description p`，避免覆蓋 `ABOUT APLI` 英文小標題；讓四個英文小標題真正共用同一組字體、大小、字重與一般文字顏色，`LATEST NEWS` 仍保留白色。更新 Home CSS cache key 至 `v88`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
+- [x] 修正 `ABOUT APLI` 被既有 `.home-page .home-intro p` 白色規則覆蓋的選擇器優先權問題；以與其他一般英文小標題相同的 `var(--color-muted)` 顯示，並保留 `LATEST NEWS` 白色需求。更新 Home CSS cache key 至 `v87`；已重新載入 `http://localhost:5127/` 確認文字可見，並執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`；未執行實體裝置、跨瀏覽器及無障礙人工驗收；未 commit、未 push。
+- [x] 統一首頁英文小標題外觀：移除 `ABOUT APLI` 的專屬深灰色規則，改與 `OUR SERVICES`、`GROUP BUSINESS` 共用相同顏色與字體樣式；`LATEST NEWS` 依既有需求保留白色。更新 Home CSS cache key 至 `v86`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未執行桌機／手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收；未 commit、未 push。
+- [x] 移除未指定的首頁 Hero 英文小標題 `APLI LOGISTICS` 與 `.home-page .home-hero__copy .home-hero__eyebrow` CSS；保留的 `ABOUT APLI`、`OUR SERVICES`、`LATEST NEWS`、`GROUP BUSINESS` 統一使用全域字體、大小與字重，並保留既有顏色差異。更新 Home CSS cache key 至 `v85`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與關鍵字檢查，未執行桌機／手機瀏覽器、實體裝置、跨瀏覽器及無障礙人工驗收；未 commit、未 push。
+- [x] 修正首頁 `ABOUT APLI` 被既有 `.home-intro p` 白色文字規則覆蓋而無法看見的問題，改用 About 標題區塊專屬文字顏色；更新 Home CSS cache key 至 `v84`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並在 `http://localhost:5127/` 實際頁面確認 `ABOUT APLI` 與 `OUR SERVICES` 可見；實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求將首頁「最新消息」區塊 `LATEST NEWS` 英文小標題改為白色文字；更新 Home CSS cache key 至 `v83`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求移除首頁「聯絡我們」CTA 區塊英文小標題，保留「關於亞太」區塊的 `ABOUT APLI` 英文小標題；更新 Home CSS cache key 至 `v82`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依參考圖在首頁 Hero 與主要區塊標題加入英文小標題，採英文小標在上、中文主標在下的層級；更新 Home CSS cache key 至 `v81`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求將字體改為全域套用指定的 Roboto、Noto Sans TC、微軟正黑體等字體堆疊；同步更新所有公開 HTML 的全域 tokens cache key 至 `v8`，移除首頁「我們的服務」局部字體覆寫，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求將首頁「我們的服務」區塊及其標題／卡片文字套用指定的 Roboto、Noto Sans TC、微軟正黑體等字體堆疊；更新 Home CSS cache key 至 `v80`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求恢復 About「認證與獎項」年份文字原本的 `var(--color-primary)` 顏色，其他區塊文字顏色維持不變；更新 About CSS cache key 至 `v163`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 調整 About「認證與獎項」區塊文字為 `#333333`，並將「經營理念」區塊標題／敘述分別改為 `#333333`／`#555555`；更新 About CSS cache key 至 `v162`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 移除 About「子公司簡介」卡片邊線，保留 `rgb(255 208 138)` 背景與深色文字；更新 About CSS cache key 至 `v161`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將 About「子公司簡介」卡片背景改為 `rgb(255 208 138)`，標題與敘述改用全域深色文字，並同步調整卡片框線為深色低透明度；更新 About CSS cache key 至 `v160`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 為 About「經營理念-1」區塊加入既有全域淺灰背景 `var(--color-surface-section)`；更新 About CSS cache key 至 `v159`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將 About「經營理念-1」標題與下方敘述的間距調整為比照「關於亞太」區塊的 `24px`；更新 About CSS cache key 至 `v158`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 移除「經營理念-1」標題群組的頁面專屬下方間距覆寫，改為直接使用全域 `--section-heading-content-gap: 40px` 與全域標題群組間距；更新 About CSS cache key 至 `v157`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 為 About「經營理念-1」標題下方加入指定企業理念敘述，並讓標題群組與卡片內容間距比照全域規則；更新 About CSS cache key 至 `v156`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將 About「經營理念-1／企業價值觀」區塊上下間距調整為與「關於亞太」一致，統一使用 `var(--section-space-sm)`，並移除手機版額外覆寫；更新 About CSS cache key 至 `v155`，已完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依需求刪除 About「經營理念」區塊，保留「經營理念-1／企業價值觀」三張圖片卡片與裝飾線；同步移除舊理念區塊專用 CSS／JavaScript，更新 About CSS cache key 至 `v154`，已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 為 About「經營理念-1／企業價值觀」標題加入與全域一致的橘色漸層裝飾線，桌機 3px、手機 2px，並移除原本標題底線衝突；更新 About CSS cache key 至 `v153`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 About `.about-enterprise-values__grid` 卡片略微放大：網格最大寬度由 960px 調整為 1080px，卡片最小高度與文字內距同步增加；更新 About CSS cache key 至 `v152`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 About「經營理念-1／企業價值觀」三張卡片調整為明亮配色：明亮暖橘、淺青藍與淺橄欖綠，維持 APLI 主題並避免完全複製參考圖；更新 About CSS cache key 至 `v151`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 About「經營理念-1／企業價值觀」三張卡片改用 APLI 自有低彩度品牌色系：暖橘、藍灰與米灰，避免直接沿用參考圖的高彩度黃／藍／綠；更新 About CSS cache key 至 `v150`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 清理 About `.about-enterprise-values` 區塊，移除區塊本身不需要的背景圖片、背景色與背景定位／尺寸設定，保留圖片卡片與版面必要樣式；更新 About CSS cache key 至 `v149`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 為 About「經營理念-1／企業價值觀」三張卡片加入上方圖片、下方文字的上下版型，使用既有 About 圖片資產，原有「經營理念」區塊維持不變；更新 About CSS cache key 至 `v148`，已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 About「經營理念-1／企業價值觀」卡片調整為三張，移除「永續發展」，桌機改為三欄排列、手機維持單欄；原有「經營理念」區塊維持不變，更新 About CSS cache key 至 `v147`，已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 在 About「關於亞太」與原有「經營理念」區塊之間新增參考圖風格的「企業價值觀」區塊：使用企業現場背景圖、置中標題與三張彩色價值卡，桌機三欄排列、手機單欄排列；恢復並保留原有經營理念 UI／UX，更新 About CSS cache key 至 `v146`，已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 依「恢復」要求，將首頁「聯絡我們」區塊標題與說明文字恢復為全域深色文字 `--color-text-primary`／`--color-text-body`；按鈕橘色、CTA 高度與 hover／focus 狀態維持不變，更新 Home CSS cache key 至 `v79`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將首頁「聯絡我們」區塊標題與說明文字恢復為白色，按鈕維持主題橘預設與既有 hover／focus 狀態；更新 Home CSS cache key 至 `v78`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將首頁「聯絡我們」CTA 區塊上下留白縮小：桌機改為 `clamp(48px, 6vw, 80px)`、手機改為 `48px`，降低區塊高度與視覺權重；更新 Home CSS cache key 至 `v77`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將首頁「聯絡我們」按鈕預設背景改為全域主題橘 `--color-primary`、文字改為淺色，hover／focus 改為白底深色文字以保留狀態差異；更新 Home CSS cache key 至 `v76`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將首頁「聯絡我們」區塊標題與說明文字改用全域深色文字色 `--color-text-primary`／`--color-text-body`，按鈕樣式維持不變；更新 Home CSS cache key 至 `v75`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 移除首頁 `.home-page .home-contact` 背景圖片上的深色遮罩，保留背景位置 `center top` 與其他內容樣式；更新 Home CSS cache key 至 `v74`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將首頁 `.home-page .home-contact` 背景圖片改為 `center top`，桌機與手機皆讓圖片內容往下呈現；更新 Home CSS cache key 至 `v73`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 operational-resources 桌機版三個原本限制為 960px 的內容區塊（營運資源標題、資料區塊與職安圖文區塊）改為使用與 About 外層一致的 `--content-width`／`--content-max-width`（桌機最大 1324px），手機版維持既有響應式行為；更新 CSS cache key 至 `v3`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 company-history 頁面垂直時間軸的整體內容區塊最大寬度收窄至 1120px，讓左右留白增加並維持小螢幕既有 `--content-width` 響應式行為；整理實際生效的 APLI 版型規則並更新 CSS cache key 至 `v4`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 company-history 頁面 `.milestones-page .milestone-content-shell.is-vertical-timeline .milestone-vertical__event h3` 字重由一般調整為中等，僅影響垂直時間軸事件標題；更新 CSS cache key 至 `v2`，已完成 `git diff --check`，未執行瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收，未 commit、未 push。
+- [x] 將 About「子公司簡介」改為參考圖內容型卡片：移除 Logo 與圖示，六張卡片僅保留公司名稱與敘述，卡片背景改為 `rgb(0 0 0 / 50%)` 並調整文字對比，使用細框、圓角與 3×2 網格；恢復標題下方與其他 About 區塊一致的細身橘色裝飾線，子公司名稱恢復頁面原本的中等字重，了解更多按鈕維持卡片下方並將按鈕與卡片間距縮短至 16px，保留首頁 hover 動畫，並更新 About CSS cache key 至 v144。已完成 `node --check wwwroot/js/pages/about.js`、`git diff --check`；瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+
 ## 2026-10-18
 - [x] 2026-10-18 依需求為 occupational-safety 頁「專業證照」標題加入與其他頁面一致的 APLI 橘色漸層裝飾線；標題內容寬度、線高 3px、上間距 12px，已更新 CSS cache key 至 v2，完成 `node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`，並以 ASP.NET 實際 occupational-safety 桌機 viewport 驗證標題寬度約 129px、裝飾線高度 3px、上間距 12px；手機畫面、實體裝置、其他瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
 - [x] 2026-10-18 依回饋將 Careers「公司福利」標題改為置中呈現；已更新 Careers CSS cache key 至 v4，完成 `node --check wwwroot/js/site.js`、`git diff --check`，並以 ASP.NET 實際 Careers 桌機 viewport 驗證標題容器與標題中心對齊；手機畫面、實體裝置、其他瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。

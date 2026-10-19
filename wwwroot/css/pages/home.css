@@ -3,6 +3,7 @@
   background: var(--footer-background);
   color: var(--footer-link);
 }
+
 .home-page .site-footer .site-footer__top { border-bottom-color: var(--footer-divider); }
 .home-page .site-footer .site-footer__company p,
 .home-page .site-footer .footer-column__title,
@@ -68,7 +69,7 @@ html.page-ready .home-page .home-hero__slide.is-active img { animation: home-her
 
 @media (max-width: 980px) { .home-page > .home-hero { min-height: clamp(620px, 84svh, 760px); } }
 .home-intro { display: block; }.home-intro h2 { margin: 0 0 24px; font-size: var(--font-size-h2); font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-tight); }
-.home-intro p { color: var(--color-muted); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
+.home-intro__description p { color: var(--color-muted); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
 .home-text-link { display: inline-flex; margin-top: 20px; color: var(--color-primary); font-weight: var(--font-weight-semibold); text-decoration: none; }
 @media (max-width: 760px) { .home-intro { grid-template-columns: 1fr; gap: 40px; } }
 
@@ -200,7 +201,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   line-height: var(--line-height-heading);
 }
 .home-page .home-intro h2 { color: var(--color-ink); }
-.home-page .home-intro p {
+.home-page .home-intro__description p {
   margin: 0;
   color: rgb(255 255 255 / 92%);
   font-size: var(--font-size-body-copy);
@@ -478,27 +479,20 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-contact {
   position: relative;
   isolation: isolate;
-  padding: clamp(72px, 9vw, 132px) 0;
-  background: url("../../public/images/news/news-hero-port-transport.png") center / cover no-repeat;
-  color: var(--color-text-on-dark);
-}
-.home-page .home-contact::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: rgb(15 21 30 / 62%);
-  content: "";
+  padding: clamp(48px, 6vw, 80px) 0;
+  background: url("../../public/images/icon/1.jpg") center top / cover no-repeat;
+  color: var(--color-text-primary);
 }
 @media (min-width: 768px) {
   .home-page .home-contact {
     background-attachment: fixed;
-    background-position: center 45%;
+    background-position: center 50%;
   }
 }
 @media (max-width: 767px) {
   .home-page .home-contact {
     background-attachment: scroll;
-    background-position: center;
+    background-position: center 50%
   }
 }
 .home-page .home-contact__inner {
@@ -511,7 +505,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 }
 .home-page .home-contact h2 {
   margin: 0;
-  color: var(--color-text-on-dark);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
   font-weight: var(--font-weight-heading);
@@ -520,7 +514,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 }
 .home-page .home-contact__intro > p:not(.home-contact__eyebrow) {
   margin: 18px 0 0;
-  color: rgb(255 255 255 / 86%);
+  color: var(--color-text-body);
   font-size: var(--font-size-body-copy);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
@@ -533,8 +527,8 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   justify-content: center;
   padding: 0 28px;
   border-radius: var(--radius-full);
-  background: var(--color-surface);
-  color: var(--color-text-primary);
+  background: var(--color-primary);
+  color: var(--color-text-on-dark);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body-tight);
@@ -544,11 +538,11 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-contact__button:hover,
 .home-page .home-contact__button:focus-visible {
   transform: translateY(-3px);
-  background: var(--color-primary);
-  color: var(--color-text-on-dark);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 }
 @media (max-width: 767px) {
-  .home-page .home-contact { padding: 68px 0; }
+  .home-page .home-contact { padding: 48px 0; }
   .home-page .home-contact__inner { grid-template-columns: 1fr; width: calc(100% - 24px); gap: 28px; }
   .home-page .home-contact__button { min-width: 160px; min-height: 52px; justify-self: start; }
 }
@@ -823,7 +817,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   padding-block: var(--section-space-sm);
 }
 
-.home-page .home-intro p,
+.home-page .home-intro__description p,
 .home-page .home-services-compare__details {
   max-width: 50rem;
 }
@@ -3276,5 +3270,26 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 
   .home-page .home-contact__button {
     justify-self: center;
+  }
+}
+
+/* Keep the section eyebrow treatment above later homepage component overrides. */
+.home-page .home-section-eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: .12em;
+  line-height: var(--line-height-body-tight);
+  text-transform: uppercase;
+}
+.home-page .home-latest__heading .home-section-eyebrow {
+  color: var(--color-surface);
+}
+@media (max-width: 760px) {
+  .home-page .home-section-eyebrow {
+    font-size: .75rem;
+    letter-spacing: .1em;
   }
 }

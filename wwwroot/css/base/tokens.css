@@ -26,7 +26,7 @@
   --color-line: var(--color-border);
   --nav-underline-size: 2px;
 
-  --font-body: "Noto Sans TC", Arial, "PingFang TC", sans-serif;
+  --font-body: "Roboto", "Noto Sans TC", "微軟正黑體", "Microsoft JhengHei", "Heiti TC", "黑體", "Nunito Sans", sans-serif;
   --font-heading: "Noto Serif TC", "Songti TC", serif;
   --font-weight-regular: 400;
   --font-weight-heading: 500;

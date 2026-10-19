@@ -15,8 +15,8 @@
 .about-page .about-profile__copy { display: grid; justify-items: start; gap: 0; width: 100%; margin: 0; text-align: left; }
 .about-page .about-profile__lead { position: relative; width: fit-content; margin: 0 0 24px; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
 .about-page .about-profile__lead::after,
-.about-page .about-philosophy-editorial .about-section-heading h2::after,
 .about-page .about-certifications-preview .about-section-heading h2::after,
+.about-page .about-enterprise-values .about-section-heading h2::after,
 .about-page .about-subsidiaries__heading h2::after { display: block; width: 100%; height: 3px; margin-top: var(--section-heading-accent-gap); background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%); content: ""; }
 .about-page .about-profile__body { display: grid; gap: var(--section-content-gap); margin: 0; padding: 0; }
 .about-page .about-profile__body p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
@@ -29,12 +29,6 @@
 .about-page.about-motion-ready .about-profile__media { opacity: 0; will-change: opacity, transform; }
 .about-page.about-motion-ready .about-profile.is-visible .about-profile__copy { animation: about-profile-copy-in 1100ms cubic-bezier(.16, 1, .3, 1) 120ms both; }
 .about-page.about-motion-ready .about-profile.is-visible .about-profile__media { animation: about-profile-media-in 1100ms cubic-bezier(.16, 1, .3, 1) 120ms both; }
-.about-page.about-motion-ready .about-philosophy-editorial.about-scroll-reveal { transform: none; }
-.about-page.about-motion-ready .about-philosophy-editorial.about-scroll-reveal.is-visible { animation: about-profile-fade-in 800ms ease-out both; }
-.about-page.about-motion-ready .about-philosophy-editorial.is-visible .about-philosophy-editorial__card { opacity: 0; transform: translate3d(0, 28px, 0); backface-visibility: hidden; will-change: opacity, transform; animation: about-philosophy-card-in 760ms cubic-bezier(.16, 1, .3, 1) both; }
-.about-page.about-motion-ready .about-philosophy-editorial.is-visible .about-philosophy-editorial__card:nth-child(1) { animation-delay: 100ms; }
-.about-page.about-motion-ready .about-philosophy-editorial.is-visible .about-philosophy-editorial__card:nth-child(2) { animation-delay: 300ms; }
-.about-page.about-motion-ready .about-philosophy-editorial.is-visible .about-philosophy-editorial__card:nth-child(3) { animation-delay: 500ms; }
 .about-page.about-motion-ready .about-certifications-preview__content-shell { opacity: 1; transform: none; }
 .about-page.about-motion-ready .about-certifications-preview.is-visible .about-certifications-preview__track { animation: about-certifications-hint 1s ease both; backface-visibility: hidden; will-change: transform; }
 
@@ -59,10 +53,6 @@
 }
 
 
-@keyframes about-philosophy-card-in {
-  from { opacity: 0; transform: translate3d(0, 28px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
 
 @keyframes about-certifications-hint {
   0% { transform: translate3d(0, 0, 0); }
@@ -72,21 +62,16 @@
 
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
 .about-section-heading h2 { margin-bottom: 0; }
-.about-page .about-philosophy-editorial { padding-block: var(--section-space-sm); background: var(--color-surface-subtle); }
-.about-page .about-philosophy-editorial .about-section-heading { justify-items: center; width: 100%; margin: 0 0 var(--section-heading-content-gap); text-align: center; }
-.about-page .about-philosophy-editorial .about-section-heading h2 { position: relative; width: fit-content; padding: 0; border: 0; text-align: center; }
-.about-page .about-philosophy-editorial .about-section-heading h2::after { margin-inline: auto; }
-.about-page .about-philosophy-editorial__intro { max-width: 48rem; margin: 24px auto 0; color: var(--color-text-body); font-size: var(--font-size-body-copy); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); text-align: center; }
 .about-page .about-section-heading--left { justify-items: start; margin-bottom: 0; text-align: left; }
-.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; color: var(--color-text-primary); }
+.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; color: #333333; }
 .about-page .about-certifications-preview .about-section-heading { justify-items: start; width: 100%; margin: 0; text-align: left; }
-.about-page .about-certifications-preview .about-section-heading h2 { position: relative; width: fit-content; margin: 0; padding-block: 0; border: 0; color: var(--color-text-primary); font-weight: var(--font-weight-heading); text-align: left; }
+.about-page .about-certifications-preview .about-section-heading h2 { position: relative; width: fit-content; margin: 0; padding-block: 0; border: 0; color: #333333; font-weight: var(--font-weight-heading); text-align: left; }
 .about-page .about-certifications-preview__header { display: grid; justify-items: start; gap: 24px; margin-bottom: clamp(32px, 3vw, 44px); text-align: left; }
 .about-page .about-certifications-preview__nav { display: flex; justify-content: flex-start; gap: clamp(16px, 2vw, 24px); width: max-content; max-width: 100%; margin-inline: 0; border-bottom: 1px solid var(--color-border); overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
 .about-page .about-certifications-preview__nav::-webkit-scrollbar { display: none; width: 0; height: 0; }
-.about-page .about-certifications-preview__nav button { position: relative; flex: 0 0 auto; min-height: 48px; padding: 0; border: 0; background: transparent; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body-tight); white-space: nowrap; cursor: pointer; }
+.about-page .about-certifications-preview__nav button { position: relative; flex: 0 0 auto; min-height: 48px; padding: 0; border: 0; background: transparent; color: #333333; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body-tight); white-space: nowrap; cursor: pointer; }
 .about-page .about-certifications-preview__nav button::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: transparent; content: ""; }
-.about-page .about-certifications-preview__nav button[data-active="true"] { color: var(--color-text-primary); }
+.about-page .about-certifications-preview__nav button[data-active="true"] { color: #333333; }
 .about-page .about-certifications-preview__nav button[data-active="true"]::after { background: var(--color-primary); }
 .about-page .about-certifications-preview__nav button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
 .about-page .about-certifications-preview__carousel { display: block; width: var(--preview-carousel-width); margin-inline: auto; }
@@ -116,9 +101,9 @@
 .about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 20px; border: 0; border-radius: 18px; background: #f7f7f7; box-shadow: none; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; padding: 0; border: 0; background: transparent; }
 .about-page .about-certifications-preview__event + .about-certifications-preview__event { border-top: 0; }
-.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: var(--color-text-body); font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: #333333; font-family: var(--font-body); font-size: var(--font-size-card-description); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 .about-page .about-certifications-preview__event h4::before { position: absolute; top: .67em; left: 2px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; content: ""; }
-.about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: var(--color-text-body); font-size: var(--font-size-body-sm); }
+.about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: #333333; font-size: var(--font-size-body-sm); }
 
 @media (min-width: 768px) {
   .about-page .about-certifications-preview__carousel { width: calc(100% - var(--content-inset)); margin-right: 0; margin-left: var(--content-inset); }
@@ -165,17 +150,14 @@
 }
 
 @media (max-width: 840px) {
-  .about-page .about-profile,
-  .about-page .about-philosophy-editorial { background-image: none; }
-  .about-page .about-philosophy-editorial .about-section-heading { width: 100%; margin-bottom: clamp(48px, 12vw, 72px); text-align: center; }
-  .about-page .about-philosophy-editorial .about-section-heading .about-philosophy-editorial__intro { width: 100%; }
+  .about-page .about-profile { background-image: none; }
 }
 
 
 @media (max-width: 640px) {
   .about-page .about-profile__lead::after,
-  .about-page .about-philosophy-editorial .about-section-heading h2::after,
   .about-page .about-certifications-preview .about-section-heading h2::after,
+  .about-page .about-enterprise-values .about-section-heading h2::after,
   .about-page .about-subsidiaries__heading h2::after { height: 2px; }
 }
 
@@ -225,8 +207,7 @@
     transition: none;
   }
   .about-page.about-motion-ready .about-profile__copy,
-  .about-page.about-motion-ready .about-profile__media,
-  .about-page.about-motion-ready .about-philosophy-editorial.is-visible .about-philosophy-editorial__card {
+  .about-page.about-motion-ready .about-profile__media {
     opacity: 1;
     transform: none;
     animation: none;
@@ -246,68 +227,94 @@
 
 }
 
-/* Philosophy: keep the centered ellipse stack independent from the right detail panel. */
-.about-page .about-philosophy-editorial {
-  background-color: #f7f8fa;
-  background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/04.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+/* 企業價值觀：以背景影像襯托錯落排列的價值卡片。 */
+.about-page .about-enterprise-values {
+  padding-block: var(--section-space-sm);
+  background: var(--color-surface-section);
 }
-.about-page .about-philosophy-editorial__arc-stack { position: relative; display: block; max-width: 1120px; min-height: 336px; margin-inline: auto; }
-.about-page .about-philosophy-editorial__card { position: relative; display: flex; width: 100%; min-height: 128px; align-items: center; justify-content: center; padding: 22px 48px 32px; border: 2px solid rgb(245 130 20 / 78%); border-radius: 50%; background: rgb(245 130 20 / 8%); color: var(--color-primary); cursor: pointer; box-shadow: none; transition: background-color 280ms ease, border-color 280ms ease, color 280ms ease, transform 280ms ease; }
-.about-page .about-philosophy-editorial__card { width: min(100%, 380px); margin-inline: auto; }
-.about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { margin-top: -24px; }
-.about-page .about-philosophy-editorial__card--mission { z-index: 1; }
-.about-page .about-philosophy-editorial__card--values { z-index: 2; }
-.about-page .about-philosophy-editorial__card--vision { z-index: 3; }
-.about-page .about-philosophy-editorial__card:hover,
-.about-page .about-philosophy-editorial__card:focus-visible,
-.about-page .about-philosophy-editorial__card.is-active { border-color: var(--color-primary); background: rgb(245 130 20 / 16%); color: var(--color-primary-dark); transform: scale(1.02); }
-.about-page .about-philosophy-editorial__card:focus-visible { outline: 3px solid var(--color-text-primary); outline-offset: 5px; }
-.about-page .about-philosophy-editorial__card-title { font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
-.about-page .about-philosophy-editorial__details { position: absolute; top: var(--philosophy-detail-top, 50%); left: calc(50% + 230px); width: min(calc(50% - 230px), 400px); min-height: 0; margin: 0; padding: 0 0 0 32px; box-sizing: border-box; background: transparent; text-align: left; }
-.about-page .about-philosophy-editorial__details::before { position: absolute; top: var(--philosophy-connector-top, 50%); left: var(--philosophy-connector-left, -64px); width: var(--philosophy-connector-width, 64px); height: 2px; background: var(--color-primary); content: ""; transform: translateY(-50%); transition: top 420ms ease; }
-.about-page .about-philosophy-editorial__details.is-connector-entering::before { animation: about-philosophy-connector-draw 420ms ease both; }
-.about-page .about-philosophy-editorial__detail.is-entering { animation: about-philosophy-detail-slide-in 420ms ease both; }
-.about-page .about-philosophy-editorial__detail h3 { margin: 0 0 8px; color: var(--color-text-primary); font-size: 24px; font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); }
-.about-page .about-philosophy-editorial__detail p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body-lg); line-height: var(--line-height-body); }
+.about-page .about-enterprise-values .about-section-heading {
+  gap: 24px;
+}
+.about-page .about-enterprise-values .about-section-heading h2 {
+  position: relative;
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  color: #333333;
+  text-align: center;
+}
+.about-page .about-enterprise-values .about-section-heading h2::after { margin-inline: auto; }
+.about-page .about-enterprise-values .about-section-heading p {
+  max-width: 48rem;
+  margin: 0;
+  color: #555555;
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body);
+}
+.about-page .about-enterprise-values__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: min(100%, 1080px);
+  margin-inline: auto;
+}
+.about-page .about-enterprise-values__card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 196px;
+  overflow: hidden;
+  color: #164b73;
+}
+.about-page .about-enterprise-values__media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+}
+.about-page .about-enterprise-values__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-page .about-enterprise-values__body {
+  flex: 1;
+  padding: 30px 32px 34px;
+}
+.about-page .about-enterprise-values__card h3 {
+  margin: 0 0 18px;
+  color: inherit;
+  font-size: var(--font-size-card-title-compact);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+}
+.about-page .about-enterprise-values__card p {
+  margin: 0;
+  color: inherit;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+.about-page .about-enterprise-values__card--customer { background: #ffd08a; }
+.about-page .about-enterprise-values__card--professional { background: #b9e3eb; }
+.about-page .about-enterprise-values__card--innovation { background: #d7edb4; }
 @media (max-width: 840px) {
-  .about-page .about-philosophy-editorial { background-image: none; }
-  .about-page .about-philosophy-editorial__arc-stack { max-width: 760px; min-height: 0; }
-  .about-page .about-philosophy-editorial__card { width: min(100%, 300px); }
-  .about-page .about-philosophy-editorial__details { position: relative; top: auto; left: auto; display: grid; gap: clamp(28px, 8vw, 40px); width: 100%; margin-top: 64px; padding: 0; text-align: left; }
-  .about-page .about-philosophy-editorial__details::before { display: none; }
-  .about-page .about-philosophy-editorial__detail { display: block; text-align: left; }
-  .about-page .about-philosophy-editorial__detail h3 { font-size: var(--font-size-card-title-compact); font-weight: var(--font-weight-medium); text-align: left; }
-  .about-page .about-philosophy-editorial__detail p { font-weight: var(--font-weight-regular); text-align: left; }
-  .about-page .about-philosophy-editorial__card:hover,
-  .about-page .about-philosophy-editorial__card:focus-visible,
-  .about-page .about-philosophy-editorial__card.is-active { transform: scale(1.015); }
+  .about-page .about-enterprise-values__grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
 }
 @media (max-width: 640px) {
-  .about-page .about-philosophy-editorial__card { min-height: 100px; padding: 20px 42px 28px 24px; }
-  .about-page .about-philosophy-editorial__card + .about-philosophy-editorial__card { margin-top: -14px; }
-  .about-page .about-philosophy-editorial__card-title { font-size: 1.125rem; }
-  .about-page .about-philosophy-editorial__details { padding: 0 8px; }
-  .about-page .about-philosophy-editorial__detail h3 { margin-bottom: 8px; font-size: 24px; }
-  .about-page .about-philosophy-editorial__detail p { font-size: var(--font-size-body); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .about-page .about-philosophy-editorial__card { transition: none; }
-  .about-page .about-philosophy-editorial__details::before { transition: none; }
-  .about-page .about-philosophy-editorial__details.is-connector-entering::before { animation: none; }
-  .about-page .about-philosophy-editorial__detail.is-entering { animation: none; }
-}
-
-@keyframes about-philosophy-detail-slide-in {
-  from { opacity: 0; transform: translate3d(28px, 0, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes about-philosophy-connector-draw {
-  from { width: 0; }
-  to { width: var(--philosophy-connector-width); }
+  .about-page .about-enterprise-values__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .about-page .about-enterprise-values__card,
+  .about-page .about-enterprise-values__card:nth-child(odd) {
+    min-height: 0;
+    transform: none;
+  }
+  .about-page .about-enterprise-values__body { padding: 24px; }
 }
 
 .about-page .about-affiliates-cta {
@@ -449,10 +456,10 @@
   height: auto;
 }
 
-/* 子公司簡介：以參考圖的標題與口風琴排列呈現各事業群。 */
+/* 子公司簡介：左側文字、右側以色彩卡片排列白色 Logo。 */
 .about-page .about-subsidiaries {
   padding-block: var(--section-space-sm);
-  background: var(--color-surface);
+  background: var(--color-surface-section);
 }
 
 .about-page .about-subsidiaries__inner {
@@ -477,145 +484,144 @@
   line-height: var(--line-height-heading);
 }
 
-.about-page .about-subsidiaries__accordion {
-  width: min(100%, 1080px);
+.about-page .about-subsidiaries__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 960px);
   margin-inline: auto;
+  gap: 24px;
+  min-width: 0;
+}
+
+.about-page .about-subsidiaries__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.about-page .about-subsidiaries .home-text-link {
+  display: inline-flex;
+  width: fit-content;
+  min-height: var(--button-primary-min-height);
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-primary-gap);
+  margin: 0;
+  padding: 0 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--button-primary-radius);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-normal);
+  line-height: 1;
+  text-decoration: none;
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+.about-page .about-subsidiaries .home-text-link:hover {
+  border-color: var(--color-text-primary);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+.about-page .about-subsidiaries .home-text-link:focus-visible {
+  border-color: var(--color-text-primary);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+
+.about-page .about-subsidiaries .home-intro__arrow-window {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  overflow: hidden;
+  color: currentColor;
+}
+
+.about-page .about-subsidiaries .home-text-link__icon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateX(0);
+  transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out;
+}
+
+.about-page .about-subsidiaries .home-text-link__icon:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-110%);
+}
+
+.about-page .about-subsidiaries .home-text-link:hover .home-text-link__icon:first-child,
+.about-page .about-subsidiaries .home-text-link:focus-visible .home-text-link__icon:first-child {
+  opacity: 0;
+  transform: translateX(110%);
+}
+
+.about-page .about-subsidiaries .home-text-link:hover .home-text-link__icon:nth-child(2),
+.about-page .about-subsidiaries .home-text-link:focus-visible .home-text-link__icon:nth-child(2) {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-subsidiaries .home-text-link,
+  .about-page .about-subsidiaries .home-text-link__icon {
+    transition: none;
+  }
 }
 
 .about-page .about-subsidiary {
-  border-bottom: 1px solid var(--color-line);
-}
-
-.about-page .about-subsidiary.is-open {
-  border-bottom: 0;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  min-height: 190px;
+  min-width: 0;
+  padding: 30px 24px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: rgb(255 208 138);
 }
 
 .about-page .about-subsidiary h3 {
-  margin: 0;
-}
-
-.about-page .about-subsidiary__trigger {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 28px;
-  align-items: center;
-  width: 100%;
-  min-height: 80px;
-  gap: 18px;
-  padding: 16px 8px;
-  border: 0;
-  background: transparent;
+  margin: 0 0 20px;
   color: var(--color-text-primary);
-  cursor: pointer;
-  font: inherit;
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-medium);
-  text-align: left;
-  transition: background-color 180ms ease, color 180ms ease;
+  line-height: var(--line-height-heading);
 }
 
-.about-page .about-subsidiary__trigger:hover,
-.about-page .about-subsidiary__trigger:focus-visible {
-  background: var(--color-surface-subtle);
-  color: var(--color-primary);
-}
-
-.about-page .about-subsidiary__trigger:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: -2px;
-}
-
-.about-page .about-subsidiary__label {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-  gap: 16px;
-  font-weight: var(--font-weight-regular);
-}
-
-.about-page .about-subsidiary__logo {
-  display: block;
-  flex: 0 0 auto;
-  width: 160px;
-  height: 56px;
-  object-fit: contain;
-  object-position: left center;
-}
-
-.about-page .about-subsidiary__trigger > svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: var(--color-muted);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
-  transition: transform 180ms ease, stroke 180ms ease;
-}
-
-.about-page .about-subsidiary.is-open .about-subsidiary__trigger > svg {
-  transform: rotate(180deg);
-  stroke: var(--color-primary);
-}
-
-.about-page .about-subsidiary__panel {
-  max-height: 0;
-  overflow: hidden;
-  margin-inline: 0;
-  padding: 0 8px;
-  border-block-start: 1px solid var(--color-line);
-  background: var(--color-surface-subtle);
-  opacity: 0;
-  transition: max-height 280ms ease, padding-block 280ms ease, opacity 180ms ease;
-}
-
-.about-page .about-subsidiary__panel p {
-  max-width: 900px;
+.about-page .about-subsidiary p {
   margin: 0;
-  padding-inline-start: var(--content-padding);
   color: var(--color-text-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
-.about-page .about-subsidiary.is-open .about-subsidiary__panel {
-  max-height: 12rem;
-  padding-block: 12px 18px;
-  opacity: 1;
-}
-
 @media (max-width: 640px) {
-  .about-page .about-subsidiary__trigger {
-    grid-template-columns: minmax(0, 1fr) 24px;
-    min-height: 80px;
-    gap: 12px;
-    padding: 12px 0;
-    font-size: 1.1rem;
+  .about-page .about-subsidiaries__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
   }
 
-  .about-page .about-subsidiary__label {
-    gap: 12px;
+  .about-page .about-subsidiary {
+    min-height: 150px;
+    padding: 22px 14px;
   }
 
-  .about-page .about-subsidiary__logo {
-    width: 128px;
-    height: 46px;
-  }
-
-  .about-page .about-subsidiary__panel {
-    padding-inline: 0;
-  }
-
-  .about-page .about-subsidiary__panel p {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .about-page .about-subsidiary__panel,
-  .about-page .about-subsidiary__trigger,
-  .about-page .about-subsidiary__trigger > svg {
-    transition: none;
+  .about-page .about-subsidiary h3 {
+    margin-bottom: 14px;
   }
 }
 
