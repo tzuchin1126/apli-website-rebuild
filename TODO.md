@@ -1,6 +1,21 @@
 # APLI 專案進度
 
 ## 2026-10-19
+- [x] 移除首頁最新消息區塊背景顏色與透明地球裝飾圖片，改為透明背景並停用 `::before` 圖層；保留新聞列表與內容排版，更新 Home CSS cache key 至 `v107`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，未 commit、未 push。
+- [x] 將首頁最新消息區塊背景改為全域淺灰 token `var(--color-surface-section)`（`#f6f6f6`），保留透明地球左下裝飾與既有內容；更新 Home CSS cache key 至 `v106`，已完成 `git diff --check`，未 commit、未 push。
+- [x] 將首頁最新消息透明地球改為以區塊為定位基準的左下獨立裝飾層：`::before` 使用 `left: 0`、`bottom: 0`、桌面最大寬度 `560px` 與 `contain`，平板／手機縮小並維持內容在上層；更新 Home CSS cache key 至 `v105`。已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際驗證 1440px／1920px／2560px 桌面與 390px 手機：定位固定、透明素材載入、四筆列表、內容層級正確且無水平溢位；實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將首頁最新消息 `::before` 背景圖替換為透明地球素材 `newshero-globe-transparent.png`，保留左下定位、固定尺寸與響應式設定；更新 Home CSS cache key 至 `v104`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際確認桌機／390px 手機載入新圖片、四筆列表與無水平溢位；未 commit、未 push。
+- [x] 從 `newshero.png` 抽出白色／淡白半透明地球科技圖案，移除原背景與右側留白，輸出透明 RGBA PNG `newshero-globe-transparent.png`；原圖保留未覆寫，已確認 `hasAlpha: yes`，未替換現有網站背景引用。
+- [x] 依參考圖方向縮小首頁最新消息左下地球裝飾：桌面固定 `1400px` 原圖寬度並以 `-90px bottom` 定位，平板 `1000px`、手機 `520px` 並降低手機透明度；保留 `::before` 背景層、淺灰藍延伸底色與內容可讀性，更新 Home CSS cache key 至 `v103`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際驗證 1440px／1920px／2560px 桌面與 390px 手機：地球尺寸／位置固定、四筆列表、背景滿版與無水平溢位；未 commit、未 push。
+- [x] 將首頁最新消息背景圖層由垂直置中改為左下對齊，桌面固定原圖尺寸，手機維持固定縮小尺寸並以左側偏移貼近左下角；更新 Home CSS cache key 至 `v102`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際驗證 1440px／1920px／2560px 桌面與 390px 手機背景均為左下定位、圖片尺寸固定且無水平溢位；未 commit、未 push。
+- [x] 將首頁最新消息背景改為獨立 `::before` 圖層：桌面固定 `2048px` 原圖尺寸並左側定位，平板／手機使用較小固定尺寸與位置，區塊以相近底色延伸超寬畫面；移除 `background-size: cover`，更新 Home CSS cache key 至 `v101`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際驗證 1440px／1920px／2560px 桌面與 390px 手機：背景圖尺寸／位置固定、區塊滿版、四筆列表與無水平溢位；未 commit、未 push。
+- [x] 將首頁最新消息區塊背景改用 `wwwroot/public/images/index/newshero.png`，設定為置中、`cover` 且不重複；更新 Home CSS cache key 至 `v100`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際確認桌機／390px 手機背景圖片載入與手機無水平溢位；未 commit、未 push。
+- [x] 將首頁最新消息日期／分類文字再縮小為全域 `--font-size-body-sm`，標題維持 `--font-size-body-lg` 以凸顯標題；更新 Home CSS cache key 至 `v98`，已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際確認桌機／390px 手機字級與手機無水平溢位；未 commit、未 push。
+- [x] 縮短首頁最新消息列表日期／分類與標題的間距，以及標題到水平分隔線的留白；桌機項目內距調為 `20px`、手機 `16px`、標題上間距 `8px`，更新 Home CSS cache key 至 `v97`；已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際驗證桌機／390px 手機間距與手機無水平溢位；未 commit、未 push。
+- [x] 依回饋再次縮小首頁最新消息列表文字：日期／分類改用全域 `--font-size-body`，標題改用 `--font-size-body-lg`，桌機與手機一致；更新 Home CSS cache key 至 `v96`，已完成 `git diff --check` 並重新驗證桌機／手機實際字級；未 commit、未 push。
+- [x] 將首頁最新消息列表日期／分類與標題字級改用全域 `--font-size-body-lg`、`--font-size-card-title` 與手機 `--font-size-card-title-compact`，移除頁面專用 `clamp()` 字級；更新 Home CSS cache key 至 `v95`，已完成 `git diff --check` 並重新驗證桌機／手機實際字級；未 commit、未 push。
+- [x] 將首頁最新消息改為參考圖的日期／分類同列、標題下一行與水平分隔線列表，首頁前台與 ASP.NET 首次渲染同步只顯示前四筆；隱藏圖片與箭頭並保留新聞連結。更新 Home CSS／JS cache key 至 `v94`／`v3`；已完成 `dotnet build -c Release`、`node --check wwwroot/js/pages/home.js`、`git diff --check`，並以 ASP.NET 實際首頁驗證桌機 1432px／手機 390px：四筆列表、SSR／API 結構一致、手機無水平溢位；實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 移除首頁最新消息區塊的深色背景與白色文字覆寫，改為透明背景及全域深色文字／分隔線；更新 Home CSS cache key 至 `v93`。已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，桌機／手機瀏覽器、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行；未 commit、未 push。
 - [x] 將首頁最新消息區塊英文小標題由 `LATEST NEWS` 改為 `NEWS`。更新 Home CSS cache key 至 `v92`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
 - [x] 依需求移除首頁斜切色塊與圖片斜切效果，恢復原本的首頁背景與圖片樣式；英文小標題及其他既有首頁調整保留。更新 Home CSS cache key 至 `v91`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。
 - [x] 將首頁斜切設計由斜向線條改為大面積純色斜切背景：About 與 Services 使用 `clip-path` 色塊，保留 About 圖片斜切；手機版維持圖片不裁切。更新 Home CSS cache key 至 `v90`；已執行 `git diff --check`、`node --check wwwroot/js/pages/home.js`，未 commit、未 push。

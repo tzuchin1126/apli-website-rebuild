@@ -18,7 +18,7 @@ public static class NewsSeoService
     public const string NewsListMarker = "<!-- news-list-items -->";
 
     // 首頁「最新消息」區塊最多顯示幾則新聞
-    private const int HomeLatestItemCount = 8;
+    private const int HomeLatestItemCount = 4;
 
     // 舊資料若使用預設新聞圖,詳細頁用此路徑辨識
     private const string DefaultNewsImagePath = "/public/images/index/news.png";
@@ -244,7 +244,7 @@ public static class NewsSeoService
                         "<time class='home-latest__date' datetime='" + date + "'>" + date + "</time>" +
                         "<span class='home-latest__category'>" + tag + "</span></span>\n" +
                "    <span class='home-latest__title-row'>" +
-                        "<strong>" + Encode(item.Title) + "</strong>" +
+                        "<h3>" + Encode(item.Title) + "</h3>" +
                         "<span class='home-latest__more' aria-hidden='true'>" + arrow + "</span></span>\n" +
                "  </span>\n" +
                "</a>\n";

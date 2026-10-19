@@ -184,7 +184,7 @@ function compareLatestNews(left, right) {
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
-  const homeNewsLimit = 5;
+  const homeNewsLimit = 4;
   const homeNewsProbeLimit = homeNewsLimit + 1;
   const moreLink = document.createElement("a");
   moreLink.className = "home-latest__more-link";
@@ -343,7 +343,15 @@ function setupLatestNews() {
     more.setAttribute("aria-hidden", "true");
     more.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
 
-    link.append(date, category, title, more);
+    const meta = document.createElement("span");
+    meta.className = "home-latest__meta";
+    meta.append(date, category);
+
+    const titleRow = document.createElement("span");
+    titleRow.className = "home-latest__title-row";
+    titleRow.append(title, more);
+
+    link.append(meta, titleRow);
     return link;
   }
 

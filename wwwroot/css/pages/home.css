@@ -3031,28 +3031,103 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   .home-page .home-latest__date, .home-page .home-latest__item h3 { font-size: 1rem !important; }
 }
 
-/* Dark latest-news surface requested for the homepage reference treatment. */
+/* Keep the latest-news section on the page surface with the standard dark text hierarchy. */
 .home-page .home-latest {
-  background: #2b3039 !important;
+  background: transparent !important;
+  background-image: none !important;
+  overflow: hidden;
+}
+.home-page .home-latest::before {
+  display: none !important;
+}
+.home-page .home-latest__inner {
+  position: relative;
+  z-index: 1;
 }
 .home-page .home-latest h2,
 .home-page#main-content .home-latest h2,
 .home-page .home-latest__item h3 {
-  color: #fff !important;
+  color: var(--color-text-primary) !important;
 }
 .home-page .home-latest__date {
-  color: rgb(255 255 255 / 72%) !important;
+  color: var(--color-text-body) !important;
 }
 .home-page .home-latest__item {
-  border-color: rgb(255 255 255 / 20%) !important;
+  border-color: var(--color-border) !important;
 }
 .home-page .home-latest__item:hover,
 .home-page .home-latest__item:focus-visible {
-  background: rgb(255 255 255 / 8%) !important;
+  background: transparent !important;
 }
 .home-page#main-content .home-latest__item:hover h3,
 .home-page#main-content .home-latest__item:focus-visible h3 {
-  color: #fff !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Match the reference news list: metadata on top, title below, four visible rows. */
+.home-page .home-latest__item {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-items: start !important;
+  min-height: 0 !important;
+  gap: 0 !important;
+  padding: 20px 0 !important;
+}
+.home-page .home-latest__item:first-child { border-top: 0 !important; }
+.home-page .home-latest__item:last-child { border-bottom: 1px solid var(--color-border) !important; }
+.home-page .home-latest__meta {
+  display: flex !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  align-items: baseline !important;
+  gap: 16px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--color-primary) !important;
+  font-size: var(--font-size-body-sm) !important;
+  line-height: 1.4 !important;
+}
+.home-page .home-latest__date,
+.home-page .home-latest__category {
+  display: inline !important;
+  color: var(--color-primary) !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+.home-page .home-latest__title-row { display: contents !important; }
+.home-page .home-latest__item h3 {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  min-width: 0 !important;
+  margin: 8px 0 0 !important;
+  color: var(--color-text-primary) !important;
+  font-size: var(--font-size-body-lg) !important;
+  font-weight: var(--font-weight-normal) !important;
+  line-height: 1.45 !important;
+}
+.home-page .home-latest__more { display: none !important; }
+.home-page .home-latest__item:hover,
+.home-page .home-latest__item:focus-visible { background: transparent !important; }
+
+@media (max-width: 760px) {
+  .home-page .home-latest__item { padding: 16px 0 !important; }
+  .home-page .home-latest__meta { gap: 12px !important; }
+  .home-page .home-latest__item h3 { font-size: var(--font-size-body-lg) !important; }
+}
+@media (min-width: 761px) and (max-width: 1200px) {
+  .home-page .home-latest::before {
+    width: min(45%, 440px);
+    left: 0;
+    bottom: 0;
+  }
+}
+@media (max-width: 760px) {
+  .home-page .home-latest::before {
+    width: min(72%, 300px);
+    left: 0;
+    bottom: 0;
+    opacity: .78;
+  }
 }
 
 /* Use the enterprise marks as the visual focus for the homepage group cards. */
@@ -3285,7 +3360,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   text-transform: uppercase;
 }
 .home-page .home-latest__heading .home-section-eyebrow {
-  color: var(--color-surface);
+  color: var(--color-muted);
 }
 @media (max-width: 760px) {
   .home-page .home-section-eyebrow {
