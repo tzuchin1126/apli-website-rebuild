@@ -28,7 +28,7 @@
   margin: 0;
   color: var(--color-text-primary);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -46,7 +46,7 @@
   max-width: 48em;
   margin: var(--section-content-gap) 0 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
@@ -90,7 +90,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -131,7 +131,7 @@
 .operational-resources-page #occupational-safety .resource-body > p {
   margin: 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
@@ -139,7 +139,7 @@
 .operational-resources-page .resource-body p {
   margin: 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-copy);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-body);
 }
@@ -238,7 +238,7 @@
   margin-inline: auto;
   color: var(--color-text-primary);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -256,7 +256,7 @@
   max-width: 38em;
   margin: var(--section-content-gap) auto 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
@@ -412,7 +412,7 @@
 
 .operational-resources-page .resources-location__node span {
   color: var(--color-text-body);
-  font-size: 0.875rem;
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body-tight);
 }
 
@@ -616,7 +616,7 @@
   }
 
   .operational-resources-page .resources-location .resources-section-heading > p:last-child {
-    font-size: var(--font-size-body-lg);
+    font-size: var(--font-size-body);
   }
 
   .operational-resources-page.resources-location-motion-ready .resources-location__network.is-visible .resources-location__side--left.resources-location__motion,
@@ -688,8 +688,8 @@
 }
 
 .operational-resources-page #occupational-safety .resource-heading h2#occupational-safety-title {
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
-  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-section-heading);
 }
 
 .operational-resources-page #occupational-safety .resource-media--safety img {
@@ -897,7 +897,7 @@
   margin: var(--section-content-gap) 0 0;
   padding-left: 22px;
   color: var(--color-text-muted);
-  font-size: 16px;
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: 32px;
 }

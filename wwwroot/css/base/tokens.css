@@ -26,15 +26,17 @@
   --color-line: var(--color-border);
   --nav-underline-size: 2px;
 
-  --font-body: "Roboto", "Noto Sans TC", "微軟正黑體", "Microsoft JhengHei", "Heiti TC", "黑體", "Nunito Sans", sans-serif;
-  --font-heading: "Noto Serif TC", "Songti TC", serif;
+  --font-body: "Roboto", "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  --font-heading: var(--font-body);
+  /* Explicit exceptions retained for text that was intentionally serif-styled. */
+  --font-special: "Noto Serif TC", "Songti TC", serif;
   --font-weight-regular: 400;
   --font-weight-heading: 500;
   --font-weight-medium: 600;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-normal: var(--font-weight-regular);
-  --font-weight-section-heading: var(--font-weight-medium);
+  --font-weight-section-heading: var(--font-weight-bold);
   /* Polestar-inspired type scale, adapted for Chinese text rendering. */
   --font-size-display: clamp(2.5rem, 5vw, 4rem);
   --font-size-h1: clamp(2rem, 3.5vw, 3rem);
@@ -43,23 +45,48 @@
   --font-size-h3: clamp(1.25rem, 1.8vw, 1.5rem);
   --font-size-card-title: 1.5rem;
   --font-size-card-title-compact: 1.25rem;
+  --font-size-news-title: 18px;
   --font-size-body-lg: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
-  --font-size-body: 1rem;
+  --font-size-body: 16px;
   --font-size-card-description: var(--font-size-body);
   --font-size-body-sm: 0.875rem;
   --font-size-label: 0.875rem;
   --font-size-caption: 0.75rem;
-  --font-size-body-copy: var(--font-size-body-lg);
+  --font-size-body-copy: var(--font-size-body);
   --line-height-heading-tight: 1.1;
   --line-height-heading: 1.2;
   --line-height-body-tight: 1.5;
-  --line-height-body: 1.75;
+  --line-height-body: 1.6;
   --line-height-card-title: var(--line-height-heading);
   --line-height-card-title-compact: var(--line-height-body-tight);
   --line-height-card-description: var(--line-height-body);
-  --letter-spacing-tight: -0.02em;
-  --letter-spacing-body: -0.01875rem;
+  --letter-spacing-tight: normal;
+  --letter-spacing-body: 0.02em;
   --letter-spacing-label: 0.08em;
+
+  /* Shared text roles. Keep role differences explicit instead of applying body metrics to every control. */
+  --type-display-size: var(--font-size-display);
+  --type-display-weight: var(--font-weight-bold);
+  --type-display-line-height: var(--line-height-heading-tight);
+  --type-section-size: var(--font-size-section-heading);
+  --type-section-weight: var(--font-weight-section-heading);
+  --type-section-line-height: var(--line-height-heading);
+  --type-card-size: var(--font-size-card-title-compact);
+  --type-card-weight: var(--font-weight-heading);
+  --type-card-line-height: var(--line-height-card-title-compact);
+  --type-body-size: var(--font-size-body);
+  --type-body-weight: var(--font-weight-regular);
+  --type-body-line-height: var(--line-height-body);
+  --type-body-letter-spacing: var(--letter-spacing-body);
+  --type-supporting-size: var(--font-size-body-sm);
+  --type-supporting-weight: var(--font-weight-regular);
+  --type-supporting-line-height: var(--line-height-body-tight);
+  --type-navigation-size: var(--font-size-body);
+  --type-navigation-weight: var(--font-weight-regular);
+  --type-navigation-line-height: var(--line-height-body-tight);
+  --type-button-size: var(--font-size-body);
+  --type-button-weight: var(--font-weight-normal);
+  --type-button-line-height: var(--line-height-body-tight);
 
   --section-space: clamp(24px, 3vw, 40px);
   --section-space-sm: clamp(48px, 5vw, 64px);
@@ -127,5 +154,22 @@
 @media (max-width: 760px) {
   :root {
     --page-content-start-space: 64px;
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --font-size-body: 15px;
+    --line-height-body: 1.7;
+    --letter-spacing-body: normal;
+  }
+}
+
+/* Reduce heading emphasis on laptop-width layouts while preserving wide desktop weight. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root {
+    --font-weight-heading: var(--font-weight-regular);
+    --font-weight-section-heading: var(--font-weight-medium);
+    --type-display-weight: var(--font-weight-medium);
   }
 }

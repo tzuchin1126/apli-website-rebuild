@@ -438,6 +438,36 @@ function setupServicesCards() {
   }
 }
 
+function setupServicesCardImageFrame() {
+  const grid = document.querySelector(".home-services-compare__grid");
+  const cards = toArray(document.querySelectorAll(".home-services-compare__card"));
+  if (!grid || cards.length === 0 || !("ResizeObserver" in window)) return;
+
+  const updateImageFrame = function () {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      grid.style.removeProperty("--home-services-image-frame-width");
+      grid.style.removeProperty("--home-services-image-frame-height");
+      return;
+    }
+
+    const gridWidth = grid.getBoundingClientRect().width;
+    const gridStyle = getComputedStyle(grid);
+    const gap = parseFloat(gridStyle.columnGap || gridStyle.gap) || 0;
+    const collapsedCardWidth = 100;
+    const expandedCardWidth = gridWidth - (gap * (cards.length - 1)) - (collapsedCardWidth * (cards.length - 1));
+    const media = cards[0].querySelector(".home-services-compare__media");
+    if (!media || expandedCardWidth <= 0) return;
+
+    grid.style.setProperty("--home-services-image-frame-width", `${expandedCardWidth}px`);
+    grid.style.setProperty("--home-services-image-frame-height", `${media.getBoundingClientRect().height}px`);
+  };
+
+  updateImageFrame();
+  const observer = new ResizeObserver(updateImageFrame);
+  observer.observe(grid);
+  window.addEventListener("resize", updateImageFrame, { passive: true });
+}
+
 // ---------------------------------------------------------------------------
 // 啟動
 // ---------------------------------------------------------------------------
@@ -446,5 +476,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setupHeroCarousel();
   setupLatestNews();
   setupServicesCards();
+  setupServicesCardImageFrame();
   setupSectionMotion();
 });

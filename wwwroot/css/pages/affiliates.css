@@ -16,9 +16,11 @@
 
 .affiliate-tabs {
   position: sticky;
-  top: 24px;
+  top: 102px;
+  z-index: 20;
   min-width: 0;
   margin: 0;
+  background: var(--color-surface);
 }
 
 .affiliate-tabs__track {
@@ -141,6 +143,7 @@
 }
 
 .affiliate-oil-company-profile .affiliate-sexin-profile-copy p {
+  font-size: 16px;
   line-height: 1.9;
 }
 
@@ -192,8 +195,9 @@
 .affiliate-panel li {
   color: var(--color-muted);
   font-family: var(--font-body);
-  font-size: var(--font-size-body-lg);
+  font-size: 16px;
   font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-body);
   line-height: var(--line-height-body);
 }
 
@@ -275,7 +279,7 @@
   background: var(--color-surface-subtle);
   color: var(--color-ink);
   quotes: none;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--font-size-body-copy);
   font-weight: var(--font-weight-medium);
   line-height: 1.8;
@@ -283,6 +287,9 @@
 
 .affiliate-oil-quote > span {
   display: block;
+  font-family: var(--font-special);
+  letter-spacing: var(--letter-spacing-body);
+  line-height: var(--line-height-body);
   max-width: none;
 }
 
@@ -290,7 +297,7 @@
   position: absolute;
   top: 26px;
   color: var(--color-primary);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-body);
   font-size: 3rem;
   font-weight: var(--font-weight-medium);
   line-height: 1;
@@ -537,6 +544,12 @@
   font-size: var(--font-size-h3);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-oil-location-detail .affiliate-location-card h4 {
+    font-weight: 500;
+  }
+}
+
 .affiliate-location-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -636,6 +649,7 @@
 }
 
 .affiliate-taronews-copy .affiliate-tagline {
+  color: #497d89;
   font-size: var(--font-size-label);
 }
 
@@ -695,6 +709,12 @@
   line-height: var(--line-height-card-title-compact);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-club-cta .affiliate-section-heading h3 {
+    font-weight: 500;
+  }
+}
+
 .affiliate-panel-details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -711,6 +731,13 @@
 .affiliate-alpha-details .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: var(--line-height-card-title-compact);
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-panel h2,
+  .affiliate-alpha-details .affiliate-section-heading h3 {
+    font-weight: 500;
+  }
 }
 
 .affiliate-panel-details section {
@@ -777,6 +804,12 @@
   line-height: var(--line-height-card-title-compact);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-badminton-redesign .affiliate-panel-details .affiliate-section-heading h3 {
+    font-weight: 500;
+  }
+}
+
 .affiliate-panel-details a {
   color: var(--color-primary-dark);
   text-decoration: underline;
@@ -809,14 +842,33 @@
   font-weight: var(--font-weight-heading);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-sexin-profile-copy h2,
+  .affiliate-sexin-profile-copy h3 {
+    font-weight: 500;
+  }
+}
+
 .affiliate-sexin-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: var(--line-height-card-title-compact);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-sexin-section-heading h3 {
+    font-weight: 500;
+  }
+}
+
 .affiliate-oil-redesign .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: var(--line-height-card-title-compact);
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .affiliate-oil-redesign .affiliate-section-heading h3 {
+    font-weight: 500;
+  }
 }
 
 .affiliate-sexin-profile-recognition {
@@ -1002,6 +1054,7 @@
   grid-template-columns: 12px minmax(0, 1fr);
   gap: 12px;
   align-items: baseline;
+  font-size: 16px;
 }
 
 .affiliate-sexin-services-list li::before {

@@ -10,6 +10,11 @@
   border-radius: var(--button-primary-radius);
   background: var(--button-primary-bg);
   color: var(--button-primary-color);
+  font-family: var(--font-body);
+  font-size: var(--type-button-size);
+  font-weight: var(--type-button-weight);
+  line-height: var(--type-button-line-height);
+  letter-spacing: var(--letter-spacing-body);
   text-decoration: none;
   cursor: pointer;
 }

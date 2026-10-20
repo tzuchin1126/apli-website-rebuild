@@ -16,6 +16,7 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
 }

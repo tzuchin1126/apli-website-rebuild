@@ -53,7 +53,7 @@
 .admin-login h1,
 .admin-header h1 {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: var(--font-weight-heading);
   line-height: 1.25;
@@ -250,7 +250,7 @@
 
 .admin-card__heading h2 {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(1.35rem, 2vw, 1.75rem);
   font-weight: var(--font-weight-heading);
   line-height: 1.35;

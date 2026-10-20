@@ -134,11 +134,10 @@ function initCertificationPreview() {
   if (!preview) {
     return;
   }
-  const nav = document.createElement("div");
   const controls = preview.querySelector("[data-certification-preview-controls]");
   const viewport = preview.querySelector(".about-certifications-preview__content-shell");
   const content = preview.querySelector("[data-certification-preview-content]");
-  if (!nav || !controls || !viewport || !content) {
+  if (!controls || !viewport || !content) {
     return;
   }
 
@@ -244,7 +243,6 @@ function initCertificationPreview() {
     tab.id = "certification-preview-decade-" + decade.start;
     tab.setAttribute("aria-controls", "certification-preview-content");
     tab.textContent = decade.label;
-    nav.append(tab);
     decadeButtons.push(tab);
   });
   markActiveDecadeButton(0);

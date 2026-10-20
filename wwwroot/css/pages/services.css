@@ -206,7 +206,7 @@
   max-width: none;
   margin: 0;
   color: var(--color-text-body);
-  font-size: 16px;
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   text-align: left;
@@ -232,7 +232,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-section-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
   text-align: left;
@@ -250,7 +250,7 @@
   max-width: none;
   margin: var(--section-content-gap) 0 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   text-align: left;
@@ -574,7 +574,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
 }
@@ -614,11 +614,19 @@
   line-height: var(--line-height-card-title);
 }
 
+/* Keep service card headings one step stronger at laptop widths. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .services-page .service-section__details h3,
+  .services-page .services-advantages__grid h3 {
+    font-weight: 500;
+  }
+}
+
 .services-page .service-advantage__number {
   flex: 0 0 auto;
   min-width: 2ch;
   color: var(--color-primary);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: var(--font-weight-heading);
   letter-spacing: 0.08em;
@@ -630,7 +638,7 @@
   padding-left: calc(2ch + 12px);
   margin: 0;
   color: var(--color-muted);
-  font-size: 16px;
+  font-size: var(--font-size-body);
   line-height: var(--line-height-card-description);
 }
 
@@ -1003,7 +1011,7 @@
 
   .services-page .services-advantages__heading h2 {
     font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-section-heading);
     line-height: var(--line-height-card-title);
   }
 

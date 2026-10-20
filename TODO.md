@@ -1,6 +1,97 @@
 # APLI 專案進度
 
 ## 2026-10-20
+
+- [x] 調整職業安全頁 `.safety-page .safety-credential-card__title h3` 的筆電字重：在 `1024–1439px` 加粗一階至 `500`，桌機與手機維持原規則；更新 Occupational Safety CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 About 頁 `.about-page .about-enterprise-values__card h3` 的筆電字重：在 `1024–1439px` 加粗一階至 `500`，桌機與手機維持原規則；更新 About CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整人才招募頁 `.benefits-list__row h3` 的筆電字重：在 `1024–1439px` 加粗一階至 `500`，桌機與手機維持原規則；更新 Careers CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正 affiliates 左側選單滑動固定：將桌面 `.affiliate-tabs` 的 sticky 位置移至固定 Header 下方 `102px`，補上 `z-index: 20` 與背景避免選單文字被 Header 或內容遮住；手機與平板維持原本橫向選單版型，更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 affiliates 油品理念引用文字 `.affiliate-oil-quote > span` 的字距與行高納入全域內文規則，使用 `var(--letter-spacing-body)` 與 `var(--line-height-body)`；保留全裝置特殊字體，更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 affiliates 油品理念引用文字 `.affiliate-oil-quote > span` 的特殊字體改為全裝置共用規則，桌機、筆電與手機皆使用 `var(--font-special)`；保留引號符號樣式並更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 恢復 affiliates 油品理念引用文字的筆電特殊字體：在 `1024–1439px` 將 `.affiliate-oil-quote > span` 改回 `var(--font-special)`，並在 affiliates HTML 載入 `Noto Serif TC`；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 太報標語顏色：為 `.affiliate-taronews-copy .affiliate-tagline` 加入 `color: #497d89`，保留原有字級與排版；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 一般面板與 ALPHA 區塊筆電標題字重：在 `1024–1439px` 將 `.affiliate-panel h2` 與 `.affiliate-alpha-details .affiliate-section-heading h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 羽球區塊筆電標題字重：在 `1024–1439px` 將 `.affiliate-badminton-redesign .affiliate-panel-details .affiliate-section-heading h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 亞柏會舘 CTA 標題筆電字重：在 `1024–1439px` 將 `.affiliate-club-cta .affiliate-section-heading h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 油品據點卡片筆電標題字重：在 `1024–1439px` 將 `.affiliate-oil-location-detail .affiliate-location-card h4` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 油品區塊筆電標題字重：在 `1024–1439px` 將 `.affiliate-oil-redesign .affiliate-section-heading h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 統一 affiliates 頁面主要一般內文規則：將 `.affiliate-panel p` 與 `.affiliate-panel li` 統一為 `16px / 400 / var(--line-height-body) / var(--letter-spacing-body)`，涵蓋公司介紹、服務清單與得獎清單；保留 tagline、年份與地點提示等特殊輔助文字角色。更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 明確套用 affiliates `.affiliate-panel p` 的全域行高：加入 `line-height: var(--line-height-body)`，桌面使用 `1.6`，筆電／手機依全域規則使用 `1.7`；與字距設定一併更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 明確套用 affiliates `.affiliate-panel p` 的全域字距：加入 `letter-spacing: var(--letter-spacing-body)`，桌面使用 `0.02em`，筆電／手機依全域規則使用 `normal`；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 頁面 `.affiliate-sexin-services-list li` 文字大小為 `16px`，保留清單排版、字重與行高；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 頁面 `.affiliate-panel p` 文字大小為 `16px`，保留 `.affiliate-panel li` 與既有行高設定；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 頁面油品公司介紹內文：將 `.affiliate-oil-company-profile .affiliate-sexin-profile-copy p` 統一為 `16px`，保留原行高 `1.9`；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 頁面 `.affiliate-sexin-section-heading h3` 的筆電字重：在 `1024–1439px` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 affiliates 頁面筆電寬度標題字重：在 `1024–1439px` 將 `.affiliate-sexin-profile-copy h2` 與 `h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 affiliates CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整服務頁筆電寬度標題字重：在 `1024–1439px` 僅將 `.services-page .service-section__details h3` 與 `.services-page .services-advantages__grid h3` 加粗一階至 `500`，桌機與手機維持原規則；更新 services CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 建立全站筆電寬度標題字重規則：在既有 `1024–1439px` 範圍將一般標題 `500→400`、區塊／大標題 `700→600`，同步讓 display title 降至 `600`；`1440px` 以上維持目前字重，內文、按鈕與特殊 Hero `400` 不變。服務頁直接使用 bold 的區塊標題改接共用 token，並更新全站 tokens cache key 至 `20261020-global-typography-v13`；完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，桌機／筆電／手機瀏覽器畫面驗證尚未完成。
+
+- [x] 統一首頁「關於亞太」區塊標題粗度：將 `.home-intro h2` 與 `.home-intro__heading h2` 從 `--font-weight-heading`（500）改為與「我們的服務／最新消息」一致的 `--font-weight-section-heading`（700）；更新 Home CSS cache key，完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正首頁「我們的服務」展開卡片兩側露出背景：確認 `home.js` 仍以 `expandedCardWidth * 0.96` 計算固定圖片寬度，與已改為 `100%` 的媒體框不一致；改為固定圖片寬度直接使用最大展開卡片寬度，保留圖片不隨 hover 縮放。已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除首頁「我們的服務」卡片展開時的白色邊：確認白邊來自圖片媒體框與內容遮罩層各自保留 `2%` inset，改為桌面與手機皆完整貼齊卡片 `inset: 0`、`100%` 寬高；保留固定圖片框、裁切與 hover 展開行為。已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 恢復首頁「集團事業群」原本視覺：確認重構後 `.home-affiliates__body` 錯套用較早的底部標題樣式，改回原本最後生效的隱藏文字層，保留 Logo 卡片與 HTML 文字內容；已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js` 與 `dotnet build -c Release`，本次桌面／手機瀏覽器畫面驗證尚未完成。
+- [x] 修復首頁「集團事業群」重構退化：以重構前 Git 版本後段實際生效的 Logo 卡片版為準，恢復 1080px 內容寬度、桌面／平板 3 欄、手機 2 欄、`2.35 / 1` 與 `1.65 / 1` 卡片比例、Logo `object-fit: contain`、第二張 Logo 的 `50% 15%` 裁切位置與既有 hover；將 `.home-affiliates` 底部 padding 恢復為 `clamp(80px, 9vw, 128px)`，修復與「聯絡我們」CTA 的留白。已以同一瀏覽器分頁比對 Git 參考與修復版桌面 `1440px`、平板 `1024px`、手機 `390px`，卡片尺寸／排列／圖片裁切一致；另逐一 hover 六張卡片並確認圖片 transition、文字與 Alpha 卡片互動未受影響；未 commit、未 push。
+- [x] 修正首頁「我們的服務」收合卡片直排標題置中：將 `::after` 的定位、尺寸、直排與淡入淡出 transition 整合至服務卡片共用規則，收合狀態只切換 opacity，移除 `inset: 0`／`translateY(50%)` 衝突；更新 Home CSS cache key 至 `20261020-services-motion-merge-v2`。已逐一 hover 四張卡片確認不同字數標題水平／垂直置中，未在檔案末尾追加補丁；未 commit、未 push。
+- [x] 修正首頁「我們的服務」進場動畫與 hover 展開的 transition 衝突：在服務卡片上完整合併 `flex 400ms` 與 opacity／transform／visibility 進場 transition，保留重構後的 Flex 展開、收合與固定圖片框，不加入圖片放大；更新 Home CSS cache key 至 `20261020-services-motion-merge-v1`。已以本機 Edge 桌面 `1440px` 實測四張卡片逐一移入、移出與切換：移入中寬度會經過中間值後由約 `300px` 平滑展開至 `900px`，其他卡片收合至 `100px`，移出後平滑回到約 `300px`；圖片 transform 維持 scale `1`，未出現圖片放大。另以手機 `390px` 確認服務卡片維持單欄、4 張卡片完整呈現且無水平溢位；未 commit、未 push。
+- [x] 依最新需求，首頁「我們的服務」先恢復重構後的程式碼：移除額外的舊 hover 覆寫，回到固定圖片框、Flex 橫向展開與重構後的內容互動；Home CSS cache key 恢復為 `20261020-home-css-refactor-v3`，未 commit、未 push。
+- [x] 恢復首頁最新消息卡片連結原有的 `text-decoration: none`，移除新聞標題因瀏覽器預設樣式產生的底線；保留日期、類別與項目分隔線，未 commit、未 push。
+- [x] 恢復首頁最新消息卡片的日期與類別顯示：修正 `.home-latest__meta` 被誤設為 `display: none` 的樣式，保留目前底部唯一「更多資訊」按鈕與既有新聞版型，未 commit、未 push。
+- [x] 依最新調整需求，移除首頁最新消息標題列上方的 `home-latest__actions`／「更多資訊」按鈕，只保留下方新聞列表的 `home-latest__more-link`；更新 Home JavaScript cache key 至 `20261020-latest-actions-bottom-only-v1`，未 commit、未 push。
+- [x] 重構 About 頁 CSS／HTML／相關 JavaScript 責任：合併 Profile 重複 selector，移除目前 HTML 未使用的 `.about-affiliates-cta*` 與未掛載年代導覽 nav CSS，清理失效 heading border／padding、重複 timeline／event 宣告與分散 breakpoint；CSS 由 684 行降至 469 行，`!important` 維持 0 次，保留認證 pagination／水平拖曳、手機選單、CTA 雙箭頭 hover/focus、ARIA、動畫與字型系統。更新 About CSS／JS cache key 至 `20261020-about-css-refactor-v1`／`20261020-about-refactor-v1`。已實測 ASP.NET `/about` 桌面 `1432px`、窄桌面 `1024px`／`900px`、平板 `768px`／`640px`、手機 `390px`：圖片 natural size 正常、document 無水平溢位；認證第 2 個 pagination dot 可切換並更新 `aria-hidden`／scroll position，手機選單可開關，桌面 CTA hover 雙箭頭切換正常，瀏覽器 console 無錯誤；完成 `node --check wwwroot/js/pages/about.js`、`dotnet build -c Release`、`git diff --check`。實體裝置、跨瀏覽器與完整人工無障礙驗收尚未完成，未 commit、未 push。
+
+## 2026-10-20
+- [x] 依最新恢復需求，恢復首頁最新消息標題列的 `home-latest__actions`／「更多資訊」連結，以及超過 4 筆新聞時由 `home.js` 顯示的 `home-latest__more-link`；更新 Home JavaScript cache key 至 `20261020-latest-actions-restore-v1`，保留左右輪播控制，未 commit、未 push。
+- [x] 移除首頁最新消息重構後誤出現的 `home-latest__actions`、靜態「更多資訊」連結與 `home-latest__more-link` 動態按鈕，保留最新消息標題、新聞卡片及左右輪播控制；更新 Home JavaScript cache key 至 `20261020-latest-actions-cleanup-v1`，已完成 `dotnet build -c Release`、首頁 JavaScript `node --check`、`git diff --check`，並確認桌機／手機 DOM 不再包含上述操作按鈕且無水平溢位，未 commit、未 push。
+- [x] 重構首頁 CSS／HTML：將首頁 CSS 由 `3545` 行整理為 `1627` 行，移除歷史覆寫與重複新聞／版型規則，`!important` 由 `398` 次降為 `0`；服務卡片、最新消息、集團事業群改為單一元件樣式來源，保留固定圖片框、橫向展開、輪播與手機選單行為；整理首頁最新消息與集團事業群 HTML 縮排。已實測 `1432px`、`1024px`、`900px`、`390px` 無水平溢位，輪播圓點、服務卡片 hover 展開比例與手機選單均可操作；完成 `dotnet build -c Release`、`node --check wwwroot/js/pages/home.js`、`git diff --check`，實體裝置、跨瀏覽器與完整人工無障礙驗收尚未完成，未 commit、未 push。
+- [x] 恢復首頁 Hero 主標題「優質服務 唯客思維」原本的特殊字體字重 `400`，同步修正桌面與手機覆寫，更新 Home CSS cache key 至 `20261020-global-text-system-v5`；完成 `dotnet build -c Release` 與 `git diff --check`，未 commit、未 push。
+- [x] 恢復首頁 Hero 主標題「優質服務 唯客思維」原本的特殊字體，明確使用 `--font-special`，保留桌面／手機既有字級、字重與動畫；更新 Home CSS cache key 至 `20261020-global-text-system-v4`，完成 `dotnet build -c Release` 與 `git diff --check`，未 commit、未 push。
+- [x] 建立全站文字系統：共用 token 統一 Roboto／Noto Sans TC／Microsoft JhengHei 字型堆疊，整理大標題、區塊標題、卡片、內文、輔助文字、導覽與按鈕的字級／字重／行高／字距角色；一般內文維持桌面 `16px / 400 / 1.6 / 0.02em`、小於 `1024px` 為 `15px / 400 / 1.7 / normal`。清理主要元件與頁面中的舊襯線／負字距覆寫，保留 Phosphor 圖示字型；恢復原本明確指定特殊字體的首頁 Hero 文案、`.recruitment-copy` 與職安導言標題，使用獨立 `--font-special`。已完成 `dotnet build -c Release`、`git diff --check`；桌面／手機瀏覽器檢查進行中，實體裝置、跨瀏覽器與完整人工無障礙驗收尚未完成，未 commit、未 push。
+- [x] 修正首頁「最新消息」區塊標題粗度不一致：確認較高優先權的 `.home-page#main-content .home-latest h2` 原本使用 `--font-weight-heading`（500），改為與首頁其他區塊標題一致的 `--font-weight-section-heading`（700）；同步更新 Home CSS cache key 至 `20261020-services-image-frame-v5`。已實際驗證桌面 `1432px` 與手機 `390px`：最新消息區塊標題與服務區塊標題皆為 `700`、公告列表標題維持 `400`、無水平溢位；完成 `git diff --check`，未 commit、未 push。
+- [x] 統一網站一般內文全域排版：`--font-body` 改為 Roboto、Noto Sans TC、Microsoft JhengHei／微軟正黑體備援；桌面 token 為 `16px / 1.6 / 0.02em`，未滿 `1024px` 改為 `15px / 1.7 / normal`，body 明確使用 `400`；`--font-size-body-copy` 收斂至一般內文 token，並修正首頁介紹、服務頁段落／優勢說明與新聞文章內容的局部覆寫。更新全站 tokens cache key 至 `20261020-global-typography-v11`；完成 `dotnet build -c Release`、`git diff --check`，並以本機 ASP.NET 實際驗證桌面 `1046px` 與手機 `390px` 的首頁、服務、About 文字計算樣式及水平溢位；新聞文章路徑遭瀏覽器 URL 過濾器攔截，新聞文章瀏覽器畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未完成，未 commit、未 push。
+- [x] 整理首頁「我們的服務」圖片相關 CSS：移除已被固定圖片框覆蓋的早期 `object-position`、hover `scale` 與重複 media border-radius 規則，保留目前桌面固定圖片框、水平 offset token、藍色遮罩及手機版行為；更新 Home CSS cache key 至 `20261020-services-image-frame-v3`，已完成 Release build、`node --check wwwroot/js/pages/home.js` 與 `git diff --check`，尚未重新進行瀏覽器畫面驗收。
+- [x] 為首頁「我們的服務」桌面固定圖片框加入每張卡片獨立的 `--home-services-image-offset-x` 水平位移 token，圖片框仍固定置中、尺寸不隨 hover 改變；目前四張先維持 `0px`，後續可直接調整 offset，不再依賴無法作用於固定外框裁切的 `object-position`；更新 Home CSS cache key 至 `20261020-services-image-frame-v2`，已完成 Release build、`node --check wwwroot/js/pages/home.js`、`git diff --check` 與 CSS／HTML 靜態檢查，尚未進行新的瀏覽器畫面驗收。
+- [x] 重構首頁「我們的服務」桌面卡片圖片框：保留 flex 橫向展開與文字效果，圖片改用初始化／服務區塊尺寸變更時才計算的固定圖片寬高，圖片框置中並以 `overflow: hidden` 裁切；移除圖片 hover／展開時的尺寸與 transform 動畫，手機維持原版型；更新 Home CSS／JS cache key 至 `20261020-services-image-frame-v1`，已完成 Release build、`node --check wwwroot/js/pages/home.js`、`git diff --check` 與 CSS／HTML 靜態檢查；已實際逐張 hover 驗證四張卡片，固定圖片框約 `599.7px × 345.6px`、hover 後圖片 transform 維持 `matrix(1, 0, 0, 1, -299.832, -172.797)`；手機、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行。
+- [x] 依確認保留首頁「我們的服務」卡片的 `flex` 完全展開效果，移除圖片 hover／focus 的額外 `scale` 放大，避免卡片展開時產生第二次圖片放大；刪除共用圖片放大覆寫規則，更新 Home CSS cache key 至 `20261020-services-typography-v134`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 實際逐張連線驗證首頁服務卡片 hover：第 2～4 張在 Home CSS `v133` 下均確認卡片寬度 `900px`、圖片寬度 `950.4px`、圖片 `transform: matrix(1.1, 0, 0, 1.1, 0, 0)`，與第一張已驗證結果一致；未追加重複 CSS，未 commit、未 push。
+- [x] 實際連線至本機 Development 頁面驗證首頁服務卡片 hover：載入 Home CSS `v133` 後，第一張「內陸貨櫃集散站」滑入時確認 `hover: true`、卡片寬度 `900px`、圖片寬度 `950.4px`、圖片 `transform: matrix(1.1, 0, 0, 1.1, 0, 0)`；目前乾淨瀏覽器頁面未重現第一張不放大的問題，因此未追加猜測性 CSS；使用者實際畫面差異仍待以同一瀏覽器狀態比對，未 commit、未 push。
+- [x] 將首頁「我們的服務」四張卡片 hover／focus 圖片放大幅度統一提高為 `scale(1.1)`，讓第一張「內陸貨櫃集散站」也能清楚呈現放大效果；更新 Home CSS cache key 至 `20261020-services-typography-v133`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 修正首頁「我們的服務」四張卡片 hover／focus 的圖片放大效果，移除後段 `transform: none !important` 覆蓋造成的無放大狀態，統一使用 `scale(1.06)`；更新 Home CSS cache key 至 `20261020-services-typography-v132`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 恢復首頁「我們的服務」四張卡片圖片上一個垂直上移實驗，保留各卡片水平位置、淡藍色遮罩與既有互動，垂直裁切恢復為 `center`；更新 Home CSS cache key 至 `20261020-services-typography-v131`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將首頁「我們的服務」四張卡片圖片的垂直裁切位置統一上移至 `35%`，保留各卡片原有水平構圖與藍色遮罩；更新 Home CSS cache key 至 `20261020-services-typography-v130`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 為首頁「我們的服務」卡片圖片預設狀態加入一致的淡藍色遮罩 `rgb(23 86 145 / 12%)`，保留原有文字遮罩與 hover／focus 互動；更新 Home CSS cache key 至 `20261020-services-typography-v129`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 調整首頁「我們的服務」預設第一張「內陸貨櫃集散站」圖片裁切位置，`object-position` 由 `45% center` 左移至 `35% center`，讓車頭更容易顯示；更新 Home CSS cache key 至 `20261020-services-typography-v128`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 調整首頁「我們的服務」卡片版型：desktop grid 最大寬度維持 `1248px`、卡片間距再收斂至最高 `16px`，手機間距調整為 `12px`，保留 hover／focus 展開互動與卡片高度；更新 Home CSS cache key 至 `20261020-services-typography-v127`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 將本次頁面 typography 調整收斂為全域 token：`--font-size-body` 固定為 `16px`，`--font-weight-section-heading` 固定為 `700`；About、Careers、Home、Operational Resources、Occupational Safety 與全站 HTML 同步引用新 token／cache key `20261020-global-typography-v9`，保留卡片標題與特殊文字層級；已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查，尚未進行桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收，未 commit、未 push。
+- [x] 依共用文字層級調整首頁 `index`：主要區塊標題改用 body 字型與粗度 `700`，介紹、服務、聯絡與最新消息文字統一為 `16px`，最新消息列表公告標題使用全域 `--font-size-news-title`（`18px`），服務／關係企業卡片小標使用共用卡片標題層級；保留 Hero 與英文 eyebrow 的特殊文字層級，更新 Home CSS cache key 至 `20261020-services-typography-v125` 與全站 tokens cache key 至 `20261020-global-typography-v10`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依 `services`／`careers`／`operational-resources`／`about` 文字層級調整 `occupational-safety`：主標題與證照區標題改用粗度 `700`，介紹、健康說明、證照說明與清單統一為 `16px`，保留安全導言特殊標題字體與卡片標題層級；更新 Occupational Safety CSS cache key 至 `20261020-services-typography-v1`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依 `services`／`careers`／`operational-resources` 文字層級調整 `about`：區塊標題改用粗度 `700`，一般段落與卡片內容統一為 `16px`，子公司小標改用共用標題粗度 `500`，保留認證年份、導覽 tab、按鈕與 fallback 的專用層級；更新 About CSS cache key 至 `20261020-services-typography-v165`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依 `services`／`careers` 文字層級調整 `operational-resources`：區塊標題改用粗度 `700`，一般說明文字、安全／資源內容與地理節點文字統一為 `16px`，保留分頁 tab 與數據節點的專用文字層級；更新 Operational Resources CSS cache key 至 `20261020-services-typography-v2`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
+- [x] 依 `services` 頁面文字層級調整 `careers`：同步區塊標題、福利項目、內文、福利清單與招募文案的字型、字級、字重與行高；`join-intro p`、`.benefits-list__row p` 與福利清單 `li` 比照服務說明改為 `16px`，`.recruitment-copy` 使用特殊標題字體且不額外設定 `font-weight`，更新 Careers CSS cache key 至 `20261020-services-typography-v8`，已完成 Release build、`git diff --check` 與 CSS／HTML 靜態檢查；桌機／手機瀏覽器畫面、實體裝置、跨瀏覽器及完整人工無障礙驗收尚未執行，未 commit、未 push。
 - [x] 將 `services.html` 內陸貨櫃集散地原文依既有句號拆分為兩段，未修改任何敘述文字，未 commit、未 push。
 - [x] 將 `services.html` 的 `service-switcher` 調整為四個選單：「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」；目前新增選單先對應既有倉儲內容 panel，並修正共用 panel 時 tab 選取狀態只能有一個，更新 JS cache key 至 `v12`，未 commit、未 push。
 - [x] 更新所有靜態頁面共用 header 的服務項目選單為「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」，保留原服務連結；`services.html` 新增項目對應現有 `#warehousing` 定位，未 commit、未 push。

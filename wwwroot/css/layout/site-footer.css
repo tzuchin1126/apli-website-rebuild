@@ -33,13 +33,16 @@
 }
 
 .site-footer .site-footer__company p {
-  font-size: 16px;
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-line-height);
 }
 
 .site-footer .site-footer__company address {
   gap: 4px;
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: var(--type-supporting-size);
+  font-weight: var(--type-supporting-weight);
+  line-height: var(--type-supporting-line-height);
 }
 
 .site-footer .site-footer__nav {
@@ -110,11 +113,11 @@
   }
 
   .site-footer .site-footer__company p {
-    font-size: 16px;
+    font-size: var(--type-body-size);
   }
 
   .site-footer .site-footer__company address {
-    font-size: 14px;
+    font-size: var(--type-supporting-size);
   }
 }
 
@@ -166,9 +169,10 @@
 
 .site-footer__nav > a {
   color: var(--footer-heading);
-  font-size: 1rem;
-  font-weight: var(--font-weight-regular);
-  line-height: 1.5;
+  font-size: var(--type-navigation-size);
+  font-weight: var(--type-navigation-weight);
+  line-height: var(--type-navigation-line-height);
+  letter-spacing: var(--letter-spacing-body);
   text-decoration: none;
   white-space: nowrap;
   transition: color 180ms ease;
@@ -280,30 +284,30 @@
 
 .site-footer__company p {
   color: var(--footer-heading);
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-regular);
-  letter-spacing: 0.02em;
-  line-height: 1.5;
+  font-size: var(--font-size-card-title-compact);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--letter-spacing-body);
+  line-height: var(--line-height-card-title-compact);
 }
 
 .site-footer__company address {
   display: grid;
   gap: 6px;
-  font-size: 1rem;
+  font-size: var(--type-body-size);
   font-style: normal;
-  letter-spacing: 0.015em;
-  line-height: 1.75;
+  letter-spacing: var(--type-body-letter-spacing);
+  line-height: var(--type-body-line-height);
 }
 
 @media (max-width: 840px) {
   .site-footer__company p {
-    font-size: 1rem;
+    font-size: var(--type-body-size);
   }
 
   .site-footer__company address {
     gap: 4px;
-    font-size: 0.9375rem;
-    line-height: 1.7;
+    font-size: var(--type-supporting-size);
+    line-height: var(--type-supporting-line-height);
   }
 }
 
@@ -342,9 +346,10 @@
 .footer-column__title {
   color: var(--footer-heading);
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: var(--type-navigation-size);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-body);
+  line-height: var(--type-navigation-line-height);
 }
 
 .footer-column__links {
@@ -364,9 +369,9 @@
   align-items: center;
   width: fit-content;
   color: var(--footer-link);
-  font-size: 0.92rem;
-  font-weight: var(--font-weight-regular);
-  line-height: 1.65;
+  font-size: var(--type-supporting-size);
+  font-weight: var(--type-supporting-weight);
+  line-height: var(--type-supporting-line-height);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -391,15 +396,16 @@
   align-items: center;
   width: var(--content-width);
   min-height: 24px;
-  font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+  font-size: var(--type-supporting-size);
+  line-height: var(--type-supporting-line-height);
 }
 
 .footer-copyright {
   order: 2;
   margin: 0 0 0 auto;
-  font-size: 0.92rem;
-  font-weight: var(--font-weight-regular);
-  line-height: 1.65;
+  font-size: var(--type-supporting-size);
+  font-weight: var(--type-supporting-weight);
+  line-height: var(--type-supporting-line-height);
 }
 
 .footer-legal-links {
@@ -514,7 +520,8 @@
   }
 
   .footer-column a {
-    font-size: 0.92rem;
+    font-size: var(--type-supporting-size);
+    line-height: var(--type-supporting-line-height);
   }
 
   .footer-legal-links {
@@ -613,9 +620,10 @@
 
 .site-footer__nav > a {
   color: var(--footer-heading);
-  font-size: 1rem;
-  font-weight: var(--font-weight-regular);
-  line-height: 1.5;
+  font-size: var(--type-navigation-size);
+  font-weight: var(--type-navigation-weight);
+  line-height: var(--type-navigation-line-height);
+  letter-spacing: var(--letter-spacing-body);
   text-decoration: none;
   white-space: nowrap;
   transition: color 180ms ease;

@@ -24,7 +24,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: drop-shadow(0 2px 10px rgb(0 0 0 / 8%));
@@ -37,7 +37,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-section-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: none;
@@ -70,7 +70,7 @@
 }
 
 .safety-page .safety-intro__heading h2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-special);
 }
 
 @keyframes safety-intro-heading-rise {
@@ -94,7 +94,7 @@
 .safety-page .safety-intro__lead p {
   margin: 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-body);
 }
@@ -130,7 +130,7 @@
   align-self: start;
   gap: 8px;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -168,7 +168,7 @@
   max-width: 42em;
   margin: var(--section-content-gap) 0 0;
   color: var(--color-muted);
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-body);
 }
@@ -287,6 +287,12 @@
   transform: translateY(20px);
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .safety-page .safety-credential-card__title h3 {
+    font-weight: 500;
+  }
+}
+
 .safety-page .safety-credentials__pager {
   width: 100%;
   flex: 0 0 auto;
@@ -365,7 +371,7 @@
   min-height: 0;
   padding: 10px 0 10px 30px;
   color: var(--color-ink);
-  font-size: 0.9rem;
+  font-size: var(--font-size-body);
   line-height: 1.5;
 }
 
