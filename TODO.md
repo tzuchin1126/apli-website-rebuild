@@ -1,5 +1,22 @@
 # APLI 專案進度
 
+## 2026-10-20
+- [x] 將 `services.html` 內陸貨櫃集散地原文依既有句號拆分為兩段，未修改任何敘述文字，未 commit、未 push。
+- [x] 將 `services.html` 的 `service-switcher` 調整為四個選單：「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」；目前新增選單先對應既有倉儲內容 panel，並修正共用 panel 時 tab 選取狀態只能有一個，更新 JS cache key 至 `v12`，未 commit、未 push。
+- [x] 更新所有靜態頁面共用 header 的服務項目選單為「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」，保留原服務連結；`services.html` 新增項目對應現有 `#warehousing` 定位，未 commit、未 push。
+- [x] 修正首頁最新消息公告 hover／focus 時標題維持白色文字；原規則含 `#main-content`、權重較高，已補上同等權重 selector 並更新 CSS cache key 至 `v121`，未 commit、未 push。
+- [x] 首頁「我們的服務」新增第 4 張暫定服務卡片，先使用既有 `01.png`、暫定標題「倉儲管理」與暫定敘述；首頁服務卡片 JS 會自動套用箭頭與互動，未 commit、未 push。
+- [x] 縮短 `.home-page#main-content .home-latest__heading` 與新聞內容的間距：桌機 `margin-bottom` 調整為 `32px`、手機為 `24px`；更新 CSS cache key 至 `v119`，未 commit、未 push。
+- [x] 縮小首頁最新消息區塊上下留白：桌機調整為 `60px / 64px`、手機調整為 `48px / 52px`；更新 CSS cache key 至 `v118`，未 commit、未 push。
+- [x] 將首頁最新消息區塊英文小標題改為白色文字，更新 CSS cache key 至 `v117`，未 commit、未 push。
+- [x] 恢復首頁最新消息區塊原有深色背景 `#2b3039`，同步恢復深色背景所需的白色標題、新聞文字與淡色分隔線；修正 CSS 規則順序後更新 cache key 至 `v116`，未 commit、未 push。
+- [x] 修正首頁 header 消失問題：幾何背景層原本使用未限定 `main` 的 `.home-page > :not(...)`，誤將 body 直屬 header 的 `z-index` 覆蓋為 `1`；已限定為 `main.home-page > :not(...)`，並更新 CSS cache key 至 `v114`，未 commit、未 push。
+- [x] 恢復首頁英文小標題 `.home-page .home-section-eyebrow` 原本字級：桌機回到 `var(--font-size-label)`、手機回到 `.75rem`；更新 CSS cache key 至 `v113`，未 commit、未 push。
+- [x] 將首頁 `.home-page .home-section-eyebrow` 字級調整為 `24px`，桌機與手機規則一致；修正誤套用到其他 `.eyebrow` 規則的問題，並更新 CSS cache key 至 `v111`，未 commit、未 push。
+- [ ] 首頁灰色幾何背景改為依照國泰頁面的 `background-holder` 與兩個大型漸層矩形實作，使用 `rotate(-45deg)`／`rotate(45deg)` 與對應 `transform-origin`；目前已完成結構與桌機初步對照，但手機與最終視覺位置仍待確認，不標示完成，未 commit、未 push。
+- [x] 修正首頁「我們的服務」區塊以不透明背景覆蓋幾何背景的問題，將服務區塊與其 `::after` 背景改為透明，讓國泰式幾何層可透出；已完成 `git diff --check`、`node --check wwwroot/js/pages/home.js`，並以 ASP.NET 實際確認桌機與 390px 手機服務區塊可看見斜角背景，未 commit、未 push。
+- [ ] 調整首頁集團事業群幾何背景：以白色區塊隔離全頁幾何層，停用會與其交疊的全頁底部矩形，改在集團事業群區塊內以同規格旋轉漸層矩形補完整斜線；已更新 CSS cache key，尚待瀏覽器重新確認桌機與手機，未 commit、未 push。
+
 ## 2026-10-19
 - [x] 移除首頁最新消息區塊背景顏色與透明地球裝飾圖片，改為透明背景並停用 `::before` 圖層；保留新聞列表與內容排版，更新 Home CSS cache key 至 `v107`，已完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，未 commit、未 push。
 - [x] 將首頁最新消息區塊背景改為全域淺灰 token `var(--color-surface-section)`（`#f6f6f6`），保留透明地球左下裝飾與既有內容；更新 Home CSS cache key 至 `v106`，已完成 `git diff --check`，未 commit、未 push。
@@ -1422,3 +1439,46 @@
 # 2026-10-18: 已完成 CSS 語法與 diff 檢查，最後一版手機覆寫已更新至 cache key `v34`；目前瀏覽器 viewport 已回到桌機，手機最終畫面尚待重新截圖確認，未提交。
 # 2026-10-18: 依定案版重構營運資源 HTML／CSS：移除未引用的 `resource-animate`／舊區塊導向 class、已不存在區塊的選擇器、重複 CTA 與表格規則，合併資料切換器為單一穩定版型，並修正營運資源標題的 `aria-labelledby` 對應；未提交。
 # 2026-10-18: 已完成 `git diff --check`、營運資源 JavaScript `node --check`，並在桌機瀏覽器確認 cache key `operational-resources-cleanup-v1`、三個切換項目、敘述更新、右至左滑動與固定 294px panel 高度；手機最終瀏覽器畫面、實體裝置、跨瀏覽器與人工無障礙驗證尚未完成，未提交。
+# 2026-10-20: 縮小 services.html 內陸貨櫃集散站兩段說明的段落間距，將第二段的上方間距調整為 16px；已更新 services CSS cache key，未提交。
+# 2026-10-20: 依需求移除 services.html 內陸貨櫃集散站兩段說明之間的額外段落間距，第二段 `margin-top` 改為 0；已更新 services CSS cache key，未提交。
+# 2026-10-20: 將 services.html 內陸貨櫃集散站的「我們的優勢」由 3 個項目調整為使用者指定的 5 個段落，未提交。
+# 2026-10-20: 為內陸貨櫃集散站五項優勢補上對應 h3 標題：安全監控管理、交通位置優勢、IICL專業檢驗、一站式物流服務、專業修櫃服務；未提交。
+# 2026-10-20: 移除內陸貨櫃集散站優勢區塊的 warehouse media 欄位，讓優勢文字內容佔滿整個版面；更新 services CSS cache key，未提交。
+# 2026-10-20: 將「我們的優勢」內文文字大小調整為與「主要服務項目」一致，兩者皆使用 `var(--font-size-body-copy)`；更新 services CSS cache key，未提交。
+# 2026-10-20: 僅放大「我們的優勢」區塊標題，改用 `var(--font-size-section-heading)`；五個優勢項目 h3 恢復原本字級與行高，更新 services CSS cache key，未提交。
+# 2026-10-20: 調整「我們的優勢」間距層級：區塊標題下方 32px、五項優勢間距 24px、項目標題與內文間距 6px；更新 services CSS cache key，未提交。
+# 2026-10-20: 為「我們的優勢」五個項目標題加入既有 `.service-list__icon`，並調整標題內 icon 與文字的對齊；更新 services CSS cache key，未提交。
+# 2026-10-20: 將「我們的優勢」五個項目前的 icon 改為 01～05 編號，保留標題排列與間距；更新 services CSS cache key，未提交。
+# 2026-10-20: 將「我們的優勢」五段內文向右內縮，使用 `calc(2ch + 12px)` 對齊標題文字並建立層次；更新 services CSS cache key，未提交。
+# 2026-10-20: 收斂內陸貨櫃集散地說明文字與圖片之間的空白，移除說明區塊多出的下方 padding，保留 Grid 基本間距；更新 services CSS cache key，未提交。
+# 2026-10-20: 再移除內陸貨櫃集散地圖片在桌機版額外套用的上方 margin，讓說明文字與圖片實際間距回到 20px；更新 services CSS cache key，未提交。
+# 2026-10-20: 參照 index 的底層旋轉灰色幾何層，加入 services 頁面幾何背景，並讓 `/services#warehousing` 的內容與優勢區塊透明以顯示斜角背景；更新 services CSS cache key，未提交。
+# 2026-10-20: 補上 services 頁面灰色斜角背景的手機版尺寸與位置，並更新 CSS cache key；目前瀏覽器即時檢查仍受開發伺服器舊 CSS 回應影響，原始檔已完成，未提交。
+# 2026-10-20: 修正 `/services#warehousing` hash 定位被 header 與 sticky 服務切換列遮住的問題，將服務區塊 scroll margin-top 調整為 160px；更新 services CSS cache key，未提交。
+# 2026-10-20: 再增加 `/services#warehousing` hash 定位預留至 180px，消除標題與 sticky 服務切換列的剩餘重疊；更新 services CSS cache key，未提交。
+# 2026-10-20: 修正桌機 `/services#warehousing` hash 狀態下內容上方 padding 小於服務切換列高度的問題，將目標區塊 padding-top 調整為 88px，避免標題被壓住；更新 services CSS cache key，未提交。
+# 2026-10-20: 再拉開 `/services#warehousing` 切換選單與區塊標題的距離，hash 狀態下內容上方 padding 調整為 120px；更新 services CSS cache key，未提交。
+# 2026-10-20: 收斂 services Hero 與服務切換選單之間多出的固定 Header 高度空白，桌機與手機分別以負 margin 78px／64px 將切換選單拉回 Hero 底部；更新 services CSS cache key，未提交。
+# 2026-10-20: 修正幾何背景層級規則覆蓋服務切換選單造成無法點擊的問題，將 service-switcher z-index 恢復為 20；更新 services CSS cache key，未提交。
+# 2026-10-20: 依需求移除 services 頁面灰色幾何背景與其層級／透明背景規則，避免影響全域；切換選單與 Hero 改為零額外 margin，緊接但不重疊，保留既有 hash 間距調整，更新 services CSS cache key，未提交。
+# 2026-10-20: 將內陸貨櫃集散站內容面板 ID 由 `warehousing` 統一調整為 `inland-yard`，同步更新服務頁連結、ARIA、CSS 選擇器與首頁導向；倉儲物流 tab 維持共用此內容面板，更新 services CSS cache key，未提交。
+# 2026-10-20: 建立獨立的 `warehousing` 倉儲物流內容面板，恢復原有倉儲文案、服務清單與獨立輪播；內陸貨櫃集散站使用 `inland-yard`，首頁倉儲物流卡片改導向 `#warehousing`，更新 services CSS cache key，未提交。
+# 2026-10-20: 在獨立的 `warehousing` 倉儲物流面板補回自己的「我們的優勢」區塊，使用完整場站、多元倉儲與場區動線三項既有倉儲優勢內容；更新 services CSS cache key，未提交。
+# 2026-10-20: 將倉儲物流「我們的優勢」比照內陸貨櫃集散站，移除圖片欄位、改為全寬文字、加入 01～03 編號並沿用相同層級與間距；更新 services CSS cache key，未提交。
+# 2026-10-20: 為倉儲物流四項優勢補上對應 h3：「場內轉運效率」、「全方位整合服務」、「客製化作業能力」、「木材熱處理服務」，並將最後一項編號修正為 04；更新 services CSS cache key，未提交。
+# 2026-10-20: 將碼頭裝卸版面比照倉儲物流：移除 reverse 版型與優勢圖片欄位，改為全寬優勢文字並加入 01～03 編號；更新 services CSS cache key，未提交。
+# 2026-10-20: 為碼頭裝卸三項優勢補上對應 h3：「專業碼頭作業」、「一站式物流整合」、「全流程物流服務」；更新 services CSS cache key，未提交。
+# 2026-10-20: 將機具維修與銷售的「我們的優勢」版面比照碼頭裝卸，移除圖片欄位、改為全寬文字並加入 01～03 編號；更新 services CSS cache key，未提交。
+# 2026-10-20: 將碼頭裝卸圖片改為兩張圖輪播，使用 `container-yard-overview-4.png` 與 `container-yard-overview-3.png`，補上切換控制與無障礙標示；更新 services CSS cache key，未提交。
+# 2026-10-20: 將內陸貨櫃集散地圖片輪播改為指定的 4 張圖片：`warehousing-yard.png`、`container-cleaning.jpg`、`container-yard-overview-1.png`、`new.png`，並同步更新輪播張數與替代文字，未提交。
+# 2026-10-20: 將機具維修與銷售說明由三段收斂為兩段，第一段整合維修範圍與服務據點，第二段保留設備銷售及售後支援內容，未提交。
+# 2026-10-20: 將服務內容說明文字在桌機版統一調整為 16px，手機版維持原有響應式文字尺寸；更新 services CSS cache key，未提交。
+# 2026-10-20: 將內陸貨櫃集散地圖片與說明文字的間距恢復為其他服務選單共用的 Grid／下方 padding 間距，移除該選單的特殊零間距覆寫，未提交。
+# 2026-10-20: 將四個服務選單「我們的優勢」內文在桌機版統一調整為 16px，手機版維持原有響應式文字尺寸；更新 services CSS cache key，未提交。
+# 2026-10-20: 為四個服務選單「我們的優勢」標題加入與主要服務標題相同的橘灰漸層裝飾線；更新 services CSS cache key，未提交。
+# 2026-10-20: 將四個服務選單「我們的優勢」標題字重調整為粗體，桌機與手機一致；更新 services CSS cache key，未提交。
+# 2026-10-20: 將四個服務選單主標題與「我們的優勢」標題統一調整為粗體；更新 services CSS cache key，未提交。
+# 2026-10-20: 移除內陸貨櫃集散地 hash 狀態專屬的 120px 頂部間距，讓切換後標題與其他服務選單對齊；保留既有 scroll margin，更新 services CSS cache key，未提交。
+# 2026-10-20: 依需求改為真正的滑出／滑入切換，services 四個面板共用 viewport／track，以 500ms `translateX` 橫向平移呈現前後內容；支援 reduced-motion，並同步更新 CSS／JS cache key，未提交。
+# 2026-10-20: 將 index「我們的服務」四張卡片名稱與服務頁統一為「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」，並修正第一張卡片連結至 `#inland-yard`，未提交。
+# 2026-10-20: 補上 index「我們的服務」四張卡片對應的簡短服務敘述，包含內陸貨櫃集散站、倉儲物流、碼頭裝卸與機具銷售與維修，未提交。

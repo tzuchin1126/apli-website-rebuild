@@ -26,7 +26,7 @@
 }
 
 .services-page .service-section {
-  scroll-margin-top: 24px;
+  scroll-margin-top: 180px;
   background: var(--color-surface);
 }
 
@@ -34,24 +34,28 @@
   background: var(--color-surface-soft);
 }
 
-.services-page [data-service-panel][hidden],
-.services-page [data-service-panel]:not(.is-active)[aria-hidden="true"] {
-  display: none;
+.services-page .service-panels-viewport {
+  overflow: hidden;
+  height: auto;
 }
 
-.services-page [data-service-panel].is-active {
-  animation: service-panel-in 180ms ease both;
+.services-page .service-panels-track {
+  display: flex;
+  align-items: flex-start;
+  transition: transform 500ms cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
 }
 
-@keyframes service-panel-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+.services-page .service-panels-track > [data-service-panel] {
+  flex: 0 0 100%;
+  min-width: 0;
 }
 
 .services-page .service-switcher {
   position: sticky;
   z-index: 20;
   top: 78px;
+  margin-top: 0;
   overflow-x: auto;
   scrollbar-width: none;
   background: var(--color-surface);
@@ -140,7 +144,7 @@
     display: block;
   }
 
-  .services-page #warehousing .service-section__inner,
+  .services-page #inland-yard .service-section__inner,
   .services-page #terminal-handling .service-section__inner,
   .services-page #maintenance .service-section__inner {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
@@ -158,13 +162,13 @@
       "media details";
   }
 
-  .services-page #warehousing .service-section__details,
+  .services-page #inland-yard .service-section__details,
   .services-page #terminal-handling .service-section__details,
   .services-page #maintenance .service-section__details {
     align-self: start;
   }
 
-  .services-page #warehousing .service-section__details::before,
+  .services-page #inland-yard .service-section__details::before,
   .services-page #terminal-handling .service-section__details::before,
   .services-page #maintenance .service-section__details::before {
     position: absolute;
@@ -174,7 +178,7 @@
     content: "";
   }
 
-  .services-page #warehousing .service-carousel,
+  .services-page #inland-yard .service-carousel,
   .services-page #terminal-handling .service-carousel,
   .services-page #maintenance .service-carousel {
     width: 100%;
@@ -202,14 +206,14 @@
   max-width: none;
   margin: 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body-lg);
+  font-size: 16px;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   text-align: left;
 }
 
 .services-page .service-section__description p + p {
-  margin-top: var(--section-content-gap);
+    margin-top: 0;
 }
 
 .services-page .service-section__heading-top {
@@ -228,7 +232,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-heading);
+  font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
   text-align: left;
@@ -421,7 +425,7 @@
   transform: scale(1.35);
 }
 
-.services-page #warehousing .service-section__media img {
+.services-page #inland-yard .service-section__media img {
   object-position: center 65%;
 }
 
@@ -442,7 +446,7 @@
   align-self: start;
 }
 
-.services-page #warehousing .service-section__details,
+.services-page #inland-yard .service-section__details,
 .services-page #terminal-handling .service-section__details,
 .services-page #maintenance .service-section__details {
   position: relative;
@@ -520,27 +524,32 @@
   background: transparent;
 }
 
+.services-page .services-advantages__layout--warehouse {
+  grid-template-columns: 1fr;
+  grid-template-areas: "content";
+}
+
+.services-page .services-advantages__layout--container {
+  grid-template-columns: 1fr;
+  grid-template-areas: "content";
+}
+
+.services-page .services-advantages__layout--equipment {
+  grid-template-columns: 1fr;
+  grid-template-areas: "content";
+}
+
+.services-page .services-advantages__layout--warehouse {
+  grid-template-columns: 1fr;
+  grid-template-areas: "content";
+}
+
 .services-page .services-advantages__media {
   grid-area: media;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: var(--card-radius);
   background: center / cover no-repeat;
-}
-
-.services-page .services-advantages__layout--warehouse .services-advantages__media {
-  background-image: url("../../public/images/services/warehouse-storage.png");
-  background-position: center 70%;
-}
-
-.services-page .services-advantages__layout--container .services-advantages__media {
-  background-image: url("../../public/images/services/equipment-maintenance.png");
-  background-position: center 35%;
-}
-
-.services-page .services-advantages__layout--equipment .services-advantages__media {
-  background-image: url("../../public/images/services/port-equipment-maintenance.jpg");
-  background-position: center 85%;
 }
 
 .services-page .services-advantages__content {
@@ -554,7 +563,7 @@
 }
 
 .services-page .services-advantages__heading {
-  margin-bottom: var(--section-content-gap);
+  margin-bottom: 32px;
 }
 
 .services-page .services-advantages__heading h2 {
@@ -564,17 +573,26 @@
   padding: 0 0 14px;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-heading);
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
+}
+
+.services-page .services-advantages__heading h2::after {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-top: var(--section-heading-accent-gap);
+  background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%);
+  content: "";
 }
 
 .services-page .services-advantages__grid {
   display: grid;
   grid-template-columns: 1fr;
   flex: 1;
-  gap: 16px;
+  gap: 24px;
   align-content: space-between;
 }
 
@@ -586,18 +604,33 @@
 }
 
 .services-page .services-advantages__grid h3 {
-  margin: 0 0 4px;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin: 0 0 6px;
   color: var(--color-ink);
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
   line-height: var(--line-height-card-title);
 }
 
+.services-page .service-advantage__number {
+  flex: 0 0 auto;
+  min-width: 2ch;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-heading);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
 .services-page .services-advantages__grid p {
   max-width: none;
+  padding-left: calc(2ch + 12px);
   margin: 0;
   color: var(--color-muted);
-  font-size: var(--font-size-card-description);
+  font-size: 16px;
   line-height: var(--line-height-card-description);
 }
 
@@ -719,7 +752,7 @@
     aspect-ratio: 4 / 3;
   }
 
-  .services-page #warehousing .service-section__details,
+  .services-page #inland-yard .service-section__details,
   .services-page #terminal-handling .service-section__details,
   .services-page #maintenance .service-section__details {
     align-self: start;
@@ -737,6 +770,7 @@
 @media (max-width: 760px) {
   .services-page .service-switcher {
     top: 64px;
+    margin-top: 0;
   }
 
   .services-page .service-switcher__inner {
@@ -784,7 +818,7 @@
     text-align: left;
   }
 
-  .services-page #warehousing .service-section__details,
+  .services-page #inland-yard .service-section__details,
   .services-page #terminal-handling .service-section__details,
   .services-page #maintenance .service-section__details {
     padding: 0;
@@ -813,6 +847,10 @@
     width: min(100%, 760px);
     max-width: 760px;
     margin-inline: auto;
+  }
+
+  .services-page .service-section__description p {
+    font-size: var(--font-size-body-copy);
   }
 
   .services-page .service-carousel {
@@ -948,6 +986,10 @@
     grid-template-columns: 1fr;
   }
 
+  .services-page .services-advantages__grid p {
+    font-size: var(--font-size-body-copy);
+  }
+
   .services-page .services-advantages__content {
     display: flex;
     height: auto;
@@ -961,7 +1003,7 @@
 
   .services-page .services-advantages__heading h2 {
     font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-heading);
+    font-weight: var(--font-weight-bold);
     line-height: var(--line-height-card-title);
   }
 
@@ -1020,10 +1062,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .services-page [data-service-panel]:not([hidden]) { animation: none; }
-}
+  .services-page .service-panels-track {
+    transition: none;
+  }
 
-@media (prefers-reduced-motion: reduce) {
   .services-page .service-carousel__track {
     transition: none;
   }

@@ -18,11 +18,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600&amp;display=swap">
         <link rel="preload" as="image" href="public/images/services/services-hero.jpg" fetchpriority="high">
         <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20261019-global-font-stack-v8">
-  <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
+        <link rel="stylesheet" href="css/base/tokens.css?v=20261019-global-font-stack-v8">
+        <link rel="stylesheet" href="css/layout/site-header.css?v=20260923-mobile-header-parity-v1">
+        <link rel="stylesheet" href="css/layout/site-footer.css?v=20260928-footer-dark-v15">
         <link rel="stylesheet" href="css/components/buttons.css">
-        <link rel="stylesheet" href="css/pages/services.css?v=20261018-service-heading-accent-v2">
+        <link rel="stylesheet" href="css/pages/services.css?v=20261020-service-tab-slide-v46">
         <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
     </head>
     <body class="services-page">
@@ -52,9 +52,10 @@
                         </button>
                         <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
                             <span class="nav-menu__title">營業項目</span>
+                            <a href="#inland-yard"><span>內陸貨櫃集散站</span></a>
                             <a href="#warehousing"><span>倉儲物流</span></a>
-                            <a href="#terminal-handling"><span>貨櫃清洗與維修</span></a>
-                            <a href="#maintenance"><span>機具維修與銷售</span></a>
+                            <a href="#terminal-handling"><span>碼頭裝卸</span></a>
+                            <a href="#maintenance"><span>機具銷售與維修</span></a>
                         </div>
                     </div>
                     <a href="/news">最新消息</a>
@@ -101,50 +102,48 @@
             <nav class="service-switcher" aria-label="服務項目切換">
                 <div class="service-switcher__inner site-container">
                     <div class="service-switcher__list" role="tablist" aria-label="選擇服務項目">
-                        <button id="service-tab-warehousing" class="service-switcher__tab" type="button" role="tab" aria-controls="warehousing" aria-selected="true">倉儲物流</button>
-                        <button id="service-tab-terminal-handling" class="service-switcher__tab" type="button" role="tab" aria-controls="terminal-handling" aria-selected="false" tabindex="-1">貨櫃清洗與維修</button>
-                        <button id="service-tab-maintenance" class="service-switcher__tab" type="button" role="tab" aria-controls="maintenance" aria-selected="false" tabindex="-1">機具維修與銷售</button>
+                        <button id="service-tab-inland-yard" class="service-switcher__tab" type="button" role="tab" aria-controls="inland-yard" aria-selected="true">內陸貨櫃集散站</button>
+                        <button id="service-tab-warehousing" class="service-switcher__tab" type="button" role="tab" aria-controls="warehousing" aria-selected="false" tabindex="-1">倉儲物流</button>
+                        <button id="service-tab-terminal-handling" class="service-switcher__tab" type="button" role="tab" aria-controls="terminal-handling" aria-selected="false" tabindex="-1">碼頭裝卸</button>
+                        <button id="service-tab-maintenance" class="service-switcher__tab" type="button" role="tab" aria-controls="maintenance" aria-selected="false" tabindex="-1">機具銷售與維修</button>
                     </div>
                 </div>
             </nav>
-
             <section class="services-content" aria-label="服務項目內容">
-                <article id="warehousing" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-warehousing">
+
+                <!-- 內陸貨櫃集散地 -->
+                <article id="inland-yard" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-inland-yard">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
                             <div class="service-section__heading-top">
-                                <h2>倉儲物流</h2>
+                                <h2>內陸貨櫃集散地</h2>
                             </div>
                         </header>
                         <div class="service-section__description">
-                            <p>我們提供貨櫃與貨物儲放、裝卸、拆裝櫃及場站管理，串聯碼頭、貨櫃場與 CFS 倉庫作業。憑藉高雄港後線 7.69 公頃的廠區空間，能隨時配合船期與貨物型態調度場地，提供客製化儲運方案，讓客戶的貨櫃調度與轉運更有效率。</p>
+                            <p>我們提供港口與內陸物流之間的整合服務，涵蓋貨櫃儲放、拆裝卸、倉儲、貨櫃維修及運輸銜接，打造高效率的一站式物流服務。</p>
+                            <p>由於地理位置優勢，身處交通樞紐且緊鄰主要高速公路與港口幹線，可縮短貨櫃運輸距離，提高進出貨的便利性。</p>
                         </div>
-                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="倉儲物流圖片展示">
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="內陸貨櫃集散地圖片展示">
                             <div class="service-carousel__viewport">
                                 <div class="service-carousel__track">
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 5 張">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 4 張">
                                         <picture>
                                             <img src="public/images/services/warehousing-yard.png" alt="貨櫃場的倉儲與物流作業" loading="lazy" decoding="async">
                                         </picture>
                                     </div>
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 5 張">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 4 張">
+                                        <picture>
+                                            <img src="public/images/services/container-cleaning.jpg" alt="貨櫃清洗作業" loading="lazy" decoding="async">
+                                        </picture>
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 4 張">
                                         <picture>
                                             <img src="public/images/services/container-yard-overview-1.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
                                         </picture>
                                     </div>
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 3 張，共 5 張">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 4 張，共 4 張">
                                         <picture>
-                                            <img src="public/images/index/container-yard-overview-2.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
-                                        </picture>
-                                    </div>
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 4 張，共 5 張">
-                                        <picture>
-                                            <img src="public/images/services/container-yard-overview-3.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
-                                        </picture>
-                                    </div>
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 5 張，共 5 張">
-                                        <picture>
-                                            <img src="public/images/services/container-yard-overview-4.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async">
+                                            <img src="public/images/services/new.png" alt="內陸貨櫃集散地作業" loading="lazy" decoding="async">
                                         </picture>
                                     </div>
                                 </div>
@@ -160,35 +159,43 @@
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
                             <ul>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃進出站與存放管理</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨物裝櫃與拆櫃</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>CY 整櫃碼頭作業</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>CFS 倉庫作業</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>保稅倉庫</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃儲放管理</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>拆裝卸服務</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>IICL貨櫃國際標準檢查</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>拖車運輸</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃維修與清洗服務</li>
                             </ul>
                         </div>
                     </div>
 
-                    <section class="services-advantages" aria-labelledby="warehousing-advantages-title">
+                    <!-- 內陸貨櫃集散地 > 我們的優勢 -->
+                    <section class="services-advantages" aria-labelledby="inland-yard-advantages-title">
                         <div class="services-advantages__inner site-container">
                             <header class="services-advantages__heading">
-                                <h2 id="warehousing-advantages-title">我們的優勢</h2>
+                                <h2 id="inland-yard-advantages-title">我們的優勢</h2>
                             </header>
                             <div class="services-advantages__layout services-advantages__layout--warehouse">
-                            <div class="services-advantages__media" aria-hidden="true"></div>
                             <div class="services-advantages__content">
                             <div class="services-advantages__grid">
                                 <article>
-                                    <h3>完整場站作業能力</h3>
-                                    <p>整合貨櫃場、CY碼頭與CFS倉庫作業，提供從貨櫃進站、儲放、拆裝櫃到出站的完整服務。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">01</span>安全監控管理</h3>
+                                    <p>海關自主管理之櫃場，貨櫃物接受24小時CCTV全天候監視錄影並與關貿有EDI連線，提供安全且便捷的服務。</p>
                                 </article>
                                 <article>
-                                    <h3>多元倉儲配置</h3>
-                                    <p>提供貨櫃儲放、一般倉儲與保稅倉庫，可依據不同的貨物特性與需求，安排最合適的存放空間。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">02</span>交通位置優勢</h3>
+                                    <p>具有交通地利優勢，距離機場、港口、貨櫃中心近，為物流動脈之核心節點。</p>
                                 </article>
                                 <article>
-                                    <h3>掌握場區動線與櫃況</h3>
-                                    <p>透過場區管制、櫃位規劃與定期巡查，即時記錄作業狀況，讓客戶清楚掌握貨櫃與貨物的存放動態。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">03</span>IICL專業檢驗</h3>
+                                    <p>專業的貨櫃檢驗程序，擁有IICL國際標準檢驗證照，落實檢查並確保貨櫃結構安全。</p>
+                                </article>
+                                <article>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">04</span>一站式物流服務</h3>
+                                    <p>貨櫃儲放、倉儲、拆裝櫃及運輸等服務集中於同一據點，可以減少貨物不必要的轉運與等待時間。</p>
+                                </article>
+                                <article>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">05</span>專業修櫃服務</h3>
+                                    <p>擁有專業的修櫃證照和豐富的實務經驗，修洗櫃窗口整合，免除繁雜且冗長的程序將時間效益極大化。</p>
                                 </article>
                             </div>
                             </div>
@@ -197,28 +204,110 @@
                     </section>
                 </article>
 
-                <article id="terminal-handling" class="service-section service-section--reverse" data-service-panel role="tabpanel" aria-labelledby="service-tab-terminal-handling">
+                <!-- 倉儲物流 -->
+                <article id="warehousing" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-warehousing">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
                             <div class="service-section__heading-top">
-                                <h2>貨櫃清洗與維修</h2>
+                                <h2>倉儲物流</h2>
                             </div>
                         </header>
                         <div class="service-section__description">
-                            <p>服務據點主要涵蓋亞太本場及萬海碼頭等區域。我們擁有專業修櫃團隊，能靈活配合各大場站與航商需求，提供從基本清潔到結構修繕的完整貨櫃保養服務。</p>
+                            <p>我們提供一般貨物和保稅貨物的倉儲、拆裝櫃服務、理貨和儲位管理，因應不同貨物的特性與倉儲需求，提供安全、適合的倉儲方式，讓客戶安心託付。強化物流供應鏈整合從倉庫到客戶之間的重要的物流節點，將海運、陸運、倉儲及貨物處理整合在同一物流鏈中，提高供應鏈效率。</p>
                         </div>
-                        <figure class="service-section__media service-section__media--static">
-                            <picture>
-                                <img src="public/images/services/container-cleaning.jpg" alt="作業人員進行貨櫃內部清洗" loading="lazy" decoding="async">
-                            </picture>
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="倉儲物流圖片展示">
+                            <div class="service-carousel__viewport">
+                                <div class="service-carousel__track">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 4 張">
+                                        <picture><img src="public/images/services/warehouse-storage.png" alt="貨櫃場的倉儲與物流作業" loading="lazy" decoding="async"></picture>
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 4 張">
+                                        <picture><img src="public/images/services/new1.png" alt="貨櫃場與碼頭作業全景" loading="lazy" decoding="async"></picture>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="service-carousel__control service-carousel__control--prev" type="button" data-carousel-prev aria-label="上一張圖片"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg></button>
+                            <button class="service-carousel__control service-carousel__control--next" type="button" data-carousel-next aria-label="下一張圖片"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></button>
+                            <div class="service-carousel__dots" data-carousel-dots role="group" aria-label="選擇倉儲物流圖片"></div>
                         </figure>
                         <div class="service-section__details">
                             <h3>主要服務項目</h3>
                             <ul>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃之修理與保養業務</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃之噴砂、除銹、噴漆、清洗業務</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨櫃車架之整修</li>
-                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>其他貨櫃修理相關業務之經營</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>倉庫作業</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>保稅倉庫</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>熱處理服務</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>貨物固定作業</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 倉儲物流優勢-->
+                    <section class="services-advantages" aria-labelledby="warehousing-advantages-title">
+                        <div class="services-advantages__inner site-container">
+                            <header class="services-advantages__heading">
+                                <h2 id="warehousing-advantages-title">我們的優勢</h2>
+                            </header>
+                            <div class="services-advantages__layout services-advantages__layout--warehouse">
+                                <div class="services-advantages__content">
+                                    <div class="services-advantages__grid">
+                                        <article>
+                                            <h3><span class="service-advantage__number" aria-hidden="true">01</span>場內轉運效率</h3>
+                                            <p>因在櫃場內節省了領、交櫃的時間成本使貨物進出口轉運更有效率。</p>
+                                        </article>
+                                        <article>
+                                            <h3><span class="service-advantage__number" aria-hidden="true">02</span>全方位整合服務</h3>
+                                            <p>從領櫃-貨物進站-裝櫃固定到出站都可以依據貨物的不同型態採取安全的方式固定，迅速且有效率的裝櫃出口。</p>
+                                        </article>
+                                        <article>
+                                            <h3><span class="service-advantage__number" aria-hidden="true">03</span>客製化作業能力</h3>
+                                            <p>依客戶需求提供客製化且專業的包裝和固定方式，可依貨物種類、數量、尺寸及作業需求透過專業設備及人員將貨物進出、裝卸及轉運時間縮短。</p>
+                                        </article>
+                                        <article>
+                                            <h3><span class="service-advantage__number" aria-hidden="true">04</span>木材熱處理服務</h3>
+                                            <p>固定木材採取熱處理服務，有效防止蟲害且符合國際標準。</p>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- 碼頭裝卸 -->
+                <article id="terminal-handling" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-terminal-handling">
+                    <div class="service-section__inner site-container">
+                        <header class="service-section__heading">
+                            <div class="service-section__heading-top">
+                                <h2>碼頭裝卸</h2>
+                            </div>
+                        </header>
+                        <div class="service-section__description">
+                            <p>自1994年開始碼頭的業務，與高雄港碼頭合作提供船邊貨櫃裝卸、拆裝櫃服務以及碼頭機具和貨櫃維修服務。同時擁有專業設備操作 × 維修保養 × 碼頭作業經驗。</p>
+                        </div>
+                        <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="碼頭裝卸圖片展示">
+                            <div class="service-carousel__viewport">
+                                <div class="service-carousel__track">
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 2 張">
+                                        <picture><img src="public/images/services/container-yard-overview-4.png" alt="碼頭貨櫃裝卸作業" loading="lazy" decoding="async"></picture>
+                                    </div>
+                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 2 張">
+                                        <picture><img src="public/images/services/container-yard-overview-3.png" alt="碼頭貨櫃作業現場" loading="lazy" decoding="async"></picture>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="service-carousel__control service-carousel__control--prev" type="button" data-carousel-prev aria-label="上一張碼頭裝卸圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg>
+                            </button>
+                            <button class="service-carousel__control service-carousel__control--next" type="button" data-carousel-next aria-label="下一張碼頭裝卸圖片">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
+                            </button>
+                            <div class="service-carousel__dots" data-carousel-dots role="group" aria-label="選擇碼頭裝卸圖片"></div>
+                        </figure>
+                        <div class="service-section__details">
+                            <h3>主要服務項目</h3>
+                            <ul>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>船舶貨櫃裝卸</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>碼頭進出口拆櫃</li>
+                                <li><svg class="service-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>碼頭機具設備維修保養</li>
                             </ul>
                         </div>
                     </div>
@@ -229,20 +318,19 @@
                                 <h2 id="container-advantages-title">我們的優勢</h2>
                             </header>
                             <div class="services-advantages__layout services-advantages__layout--container">
-                            <div class="services-advantages__media" aria-hidden="true"></div>
                             <div class="services-advantages__content">
                             <div class="services-advantages__grid">
                                 <article>
-                                    <h3>專業證照與實務經驗</h3>
-                                    <p>團隊持有專業修櫃證照，並長期承接萬海碼頭修櫃與洗櫃業務，技術與經驗皆值得信賴。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">01</span>專業碼頭作業</h3>
+                                    <p>深耕碼頭貨櫃裝卸作業，結合專業機具操作知識與維修保養能力，從設備操作到維護管理，提供安全、高效且穩定的碼頭作業服務。</p>
                                 </article>
                                 <article>
-                                    <h3>洗櫃修櫃整合</h3>
-                                    <p>從貨櫃清洗、損壞檢查到結構維修皆可統一安排，減少不同作業窗口之間的溝通時間。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">02</span>一站式物流整合</h3>
+                                    <p>整合運輸 × 專業設備 × 優質人才 × 物流管理，打造一站式第三方物流服務。</p>
                                 </article>
                                 <article>
-                                    <h3>港區據點支援</h3>
-                                    <p>據點緊鄰港區與貨櫃場，能靈活配合貨櫃進出站與場站動線，提供最及時的維修支援。</p>
+                                    <h3><span class="service-advantage__number" aria-hidden="true">03</span>全流程物流服務</h3>
+                                    <p>綜合多年碼頭實務經驗 + 靈活的現場應變能力，從碼頭進站、裝卸、運輸到最終配送，提供全流程整合式物流服務。</p>
                                 </article>
                             </div>
                             </div>
@@ -251,6 +339,7 @@
                     </section>
                 </article>
 
+                <!-- 機具維修與銷售 -->
                 <article id="maintenance" class="service-section" data-service-panel role="tabpanel" aria-labelledby="service-tab-maintenance">
                     <div class="service-section__inner site-container">
                         <header class="service-section__heading">
@@ -259,19 +348,15 @@
                             </div>
                         </header>
                         <div class="service-section__description">
-                            <p>我們提供碼頭機具、堆高機、拖車與重型機械等設備的維修保養服務。現場駐點涵蓋鴻明 70 號碼頭、萬海 79 號碼頭等高雄港主要作業區，能靈活配合各大航商調度需求。此外，我們透過 ALPHA TOTAL SOLUTION PTE. LTD. 代理振華堆高機等優質品牌，提供從設備選購、交付到後續技術支援的完整服務。</p>
+                            <p>我們提供港區及場區機具的維修、保養服務，涵蓋堆高機、拖車以及各類重型機械。目前於70號碼頭及79號碼頭提供機具維修保養服務，協助碼頭與場區設備維持穩定運轉，降低設備故障造成的作業中斷。</p>
+                            <p>由本公司關係企業ALPHA TOTAL SOLUTION PTE. LTD.代理振華堆高機等設備，提供機具銷售、保固維修及售後技術支援。</p>
                         </div>
                         <figure class="service-section__media service-carousel" data-service-carousel aria-roledescription="carousel" aria-label="機具維修與銷售圖片展示">
                             <div class="service-carousel__viewport">
                                 <div class="service-carousel__track">
                                     <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 1 張，共 2 張">
                                         <picture>
-                                            <img src="public/images/index/home-hero-container-handling.png" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
-                                        </picture>
-                                    </div>
-                                    <div class="service-carousel__slide" role="group" aria-roledescription="slide" aria-label="第 2 張，共 2 張">
-                                        <picture>
-                                            <img src="public/images/index/container-handler.png" alt="技術人員進行港區機具維修" loading="lazy" decoding="async">
+                                            <img src="public/images/services/port-equipment-maintenance.jpg" alt="貨櫃場堆高機進行搬運作業" loading="lazy" decoding="async">
                                         </picture>
                                     </div>
                                 </div>
@@ -294,33 +379,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <section class="services-advantages services-advantages--equipment" aria-labelledby="equipment-advantages-title">
-                        <div class="services-advantages__inner site-container">
-                            <header class="services-advantages__heading">
-                                <h2 id="equipment-advantages-title">我們的優勢</h2>
-                            </header>
-                            <div class="services-advantages__layout services-advantages__layout--equipment">
-                            <div class="services-advantages__media" aria-hidden="true"></div>
-                            <div class="services-advantages__content">
-                            <div class="services-advantages__grid">
-                                <article>
-                                    <h3>多元設備維修能力</h3>
-                                    <p>維修範疇涵蓋港區常用機具、車輛及重型設備，能精準判斷故障原因並妥善處理。</p>
-                                </article>
-                                <article>
-                                    <h3>現場維修經驗</h3>
-                                    <p>熟悉碼頭與貨櫃場作業環境，可迅速判斷設備狀況並安排維修，縮短設備停機時間。</p>
-                                </article>
-                                <article>
-                                    <h3>銷售與維修一體化</h3>
-                                    <p>從設備選型、銷售、保固到後續維修保養皆由專業團隊提供服務，建立完整的設備生命週期支援。</p>
-                                </article>
-                            </div>
-                            </div>
-                            </div>
-                        </div>
-                    </section>
                 </article>
 
                 <section class="services-contact" aria-labelledby="services-contact-title">
@@ -348,6 +406,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="js/pages/services.js?v=20260822-panel-hidden-v11"></script>
+        <script src="js/pages/services.js?v=20261020-service-tab-slide-v15"></script>
     </body>
 </html>

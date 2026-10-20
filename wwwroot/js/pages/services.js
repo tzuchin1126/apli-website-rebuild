@@ -13,7 +13,7 @@ function toArray(nodeList) {
 
 // ---------------------------------------------------------------------------
 // 1. 服務切換標籤
-// - 三個服務分類標籤切換對應面板
+// - 四個服務分類標籤切換對應面板
 // - 支援 URL hash 深層連結
 // - 支援鍵盤方向鍵左右切換
 // ---------------------------------------------------------------------------
@@ -29,16 +29,28 @@ function setupServiceTabs() {
 
   if (tabs.length === 0 || panels.length === 0) return;
 
-  function selectPanel(id, updateHash) {
+  const panelViewport = document.createElement("div");
+  const panelTrack = document.createElement("div");
+  panelViewport.className = "service-panels-viewport";
+  panelTrack.className = "service-panels-track";
+  panelViewport.appendChild(panelTrack);
+  panels[0].parentNode.insertBefore(panelViewport, panels[0]);
+  for (let i = 0; i < panels.length; i++) {
+    panels[i].hidden = false;
+    panelTrack.appendChild(panels[i]);
+  }
+
+  function selectPanel(id, updateHash, selectedTab) {
     let selectedId = id;
     if (panelIds.indexOf(id) === -1) {
       selectedId = panels[0] ? panels[0].id : null;
     }
     if (!selectedId) return;
 
+    const activeTab = selectedTab || tabs.find((tab) => tab.getAttribute("aria-controls") === selectedId);
     for (let i = 0; i < tabs.length; i++) {
       const tab = tabs[i];
-      const isSelected = tab.getAttribute("aria-controls") === selectedId;
+      const isSelected = tab === activeTab;
       tab.setAttribute("aria-selected", String(isSelected));
       tab.tabIndex = isSelected ? 0 : -1;
     }
@@ -50,8 +62,13 @@ function setupServiceTabs() {
       const isActive = panel.id === selectedId;
       panel.classList.toggle("is-active", isActive);
       panel.setAttribute("aria-hidden", String(!isActive));
-      panel.hidden = !isActive;
+      panel.hidden = false;
+      panel.inert = !isActive;
     }
+
+    const selectedIndex = panels.findIndex((panel) => panel.id === selectedId);
+    panelTrack.style.transform = `translateX(-${selectedIndex * 100}%)`;
+    panelViewport.style.height = `${panels[selectedIndex].scrollHeight}px`;
 
     if (updateHash !== false) history.replaceState(null, "", "#" + selectedId);
   }
@@ -60,7 +77,7 @@ function setupServiceTabs() {
     const tab = tabs[index];
 
     tab.addEventListener("click", function () {
-      selectPanel(tab.getAttribute("aria-controls"), true);
+      selectPanel(tab.getAttribute("aria-controls"), true, tab);
     });
 
     tab.addEventListener("keydown", function (event) {
@@ -71,7 +88,7 @@ function setupServiceTabs() {
       const nextIndex = (index + direction + tabs.length) % tabs.length;
       const nextTab = tabs[nextIndex];
       nextTab.focus();
-      selectPanel(nextTab.getAttribute("aria-controls"), true);
+      selectPanel(nextTab.getAttribute("aria-controls"), true, nextTab);
     });
   }
 
