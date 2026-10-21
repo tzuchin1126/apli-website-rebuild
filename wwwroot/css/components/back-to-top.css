@@ -18,8 +18,8 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--color-background);
-  color: var(--color-text-primary);
+  background: #ff9d3d;
+  color: var(--button-primary-color);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -34,6 +34,8 @@
 }
 
 .back-to-top.is-visible {
+  background: #ff9d3d;
+  color: var(--button-primary-color);
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -42,7 +44,8 @@
 }
 
 .back-to-top:hover {
-  background: var(--color-background);
+  background: var(--button-primary-hover-bg);
+  color: var(--button-primary-color);
   box-shadow: var(--shadow-lg);
   transform: translateY(0) scale(1.06);
 }

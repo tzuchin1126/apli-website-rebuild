@@ -304,6 +304,10 @@
   .safety-page {
     --safety-content-gutter: var(--content-inset);
   }
+
+  .safety-page .safety-heading h2 {
+    font-weight: 600;
+  }
 }
 
 @media (min-width: 1100px) {

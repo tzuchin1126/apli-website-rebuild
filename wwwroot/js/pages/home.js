@@ -213,15 +213,15 @@ function setupLatestNews() {
   const homeNewsLimit = 4;
   const homeNewsProbeLimit = homeNewsLimit + 1;
   const moreLink = document.createElement("a");
-  moreLink.className = "button--primary home-primary-action home-latest__more-link";
+  moreLink.className = "button--primary home-latest__more-link";
   moreLink.href = "/news";
   moreLink.hidden = true;
   const moreLinkArrow = document.createElement("span");
-  moreLinkArrow.className = "home-intro__arrow-window";
+  moreLinkArrow.className = "button__arrow-window";
   moreLinkArrow.setAttribute("aria-hidden", "true");
   moreLinkArrow.append(
-    createArrow("right", "home-text-link__icon", "text"),
-    createArrow("right", "home-text-link__icon", "text"),
+    createArrow("right", "button__icon", "text"),
+    createArrow("right", "button__icon", "text"),
   );
   moreLink.append(document.createTextNode("更多資訊"), moreLinkArrow);
   const latestInner = list.closest(".home-latest__inner");

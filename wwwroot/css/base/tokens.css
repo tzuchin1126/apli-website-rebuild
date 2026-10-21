@@ -104,10 +104,10 @@
   --content-padding: clamp(20px, 2vw, 24px);
   --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
-  --button-primary-bg: var(--color-surface-inverse);
+  --button-primary-bg: rgb(245 130 20 / 54%);
   --button-primary-hover-bg: var(--color-primary);
   --button-primary-color: var(--color-text-on-dark);
-  --button-primary-min-height: 48px;
+  --button-primary-min-height: 52px;
   --button-primary-gap: 12px;
   --button-primary-icon-size: 16px;
   --button-primary-padding-inline: 24px;

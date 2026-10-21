@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
   <link rel="preload" as="image" href="public/images/about/company-facility.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20261020-global-typography-v13">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20261021-global-primary-button-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261020-global-text-system-v1">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20261020-global-text-system-v1">
-  <link rel="stylesheet" href="css/components/buttons.css?v=20261020-global-text-system-v1">
-  <link rel="stylesheet" href="css/pages/about.css?v=20261020-enterprise-values-heading-weight-v1">
+  <link rel="stylesheet" href="css/layout/site-footer.css?v=20261021-footer-news-nav-v1">
+  <link rel="stylesheet" href="css/components/buttons.css?v=20261021-global-primary-button-v2">
+  <link rel="stylesheet" href="css/pages/about.css?v=20261021-about-subsidiary-image-layer-v10">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 
@@ -119,6 +119,12 @@
       </div>
     </section>
 
+    <div class="about-content-fold-stage">
+      <svg class="about-content-fold-stage__background" viewBox="0 0 1920 6000" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false">
+        <path d="M3100 -800L-900 2000L4100 5500"></path>
+      </svg>
+      <div class="about-content-fold-stage__image" aria-hidden="true"></div>
+
     <section id="company-profile" class="about-profile" aria-labelledby="about-profile-title">
       <div class="site-container">
         <figure class="about-profile__media">
@@ -202,49 +208,66 @@
         <header class="about-subsidiaries__heading">
           <h2 id="about-subsidiaries-title">子公司簡介</h2>
         </header>
-        <div class="about-subsidiaries__grid">
-          <article class="about-subsidiary about-subsidiary--container">
-            <h3>世新貨櫃</h3>
-            <p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p>
-          </article>
-          <article class="about-subsidiary about-subsidiary--energy">
-            <h3>亞柏油品</h3>
-            <p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p>
-          </article>
-          <article class="about-subsidiary about-subsidiary--club">
-            <h3>亞柏會舘</h3>
-            <p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p>
-          </article>
-          <article class="about-subsidiary about-subsidiary--badminton">
-            <h3>亞柏羽球隊</h3>
-            <p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p>
-          </article>
-          <article class="about-subsidiary about-subsidiary--media">
-            <h3>太報</h3>
-            <p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p>
-          </article>
-          <article class="about-subsidiary about-subsidiary--alpha">
-            <h3>ALPHA TOTAL SOLUTION</h3>
-            <p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p>
-          </article>
-        </div>
-        <div class="about-subsidiaries__actions">
-          <a class="button--primary home-text-link" href="/affiliates">
-            了解更多
-            <span class="home-intro__arrow-window" aria-hidden="true">
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-              <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-            </span>
-          </a>
+        <div class="about-subsidiaries__accordion">
+          <details class="about-subsidiary" open>
+            <summary>世新貨櫃</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p></div>
+              </div>
+            </div>
+          </details>
+          <details class="about-subsidiary">
+            <summary>亞柏油品</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p></div>
+              </div>
+            </div>
+          </details>
+          <details class="about-subsidiary">
+            <summary>亞柏會舘</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p></div>
+              </div>
+            </div>
+          </details>
+          <details class="about-subsidiary">
+            <summary>亞柏羽球隊</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p></div>
+              </div>
+            </div>
+          </details>
+          <details class="about-subsidiary">
+            <summary>太報</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p></div>
+              </div>
+            </div>
+          </details>
+          <details class="about-subsidiary">
+            <summary>ALPHA TOTAL SOLUTION</summary>
+            <div class="about-subsidiary__panel">
+              <div class="about-subsidiary__content">
+                <div class="about-subsidiary__body"><p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p></div>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </section>
+
+    </div>
 
   </main>
 
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20261020-about-refactor-v1"></script>
+  <script src="js/pages/about.js?v=20261021-about-subsidiary-accordion-v3"></script>
 </body>
 </html>

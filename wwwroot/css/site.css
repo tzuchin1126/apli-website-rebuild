@@ -1,8 +1,8 @@
 @import url("components/page-hero.css?v=20261020-global-text-system-v1");
 @import url("components/page-loader.css?v=20260827-page-ready-v1");
 @import url("components/breadcrumb.css?v=20260924-hero-breadcrumb-v2");
-@import url("components/back-to-top.css?v=20260817-totop-deep-blue-v1");
-@import url("components/touch-buttons.css?v=20260904-news-filter-touch-v1");
+@import url("components/back-to-top.css?v=20261021-totop-orange-swapped-v1");
+@import url("components/touch-buttons.css?v=20261021-footer-legal-hover-v1");
 
 .site-container {
   width: var(--content-width);

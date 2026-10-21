@@ -57,6 +57,69 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
+function initSubsidiaryAccordion() {
+  const items = Array.from(document.querySelectorAll(".about-subsidiaries__accordion > details"));
+  if (items.length === 0) return;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function closeItem(item) {
+    const panel = item.querySelector(".about-subsidiary__panel");
+    if (!item.open || !panel) return;
+    if (reducedMotion.matches) {
+      item.open = false;
+      panel.style.height = "0px";
+      return;
+    }
+    panel.style.height = panel.scrollHeight + "px";
+    requestAnimationFrame(function () {
+      panel.style.height = "0px";
+    });
+    panel.addEventListener("transitionend", function handleClose(event) {
+      if (event.propertyName !== "height") return;
+      item.open = false;
+      panel.removeEventListener("transitionend", handleClose);
+    });
+  }
+
+  function openItem(item) {
+    const panel = item.querySelector(".about-subsidiary__panel");
+    if (!panel) return;
+    item.open = true;
+    if (reducedMotion.matches) {
+      panel.style.height = "auto";
+      return;
+    }
+    panel.style.height = "0px";
+    requestAnimationFrame(function () {
+      panel.style.height = panel.scrollHeight + "px";
+    });
+    panel.addEventListener("transitionend", function handleOpen(event) {
+      if (event.propertyName !== "height") return;
+      panel.style.height = "auto";
+      panel.removeEventListener("transitionend", handleOpen);
+    });
+  }
+
+  items.forEach(function (item) {
+    const summary = item.querySelector("summary");
+    const panel = item.querySelector(".about-subsidiary__panel");
+    if (!summary || !panel) return;
+
+    panel.style.height = item.open ? "auto" : "0px";
+    summary.addEventListener("click", function (event) {
+      event.preventDefault();
+      if (item.open) {
+        closeItem(item);
+        return;
+      }
+      items.forEach(function (otherItem) {
+        if (otherItem !== item) closeItem(otherItem);
+      });
+      openItem(item);
+    });
+  });
+}
+
 function setupAboutScrollMotion() {
   // Reveal each About content section as it enters the viewport.
   const page = document.querySelector(".about-page");
@@ -629,4 +692,5 @@ function initCertificationPreview() {
 document.addEventListener("DOMContentLoaded", function () {
   setupAboutScrollMotion();
   initCertificationPreview();
+  initSubsidiaryAccordion();
 });

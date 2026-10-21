@@ -205,7 +205,7 @@
   .footer-column a:active,
   .footer-column a:focus,
   .footer-column a:focus-visible {
-    color: var(--footer-link);
+    color: var(--footer-accent);
   }
 
   .footer-column a:hover::after,
@@ -223,13 +223,14 @@
   .footer-legal-links a:active,
   .footer-legal-links a:focus,
   .footer-legal-links a:focus-visible {
-    color: var(--footer-link);
+    color: var(--footer-accent);
   }
 
   .back-to-top:hover,
   .back-to-top:active,
   .back-to-top:focus,
   .back-to-top:focus-visible {
-    background: var(--color-secondary);
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-color);
   }
 }

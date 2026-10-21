@@ -1,5 +1,161 @@
 # APLI 專案進度
 
+## 2026-10-21
+
+- [x] 將 careers「加入亞太」左側內容整理為標題與敘述群組，敘述改為靠左對齊，標題與敘述間距統一使用 `var(--section-heading-content-gap)`；保留右側 `careers-workplace1.jpg` 與手機單欄排列，更新 Careers CSS cache key，完成 `git diff --check`，已用 Edge 確認桌機文字左側對齊、間距為 `40px`，手機維持單欄。
+
+- [x] 將桌機版 `.safety-page .safety-heading h2` 字重局部調降至 `600`，只套用於 `981px` 以上桌機，不修改全域 token 或手機版；更新 Occupational Safety CSS cache key，完成 `git diff --check`，已用 Edge 確認桌機為 `600`、手機維持 `700`。
+
+- [x] 將 About content stage 左下角的 `about/123.png` 改為獨立底部背景圖層，避免被內容背景與斜角層遮住；桌機寬度放大至最大 `620px` 以跨過灰色斜角、手機維持 `60%`，並固定圖片底部貼齊 Footer 上緣；子公司區塊上下外間距統一使用同一 token。灰色斜角 SVG 恢復上一版固定比例呈現，更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認圖片可見、尺寸與 Footer 上緣對齊。
+
+- [x] 整理 About 子公司口風琴寬度規則，將筆電與一般桌機基準整理為最大 `960px`，僅在 `1440px` 以上大型桌機使用 `1200px`；移除前一版 breakpoint 覆寫，更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認筆電寬度套用 `960px`。
+
+- [x] 將 `about/123.png` 背景定位從子公司區塊移至 About content stage 的左下角，讓圖片底部固定貼齊 Footer，同時保留子公司區塊與 Footer 的全域間距；更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認背景圖定位於左下且 stage 底部與 Footer 頂部對齊。
+
+- [x] 將 About「子公司簡介」與 Footer 之間改為固定全域間距 `var(--section-space)`，不再依口風琴展開或收合狀態改變；更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認區塊套用 `40px` 全域外距且底部 padding 為 `0px`。
+
+- [x] 移除 About「子公司簡介」區塊底部多餘的 `64px` padding，讓背景圖片與 Footer 直接銜接；保留區塊上方間距，更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認區塊與 Footer 間距為 `0px`。
+
+- [x] 移除子公司口風琴內容的導向功能，將內容改為純敘述區塊；將 `.about-page .about-subsidiary summary` 字重局部調整為 `600`，不修改全域 token；背景圖改為左下角，更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認口風琴內沒有連結、字重為 `600` 且背景圖定位於左下角。
+
+- [x] 將子公司口風琴展開內容簡化為純敘述，移除內部 `h3`；將 `summary::after` 改為預設灰色、hover 橘色的箭頭 icon，加入展開與收合高度過渡動畫；更新 About CSS／JS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，已用 Edge 確認無內部 `h3`、箭頭預設灰色、過渡高度與單一展開行為。
+
+- [x] 移除 About「子公司簡介」口風琴展開內容內的圖片，清除圖片 HTML 與專用 CSS，保留公司名稱、文字介紹與整段內容連結；更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認六個項目存在且口風琴內沒有圖片。
+
+- [x] 將 About「子公司簡介」重構為原生 `<details>/<summary>` 口風琴，六家公司各自可展開圖片與介紹；移除輪播軌道、分頁控制與相關 CSS，保留卡片連結與鍵盤操作，加入展開時自動收合其他項目的最小 JS 邏輯，更新 About JS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，已用 Edge 確認六個項目、初始展開狀態與單一展開行為。
+
+- [x] 在 About「子公司簡介」區塊右下方加入 `about/123.png` 背景圖，設定不重複、靠右下定位與響應式尺寸；更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認背景圖片、定位與不重複設定。
+
+- [x] 將 About「子公司簡介」輪播寬度由 `1088px` 調整為 `1200px`，並讓圖片區隨卡片高度伸展，消除文字區高度較高造成的底部空隙；行動版保留響應式比例，更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認卡片寬度與圖片、文字底部對齊。
+
+- [x] 移除 About「子公司簡介」標題局部規則中的 `color`、`font-size` 與 `font-weight`，改由全域樣式控制；保留局部 `margin` 與行高，更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除 About「子公司簡介」六張卡片內的「了解更多」按鈕，改為整張卡片連結至 `/affiliates`，補上鍵盤 focus 樣式並清除按鈕專用規則；更新 About CSS cache key，完成 `git diff --check`，已用 Edge 確認六張卡片連結存在且卡片內沒有按鈕。
+
+- [x] 將 About「子公司簡介」調整為兩組輪播，每組同時顯示三筆資訊，統一左側圖片、右側文字，切換時整組滑動；恢復分頁控制與鍵盤左右切換，更新 About CSS／JS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，已確認瀏覽器載入新的 CSS 規則與兩組輪播結構。
+
+- [x] 將 About「子公司簡介」由輪播改為一次顯示六筆資訊，桌機版兩欄排列、行動版單欄排列；移除輪播控制、鍵盤切換與無用 JS／CSS，更新 About CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About「子公司簡介」桌機版輪播卡片尺寸調整為參考圖比例（最大寬度 `1088px`、圖片與文字同高 `400px`），行動版保留原本響應式比例；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About「子公司簡介」桌機版公司標題 `.about-subsidiary__body h3` 字重局部調整為 `600`，不修改全域 token；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About「子公司簡介」輪播卡片桌機版公司標題 `.about-subsidiary__body h3` 調整為 `28px`，行動版維持原本響應式字級；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About「子公司簡介」改為參考營運資源職安區塊的左右分割輪播，建立 6 張公司資訊卡，第 1／3／5 張圖片在左、第 2／4／6 張圖片在右，加入分頁控制與鍵盤左右切換，行動版改為圖片上、文字下；更新 About CSS／JS cache key，補上固定圖片比例，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`，已用 Edge 確認第一張初始位置、第二張切換狀態與左右交錯 grid，手機瀏覽器畫面尚未驗證。
+
+- [x] 依需求撤回 About「子公司簡介」tab 切換、固定圖片與斜切造型，恢復原本六張公司卡片與全域按鈕結構；清除不再使用的 About JS／CSS，更新 About cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/about.js`。
+
+- [x] 移除 About「認證與獎項」事件列表的背景色與卡片視覺樣式，清除 `background`、圓角、邊框與陰影，保留內容排列與間距；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About「認證與獎項」事件列表 `.about-certifications-preview__events` 背景色調整為 `#d8d8d6`；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除 About「關於亞太」區塊的 02.png 背景圖與 multiply 混合規則，改為透明背景，避免覆蓋內容 stage 的灰色斜線；同步清除無效的行動版背景覆寫，更新 About CSS cache key，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About 斜灰背景 SVG 路徑向左調整 400px，讓斜線落點更接近內容左側；更新 About CSS cache key，完成 git diff --check，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正 About 斜灰背景被「關於亞太」區塊不透明背景蓋住的問題，改以透明底搭配 02.png 點狀圖的 multiply 混合，讓斜灰圖形從內容起始區連續顯示；更新 About CSS cache key，完成 git diff --check，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正清理首頁舊按鈕規則時誤刪 home-intro__description p 結尾大括號造成的 CSS 解析中斷；完成 git diff --check，並以 Edge 重載 index 確認服務卡片恢復桌機橫向版型。
+
+- [x] About 頁面新增參考 index 的斜灰背景 stage，使用同一組 SVG 路徑、桌機 550px／手機 760px 線寬，並將 About 內容區塊置於背景層上方；更新 About CSS cache key，完成 git diff --check，瀏覽器畫面驗證尚未完成。
+
+- [x] 檢查 index 兩個全域按鈕的 home.css cascade，移除已無 markup 使用的 home-text-link 舊按鈕與 hover／focus 覆寫，保留聯絡 CTA 與最新消息按鈕的版面定位規則；更新首頁 CSS cache key，完成 git diff --check，瀏覽器畫面驗證尚未完成。
+
+- [x] 將全域按鈕箭頭子元素從 home 專屬命名整理為通用 button__arrow-window／button__icon，避免共用元件依賴首頁 class；同步更新 About／index markup、首頁 JS 與 cache key，完成 git diff --check 與 JavaScript 語法檢查，瀏覽器畫面驗證尚未完成。
+
+- [x] 將全域 button--primary 統一為 index「關於亞太」按鈕的橘色半透明底、52px 高度、字級、間距與雙箭頭 hover／focus 動畫；移除首頁 home-primary-action 專屬覆寫，更新全站共用 CSS cache key，完成 git diff --check 與 JavaScript 語法檢查，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 About 子公司簡介按鈕改為只使用全域 button--primary，移除頁面專屬按鈕與箭頭 hover 覆寫，統一預設、hover／focus 規則；更新 About CSS cache key，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除 About「子公司簡介」區塊唯一的背景色宣告，回到頁面原本背景並維持乾淨 cascade；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除 About「經營理念」區塊唯一的灰色背景宣告，回到頁面原本背景並清除不必要覆寫；更新 About CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 依需求恢復桌機 Header 導覽文字原本字重，移除 `font-weight: 500` 規則並還原全站 Header CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將桌機 breakpoint（`min-width: 981px`）的 `.site-header__nav > a` 與 `.nav-link` 字重提升至 500，行動版維持原設定；更新全站 Header CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正首頁英文小標題與主標題的比例，將小標由固定 17px 改為全域 label 尺寸 14px，補上字距與行高，讓主標題成為主要視覺焦點；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整首頁英文小標題與主標題的標題群組節奏，補上 12px 小標下間距並沿用既有標題底線 token，提升視覺層級與一致性；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正 Footer 隱私權政策 hover／focus 顏色，移除首頁高 specificity 預設色與行動版覆寫，統一使用主題橘 `var(--footer-accent)`；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 移除首頁 CSS 中覆寫 Footer 選單連結顏色的高 specificity 規則，恢復由共用 Footer hover 樣式控制主題橘色；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正 Footer 選單連結在行動版被 touch-buttons 覆寫的問題，`.footer-column a` hover／focus 統一使用主題橘 `var(--footer-accent)`；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正最新消息右側列表因 `visibility: hidden` 未在 keyframe 恢復而消失的問題，改由列表項目只使用 opacity 控制進場；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 整理首頁最新消息進場動畫：以 `.home-latest` 作為單一 IntersectionObserver 觸發點，左側主卡片由左滑入、右側列表逐筆由右滑入，`更多資訊` 按鈕最後由右滑入；移除舊的 inner 左滑與列表左滑覆寫，補上 reduced-motion 處理，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正集團事業群與聯絡我們 CTA 間距的位置：移除 CTA 區塊外部 margin，改由集團事業群 bottom padding 延伸間距，讓灰色斜角背景線條同步延伸；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 整理首頁 section spacing cascade，移除誤套用至多個區塊的 `padding-top`，改由 `.home-contact` 使用 `margin-block-start: var(--section-space)` 真正拉開集團事業群與 CTA 的距離；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 檢查集團事業群與聯絡我們 CTA 的全域 section 間距，保留 `--section-space-sm` 節奏並將 CTA 上方增加 16px，改善區塊銜接；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將返回頂端按鈕預設與 hover 顏色對調：預設亮橘色，hover／focus／active 品牌橘色；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將返回頂端按鈕調整為預設品牌橘色，hover／focus／active 使用更亮的橘色，與首頁按鈕互動方向一致；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將返回頂端按鈕的預設顏色改為品牌橘色，hover／focus／active 改用深色反差；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 `.back-to-top.is-visible` 調整為全域按鈕配色，顯示時使用深色底，hover／focus 使用品牌橘色，並同步修正行動版覆寫；更新 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 讓首頁「聯絡我們」按鈕共用全域 `button--primary home-primary-action` 樣式與「更多資訊」相同的 hover／focus 箭頭效果，移除原本獨立按鈕樣式；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 在全站 Footer 的服務項目右側新增「最新消息」選單欄與 `/news` 連結，沿用既有桌機／行動版欄位樣式；更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 依需求移除 Footer 標語，恢復至尚未加入標語的狀態；同步移除標語專用 CSS 並更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 微調 Footer 標語與聯絡方式之間的垂直間距，讓內容層次更清楚；更新 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 Footer 標語移至聯絡方式最上方，並調整為比聯絡資訊更大的特殊字型；更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 Footer 標語改用專案既有 `--font-special` 特殊字型，並加上中文引號「」；更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 在全站 Footer 聯絡方式下方加入標語「您的貨物，由亞太守護」，沿用 Footer 淺色文字與間距規則；更新 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 在首頁「聯絡我們」背景圖加入 22% 深色遮罩，並提升文字與按鈕內容層級，改善可讀性；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將首頁「聯絡我們」背景圖由 `cover` 改為依區塊寬度等比例縮放，減少圖片放大裁切；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將首頁「聯絡我們」區塊的標題與說明文字改為淺色，以提升背景圖片上的閱讀對比；更新首頁 CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 依需求恢復 Footer 地址、電話與 Email 不使用 icon；保留電話可點擊連結與移除 `TEL:` 前綴，更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 在全站 Footer 地址、電話與 Email 前加入 inline SVG 圖示，電話移除 `TEL:` 前綴並保留可點擊連結；更新 Footer CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將全站 Footer 桌機版 `.footer-copyright` 改回左側，隱私權政策維持右側；行動裝置維持上下排列與置中，更新 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 修正 Footer `.site-footer__company` 公司資訊字級，恢復公司名稱與地址原本的內文／輔助文字規則，避免 CSS 整理後誤套用卡片標題級距；更新 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 整理全站 Footer CSS，移除早期版型、重複 canonical 規則與檔案尾端覆寫，合併為單一桌機／行動裝置規則；保留 4 個服務項目、15px Footer 連結、隱私權政策與版權置中，更新所有 HTML 的 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將全站 Footer `.footer-copyright` 置於底部列中央，桌機保留隱私權政策於右側，行動裝置改為上下排列且版權文字置中；修正後段 cascade 覆寫問題並更新所有 HTML 的 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將全站 Footer 的服務連結與隱私權政策文字大小統一為 `15px`，更新所有 HTML 載入的 Footer CSS cache key，完成 `git diff --check`，瀏覽器畫面驗證尚未完成。
+
+- [x] 更新全站共用 Footer 的服務項目為目前 4 項「內陸貨櫃集散站、倉儲物流、碼頭裝卸、機具銷售與維修」，同步補上服務頁對應錨點；桌機與行動裝置共用同一份 Footer Partial，已一併更新，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 index 行動裝置 `.home-contact__inner` 內容整體置中，包含聯絡文字與按鈕；桌機維持原本左右配置，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 index 行動裝置 `.home-contact__intro > p:not(.home-contact__eyebrow)` 文字大小固定為 `16px`，保留 eyebrow 小標題與桌機規則，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 index 最新消息行動裝置版面，將動態插入的「更多資訊」按鈕移至主視覺與消息列表下方並置中，桌機維持標題列右側位置；統一手機列間距，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 index「關於亞太」行動裝置內容順序為標題、圖片、敘述、按鈕，並將手機內部間距統一為共用內容間距；桌機版維持左右欄配置，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 統一 index 五個主要內容區塊的上下留白與標題至主要內容間距，使用共用 section spacing token，手機移除各區塊不一致的特殊上下距離；保留既有內容、卡片與互動，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 加粗 index 行動裝置背景斜角圖形，將 SVG 折返帶 `stroke-width` 從 550 調整為手機專屬 760，桌機與平板維持原值，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 將 index「我們的服務」行動裝置卡片改為單列橫向滑動，卡片可左右拖曳並使用 scroll snap；桌機展開卡片互動維持不變，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
+- [x] 調整 index「關於亞太」區塊的行動裝置排序，將圖片移至文字與按鈕之前；保留桌機左右欄配置，更新 home CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/home.js`，瀏覽器畫面驗證尚未完成。
+
 ## 2026-10-20
 
 - [x] 調整職業安全頁 `.safety-page .safety-credential-card__title h3` 的筆電字重：在 `1024–1439px` 加粗一階至 `500`，桌機與手機維持原規則；更新 Occupational Safety CSS cache key，完成 `git diff --check` 與 `dotnet build -c Release`，瀏覽器畫面驗證尚未完成。
