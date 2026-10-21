@@ -381,6 +381,9 @@
 
 .about-page .about-subsidiary { min-width: 0; background: var(--color-surface-section); }
 .about-page .about-subsidiary summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 24px; color: var(--color-text-primary); font-size: var(--font-size-body); font-weight: 600; cursor: pointer; list-style: none; }
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .about-page .about-subsidiary summary { font-weight: 500; }
+}
 .about-page .about-subsidiary summary::-webkit-details-marker { display: none; }
 .about-page .about-subsidiary summary::after { display: inline-block; width: 10px; height: 10px; flex: 0 0 10px; border-right: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted); content: ""; transform: rotate(45deg) translateY(-3px); transition: border-color 180ms ease, transform 320ms cubic-bezier(.22, 1, .36, 1); }
 .about-page .about-subsidiary summary:hover::after { border-color: var(--color-primary); }

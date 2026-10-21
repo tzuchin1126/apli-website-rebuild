@@ -138,11 +138,11 @@ function setupHeroCarousel() {
 // ---------------------------------------------------------------------------
 
 // 建立輪播方向 SVG 圖示；了解更多按鈕使用同款 16px 箭頭，其餘控制項使用 chevron。
-function createArrow(direction, iconClass, shape) {
+function createArrow(iconClass, shape) {
   const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
   const isTextArrow = shape === "text";
   const icon = document.createElementNS(SVG_NAMESPACE, "svg");
-  icon.classList.add(iconClass || "home-latest__arrow-icon");
+  icon.classList.add(iconClass);
   icon.setAttribute("viewBox", isTextArrow ? "0 0 16 16" : "0 0 24 24");
   icon.setAttribute("width", isTextArrow ? "16" : "18");
   icon.setAttribute("height", isTextArrow ? "16" : "18");
@@ -156,13 +156,9 @@ function createArrow(direction, iconClass, shape) {
   const path = document.createElementNS(SVG_NAMESPACE, "path");
   let pathData;
   if (isTextArrow) {
-    pathData = direction === "left"
-      ? "M13.5 8H3.25M7.75 3.25 3 8l4.75 4.75"
-      : "M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75";
+    pathData = "M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75";
   } else if (shape === "chevron") {
-    pathData = direction === "left" ? "M16 4 8 12l8 8" : "M8 4l8 8-8 8";
-  } else {
-    pathData = direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7";
+    pathData = "M8 4l8 8-8 8";
   }
   path.setAttribute("d", pathData);
   icon.append(path);
@@ -220,133 +216,13 @@ function setupLatestNews() {
   moreLinkArrow.className = "button__arrow-window";
   moreLinkArrow.setAttribute("aria-hidden", "true");
   moreLinkArrow.append(
-    createArrow("right", "button__icon", "text"),
-    createArrow("right", "button__icon", "text"),
+    createArrow("button__icon", "text"),
+    createArrow("button__icon", "text")
   );
   moreLink.append(document.createTextNode("更多資訊"), moreLinkArrow);
   const latestInner = list.closest(".home-latest__inner");
   const latestHeading = latestInner ? latestInner.querySelector(".home-latest__heading") : null;
   if (latestHeading) latestHeading.append(moreLink);
-
-  function setupLatestCarousel() {
-    const carousel = document.querySelector("[data-home-latest-carousel]");
-    const viewport = carousel ? carousel.querySelector(".home-latest__viewport") : null;
-    const previousButton = carousel ? carousel.querySelector("[data-home-latest-previous]") : null;
-    const nextButton = carousel ? carousel.querySelector("[data-home-latest-next]") : null;
-    if (!carousel || !viewport || !previousButton || !nextButton) return;
-
-    const cards = toArray(list.querySelectorAll(".home-latest__item"));
-    if (cards.length === 0) return;
-    let activeStart = 0;
-
-    previousButton.append(createArrow("left", "home-latest__arrow-icon", "chevron"));
-    nextButton.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
-    carousel.classList.add("is-carousel-ready");
-
-    function getVisibleCount() {
-      if (window.innerWidth <= 520) return 1;
-      if (window.innerWidth <= 1100) return 2;
-      return 4;
-    }
-
-    function getMaxStart() {
-      return Math.max(0, cards.length - getVisibleCount());
-    }
-
-    function getCardStep() {
-      const listStyle = window.getComputedStyle(list);
-      const gap = parseFloat(listStyle.columnGap || listStyle.gap) || 0;
-      return cards[0].getBoundingClientRect().width + gap;
-    }
-
-    function render() {
-      activeStart = Math.max(0, Math.min(getMaxStart(), activeStart));
-      list.style.transform = "translate3d(" + (-activeStart * getCardStep()) + "px, 0, 0)";
-      previousButton.disabled = activeStart === 0;
-      nextButton.disabled = activeStart === getMaxStart();
-    }
-
-    function moveBy(direction) {
-      activeStart += direction;
-      render();
-    }
-
-    previousButton.addEventListener("click", function () { moveBy(-1); });
-    nextButton.addEventListener("click", function () { moveBy(1); });
-
-    let activePointerId = null;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let dragDistance = 0;
-    let hasDragged = false;
-    let suppressClick = false;
-
-    function finishLatestDrag(event) {
-      if (event.pointerId !== activePointerId) return;
-      viewport.classList.remove("is-dragging");
-      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-
-      if (hasDragged && event.type === "pointerup") {
-        const step = getCardStep();
-        const threshold = Math.max(32, step * .16);
-        if (Math.abs(dragDistance) >= threshold) {
-          const steps = Math.max(1, Math.round(Math.abs(dragDistance) / step));
-          const nextStart = dragDistance < 0 ? activeStart + steps : activeStart - steps;
-          activeStart = Math.max(0, Math.min(getMaxStart(), nextStart));
-        }
-        render();
-        suppressClick = true;
-      } else if (hasDragged) {
-        render();
-      }
-
-      activePointerId = null;
-      hasDragged = false;
-    }
-
-    viewport.addEventListener("pointerdown", function (event) {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      if (!event.isPrimary) return;
-      activePointerId = event.pointerId;
-      dragStartX = event.clientX;
-      dragStartY = event.clientY;
-      dragDistance = 0;
-      hasDragged = false;
-      suppressClick = false;
-    });
-
-    viewport.addEventListener("pointermove", function (event) {
-      if (event.pointerId !== activePointerId) return;
-      const distanceX = event.clientX - dragStartX;
-      const distanceY = event.clientY - dragStartY;
-      if (!hasDragged && Math.max(Math.abs(distanceX), Math.abs(distanceY)) < 5) return;
-      if (!hasDragged && Math.abs(distanceY) > Math.abs(distanceX)) {
-        activePointerId = null;
-        return;
-      }
-
-      hasDragged = true;
-      dragDistance = distanceX;
-      viewport.classList.add("is-dragging");
-      if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
-      event.preventDefault();
-      const startOffset = -activeStart * getCardStep();
-      list.style.transform = "translate3d(" + (startOffset + distanceX) + "px, 0, 0)";
-    }, { passive: false });
-
-    viewport.addEventListener("pointerup", finishLatestDrag);
-    viewport.addEventListener("pointercancel", finishLatestDrag);
-    viewport.addEventListener("click", function (event) {
-      if (!suppressClick) return;
-      suppressClick = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }, true);
-    viewport.addEventListener("dragstart", function (event) { event.preventDefault(); });
-
-    window.addEventListener("resize", render, { passive: true });
-    render();
-  }
 
   function buildNewsCard(item) {
     const link = document.createElement("a");
@@ -368,7 +244,7 @@ function setupLatestNews() {
     const more = document.createElement("span");
     more.className = "home-latest__more";
     more.setAttribute("aria-hidden", "true");
-    more.append(createArrow("right", "home-latest__arrow-icon", "chevron"));
+    more.append(createArrow("home-latest__arrow-icon", "chevron"));
 
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
@@ -411,7 +287,7 @@ function setupLatestNews() {
       const items = sortedItems.slice(0, homeNewsLimit);
       const listItems = items.slice(1);
       moreLink.hidden = sortedItems.length <= homeNewsLimit;
-      latestSection?.classList.remove("is-empty");
+      if (latestSection) latestSection.classList.remove("is-empty");
 
       list.replaceChildren();
       if (items.length === 0) throw new Error("No news");
@@ -420,10 +296,9 @@ function setupLatestNews() {
       for (let i = 0; i < listItems.length; i++) {
         list.append(buildNewsCard(listItems[i]));
       }
-      setupLatestCarousel();
     } catch (error) {
       moreLink.hidden = true;
-      latestSection?.classList.add("is-empty");
+      if (latestSection) latestSection.classList.add("is-empty");
       list.replaceChildren();
       const empty = document.createElement("p");
       empty.className = "home-latest__empty";
@@ -486,7 +361,7 @@ function setupServicesCards() {
     const heading = content ? content.querySelector("h3") : null;
     if (!heading || heading.querySelector(".home-services-compare__arrow-icon")) continue;
 
-    heading.append(createArrow("right", "home-services-compare__arrow-icon", "chevron"));
+    heading.append(createArrow("home-services-compare__arrow-icon", "chevron"));
   }
 }
 
@@ -510,8 +385,8 @@ function setupServicesCardImageFrame() {
     const media = cards[0].querySelector(".home-services-compare__media");
     if (!media || expandedCardWidth <= 0) return;
 
-    grid.style.setProperty("--home-services-image-frame-width", `${expandedCardWidth}px`);
-    grid.style.setProperty("--home-services-image-frame-height", `${media.getBoundingClientRect().height}px`);
+    grid.style.setProperty("--home-services-image-frame-width", expandedCardWidth + "px");
+    grid.style.setProperty("--home-services-image-frame-height", media.getBoundingClientRect().height + "px");
   };
 
   updateImageFrame();

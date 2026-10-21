@@ -2,6 +2,8 @@
 
 ## 2026-10-21
 
+- [x] 將 About `.about-page .about-subsidiary summary` 的筆電字重在 `1024–1439px` 由 `600` 調降至 `500`，桌機與手機維持原規則；更新 About CSS cache key，完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+
 - [x] 將 careers「加入亞太」左側內容整理為標題與敘述群組，敘述改為靠左對齊，標題與敘述間距統一使用 `var(--section-heading-content-gap)`；保留右側 `careers-workplace1.jpg` 與手機單欄排列，更新 Careers CSS cache key，完成 `git diff --check`，已用 Edge 確認桌機文字左側對齊、間距為 `40px`，手機維持單欄。
 
 - [x] 將桌機版 `.safety-page .safety-heading h2` 字重局部調降至 `600`，只套用於 `981px` 以上桌機，不修改全域 token 或手機版；更新 Occupational Safety CSS cache key，完成 `git diff --check`，已用 Edge 確認桌機為 `600`、手機維持 `700`。
