@@ -2,6 +2,10 @@
 
 ## 2026-10-21
 
+- [x] 將 Services `service-switcher` 標籤字級調整為 `16px`、移除選取項目的額外字重、底線由 `5px` 調整為 `3px`，桌機切換列高度由 `84px` 降至 `64px`，手機維持 `48px`；更新 Services CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/services.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+
+- [x] 將 Services `service-switcher` 調整為參考圖的淺灰底、左側橫向標籤、未選取灰字、選取主色字與 5px 底線；保留既有 tab、鍵盤操作與手機橫向滾動，更新 Services CSS cache key，完成 `git diff --check` 與 `node --check wwwroot/js/pages/services.js`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
+
 - [x] 將 About `.about-page .about-subsidiary summary` 的筆電字重在 `1024–1439px` 由 `600` 調降至 `500`，桌機與手機維持原規則；更新 About CSS cache key，完成 `git diff --check`，瀏覽器桌機／手機畫面、實體裝置、跨瀏覽器與完整人工無障礙驗收尚未執行，未 commit、未 push。
 
 - [x] 將 careers「加入亞太」左側內容整理為標題與敘述群組，敘述改為靠左對齊，標題與敘述間距統一使用 `var(--section-heading-content-gap)`；保留右側 `careers-workplace1.jpg` 與手機單欄排列，更新 Careers CSS cache key，完成 `git diff --check`，已用 Edge 確認桌機文字左側對齊、間距為 `40px`，手機維持單欄。
