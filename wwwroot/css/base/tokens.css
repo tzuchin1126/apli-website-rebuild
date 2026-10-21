@@ -47,7 +47,7 @@
   --font-size-card-title-compact: 1.25rem;
   --font-size-news-title: 18px;
   --font-size-body-lg: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
-  --font-size-body: 16px;
+  --font-size-body: 17px;
   --font-size-card-description: var(--font-size-body);
   --font-size-body-sm: 0.875rem;
   --font-size-label: 0.875rem;

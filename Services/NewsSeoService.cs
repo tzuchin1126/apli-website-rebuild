@@ -227,18 +227,11 @@ public static class NewsSeoService
         string tag = Encode(GetTag(item));
         string date = Encode(item.Date);
 
-        bool hasImage = !string.IsNullOrWhiteSpace(item.ImageUrl);
-        string imageUrl = hasImage ? item.ImageUrl : "/public/images/index/news1.png";
-        string mediaClass = hasImage ? "has-image" : "is-default";
-
-        string img = "<img src='" + Encode(imageUrl) + "' alt='' loading='lazy' decoding='async'>";
-
         string arrow = "<svg class='home-latest__arrow-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' " +
                        "stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" +
                        "<path d='M5 12h14M12 5l7 7-7 7'></path></svg>";
 
         return "<a class='home-latest__item' href='" + link + "'>\n" +
-               "  <span class='home-latest__media " + mediaClass + "'>" + img + "</span>\n" +
                "  <span class='home-latest__body'>\n" +
                "    <span class='home-latest__meta'>" +
                         "<time class='home-latest__date' datetime='" + date + "'>" + date + "</time>" +

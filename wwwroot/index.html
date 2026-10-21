@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261020-global-text-system-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261020-global-text-system-v1">
   <link rel="stylesheet" href="css/components/buttons.css?v=20261020-global-text-system-v1">
-    <link rel="stylesheet" href="css/pages/home.css?v=20261020-home-intro-heading-weight-v1">
+    <link rel="stylesheet" href="css/pages/home.css?v=20261021-home-latest-push-pin-image-v1">
   <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
 </head>
 <body class="home-page">
@@ -95,10 +95,6 @@
     </div>
   </header>
   <main id="main-content" class="home-page" role="main">
-    <div class="home-page__geometry" aria-hidden="true">
-      <div class="home-page__geometry-shape home-page__geometry-shape--top"></div>
-      <div class="home-page__geometry-shape home-page__geometry-shape--bottom"></div>
-    </div>
     <!-- Hero -->
     <section class="home-hero" aria-labelledby="home-hero-title" data-hero-carousel>
       <div class="home-hero__slides">
@@ -124,6 +120,10 @@
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
     </section>
 
+    <div class="home-content-fold-stage">
+      <svg class="home-content-fold-stage__background" viewBox="0 0 1920 6000" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false">
+        <path d="M3500 -800L-500 2000L4500 5500"></path>
+      </svg>
     <!-- 關於亞太 -->
     <section class="home-intro-section" aria-labelledby="home-intro-title">
       <div class="home-intro site-container">
@@ -138,7 +138,7 @@
               結合運輸、報關、包裝、流通加工、資訊服務等，為海、陸進出口及轉運貨物提供全方位的物流服務。</p>
           </div>
           <div class="home-intro__actions">
-            <a class="button--primary home-text-link" href="/about">
+            <a class="button--primary home-primary-action" href="/about">
               了解更多
               <span class="home-intro__arrow-window" aria-hidden="true">
                 <svg class="home-text-link__icon" viewBox="0 0 16 16" focusable="false">
@@ -223,8 +223,8 @@
       </div>
     </section>
 
-    <!-- 最新消息 -->
-    <section class="home-latest" aria-labelledby="home-latest-title">
+      <!-- 最新消息 -->
+      <section class="home-latest" aria-labelledby="home-latest-title">
       <div class="home-latest__inner" data-home-reveal="left" data-home-delay="100">
         <div class="home-latest__heading">
           <div>
@@ -232,18 +232,35 @@
             <h2 id="home-latest-title">最新消息</h2>
           </div>
         </div>
-        <div class="home-latest__carousel" data-home-latest-carousel>
-          <button class="home-latest__control" type="button" data-home-latest-previous aria-label="上一則最新消息" aria-controls="home-latest-track"></button>
-          <div class="home-latest__viewport">
-            <div id="home-latest-track" class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+        <div class="home-latest__layout">
+          <a class="home-latest__feature" data-home-latest-feature href="/news" aria-label="查看最新消息">
+            <img data-home-latest-feature-image src="public/images/index/news1.png" width="1200" height="760" alt="最新消息主視覺" loading="lazy" decoding="async">
+            <span class="home-latest__feature-badge" aria-label="最新消息提示">
+              <img src="public/images/icon/push-pin.svg" width="32" height="32" alt="">
+            </span>
+            <span class="home-latest__feature-overlay">
+              <span class="home-latest__feature-meta">
+                <span class="home-latest__feature-date" data-home-latest-feature-date></span>
+                <span class="home-latest__feature-label">最新公告</span>
+              </span>
+              <span class="home-latest__feature-title" data-home-latest-feature-title>查看最新公告</span>
+            </span>
+          </a>
+          <div class="home-latest__feed">
+            <div class="home-latest__carousel" data-home-latest-carousel>
+              <button class="home-latest__control" type="button" data-home-latest-previous aria-label="上一則最新消息" aria-controls="home-latest-track"></button>
+              <div class="home-latest__viewport">
+                <div id="home-latest-track" class="home-latest__list" data-home-latest-list><!-- home-latest-items --></div>
+              </div>
+              <button class="home-latest__control" type="button" data-home-latest-next aria-label="下一則最新消息" aria-controls="home-latest-track"></button>
+            </div>
           </div>
-          <button class="home-latest__control" type="button" data-home-latest-next aria-label="下一則最新消息" aria-controls="home-latest-track"></button>
         </div>
       </div>
-    </section>
+      </section>
 
-    <!-- 集團事業群 -->
-    <section class="home-affiliates" aria-labelledby="home-affiliates-title">
+      <!-- 集團事業群 -->
+      <section class="home-affiliates" aria-labelledby="home-affiliates-title">
       <div class="home-affiliates__inner">
         <div class="home-affiliates__heading" data-home-reveal="up">
           <p class="home-section-eyebrow">GROUP BUSINESS</p>
@@ -298,7 +315,8 @@
           </a>
         </div>
       </div>
-    </section>
+      </section>
+    </div>
 
     <!-- 聯絡我們 -->
     <section class="home-contact" aria-labelledby="home-contact-title">
@@ -314,6 +332,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260923-home-menu-state-v1"></script>
-    <script src="js/pages/home.js?v=20261020-services-card-edge-v2"></script>
+    <script src="js/pages/home.js?v=20261021-home-latest-feature-date-v1"></script>
 </body>
 </html>

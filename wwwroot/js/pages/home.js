@@ -137,30 +137,50 @@ function setupHeroCarousel() {
 // 最新消息:載入資料並支援卡片列拖曳
 // ---------------------------------------------------------------------------
 
-// 建立輪播方向 SVG 圖示；關係企業使用 chevron，最新消息使用帶箭身的箭頭。
+// 建立輪播方向 SVG 圖示；了解更多按鈕使用同款 16px 箭頭，其餘控制項使用 chevron。
 function createArrow(direction, iconClass, shape) {
   const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+  const isTextArrow = shape === "text";
   const icon = document.createElementNS(SVG_NAMESPACE, "svg");
   icon.classList.add(iconClass || "home-latest__arrow-icon");
-  icon.setAttribute("viewBox", "0 0 24 24");
-  icon.setAttribute("width", "18");
-  icon.setAttribute("height", "18");
+  icon.setAttribute("viewBox", isTextArrow ? "0 0 16 16" : "0 0 24 24");
+  icon.setAttribute("width", isTextArrow ? "16" : "18");
+  icon.setAttribute("height", isTextArrow ? "16" : "18");
   icon.setAttribute("fill", "none");
   icon.setAttribute("stroke", "currentColor");
-  icon.setAttribute("stroke-width", "1.8");
+  icon.setAttribute("stroke-width", isTextArrow ? "1.4" : "1.8");
   icon.setAttribute("stroke-linecap", "round");
   icon.setAttribute("stroke-linejoin", "round");
   icon.setAttribute("aria-hidden", "true");
 
   const path = document.createElementNS(SVG_NAMESPACE, "path");
   let pathData;
-  if (shape === "chevron") {
+  if (isTextArrow) {
+    pathData = direction === "left"
+      ? "M13.5 8H3.25M7.75 3.25 3 8l4.75 4.75"
+      : "M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75";
+  } else if (shape === "chevron") {
     pathData = direction === "left" ? "M16 4 8 12l8 8" : "M8 4l8 8-8 8";
   } else {
     pathData = direction === "left" ? "M19 12H5M12 19l-7-7 7-7" : "M5 12h14M12 5l7 7-7 7";
   }
   path.setAttribute("d", pathData);
   icon.append(path);
+  return icon;
+}
+
+function createEmptyNewsIcon() {
+  const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+  const icon = document.createElementNS(SVG_NAMESPACE, "svg");
+  icon.classList.add("home-latest__empty-icon");
+  icon.setAttribute("viewBox", "0 0 32 32");
+  icon.setAttribute("aria-hidden", "true");
+  icon.setAttribute("fill", "none");
+  icon.setAttribute("stroke", "currentColor");
+  icon.setAttribute("stroke-width", "1.6");
+  icon.setAttribute("stroke-linecap", "round");
+  icon.setAttribute("stroke-linejoin", "round");
+  icon.innerHTML = "<path d=\"M7 5.5h16a2 2 0 0 1 2 2v17H9a2 2 0 0 1-2-2v-17Z\"/><path d=\"M7 8.5h14M11 13h10M11 17h8M11 21h6\"/><path d=\"M25 24.5H9\"/>";
   return icon;
 }
 
@@ -184,22 +204,29 @@ function compareLatestNews(left, right) {
 function setupLatestNews() {
   const list = document.querySelector("[data-home-latest-list]");
   if (!list) return;
+  const latestSection = list.closest(".home-latest");
+  const feature = document.querySelector("[data-home-latest-feature]");
+  const featureImage = document.querySelector("[data-home-latest-feature-image]");
+  const featureDate = document.querySelector("[data-home-latest-feature-date]");
+  const featureTitle = document.querySelector("[data-home-latest-feature-title]");
+  const defaultFeatureImage = "public/images/index/news1.png";
   const homeNewsLimit = 4;
   const homeNewsProbeLimit = homeNewsLimit + 1;
   const moreLink = document.createElement("a");
-  moreLink.className = "home-latest__more-link";
+  moreLink.className = "button--primary home-primary-action home-latest__more-link";
   moreLink.href = "/news";
   moreLink.hidden = true;
   const moreLinkArrow = document.createElement("span");
   moreLinkArrow.className = "home-intro__arrow-window";
   moreLinkArrow.setAttribute("aria-hidden", "true");
   moreLinkArrow.append(
-    createArrow("right", "home-text-link__icon"),
-    createArrow("right", "home-text-link__icon"),
+    createArrow("right", "home-text-link__icon", "text"),
+    createArrow("right", "home-text-link__icon", "text"),
   );
   moreLink.append(document.createTextNode("更多資訊"), moreLinkArrow);
   const latestInner = list.closest(".home-latest__inner");
-  if (latestInner) latestInner.append(moreLink);
+  const latestHeading = latestInner ? latestInner.querySelector(".home-latest__heading") : null;
+  if (latestHeading) latestHeading.append(moreLink);
 
   function setupLatestCarousel() {
     const carousel = document.querySelector("[data-home-latest-carousel]");
@@ -351,8 +378,27 @@ function setupLatestNews() {
     titleRow.className = "home-latest__title-row";
     titleRow.append(title, more);
 
-    link.append(meta, titleRow);
+    const body = document.createElement("span");
+    body.className = "home-latest__body";
+    body.append(meta, titleRow);
+
+    link.append(body);
     return link;
+  }
+
+  function updateFeaturedNews(item) {
+    if (!feature || !featureImage || !featureDate || !featureTitle || !item) return;
+    const imageUrl = item.imageUrl || item.ImageUrl || defaultFeatureImage;
+    feature.href = "/news/" + encodeURIComponent(item.id);
+    feature.setAttribute("aria-label", item.title || "查看最新消息");
+    featureImage.src = imageUrl;
+    featureImage.alt = item.title || "最新消息主視覺";
+    featureDate.textContent = item.date || "";
+    featureTitle.textContent = item.title || "查看最新公告";
+    featureImage.onerror = function () {
+      if (featureImage.src.endsWith(defaultFeatureImage)) return;
+      featureImage.src = defaultFeatureImage;
+    };
   }
 
   async function loadNews() {
@@ -363,21 +409,27 @@ function setupLatestNews() {
       const rawItems = await response.json();
       const sortedItems = rawItems.slice().sort(compareLatestNews);
       const items = sortedItems.slice(0, homeNewsLimit);
+      const listItems = items.slice(1);
       moreLink.hidden = sortedItems.length <= homeNewsLimit;
+      latestSection?.classList.remove("is-empty");
 
       list.replaceChildren();
       if (items.length === 0) throw new Error("No news");
 
-      for (let i = 0; i < items.length; i++) {
-        list.append(buildNewsCard(items[i]));
+      updateFeaturedNews(items[0]);
+      for (let i = 0; i < listItems.length; i++) {
+        list.append(buildNewsCard(listItems[i]));
       }
       setupLatestCarousel();
     } catch (error) {
       moreLink.hidden = true;
+      latestSection?.classList.add("is-empty");
       list.replaceChildren();
       const empty = document.createElement("p");
       empty.className = "home-latest__empty";
-      empty.textContent = "目前沒有可顯示的最新消息。";
+      const emptyText = document.createElement("span");
+      emptyText.textContent = "目前沒有可顯示的最新消息。";
+      empty.append(createEmptyNewsIcon(), emptyText);
       list.append(empty);
     }
   }
