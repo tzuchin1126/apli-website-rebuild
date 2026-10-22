@@ -144,77 +144,8 @@
   line-height: var(--line-height-body);
 }
 
-/* Match the About CTA on the homepage, including its sliding arrow hover state. */
 .operational-resources-page .resource-link {
-  position: relative;
-  width: fit-content;
-  min-height: var(--button-primary-min-height);
   margin-top: 19px;
-  padding: 0 18px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--button-primary-radius);
-  background: var(--color-surface);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-normal);
-  gap: var(--button-primary-gap);
-  letter-spacing: normal;
-  line-height: normal;
-  transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
-}
-
-.operational-resources-page .resource-link:hover,
-.operational-resources-page .resource-link:focus-visible {
-  border-color: var(--color-text-primary);
-  background: var(--color-surface);
-  color: var(--color-text-primary);
-}
-
-.operational-resources-page .resource-link:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 5px;
-}
-
-.operational-resources-page .resource-link__arrow-window {
-  position: relative;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
-  overflow: hidden;
-  color: currentColor;
-}
-
-.operational-resources-page .resource-link__arrow-window .resource-link__icon {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: translateX(0);
-  transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out;
-}
-
-.operational-resources-page .resource-link__arrow-window .resource-link__icon:nth-child(2) {
-  opacity: 0;
-  transform: translateX(-110%);
-}
-
-.operational-resources-page .resource-link:hover .resource-link__arrow-window .resource-link__icon:first-child,
-.operational-resources-page .resource-link:focus-visible .resource-link__arrow-window .resource-link__icon:first-child {
-  opacity: 0;
-  transform: translateX(110%);
-}
-
-.operational-resources-page .resource-link:hover .resource-link__arrow-window .resource-link__icon:nth-child(2),
-.operational-resources-page .resource-link:focus-visible .resource-link__arrow-window .resource-link__icon:nth-child(2) {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 .operational-resources-page .resources-section-heading {
@@ -606,7 +537,7 @@
   }
 
   .operational-resources-page .resource-link {
-    justify-content: initial;
+    justify-content: center;
     margin-top: 24px;
     text-align: left;
   }

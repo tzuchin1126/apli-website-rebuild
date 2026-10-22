@@ -206,7 +206,6 @@
 
 @media (max-width: 840px) {
   .site-footer__main {
-    gap: 16px;
     padding-top: 24px;
     padding-bottom: 28px;
   }
@@ -249,7 +248,7 @@
     width: 100%;
   }
 
-  .footer-column {
+  .footer-column:not(:first-child) {
     border-top: 1px solid var(--footer-divider);
   }
 

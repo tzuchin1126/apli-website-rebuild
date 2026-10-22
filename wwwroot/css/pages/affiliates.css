@@ -99,27 +99,15 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.affiliate-panel-copy,
-.affiliate-sexin-redesign {
+.affiliate-panel-copy {
   display: grid;
   gap: clamp(72px, 7vw, 96px);
 }
 
-.affiliate-sexin-redesign {
+.affiliate-panel-redesign {
   gap: clamp(40px, 4vw, 56px);
   width: 100%;
   margin-right: 0;
-}
-
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliates-content {
-    
-    
-  }
-
-  .affiliate-tabs {
-    margin-left: 0;
-  }
 }
 
 .affiliate-oil-redesign {
@@ -138,12 +126,12 @@
   gap: clamp(40px, 4vw, 56px);
 }
 
-.affiliate-oil-company-profile .affiliate-sexin-profile-copy {
+.affiliate-oil-company-profile .affiliate-profile-copy {
   gap: 20px;
 }
 
-.affiliate-oil-company-profile .affiliate-sexin-profile-copy p {
-  font-size: 16px;
+.affiliate-oil-company-profile .affiliate-profile-copy p {
+  font-size: var(--font-size-body);
   line-height: 1.9;
 }
 
@@ -195,7 +183,7 @@
 .affiliate-panel li {
   color: var(--color-muted);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-body);
   line-height: var(--line-height-body);
@@ -206,8 +194,8 @@
 }
 
 .affiliate-editorial-section,
-.affiliate-sexin-services-redesign,
-.affiliate-sexin-awards-redesign,
+.affiliate-services-redesign,
+.affiliate-awards-redesign,
 .affiliate-oil-locations,
 .affiliate-club-facilities-contact,
 .affiliate-panel-details {
@@ -217,56 +205,20 @@
 }
 
 .affiliate-editorial-section,
-.affiliate-sexin-services-redesign,
-.affiliate-sexin-awards-redesign {
+.affiliate-services-redesign,
+.affiliate-awards-redesign {
   display: grid;
   gap: 28px;
+}
+
+.affiliate-services-redesign--spaced {
+  padding-bottom: var(--section-space);
 }
 
 .affiliate-panel-intro {
   display: grid;
   gap: 12px;
   max-width: 720px;
-}
-
-.affiliate-gallery-shell {
-  min-width: 0;
-}
-
-.affiliate-gallery-shell {
-  position: relative;
-}
-
-.affiliate-oil-gallery,
-.affiliate-alpha-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 24px);
-  width: 100%;
-  margin: 0;
-}
-
-.affiliate-oil-gallery figure,
-.affiliate-alpha-gallery figure {
-  min-width: 0;
-  margin: 0;
-}
-
-.affiliate-oil-gallery img,
-.affiliate-alpha-gallery img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--card-radius);
-  object-fit: cover;
-}
-
-.affiliate-alpha-gallery img[src*="port-crane-operation"] {
-  object-position: center 80%;
-}
-
-.affiliate-gallery-hint {
-  display: none;
 }
 
 .affiliate-oil-quote {
@@ -295,17 +247,14 @@
 
 .affiliate-oil-quote > span::before {
   position: absolute;
+  left: 24px;
   top: 26px;
   color: var(--color-primary);
+  content: "“";
   font-family: var(--font-body);
   font-size: 3rem;
   font-weight: var(--font-weight-medium);
   line-height: 1;
-}
-
-.affiliate-oil-quote > span::before {
-  left: 24px;
-  content: "“";
 }
 
 .affiliate-locations-heading {
@@ -821,7 +770,7 @@
   color: var(--color-secondary);
 }
 
-.affiliate-sexin-company-profile {
+.affiliate-company-profile {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr);
   gap: clamp(48px, 5vw, 64px);
@@ -830,32 +779,36 @@
   border-top: 0;
 }
 
-.affiliate-sexin-profile-copy {
+.affiliate-company-profile--spaced {
+  padding-bottom: var(--section-space);
+}
+
+.affiliate-profile-copy {
   display: grid;
   gap: 20px;
   max-width: 720px;
 }
 
-.affiliate-sexin-profile-copy h2,
-.affiliate-sexin-profile-copy h3 {
+.affiliate-profile-copy h2,
+.affiliate-profile-copy h3 {
   margin: 0;
   font-weight: var(--font-weight-heading);
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-sexin-profile-copy h2,
-  .affiliate-sexin-profile-copy h3 {
+  .affiliate-profile-copy h2,
+  .affiliate-profile-copy h3 {
     font-weight: 500;
   }
 }
 
-.affiliate-sexin-section-heading h3 {
+.affiliate-section-heading--accent h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: var(--line-height-card-title-compact);
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-sexin-section-heading h3 {
+  .affiliate-section-heading--accent h3 {
     font-weight: 500;
   }
 }
@@ -871,38 +824,38 @@
   }
 }
 
-.affiliate-sexin-profile-recognition {
+.affiliate-profile-recognition {
   width: min(100%, 750px);
   margin: 12px 0 0;
 }
 
-.affiliate-sexin-profile-recognition img {
+.affiliate-profile-recognition img {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
 }
 
-.affiliate-sexin-profile-image {
+.affiliate-profile-image {
   position: relative;
   width: 100%;
   margin: 0;
 }
 
-.affiliate-sexin-profile-carousel {
+.affiliate-profile-carousel {
   position: relative;
   min-width: 0;
   touch-action: pan-y;
 }
 
-.affiliate-sexin-profile-slides {
+.affiliate-profile-slides {
   position: relative;
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: var(--card-radius);
 }
 
-.affiliate-sexin-profile-slide {
+.affiliate-profile-slide {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -912,7 +865,7 @@
   transition: transform 600ms ease, opacity 600ms ease, visibility 0s linear 600ms;
 }
 
-.affiliate-sexin-profile-slide.is-active {
+.affiliate-profile-slide.is-active {
   z-index: 2;
   visibility: visible;
   opacity: 1;
@@ -920,7 +873,7 @@
   transition-delay: 0s;
 }
 
-.affiliate-sexin-profile-slide.is-leaving {
+.affiliate-profile-slide.is-leaving {
   z-index: 1;
   visibility: visible;
   opacity: 1;
@@ -928,7 +881,7 @@
   transition-delay: 0s;
 }
 
-.affiliate-sexin-profile-slide img {
+.affiliate-profile-slide img {
   display: block;
   width: 100%;
   height: 100%;
@@ -936,11 +889,11 @@
   object-fit: cover;
 }
 
-.affiliate-sexin-profile-carousel-controls {
+.affiliate-profile-carousel-controls {
   margin-top: 16px;
 }
 
-.affiliate-sexin-profile-carousel-progress {
+.affiliate-profile-carousel-progress {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
@@ -948,27 +901,27 @@
   margin-inline: auto;
 }
 
-.affiliate-oil-company-profile .affiliate-sexin-profile-carousel-progress {
+.affiliate-oil-company-profile .affiliate-profile-carousel-progress {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.affiliate-badminton-company-profile .affiliate-sexin-profile-carousel-progress {
+.affiliate-badminton-company-profile .affiliate-profile-carousel-progress {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel-progress {
+.affiliate-alpha-company-profile .affiliate-profile-carousel-progress {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.affiliate-alpha-company-profile .affiliate-sexin-profile-slide img[src*="port-crane-operation"] {
+.affiliate-alpha-company-profile .affiliate-profile-slide img[src*="port-crane-operation"] {
   object-position: center bottom;
 }
 
-.affiliate-club-company-profile .affiliate-sexin-profile-carousel-progress {
+.affiliate-club-company-profile .affiliate-profile-carousel-progress {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.affiliate-sexin-profile-carousel-progress-bar {
+.affiliate-profile-carousel-progress-bar {
   position: relative;
   width: 100%;
   height: 10px;
@@ -978,8 +931,8 @@
   cursor: pointer;
 }
 
-.affiliate-sexin-profile-carousel-progress-bar::before,
-.affiliate-sexin-profile-carousel-progress-fill {
+.affiliate-profile-carousel-progress-bar::before,
+.affiliate-profile-carousel-progress-fill {
   position: absolute;
   top: 4px;
   left: 0;
@@ -988,35 +941,35 @@
   content: "";
 }
 
-.affiliate-sexin-profile-carousel-progress-bar::before {
+.affiliate-profile-carousel-progress-bar::before {
   background: var(--color-line);
 }
 
-.affiliate-sexin-profile-carousel-progress-fill {
+.affiliate-profile-carousel-progress-fill {
   width: 0;
   background: var(--color-primary);
 }
 
-.affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill {
-  animation: affiliate-sexin-carousel-progress 5s linear forwards;
+.affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill {
+  animation: affiliate-carousel-progress 5s linear forwards;
 }
 
-.affiliate-sexin-profile-carousel:hover .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill,
-.affiliate-sexin-profile-carousel:focus-within .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill {
+.affiliate-profile-carousel:hover .affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill,
+.affiliate-profile-carousel:focus-within .affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill {
   animation-play-state: paused;
 }
 
-.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel:hover .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill,
-.affiliate-alpha-company-profile .affiliate-sexin-profile-carousel:focus-within .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill {
+.affiliate-alpha-company-profile .affiliate-profile-carousel:hover .affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill,
+.affiliate-alpha-company-profile .affiliate-profile-carousel:focus-within .affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill {
   animation-play-state: running;
 }
 
-.affiliate-sexin-profile-carousel-progress-bar:focus-visible {
+.affiliate-profile-carousel-progress-bar:focus-visible {
   outline: 1px solid var(--color-primary);
   outline-offset: 4px;
 }
 
-@keyframes affiliate-sexin-carousel-progress {
+@keyframes affiliate-carousel-progress {
   from {
     width: 0;
   }
@@ -1027,12 +980,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .affiliate-sexin-profile-slide {
+  .affiliate-profile-slide {
     transition: none;
   }
 }
 
-.affiliate-sexin-services-list ul {
+.affiliate-services-list ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px 32px;
@@ -1040,7 +993,7 @@
   list-style: none;
 }
 
-.affiliate-club-facilities .affiliate-sexin-services-list ul {
+.affiliate-club-facilities .affiliate-services-list ul {
   width: min(100%, 380px);
   column-gap: 24px;
 }
@@ -1049,15 +1002,15 @@
   width: min(100%, 720px);
 }
 
-.affiliate-sexin-services-list li {
+.affiliate-services-list li {
   display: grid;
   grid-template-columns: 12px minmax(0, 1fr);
   gap: 12px;
   align-items: baseline;
-  font-size: 16px;
+  font-size: var(--font-size-body);
 }
 
-.affiliate-sexin-services-list li::before {
+.affiliate-services-list li::before {
   align-self: start;
   width: 8px;
   height: 8px;
@@ -1086,13 +1039,13 @@
   text-decoration: none;
 }
 
-.affiliate-sexin-award-grid {
+.affiliate-award-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(20px, 3vw, 40px);
 }
 
-.affiliate-sexin-award-grid figure {
+.affiliate-award-grid figure {
   display: grid;
   grid-template-rows: clamp(200px, 20vw, 240px) auto;
   align-content: start;
@@ -1104,7 +1057,7 @@
   background: transparent;
 }
 
-.affiliate-sexin-award-image {
+.affiliate-award-image {
   display: grid;
   width: 100%;
   height: clamp(200px, 20vw, 240px);
@@ -1115,7 +1068,7 @@
   background: transparent;
 }
 
-.affiliate-sexin-award-grid img {
+.affiliate-award-grid img {
   display: block;
   width: 100%;
   height: 100%;
@@ -1127,7 +1080,7 @@
   object-fit: contain;
 }
 
-.affiliate-sexin-award-grid figcaption {
+.affiliate-award-grid figcaption {
   display: grid;
   width: 100%;
   box-sizing: border-box;
@@ -1279,9 +1232,10 @@
     height: 2px;
   }
 
-  .affiliate-sexin-company-profile {
+  .affiliate-company-profile {
     grid-template-columns: 1fr;
     gap: 32px;
+    padding-bottom: var(--section-space);
   }
 
   .affiliate-oil-location-map {
@@ -1295,7 +1249,7 @@
     transform: translateY(-120px);
   }
 
-  .affiliate-sexin-redesign {
+  .affiliate-panel-redesign {
     width: 100%;
     margin-right: 0;
   }
@@ -1328,21 +1282,17 @@
     padding-top: 32px;
   }
 
-  .affiliate-panel-copy,
-  .affiliate-sexin-redesign {
+  .affiliate-panel-copy {
     gap: 64px;
   }
 
-  .affiliate-sexin-redesign {
-    gap: 40px;
-  }
-
+  .affiliate-panel-redesign,
   .affiliate-alpha-redesign {
     gap: 40px;
   }
 
   .affiliate-editorial-section,
-  .affiliate-sexin-services-redesign,
+  .affiliate-services-redesign,
   .affiliate-oil-locations,
   .affiliate-club-facilities-contact,
   .affiliate-panel-details {
@@ -1373,49 +1323,6 @@
     padding-top: 24px;
   }
 
-  .affiliate-oil-gallery,
-  .affiliate-alpha-gallery {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .affiliate-oil-gallery::-webkit-scrollbar,
-  .affiliate-alpha-gallery::-webkit-scrollbar {
-    display: none;
-  }
-
-  .affiliate-oil-gallery figure,
-  .affiliate-alpha-gallery figure {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-  }
-
-  .affiliate-gallery-hint {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-    display: grid;
-    width: 44px;
-    height: 32px;
-    place-items: center;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-full);
-    background: rgb(255 255 255 / 90%);
-    color: var(--color-ink);
-    pointer-events: none;
-  }
-
-  .affiliate-gallery-hint__icon {
-    width: 28px;
-    height: 16px;
-  }
-
   .affiliate-location-cards {
     grid-template-columns: 1fr;
   }
@@ -1429,7 +1336,7 @@
     grid-template-columns: 1fr;
   }
 
-  .affiliate-sexin-services-list ul {
+  .affiliate-services-list ul {
     grid-template-columns: 1fr;
   }
 
@@ -1437,7 +1344,7 @@
     grid-template-columns: 1fr;
   }
 
-  .affiliate-sexin-award-grid {
+  .affiliate-award-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1447,7 +1354,7 @@
     padding-inline: 16px;
   }
 
-  .affiliate-sexin-award-grid {
+  .affiliate-award-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1522,12 +1429,12 @@
     white-space: nowrap;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-grid {
+  .affiliate-awards-redesign .affiliate-award-grid {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-grid figure {
+  .affiliate-awards-redesign .affiliate-award-grid figure {
     grid-template-columns: 100px minmax(0, 1fr);
     grid-template-rows: auto;
     column-gap: 20px;
@@ -1536,28 +1443,28 @@
     border-bottom: 1px solid #e5e5e5;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-grid figure:first-child {
+  .affiliate-awards-redesign .affiliate-award-grid figure:first-child {
     padding-top: 0;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-grid figure:last-child {
+  .affiliate-awards-redesign .affiliate-award-grid figure:last-child {
     border-bottom: 0;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-image {
+  .affiliate-awards-redesign .affiliate-award-image {
     width: 100%;
     height: 110px;
     padding: 0;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-sexin-award-grid figcaption {
+  .affiliate-awards-redesign .affiliate-award-grid figcaption {
     width: auto;
     padding: 0;
     justify-items: start;
     text-align: left;
   }
 
-  .affiliate-sexin-awards-redesign .affiliate-award-meta {
+  .affiliate-awards-redesign .affiliate-award-meta {
     justify-content: flex-start;
   }
 }
@@ -1569,7 +1476,7 @@
     transition: none;
   }
 
-  .affiliate-sexin-profile-carousel-progress-bar.is-active .affiliate-sexin-profile-carousel-progress-fill {
+  .affiliate-profile-carousel-progress-bar.is-active .affiliate-profile-carousel-progress-fill {
     animation: none;
     width: 100%;
   }

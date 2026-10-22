@@ -209,7 +209,7 @@ function initOneCarousel(carousel) {
   }
 
   carousel.addEventListener("animationend", function (event) {
-    if (event.animationName !== "affiliate-sexin-carousel-progress" || prefersReducedMotion.matches) return;
+    if (event.animationName !== "affiliate-carousel-progress" || prefersReducedMotion.matches) return;
     if (!event.target.closest(".is-active")) return;
     showSlide(activeIndex + 1);
   });

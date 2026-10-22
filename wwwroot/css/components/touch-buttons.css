@@ -25,14 +25,6 @@
   .news-detail-page .news-detail__back:active,
   .news-detail-page .news-detail__back:focus,
   .news-detail-page .news-detail__back:focus-visible,
-  .operational-resources-page .resource-link:hover,
-  .operational-resources-page .resource-link:active,
-  .operational-resources-page .resource-link:focus,
-  .operational-resources-page .resource-link:focus-visible {
-    background: transparent;
-    color: var(--color-secondary);
-  }
-
   .home-page .home-hero__cta:hover,
   .home-page .home-hero__cta:active,
   .home-page .home-hero__cta:focus,
@@ -83,10 +75,6 @@
   .home-page .home-contact-cta__link:active .home-text-link__icon,
   .home-page .home-contact-cta__link:focus .home-text-link__icon,
   .home-page .home-contact-cta__link:focus-visible .home-text-link__icon,
-  .operational-resources-page .resource-link:hover .resource-link__icon,
-  .operational-resources-page .resource-link:active .resource-link__icon,
-  .operational-resources-page .resource-link:focus .resource-link__icon,
-  .operational-resources-page .resource-link:focus-visible .resource-link__icon,
   .news-detail-page .news-detail__back:hover .ph,
   .news-detail-page .news-detail__back:active .ph,
   .news-detail-page .news-detail__back:focus .ph,

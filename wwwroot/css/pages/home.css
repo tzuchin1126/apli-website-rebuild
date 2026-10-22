@@ -39,27 +39,6 @@ main.home-page > :not(.home-content-fold-stage) {
   overflow: hidden;
   background: var(--color-surface);
 }
-.home-content-fold-stage__background {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: none;
-  pointer-events: none;
-}
-.home-content-fold-stage__background path {
-  fill: none;
-  stroke: #fafafa;
-  stroke-linecap: butt;
-  stroke-linejoin: miter;
-  stroke-width: 550;
-}
-@media (max-width: 767px) {
-  .home-content-fold-stage__background path { stroke-width: 760; }
-}
 .home-content-fold-stage > .home-intro-section,
 .home-content-fold-stage > .home-services-compare,
 .home-content-fold-stage > .home-latest,
@@ -397,7 +376,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 .home-page .home-contact {
   position: relative;
   isolation: isolate;
-  background: url("../../public/images/index/cta.jpg") center top / 100% auto no-repeat;
+  background: url("../../public/images/index/pexels-ketut-subiyanto-4963433.jpg") center top / 100% auto no-repeat;
   color: var(--color-text-primary);
 }
 .home-page .home-contact::before {
@@ -1273,7 +1252,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   place-items: center;
   border-radius: 50%;
   background: rgb(255 255 255 / 84%);
-  color: var(--color-primary);
+  color: var(--color-text-muted);
 }
 .home-page .home-latest__feature-badge img {
   display: block;

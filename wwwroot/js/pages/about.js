@@ -198,9 +198,10 @@ function initCertificationPreview() {
     return;
   }
   const controls = preview.querySelector("[data-certification-preview-controls]");
+  const decadeNavigation = preview.querySelector("[data-certification-preview-decades]");
   const viewport = preview.querySelector(".about-certifications-preview__content-shell");
   const content = preview.querySelector("[data-certification-preview-content]");
-  if (!controls || !viewport || !content) {
+  if (!controls || !decadeNavigation || !viewport || !content) {
     return;
   }
 
@@ -252,6 +253,7 @@ function initCertificationPreview() {
   let pageSize = getPageSize();
   let pageSets = [];
   let pageOffsets = [];
+  let scrollAnimationFrame = 0;
 
   function getPageSize() {
     if (window.matchMedia("(min-width: 1440px)").matches) {
@@ -297,17 +299,22 @@ function initCertificationPreview() {
       const active = buttonIndex === index;
       button.dataset.active = active ? "true" : "false";
       button.setAttribute("aria-current", active ? "true" : "false");
+      button.setAttribute("aria-selected", active ? "true" : "false");
     });
   }
 
   decades.forEach(function (decade) {
     const tab = document.createElement("button");
     tab.type = "button";
+    tab.className = "about-certifications-preview__decade";
+    tab.setAttribute("role", "tab");
     tab.id = "certification-preview-decade-" + decade.start;
     tab.setAttribute("aria-controls", "certification-preview-content");
     tab.textContent = decade.label;
     decadeButtons.push(tab);
+    decadeNavigation.append(tab);
   });
+  decadeNavigation.style.setProperty("--decade-count", String(decades.length));
   markActiveDecadeButton(0);
 
   const pagination = document.createElement("div");
@@ -338,14 +345,41 @@ function initCertificationPreview() {
     if (targetPage) {
       pageStep = targetPage.offsetLeft - firstPage.offsetLeft;
     } else {
-      pageStep = firstPage.offsetWidth + 16;
+      pageStep = firstPage.offsetWidth;
     }
 
     viewport.classList.toggle("is-track-advanced", globalPageIndex > 0);
-    viewport.scrollTo({
-      left: pageStep,
-      behavior: animate && !reduceMotion ? "smooth" : "auto",
-    });
+    if (scrollAnimationFrame) {
+      window.cancelAnimationFrame(scrollAnimationFrame);
+      scrollAnimationFrame = 0;
+      viewport.classList.remove("is-certification-animating");
+    }
+
+    if (!animate || reduceMotion) {
+      viewport.scrollLeft = pageStep;
+    } else {
+      const startLeft = viewport.scrollLeft;
+      const distance = pageStep - startLeft;
+      const startTime = window.performance.now();
+      const duration = 500;
+      viewport.classList.add("is-certification-animating");
+
+      function animateScroll(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const easedProgress = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - (Math.pow(-2 * progress + 2, 2) / 2);
+        viewport.scrollLeft = startLeft + (distance * easedProgress);
+        if (progress < 1) {
+          scrollAnimationFrame = window.requestAnimationFrame(animateScroll);
+        } else {
+          scrollAnimationFrame = 0;
+          viewport.classList.remove("is-certification-animating");
+        }
+      }
+
+      scrollAnimationFrame = window.requestAnimationFrame(animateScroll);
+    }
 
     for (let i = 0; i < track.children.length; i++) {
       track.children[i].setAttribute("aria-hidden", i === globalPageIndex ? "false" : "true");
@@ -504,6 +538,32 @@ function initCertificationPreview() {
     content.style.setProperty("--preview-events-height", Math.ceil(maxHeight) + "px");
   }
 
+  function syncPageWidths() {
+    const pageWidth = viewport.clientWidth;
+    const pages = content.querySelectorAll(".about-certifications-preview__page");
+    if (pages.length === 0 || pageWidth <= 0) return;
+
+    if (!window.matchMedia("(min-width: 768px)").matches) {
+      pages.forEach(function (page) {
+        page.style.removeProperty("--preview-column-width");
+        page.style.width = pageWidth + "px";
+        page.style.flexBasis = pageWidth + "px";
+      });
+      return;
+    }
+
+    const pageStyles = window.getComputedStyle(pages[0]);
+    const columnGap = parseFloat(pageStyles.columnGap) || 0;
+    const columnWidth = (pageWidth - ((pageSize - 1) * columnGap)) / pageSize;
+    pages.forEach(function (page) {
+      const yearCount = Number(page.dataset.previewYearCount) || 1;
+      const pageContentWidth = (yearCount * columnWidth) + ((yearCount - 1) * columnGap);
+      page.style.setProperty("--preview-column-width", columnWidth + "px");
+      page.style.width = pageContentWidth + "px";
+      page.style.flexBasis = pageContentWidth + "px";
+    });
+  }
+
   function renderTrack() {
     if (pageSets.length === 0) {
       return;
@@ -523,6 +583,7 @@ function initCertificationPreview() {
       });
     });
     content.replaceChildren(sharedTimelineTrack, track);
+    syncPageWidths();
     renderPagination();
     syncEventHeights();
     setTrackPosition(false);
@@ -538,7 +599,7 @@ function initCertificationPreview() {
     activeDecadeIndex = index;
     activePageIndex = 0;
     markActiveDecadeButton(index);
-    setTrackPosition(false);
+    setTrackPosition(true);
     updateControls();
     if (moveFocus) {
       decadeButtons[index].focus();
@@ -673,6 +734,7 @@ function initCertificationPreview() {
     const nextPageSize = getPageSize();
 
     if (nextPageSize === pageSize) {
+      syncPageWidths();
       syncEventHeights();
       setTrackPosition(false);
       return;
