@@ -74,7 +74,15 @@ function initTabs() {
 
   // 找出一開始就是選中狀態的分頁，找不到就用第一個
   let initialTab = tabs[0];
+  const requestedTabId = window.location.hash.slice(1);
+  if (requestedTabId) {
+    const requestedTab = document.getElementById(requestedTabId);
+    if (requestedTab && requestedTab.getAttribute("role") === "tab") {
+      initialTab = requestedTab;
+    }
+  }
   for (let i = 0; i < tabs.length; i++) {
+    if (initialTab !== tabs[0]) break;
     if (tabs[i].getAttribute("aria-selected") === "true") {
       initialTab = tabs[i];
       break;

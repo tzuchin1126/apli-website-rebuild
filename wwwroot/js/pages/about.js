@@ -57,69 +57,6 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
-function initSubsidiaryAccordion() {
-  const items = Array.from(document.querySelectorAll(".about-subsidiaries__accordion > details"));
-  if (items.length === 0) return;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  function closeItem(item) {
-    const panel = item.querySelector(".about-subsidiary__panel");
-    if (!item.open || !panel) return;
-    if (reducedMotion.matches) {
-      item.open = false;
-      panel.style.height = "0px";
-      return;
-    }
-    panel.style.height = panel.scrollHeight + "px";
-    requestAnimationFrame(function () {
-      panel.style.height = "0px";
-    });
-    panel.addEventListener("transitionend", function handleClose(event) {
-      if (event.propertyName !== "height") return;
-      item.open = false;
-      panel.removeEventListener("transitionend", handleClose);
-    });
-  }
-
-  function openItem(item) {
-    const panel = item.querySelector(".about-subsidiary__panel");
-    if (!panel) return;
-    item.open = true;
-    if (reducedMotion.matches) {
-      panel.style.height = "auto";
-      return;
-    }
-    panel.style.height = "0px";
-    requestAnimationFrame(function () {
-      panel.style.height = panel.scrollHeight + "px";
-    });
-    panel.addEventListener("transitionend", function handleOpen(event) {
-      if (event.propertyName !== "height") return;
-      panel.style.height = "auto";
-      panel.removeEventListener("transitionend", handleOpen);
-    });
-  }
-
-  items.forEach(function (item) {
-    const summary = item.querySelector("summary");
-    const panel = item.querySelector(".about-subsidiary__panel");
-    if (!summary || !panel) return;
-
-    panel.style.height = item.open ? "auto" : "0px";
-    summary.addEventListener("click", function (event) {
-      event.preventDefault();
-      if (item.open) {
-        closeItem(item);
-        return;
-      }
-      items.forEach(function (otherItem) {
-        if (otherItem !== item) closeItem(otherItem);
-      });
-      openItem(item);
-    });
-  });
-}
-
 function setupAboutScrollMotion() {
   // Reveal each About content section as it enters the viewport.
   const page = document.querySelector(".about-page");
@@ -130,7 +67,11 @@ function setupAboutScrollMotion() {
   const sections = Array.from(page.querySelectorAll(
     ".about-profile, .about-certifications-preview"
   ));
-  if (sections.length === 0) {
+  const enterpriseCards = Array.from(page.querySelectorAll(
+    ".about-enterprise-values__card"
+  ));
+  const revealTargets = sections.concat(enterpriseCards);
+  if (revealTargets.length === 0) {
     return;
   }
 
@@ -140,27 +81,53 @@ function setupAboutScrollMotion() {
   sections.forEach(function (section) {
     section.classList.add("about-scroll-reveal");
   });
+  enterpriseCards.forEach(function (card) {
+    card.classList.add("about-enterprise-values__card-reveal");
+  });
 
   function revealSection(section) {
-    section.classList.add("is-visible");
+    const reveal = function () {
+      section.classList.add("is-visible");
+    };
+
+    if (!section.classList.contains("about-enterprise-values__card-reveal")) {
+      reveal();
+      return;
+    }
+
+    const image = section.querySelector("img");
+    if (!image || image.complete) {
+      reveal();
+      return;
+    }
+
+    image.addEventListener("load", reveal, { once: true });
+    image.addEventListener("error", reveal, { once: true });
+    if (typeof image.decode === "function") {
+      image.decode().then(reveal).catch(function () {
+        // load/error 事件仍會負責解除等待。
+      });
+    }
   }
 
   if (reducedMotion.matches) {
-    sections.forEach(revealSection);
+    revealTargets.forEach(function (target) {
+      target.classList.add("is-visible");
+    });
     return;
   }
 
   if (!("IntersectionObserver" in window)) {
     // 舊瀏覽器沒有 IntersectionObserver，改用 scroll/resize 自己算元素是否進入畫面
     function revealSectionsWhenVisible() {
-      sections.forEach(function (section) {
-        const rect = section.getBoundingClientRect();
+      revealTargets.forEach(function (target) {
+        const rect = target.getBoundingClientRect();
         if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
-          revealSection(section);
+          revealSection(target);
         }
       });
 
-      if (sections.every(function (section) { return section.classList.contains("is-visible"); })) {
+      if (revealTargets.every(function (target) { return target.classList.contains("is-visible"); })) {
         window.removeEventListener("scroll", revealSectionsWhenVisible);
         window.removeEventListener("resize", revealSectionsWhenVisible);
       }
@@ -180,14 +147,14 @@ function setupAboutScrollMotion() {
     });
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  sections.forEach(function (section) {
-    observer.observe(section);
+  revealTargets.forEach(function (target) {
+    observer.observe(target);
   });
 
   reducedMotion.addEventListener("change", function () {
     if (!reducedMotion.matches) return;
     observer.disconnect();
-    sections.forEach(revealSection);
+    revealTargets.forEach(revealSection);
   }, { once: true });
 }
 
@@ -479,6 +446,11 @@ function initCertificationPreview() {
     const pageHeadingId = "certification-preview-" + decade.start + "-" + pageIndex;
     page.setAttribute("aria-labelledby", pageHeadingId);
 
+    const yearsHeader = document.createElement("div");
+    yearsHeader.className = "about-certifications-preview__years-header";
+    yearsHeader.dataset.yearCount = String(years.length);
+    yearsHeader.style.setProperty("--preview-year-count", String(years.length));
+
     const timeline = document.createElement("div");
     timeline.className = "about-certifications-preview__timeline";
     timeline.style.setProperty("--preview-year-count", String(years.length));
@@ -489,7 +461,7 @@ function initCertificationPreview() {
       node.setAttribute("aria-hidden", "true");
       timeline.append(node);
     });
-    page.append(timeline);
+    page.append(yearsHeader, timeline);
 
     const yearsElement = document.createElement("div");
     yearsElement.className = "about-certifications-preview__years";
@@ -508,6 +480,9 @@ function initCertificationPreview() {
         ? pageHeadingId
         : "certification-preview-year-" + decadeIndex + "-" + pageIndex + "-" + year;
       yearHeading.textContent = year;
+      yearsHeader.append(yearHeading);
+
+      yearColumn.setAttribute("aria-labelledby", yearHeading.id);
 
       const events = document.createElement("div");
       events.className = "about-certifications-preview__events";
@@ -519,7 +494,7 @@ function initCertificationPreview() {
         event.append(heading);
         events.append(event);
       });
-      yearColumn.append(yearHeading, events);
+      yearColumn.append(events);
       yearsElement.append(yearColumn);
     });
     page.append(yearsElement);
@@ -754,5 +729,4 @@ function initCertificationPreview() {
 document.addEventListener("DOMContentLoaded", function () {
   setupAboutScrollMotion();
   initCertificationPreview();
-  initSubsidiaryAccordion();
 });

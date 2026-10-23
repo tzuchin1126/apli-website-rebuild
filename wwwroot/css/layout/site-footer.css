@@ -1,15 +1,17 @@
+/* 頁尾：深灰底。--footer-* 變數在這裡「局部」定義，只作用在頁尾內部 */
 .site-footer {
   --footer-background: #3b3b3b;
-  --footer-heading: #f3f4f3;
-  --footer-link: #d8d8d6;
+  --footer-heading: #f3f4f3;   /* 標題文字（最亮） */
+  --footer-link: #d8d8d6;      /* 一般連結與文字 */
   --footer-divider: rgb(255 255 255 / 18%);
-  --footer-accent: #fa881c;
+  --footer-accent: #fa881c;    /* hover / 焦點時的強調橘 */
   position: relative;
   margin-top: 0;
   background: var(--footer-background);
   color: var(--footer-link);
 }
 
+/* 頁尾主要區塊：寬度與內容區一致 */
 .site-footer__main {
   display: grid;
   gap: 0;
@@ -17,6 +19,7 @@
   padding-block: clamp(28px, 3.5vw, 44px);
 }
 
+/* 最上方：Logo 列，下方有分隔線 */
 .site-footer__top {
   display: flex;
   align-items: center;
@@ -47,6 +50,7 @@
   object-position: left top;
 }
 
+/* 中間內容：桌機版左邊公司資訊、右邊選單欄位（約 1 : 2.2） */
 .site-footer__content {
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(0, 2fr);
@@ -55,6 +59,7 @@
   padding: 36px 0 32px;
 }
 
+/* 公司資訊（地址、電話等） */
 .site-footer__company {
   display: grid;
   gap: 8px;
@@ -66,17 +71,14 @@
 }
 
 .site-footer__company address {
-  margin: 0;
-}
-
-.site-footer__company address {
   display: grid;
   gap: 6px;
-  font-size: var(--type-supporting-size);
-  font-style: normal;
-  font-weight: var(--type-supporting-weight);
-  letter-spacing: var(--type-body-letter-spacing);
-  line-height: var(--type-supporting-line-height);
+  margin: 0;
+  font-size: var(--font-size-body-sm);
+  font-style: normal;  /* address 預設是斜體，這裡改回正常 */
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-body);
+  line-height: var(--line-height-body-tight);
 }
 
 .site-footer__company a {
@@ -84,6 +86,7 @@
   text-decoration: none;
 }
 
+/* 選單欄位區：各欄平均分布 */
 .site-footer__nav {
   display: flex;
   flex: 1;
@@ -100,6 +103,8 @@
   margin: 0;
 }
 
+/* 欄位標題按鈕：桌機版只是普通標題（cursor: default），
+   手機版會變成可展開的摺疊標題（見下方 @media） */
 .footer-column__toggle {
   display: flex;
   align-items: center;
@@ -116,10 +121,10 @@
 .footer-column__title {
   color: var(--footer-heading);
   font-family: var(--font-body);
-  font-size: var(--type-navigation-size);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-body);
-  line-height: var(--type-navigation-line-height);
+  line-height: var(--line-height-body-tight);
 }
 
 .footer-column__links {
@@ -128,10 +133,13 @@
   margin-top: 18px;
 }
 
+/* 桌機版：這層不影響排版（display: contents 讓子元素直接成為上層的排版項目），
+   手機版才會用來做展開動畫 */
 .footer-column__links-inner {
   display: contents;
 }
 
+/* 頁尾連結（選單欄位與法律連結）：hover 變成強調橘 */
 .footer-column a,
 .footer-legal-links a {
   position: relative;
@@ -139,9 +147,9 @@
   align-items: center;
   width: fit-content;
   color: var(--footer-link);
-  font-size: 15px;
-  font-weight: var(--type-supporting-weight);
-  line-height: var(--type-supporting-line-height);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -153,12 +161,14 @@
   color: var(--footer-accent);
 }
 
+/* 鍵盤焦點外框：頁尾內所有連結與按鈕統一使用強調橘 */
 .site-footer a:focus-visible,
 .site-footer button:focus-visible {
   outline: 2px solid var(--footer-accent);
   outline-offset: 4px;
 }
 
+/* 最下方：版權與法律連結列 */
 .site-footer__bottom {
   position: relative;
   min-height: 28px;
@@ -167,14 +177,15 @@
   color: var(--footer-heading);
 }
 
+/* 桌機版三欄：左邊版權、中間留空、右邊法律連結 */
 .site-footer__bottom-inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   width: var(--content-width);
   min-height: 24px;
-  font-size: var(--type-supporting-size);
-  line-height: var(--type-supporting-line-height);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-tight);
 }
 
 .footer-copyright {
@@ -183,9 +194,9 @@
   justify-self: start;
   margin: 0;
   color: var(--footer-link);
-  font-size: 15px;
-  font-weight: var(--type-supporting-weight);
-  line-height: var(--type-supporting-line-height);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
   text-align: center;
 }
 
@@ -204,6 +215,7 @@
   padding: 0;
 }
 
+/* 窄螢幕（840px 以下）：改成單欄排列，選單欄位變成可摺疊的手風琴 */
 @media (max-width: 840px) {
   .site-footer__main {
     padding-top: 24px;
@@ -221,6 +233,7 @@
     height: 18px;
   }
 
+  /* 內容改成直向排列；order 決定順序：選單（1）在上、公司資訊（2）在下 */
   .site-footer__content {
     display: flex;
     flex-direction: column;
@@ -236,8 +249,8 @@
 
   .site-footer__company address {
     gap: 4px;
-    font-size: var(--type-supporting-size);
-    line-height: var(--type-supporting-line-height);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-tight);
   }
 
   .site-footer__nav {
@@ -248,6 +261,7 @@
     width: 100%;
   }
 
+  /* 各欄之間用細線分隔，最後一欄底部也加一條 */
   .footer-column:not(:first-child) {
     border-top: 1px solid var(--footer-divider);
   }
@@ -256,6 +270,7 @@
     border-bottom: 1px solid var(--footer-divider);
   }
 
+  /* 摺疊標題：高度加大方便手指點擊，右側畫 + / − 圖示 */
   .footer-column__toggle {
     position: relative;
     min-height: 68px;
@@ -263,6 +278,7 @@
     cursor: pointer;
   }
 
+  /* 用兩條線組成「+」：::before 是橫線、::after 是旋轉 90 度的豎線 */
   .footer-column__toggle::before,
   .footer-column__toggle::after {
     position: absolute;
@@ -281,11 +297,14 @@
     transform: translateY(-50%) rotate(90deg);
   }
 
+  /* 展開時豎線縮掉並淡出，「+」變成「−」（由 JS 設定 data-footer-open） */
   .footer-column[data-footer-open="true"] .footer-column__toggle::after {
     transform: translateY(-50%) rotate(90deg) scaleX(0);
     opacity: 0;
   }
 
+  /* 展開動畫：用 grid-template-rows 在 1fr（展開）與 0fr（收合）之間切換高度，
+     不需要事先知道內容高度 */
   .footer-column__links {
     grid-template-rows: 1fr;
     gap: 0;
@@ -304,6 +323,7 @@
     transition: padding-bottom 0.32s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  /* 收合狀態：限定 html.js，所以沒有 JavaScript 時選單會維持展開，連結不會被藏起來 */
   html.js .footer-column[data-footer-open="false"] > .footer-column__links {
     grid-template-rows: 0fr;
     opacity: 0;
@@ -330,6 +350,7 @@
     padding: 8px 0;
   }
 
+  /* 底部列改成直向置中：法律連結（order 1）在上、版權（order 2）在下 */
   .site-footer__bottom-inner {
     display: flex;
     flex-direction: column;
@@ -350,6 +371,7 @@
   }
 }
 
+/* 使用者開啟「減少動態效果」：取消頁尾所有過渡動畫 */
 @media (prefers-reduced-motion: reduce) {
   .footer-column a,
   .footer-legal-links a,

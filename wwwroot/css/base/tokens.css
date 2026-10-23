@@ -1,175 +1,127 @@
 :root {
-  /* Brand */
   --color-primary: #F58214;
   --color-primary-soft: rgb(245 130 20 / 12%);
 
-  /* Neutral text hierarchy: restrained charcoal and gray, inspired by Cathay's editorial contrast. */
-  --color-text-primary: #333333;
+  --color-text-primary: #333333;   /* 標題、導覽、重要資訊 */
   --color-text-body: #555555;
   --color-text-muted: #737373;
   --color-text-on-dark: #ffffff;
   --color-background: #ffffff;
-  --color-surface-subtle: #fafafa;
-  --color-surface-section: #f6f6f6;
+  --color-surface-subtle: #fafafa;   /* 極淺灰 */
+  --color-surface-section: #f6f6f6;  /* 區段淺灰 */
   --color-surface-dark: #4d4f53;
-  --color-surface-inverse: #151515;
+  --color-surface-inverse: #151515;  /* 近黑色，反白區塊用 */
   --color-border: rgb(77 79 83 / 20%);
   --color-border-light: rgb(77 79 83 / 10%);
-
-  /* Compatibility aliases for existing components. */
-  --color-primary-dark: var(--color-primary);
-  --color-secondary: var(--color-surface-inverse);
-  --color-ink: var(--color-text-primary);
-  --color-muted: var(--color-text-body);
-  --color-surface: var(--color-background);
-  --color-surface-soft: var(--color-surface-subtle);
-  --color-line: var(--color-border);
   --nav-underline-size: 2px;
 
   --font-body: "Roboto", "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
-  --font-heading: var(--font-body);
-  /* Explicit exceptions retained for text that was intentionally serif-styled. */
-  --font-special: "Noto Serif TC", "Songti TC", serif;
+  --font-special: "Noto Serif TC", "Songti TC", serif;  /* 僅限刻意使用襯線字體的文字 */
+
   --font-weight-regular: 400;
-  --font-weight-heading: 500;
+  --font-weight-heading: 500;           /* 筆電寬度會改為 400 */
+  --font-weight-card-heading: 500;      /* 卡片標題固定字重 */
   --font-weight-medium: 600;
-  --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-normal: var(--font-weight-regular);
-  --font-weight-section-heading: var(--font-weight-bold);
-  /* Polestar-inspired type scale, adapted for Chinese text rendering. */
-  --font-size-display: clamp(2.5rem, 5vw, 4rem);
+  --font-weight-section-heading: 700;   /* 筆電寬度會改為 600 */
+
   --font-size-h1: clamp(2rem, 3.5vw, 3rem);
   --font-size-h2: clamp(1.625rem, 3vw, 2.5rem);
   --font-size-section-heading: clamp(1.875rem, 2.3vw, 2.5rem);
   --font-size-h3: clamp(1.25rem, 1.8vw, 1.5rem);
   --font-size-card-title: 1.5rem;
   --font-size-card-title-compact: 1.25rem;
-  --font-size-news-title: 18px;
   --font-size-body-lg: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
-  --font-size-body: 17px;
-  --font-size-card-description: var(--font-size-body);
+  --font-size-body: 1.0625rem;  /* 17px，行動端會改為 15px */
   --font-size-body-sm: 0.875rem;
   --font-size-label: 0.875rem;
   --font-size-caption: 0.75rem;
-  --font-size-body-copy: var(--font-size-body);
-  --line-height-heading-tight: 1.1;
+
+  --line-height-heading-tight: 1.1;  /* 僅用於 Hero／錯誤頁的 display 標題 */
   --line-height-heading: 1.2;
   --line-height-body-tight: 1.5;
   --line-height-body: 1.6;
-  --line-height-card-title: var(--line-height-heading);
-  --line-height-card-title-compact: var(--line-height-body-tight);
-  --line-height-card-description: var(--line-height-body);
+
   --letter-spacing-tight: normal;
   --letter-spacing-body: 0.02em;
-  --letter-spacing-label: 0.08em;
-
-  /* Shared text roles. Keep role differences explicit instead of applying body metrics to every control. */
-  --type-display-size: var(--font-size-display);
-  --type-display-weight: var(--font-weight-bold);
-  --type-display-line-height: var(--line-height-heading-tight);
-  --type-section-size: var(--font-size-section-heading);
-  --type-section-weight: var(--font-weight-section-heading);
-  --type-section-line-height: var(--line-height-heading);
-  --type-card-size: var(--font-size-card-title-compact);
-  --type-card-weight: var(--font-weight-heading);
-  --type-card-line-height: var(--line-height-card-title-compact);
-  --type-body-size: var(--font-size-body);
-  --type-body-weight: var(--font-weight-regular);
-  --type-body-line-height: var(--line-height-body);
-  --type-body-letter-spacing: var(--letter-spacing-body);
-  --type-supporting-size: var(--font-size-body-sm);
-  --type-supporting-weight: var(--font-weight-regular);
-  --type-supporting-line-height: var(--line-height-body-tight);
-  --type-navigation-size: var(--font-size-body);
-  --type-navigation-weight: var(--font-weight-regular);
-  --type-navigation-line-height: var(--line-height-body-tight);
-  --type-button-size: var(--font-size-body);
-  --type-button-weight: var(--font-weight-normal);
-  --type-button-line-height: var(--line-height-body-tight);
 
   --section-space: clamp(24px, 3vw, 40px);
-  --section-space-sm: clamp(48px, 5vw, 64px);
+  --section-space-lg: clamp(48px, 5vw, 64px);    /* 比 --section-space 大 */
   --section-content-gap: 20px;
   --section-heading-content-gap: 40px;
-  --section-heading-body-gap: var(--section-heading-content-gap);
-  --content-paragraph-gap: clamp(20px, 2vw, 28px);
   --section-heading-accent-gap: clamp(8px, 1vw, 12px);
   --content-column-gap: clamp(48px, 6.7vw, 96px);
   --page-content-start-space: clamp(72px, 7vw, 112px);
+
   --content-max-width: 1324px;
   --content-gutter: clamp(20px, 4vw, 64px);
+  /* 內容區左側縮排：取「固定邊距」與「置中後邊距」較大者 */
   --content-inset: max(var(--content-gutter), calc((100vw - var(--content-max-width)) / 2));
+  /* 內容區實際寬度：不超過最大寬度，並扣掉左右邊距 */
   --content-width: min(calc(100% - var(--content-gutter) * 2), var(--content-max-width));
   --content-padding: clamp(20px, 2vw, 24px);
-  --site-max-width: 1360px;
   --site-padding: clamp(16px, 2.6vw, 24px);
+
   --button-primary-bg: rgb(245 130 20 / 54%);
-  --button-primary-hover-bg: var(--color-primary);
-  --button-primary-color: var(--color-text-on-dark);
   --button-primary-min-height: 52px;
   --button-primary-gap: 12px;
   --button-primary-icon-size: 16px;
   --button-primary-padding-inline: 24px;
-  --button-primary-radius: var(--radius-sm);
-  --button-text-arrow-color: var(--color-primary-dark);
-  --button-text-arrow-gap: 8px;
-  --button-text-arrow-font-size: var(--font-size-body);
-  --button-text-arrow-font-weight: var(--font-weight-normal);
-  --button-text-arrow-line-height: var(--line-height-body-tight);
-  --button-text-arrow-letter-spacing: var(--letter-spacing-body);
-  --button-text-arrow-icon-size: 16px;
-  --table-font-size: var(--font-size-body);
-  --table-line-height: var(--line-height-body);
-  --table-cell-padding: 15px;
-  --table-border: var(--color-border);
-  --table-header-background: var(--color-surface-dark);
   --button-icon-transition: transform 180ms ease;
+
   --button-text-arrow-hover-shift-x: 2px;
+  --button-text-arrow-icon-size: 16px;
+
+  --table-cell-padding: 15px;
+
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-full: 999px;
-  --card-radius: var(--radius-md);
-  --card-image-radius: var(--card-radius) var(--card-radius) 0 0;
+
   --shadow-sm: 0 2px 12px rgb(0 0 0 / 16%);
   --shadow-lg: 0 12px 32px rgb(0 0 0 / 7%);
   --shadow-card: 0 6px 18px rgb(0 0 0 / 5%);
+
+  /* 首頁頁尾變體使用；一般頁尾在 site-footer.css 另有局部定義 */
   --footer-background: #f3f4f3;
-  --footer-bottom-background: linear-gradient(100deg, #d96508 0%, var(--color-primary) 48%, #e9780f 100%);
   --footer-heading: #40403e;
   --footer-link: #81817e;
-  --footer-muted: #81817e;
   --footer-divider: rgb(64 64 62 / 16%);
-  --footer-bottom-text: #40403e;
+
   --page-hero-height: clamp(280px, 26vw, 350px);
+  /* 一般 Hero 的漸層遮罩 */
   --page-hero-overlay-light: linear-gradient(180deg, rgb(0 0 0 / 18%) 9.88%, rgb(0 0 0 / 30%) 100%);
+  /* 引言型 Hero 的遮罩（較深） */
   --page-hero-overlay-quote: linear-gradient(180deg, rgb(0 0 0 / 52%) 0%, rgb(0 0 0 / 66%) 100%);
   --page-hero-image-scale: 1.1;
   --page-hero-image-duration: 1.7s;
   --page-hero-motion-easing: ease;
-  --page-hero-text-duration: 700ms;
+  --page-hero-text-duration: 1200ms;
 }
 
-@media (max-width: 760px) {
+/* 預設值即為桌機（1440px 以上） */
+
+/* 筆電（1024～1439px）：只降低標題字重 */
+@media (min-width: 1024px) and (max-width: 1439px) {
   :root {
-    --page-content-start-space: 64px;
+    --font-weight-heading: 400;
+    --font-weight-section-heading: 600;
   }
 }
 
+/* 行動端（1023px 以下）：內文縮小、行高加大 */
 @media (max-width: 1023px) {
   :root {
-    --font-size-body: 15px;
+    --font-size-body: 0.9375rem; /* 15px */
     --line-height-body: 1.7;
     --letter-spacing-body: normal;
   }
 }
 
-/* Reduce heading emphasis on laptop-width layouts while preserving wide desktop weight. */
-@media (min-width: 1024px) and (max-width: 1439px) {
+/* 窄行動端（760px 以下）：縮小頁面內容起始留白 */
+@media (max-width: 760px) {
   :root {
-    --font-weight-heading: var(--font-weight-regular);
-    --font-weight-section-heading: var(--font-weight-medium);
-    --type-display-weight: var(--font-weight-medium);
+    --page-content-start-space: 64px;
   }
 }

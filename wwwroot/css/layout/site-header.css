@@ -1,59 +1,82 @@
-.site-header { position: relative; z-index: 30; opacity: 1; background-color: #fff; background-image: none; border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); }
+/* ========== 頁首外框 ========== */
+
+/* 頁首：白底、底部細線 */
+.site-header { position: relative; z-index: 30; opacity: 1; background-color: var(--color-background); background-image: none; border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); }
+/* 頁首內層：Logo、選單、工具列橫向排列；左右留白與 Hero、麵包屑共用 1680px 外框基準 */
 .site-header > .site-header__inner { display: flex; width: 100%; min-height: 78px; max-width: none; margin: 0; align-items: center; gap: 28px; padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2)); }
 .site-header__brand { display: inline-flex; flex: 0 0 auto; align-items: center; width: 154px; }
 .site-header__brand img { width: 100%; height: auto; }
+
+/* ========== 桌機導覽列 ========== */
+
+/* 導覽區：靠右排列 */
 .site-header__nav { display: flex; min-width: 0; flex: 1; align-items: center; justify-content: flex-end; gap: clamp(14px, 2.1vw, 32px); }
-.site-header__nav > a, .nav-link { position: relative; display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; border: 0; background: transparent; color: var(--color-text-primary); font: inherit; font-size: var(--type-navigation-size); font-weight: var(--type-navigation-weight); letter-spacing: var(--letter-spacing-body); line-height: var(--type-navigation-line-height); text-decoration: none; white-space: nowrap; }
+/* 導覽連結與下拉選單按鈕：統一外觀，高度 44px 方便點擊 */
+.site-header__nav > a, .nav-link { position: relative; display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; border: 0; background: transparent; color: var(--color-text-primary); font: inherit; font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body-tight); text-decoration: none; white-space: nowrap; }
+/* 連結下方的橘色底線：預設寬度縮為 0（看不見），從中間向兩側展開 */
 .site-header__nav > a::after, .nav-link::after { position: absolute; right: 0; bottom: 5px; left: 0; height: var(--nav-underline-size); background: var(--color-primary); content: ""; transform: scaleX(0); transform-origin: center center; transition: transform 180ms ease; }
-.site-header__nav > a:hover, .site-header__nav > a:focus-visible, .nav-link:hover, .nav-link:focus-visible { color: var(--color-text-primary); }
-.site-header__nav > a.is-active, .nav-link.is-active { color: var(--color-text-primary); }
-.site-header__nav > a[aria-current="page"] { color: var(--color-text-primary); }
+/* hover、鍵盤焦點、目前所在頁面：顯示橘色底線 */
 .site-header__nav > a:hover::after, .site-header__nav > a:focus-visible::after, .site-header__nav > a.is-active::after, .site-header__nav > a[aria-current="page"]::after, .nav-link.is-active::after { transform: scaleX(1); }
+
+/* ========== 下拉選單 ========== */
+
 .nav-dropdown { position: relative; }
 .nav-link { cursor: pointer; }
 
+/* 下拉箭頭：展開時旋轉 180 度 */
 .nav-caret { width: 16px; height: 16px; margin-left: 6px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; transition: transform 180ms ease; }
 .nav-dropdown:hover .nav-caret, .nav-dropdown:focus-within .nav-caret, .nav-dropdown.is-open .nav-caret { transform: rotate(180deg); }
-.nav-menu { position: absolute; top: calc(100% + 8px); left: 50%; z-index: 30; display: grid; visibility: hidden; width: max-content; min-width: 220px; padding: 8px 0; border: 1px solid var(--color-line); background: var(--color-surface); box-shadow: 0 12px 28px rgb(0 0 0 / 14%); opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms; }
+/* 下拉選單面板：預設透明、不可點、往下偏移 8px；visibility 延遲 180ms，等淡出跑完才真正隱藏 */
+.nav-menu { position: absolute; top: calc(100% + 8px); left: 50%; z-index: 30; display: grid; visibility: hidden; width: max-content; min-width: 220px; padding: 8px 0; border: 1px solid var(--color-border); background: var(--color-background); box-shadow: 0 12px 28px rgb(0 0 0 / 14%); opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms; }
+/* 展開條件：滑鼠移入、鍵盤焦點在內、或 JS 加上 .is-open */
 .nav-dropdown:hover .nav-menu, .nav-dropdown:focus-within .nav-menu, .nav-dropdown.is-open .nav-menu { visibility: visible; opacity: 1; pointer-events: auto; transform: translate(-50%, 0); transition-delay: 0s; }
+/* 選單標題只在特定情況使用，桌機版隱藏 */
 .nav-menu__title { display: none; }
-.nav-menu a { position: relative; display: block; min-height: 44px; justify-self: stretch; width: 100%; padding: 10px 18px; color: var(--color-text-primary); font-size: var(--type-navigation-size); font-weight: var(--type-navigation-weight); line-height: var(--type-navigation-line-height); letter-spacing: var(--letter-spacing-body); text-decoration: none; white-space: nowrap; }
+.nav-menu a { position: relative; display: block; min-height: 44px; justify-self: stretch; width: 100%; padding: 10px 18px; color: var(--color-text-primary); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); letter-spacing: var(--letter-spacing-body); text-decoration: none; white-space: nowrap; }
 .nav-menu a::after { display: none; }
+/* 選單項目的橘色底線：只畫在文字（span）下方，而不是整列 */
 .nav-menu a > span { position: relative; display: inline-block; }
 .nav-menu a > span::after { position: absolute; right: 0; bottom: -2px; left: 0; height: var(--nav-underline-size); background: var(--color-primary); content: ""; pointer-events: none; transform: scaleX(0); transform-origin: center center; transition: transform 180ms ease; }
 .nav-menu a:hover, .nav-menu a:focus-visible { background: transparent; color: var(--color-text-primary); }
 .nav-menu a:hover > span::after, .nav-menu a:focus-visible > span::after { transform: scaleX(1); }
 
 @media (min-width: 841px) {
+  /* 在連結與選單之間補一塊透明「橋」，滑鼠從連結移向選單時不會經過空隙而讓選單收起 */
   .nav-dropdown::after { position: absolute; top: 100%; left: -10px; width: calc(100% + 20px); height: 18px; content: ""; }
   .nav-menu { top: calc(100% + 17px); }
 }
+
+/* ========== 工具列（搜尋、語言等圖示）與手機選單按鈕 ========== */
+
 .site-header__tools { display: flex; flex: 0 0 auto; align-items: center; gap: 4px; }
-.site-header__tools a { display: grid; width: 44px; height: 44px; place-items: center; color: var(--color-ink); }
-.site-header__tools a:hover, .site-header__tools a:focus-visible { color: var(--color-ink); }
+.site-header__tools a { display: grid; width: 44px; height: 44px; place-items: center; color: var(--color-text-primary); }
+.site-header__tools a:hover, .site-header__tools a:focus-visible { color: var(--color-text-primary); }
 .site-header__tools svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+/* 漢堡選單按鈕：桌機版不顯示，手機版才顯示（見下方 @media） */
 .menu-toggle { display: none; }
 .menu-toggle__icon { width: 24px; height: 24px; overflow: visible; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+/* 選單開啟時，「三條線」圖示與「X」圖示交叉淡入淡出 */
 .menu-toggle__menu, .menu-toggle__close { transition: opacity 180ms ease; }
 .menu-toggle__close { opacity: 0; }
 .menu-toggle.is-open .menu-toggle__menu { opacity: 0; }
 .menu-toggle.is-open .menu-toggle__close { opacity: 1; }
 
+/* ========== 響應式 ========== */
+
+/* 980px 以下：縮小間距，讓導覽列放得下 */
 @media (max-width: 980px) {
   .site-header > .site-header__inner { gap: 16px; }
   .site-header__nav { gap: 12px; }
 }
 
-@media (min-width: 981px) {
-  .site-header > .site-header__inner { padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2)); }
-}
-
+/* 手機與平板（840px 以下）：導覽列收進漢堡選單，點開後從右側滑入全螢幕面板 */
 @media (max-width: 840px) {
   .site-header { height: 72px; min-height: 72px; }
   .site-header > .site-header__inner { position: relative; height: 72px; min-height: 72px; flex-wrap: nowrap; gap: 4px; padding-inline: var(--content-inset); }
   .site-header__brand { width: 154px; }
   .site-header__tools { margin-left: auto; }
-  .menu-toggle { display: grid; width: 44px; height: 44px; place-content: center; gap: 4px; padding: 8px; border: 0; background: transparent; color: var(--color-ink); cursor: pointer; }
+  .menu-toggle { display: grid; width: 44px; height: 44px; place-content: center; gap: 4px; padding: 8px; border: 0; background: transparent; color: var(--color-text-primary); cursor: pointer; }
+  /* 全螢幕選單面板：固定在頁首下方，預設藏在畫面右邊外面（translateX(100%)） */
   .site-header__nav {
     position: fixed;
     z-index: 21;
@@ -72,8 +95,8 @@
     gap: 0;
     overflow-y: auto;
     padding: 12px var(--site-padding) 32px;
-    border-top: 1px solid var(--color-line);
-    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-background);
     box-shadow: 0 16px 30px rgb(17 24 35 / 12%);
     opacity: 0;
     pointer-events: none;
@@ -82,29 +105,44 @@
     transition: transform 260ms cubic-bezier(.22, 1, .36, 1), opacity 180ms ease, visibility 0s linear 260ms;
   }
   .site-header.is-menu-open { border-bottom: 0; }
+  /* 開啟狀態：滑入畫面（JS 加上 .is-open） */
   .site-header__nav.is-open { opacity: 1; pointer-events: auto; transform: translateX(0); visibility: visible; transition-delay: 0s; }
-  .site-header__nav > a, .nav-link { width: 100%; min-height: 56px; justify-content: space-between; padding: 12px 0; font-size: var(--type-navigation-size); font-weight: var(--type-navigation-weight); line-height: var(--type-navigation-line-height); }
+  /* 手機版連結：整列可點，文字靠左、箭頭靠右，高度 56px */
+  .site-header__nav > a, .nav-link { width: 100%; min-height: 56px; justify-content: space-between; padding: 12px 0; font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); }
   .site-header__nav > a:hover,
   .site-header__nav > a:focus-visible,
   .nav-link:hover,
   .nav-link:focus-visible,
   .site-header__nav > a.is-active,
   .nav-link.is-active,
-  .site-header__nav > a[aria-current="page"] { color: var(--color-ink); }
+  .site-header__nav > a[aria-current="page"] { color: var(--color-text-primary); }
+  /* 手機版不使用底線效果 */
   .site-header__nav > a::after, .nav-link::after { display: none; }
   .nav-dropdown { width: 100%; }
+  /* 手機版的下拉選單：改為直接在列表中展開（不再是浮動面板），有 .is-open 才顯示 */
   .nav-menu { position: static; display: none; visibility: hidden; width: 100%; min-width: 0; padding: 0 0 6px 16px; border: 0; box-shadow: none; opacity: 1; transform: none; }
   .nav-dropdown.is-open .nav-menu { display: grid; visibility: visible; }
+  /* 觸控時 hover 不應自動展開，只靠點擊切換 .is-open */
   .nav-dropdown:hover .nav-menu, .nav-dropdown:focus-within .nav-menu { pointer-events: none; }
   .nav-dropdown.is-open .nav-menu,
   .nav-dropdown.is-open:hover .nav-menu,
   .nav-dropdown.is-open:focus-within .nav-menu { pointer-events: auto; transform: none; }
-    .nav-menu a { min-height: 0; padding: 12px; font-size: var(--type-navigation-size); font-weight: var(--type-navigation-weight); line-height: var(--type-navigation-line-height); }
+  .nav-menu a { min-height: 0; padding: 12px; font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); }
 }
 
+/* ========== 內頁（非首頁）：頁首固定在最上方 ========== */
+
+/* 頁首固定，body 上方留出頁首的高度，避免內容被蓋住。
+   首頁（.home-page）不套用，因為首頁的頁首有自己的處理方式 */
 body:not(.home-page) .site-header { position: fixed; top: 0; right: 0; left: 0; }
 body:not(.home-page) { padding-top: 78px; }
 
+/* 平板寬度：頁首為 72px，內容留白同步調整，避免頁首下方多出 6px 空隙 */
+@media (max-width: 840px) {
+  body:not(.home-page) { padding-top: 72px; }
+}
+
+/* 小螢幕手機（760px 以下）：頁首縮到 64px，選單按鈕改成醒目的品牌橘大圖示 */
 @media (max-width: 760px) {
   body:not(.home-page) { padding-top: 64px; }
   body:not(.home-page) .site-header,
@@ -116,6 +154,7 @@ body:not(.home-page) { padding-top: 78px; }
     padding-right: 8px;
   }
   body:not(.home-page) .site-header__brand { width: 128px; }
+  /* 小螢幕隱藏工具列圖示 */
   body:not(.home-page) .site-header__tools { display: none; }
   body:not(.home-page) .site-header .menu-toggle {
     margin-left: auto;
@@ -130,6 +169,7 @@ body:not(.home-page) { padding-top: 78px; }
     stroke-width: 1.8;
     transition: transform 280ms cubic-bezier(.22, 1, .36, 1);
   }
+  /* 開啟選單時圖示旋轉 90 度 */
   body:not(.home-page) .site-header .menu-toggle.is-open .menu-toggle__icon {
     transform: rotate(90deg);
   }
@@ -137,14 +177,15 @@ body:not(.home-page) { padding-top: 78px; }
     top: 64px;
     padding: 0 0 32px;
   }
+  /* 選單項目左右留白與內容區對齊，高度 58px */
   body:not(.home-page) .site-header__nav > a,
   body:not(.home-page) .site-header__nav .nav-link {
     min-height: 58px;
     padding: 14px var(--content-inset);
-    font-size: var(--type-navigation-size);
-    font-weight: var(--type-navigation-weight);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-regular);
     letter-spacing: var(--letter-spacing-body);
-    line-height: var(--type-navigation-line-height);
+    line-height: var(--line-height-body-tight);
   }
   body:not(.home-page) .site-header__nav .nav-link { text-align: left; }
   body:not(.home-page) .site-header__nav .nav-link .nav-caret {
@@ -152,17 +193,18 @@ body:not(.home-page) { padding-top: 78px; }
     height: 18px;
     margin-left: 12px;
   }
+  /* 展開的子選單：淺灰底，項目再內縮 16px 表示層級 */
   body:not(.home-page) .site-header__nav .nav-menu {
     padding: 0 0 8px;
-    background: var(--color-surface-soft);
+    background: var(--color-surface-subtle);
   }
   body:not(.home-page) .site-header__nav .nav-menu a {
     min-height: 48px;
     padding: 12px var(--content-inset) 12px calc(var(--content-inset) + 16px);
     border-bottom: 0;
-    font-size: var(--type-navigation-size);
-    font-weight: var(--type-navigation-weight);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-regular);
     letter-spacing: var(--letter-spacing-body);
-    line-height: var(--type-navigation-line-height);
+    line-height: var(--line-height-body-tight);
   }
 }

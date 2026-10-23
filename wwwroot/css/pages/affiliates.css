@@ -20,7 +20,7 @@
   z-index: 20;
   min-width: 0;
   margin: 0;
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .affiliate-tabs__track {
@@ -45,7 +45,7 @@
   padding: 12px 0;
   border: 0;
   background: transparent;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   cursor: pointer;
   font-family: var(--font-body);
   font-size: var(--font-size-body);
@@ -58,11 +58,11 @@
 
 .affiliate-tabs button:hover,
 .affiliate-tabs button:focus-visible {
-  color: var(--color-ink);
+  color: var(--color-text-primary);
 }
 
 .affiliate-tabs button[aria-selected="true"] {
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-weight: var(--font-weight-medium);
 }
 
@@ -155,8 +155,8 @@
 
 .affiliate-tagline {
   margin: 0;
-  color: var(--color-secondary);
-  font-size: var(--font-size-body-copy);
+  color: var(--color-surface-inverse);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-section-heading);
   letter-spacing: 0.04em;
   line-height: 1.5;
@@ -164,7 +164,7 @@
 
 .affiliate-panel h2,
 .affiliate-panel h3 {
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-weight: var(--font-weight-heading);
   letter-spacing: var(--letter-spacing-tight);
@@ -181,7 +181,7 @@
 
 .affiliate-panel p,
 .affiliate-panel li {
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
@@ -201,7 +201,7 @@
 .affiliate-panel-details {
   min-width: 0;
   padding-top: clamp(32px, 4vw, 48px);
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-border);
 }
 
 .affiliate-editorial-section,
@@ -229,10 +229,10 @@
   padding: 32px clamp(32px, 3vw, 48px) 40px;
   border: 0;
   background: var(--color-surface-subtle);
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   quotes: none;
   font-family: var(--font-body);
-  font-size: var(--font-size-body-copy);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-medium);
   line-height: 1.8;
 }
@@ -359,7 +359,7 @@
   display: block;
   width: 10px;
   height: 10px;
-  border: 2px solid var(--color-surface);
+  border: 2px solid var(--color-background);
   border-radius: var(--radius-full);
   background: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary);
@@ -369,7 +369,7 @@
 .affiliate-location-marker:hover .affiliate-location-marker__dot,
 .affiliate-location-marker:focus-visible .affiliate-location-marker__dot,
 .affiliate-location-marker.is-active .affiliate-location-marker__dot {
-  background: var(--color-secondary);
+  background: var(--color-surface-inverse);
   transform: scale(1.35);
 }
 
@@ -387,8 +387,8 @@
   padding: 2px 6px;
   background: transparent;
   color: var(--color-text-body);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-regular);
   line-height: 1.35;
   white-space: nowrap;
   transform: translateY(-50%);
@@ -476,7 +476,7 @@
 .affiliate-location-detail-hint {
   margin: 0 0 20px;
   font-size: var(--font-size-body-sm);
-  color: var(--color-muted);
+  color: var(--color-text-body);
 }
 
 .affiliate-oil-location-detail .affiliate-location-cards {
@@ -509,18 +509,18 @@
   min-width: 0;
   padding: 16px 0 0;
   border: 0;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-border);
   border-radius: 0;
   background: transparent;
 }
 
 .affiliate-location-card h4 {
   margin: 0 0 8px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 .affiliate-location-details {
@@ -550,7 +550,7 @@
 .affiliate-location-value {
   color: var(--affiliate-location-value-color);
   font-size: var(--font-size-body);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
 
@@ -576,7 +576,7 @@
   margin: 0;
   aspect-ratio: 3.15;
   overflow: hidden;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
 }
 
 .affiliate-taronews-feature img {
@@ -655,7 +655,7 @@
 
 .affiliate-club-cta .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -679,7 +679,7 @@
 
 .affiliate-alpha-details .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -750,7 +750,7 @@
 
 .affiliate-badminton-redesign .affiliate-panel-details .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -760,14 +760,14 @@
 }
 
 .affiliate-panel-details a {
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
 .affiliate-panel-details a:hover,
 .affiliate-panel-details a:focus-visible {
-  color: var(--color-secondary);
+  color: var(--color-surface-inverse);
 }
 
 .affiliate-company-profile {
@@ -804,7 +804,7 @@
 
 .affiliate-section-heading--accent h3 {
   font-size: var(--font-size-card-title-compact);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -815,7 +815,7 @@
 
 .affiliate-oil-redesign .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -852,7 +852,7 @@
   position: relative;
   aspect-ratio: 3 / 2;
   overflow: hidden;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
 }
 
 .affiliate-profile-slide {
@@ -885,7 +885,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
   object-fit: cover;
 }
 
@@ -942,7 +942,7 @@
 }
 
 .affiliate-profile-carousel-progress-bar::before {
-  background: var(--color-line);
+  background: var(--color-border);
 }
 
 .affiliate-profile-carousel-progress-fill {
@@ -1099,13 +1099,13 @@
   align-items: baseline;
   justify-content: center;
   gap: 8px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
 }
 
 .affiliate-award-year,
 .affiliate-award-issuer,
 .affiliate-award-name {
-  font-size: var(--font-size-body-copy);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body-tight);
 }
 
@@ -1120,8 +1120,8 @@
 }
 
 .affiliate-award-name {
-  color: var(--color-muted);
-  font-size: var(--font-size-body-copy);
+  color: var(--color-text-body);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body-tight);
 }
 
@@ -1213,7 +1213,7 @@
     display: flex;
     width: max-content;
     padding-left: 0;
-    border-bottom: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .affiliate-tabs__track::before {

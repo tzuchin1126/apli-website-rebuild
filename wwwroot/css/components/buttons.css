@@ -1,6 +1,7 @@
-/* 按鈕樣式：index-about-查看更多 */
+/* 主要按鈕（半透明橘底白字，右側有箭頭圖示）：可重用的主要行動按鈕 */
 .button--primary {
   display: inline-flex;
+  /* 寬度只依內容撐開，不會佔滿整行 */
   width: fit-content;
   min-height: var(--button-primary-min-height);
   align-items: center;
@@ -8,11 +9,11 @@
   gap: var(--button-primary-gap);
   padding: 4px var(--button-primary-padding-inline);
   border: 0;
-  border-radius: var(--button-primary-radius);
+  border-radius: var(--radius-sm);
   background: var(--button-primary-bg);
-  color: var(--button-primary-color);
+  color: var(--color-text-on-dark);
   font-family: var(--font-body);
-  font-size: var(--type-button-size);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body-tight);
   letter-spacing: var(--letter-spacing-body);
@@ -20,27 +21,31 @@
   cursor: pointer;
 }
 
+/* 滑鼠移過或鍵盤聚焦：背景變成不透明的品牌橘 */
 .button--primary:hover,
 .button--primary:focus-visible {
-  background: var(--button-primary-hover-bg);
-  color: var(--button-primary-color);
+  background: var(--color-primary);
+  color: var(--color-text-on-dark);
 }
 
+/* 箭頭的「視窗」：固定 16px 方框並隱藏溢出，
+   裡面放兩個箭頭，hover 時一個滑出、一個滑入 */
 .button--primary .button__arrow-window {
   position: relative;
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: var(--button-primary-icon-size);
+  height: var(--button-primary-icon-size);
+  flex: 0 0 var(--button-primary-icon-size);
   overflow: hidden;
 }
 
+/* 兩個箭頭 SVG 疊在同一個位置（預設狀態：停在視窗正中央） */
 .button--primary .button__icon {
   position: absolute;
   inset: 0;
   display: block;
-  width: 16px;
-  height: 16px;
+  width: var(--button-primary-icon-size);
+  height: var(--button-primary-icon-size);
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -50,58 +55,42 @@
   transition: transform 520ms cubic-bezier(.4, 0, .2, 1), opacity 440ms ease-in-out;
 }
 
+/* 第二個箭頭：預設藏在視窗左邊外面、透明 */
 .button--primary .button__icon:nth-child(2) {
   opacity: 0;
   transform: translateX(-110%);
 }
 
+/* hover：第一個箭頭往右滑出並淡出 */
 .button--primary:hover .button__icon:first-child,
 .button--primary:focus-visible .button__icon:first-child {
   opacity: 0;
   transform: translateX(110%);
 }
 
+/* hover：第二個箭頭從左邊滑進來並淡入，形成「箭頭穿過」的效果 */
 .button--primary:hover .button__icon:nth-child(2),
 .button--primary:focus-visible .button__icon:nth-child(2) {
   opacity: 1;
   transform: translateX(0);
 }
 
+/* 鍵盤聚焦時的外框（顏色跟隨文字色） */
 .button--primary:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
 
-@font-face {
-  font-family: "Phosphor";
-  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
-  font-style: normal;
-  font-weight: normal;
-  font-display: block;
-}
-
-.button--primary .ph {
-  flex: 0 0 auto;
-  font-family: "Phosphor";
-  font-size: var(--button-primary-icon-size);
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-}
-
-.button--primary .ph-caret-line-down::before { content: "\e134"; }
-.button--primary .ph-caret-line-up::before { content: "\e12e"; }
-
-/* 可重用文字箭頭連結：卡片右下角 More */
+/* 可重用的文字箭頭連結（品牌色文字 + 箭頭）：用於卡片右下角的 More */
 .button--text-arrow {
   display: inline-flex;
   align-items: center;
-  gap: var(--button-text-arrow-gap);
-  color: var(--button-text-arrow-color);
-  font-size: var(--button-text-arrow-font-size);
-  font-weight: var(--button-text-arrow-font-weight);
-  line-height: var(--button-text-arrow-line-height);
-  letter-spacing: var(--button-text-arrow-letter-spacing);
+  gap: 8px;
+  color: var(--color-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-body);
   text-decoration: none;
 }
 
@@ -113,6 +102,7 @@
   transition: var(--button-icon-transition);
 }
 
+/* hover：箭頭向右微移 */
 .button--text-arrow:hover .home-text-link__icon,
 .button--text-arrow:focus-visible .home-text-link__icon {
   transform: translateX(var(--button-text-arrow-hover-shift-x));
@@ -123,6 +113,7 @@
   outline-offset: 3px;
 }
 
+/* 使用者開啟「減少動態效果」時，取消箭頭動畫 */
 @media (prefers-reduced-motion: reduce) {
   .button--primary .button__icon,
   .button--text-arrow .home-text-link__icon { transition: none; }

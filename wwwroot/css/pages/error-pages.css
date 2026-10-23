@@ -9,7 +9,7 @@
   min-height: clamp(560px, 68svh, 760px);
   flex: 1;
   padding-block: clamp(150px, 16vh, 220px) clamp(88px, 10vh, 140px);
-  background: var(--color-surface-soft);
+  background: var(--color-surface-subtle);
 }
 
 .error-page .error-page__card {
@@ -21,9 +21,9 @@
 .error-page .error-page__card h1 {
   max-width: 920px;
   margin: 0 0 clamp(24px, 3vw, 38px);
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
-  font-size: var(--font-size-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading-tight);
   letter-spacing: var(--letter-spacing-tight);
@@ -32,7 +32,7 @@
 .error-page .error-page__card > p {
   max-width: 760px;
   margin: 0 0 36px;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-body-lg);
   line-height: var(--line-height-body);
 }
@@ -46,7 +46,7 @@
 .error-page--not-found .error-page__card h1 {
   max-width: 760px;
   margin-bottom: 24px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-size: var(--font-size-h2);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
@@ -56,14 +56,14 @@
 .error-page--not-found .error-page__card > p {
   max-width: 640px;
   margin-bottom: 32px;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
 .error-page--server-error .error-page__home-link,
 .error-page--not-found .error-page__home-link {
-  background: var(--color-secondary);
+  background: var(--color-surface-inverse);
 }
 
 .error-page--server-error .error-page__home-link:hover,

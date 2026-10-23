@@ -1,0 +1,16 @@
+/* Phosphor Icons 共用字型與基礎設定 */
+@font-face {
+  font-family: "Phosphor";
+  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
+.ph {
+  display: inline-block;
+  font-family: "Phosphor";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+}

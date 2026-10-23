@@ -1,27 +1,35 @@
+/* 頁面載入遮罩：預設不顯示，只有 <html> 帶有 page-loading 時才出現 */
 .page-loader { display: none; }
 
+/* 載入中：用背景色蓋住整個畫面，內容置中（裡面放什麼由 HTML 決定，例如 Logo） */
 html.page-loading .page-loader {
   position: fixed;
   z-index: 10000;
   inset: 0;
   display: grid;
-  background: var(--color-surface);
+  background: var(--color-background);
   opacity: 1;
   place-items: center;
+  /* 淡出 200ms；visibility 延遲 200ms，等淡出跑完才真正隱藏 */
   transition: opacity 200ms ease, visibility 0s linear 200ms;
+  /* 保險機制：如果 10 秒後 JS 還沒加上 page-ready（例如 JS 出錯），
+     這個「0 秒動畫 + 10 秒延遲」會強制把遮罩藏起來，避免使用者被永遠擋住 */
   animation: page-loader-failsafe 0s linear 10s forwards;
 }
 
+/* 載入完成（JS 加上 page-ready）：淡出並讓遮罩不再擋住點擊 */
 html.page-loading.page-ready .page-loader {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
 }
 
+/* 保險機制的動畫終點狀態：與上面「載入完成」的外觀相同 */
 @keyframes page-loader-failsafe {
   to { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
+/* 使用者開啟「減少動態效果」：取消淡出動畫，直接消失 */
 @media (prefers-reduced-motion: reduce) {
   html.page-loading .page-loader { transition: none; }
 }

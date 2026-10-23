@@ -1,10 +1,10 @@
 .admin-page {
   --admin-background: var(--color-surface-subtle);
-  --admin-panel: var(--color-surface);
-  --admin-ink: var(--color-ink);
-  --admin-muted: var(--color-muted);
-  --admin-line: var(--color-line);
-  --admin-soft: var(--color-surface-soft);
+  --admin-panel: var(--color-background);
+  --admin-ink: var(--color-text-primary);
+  --admin-muted: var(--color-text-body);
+  --admin-line: var(--color-border);
+  --admin-soft: var(--color-surface-subtle);
   --admin-danger: #b42318;
   --admin-success: #2f6f4e;
   min-width: 320px;
@@ -83,7 +83,7 @@
   color: var(--admin-muted);
   padding: 9px 12px;
   font-size: .84rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-captcha__refresh:hover,
@@ -111,7 +111,7 @@
   gap: 7px;
   color: var(--admin-muted);
   font-size: .95rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-field input,
@@ -136,7 +136,7 @@
 .admin-field select:focus,
 .admin-field textarea:focus,
 .admin-inline-form input:focus {
-  border-color: var(--color-primary-dark);
+  border-color: var(--color-primary);
   outline: 3px solid rgb(245 130 20 / 22%);
   outline-offset: 1px;
 }
@@ -150,7 +150,7 @@
   border-radius: var(--radius-sm);
   padding: 9px 18px;
   font-size: .95rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: 1.4;
   text-decoration: none;
   transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
@@ -158,7 +158,7 @@
 
 .admin-button--primary {
   background: var(--admin-ink);
-  color: var(--color-surface);
+  color: var(--color-background);
 }
 
 .admin-button--primary:hover,
@@ -189,7 +189,7 @@
   margin: 0;
   color: var(--admin-danger);
   font-size: .9rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-message[data-state="success"] {
@@ -350,7 +350,7 @@
 
 .admin-category-item span {
   overflow-wrap: anywhere;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-category-item button,
@@ -361,7 +361,7 @@
   color: var(--admin-muted);
   padding: 6px 10px;
   font-size: .84rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-category-item button:hover,
@@ -392,7 +392,7 @@
 .admin-table th {
   color: var(--admin-muted);
   font-size: .8rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   letter-spacing: .04em;
   white-space: nowrap;
 }
@@ -404,7 +404,7 @@
 .admin-table td[data-label="標題"] {
   min-width: 190px;
   color: var(--admin-ink);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 .admin-table__status {
@@ -414,7 +414,7 @@
   background: #eef8ef;
   color: #26733d;
   font-size: .8rem;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   white-space: nowrap;
 }
 
@@ -508,7 +508,7 @@
   .admin-button--primary:focus,
   .admin-button--primary:focus-visible {
     background: var(--admin-ink);
-    color: var(--color-surface);
+    color: var(--color-background);
   }
 
   .admin-button--secondary:hover,

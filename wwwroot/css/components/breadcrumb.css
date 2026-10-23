@@ -1,10 +1,13 @@
+/* 麵包屑（例如：首頁 > 服務項目 > 貨櫃堆場）：一般內頁版本，位於頁面頂部、內容上方 */
 .page-breadcrumb {
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .page-breadcrumb .site-container {
   display: flex;
   width: 100%;
+  /* 左右留白：取「固定邊距」與「1680px 置中後的邊距」較大者，
+     所以麵包屑的最大寬度比內容區（1324px）更寬 */
   padding-inline: max(var(--content-gutter), calc((100vw - 1680px) / 2));
   min-height: 40px;
   align-items: center;
@@ -18,35 +21,36 @@
   text-decoration: none;
 }
 
+/* 目前所在頁面：顏色較深、字重較粗，用 aria-current 標記（螢幕閱讀器也會讀到） */
 .page-breadcrumb [aria-current="page"] {
   color: var(--color-text-primary);
   font-weight: var(--font-weight-medium);
 }
 
-@media (max-width: 840px) {
-  .page-breadcrumb .site-container {
-    padding-inline: var(--content-inset);
-  }
-}
-
+/* 滑鼠移過或鍵盤聚焦時變成品牌色 */
 .page-breadcrumb a:hover,
 .page-breadcrumb a:focus-visible {
   color: var(--color-primary);
 }
 
-/* Hero breadcrumbs sit over the image and share the Hero content alignment. */
+/* Hero 版本：麵包屑疊在大圖上，與 Hero 內容對齊 */
 .page-breadcrumb.page-hero__breadcrumb {
+  width: 100%;
   border-bottom: 0;
   color: var(--color-text-on-dark);
 }
 
+/* 對齊交給 Hero 的內容容器處理，這裡清掉自己的左右留白 */
 .page-breadcrumb.page-hero__breadcrumb .site-container {
   width: 100%;
   margin-inline: 0;
+  min-height: 0;
   padding-inline: 0;
   color: inherit;
+  font-size: var(--font-size-body-sm);
 }
 
+/* 連結與目前頁面都沿用白色文字 */
 .page-breadcrumb.page-hero__breadcrumb a,
 .page-breadcrumb.page-hero__breadcrumb [aria-current="page"] {
   color: inherit;
@@ -55,4 +59,11 @@
 .page-breadcrumb.page-hero__breadcrumb a:hover,
 .page-breadcrumb.page-hero__breadcrumb a:focus-visible {
   color: var(--color-primary);
+}
+
+/* 窄螢幕（840px 以下）：左右留白改為與內容區對齊 */
+@media (max-width: 840px) {
+  .page-breadcrumb .site-container {
+    padding-inline: var(--content-inset);
+  }
 }

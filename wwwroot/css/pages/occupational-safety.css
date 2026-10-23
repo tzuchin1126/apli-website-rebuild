@@ -6,7 +6,7 @@
 
 .safety-page .safety-section {
   padding-block: var(--section-space);
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .safety-page .safety-section.safety-intro {
@@ -95,7 +95,7 @@
   margin: 0;
   color: var(--color-text-body);
   font-size: var(--font-size-body);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
 
@@ -107,8 +107,8 @@
   margin: 0;
   justify-self: start;
   overflow: hidden;
-  border-radius: var(--card-radius);
-  background: var(--color-surface-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
   box-shadow: none;
 }
 
@@ -167,9 +167,9 @@
 .safety-page .safety-credentials__heading-copy > p:last-child {
   max-width: 42em;
   margin: var(--section-content-gap) 0 0;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-body);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
 
@@ -206,8 +206,8 @@
 }
 
 .safety-page .safety-credential-card {
-  --safety-credential-accent: var(--color-secondary);
-  --safety-credential-radius: var(--card-radius);
+  --safety-credential-accent: var(--color-surface-inverse);
+  --safety-credential-radius: var(--radius-md);
   position: relative;
   flex: 0 0 calc((100% - 52px) / 3);
   min-width: 0;
@@ -218,7 +218,7 @@
   padding: 28px 24px 24px;
   border: 0;
   border-radius: var(--safety-credential-radius);
-  background: var(--color-surface);
+  background: var(--color-background);
   box-shadow: var(--shadow-card);
   overflow: hidden;
   transition: box-shadow 220ms ease, transform 220ms ease;
@@ -241,10 +241,10 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  border: 6px solid var(--color-surface);
+  border: 6px solid var(--color-background);
   box-sizing: border-box;
   border-radius: 50%;
-  color: var(--color-surface);
+  color: var(--color-background);
   background: var(--safety-credential-accent);
   transform: translateY(-4px);
 }
@@ -269,7 +269,7 @@
   transform: translateY(-50%);
   border-radius: 50%;
   background: var(--safety-credential-accent);
-  color: var(--color-surface);
+  color: var(--color-background);
   font-size: 11px;
 }
 
@@ -280,10 +280,10 @@
 .safety-page .safety-credential-card__title h3 {
   margin: 0;
   padding: 0;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
-  line-height: var(--line-height-card-title);
+  line-height: var(--line-height-heading);
   transform: translateY(20px);
 }
 
@@ -367,14 +367,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .safety-page .safety-credential-card li {
   position: relative;
   min-height: 0;
   padding: 10px 0 10px 30px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-size: var(--font-size-body);
   line-height: 1.5;
 }
@@ -396,7 +396,7 @@
   margin: -28px -24px 24px;
   overflow: hidden;
   border-radius: var(--safety-credential-radius) var(--safety-credential-radius) 0 0;
-  background: var(--color-surface-soft);
+  background: var(--color-surface-subtle);
 }
 
 .safety-page .safety-credential-card__media img {
@@ -417,7 +417,7 @@
 
 .safety-page .safety-credential-card--certification .safety-credential-card__media img {
   object-fit: contain;
-  background: var(--color-surface-soft);
+  background: var(--color-surface-subtle);
 }
 
 .safety-page .safety-credential-card--health .safety-credential-card__media img {
@@ -479,7 +479,7 @@
 
   .safety-page .safety-intro__media {
     aspect-ratio: 16 / 9;
-    border-radius: var(--card-radius);
+    border-radius: var(--radius-md);
     justify-self: stretch;
     width: 100%;
     max-width: none;

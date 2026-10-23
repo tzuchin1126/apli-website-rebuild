@@ -1,16 +1,17 @@
+/* 內頁 Hero：頁面頂部的橫幅大圖，疊有遮罩、標題與麵包屑 */
 .page-hero {
+  /* 預設使用一般遮罩；引言版（--quote）會改用較深的遮罩 */
   --page-hero-overlay: var(--page-hero-overlay-light);
-  --page-hero-text-duration: 1200ms;
   position: relative;
   height: var(--page-hero-height);
   overflow: hidden;
-  isolation: auto;
+  /* 底部品牌色粗線 + 右下角大圓角，是 Hero 的識別造型 */
   border-bottom: clamp(6px, .5vw, 8px) solid var(--color-primary);
-  border-bottom-left-radius: 0;
   border-bottom-right-radius: clamp(30px, 3.5vw, 52px);
   background: var(--color-background);
 }
 
+/* 圖片層與遮罩層：都鋪滿整個 Hero */
 .page-hero__media,
 .page-hero__overlay {
   position: absolute;
@@ -19,6 +20,7 @@
   height: 100%;
 }
 
+/* 背景圖：比容器高 30%、往上移 15%，上下各留餘量，縮放或位移時才不會露出邊緣 */
 .page-hero__image {
   position: absolute;
   top: -15%;
@@ -27,17 +29,21 @@
   height: 130%;
   max-width: none;
   object-fit: cover;
+  /* 可由個別頁面設定 --page-hero-image-position 調整圖片對焦位置 */
   object-position: var(--page-hero-image-position, center);
   transform-origin: var(--page-hero-image-origin, var(--page-hero-image-position, center));
+  /* 初始放大（1.1），載入完成後縮回 1，形成緩慢拉遠的效果 */
   transform: scale(var(--page-hero-image-scale));
   transition: transform var(--page-hero-image-duration) var(--page-hero-motion-easing);
   will-change: transform;
 }
 
+/* 由 JS 在圖片載入完成後加上，觸發縮回動畫 */
 .page-hero__image.is-loaded {
   transform: scale(1);
 }
 
+/* 深色漸層遮罩，讓白字在任何圖片上都清楚 */
 .page-hero__overlay {
   z-index: 1;
   background: var(--page-hero-overlay);
@@ -57,6 +63,7 @@
   text-align: left;
 }
 
+/* 文字內容層：疊在遮罩上方、垂直置中，載入時往上淡入 */
 .page-hero__content {
   position: relative;
   z-index: 2;
@@ -67,50 +74,19 @@
   align-content: center;
   justify-items: start;
   gap: clamp(10px, 1.2vw, 16px);
+  /* 左側留白：與 Header 使用同一個 1680px 外框基準，再加一點內縮 */
   padding-inline: calc(max(var(--content-gutter), calc((100vw - 1680px) / 2)) + clamp(16px, 2vw, 28px));
   color: var(--color-text-on-dark);
   animation: page-hero-text-enter var(--page-hero-text-duration) var(--page-hero-motion-easing) 120ms both;
 }
 
-.page-hero__breadcrumb {
-  width: 100%;
-  border: 0;
-}
-
-.page-hero__breadcrumb .site-container {
-  min-height: 0;
-  padding-inline: 0;
-  color: inherit;
-  font-size: var(--font-size-body-sm);
-}
-
-.page-hero__breadcrumb a,
-.page-hero__breadcrumb [aria-current="page"] {
-  color: inherit;
-}
-
-.page-hero__breadcrumb a:hover,
-.page-hero__breadcrumb a:focus-visible {
-  color: var(--color-primary);
-}
-
+/* 引言版 Hero：使用較深的遮罩，內文是一段引言（blockquote） */
 .page-hero--quote {
   --page-hero-overlay: var(--page-hero-overlay-quote);
 }
 
 .page-hero--quote .page-hero__content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  min-height: 100%;
-  align-content: center;
   gap: clamp(22px, 3vw, 36px);
-  color: var(--color-text-on-dark);
-}
-
-.page-hero--quote .page-hero__title {
-  display: block;
-  height: auto;
 }
 
 .page-hero--quote blockquote {
@@ -120,32 +96,31 @@
   font-size: var(--font-size-body-lg);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
+  /* 文字陰影：避免引言壓在亮色圖片上看不清楚 */
   text-shadow: 0 3px 24px rgb(0 0 0 / 36%);
 }
 
+/* 引言出處：靠右、字距稍寬 */
 .page-hero--quote cite {
   display: block;
   margin-top: 18px;
   font-size: var(--font-size-label);
   font-style: normal;
-  letter-spacing: var(--letter-spacing-label);
+  letter-spacing: 0.08em;
   text-align: right;
 }
 
+/* 文字進場動畫：由下方 18px 淡入到定位 */
 @keyframes page-hero-text-enter {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* 手機版（760px 以下）：底線變細、圓角縮小、引言字級縮小 */
 @media (max-width: 760px) {
   .page-hero {
     border-bottom-width: 4px;
-    border-bottom-left-radius: 0;
     border-bottom-right-radius: 12px;
-  }
-
-  .page-hero__title {
-    line-height: var(--line-height-heading-tight);
   }
 
   .page-hero--quote .page-hero__content {
@@ -162,6 +137,7 @@
   }
 }
 
+/* 使用者開啟「減少動態效果」：取消文字進場動畫，圖片固定在原尺寸不縮放 */
 @media (prefers-reduced-motion: reduce) {
   .page-hero__image,
   .page-hero__content {
@@ -173,6 +149,7 @@
   }
 }
 
+/* 窄螢幕（840px 以下）：左側留白改為與內容區對齊 */
 @media (max-width: 840px) {
   .page-hero__content {
     padding-inline: calc(var(--content-inset) + 16px);

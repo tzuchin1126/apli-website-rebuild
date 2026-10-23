@@ -1,14 +1,22 @@
-/* Touch pointers should not retain desktop hover/focus color treatments after a tap. */
+/* 觸控裝置（手機、平板）沒有真正的 hover，手指點一下後，
+   瀏覽器會讓 hover / focus 的顏色「卡住」不放。
+   所以在這裡把這些狀態改回與平常一樣的外觀，或取消 hover 的位移動畫。
+   條件說明：(hover: none) = 主要輸入裝置無法 hover；(pointer: coarse) = 用手指操作 */
 @media (hover: none) and (pointer: coarse) {
+
+  /* ---------- 按鈕 ---------- */
+
+  /* 主要按鈕：維持平常的半透明橘底，不變成實心橘 */
   .button--primary:hover,
   .button--primary:active,
   .button--primary:focus,
   .button--primary:focus-visible {
     border-color: transparent;
     background: var(--button-primary-bg);
-    color: var(--button-primary-color);
+    color: var(--color-text-on-dark);
   }
 
+  /* 透明底＋白框白字的按鈕（出現在深色背景上）：維持平常外觀 */
   .affiliates-page .button--primary:hover,
   .affiliates-page .button--primary:active,
   .affiliates-page .button--primary:focus,
@@ -31,9 +39,10 @@
   .home-page .home-hero__cta:focus-visible {
     border-color: rgb(255 255 255 / 90%);
     background: transparent;
-    color: var(--color-surface);
+    color: var(--color-background);
   }
 
+  /* 首頁的文字連結按鈕：維持橘底 */
   .home-page .home-text-link:hover,
   .home-page .home-text-link:active,
   .home-page .home-text-link:focus,
@@ -43,26 +52,29 @@
   .home-page .home-latest__all:focus,
   .home-page .home-latest__all:focus-visible {
     background: var(--button-primary-bg);
-    color: var(--button-primary-color);
+    color: var(--color-text-on-dark);
   }
 
+  /* 首頁介紹區（淺色背景）的文字連結：透明底、深色字 */
   .home-page .home-intro .home-text-link:hover,
   .home-page .home-intro .home-text-link:active,
   .home-page .home-intro .home-text-link:focus,
   .home-page .home-intro .home-text-link:focus-visible {
     background: transparent;
-    color: var(--color-secondary);
+    color: var(--color-surface-inverse);
   }
 
+  /* 首頁聯絡 CTA：透明底＋白框白字 */
   .home-page .home-contact-cta__link:hover,
   .home-page .home-contact-cta__link:active,
   .home-page .home-contact-cta__link:focus,
   .home-page .home-contact-cta__link:focus-visible {
     border-color: rgb(255 255 255 / 90%);
     background: transparent;
-    color: var(--color-surface);
+    color: var(--color-background);
   }
 
+  /* ---------- 按鈕內的箭頭圖示：取消 hover 時的位移 ---------- */
   .home-page .home-hero__cta:hover .home-hero__cta-icon,
   .home-page .home-hero__cta:active .home-hero__cta-icon,
   .home-page .home-hero__cta:focus .home-hero__cta-icon,
@@ -94,13 +106,19 @@
     transform: none;
   }
 
+  /* ---------- 導覽列 ---------- */
+
+  /* 導覽連結：維持平常的文字色，不變橘 */
   .site-header .nav-link:hover,
   .site-header .nav-link:active,
   .site-header .nav-link:focus,
   .site-header .nav-link:focus-visible {
-    color: var(--color-ink);
+    color: var(--color-text-primary);
   }
 
+  /* ---------- 分頁標籤（Tabs） ---------- */
+
+  /* 未選取的標籤：維持一般文字色 */
   .affiliate-tabs button:hover,
   .affiliate-tabs button:active,
   .affiliate-tabs button:focus,
@@ -114,9 +132,10 @@
   .services-page .service-switcher__tab:focus,
   .services-page .service-switcher__tab:focus-visible {
     background: transparent;
-    color: var(--color-muted);
+    color: var(--color-text-body);
   }
 
+  /* 已選取的標籤：維持深色文字（aria-selected="true"） */
   .affiliate-tabs button[aria-selected="true"],
   .affiliate-tabs button[aria-selected="true"]:hover,
   .affiliate-tabs button[aria-selected="true"]:active,
@@ -133,18 +152,22 @@
   .services-page .service-switcher__tab[aria-selected="true"]:focus,
   .services-page .service-switcher__tab[aria-selected="true"]:focus-visible {
     background: transparent;
-    color: var(--color-ink);
+    color: var(--color-text-primary);
   }
 
+  /* ---------- 篩選按鈕 ---------- */
+
+  /* 關係企業地點篩選：未選取（白底灰框） */
   .affiliate-location-filter button:hover,
   .affiliate-location-filter button:active,
   .affiliate-location-filter button:focus,
   .affiliate-location-filter button:focus-visible {
-    border-color: var(--color-line);
-    background: var(--color-surface);
-    color: var(--color-muted);
+    border-color: var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text-body);
   }
 
+  /* 關係企業地點篩選：已選取（橘底白字，aria-pressed="true"） */
   .affiliate-location-filter button[aria-pressed="true"],
   .affiliate-location-filter button[aria-pressed="true"]:hover,
   .affiliate-location-filter button[aria-pressed="true"]:active,
@@ -152,18 +175,20 @@
   .affiliate-location-filter button[aria-pressed="true"]:focus-visible {
     border-color: var(--button-primary-bg);
     background: var(--button-primary-bg);
-    color: var(--button-primary-color);
+    color: var(--color-text-on-dark);
   }
 
+  /* 新聞分類篩選：未選取 */
   .news-filter__list button:hover,
   .news-filter__list button:active,
   .news-filter__list button:focus,
   .news-filter__list button:focus-visible {
     border-color: transparent;
     background: transparent;
-    color: var(--news-filter-text);
+    color: var(--color-text-body);
   }
 
+  /* 新聞分類篩選：已選取 */
   .news-filter__list button[aria-pressed="true"],
   .news-filter__list button[aria-pressed="true"]:hover,
   .news-filter__list button[aria-pressed="true"]:active,
@@ -171,9 +196,12 @@
   .news-filter__list button[aria-pressed="true"]:focus-visible {
     border-color: transparent;
     background: transparent;
-    color: var(--color-ink);
+    color: var(--color-text-primary);
   }
 
+  /* ---------- 服務頁輪播 ---------- */
+
+  /* 左右切換按鈕：維持平常的半透明黑底 */
   .services-page .service-carousel__control:hover,
   .services-page .service-carousel__control:active,
   .services-page .service-carousel__control:focus,
@@ -181,6 +209,7 @@
     background: rgb(0 0 0 / 72%);
   }
 
+  /* 未選取的圓點：維持半透明白色，不放大 */
   .services-page .service-carousel__dot:not(.is-active):hover,
   .services-page .service-carousel__dot:not(.is-active):active,
   .services-page .service-carousel__dot:not(.is-active):focus,
@@ -189,6 +218,8 @@
     transform: none;
   }
 
+  /* ---------- 頁尾連結 ---------- */
+
   .footer-column a:hover,
   .footer-column a:active,
   .footer-column a:focus,
@@ -196,6 +227,7 @@
     color: var(--footer-accent);
   }
 
+  /* 取消 hover 時由左往右展開的底線（scaleX(0) = 寬度縮為 0） */
   .footer-column a:hover::after,
   .footer-column a:active::after,
   .footer-column a:focus::after,
@@ -214,11 +246,14 @@
     color: var(--footer-accent);
   }
 
+  /* ---------- 回到頂部按鈕 ---------- */
+
+  /* 觸控時維持品牌橘底（點擊後不會退回淡橘色） */
   .back-to-top:hover,
   .back-to-top:active,
   .back-to-top:focus,
   .back-to-top:focus-visible {
-    background: var(--button-primary-hover-bg);
-    color: var(--button-primary-color);
+    background: var(--color-primary);
+    color: var(--color-text-on-dark);
   }
 }

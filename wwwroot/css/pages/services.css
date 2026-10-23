@@ -27,11 +27,11 @@
 
 .services-page .service-section {
   scroll-margin-top: 180px;
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .services-page .service-section--reverse {
-  background: var(--color-surface-soft);
+  background: var(--color-surface-subtle);
 }
 
 .services-page .service-panels-viewport {
@@ -113,7 +113,7 @@
 }
 
 .services-page #terminal-handling {
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .services-page .service-section__inner {
@@ -128,7 +128,7 @@
   column-gap: var(--content-column-gap);
   row-gap: var(--section-content-gap);
   align-items: start;
-  padding-block: var(--section-space-sm);
+  padding-block: var(--section-space-lg);
 }
 
 .services-page .service-section--reverse .service-section__inner {
@@ -229,7 +229,7 @@
   width: fit-content;
   margin: 0;
   padding: 0;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
   font-weight: var(--font-weight-section-heading);
@@ -278,8 +278,8 @@
 
   .services-page .service-section__heading > p {
     grid-column: 1;
-    font-size: var(--font-size-card-description);
-    line-height: var(--line-height-card-description);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
   }
 }
 
@@ -296,14 +296,14 @@
   width: 100%;
   height: 100%;
   aspect-ratio: auto;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
   object-fit: cover;
 }
 
 .services-page .service-section__media--static {
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
 }
 
 .services-page .service-carousel {
@@ -312,7 +312,7 @@
   min-height: 0;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
 }
 
 .services-page .service-carousel__viewport,
@@ -366,7 +366,7 @@
   border: 0;
   border-radius: 50%;
   background: rgb(0 0 0 / 72%);
-  color: var(--color-surface);
+  color: var(--color-background);
   cursor: pointer;
   opacity: 0;
   transform: translateY(-50%);
@@ -465,11 +465,11 @@
 
 .services-page .service-section__details h3 {
   margin: 0;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
   letter-spacing: normal;
-  line-height: var(--line-height-card-title-compact);
+  line-height: inherit;
 }
 
 .services-page .service-section__details ul {
@@ -485,8 +485,8 @@
   gap: 12px;
   align-items: baseline;
   padding: 12px 0;
-  color: var(--color-ink);
-  font-size: var(--font-size-body-copy);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -504,7 +504,7 @@
 
 .services-page .services-advantages {
   padding-block: var(--section-space);
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .services-page .services-advantages__inner {
@@ -548,7 +548,7 @@
   grid-area: media;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
   background: center / cover no-repeat;
 }
 
@@ -559,7 +559,7 @@
   flex-direction: column;
   height: 100%;
   padding: 0;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
 }
 
 .services-page .services-advantages__heading {
@@ -571,7 +571,7 @@
   width: fit-content;
   margin: 0;
   padding: 0 0 14px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
   font-weight: var(--font-weight-section-heading);
@@ -608,10 +608,10 @@
   gap: 12px;
   align-items: baseline;
   margin: 0 0 6px;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-size: var(--font-size-card-title-compact);
   font-weight: var(--font-weight-heading);
-  line-height: var(--line-height-card-title);
+  line-height: var(--line-height-heading);
 }
 
 /* Keep service card headings one step stronger at laptop widths. */
@@ -637,9 +637,9 @@
   max-width: none;
   padding-left: calc(2ch + 12px);
   margin: 0;
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: var(--font-size-body);
-  line-height: var(--line-height-card-description);
+  line-height: var(--line-height-body);
 }
 
 .services-page .services-contact {
@@ -659,16 +659,16 @@
 .services-page .services-contact__card {
   width: 100%;
   overflow: hidden;
-  border: 1px solid var(--color-line);
-  border-radius: var(--card-radius);
-  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
 }
 
 .services-page .services-contact__card-heading {
   padding: 20px clamp(20px, 3vw, 32px);
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-surface-soft);
-  color: var(--color-secondary);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+  color: var(--color-surface-inverse);
   font-family: var(--font-body);
   font-size: clamp(1.1rem, 1rem + 0.25vw, 1.25rem);
   font-weight: var(--font-weight-heading);
@@ -683,7 +683,7 @@
   gap: 0;
   margin: 0;
   padding: 24px clamp(20px, 3vw, 32px) 28px;
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .services-page .services-contact__details > div,
@@ -698,23 +698,23 @@
 }
 
 .services-page .services-contact__details > a {
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
 .services-page .services-contact__details > div + a {
-  border-left: 1px solid var(--color-line);
+  border-left: 1px solid var(--color-border);
 }
 
 .services-page .services-contact__details span {
-  color: var(--color-muted);
+  color: var(--color-text-body);
   font-size: 0.875rem;
   line-height: 1.4;
 }
 
 .services-page .services-contact__details strong {
   display: block;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: clamp(1.15rem, 1.3vw, 1.4rem);
   font-weight: var(--font-weight-section-heading);
@@ -805,7 +805,7 @@
       "media"
       "details";
     row-gap: var(--section-content-gap);
-    padding-block: var(--section-space-sm);
+    padding-block: var(--section-space-lg);
   }
 
   .services-page .service-section__heading {
@@ -838,7 +838,7 @@
     width: min(100%, 760px);
     max-width: 760px;
     margin: 0 auto;
-    font-size: var(--font-size-body-copy);
+    font-size: var(--font-size-body);
     line-height: var(--line-height-body);
   }
 
@@ -858,7 +858,7 @@
   }
 
   .services-page .service-section__description p {
-    font-size: var(--font-size-body-copy);
+    font-size: var(--font-size-body);
   }
 
   .services-page .service-carousel {
@@ -882,7 +882,7 @@
   .services-page .services-contact__details > a {
     padding-top: 20px;
     border-left: 0;
-    border-top: 1px solid var(--color-line);
+    border-top: 1px solid var(--color-border);
   }
 
   .services-page .services-contact__details > div + a {
@@ -900,11 +900,11 @@
   display: block;
   width: 100%;
   border: 0;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
   min-height: 192px;
   isolation: isolate;
   overflow: hidden;
-  color: var(--color-surface);
+  color: var(--color-background);
   background: var(--color-surface-inverse) url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
 }
 
@@ -927,10 +927,10 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--color-surface);
+  color: var(--color-background);
   font-size: var(--font-size-card-title);
   font-weight: var(--font-weight-heading);
-  line-height: var(--line-height-card-title);
+  line-height: var(--line-height-heading);
 }
 
 .services-page .services-contact__details {
@@ -949,7 +949,7 @@
   align-content: start;
   justify-items: start;
   min-height: 0;
-  color: var(--color-surface);
+  color: var(--color-background);
   text-align: left;
 }
 
@@ -965,7 +965,7 @@
 }
 
 .services-page .services-contact__details strong {
-  color: var(--color-surface);
+  color: var(--color-background);
 }
 
 @media (max-width: 760px) {
@@ -995,7 +995,7 @@
   }
 
   .services-page .services-advantages__grid p {
-    font-size: var(--font-size-body-copy);
+    font-size: var(--font-size-body);
   }
 
   .services-page .services-advantages__content {
@@ -1012,7 +1012,7 @@
   .services-page .services-advantages__heading h2 {
     font-size: var(--font-size-h3);
     font-weight: var(--font-weight-section-heading);
-    line-height: var(--line-height-card-title);
+    line-height: var(--line-height-heading);
   }
 
   .services-page .services-contact__details {
@@ -1043,7 +1043,7 @@
 
   .services-page .services-contact__card-heading {
     font-size: var(--font-size-card-title-compact);
-    line-height: var(--line-height-card-title-compact);
+    line-height: inherit;
   }
 
   .services-page .services-contact__details {

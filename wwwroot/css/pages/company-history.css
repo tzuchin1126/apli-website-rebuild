@@ -113,7 +113,7 @@
   right: 0;
   left: var(--milestone-track-inset);
   height: 2px;
-  background: var(--color-line);
+  background: var(--color-border);
   pointer-events: none;
 }
 
@@ -135,15 +135,6 @@
   scroll-snap-align: start;
 }
 
-.milestone-preview__timeline {
-  display: grid;
-  grid-template-columns: repeat(var(--milestone-year-count), minmax(0, 1fr));
-  column-gap: var(--milestone-column-gap);
-  align-items: center;
-  height: var(--milestone-timeline-size);
-  margin: 0;
-}
-
 .milestone-preview__timeline-node {
   position: relative;
   z-index: 1;
@@ -151,17 +142,10 @@
   width: var(--milestone-timeline-size);
   height: var(--milestone-timeline-size);
   justify-self: start;
-  border: 2px solid var(--color-line);
+  border: 2px solid var(--color-border);
   border-radius: 50%;
   background: var(--color-background);
   box-sizing: border-box;
-}
-
-.milestone-preview__years {
-  display: grid;
-  grid-template-columns: repeat(var(--milestone-year-count), minmax(0, 1fr));
-  column-gap: var(--milestone-column-gap);
-  align-items: start;
 }
 
 .milestone-preview__year-column {
@@ -173,7 +157,7 @@
   color: var(--color-primary);
   font-family: var(--font-body);
   font-size: var(--milestone-year-size);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   font-variant-numeric: tabular-nums;
   letter-spacing: var(--letter-spacing-tight);
   line-height: 1;
@@ -254,7 +238,7 @@
   inset-block: 36px 32px;
   left: 136px;
   width: 2px;
-  background: var(--color-line);
+  background: var(--color-border);
   content: "";
 }
 
@@ -806,7 +790,7 @@
 
 .milestones-page .milestone-vertical__event h3 {
   margin: 0;
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-heading);

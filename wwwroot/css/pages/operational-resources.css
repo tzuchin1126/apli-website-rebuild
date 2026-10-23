@@ -13,7 +13,7 @@
 .operational-resources-page .resource-section {
   padding-block: var(--section-space);
   overflow-x: clip;
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .operational-resources-page .resources-data-overview {
@@ -53,7 +53,7 @@
 
 .operational-resources-page #facilities,
 .operational-resources-page #occupational-safety {
-  padding-block: var(--section-space-sm);
+  padding-block: var(--section-space-lg);
 }
 
 .operational-resources-page .resource-feature {
@@ -87,7 +87,7 @@
   width: fit-content;
   margin: 0;
   padding-bottom: 0;
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
   font-weight: var(--font-weight-section-heading);
@@ -102,7 +102,7 @@
   aspect-ratio: 16 / 9;
   margin: 0;
   overflow: hidden;
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-md);
   box-shadow: none;
 }
 
@@ -140,7 +140,7 @@
   margin: 0;
   color: var(--color-text-body);
   font-size: var(--font-size-body);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
 }
 
@@ -157,8 +157,8 @@
 }
 
 .operational-resources-page .resources-location {
-  padding-block: var(--section-space-sm);
-  background: var(--color-surface);
+  padding-block: var(--section-space-lg);
+  background: var(--color-background);
 }
 
 .operational-resources-page .resources-location .resources-section-heading {
@@ -288,9 +288,9 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border: 1px solid var(--color-line);
-  border-radius: var(--card-radius);
-  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
 }
 
 .operational-resources-page .resources-location__side--left .resources-location__node {
@@ -464,7 +464,7 @@
     display: block;
     width: min(100%, 640px);
     margin: 30px auto 0;
-    color: var(--color-muted);
+    color: var(--color-text-body);
     font-size: 0.95rem;
     line-height: 1.7;
     text-align: center;
@@ -520,7 +520,7 @@
 @media (max-width: 760px) {
   .operational-resources-page #facilities,
   .operational-resources-page #occupational-safety {
-    padding-block: var(--section-space-sm);
+    padding-block: var(--section-space-lg);
   }
 
   .operational-resources-page .resource-section {
@@ -528,7 +528,7 @@
   }
 
   .operational-resources-page .resource-media {
-    border-radius: var(--card-radius);
+    border-radius: var(--radius-md);
   }
 
   .operational-resources-page #occupational-safety .resource-heading h2 {
@@ -543,7 +543,7 @@
   }
 
   .operational-resources-page .resources-location {
-  padding-block: var(--section-space-sm);
+  padding-block: var(--section-space-lg);
   }
 
   .operational-resources-page .resources-location .resources-section-heading > p:last-child {
@@ -600,7 +600,7 @@
 }
 
 .operational-resources-page #occupational-safety {
-  background: var(--color-surface);
+  background: var(--color-background);
 }
 
 .operational-resources-page #occupational-safety .resource-heading,
@@ -779,19 +779,19 @@
   border: 0;
   color: var(--color-text-primary);
   font-family: var(--font-body);
-  font-size: var(--table-font-size);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
-  line-height: var(--table-line-height);
+  line-height: var(--line-height-body);
 }
 
 .operational-resources-page .resource-data-switcher__panel thead th {
   padding: var(--table-cell-padding);
-  border-right: 1px solid var(--table-border);
+  border-right: 1px solid var(--color-border);
   background: var(--color-surface-dark);
-  color: var(--color-surface);
-  font-size: var(--table-font-size);
+  color: var(--color-background);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
-  line-height: var(--table-line-height);
+  line-height: var(--line-height-body);
   text-align: left;
 }
 
@@ -802,8 +802,8 @@
 .operational-resources-page .resource-data-switcher__panel tbody th,
 .operational-resources-page .resource-data-switcher__panel tbody td {
   padding: var(--table-cell-padding);
-  border-right: 1px solid var(--table-border);
-  border-left: 1px solid var(--table-border);
+  border-right: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
   vertical-align: top;
   color: var(--color-text-body);
   font-weight: var(--font-weight-regular);
@@ -811,7 +811,7 @@
 }
 
 .operational-resources-page .resource-data-switcher__panel tbody tr {
-  border-bottom: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .operational-resources-page .resource-data-switcher__panel tbody tr:last-child th,
@@ -891,7 +891,7 @@
   .operational-resources-page #facilities,
   .operational-resources-page #occupational-safety,
   .operational-resources-page .resources-location {
-    padding-block: var(--section-space-sm);
+    padding-block: var(--section-space-lg);
   }
 
   .operational-resources-page .resources-data-overview,

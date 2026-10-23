@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
   <link rel="preload" as="image" href="public/images/about/company-facility.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/tokens.css?v=20261021-global-primary-button-v1">
-  <link rel="stylesheet" href="css/layout/site-header.css?v=20261020-global-text-system-v1">
-  <link rel="stylesheet" href="css/layout/site-footer.css?v=20261022-mobile-footer-spacing-v3">
-  <link rel="stylesheet" href="css/components/buttons.css?v=20261021-global-primary-button-v2">
-  <link rel="stylesheet" href="css/pages/about.css?v=20261022-certifications-mobile-spacing-v3">
-  <link rel="stylesheet" href="css/site.css?v=20260924-hero-breadcrumb-v2">
+  <link rel="stylesheet" href="css/base/tokens.css?v=20261023-token-cleanup-v10">
+  <link rel="stylesheet" href="css/layout/site-header.css?v=20261023-token-cleanup-v9">
+  <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
+  <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
+  <link rel="stylesheet" href="css/pages/about.css?v=20261023-about-subsidiary-cards-v10">
+  <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 
 <body class="about-page">
@@ -151,7 +151,7 @@
               <img src="public/images/about/123.jpg" width="3968" height="2976" alt="高雄港貨櫃碼頭空拍景象" loading="lazy" decoding="async">
             </figure>
             <div class="about-enterprise-values__body">
-              <h3>使命</h3>
+              <h3><span class="about-enterprise-values__title">使命</span><span class="about-enterprise-values__watermark" aria-hidden="true">MISSION</span></h3>
               <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
             </div>
           </article>
@@ -160,7 +160,7 @@
               <img src="public/images/about/philosophy-values.jpg" width="1920" height="1080" alt="貨櫃場作業環境" loading="lazy" decoding="async">
             </figure>
             <div class="about-enterprise-values__body">
-              <h3>核心價值觀</h3>
+              <h3><span class="about-enterprise-values__title">核心價值觀</span><span class="about-enterprise-values__watermark" aria-hidden="true">CORE VALUES</span></h3>
               <p>專業團隊精神。</p>
             </div>
           </article>
@@ -169,7 +169,7 @@
               <img src="public/images/services/warehouse-storage.png" width="5974" height="3983" alt="物流團隊於貨櫃場協作" loading="lazy" decoding="async">
             </figure>
             <div class="about-enterprise-values__body">
-              <h3>共同願景</h3>
+              <h3><span class="about-enterprise-values__title">共同願景</span><span class="about-enterprise-values__watermark" aria-hidden="true">SHARED VISION</span></h3>
               <p>商品附加價值創造者。</p>
             </div>
           </article>
@@ -206,55 +206,31 @@
         <header class="about-subsidiaries__heading">
           <h2 id="about-subsidiaries-title">子公司簡介</h2>
         </header>
-        <div class="about-subsidiaries__accordion">
-          <details class="about-subsidiary" open>
-            <summary>世新貨櫃</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p></div>
-              </div>
-            </div>
-          </details>
-          <details class="about-subsidiary">
-            <summary>亞柏油品</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p></div>
-              </div>
-            </div>
-          </details>
-          <details class="about-subsidiary">
-            <summary>亞柏會舘</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p></div>
-              </div>
-            </div>
-          </details>
-          <details class="about-subsidiary">
-            <summary>亞柏羽球隊</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p></div>
-              </div>
-            </div>
-          </details>
-          <details class="about-subsidiary">
-            <summary>太報</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p></div>
-              </div>
-            </div>
-          </details>
-          <details class="about-subsidiary">
-            <summary>ALPHA TOTAL SOLUTION</summary>
-            <div class="about-subsidiary__panel">
-              <div class="about-subsidiary__content">
-                <div class="about-subsidiary__body"><p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p></div>
-              </div>
-            </div>
-          </details>
+        <div class="about-subsidiaries__grid">
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-sexin" aria-label="查看世新貨櫃介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/transparent/shih-hsin-container.png" alt="世新貨櫃 Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>世新貨櫃</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>專注空櫃儲轉、貨櫃維修與清洗服務，提供專業的櫃場管理。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-oil" aria-label="查看亞柏油品介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/transparent/aplus-badminton.png" alt="亞柏油品 Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>亞柏油品</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>提供油品銷售與多元能源服務，持續拓展綠能與友善環境的站點。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-club" aria-label="查看亞柏會舘介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/transparent/aplus-energy.png" alt="亞柏會舘 Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>亞柏會舘</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>提供休閒、運動與交流場域，成為員工及社區共享的生活空間。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-badminton" aria-label="查看亞柏羽球隊介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/transparent/aplus-club.png" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>亞柏羽球隊</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>投入專業羽球人才培育，支持年輕選手在國內外賽事持續突破。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-taronews" aria-label="查看太報介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/transparent/taisounds.png" alt="太報 Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>太報</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>以深度與解釋性的視角報導台灣及國際新聞，打造值得信賴的新媒體平台。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="about-subsidiary" href="affiliates.html#affiliate-tab-alpha" aria-label="查看 ALPHA TOTAL SOLUTION 介紹">
+            <div class="about-subsidiary__logo"><img src="public/images/logo/new/alpha-total-solution-logo.jpg" alt="ALPHA TOTAL SOLUTION Logo" loading="lazy" decoding="async"></div>
+            <div class="about-subsidiary__details"><h3>ALPHA TOTAL SOLUTION</h3><span class="about-subsidiary__divider" aria-hidden="true"></span><p>提供港口機具銷售、保固與維修服務，累積多年港口設備專業經驗。</p><span class="about-subsidiary__cta">查看介紹<span aria-hidden="true">↗</span></span></div>
+          </a>
         </div>
       </div>
     </section>
@@ -266,6 +242,6 @@
   <!-- shared-site-footer -->
 
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/about.js?v=20261022-certifications-milestone-layout-v8"></script>
+  <script src="js/pages/about.js?v=20261023-about-subsidiary-cards-v1"></script>
 </body>
 </html>

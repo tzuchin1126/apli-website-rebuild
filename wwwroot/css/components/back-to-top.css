@@ -1,84 +1,83 @@
-@font-face {
-  font-family: "Phosphor";
-  src: url("../../public/fonts/Phosphor.woff2") format("woff2");
-  font-style: normal;
-  font-weight: normal;
-  font-display: block;
-}
-
+/* 回到頂部按鈕：固定在畫面右下角的圓形按鈕。
+   預設是「看不見」的狀態，捲動後由 JS 加上 .is-visible 才顯示 */
 .back-to-top {
   position: fixed;
   z-index: 15;
   right: clamp(16px, 2.2vw, 28px);
+  /* 距離底部 80px；env(safe-area-inset-bottom) 是為了避開 iPhone 底部的橫條 */
   bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   display: grid;
-  width: 44px;
+  width: 44px;   /* 44px 是建議的最小觸控尺寸 */
   height: 44px;
   place-items: center;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: #ff9d3d;
-  color: var(--button-primary-color);
+  color: var(--color-text-on-dark);
   cursor: pointer;
+  /* 隱藏狀態：透明、不可點、往下偏移 12px */
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px);
   box-shadow: var(--shadow-sm);
+  /* 最後的 visibility 延遲 180ms：讓淡出動畫跑完才真正隱藏 */
   transition: background-color 220ms ease, box-shadow 220ms ease, opacity 180ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 180ms;
+  /* 隱藏時鍵盤和螢幕閱讀器也不會focus到它 */
   visibility: hidden;
 }
 
+/* HTML 有 hidden 屬性時完全不顯示（優先於上面的 display: grid） */
 .back-to-top[hidden] {
   display: none;
 }
 
+/* 顯示狀態：由 JS 在捲動超過一段距離後加上 */
 .back-to-top.is-visible {
-  background: #ff9d3d;
-  color: var(--button-primary-color);
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+  /* 顯示時不延遲，立刻出現 */
   transition-delay: 0s;
   visibility: visible;
 }
 
 .back-to-top:hover {
-  background: var(--button-primary-hover-bg);
-  color: var(--button-primary-color);
+  background: var(--color-primary);
+  color: var(--color-text-on-dark);
   box-shadow: var(--shadow-lg);
+  /* 微微放大 */
   transform: translateY(0) scale(1.06);
 }
 
+/* 鍵盤操作時的焦點外框（滑鼠點擊不會出現） */
 .back-to-top:focus-visible {
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;
 }
 
+/* 圖示本體：用 Phosphor 字型顯示 */
 .back-to-top .ph {
   display: inline-flex;
   width: 20px;
   height: 20px;
   align-items: center;
   justify-content: center;
-  font-family: "Phosphor";
   font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
 }
 
+/* 向上箭頭（caret-up）的字元編碼 */
 .back-to-top .ph-caret-up::before { content: "\e13c"; }
 
+/* 手機版：靠右 16px、離底部稍近 */
 @media (max-width: 760px) {
   .back-to-top {
     right: 16px;
     bottom: calc(72px + env(safe-area-inset-bottom, 0px));
-    width: 44px;
-    height: 44px;
   }
 }
 
+/* 使用者開啟「減少動態效果」時，取消所有過渡動畫 */
 @media (prefers-reduced-motion: reduce) {
   .back-to-top {
     transition: none;

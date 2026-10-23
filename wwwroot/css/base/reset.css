@@ -1,3 +1,5 @@
+/* 所有元素（含 ::before / ::after）的寬度都「包含」padding 和 border。
+   例如 width: 200px + padding: 20px，實際寬度仍是 200px，版面比較好算。 */
 *,
 *::before,
 *::after {
@@ -6,12 +8,16 @@
 
 html {
   min-height: 100%;
+  /* 點錨點連結（如 #contact）時平滑捲動，而不是瞬間跳過去 */
   scroll-behavior: smooth;
 }
 
 body {
+  /* 視窗再窄也不會小於 320px，避免版面被擠壞 */
   min-width: 320px;
+  /* 清掉瀏覽器預設的 8px 外距 */
   margin: 0;
+  /* 以下全部讀取 tokens.css 的變數，是整站的預設文字樣式 */
   background: var(--color-background);
   color: var(--color-text-primary);
   font-family: var(--font-body);
@@ -21,6 +27,8 @@ body {
   letter-spacing: var(--letter-spacing-body);
 }
 
+/* 標題字重統一用變數控制（筆電寬度會自動變細），
+   字級由各元件自己設定 */
 h1,
 h2,
 h3,
@@ -31,14 +39,18 @@ h6 {
 }
 
 img {
+  /* 圖片預設是 inline，下方會多出一小段空隙；改成 block 就不會 */
   display: block;
+  /* 圖片最寬不超過外層容器，避免手機版撐破版面 */
   max-width: 100%;
 }
 
 a {
+  /* 連結沿用外層文字顏色，不使用瀏覽器預設的藍色 */
   color: inherit;
 }
 
+/* 表單元素預設不會繼承字型，這裡讓它們跟頁面其他文字一致 */
 button,
 input,
 select,
@@ -46,6 +58,9 @@ textarea {
   font: inherit;
 }
 
+/* 「只給螢幕閱讀器看」的文字：畫面上看不到，但閱讀器會念出來。
+   用在純圖示按鈕的說明、隱藏的表單標籤等。
+   不能用 display: none，因為那樣閱讀器也會讀不到。 */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -58,18 +73,23 @@ textarea {
   border: 0;
 }
 
+/* 「跳到主要內容」連結：平常藏在畫面上方外面，
+   用鍵盤按 Tab 時才會滑出來，讓鍵盤和閱讀器使用者
+   可以略過導覽列，直接到內容區。 */
 .skip-link {
   position: fixed;
   top: 12px;
   left: 12px;
   z-index: 100;
   padding: 8px 14px;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--color-text-primary);
+  color: var(--color-background);
   text-decoration: none;
+  /* 往上移出畫面來隱藏 */
   transform: translateY(-160%);
 }
 
+/* 取得鍵盤焦點時移回畫面內 */
 .skip-link:focus {
   transform: translateY(0);
 }
