@@ -1,61 +1,72 @@
 function setupBenefitsTabs() {
   const tablist = document.querySelector(".benefits-tabs__list");
-  if (!tablist) return;
 
-  const tabs = tablist.querySelectorAll('[role="tab"]');
-  if (tabs.length === 0) return;
-
-  const panels = [];
-  for (let i = 0; i < tabs.length; i++) {
-    const panel = document.getElementById(tabs[i].getAttribute("aria-controls"));
-    if (!panel) return;
-    panels.push(panel);
+  if (!tablist) {
+    return;
   }
 
-  const panelViewport = document.createElement("div");
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const panels = tabs
+    .map((tab) => document.getElementById(tab.getAttribute("aria-controls")))
+    .filter(Boolean);
+
+  if (!tabs.length || tabs.length !== panels.length) {
+    return;
+  }
+
+  const panelViewport = document.querySelector(".benefits-panels");
   const panelTrack = document.createElement("div");
-  panelViewport.className = "benefits-panels-viewport";
-  panelTrack.className = "benefits-panels-track";
-  panelViewport.appendChild(panelTrack);
-  panels[0].parentNode.insertBefore(panelViewport, panels[0]);
-  for (let i = 0; i < panels.length; i++) {
-    panelTrack.appendChild(panels[i]);
+
+  if (!panelViewport) {
+    return;
   }
+
+  panelTrack.className = "benefits-panels__track";
+  panelViewport.appendChild(panelTrack);
+
+  panels.forEach((panel, index) => {
+    panel.hidden = false;
+    panel.setAttribute("aria-hidden", String(index !== 0));
+    panel.tabIndex = index === 0 ? 0 : -1;
+    panelTrack.appendChild(panel);
+  });
 
   function setPanelViewportHeight() {
-    let maxHeight = 0;
-    for (let i = 0; i < panels.length; i++) {
-      if (panels[i].scrollHeight > maxHeight) {
-        maxHeight = panels[i].scrollHeight;
-      }
-    }
-    panelViewport.style.height = maxHeight + "px";
+    const height = Math.max(...panels.map((panel) => panel.scrollHeight));
+
+    panelViewport.style.height = `${height}px`;
   }
 
-  function activateTab(nextIndex, moveFocus) {
-    for (let i = 0; i < tabs.length; i++) {
-      const selected = i === nextIndex;
-      tabs[i].setAttribute("aria-selected", String(selected));
-      tabs[i].tabIndex = selected ? 0 : -1;
-      panels[i].inert = !selected;
-    }
+  setPanelViewportHeight();
+  window.addEventListener("resize", setPanelViewportHeight, { passive: true });
 
-    panelTrack.style.transform = "translateX(-" + nextIndex * 100 + "%)";
+  function activateTab(index, moveFocus = false) {
+    tabs.forEach((tab, tabIndex) => {
+      const isSelected = tabIndex === index;
 
-    if (moveFocus) tabs[nextIndex].focus();
-  }
-
-  for (let i = 0; i < tabs.length; i++) {
-    tabs[i].addEventListener("click", function () {
-      activateTab(i, false);
+      tab.setAttribute("aria-selected", String(isSelected));
+      tab.tabIndex = isSelected ? 0 : -1;
+      panels[tabIndex].setAttribute("aria-hidden", String(!isSelected));
+      panels[tabIndex].tabIndex = isSelected ? 0 : -1;
     });
 
-    tabs[i].addEventListener("keydown", function (event) {
-      let nextIndex = i;
+    panelTrack.style.transform = `translateX(-${index * 100}%)`;
+
+    if (moveFocus) {
+      tabs[index].focus();
+    }
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activateTab(index));
+
+    tab.addEventListener("keydown", (event) => {
+      let nextIndex = index;
+
       if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-        nextIndex = (i + 1) % tabs.length;
+        nextIndex = (index + 1) % tabs.length;
       } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-        nextIndex = (i - 1 + tabs.length) % tabs.length;
+        nextIndex = (index - 1 + tabs.length) % tabs.length;
       } else if (event.key === "Home") {
         nextIndex = 0;
       } else if (event.key === "End") {
@@ -67,11 +78,14 @@ function setupBenefitsTabs() {
       event.preventDefault();
       activateTab(nextIndex, true);
     });
-  }
+  });
 
-  setPanelViewportHeight();
-  window.addEventListener("resize", setPanelViewportHeight);
-  activateTab(0, false);
+  const selectedIndex = Math.max(
+    0,
+    tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"),
+  );
+
+  activateTab(selectedIndex);
 }
 
 if (document.readyState === "loading") {

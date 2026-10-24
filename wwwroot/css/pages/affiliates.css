@@ -35,7 +35,7 @@
   position: absolute;
   inset: 0 auto 0 0;
   width: 2px;
-  background: #e5e5e5;
+  background: var(--color-border-light);
   content: "";
 }
 
@@ -104,26 +104,31 @@
   gap: clamp(72px, 7vw, 96px);
 }
 
-.affiliate-panel-redesign {
+.affiliate-panel-content {
   gap: clamp(40px, 4vw, 56px);
   width: 100%;
   margin-right: 0;
 }
 
-.affiliate-oil-redesign {
+.affiliate-oil-content {
   gap: clamp(40px, 4vw, 56px);
 }
 
-.affiliate-club-redesign {
+.affiliate-club-content {
   gap: clamp(32px, 3.5vw, 48px);
 }
 
-.affiliate-badminton-redesign {
+.affiliate-badminton-content {
   gap: clamp(40px, 4vw, 56px);
 }
 
-.affiliate-alpha-redesign {
+.affiliate-alpha-content {
   gap: clamp(40px, 4vw, 56px);
+}
+
+.affiliate-oil-content > .affiliate-editorial-section:first-of-type {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .affiliate-oil-company-profile .affiliate-profile-copy {
@@ -133,11 +138,6 @@
 .affiliate-oil-company-profile .affiliate-profile-copy p {
   font-size: var(--font-size-body);
   line-height: 1.9;
-}
-
-.affiliate-oil-redesign > .affiliate-editorial-section:first-of-type {
-  padding-top: 0;
-  border-top: 0;
 }
 
 .affiliate-panel-header,
@@ -172,7 +172,7 @@
 }
 
 .affiliate-panel h2 {
-  font-size: var(--font-size-h3);
+  font-size: var(--font-size-h2);
 }
 
 .affiliate-panel h3 {
@@ -194,8 +194,8 @@
 }
 
 .affiliate-editorial-section,
-.affiliate-services-redesign,
-.affiliate-awards-redesign,
+.affiliate-services,
+.affiliate-awards,
 .affiliate-oil-locations,
 .affiliate-club-facilities-contact,
 .affiliate-panel-details {
@@ -205,13 +205,13 @@
 }
 
 .affiliate-editorial-section,
-.affiliate-services-redesign,
-.affiliate-awards-redesign {
+.affiliate-services,
+.affiliate-awards {
   display: grid;
   gap: 28px;
 }
 
-.affiliate-services-redesign--spaced {
+.affiliate-services--spaced {
   padding-bottom: var(--section-space);
 }
 
@@ -239,10 +239,15 @@
 
 .affiliate-oil-quote > span {
   display: block;
+  color: var(--color-text-body);
   font-family: var(--font-special);
-  letter-spacing: var(--letter-spacing-body);
+  letter-spacing: 0.08em;
   line-height: var(--line-height-body);
   max-width: none;
+}
+
+.affiliate-oil-quote__accent {
+  color: var(--color-accent-green);
 }
 
 .affiliate-oil-quote > span::before {
@@ -259,14 +264,14 @@
 
 .affiliate-locations-heading {
   display: grid;
-  gap: 20px;
+  gap: 5px;
 }
 
 .affiliate-locations-heading .affiliate-section-heading {
   gap: 8px;
 }
 
-.affiliate-oil-redesign .affiliate-oil-locations {
+.affiliate-oil-content .affiliate-oil-locations {
   padding-top: clamp(32px, 3vw, 40px);
 }
 
@@ -283,8 +288,6 @@
   width: min(100%, 620px);
   aspect-ratio: 1;
   margin-inline: auto;
-  margin-bottom: -144px;
-  transform: translateY(-144px);
 }
 
 .affiliate-oil-location-map-visual > img {
@@ -296,8 +299,8 @@
 
 .affiliate-location-marker {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: var(--marker-top, 0);
+  left: var(--marker-left, 0);
   display: grid;
   width: 24px;
   height: 24px;
@@ -308,51 +311,6 @@
   background: transparent;
   cursor: pointer;
   transform: translate(-50%, -50%);
-}
-
-.affiliate-location-marker[data-location-id="tucheng"] {
-  top: 34%;
-  left: 74%;
-}
-
-.affiliate-location-marker[data-location-id="xinwu"] {
-  top: 35.5%;
-  left: 70.6%;
-}
-
-.affiliate-location-marker[data-location-id="xiluo"] {
-  top: 59%;
-  left: 53%;
-}
-
-.affiliate-location-marker[data-location-id="luzhu"] {
-  top: 70%;
-  left: 59%;
-}
-
-.affiliate-location-marker[data-location-id="renwu"] {
-  top: 74%;
-  left: 62%;
-}
-
-.affiliate-location-marker[data-location-id="bagualiao"] {
-  top: 71%;
-  left: 62%;
-}
-
-.affiliate-location-marker[data-location-id="xiaogang"] {
-  top: 76%;
-  left: 56%;
-}
-
-.affiliate-location-marker[data-location-id="xinyuan"] {
-  top: 85%;
-  left: 57%;
-}
-
-.affiliate-location-marker[data-location-id="chaozhou"] {
-  top: 82%;
-  left: 61%;
 }
 
 .affiliate-location-marker__dot {
@@ -380,7 +338,7 @@
 
 .affiliate-location-marker__label {
   position: absolute;
-  top: 50%;
+  top: var(--label-top, 50%);
   z-index: 1;
   display: block;
   width: max-content;
@@ -397,80 +355,30 @@
 .affiliate-location-marker__label::before {
   position: absolute;
   top: 50%;
-  width: 32px;
+  width: var(--label-line-width, 32px);
   height: 1px;
   background: var(--color-text-body);
   content: "";
 }
 
-.affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label,
-.affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label {
-  left: calc(100% + 38px);
+.affiliate-location-marker[data-label-side="right"] .affiliate-location-marker__label {
+  left: calc(100% + var(--label-gap, 38px));
 }
 
-.affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label {
-  left: calc(100% + 68px);
-}
-
-.affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label::before,
-.affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label::before {
+.affiliate-location-marker[data-label-side="right"] .affiliate-location-marker__label::before {
   right: 100%;
 }
 
-.affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label::before {
-  width: 72px;
-  right: 100%;
+.affiliate-location-marker[data-label-side="left"] .affiliate-location-marker__label {
+  right: calc(100% + var(--label-gap, 38px));
 }
 
-.affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label,
-.affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label,
-.affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label,
-.affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label,
-.affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label {
-  right: calc(100% + 38px);
-}
-
-.affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label::before,
-.affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label::before,
-.affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label::before,
-.affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label::before,
-.affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label::before {
+.affiliate-location-marker[data-label-side="left"] .affiliate-location-marker__label::before {
   left: 100%;
-}
-
-.affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label {
-  top: calc(50% + 26px);
-  left: calc(100% + 68px);
-}
-
-.affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label::before {
-  width: 72px;
-  right: 100%;
-}
-
-.affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label {
-  right: calc(100% + 88px);
-}
-
-.affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label::before {
-  width: 82px;
-}
-
-.affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label {
-  right: calc(100% + 62px);
-}
-
-.affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label::before {
-  width: 56px;
 }
 
 .affiliate-oil-location-detail {
   min-width: 0;
-}
-
-.affiliate-oil-locations {
-  --affiliate-location-label-color: #5c5c5c;
-  --affiliate-location-value-color: #4a4a4a;
 }
 
 .affiliate-location-detail-hint {
@@ -491,12 +399,6 @@
 .affiliate-oil-location-detail .affiliate-location-card h4 {
   margin-bottom: 24px;
   font-size: var(--font-size-h3);
-}
-
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-oil-location-detail .affiliate-location-card h4 {
-    font-weight: 500;
-  }
 }
 
 .affiliate-location-cards {
@@ -540,15 +442,14 @@
   width: fit-content;
   padding: 5px 10px;
   border-radius: 999px;
-  background: #f2f2f2;
-  color: var(--affiliate-location-label-color);
+  background: var(--color-surface-subtle);
+  color: var(--color-text-body);
   font-size: 13px;
-  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-body-tight);
 }
 
 .affiliate-location-value {
-  color: var(--affiliate-location-value-color);
+  color: var(--color-text-body);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
@@ -623,8 +524,6 @@
 }
 
 .affiliate-club-cta {
-  --affiliate-location-label-color: #5c5c5c;
-  --affiliate-location-value-color: #4a4a4a;
   display: grid;
   gap: 20px;
 }
@@ -658,12 +557,6 @@
   line-height: inherit;
 }
 
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-club-cta .affiliate-section-heading h3 {
-    font-weight: 500;
-  }
-}
-
 .affiliate-panel-details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -671,8 +564,6 @@
 }
 
 .affiliate-alpha-details {
-  --affiliate-location-label-color: #5c5c5c;
-  --affiliate-location-value-color: #4a4a4a;
   grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
   gap: clamp(24px, 3vw, 32px);
 }
@@ -680,13 +571,6 @@
 .affiliate-alpha-details .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: inherit;
-}
-
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-panel h2,
-  .affiliate-alpha-details .affiliate-section-heading h3 {
-    font-weight: 500;
-  }
 }
 
 .affiliate-panel-details section {
@@ -748,15 +632,9 @@
   font-size: 0.7em;
 }
 
-.affiliate-badminton-redesign .affiliate-panel-details .affiliate-section-heading h3 {
+.affiliate-badminton-content .affiliate-panel-details .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: inherit;
-}
-
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-badminton-redesign .affiliate-panel-details .affiliate-section-heading h3 {
-    font-weight: 500;
-  }
 }
 
 .affiliate-panel-details a {
@@ -795,32 +673,27 @@
   font-weight: var(--font-weight-heading);
 }
 
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-profile-copy h2,
-  .affiliate-profile-copy h3 {
-    font-weight: 500;
-  }
-}
-
 .affiliate-section-heading--accent h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: inherit;
 }
 
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-section-heading--accent h3 {
-    font-weight: 500;
-  }
-}
-
-.affiliate-oil-redesign .affiliate-section-heading h3 {
+.affiliate-oil-content .affiliate-section-heading h3 {
   font-size: var(--font-size-card-title-compact);
   line-height: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-  .affiliate-oil-redesign .affiliate-section-heading h3 {
-    font-weight: 500;
+  .affiliate-oil-location-detail .affiliate-location-card h4,
+  .affiliate-club-cta .affiliate-section-heading h3,
+  .affiliate-panel h2,
+  .affiliate-alpha-details .affiliate-section-heading h3,
+  .affiliate-badminton-content .affiliate-panel-details .affiliate-section-heading h3,
+  .affiliate-profile-copy h2,
+  .affiliate-profile-copy h3,
+  .affiliate-section-heading--accent h3,
+  .affiliate-oil-content .affiliate-section-heading h3 {
+    font-weight: var(--font-weight-card-heading);
   }
 }
 
@@ -895,30 +768,15 @@
 
 .affiliate-profile-carousel-progress {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: 8px;
   width: min(100%, 128px);
   margin-inline: auto;
 }
 
-.affiliate-oil-company-profile .affiliate-profile-carousel-progress {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.affiliate-badminton-company-profile .affiliate-profile-carousel-progress {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.affiliate-alpha-company-profile .affiliate-profile-carousel-progress {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .affiliate-alpha-company-profile .affiliate-profile-slide img[src*="port-crane-operation"] {
   object-position: center bottom;
-}
-
-.affiliate-club-company-profile .affiliate-profile-carousel-progress {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .affiliate-profile-carousel-progress-bar {
@@ -1185,8 +1043,6 @@
 
   .affiliate-oil-location-map-visual {
     max-width: 380px;
-    margin-bottom: -95px;
-    transform: translateY(-95px);
   }
 }
 
@@ -1245,22 +1101,13 @@
 
   .affiliate-oil-location-map-visual {
     max-width: 520px;
-    margin-bottom: -120px;
-    transform: translateY(-120px);
   }
 
-  .affiliate-panel-redesign {
+  .affiliate-panel-content {
     width: 100%;
     margin-right: 0;
   }
 
-}
-
-@media (max-width: 480px) {
-  .affiliate-oil-location-map-visual {
-    margin-bottom: -80px;
-    transform: translateY(-80px);
-  }
 }
 
 @media (max-width: 840px) {
@@ -1286,13 +1133,13 @@
     gap: 64px;
   }
 
-  .affiliate-panel-redesign,
-  .affiliate-alpha-redesign {
+  .affiliate-panel-content,
+  .affiliate-alpha-content {
     gap: 40px;
   }
 
   .affiliate-editorial-section,
-  .affiliate-services-redesign,
+  .affiliate-services,
   .affiliate-oil-locations,
   .affiliate-club-facilities-contact,
   .affiliate-panel-details {
@@ -1361,6 +1208,7 @@
 
 @media (max-width: 767px) {
   .affiliate-location-marker__label {
+    top: var(--mobile-label-top, var(--label-top, 50%));
     display: block;
     max-width: 48px;
     padding: 1px 3px;
@@ -1377,44 +1225,24 @@
     background: var(--color-text-body);
   }
 
-  .affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label {
+  .affiliate-location-marker[data-mobile-label-side="right"] .affiliate-location-marker__label {
     right: auto;
     left: calc(100% + 48px);
   }
 
-  .affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label,
-  .affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label {
+  .affiliate-location-marker[data-mobile-label-side="left"] .affiliate-location-marker__label {
     right: calc(100% + 48px);
     left: auto;
   }
 
-  .affiliate-location-marker[data-location-id="tucheng"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="renwu"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="xinyuan"] .affiliate-location-marker__label::before {
-    width: 48px;
+  .affiliate-location-marker[data-mobile-label-side="right"] .affiliate-location-marker__label::before {
     right: 100%;
     left: auto;
   }
 
-  .affiliate-location-marker[data-location-id="xinwu"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="xiluo"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="luzhu"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="xiaogang"] .affiliate-location-marker__label::before,
-  .affiliate-location-marker[data-location-id="chaozhou"] .affiliate-location-marker__label::before {
-    width: 48px;
+  .affiliate-location-marker[data-mobile-label-side="left"] .affiliate-location-marker__label::before {
     right: auto;
     left: 100%;
-  }
-
-  .affiliate-location-marker[data-location-id="bagualiao"] .affiliate-location-marker__label {
-    top: calc(50% - 14px);
   }
 
   .affiliate-tabs__track {
@@ -1429,12 +1257,12 @@
     white-space: nowrap;
   }
 
-  .affiliate-awards-redesign .affiliate-award-grid {
+  .affiliate-awards .affiliate-award-grid {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  .affiliate-awards-redesign .affiliate-award-grid figure {
+  .affiliate-awards .affiliate-award-grid figure {
     grid-template-columns: 100px minmax(0, 1fr);
     grid-template-rows: auto;
     column-gap: 20px;
@@ -1443,28 +1271,28 @@
     border-bottom: 1px solid #e5e5e5;
   }
 
-  .affiliate-awards-redesign .affiliate-award-grid figure:first-child {
+  .affiliate-awards .affiliate-award-grid figure:first-child {
     padding-top: 0;
   }
 
-  .affiliate-awards-redesign .affiliate-award-grid figure:last-child {
+  .affiliate-awards .affiliate-award-grid figure:last-child {
     border-bottom: 0;
   }
 
-  .affiliate-awards-redesign .affiliate-award-image {
+  .affiliate-awards .affiliate-award-image {
     width: 100%;
     height: 110px;
     padding: 0;
   }
 
-  .affiliate-awards-redesign .affiliate-award-grid figcaption {
+  .affiliate-awards .affiliate-award-grid figcaption {
     width: auto;
     padding: 0;
     justify-items: start;
     text-align: left;
   }
 
-  .affiliate-awards-redesign .affiliate-award-meta {
+  .affiliate-awards .affiliate-award-meta {
     justify-content: flex-start;
   }
 }

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261023-token-cleanup-v9">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
   <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-  <link rel="stylesheet" href="css/pages/careers.css?v=20261023-token-cleanup-v9">
+  <link rel="stylesheet" href="css/pages/careers.css?v=20261024-career-scroll-arrow-v1">
   <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 
@@ -112,11 +112,8 @@
     <section class="join-panel join-career" id="join-career" aria-labelledby="join-intro-title">
       <div class="site-container">
         <div class="join-intro">
-          <figure class="join-intro__media">
-            <img src="public/images/join/careers-workplace1.jpg" width="6016" height="4016" alt="亞太工作場域" loading="lazy" decoding="async">
-          </figure>
           <div class="join-intro__content">
-            <div class="join-section-heading join-section-heading--left">
+            <div class="join-section-heading join-section-heading--intro">
               <h2 id="join-intro-title">加入亞太</h2>
             </div>
             <div class="join-intro-copy">
@@ -125,12 +122,9 @@
             <div class="join-intro__actions">
               <a class="button--primary" href="#join-recruitment">
                 查看職缺
-                <span class="button__arrow-window" aria-hidden="true">
-                  <svg class="button__icon" viewBox="0 0 16 16" focusable="false">
-                    <path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path>
-                  </svg>
-                  <svg class="button__icon" viewBox="0 0 16 16" focusable="false">
-                    <path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path>
+                <span class="join-intro__down-icon" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false">
+                    <path d="M8 2.5v10.25M3.25 8.75 8 13.5l4.75-4.75"></path>
                   </svg>
                 </span>
               </a>
@@ -143,7 +137,7 @@
     <!-- 公司福利 -->
     <section class="join-panel join-benefits" id="join-benefits" aria-labelledby="join-benefits-title">
       <div class="site-container">
-        <div class="join-section-heading">
+        <div class="join-section-heading join-section-heading--benefits">
           <h2 id="join-benefits-title">公司福利</h2>
         </div>
         <div class="benefits-tabs">
@@ -154,24 +148,32 @@
             <button id="benefits-tab-extra" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-extra" aria-selected="false" tabindex="-1">其他好康</button>
           </div>
         </div>
-        <div class="benefits-list">
-          <section id="benefits-panel-salary" class="benefits-list__group" role="tabpanel" aria-labelledby="benefits-tab-salary">
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/gavel.svg" alt=""></span><h3>法定項目</h3><ul><li>勞保、健保、團保、加班費、陪產假、育嬰假、生理假、特別休假、員工體檢、勞退提撥金等。</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/piggy-bank.svg" alt=""></span><h3>獎金類</h3><ul><li>生日禮金</li><li>三節獎金</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/shield-plus.svg" alt=""></span><h3>保險類</h3><ul><li>員工住院慰問金</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/hand-coins.svg" alt=""></span><h3>補助類</h3><ul><li>員工結婚補助</li><li>子女教育補助</li><li>進修補助</li><li>退休規劃</li><li>眷屬喪葬補助</li><li>國內外旅遊補助與社團補助</li></ul></article>
+        <div class="benefits-panels">
+          <section id="benefits-panel-salary" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-salary">
+            <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/gavel.svg" alt="" aria-hidden="true">法定項目</span></th><td><ul><li>勞保、健保、團保、加班費、陪產假、育嬰假、生理假、特別休假、員工體檢、勞退提撥金等。</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/piggy-bank.svg" alt="" aria-hidden="true">獎金類</span></th><td><ul><li>生日禮金</li><li>三節獎金</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/shield-plus.svg" alt="" aria-hidden="true">保險類</span></th><td><ul><li>員工住院慰問金</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/hand-coins.svg" alt="" aria-hidden="true">補助類</span></th><td><ul><li>員工結婚補助</li><li>子女教育補助</li><li>進修補助</li><li>退休規劃</li><li>眷屬喪葬補助</li><li>國內外旅遊補助與社團補助</li></ul></td></tr>
+            </tbody></table>
           </section>
-          <section id="benefits-panel-wellbeing" class="benefits-list__group" role="tabpanel" aria-labelledby="benefits-tab-wellbeing">
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/heartbeat.svg" alt=""></span><h3>保健類</h3><ul><li>不定期安排廠醫現場健康諮詢服務</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/barbell.svg" alt=""></span><h3>設備類</h3><ul><li>員工健身房</li><li>員工餐廳</li><li>亞柏會館（員工優惠價）</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/confetti.svg" alt=""></span><h3>娛樂類</h3><ul><li>慶生會</li><li>員工運動會</li></ul></article>
+          <section id="benefits-panel-wellbeing" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-wellbeing" hidden>
+            <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/heartbeat.svg" alt="" aria-hidden="true">保健類</span></th><td><ul><li>不定期安排廠醫現場健康諮詢服務</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/barbell.svg" alt="" aria-hidden="true">設備類</span></th><td><ul><li>員工健身房</li><li>員工餐廳</li><li>亞柏會館（員工優惠價）</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/confetti.svg" alt="" aria-hidden="true">娛樂類</span></th><td><ul><li>慶生會</li><li>員工運動會</li></ul></td></tr>
+            </tbody></table>
           </section>
-          <section id="benefits-panel-learning" class="benefits-list__group" role="tabpanel" aria-labelledby="benefits-tab-learning">
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/chalkboard-teacher.svg" alt=""></span><h3>員工在職教育訓練</h3><ul><li>定期或不定期安排教育訓練與課程講座</li></ul></article>
+          <section id="benefits-panel-learning" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-learning" hidden>
+            <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chalkboard-teacher.svg" alt="" aria-hidden="true">員工在職教育訓練</span></th><td><ul><li>定期或不定期安排教育訓練與課程講座</li></ul></td></tr>
+            </tbody></table>
           </section>
-          <section id="benefits-panel-extra" class="benefits-list__group" role="tabpanel" aria-labelledby="benefits-tab-extra">
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/car.svg" alt=""></span><h3>交通類</h3><ul><li>持員工卡至關係企業加油享有降價折扣</li></ul></article>
-            <article class="benefits-list__row"><span class="benefits-list__icon" aria-hidden="true"><img src="public/images/contact/chart-line-up.svg" alt=""></span><h3>其他</h3><ul><li>員工制服</li><li>良好升遷制度</li></ul></article>
+          <section id="benefits-panel-extra" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-extra" hidden>
+            <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/car.svg" alt="" aria-hidden="true">交通類</span></th><td><ul><li>持員工卡至關係企業加油享有降價折扣</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chart-line-up.svg" alt="" aria-hidden="true">其他</span></th><td><ul><li>員工制服</li><li>良好升遷制度</li></ul></td></tr>
+            </tbody></table>
           </section>
         </div>
       </div>
@@ -208,6 +210,6 @@
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/careers.js?v=20261022-careers-cleanup-v1"></script>
+  <script src="js/pages/careers.js?v=20261024-benefits-table-motion-v1"></script>
 </body>
 </html>

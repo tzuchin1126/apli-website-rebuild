@@ -1,6 +1,7 @@
 :root {
   --color-primary: #F58214;
   --color-primary-soft: rgb(245 130 20 / 12%);
+  --color-accent-green: #2f6f4e;
 
   --color-text-primary: #333333;   /* 標題、導覽、重要資訊 */
   --color-text-body: #555555;
@@ -32,7 +33,7 @@
   --font-size-card-title: 1.5rem;
   --font-size-card-title-compact: 1.25rem;
   --font-size-body-lg: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
-  --font-size-body: 1.0625rem;  /* 17px，行動端會改為 15px */
+  --font-size-body: 1rem;  /* 16px，行動端會改為 15px */
   --font-size-body-sm: 0.875rem;
   --font-size-label: 0.875rem;
   --font-size-caption: 0.75rem;
