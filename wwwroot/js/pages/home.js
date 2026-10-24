@@ -206,7 +206,7 @@ function setupLatestNews() {
   const featureDate = document.querySelector("[data-home-latest-feature-date]");
   const featureTitle = document.querySelector("[data-home-latest-feature-title]");
   const defaultFeatureImage = "public/images/index/news1.png";
-  const homeNewsLimit = 4;
+  const homeNewsLimit = 6;
   const homeNewsProbeLimit = homeNewsLimit + 1;
   const moreLink = document.createElement("a");
   moreLink.className = "button--primary home-latest__more-link";
@@ -237,18 +237,13 @@ function setupLatestNews() {
     const title = document.createElement("h3");
     title.textContent = item.title;
 
-    const more = document.createElement("span");
-    more.className = "home-latest__more";
-    more.setAttribute("aria-hidden", "true");
-    more.append(createArrow("home-latest__arrow-icon", "chevron"));
-
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
     meta.append(date);
 
     const titleRow = document.createElement("span");
     titleRow.className = "home-latest__title-row";
-    titleRow.append(title, more);
+    titleRow.append(title);
 
     const body = document.createElement("span");
     body.className = "home-latest__body";
@@ -282,7 +277,7 @@ function setupLatestNews() {
       const sortedItems = rawItems.slice().sort(compareLatestNews);
       const items = sortedItems.slice(0, homeNewsLimit);
       const listItems = items.slice(1);
-      moreLink.hidden = sortedItems.length <= homeNewsLimit;
+      moreLink.hidden = false;
       if (latestSection) latestSection.classList.remove("is-empty");
 
       list.replaceChildren();

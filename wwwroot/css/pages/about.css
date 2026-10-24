@@ -29,7 +29,7 @@
 .about-page .about-certifications-preview .about-section-heading h2::after,
 .about-page .about-enterprise-values .about-section-heading h2::after,
 .about-page .about-subsidiaries__heading h2::after { display: block; width: 100%; height: 3px; margin-top: var(--section-heading-accent-gap); background: linear-gradient(100deg, transparent 0%, rgb(245 130 20 / 82%) 10%, rgb(245 130 20 / 54%) 48%, rgb(245 130 20 / 8%) 82%, transparent 100%); content: ""; }
-.about-page .about-profile__body { display: grid; gap: var(--section-content-gap); margin: 0; padding: 0; }
+.about-page .about-profile__body { display: grid; gap: var(--section-content-gap); margin: 0; padding: 0; font-size: var(--font-size-body); }
 .about-page .about-profile__body p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body); line-height: var(--line-height-body); }
 .about-section-heading h2 { width: fit-content; margin: 0; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-section-heading); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-heading); }
 .about-page.about-motion-ready .about-scroll-reveal { opacity: 0; transform: translateY(36px); will-change: opacity, transform; }
@@ -76,7 +76,7 @@
 }
 
 .about-section-heading { display: grid; justify-items: center; gap: 0; margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
-.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; color: #333333; }
+.about-page .about-certifications-preview { --preview-track-inset: 0px; --preview-side-control-width: 48px; --preview-side-control-gap: 24px; --preview-carousel-width: min(calc(var(--content-width) + 192px), calc(100vw - var(--content-gutter) * 2)); --preview-page-inset: calc(100vw - var(--preview-carousel-width) + var(--preview-side-control-width) + var(--preview-side-control-width) + var(--preview-side-control-gap) + var(--preview-side-control-gap)); margin-top: 0; overflow-x: hidden; padding-block: clamp(48px, 4vw, 64px) clamp(56px, 6vw, 88px); background: transparent; color: var(--color-text-primary); }
 .about-page .about-certifications-preview .about-section-heading { justify-items: start; width: 100%; margin: 0; text-align: left; }
 .about-page .about-certifications-preview .about-section-heading h2 { position: relative; width: fit-content; margin: 0; padding: 0; border: 0; color: var(--color-text-primary); font-size: var(--font-size-section-heading); font-weight: var(--font-weight-section-heading); text-align: left; }
 .about-page .about-certifications-preview__header { display: grid; justify-items: start; gap: 24px; margin-bottom: clamp(28px, 3vw, 40px); text-align: left; }
@@ -116,13 +116,13 @@
 .about-page .about-certifications-preview__timeline-node::after { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); content: ""; transform: translate(-50%, -50%); }
 .about-page .about-certifications-preview__timeline-node[data-active="true"] { border-color: rgb(245 130 20 / 24%); background: var(--color-background); box-shadow: 0 0 0 5px rgb(245 130 20 / 14%), 0 0 0 9px rgb(245 130 20 / 7%); }
 .about-page .about-certifications-preview__years { display: grid; grid-template-columns: repeat(var(--preview-year-count), minmax(0, var(--preview-column-width))); column-gap: var(--preview-column-gap); align-items: start; }
-.about-page .about-certifications-preview__year-column { display: grid; min-width: 0; align-content: start; gap: 20px; padding: 18px 18px 20px; background: #f4f4f4; }
+.about-page .about-certifications-preview__year-column { display: grid; min-width: 0; align-content: start; gap: 20px; padding: 18px 18px 20px; background: var(--color-surface-section); }
 .about-page .about-certifications-preview__year { margin: 0; color: var(--color-primary); font-family: var(--font-body); font-size: var(--preview-year-size); font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; letter-spacing: var(--letter-spacing-tight); line-height: 1; text-align: left; }
 .about-page .about-certifications-preview__events { display: flex; width: 100%; min-width: 0; min-height: var(--preview-events-height, auto); box-sizing: border-box; flex-direction: column; align-self: stretch; justify-content: flex-start; gap: 18px; margin: 0; padding: 0; }
 .about-page .about-certifications-preview__event { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; padding: 0; border: 0; background: transparent; }
-.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: #333333; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: 1.6; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.about-page .about-certifications-preview__event h4 { position: relative; display: block; min-width: 0; max-width: 100%; margin: 0; padding-left: 18px; color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); letter-spacing: var(--letter-spacing-body); line-height: var(--line-height-body); white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 .about-page .about-certifications-preview__event h4::before { position: absolute; top: .67em; left: 2px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; content: ""; }
-.about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: #333333; font-size: var(--font-size-body-sm); }
+.about-page .about-certifications-preview__fallback { margin: 32px 0 0; color: var(--color-text-primary); font-size: var(--font-size-body-sm); }
 
 @media (min-width: 768px) {
   .about-page .about-certifications-preview__carousel { width: calc(100% - var(--content-inset)); margin-right: 0; margin-left: var(--content-inset); }
@@ -181,7 +181,7 @@
 @media (max-width: 767px) {
   .about-page .about-certifications-preview { --preview-side-control-width: 36px; --preview-side-control-gap: 8px; --preview-carousel-width: var(--content-width); --preview-mobile-page-width: calc(100vw - clamp(20px, 4vw, 64px) * 2 - 24px); --preview-page-inset: 0px; }
   .about-page .about-certifications-preview__decades { display: flex; width: max-content; margin-bottom: 30px; padding: 0; column-gap: 16px; }
-  .about-page .about-certifications-preview__decade { width: max-content; font-size: 0.875rem; }
+.about-page .about-certifications-preview__decade { width: max-content; font-size: var(--font-size-body-sm); }
   .about-page .about-certifications-preview__header { gap: 24px; margin-bottom: 24px; }
   .about-page .about-certifications-preview__controls { margin-top: 24px; }
   .about-page .about-certifications-preview__pagination { min-width: 0; max-width: 100%; gap: 10px; overflow: hidden; }
@@ -275,7 +275,7 @@
   overflow: hidden;
   flex: 1;
   padding: 28px 32px 36px;
-  background: #fbfaf7;
+  background: var(--color-surface-subtle);
 }
 .about-page .about-enterprise-values__watermark {
   position: absolute;
@@ -283,7 +283,7 @@
   bottom: 18px;
   z-index: 0;
   color: var(--color-primary);
-  font-size: 0.875rem;
+  font-size: var(--font-size-body-sm);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.01em;
   line-height: 1;
@@ -299,7 +299,7 @@
   display: block;
   margin: 0 0 18px;
   color: var(--color-text-primary);
-  font-size: 24px;
+  font-size: var(--font-size-card-title);
   font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
 }
@@ -320,7 +320,7 @@
 }
 @media (min-width: 1024px) and (max-width: 1439px) {
   .about-page .about-enterprise-values__card h3 {
-    font-size: 22px;
+    font-size: var(--font-size-card-title-compact);
     font-weight: var(--font-weight-card-heading);
   }
 }
@@ -332,7 +332,7 @@
 }
 .about-page .about-enterprise-values__card--customer .about-enterprise-values__body,
 .about-page .about-enterprise-values__card--professional .about-enterprise-values__body,
-.about-page .about-enterprise-values__card--innovation .about-enterprise-values__body { background: #f4f4f4; }
+.about-page .about-enterprise-values__card--innovation .about-enterprise-values__body { background: var(--color-surface-section); }
 @media (max-width: 767px) {
   .about-page .about-enterprise-values {
     padding-block: 48px 56px;
@@ -386,16 +386,16 @@
   .about-page .about-subsidiaries__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-.about-page .about-subsidiary { position: relative; display: block; min-width: 0; aspect-ratio: 1.6; overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: #ffffff; color: inherit; text-decoration: none; }
-.about-page .about-subsidiary::before { position: absolute; z-index: 2; top: 50%; left: 50%; width: 0; height: 2px; background: #f1f1f1; content: ""; pointer-events: none; transform: translate(-50%, -50%); transition: width 300ms ease 400ms, height 400ms ease; }
+.about-page .about-subsidiary { position: relative; display: block; min-width: 0; aspect-ratio: 1.6; overflow: hidden; border: 0; border-radius: var(--radius-md); background: var(--color-background); color: inherit; text-decoration: none; }
+.about-page .about-subsidiary::before { position: absolute; z-index: 2; top: 50%; left: 50%; width: 0; height: 2px; background: var(--color-border-light); content: ""; pointer-events: none; transform: translate(-50%, -50%); transition: width 300ms ease 400ms, height 400ms ease; }
 .about-page .about-subsidiary__logo { position: absolute; z-index: 1; inset: 0; display: grid; padding: clamp(16px, 2.5vw, 26px); place-items: center; background: radial-gradient(circle at 22% 18%, rgb(255 255 255 / 86%), transparent 42%), linear-gradient(145deg, #f8f9fb 0%, #eef0f3 56%, #e1e4e8 100%); opacity: 1; transition: opacity 300ms ease 700ms; }
 .about-page .about-subsidiary__logo img { display: block; width: min(100%, 180px); max-width: 100%; height: auto; max-height: 76px; object-fit: contain; object-position: center; }
 .about-page .about-subsidiary__details { position: absolute; inset: 24px; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: 28px; background: transparent; opacity: 0; transform: translateY(10px); transition: opacity 300ms ease 0ms, transform 300ms ease 0ms; }
 .about-page .about-subsidiary h3 { margin: 0 0 4px; color: var(--color-text-primary); font-size: 1.1875rem; font-weight: var(--font-weight-heading); line-height: var(--line-height-heading); text-align: left; }
 .about-page .about-subsidiary--alpha .about-subsidiary__details { padding-inline: 34px; }
 .about-page .about-subsidiary--alpha h3 { font-size: 1.125rem; line-height: 1.35; }
-.about-page .about-subsidiary__divider { width: 36px; height: 1px; margin: 0 0 8px; background: var(--color-line); }
-.about-page .about-subsidiary p { margin: 0; color: var(--color-text-body); font-size: 1rem; line-height: var(--line-height-body); text-align: left; }
+.about-page .about-subsidiary__divider { width: 36px; height: 1px; margin: 0 0 8px; background: var(--color-border); }
+.about-page .about-subsidiary p { margin: 0; color: var(--color-text-body); font-size: var(--font-size-body); line-height: var(--line-height-body); text-align: left; }
 .about-page .about-subsidiary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) {
   .about-page .about-subsidiary:hover::before { width: calc(100% - 40px); height: calc(100% - 40px); transition: width 300ms ease 0ms, height 400ms ease 300ms; }
