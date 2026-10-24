@@ -833,12 +833,13 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   max-width: 1320px;
   gap: clamp(10px, 1.2vw, 16px);
   margin: var(--section-heading-content-gap) auto 0;
+  --home-services-collapsed-width: clamp(112px, 8vw, 128px);
 }
 .home-page .home-services-compare__card {
   position: relative;
   display: block;
   flex: 1 1 0%;
-  height: 480px;
+  height: 432px;
   min-width: 0;
   overflow: hidden;
   border: 0;
@@ -848,6 +849,19 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   color: var(--color-background);
   text-decoration: none;
   transition: flex 400ms cubic-bezier(.45, 0, .55, 1);
+}
+.home-page .home-services-compare__card::before {
+  position: absolute;
+  z-index: 4;
+  right: 18px;
+  bottom: 36px;
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid var(--color-background);
+  border-bottom: 1.5px solid var(--color-background);
+  content: "";
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 35%));
+  transform: rotate(-45deg);
 }
 .home-page .home-services-compare__card::after {
   position: absolute;
@@ -885,9 +899,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: rgb(23 86 145 / 12%);
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 .home-page .home-services-compare__media img {
   display: block;
@@ -895,18 +907,20 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   height: 100%;
   object-fit: cover;
   object-position: var(--home-services-image-position, 50% 50%);
+  filter: none;
 }
 .home-page .home-services-compare__card:nth-child(1) {
-  --home-services-image-position: 56% 58%;
+  --home-services-image-position: 50% 56%;
 }
 .home-page .home-services-compare__card:nth-child(2) {
-  --home-services-image-position: 58% 58%;
+  --home-services-image-position: 50% 68%;
+  --home-services-image-offset-x: 180px;
 }
 .home-page .home-services-compare__card:nth-child(3) {
-  --home-services-image-position: 56% 54%;
+  --home-services-image-position: 24% 66%;
 }
 .home-page .home-services-compare__card:nth-child(4) {
-  --home-services-image-position: 58% 68%;
+  --home-services-image-position: 62% 62%;
 }
 @media (min-width: 768px) {
   .home-page .home-services-compare__media img {
@@ -941,11 +955,10 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgb(8 24 42 / 10%) 0%,
-    rgb(8 24 42 / 4%) 34%,
-    transparent 52%,
-    rgb(8 24 42 / 38%) 78%,
-    rgb(6 20 36 / 86%) 100%
+    transparent 0%,
+    transparent 54%,
+    rgb(8 24 42 / 28%) 76%,
+    rgb(6 20 36 / 92%) 100%
   );
   content: "";
   pointer-events: none;
@@ -983,7 +996,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
 }
 .home-page .home-services-compare__card:hover .home-services-compare__arrow-icon,
 .home-page .home-services-compare__card:focus-visible .home-services-compare__arrow-icon {
-  opacity: 1;
+  opacity: 0;
   transform: translateX(0);
 }
 .home-page .home-services-compare__details {
@@ -1018,6 +1031,10 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   line-height: var(--line-height-body);
 }
 @media (min-width: 768px) {
+  .home-page .home-services-compare__card:nth-child(2):hover,
+  .home-page .home-services-compare__card:nth-child(2):focus-visible {
+    --home-services-image-offset-x: 0px;
+  }
   .home-page .home-services-compare__card:hover,
   .home-page .home-services-compare__card:focus-visible {
     flex: 4 1 0%;
@@ -1026,7 +1043,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
     > .home-services-compare__card:not(:hover),
   .home-page .home-services-compare__grid:has(> .home-services-compare__card:focus-visible)
     > .home-services-compare__card:not(:focus-visible) {
-    flex: 0 0 100px;
+    flex: 0 0 var(--home-services-collapsed-width);
   }
   .home-page .home-services-compare__grid:has(> .home-services-compare__card:hover)
     > .home-services-compare__card:not(:hover) .home-services-compare__content,
@@ -1042,7 +1059,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   }
 }
 @media (min-width: 768px) and (max-width: 1100px) {
-  .home-page .home-services-compare__card { height: 410px; }
+  .home-page .home-services-compare__card { height: 368px; }
 }
 @media (max-width: 767px) {
   .home-page .home-services-compare { padding-block: 56px 72px; }

@@ -371,7 +371,9 @@ function setupServicesCardImageFrame() {
     const gridWidth = grid.getBoundingClientRect().width;
     const gridStyle = getComputedStyle(grid);
     const gap = parseFloat(gridStyle.columnGap || gridStyle.gap) || 0;
-    const collapsedCardWidth = 100;
+    const collapsedCardWidth = parseFloat(
+      getComputedStyle(grid).getPropertyValue("--home-services-collapsed-width")
+    ) || 112;
     const expandedCardWidth = gridWidth - (gap * (cards.length - 1)) - (collapsedCardWidth * (cards.length - 1));
     const media = cards[0].querySelector(".home-services-compare__media");
     if (!media || expandedCardWidth <= 0) return;
