@@ -234,10 +234,6 @@ function setupLatestNews() {
     date.dateTime = item.date || "";
     date.textContent = item.date || "";
 
-    const category = document.createElement("span");
-    category.className = "home-latest__category";
-    category.textContent = item.tag || "最新消息";
-
     const title = document.createElement("h3");
     title.textContent = item.title;
 
@@ -248,7 +244,7 @@ function setupLatestNews() {
 
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
-    meta.append(date, category);
+    meta.append(date);
 
     const titleRow = document.createElement("span");
     titleRow.className = "home-latest__title-row";
