@@ -2,6 +2,27 @@
 
 ## 2026-10-25
 
+- 已完成：清理聯絡我們頁面 HTML 冗餘：移除 `<main>` 多餘 `role`、單一圖片的 `picture`、hero 圖片預設 `loading="eager"`、未使用的 `contact-hero__overlay`／`contact-breadcrumb` class，並移除一層只包 iframe 的 map wrapper；同步調整 map CSS selector，保留桌機等高與手機比例規則。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；全專案搜尋確認未使用 class／wrapper 無殘留；本機瀏覽器確認 hero 圖片載入、iframe `loading="lazy"` 與 map section 僅保留直接 iframe 子項。
+- 未驗證：聯絡頁桌機／手機實際畫面與地圖等高、hero 載入動畫、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：改善聯絡我們頁面的電話與信箱連結互動回饋，hover／鍵盤 focus 顯示主色與底線；確認 `reset.css` 未移除全域 focus 外框。統一聯絡頁 `site.js` cache key、將 Google Maps iframe 改為 lazy 載入，並新增 2000px hero JPEG 與 `srcset`／`imagesrcset` 響應式來源。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/site.js`、`dotnet build -c Release`；本機瀏覽器確認 hero `srcset`／preload、`site.js` cache key 與 iframe `loading="lazy"`。
+- 未驗證：瀏覽器 hover／focus 實際畫面、手機與實體裝置載入選圖、Google Maps 延遲載入、跨瀏覽器與無障礙人工驗收。
+- 備註：目前 `contact.html` 的 hero preload 已位於 CSS stylesheet 前方，因此未重排該段。
+- Commit：無，尚未提交。
+
+- 已完成：清理聯絡我們頁面 CSS 冗餘宣告：移除共用 Hero 已提供的 mobile `center`、重複 padding、Grid 預設 stretch／單欄設定、非必要 height、dd font-style、link display／重複狀態色、map wrapper overflow／min-width 與 iframe 預設圓角；保留 iframe `border: 0`、`min-height: 0` 及地圖等高鏈所需的 wrapper／iframe `height: 100%`。
+- 實際驗證：`git diff --check`；搜尋確認共用 Hero 的 `center` fallback 與現行等高規則。
+- 未驗證：聯絡頁面桌機／手機實際畫面與地圖等高、Google Maps 載入、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：聯絡我們頁面採用 B 方案，移除地圖 `clamp(460px, 38vw, 540px)`，保留桌機 `height: 100%`，讓 Google Maps iframe 與左側聯絡資訊欄等高；保留 `min-height: 0` 避免舊的全域最小高度干擾。
+- 實際驗證：`git diff --check`。
+- 未驗證：聯絡頁面桌機／手機實際地圖高度、Google Maps 載入、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：清理 occupational-safety HTML：移除沒有 `<source>` 的 `picture` wrapper、未被全專案使用的 `safety-hero*`／`safety-breadcrumb` class、單一 `h2` wrapper 與 logo 的預設 eager 載入；專業證照清單勾勾改由 `li::before` 使用 Phosphor 實體碼呈現，移除重複的 icon HTML 與 `ph-*` class。
 - 實際驗證：`git diff --check`；全專案搜尋確認移除的 class 與 list icon 沒有殘留引用。
 - 未驗證：職業安全衛生頁面桌機／手機實際畫面、清單勾勾字形與對齊、圖片載入、跨瀏覽器、實體裝置與無障礙人工驗收。
