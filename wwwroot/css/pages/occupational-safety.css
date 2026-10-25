@@ -23,7 +23,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-section-heading);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
   filter: drop-shadow(0 2px 10px rgb(0 0 0 / 8%));
@@ -114,7 +114,7 @@
   align-items: start;
 }
 
-.safety-page .safety-intro__health-heading h2 {
+.safety-page .safety-intro__health > h2 {
   margin: 0;
   color: var(--color-text-primary);
   font-size: var(--font-size-content-heading);
@@ -171,8 +171,9 @@
 }
 
 .safety-page .safety-credentials__grid {
+  --safety-credentials-gap: 26px;
   display: flex;
-  gap: 26px;
+  gap: var(--safety-credentials-gap);
   padding-inline-start: 0;
 }
 
@@ -232,7 +233,6 @@
 
 .safety-page .safety-credentials__viewport {
   width: 100%;
-  margin-left: 0;
   padding-top: 6px;
   padding-bottom: 40px;
   overflow-x: auto;
@@ -240,7 +240,6 @@
   overscroll-behavior-inline: contain;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline-start: 0;
   touch-action: pan-x;
   -webkit-overflow-scrolling: touch;
 }
@@ -257,17 +256,15 @@
 }
 
 .safety-page .safety-credential-card {
-  --safety-credential-accent: var(--color-surface-inverse);
   --safety-credential-radius: var(--radius-md);
   position: relative;
-  flex: 0 0 calc((100% - 39px) / 2.5);
+  flex: 0 0 calc((100% - (var(--safety-credentials-gap) * 1.5)) / 2.5);
   min-width: 0;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   min-height: 360px;
   padding: 28px 24px 24px;
-  border: 0;
   border-radius: var(--safety-credential-radius);
   background: var(--color-background);
   box-shadow: var(--shadow-card);
@@ -296,19 +293,18 @@
   box-sizing: border-box;
   border-radius: 50%;
   color: var(--color-background);
-  background: var(--safety-credential-accent);
+  background: var(--color-surface-inverse);
   transform: translateY(-4px);
 }
 
-.safety-page .safety-credential-card__icon,
-.safety-page .safety-credential-card__list-icon {
+.safety-page .safety-credential-card__icon {
   font-family: "Phosphor";
   font-style: normal;
   font-weight: normal;
   line-height: 1;
 }
 
-.safety-page .safety-credential-card__list-icon {
+.safety-page .safety-credential-card li::before {
   position: absolute;
   top: 50%;
   left: 0;
@@ -319,9 +315,14 @@
   justify-content: center;
   transform: translateY(-50%);
   border-radius: 50%;
-  background: var(--safety-credential-accent);
+  background: var(--color-surface-inverse);
   color: var(--color-background);
+  font-family: "Phosphor";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
   font-size: 11px;
+  content: "\e182";
 }
 
 .safety-page .safety-credential-card__icon {
@@ -344,69 +345,10 @@
   }
 }
 
-.safety-page .safety-credentials__pager {
-  width: 100%;
-  flex: 0 0 auto;
-  min-height: 0;
-  margin: 0;
-}
-
-@media (min-width: 981px) {
-  .safety-page .safety-heading h2 {
-    font-weight: 600;
-  }
-}
-
 @media (min-width: 1100px) {
   .safety-page .safety-credential-card {
-    flex-basis: min(380px, calc((100% - 39px) / 2.5));
+    flex-basis: min(380px, calc((100% - (var(--safety-credentials-gap) * 1.5)) / 2.5));
   }
-}
-
-.safety-page .safety-credentials__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.safety-page .safety-credentials__pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-.safety-page .safety-credentials__page {
-  display: block;
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: var(--color-text-muted);
-  cursor: pointer;
-  transition: background-color 180ms ease, transform 180ms ease, width 180ms ease;
-}
-
-.safety-page .safety-credentials__page:hover {
-  background: var(--color-text-body);
-}
-
-.safety-page .safety-credentials__page[data-active="true"] {
-  width: 32px;
-  border-radius: 999px;
-  background: var(--color-text-primary);
-}
-
-.safety-page .safety-credentials__page:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
-}
-
-.safety-page .safety-credentials__controls[hidden] {
-  display: none;
 }
 
 .safety-page .safety-credential-card ul {
@@ -414,20 +356,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background: var(--color-background);
 }
 
 .safety-page .safety-credential-card li {
   position: relative;
-  min-height: 0;
   padding: 10px 0 10px 30px;
   color: var(--color-text-body);
   font-size: var(--font-size-body);
   line-height: 1.5;
-}
-
-.safety-page .safety-credential-card {
-  align-self: stretch;
 }
 
 .safety-page .safety-credential-card:hover,
@@ -481,11 +417,11 @@
   }
 
   .safety-page .safety-credentials__grid {
-    gap: 24px;
+    --safety-credentials-gap: 24px;
   }
 
   .safety-page .safety-credential-card {
-    flex-basis: calc((100% - 36px) / 2.5);
+    flex-basis: calc((100% - (var(--safety-credentials-gap) * 1.5)) / 2.5);
   }
 }
 
@@ -496,17 +432,6 @@
 
   .safety-page .safety-credentials__heading {
     margin-bottom: var(--section-content-gap);
-  }
-
-  .safety-page .safety-credentials__controls {
-    margin-top: 24px;
-  }
-
-  .safety-page .safety-credentials__pagination {
-    min-width: 0;
-    max-width: 100%;
-    gap: 10px;
-    overflow: hidden;
   }
 
   .safety-page .safety-credentials > .site-container {
@@ -542,13 +467,11 @@
   }
 
   .safety-page .safety-credentials__grid {
-    gap: 16px;
+    --safety-credentials-gap: 16px;
   }
 
   .safety-page .safety-credentials__viewport {
     width: 100%;
-    margin-left: 0;
-    scroll-padding-inline-start: 0;
     padding-block: 10px 30px;
   }
 
@@ -586,8 +509,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .safety-page .safety-intro__heading,
-  .safety-page .safety-credentials__page {
+  .safety-page .safety-intro__heading {
     transition: none;
     animation: none;
   }

@@ -2,6 +2,26 @@
 
 ## 2026-10-25
 
+- 已完成：清理 occupational-safety HTML：移除沒有 `<source>` 的 `picture` wrapper、未被全專案使用的 `safety-hero*`／`safety-breadcrumb` class、單一 `h2` wrapper 與 logo 的預設 eager 載入；專業證照清單勾勾改由 `li::before` 使用 Phosphor 實體碼呈現，移除重複的 icon HTML 與 `ph-*` class。
+- 實際驗證：`git diff --check`；全專案搜尋確認移除的 class 與 list icon 沒有殘留引用。
+- 未驗證：職業安全衛生頁面桌機／手機實際畫面、清單勾勾字形與對齊、圖片載入、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理 occupational-safety 專業證照卡片樣式，移除未被變體覆寫的 accent 局部變數並直接使用全域 surface token；新增 `--safety-credentials-gap` 統一 carousel gap 與卡片寬度計算；將 intro 標題固定字重改用既有 `var(--font-weight-medium)`，保留其與專業證照標題的刻意層級差異。
+- 實際驗證：`git diff --check`。
+- 未驗證：職業安全衛生頁面桌機／手機實際畫面、不同 gap 下卡片寬度、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：清理 occupational-safety 專業證照 carousel 的無作用 `margin-left`、`scroll-padding-inline-start`、卡片 `border`、多餘 `align-self`、清單 `min-height` 與重複底色宣告；確認 `reset.css` 未全域歸零標題 margin／padding，因此保留 `h3` 的局部歸零。
+- 實際驗證：`git diff --check`。
+- 未驗證：職業安全衛生頁面桌機／手機實際畫面、carousel 版面與滑動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：清理 occupational-safety 頁面 JavaScript 中誤置入的營運資源函式與初始化呼叫，將 `Number.parseFloat` 簡化為 `parseFloat`；移除專業證照舊版圓點分頁 CSS、空 pager 與相關 HTML，保留現行上一張／下一張 carousel 控制。
+- 實際驗證：`node --check wwwroot/js/pages/occupational-safety.js`、`git diff --check`。
+- 未驗證：職業安全衛生頁面桌機／手機實際畫面、carousel 點擊與滑動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：將行動裝置左右切換按鈕改為卡片區底部中央左右並排，並增加 carousel 底部空間，避免按鈕遮住卡片內容。
 - 實際驗證：`git diff --check`。
 - 未驗證：實際行動裝置按鈕位置、點擊滑動、陰影與 Footer 距離、其他桌機／手機斷點、跨瀏覽器與無障礙人工驗收。
