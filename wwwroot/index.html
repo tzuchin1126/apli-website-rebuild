@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
   <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-    <link rel="stylesheet" href="css/pages/home.css?v=20261025-home-services-pagination-v3">
+    <link rel="stylesheet" href="css/pages/home.css?v=20261025-home-hero-horizontal-v2">
   <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 <body class="home-page">
@@ -98,23 +98,35 @@
     <!-- Hero -->
     <section class="home-hero" aria-labelledby="home-hero-title" data-hero-carousel>
       <div class="home-hero__slides">
-        <picture class="home-hero__slide is-active" data-hero-slide aria-hidden="false">
+        <div class="home-hero__slide is-active is-initial" data-hero-slide aria-hidden="false">
           <img src="public/images/index/home-hero-container-terminal.png" width="1717" height="916" alt="高雄港貨櫃作業現場" loading="eager" fetchpriority="high" decoding="async">
-        </picture>
-        <picture class="home-hero__slide" data-hero-slide aria-hidden="true">
+          <div class="site-container home-hero__content">
+            <div class="home-hero__copy">
+              <p>您的貨物，由亞太守護</p>
+              <h1 id="home-hero-title">優質服務 唯客思維</h1>
+              <a class="home-hero__cta" href="/services">
+                查看服務項目
+                <svg class="home-hero__cta-icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+                  <path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="home-hero__slide" data-hero-slide aria-hidden="true" inert>
           <img src="public/images/index/heor-new.png" width="1692" height="929" alt="亞太國際物流作業現場" loading="eager" fetchpriority="low" decoding="async">
-        </picture>
-      </div>
-      <div class="site-container home-hero__content">
-        <div class="home-hero__copy">
-          <p>您的貨物，由亞太守護</p>
-          <h1 id="home-hero-title">優質服務 唯客思維</h1>
-          <a class="home-hero__cta" href="/services">
-            查看服務項目
-            <svg class="home-hero__cta-icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
-              <path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>
-            </svg>
-          </a>
+          <div class="site-container home-hero__content" aria-hidden="true">
+            <div class="home-hero__copy">
+              <p>您的貨物，由亞太守護</p>
+              <h1>優質服務 唯客思維</h1>
+              <a class="home-hero__cta" href="/services" tabindex="-1">
+                查看服務項目
+                <svg class="home-hero__cta-icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+                  <path d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V216a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16Z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="home-hero__dots" data-hero-dots role="group" aria-label="主視覺輪播"></div>
@@ -326,7 +338,7 @@
       <div class="home-contact__inner">
         <div class="home-contact__intro">
           <h2 id="home-contact-title">聯絡我們</h2>
-          <p>與亞太攜手，打造更穩定的物流方案</p>
+          <p>選擇亞太，讓物流安排更穩定可靠</p>
         </div>
         <a class="button--primary home-contact__button" href="/contact">
           與我們聯繫
@@ -345,6 +357,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20260923-home-menu-state-v1"></script>
-    <script src="js/pages/home.js?v=20261024-latest-news-no-category-v1"></script>
+    <script src="js/pages/home.js?v=20261025-home-hero-horizontal-v2"></script>
 </body>
 </html>

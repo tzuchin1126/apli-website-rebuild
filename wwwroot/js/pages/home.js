@@ -21,11 +21,29 @@ function setupHeroCarousel() {
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const slides = toArray(hero.querySelectorAll("[data-hero-slide]"));
+  const slidesTrack = hero.querySelector(".home-hero__slides");
   const dotsContainer = hero.querySelector("[data-hero-dots]");
+
+  if (slidesTrack && slides.length > 1) {
+    const firstSlideClone = slides[0].cloneNode(true);
+    firstSlideClone.classList.add("home-hero__slide--clone");
+    firstSlideClone.classList.remove("is-active");
+    firstSlideClone.classList.remove("is-initial");
+    firstSlideClone.removeAttribute("data-hero-slide");
+    firstSlideClone.removeAttribute("id");
+    firstSlideClone.setAttribute("aria-hidden", "true");
+    firstSlideClone.inert = true;
+    const clonedHeading = firstSlideClone.querySelector("#home-hero-title");
+    if (clonedHeading) clonedHeading.removeAttribute("id");
+    const clonedContent = firstSlideClone.querySelector(".home-hero__content");
+    if (clonedContent) clonedContent.setAttribute("aria-hidden", "true");
+    slidesTrack.appendChild(firstSlideClone);
+  }
 
   let activeIndex = 0;
   let autoplayId = null;
   let hasFocus = false;
+  let isForwardLoop = false;
 
   let startX = 0;
   let startY = 0;
@@ -42,6 +60,14 @@ function setupHeroCarousel() {
       const isActive = i === activeIndex;
       slide.classList.toggle("is-active", isActive);
       slide.setAttribute("aria-hidden", String(!isActive));
+      slide.inert = !isActive;
+      const slideContent = slide.querySelector(".home-hero__content");
+      if (slideContent) slideContent.setAttribute("aria-hidden", String(!isActive));
+    }
+
+    hero.classList.toggle("is-forward-loop", isForwardLoop);
+    for (let i = 0; i < slides.length; i++) {
+      hero.classList.toggle("is-slide-" + i, !isForwardLoop && i === activeIndex);
     }
 
     if (!dotsContainer) return;
@@ -57,8 +83,21 @@ function setupHeroCarousel() {
   }
 
   function goTo(index) {
-    activeIndex = (index + slides.length) % slides.length;
+    const nextIndex = (index + slides.length) % slides.length;
+    isForwardLoop = !reducedMotion.matches && activeIndex === slides.length - 1 && nextIndex === 0;
+    activeIndex = nextIndex;
     render();
+    if (isForwardLoop && slidesTrack) {
+      slidesTrack.addEventListener("transitionend", function resetLoop(event) {
+        if (event.target !== slidesTrack || event.propertyName !== "transform") return;
+        slidesTrack.classList.add("is-no-transition");
+        isForwardLoop = false;
+        render();
+        requestAnimationFrame(function () {
+          slidesTrack.classList.remove("is-no-transition");
+        });
+      }, { once: true });
+    }
     startAutoplay();
   }
 
@@ -204,6 +243,7 @@ function setupLatestNews() {
   const feature = document.querySelector("[data-home-latest-feature]");
   const featureImage = document.querySelector("[data-home-latest-feature-image]");
   const featureDate = document.querySelector("[data-home-latest-feature-date]");
+  const featureLabel = document.querySelector(".home-latest__feature-label");
   const featureTitle = document.querySelector("[data-home-latest-feature-title]");
   const defaultFeatureImage = "public/images/index/news1.png";
   const homeNewsLimit = 6;
@@ -234,12 +274,16 @@ function setupLatestNews() {
     date.dateTime = item.date || "";
     date.textContent = item.date || "";
 
+    const label = document.createElement("span");
+    label.className = "home-latest__label";
+    label.textContent = item.tag || item.Tag || "最新消息";
+
     const title = document.createElement("h3");
     title.textContent = item.title;
 
     const meta = document.createElement("span");
     meta.className = "home-latest__meta";
-    meta.append(date);
+    meta.append(date, label);
 
     const titleRow = document.createElement("span");
     titleRow.className = "home-latest__title-row";
@@ -261,6 +305,7 @@ function setupLatestNews() {
     featureImage.src = imageUrl;
     featureImage.alt = item.title || "最新消息主視覺";
     featureDate.textContent = item.date || "";
+    if (featureLabel) featureLabel.textContent = item.tag || item.Tag || "最新消息";
     featureTitle.textContent = item.title || "查看最新公告";
     featureImage.onerror = function () {
       if (featureImage.src.endsWith(defaultFeatureImage)) return;
