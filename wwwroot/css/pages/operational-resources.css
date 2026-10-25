@@ -56,32 +56,6 @@
   padding-block: var(--section-space-lg);
 }
 
-.operational-resources-page .resource-feature {
-  display: grid;
-  max-width: var(--content-max-width);
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
-  grid-template-areas:
-    "title media"
-    "body media";
-  grid-template-rows: auto 1fr;
-  align-items: start;
-  column-gap: var(--content-column-gap);
-  row-gap: var(--section-content-gap);
-}
-
-.operational-resources-page .resource-feature--reverse {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
-  grid-template-areas:
-    "media title"
-    "media body";
-}
-
-.operational-resources-page .resource-heading {
-  grid-area: title;
-  align-self: end;
-}
-
-.operational-resources-page .resource-heading h2,
 .operational-resources-page .resources-section-heading h2 {
   position: relative;
   width: fit-content;
@@ -95,57 +69,98 @@
   letter-spacing: var(--letter-spacing-tight);
 }
 
-.operational-resources-page .resource-media {
-  grid-area: media;
-  align-self: center;
-  width: 100%;
-  aspect-ratio: 16 / 9;
+.operational-resources-page .resource-data-switcher .resource-intro p {
   margin: 0;
+  color: var(--color-text-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+}
+
+.operational-resources-page .resource-feature--safety {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-height: clamp(360px, 30vw, 480px);
+  padding: 0;
   overflow: hidden;
-  border-radius: var(--radius-md);
-  box-shadow: none;
+  border-radius: 0;
+  isolation: isolate;
 }
 
-.operational-resources-page .resource-media img {
+.operational-resources-page .resource-feature--safety::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(8 35 67 / 72%) 0%, rgb(8 35 67 / 48%) 35%, rgb(8 35 67 / 10%) 68%, transparent 100%);
+  content: "";
+  pointer-events: none;
+}
+
+.operational-resources-page .resource-feature--safety .resource-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+  margin: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.operational-resources-page .resource-feature--safety .resource-media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
   object-fit: cover;
+  object-position: center 45%;
 }
 
-.operational-resources-page .resource-media--safety picture {
-  display: block;
-  width: 100%;
-  height: 100%;
+.operational-resources-page .resource-feature--safety .resource-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(64%, 720px);
+  min-height: clamp(360px, 30vw, 480px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: clamp(40px, 6vw, 88px) clamp(28px, 8vw, 196px);
+  color: var(--color-background);
+  text-align: left;
 }
 
-.operational-resources-page .resource-body {
-  grid-area: body;
+.operational-resources-page .resource-feature--safety .resource-heading {
+  align-self: flex-start;
+  padding: 0;
+}
+
+.operational-resources-page .resource-feature--safety .resource-heading h2 {
+  margin: 0;
+  color: inherit;
+  font-size: var(--font-size-section-heading);
+  font-weight: var(--font-weight-section-heading);
+}
+
+.operational-resources-page .resource-feature--safety .resource-body {
   display: grid;
-  align-content: start;
   gap: var(--section-content-gap);
-  max-width: 720px;
+  max-width: 560px;
+  margin-top: 4px;
+  padding: 0;
 }
 
-.operational-resources-page .resource-data-switcher .resource-intro p,
-.operational-resources-page #occupational-safety .resource-body > p {
+.operational-resources-page .resource-feature--safety .resource-body > p {
   margin: 0;
-  color: var(--color-text-body);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body);
+  color: inherit;
 }
 
-.operational-resources-page .resource-body p {
-  margin: 0;
-  color: var(--color-text-body);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body);
-}
-
-.operational-resources-page .resource-link {
-  margin-top: 19px;
+.operational-resources-page .resource-feature--safety .resource-link {
+  width: fit-content;
+  margin-top: 8px;
 }
 
 .operational-resources-page .resources-section-heading {
@@ -193,7 +208,6 @@
 }
 
 @media (min-width: 1100px) {
-  .operational-resources-page .resource-heading h2,
   .operational-resources-page .resources-section-heading h2 {
     line-height: var(--line-height-heading);
   }
@@ -425,25 +439,9 @@
 }
 
 @media (max-width: 1099px) {
-  .operational-resources-page .resource-feature,
-  .operational-resources-page .resource-feature--reverse {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "media"
-      "body";
-    grid-template-rows: auto;
-    gap: clamp(28px, 5vw, 40px);
-  }
-
-  .operational-resources-page .resource-heading,
-  .operational-resources-page .resource-body {
-    width: min(100%, 760px);
-  }
-
-  .operational-resources-page .resource-media {
-    width: min(100%, 820px);
-    aspect-ratio: 4 / 3;
+  .operational-resources-page .resource-feature--safety,
+  .operational-resources-page .resource-feature--safety .resource-overlay {
+    min-height: clamp(380px, 48vw, 500px);
   }
 
 }
@@ -527,19 +525,23 @@
   padding-block: var(--section-space);
   }
 
-  .operational-resources-page .resource-media {
-    border-radius: var(--radius-md);
+  .operational-resources-page .resource-feature--safety {
+    min-height: clamp(420px, 105vw, 560px);
   }
 
-  .operational-resources-page #occupational-safety .resource-heading h2 {
-    font-size: var(--font-size-section-heading);
-    line-height: var(--line-height-heading);
+  .operational-resources-page .resource-feature--safety .resource-media {
+    border-radius: 0;
   }
 
-  .operational-resources-page .resource-link {
-    justify-content: center;
-    margin-top: 24px;
-    text-align: left;
+  .operational-resources-page .resource-feature--safety .resource-overlay {
+    width: 100%;
+    min-height: clamp(420px, 105vw, 560px);
+    justify-content: end;
+    padding: 32px 24px 40px;
+  }
+
+  .operational-resources-page .resource-feature--safety::after {
+    background: linear-gradient(180deg, rgb(8 35 67 / 22%) 0%, rgb(8 35 67 / 65%) 58%, rgb(8 35 67 / 78%) 100%);
   }
 
   .operational-resources-page .resources-location {
@@ -588,76 +590,9 @@
   }
 }
 
-/* Match the operational-resources overview width and the reference-style safety split panel. */
-.operational-resources-page #occupational-safety .resource-feature {
-  width: var(--content-width);
-  max-width: var(--content-max-width);
-  grid-template: "media title" "media body" / minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
-  column-gap: 0;
-  row-gap: 0;
-  align-items: stretch;
-}
-
-.operational-resources-page #occupational-safety {
-  background: var(--color-background);
-}
-
-.operational-resources-page #occupational-safety .resource-heading,
-.operational-resources-page #occupational-safety .resource-body {
-  background: var(--color-surface-section);
-}
-
-.operational-resources-page #occupational-safety .resource-heading {
-  align-self: end;
-  padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 48px) 0;
-}
-
-.operational-resources-page #occupational-safety .resource-body {
-  align-self: stretch;
-  padding: var(--section-content-gap) clamp(24px, 4vw, 48px) clamp(32px, 4vw, 56px);
-}
-
-.operational-resources-page #occupational-safety .resource-heading h2#occupational-safety-title {
-  font-size: var(--font-size-section-heading);
-  font-weight: var(--font-weight-section-heading);
-}
-
-.operational-resources-page #occupational-safety .resource-media--safety img {
-  width: calc(100% + 24px);
-  max-width: none;
-  transform: translateX(-24px);
-  object-position: 58% center;
-}
-
-@media (min-width: 1100px) {
-  .operational-resources-page #occupational-safety .resource-media {
-    align-self: stretch;
-    height: 100%;
-    aspect-ratio: auto;
-    border-radius: 0;
-  }
-}
-
-@media (max-width: 1099px) {
-  .operational-resources-page #occupational-safety .resource-feature {
-    width: 100%;
-    grid-template: "media" "title" "body" / minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
-    gap: 0;
-  }
-
-  .operational-resources-page #occupational-safety .resource-heading {
-    padding: 32px 24px 0;
-  }
-
-  .operational-resources-page #occupational-safety .resource-body {
-    padding: 16px 24px 32px;
-  }
-}
-
 /* The three resource datasets share one stable tabbed presentation. */
 .operational-resources-page .resource-feature--data {
+  display: grid;
   width: var(--content-width);
   max-width: var(--content-max-width);
   grid-template-columns: minmax(0, 1fr);
@@ -755,6 +690,8 @@
 
 .operational-resources-page .resource-data-switcher__panel-viewport {
   grid-area: panel;
+  width: min(100%, 1200px);
+  margin-inline: 0;
   min-width: 0;
   overflow: hidden;
 }
@@ -895,8 +832,7 @@
   }
 
   .operational-resources-page .resources-data-overview,
-  .operational-resources-page .resource-feature--data,
-  .operational-resources-page #occupational-safety .resource-feature {
+  .operational-resources-page .resource-feature--data {
     width: var(--content-width);
   }
 
@@ -927,11 +863,8 @@
     margin-bottom: var(--section-content-gap);
   }
 
-  .operational-resources-page #occupational-safety .resource-media--safety img {
+  .operational-resources-page .resource-data-switcher__panel-viewport {
     width: 100%;
-    max-width: 100%;
-    transform: none;
-    object-position: center;
   }
 
   .operational-resources-page .resources-location__mobile-caption {

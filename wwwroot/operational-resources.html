@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
         <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20261023-token-cleanup-v9">
+        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20261025-safety-overlay-v8">
         <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
     </head>
     <body class="operational-resources-page">
@@ -160,24 +160,26 @@
             </section>
 
             <section class="resource-section" id="occupational-safety" aria-labelledby="occupational-safety-title">
-                <div class="resource-feature resource-feature--reverse site-container">
-                    <header class="resource-heading">
-                        <h2 id="occupational-safety-title">職業安全衛生</h2>
-                    </header>
+                <div class="resource-feature resource-feature--safety">
                     <figure class="resource-media resource-media--safety">
                         <picture>
                             <img src="public/images/occupational-safety/safety-equipment-operation.png" width="1536" height="1024" alt="港區作業人員面對貨櫃裝卸設備" loading="lazy" decoding="async">
                         </picture>
                     </figure>
-                    <div class="resource-body">
-                        <p>亞太將人員安全與健康置於日常營運的重要位置。面對貨櫃場、倉儲、機具維修及車輛往來等不同作業情境，我們持續把安全要求納入作業規劃與現場管理。</p>
-                        <a class="button--primary resource-link" href="/occupational-safety">
-                            了解更多
-                            <span class="button__arrow-window resource-link__arrow-window" aria-hidden="true">
-                                <svg class="button__icon resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-                                <svg class="button__icon resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
-                            </span>
-                        </a>
+                    <div class="resource-overlay">
+                        <header class="resource-heading">
+                            <h2 id="occupational-safety-title">安心職場</h2>
+                        </header>
+                        <div class="resource-body">
+                            <p>亞太將人員安全與健康置於日常營運的重要位置。面對貨櫃場、倉儲、機具維修及車輛往來等不同作業情境，我們持續把安全要求納入作業規劃與現場管理。</p>
+                            <a class="button--primary resource-link" href="/occupational-safety">
+                                了解更多
+                                <span class="button__arrow-window resource-link__arrow-window" aria-hidden="true">
+                                    <svg class="button__icon resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+                                    <svg class="button__icon resource-link__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
