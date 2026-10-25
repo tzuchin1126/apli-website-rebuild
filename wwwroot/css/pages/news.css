@@ -623,7 +623,7 @@
   grid-row: 1;
   color: #555555;
   font-size: var(--font-size-body);
-  letter-spacing: normal;
+  letter-spacing: var(--letter-spacing-body);
   line-height: var(--line-height-body-tight);
   text-transform: none;
 }

@@ -225,7 +225,7 @@
   .site-footer__top {
     display: grid;
     gap: 24px;
-    padding-bottom: 14px;
+    padding-bottom: 10px;
   }
 
   .site-footer__logo img {

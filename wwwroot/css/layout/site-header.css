@@ -27,11 +27,20 @@
 .nav-caret { width: 16px; height: 16px; margin-left: 6px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; transition: transform 180ms ease; }
 .nav-dropdown:hover .nav-caret, .nav-dropdown:focus-within .nav-caret, .nav-dropdown.is-open .nav-caret { transform: rotate(180deg); }
 /* 下拉選單面板：預設透明、不可點、往下偏移 8px；visibility 延遲 180ms，等淡出跑完才真正隱藏 */
-.nav-menu { position: absolute; top: calc(100% + 8px); left: 50%; z-index: 30; display: grid; visibility: hidden; width: max-content; min-width: 220px; padding: 8px 0; border: 1px solid var(--color-border); background: var(--color-background); box-shadow: 0 12px 28px rgb(0 0 0 / 14%); opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms; }
+.nav-menu { position: absolute; top: calc(100% + 8px); left: 50%; z-index: 30; display: grid; visibility: hidden; width: max-content; min-width: 220px; padding: 8px 0; border: none; border-radius: 10px; background: #fff; box-shadow: 0 0 8px 0 rgb(2 2 2 / 15%); opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms; }
 /* 展開條件：滑鼠移入、鍵盤焦點在內、或 JS 加上 .is-open */
 .nav-dropdown:hover .nav-menu, .nav-dropdown:focus-within .nav-menu, .nav-dropdown.is-open .nav-menu { visibility: visible; opacity: 1; pointer-events: auto; transform: translate(-50%, 0); transition-delay: 0s; }
-/* 選單標題只在特定情況使用，桌機版隱藏 */
-.nav-menu__title { display: none; }
+/* 下拉選單先顯示分類標題，再顯示其子選項 */
+.nav-menu__title {
+  display: block;
+  padding: 10px 18px 8px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body-tight);
+  letter-spacing: var(--letter-spacing-body);
+  white-space: nowrap;
+}
 .nav-menu a { position: relative; display: block; min-height: 44px; justify-self: stretch; width: 100%; padding: 10px 18px; color: var(--color-text-primary); font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); letter-spacing: var(--letter-spacing-body); text-decoration: none; white-space: nowrap; }
 .nav-menu a::after { display: none; }
 /* 選單項目的橘色底線：只畫在文字（span）下方，而不是整列 */
@@ -43,7 +52,7 @@
 @media (min-width: 841px) {
   /* 在連結與選單之間補一塊透明「橋」，滑鼠從連結移向選單時不會經過空隙而讓選單收起 */
   .nav-dropdown::after { position: absolute; top: 100%; left: -10px; width: calc(100% + 20px); height: 18px; content: ""; }
-  .nav-menu { top: calc(100% + 17px); }
+  .nav-menu { top: calc(100% + 3px); }
 }
 
 /* ========== 工具列（搜尋、語言等圖示）與手機選單按鈕 ========== */
@@ -120,13 +129,14 @@
   .site-header__nav > a::after, .nav-link::after { display: none; }
   .nav-dropdown { width: 100%; }
   /* 手機版的下拉選單：改為直接在列表中展開（不再是浮動面板），有 .is-open 才顯示 */
-  .nav-menu { position: static; display: none; visibility: hidden; width: 100%; min-width: 0; padding: 0 0 6px 16px; border: 0; box-shadow: none; opacity: 1; transform: none; }
+  .nav-menu { position: static; display: none; visibility: hidden; width: 100%; min-width: 0; padding: 0 0 6px 16px; border: 0; border-radius: 0; box-shadow: none; opacity: 1; transform: none; }
   .nav-dropdown.is-open .nav-menu { display: grid; visibility: visible; }
   /* 觸控時 hover 不應自動展開，只靠點擊切換 .is-open */
   .nav-dropdown:hover .nav-menu, .nav-dropdown:focus-within .nav-menu { pointer-events: none; }
   .nav-dropdown.is-open .nav-menu,
   .nav-dropdown.is-open:hover .nav-menu,
   .nav-dropdown.is-open:focus-within .nav-menu { pointer-events: auto; transform: none; }
+  .nav-menu__title { padding: 12px 12px 4px; font-size: var(--font-size-body); }
   .nav-menu a { min-height: 0; padding: 12px; font-size: var(--font-size-body); font-weight: var(--font-weight-regular); line-height: var(--line-height-body-tight); }
 }
 

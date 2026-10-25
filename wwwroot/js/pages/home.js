@@ -388,6 +388,50 @@ function setupServicesCardImageFrame() {
   window.addEventListener("resize", updateImageFrame, { passive: true });
 }
 
+function setupServicesCardPagination() {
+  const grid = document.querySelector(".home-services-compare__grid");
+  const pagination = document.querySelector("[data-services-pagination]");
+  const cards = grid ? toArray(grid.querySelectorAll(".home-services-compare__card")) : [];
+  const buttons = pagination ? toArray(pagination.querySelectorAll("[data-service-slide]")) : [];
+  if (!grid || !pagination || cards.length === 0 || buttons.length !== cards.length) return;
+
+  let scrollFrame = 0;
+  const updateActiveSlide = function () {
+    let activeIndex = 0;
+    let closestDistance = Infinity;
+    for (let i = 0; i < cards.length; i++) {
+      const distance = Math.abs(cards[i].offsetLeft - grid.scrollLeft);
+      if (distance >= closestDistance) continue;
+      closestDistance = distance;
+      activeIndex = i;
+    }
+
+    for (let i = 0; i < buttons.length; i++) {
+      const isActive = i === activeIndex;
+      buttons[i].classList.toggle("is-active", isActive);
+      if (isActive) buttons[i].setAttribute("aria-current", "true");
+      else buttons[i].removeAttribute("aria-current");
+    }
+  };
+  const scheduleActiveSlideUpdate = function () {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(function () {
+      scrollFrame = 0;
+      updateActiveSlide();
+    });
+  };
+
+  grid.addEventListener("scroll", scheduleActiveSlideUpdate, { passive: true });
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+      const target = cards[i];
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      grid.scrollTo({ left: target.offsetLeft, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+  }
+  updateActiveSlide();
+}
+
 // ---------------------------------------------------------------------------
 // 啟動
 // ---------------------------------------------------------------------------
@@ -397,5 +441,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setupLatestNews();
   setupServicesCards();
   setupServicesCardImageFrame();
+  setupServicesCardPagination();
   setupSectionMotion();
 });
