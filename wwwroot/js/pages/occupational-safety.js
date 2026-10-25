@@ -116,8 +116,39 @@ function setupResourcesQuickNav() {
   updateActiveLink();
 }
 
+function setupSafetyCredentialsCarousel() {
+  const viewport = document.querySelector(".safety-credentials__viewport");
+  const list = document.querySelector("[data-safety-credentials-list]");
+  const previous = document.querySelector("[data-safety-credentials-prev]");
+  const next = document.querySelector("[data-safety-credentials-next]");
+  if (!viewport || !list || !previous || !next) return;
+
+  const updateControls = () => {
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+    previous.disabled = viewport.scrollLeft <= 1;
+    next.disabled = viewport.scrollLeft >= maxScroll - 1;
+  };
+
+  const move = (direction) => {
+    const card = list.querySelector(".safety-credential-card");
+    if (!card) return;
+    const gap = Number.parseFloat(getComputedStyle(list).columnGap) || 0;
+    viewport.scrollBy({
+      left: direction * (card.getBoundingClientRect().width + gap),
+      behavior: "smooth"
+    });
+  };
+
+  previous.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+  viewport.addEventListener("scroll", updateControls, { passive: true });
+  window.addEventListener("resize", updateControls);
+  updateControls();
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   setupResourcesLocationMotion();
   setupResourcesQuickNav();
+  setupSafetyCredentialsCarousel();
 });
