@@ -5,6 +5,10 @@
 - 實際驗證：已更新 company-history JavaScript cache key。
 - 未驗證：瀏覽器實際桌機／手機版面、1973 IntersectionObserver active 狀態、網址 hash 導頁、停用 JavaScript fallback、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
 - Commit：無，尚未提交。
+- 已完成：刪除兩個被誤納入版本控制的 Edge 瀏覽器執行環境殘留檔：`.edge-profile-type-1366/Crashpad/throttle_store.dat` 與 `.edge-profile-type-1366/Default/Affiliation Database`。
+- 實際驗證：`git diff --check`、確認兩個檔案已不存在。
+- 未驗證：無程式碼與畫面變更，不需進行瀏覽器、RWD 或無障礙驗收。
+- Commit：無，尚未提交。
 
 - 已完成：補上 company-history 最後一個年份面板 `min-height: 60vh`，讓 1973 在頁面底部仍能進入 IntersectionObserver 偵測區。
 - 已完成：移除 company-history 剩餘無效 wrapper／旗標與多餘 CSS，改用 `milestones-js-ready`，保留無 JavaScript fallback；移除不必要 overflow、寬度、min-width、grid display 與手機首項額外留白。
@@ -924,3 +928,15 @@
 - 已完成：因沒有合適的 LINE 圖示，恢復詳細頁原本的 LinkedIn「in」圖示與分享功能。
 - 已完成：行動裝置隱藏最新消息詳細頁麵包屑，避免長標題造成上方導覽區換行與版面跑掉；桌機維持顯示。
 - 已完成：行動裝置的最新消息詳細頁卡片與 Header 間增加 `24px` 上方間距，避免卡片貼住 Header。
+- 已完成：移除各頁面不再保留的 `*-style-audit.md` 分析文件，共 13 份。
+- 實際驗證：`git diff --check`、確認 13 份分析文件均已刪除。
+- 未驗證：無程式碼與畫面變更，不需進行瀏覽器、RWD 或無障礙驗收。
+- Commit：無，尚未提交。
+- 已完成：將頁面實際引用的通用或不具語意圖片檔名改為用途命名，並同步更新 HTML、CSS、JavaScript 與 preload 引用。
+- 實際驗證：確認舊圖片檔名引用為零、確認所有掃描到的圖片路徑均存在、`git diff --check`。
+- 未驗證：瀏覽器畫面、桌機／手機 RWD、圖片載入與跨瀏覽器驗收；目前環境沒有 `node`，未執行 JavaScript 語法檢查。
+- Commit：無，尚未提交。
+- 已完成：依頁面與共用資產責任整理圖片資料夾；營運資源、Careers 福利圖示與服務背景圖改放至對應資料夾，並同步更新頁面引用。
+- 實際驗證：確認舊圖片路徑引用為零、確認所有掃描到的圖片路徑均存在、`git diff --check`。
+- 未驗證：瀏覽器畫面、桌機／手機 RWD、圖片載入與跨瀏覽器驗收。
+- Commit：無，尚未提交。

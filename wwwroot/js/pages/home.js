@@ -245,7 +245,7 @@ function setupLatestNews() {
   const featureDate = document.querySelector("[data-home-latest-feature-date]");
   const featureLabel = document.querySelector(".home-latest__feature-label");
   const featureTitle = document.querySelector("[data-home-latest-feature-title]");
-  const defaultFeatureImage = "public/images/index/news1.png";
+  const defaultFeatureImage = "public/images/index/news-feature.png";
   const homeNewsLimit = 6;
   const homeNewsProbeLimit = homeNewsLimit + 1;
   const moreLink = document.createElement("a");

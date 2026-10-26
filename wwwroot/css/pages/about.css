@@ -9,7 +9,7 @@
   background-color: var(--color-background);
 }
 
-.about-page .about-profile { padding-block: var(--section-space-lg); background-color: var(--color-background); background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/02.png"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; }
+.about-page .about-profile { padding-block: var(--section-space-lg); background-color: var(--color-background); background-image: linear-gradient(rgb(255 255 255 / 42%), rgb(255 255 255 / 42%)), url("../../public/images/about/about-profile-background.png"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; }
 
 .about-page .about-content-fold-stage > section {
   position: relative;

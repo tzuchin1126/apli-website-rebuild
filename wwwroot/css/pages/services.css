@@ -571,7 +571,7 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--color-background);
-  background: var(--color-surface-inverse) url("../../public/images/privacy-policy.jpg") center / cover no-repeat;
+  background: var(--color-surface-inverse) url("../../public/images/services/privacy-policy-background.jpg") center / cover no-repeat;
 }
 
 .services-page .services-contact__card::before {
