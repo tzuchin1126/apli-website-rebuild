@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
   <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-  <link rel="stylesheet" href="css/pages/careers.css?v=20261024-career-scroll-arrow-v1">
+  <link rel="stylesheet" href="css/pages/careers.css?v=20261026-career-scroll-cue-v13">
   <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 
@@ -109,7 +109,7 @@
 
     
     <!-- 職缺資訊 -->
-    <section class="join-panel join-career" id="join-career" aria-labelledby="join-intro-title">
+    <section class="join-panel join-career" aria-labelledby="join-intro-title">
       <div class="site-container">
         <div class="join-intro">
           <div class="join-intro__content">
@@ -117,16 +117,15 @@
               <h2 id="join-intro-title">加入亞太</h2>
             </div>
             <div class="join-intro-copy">
-              <p>亞太以專業、誠信與穩健服務為基礎，持續深耕物流產業。我們重視每一位夥伴的投入，提供穩定的工作環境、實務學習與成長機會。如果你具備責任感，願意學習並迎接挑戰，誠摯邀請你加入亞太，與我們一起運籌未來。</p>
+              <p>亞太國際物流創立於民國 62 年，深耕高雄港貨櫃儲運、碼頭裝卸、機具維修與物流相關服務，持續透過設備升級、流程優化與人才培育，提升作業效率與服務品質，穩健累積物流產業的專業實力。</p>
+              <p>面對物流產業持續發展與工作型態不斷變化，我們重視每一位夥伴的投入，提供穩定的工作環境、實務學習與成長機會，也鼓勵團隊合作與持續精進。無論你對物流現場、專業技術或企業運作有興趣，只要願意學習、勇於迎接挑戰，誠摯邀請你加入亞太，與我們一起運籌未來。</p>
             </div>
             <div class="join-intro__actions">
-              <a class="button--primary" href="#join-recruitment">
-                查看職缺
-                <span class="join-intro__down-icon" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" focusable="false">
-                    <path d="M8 2.5v10.25M3.25 8.75 8 13.5l4.75-4.75"></path>
-                  </svg>
-                </span>
+              <a class="join-intro__scroll-cue" href="#join-recruitment" aria-label="查看職缺，向下查看職缺資訊">
+                <span>Scroll down</span>
+                <svg viewBox="0 0 72 44" aria-hidden="true" focusable="false">
+                  <path d="m5 5 31 31L67 5"></path>
+                </svg>
               </a>
             </div>
           </div>
@@ -135,7 +134,7 @@
     </section>
 
     <!-- 公司福利 -->
-    <section class="join-panel join-benefits" id="join-benefits" aria-labelledby="join-benefits-title">
+    <section class="join-panel join-benefits" aria-labelledby="join-benefits-title">
       <div class="site-container">
         <div class="join-section-heading join-section-heading--benefits">
           <h2 id="join-benefits-title">公司福利</h2>
@@ -143,36 +142,36 @@
         <div class="benefits-tabs">
           <div class="benefits-tabs__list" role="tablist" aria-label="選擇福利分類">
             <button id="benefits-tab-salary" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-salary" aria-selected="true">完整薪酬制度</button>
-            <button id="benefits-tab-wellbeing" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-wellbeing" aria-selected="false" tabindex="-1">照顧員工身心靈</button>
-            <button id="benefits-tab-learning" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-learning" aria-selected="false" tabindex="-1">永續學習</button>
-            <button id="benefits-tab-extra" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-extra" aria-selected="false" tabindex="-1">其他好康</button>
+            <button id="benefits-tab-wellbeing" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-wellbeing" aria-selected="false">照顧員工身心靈</button>
+            <button id="benefits-tab-learning" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-learning" aria-selected="false">永續學習</button>
+            <button id="benefits-tab-extra" class="benefits-tabs__tab" type="button" role="tab" aria-controls="benefits-panel-extra" aria-selected="false">其他好康</button>
           </div>
         </div>
         <div class="benefits-panels">
           <section id="benefits-panel-salary" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-salary">
             <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/gavel.svg" alt="" aria-hidden="true">法定項目</span></th><td><ul><li>勞保、健保、團保、加班費、陪產假、育嬰假、生理假、特別休假、員工體檢、勞退提撥金等。</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/piggy-bank.svg" alt="" aria-hidden="true">獎金類</span></th><td><ul><li>生日禮金</li><li>三節獎金</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/shield-plus.svg" alt="" aria-hidden="true">保險類</span></th><td><ul><li>員工住院慰問金</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/hand-coins.svg" alt="" aria-hidden="true">補助類</span></th><td><ul><li>員工結婚補助</li><li>子女教育補助</li><li>進修補助</li><li>退休規劃</li><li>眷屬喪葬補助</li><li>國內外旅遊補助與社團補助</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/gavel.svg" alt="">法定項目</span></th><td><ul><li>勞保、健保、團保、加班費、陪產假、育嬰假、生理假、特別休假、員工體檢、勞退提撥金等。</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/piggy-bank.svg" alt="">獎金類</span></th><td><ul><li>生日禮金</li><li>三節獎金</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/shield-plus.svg" alt="">保險類</span></th><td><ul><li>員工住院慰問金</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/hand-coins.svg" alt="">補助類</span></th><td><ul><li>員工結婚補助</li><li>子女教育補助</li><li>進修補助</li><li>退休規劃</li><li>眷屬喪葬補助</li><li>國內外旅遊補助與社團補助</li></ul></td></tr>
             </tbody></table>
           </section>
           <section id="benefits-panel-wellbeing" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-wellbeing" hidden>
             <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/heartbeat.svg" alt="" aria-hidden="true">保健類</span></th><td><ul><li>不定期安排廠醫現場健康諮詢服務</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/barbell.svg" alt="" aria-hidden="true">設備類</span></th><td><ul><li>員工健身房</li><li>員工餐廳</li><li>亞柏會館（員工優惠價）</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/confetti.svg" alt="" aria-hidden="true">娛樂類</span></th><td><ul><li>慶生會</li><li>員工運動會</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/heartbeat.svg" alt="">保健類</span></th><td><ul><li>不定期安排廠醫現場健康諮詢服務</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/barbell.svg" alt="">設備類</span></th><td><ul><li>員工健身房</li><li>員工餐廳</li><li>亞柏會館（員工優惠價）</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/confetti.svg" alt="">娛樂類</span></th><td><ul><li>慶生會</li><li>員工運動會</li></ul></td></tr>
             </tbody></table>
           </section>
           <section id="benefits-panel-learning" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-learning" hidden>
             <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chalkboard-teacher.svg" alt="" aria-hidden="true">員工在職教育訓練</span></th><td><ul><li>定期或不定期安排教育訓練與課程講座</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chalkboard-teacher.svg" alt="">員工在職教育訓練</span></th><td><ul><li>定期或不定期安排教育訓練與課程講座</li></ul></td></tr>
             </tbody></table>
           </section>
           <section id="benefits-panel-extra" class="benefits-panel" role="tabpanel" aria-labelledby="benefits-tab-extra" hidden>
             <table class="benefits-table"><thead><tr><th scope="col">項目</th><th scope="col">內容</th></tr></thead><tbody>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/car.svg" alt="" aria-hidden="true">交通類</span></th><td><ul><li>持員工卡至關係企業加油享有降價折扣</li></ul></td></tr>
-              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chart-line-up.svg" alt="" aria-hidden="true">其他</span></th><td><ul><li>員工制服</li><li>良好升遷制度</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/car.svg" alt="">交通類</span></th><td><ul><li>持員工卡至關係企業加油享有降價折扣</li></ul></td></tr>
+              <tr><th scope="row"><span class="benefits-table__item"><img src="public/images/contact/chart-line-up.svg" alt="">其他</span></th><td><ul><li>員工制服</li><li>良好升遷制度</li></ul></td></tr>
             </tbody></table>
           </section>
         </div>
@@ -182,7 +181,7 @@
     <!-- 連結 -->
     <section id="join-recruitment" class="join-recruitment" aria-label="職缺資訊">
       <div class="join-recruitment__background" aria-hidden="true">
-        <img src="public/images/join/careers-workplace.jpg" alt="">
+        <img src="public/images/join/careers-workplace.jpg" alt="" loading="lazy">
       </div>
       <p class="recruitment-copy">加入亞太，與我們一起運籌未來。</p>
       <div class="recruitment-links">
@@ -210,6 +209,6 @@
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-  <script src="js/pages/careers.js?v=20261024-benefits-table-motion-v1"></script>
+  <script src="js/pages/careers.js?v=20261026-benefits-table-motion-v2"></script>
 </body>
 </html>

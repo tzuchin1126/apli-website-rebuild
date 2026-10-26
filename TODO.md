@@ -1,5 +1,17 @@
 # TODO
 
+## 2026-10-26
+
+- 已完成：依使用者提供的人力網公司資訊，重新潤飾 careers 頁面「加入亞太」兩段文案，改以公司整體物流背景、流程優化、人才培育與多元職涯方向為主，不針對單一工作崗位；另參考首頁服務區塊行動版的 `56px / 72px` 上下節奏，調整公司福利區塊間距並統一標題下方間距 token；同步清理福利分頁 JS 與無作用 CSS 宣告，改於 load／字型載入完成後重新測量目前面板高度，並在分頁切換時同步更新高度，並移除 careers recruitment 區塊的重複定位與選擇器宣告；福利圖示改用實際尺寸，並補強 tab 鍵盤 focus 外框。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/careers.js`、`dotnet build -c Release`；建置 0 warnings、0 errors。
+- 未驗證：桌機／手機實際畫面、Hero 圖片裁切與按鈕位置、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+- 已完成：清理 careers HTML：福利表格裝飾圖示保留空白 `alt` 並移除重複 `aria-hidden`、招募背景圖改為 lazy loading、移除全專案無引用的 `join-career`／`join-benefits` id，以及移除福利 tab 靜態 `tabindex="-1"`，保留 JavaScript 啟動後的 roving tabindex 行為。
+- 未修改：`role="status"` 已隱含 polite live region；`join-intro` 外框仍是 Scroll down 絕對定位的參考容器；Hero 仍是首屏圖片，保留 preload／高優先載入，尚未另行產製 2000px WebP 資產。
+- 實際驗證：全專案搜尋確認兩個 id 無引用；`git diff --check`、`node --check wwwroot/js/pages/careers.js`、`dotnet build -c Release`。
+- 未驗證：桌機／手機實際畫面、圖片最佳化後的裁切與載入表現、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 ## 2026-10-25
 
 - 已完成：清理聯絡我們頁面 HTML 冗餘：移除 `<main>` 多餘 `role`、單一圖片的 `picture`、hero 圖片預設 `loading="eager"`、未使用的 `contact-hero__overlay`／`contact-breadcrumb` class，並移除一層只包 iframe 的 map wrapper；同步調整 map CSS selector，保留桌機等高與手機比例規則。
