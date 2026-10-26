@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutButton = document.getElementById("logoutButton");
   const resetButton = document.getElementById("resetButton");
   const refreshCaptchaButton = document.getElementById("refreshCaptcha");
+  const viewTabs = Array.from(document.querySelectorAll("[data-admin-view]"));
+  const viewPanels = Array.from(document.querySelectorAll("[data-admin-view-panel]"));
 
   if (!loginForm || !loginPanel || !workspace || !newsForm || !newsRows || !categoryForm || !categoryRows || !tagSelect) {
     return;
@@ -43,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
   categoryForm.addEventListener("submit", onCategorySave);
   newsRows.addEventListener("click", onNewsRowClick);
   categoryRows.addEventListener("click", onCategoryRowClick);
+  viewTabs.forEach(function (tab) {
+    tab.addEventListener("click", onViewTabClick);
+  });
 
   if (logoutButton) logoutButton.addEventListener("click", onLogout);
   if (resetButton) resetButton.addEventListener("click", onResetForm);
@@ -252,8 +257,31 @@ document.addEventListener("DOMContentLoaded", function () {
   async function showWorkspace() {
     loginPanel.hidden = true;
     workspace.hidden = false;
+    setWorkspaceView("news-list");
     await loadCategories();
     await loadNews();
+  }
+
+  function onViewTabClick(event) {
+    const view = event.currentTarget.dataset.adminView;
+    if (view === "news-form") {
+      onResetForm();
+    }
+    setWorkspaceView(view);
+  }
+
+  function setWorkspaceView(view) {
+    viewTabs.forEach(function (tab) {
+      if (tab.dataset.adminView === view) {
+        tab.setAttribute("aria-current", "page");
+      } else {
+        tab.removeAttribute("aria-current");
+      }
+    });
+
+    viewPanels.forEach(function (panel) {
+      panel.hidden = panel.dataset.adminViewPanel !== view;
+    });
   }
 
   async function onLogout() {
@@ -408,6 +436,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ---------------------------------------------------------------------------
 
   function editNews(item) {
+    setWorkspaceView("news-form");
     document.getElementById("newsId").value = item.id;
     document.getElementById("newsDate").value = item.date || formatLocalDate(new Date());
     renderCategoryOptions(item.tag);

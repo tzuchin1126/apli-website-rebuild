@@ -139,6 +139,7 @@ builder.Services.AddSingleton<string>(sp =>
 
 builder.Services.AddSingleton<PublicPageRenderer>();
 builder.Services.AddSingleton<UploadScanner>();
+builder.Services.AddSingleton<AdminLoginFailureTracker>();
 
 // ============================================================
 // 限流:同一個 IP 在時間內打太多次就擋掉

@@ -1,15 +1,25 @@
 # TODO
 
+- 已完成：整理 Admin 後台工作區，登入後預設先顯示目前消息列表，新增消息與新增分類改由功能選單切換；保留消息編輯／刪除、分類新增／刪除、既有 API、欄位 ID 與登入後台操作流程，列表編輯會自動切回消息編輯畫面。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/admin.js`、`dotnet build -c Release`（待本次完成後更新）。
+- 未驗證：瀏覽器桌機／手機切換選單、登入後預設列表、消息編輯導頁、鍵盤操作、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：保留既有 Admin 登入 IP 限流，新增管理員帳號層級的密碼失敗累計與短暫限制；同一管理員帳號在 10 分鐘內累積 5 次密碼錯誤後暫停 5 分鐘，圖形驗證碼錯誤不累計，成功登入會清除紀錄；暫停期間回傳與一般登入失敗相同的 `401`，不暴露帳號狀態，也不延長暫停時間；未新增驗證碼干擾，也未實作 2FA。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/admin.js`、`dotnet build -c Release`（0 warnings、0 errors）；確認登入端點仍保留 `admin-login` IP 限流，且判斷順序為驗證碼、帳號暫停、密碼驗證。
+- 未驗證：登入失敗跨 IP、驗證碼錯誤不累計、暫停期間不延長與並發請求的實際整合流程；重啟後狀態、跨程序／多副本共享狀態、瀏覽器畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：依 Maersk 登入頁參考圖重新調整 `/Admin` 登入頁視覺，改為白底、細線 Header、左側 APLI Logo、縮小的「登入」主標題、較輕較小的帳號／密碼／驗證碼輸入文字、放大的 Phosphor 帳號／正確鎖頭圖示與窄版登入按鈕；移除未需要的右上工具列，讓驗證碼輸入列與圖片在桌機同排，修正共用 Admin input 外框造成的重疊線條；保留「員工專區」提示、重新產生與既有登入 API 契約，未改動後台工作區。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/admin.js`、`dotnet build -c Release`（0 warnings、0 errors）；確認 `loginUsername`、`loginPassword`、`loginCaptcha`、`captchaImage`、`refreshCaptcha` 與 `loginForm` ID 保持不變。
+- 未驗證：本機 Development 服務在目前環境無法穩定啟動，尚未完成登入頁桌機／手機瀏覽器畫面、實際驗證碼刷新互動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：依 company-history 最終整理版再簡化 JavaScript，改用直接 content 查找、`readMilestoneData`、`createYearPanel`、`yearButtons` 與 `appendChild`，移除 preview 變數、重複查找、三元運算與事件命名混淆。
 - 已完成：確認 CSS 無 `milestones-motion-ready`／`is-vertical-timeline` 殘留，保留 1973 最後面板 `min-height: 60vh`，並移除 HTML 的 `data-milestones-preview`。
 - 實際驗證：已更新 company-history JavaScript cache key。
 - 未驗證：瀏覽器實際桌機／手機版面、1973 IntersectionObserver active 狀態、網址 hash 導頁、停用 JavaScript fallback、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
 - Commit：無，尚未提交。
-- 已完成：刪除兩個被誤納入版本控制的 Edge 瀏覽器執行環境殘留檔：`.edge-profile-type-1366/Crashpad/throttle_store.dat` 與 `.edge-profile-type-1366/Default/Affiliation Database`。
-- 實際驗證：`git diff --check`、確認兩個檔案已不存在。
-- 未驗證：無程式碼與畫面變更，不需進行瀏覽器、RWD 或無障礙驗收。
-- Commit：無，尚未提交。
-
 - 已完成：補上 company-history 最後一個年份面板 `min-height: 60vh`，讓 1973 在頁面底部仍能進入 IntersectionObserver 偵測區。
 - 已完成：移除 company-history 剩餘無效 wrapper／旗標與多餘 CSS，改用 `milestones-js-ready`，保留無 JavaScript fallback；移除不必要 overflow、寬度、min-width、grid display 與手機首項額外留白。
 - 已完成：合併三個 fallback milestone panel 為單一 timeline，移除舊 panel id、preview content id 與過時結構；JS 移除 IIFE、年份格式檢查、viewport 變數與不必要的 panel DOM 查找。
@@ -928,15 +938,3 @@
 - 已完成：因沒有合適的 LINE 圖示，恢復詳細頁原本的 LinkedIn「in」圖示與分享功能。
 - 已完成：行動裝置隱藏最新消息詳細頁麵包屑，避免長標題造成上方導覽區換行與版面跑掉；桌機維持顯示。
 - 已完成：行動裝置的最新消息詳細頁卡片與 Header 間增加 `24px` 上方間距，避免卡片貼住 Header。
-- 已完成：移除各頁面不再保留的 `*-style-audit.md` 分析文件，共 13 份。
-- 實際驗證：`git diff --check`、確認 13 份分析文件均已刪除。
-- 未驗證：無程式碼與畫面變更，不需進行瀏覽器、RWD 或無障礙驗收。
-- Commit：無，尚未提交。
-- 已完成：將頁面實際引用的通用或不具語意圖片檔名改為用途命名，並同步更新 HTML、CSS、JavaScript 與 preload 引用。
-- 實際驗證：確認舊圖片檔名引用為零、確認所有掃描到的圖片路徑均存在、`git diff --check`。
-- 未驗證：瀏覽器畫面、桌機／手機 RWD、圖片載入與跨瀏覽器驗收；目前環境沒有 `node`，未執行 JavaScript 語法檢查。
-- Commit：無，尚未提交。
-- 已完成：依頁面與共用資產責任整理圖片資料夾；營運資源、Careers 福利圖示與服務背景圖改放至對應資料夾，並同步更新頁面引用。
-- 實際驗證：確認舊圖片路徑引用為零、確認所有掃描到的圖片路徑均存在、`git diff --check`。
-- 未驗證：瀏覽器畫面、桌機／手機 RWD、圖片載入與跨瀏覽器驗收。
-- Commit：無，尚未提交。

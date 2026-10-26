@@ -63,6 +63,7 @@ public static class NewsEndpoints
         var uploadScanner = options.UploadScanner;
         var newsWriteLock = options.NewsWriteLock;
         var categoriesWriteLock = options.CategoriesWriteLock;
+        var loginFailureTracker = app.Services.GetRequiredService<AdminLoginFailureTracker>();
 
         const string captchaSessionKey = "admin-login-captcha";
         const long maxUploadRequestBytes = 16 * 1024 * 1024;
@@ -94,16 +95,32 @@ public static class NewsEndpoints
 
             string? expectedCaptcha = context.Session.GetString(captchaSessionKey);
             context.Session.Remove(captchaSessionKey);
-
-            // 帳號密碼跟驗證碼都要用「固定時間比對」,防止有人靠回應時間差去猜密碼
-            bool usernameMatches = FixedTimeEquals(request.Username, adminUsername);
-            bool passwordMatches = FixedTimeEquals(request.Password, adminPassword);
             bool captchaMatches = FixedTimeTextEquals(expectedCaptcha, request.Captcha);
-
-            if (!usernameMatches || !passwordMatches || !captchaMatches)
+            if (!captchaMatches)
             {
                 return Results.Unauthorized();
             }
+
+            // 帳號密碼跟驗證碼都要用「固定時間比對」,防止有人靠回應時間差去猜密碼
+            bool usernameMatches = FixedTimeEquals(request.Username, adminUsername);
+            if (usernameMatches && loginFailureTracker.IsBlocked(DateTimeOffset.UtcNow, out _))
+            {
+                // 維持與不存在帳號／錯誤密碼相同的 401,避免透露帳號暫停狀態。
+                // 不更新 blockedUntil,所以暫停期間的請求不會延長 5 分鐘。
+                return Results.Unauthorized();
+            }
+
+            bool passwordMatches = FixedTimeEquals(request.Password, adminPassword);
+
+            if (!usernameMatches || !passwordMatches)
+            {
+                if (usernameMatches && !passwordMatches)
+                    loginFailureTracker.RegisterFailure(DateTimeOffset.UtcNow);
+
+                return Results.Unauthorized();
+            }
+
+            loginFailureTracker.RegisterSuccess();
 
             var claims = new Claim[] { new Claim(ClaimTypes.Name, adminUsername) };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -15,39 +15,52 @@
     <title>員工專區 - 亞太國際物流</title>
     <link rel="stylesheet" href="~/css/base/reset.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/base/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/base/icons.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/pages/admin.css" asp-append-version="true" />
 </head>
 <body class="admin-page">
     <a class="skip-link" href="#main-content">跳至主要內容</a>
     <main id="main-content" class="admin-shell">
         <section id="loginPanel" class="admin-login" aria-labelledby="login-title">
-            <div class="admin-login__card">
+            <header class="admin-login__header">
                 <a class="admin-login__logo" href="/" aria-label="返回亞太國際物流首頁">
                     <img src="/public/images/logo/apli-logo.svg" alt="亞太國際物流標誌" />
                 </a>
-                <h1 id="login-title">員工專區</h1>
-                <form id="loginForm" class="admin-form" novalidate>
-                    <label class="admin-field" for="loginUsername">
-                        <span>帳號</span>
-                        <input id="loginUsername" name="username" autocomplete="username" required />
-                    </label>
-                    <label class="admin-field" for="loginPassword">
-                        <span>密碼</span>
-                        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
-                    </label>
-                    <div class="admin-captcha">
-                        <label class="admin-field" for="loginCaptcha">
-                            <span>圖形驗證碼</span>
-                            <div class="admin-captcha__input-row">
-                                <input id="loginCaptcha" name="captcha" inputmode="text" autocomplete="off" maxlength="5" required />
-                                <button class="admin-captcha__refresh" type="button" id="refreshCaptcha">重新產生</button>
-                            </div>
+            </header>
+
+            <div class="admin-login__content">
+                <div class="admin-login__card">
+                    <p class="admin-login__eyebrow">員工專區</p>
+                    <h1 id="login-title">登入</h1>
+                    <form id="loginForm" class="admin-form" novalidate>
+                        <label class="admin-field admin-login__field" for="loginUsername">
+                            <span class="sr-only">帳號</span>
+                            <span class="admin-login__field-control">
+                                <i class="ph ph-user-circle" aria-hidden="true"></i>
+                                <input id="loginUsername" name="username" autocomplete="username" placeholder="使用者名稱" required />
+                            </span>
                         </label>
-                        <img id="captchaImage" class="admin-captcha__image" src="/api/admin/captcha" alt="圖形驗證碼，請輸入圖片中的 5 個字元" />
-                    </div>
-                    <p id="loginMessage" class="admin-message" aria-live="polite"></p>
-                    <button class="admin-button admin-button--primary" type="submit">登入</button>
-                </form>
+                        <label class="admin-field admin-login__field" for="loginPassword">
+                            <span class="sr-only">密碼</span>
+                            <span class="admin-login__field-control">
+                                <i class="ph ph-lock" aria-hidden="true"></i>
+                                <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="密碼" required />
+                            </span>
+                        </label>
+                        <div class="admin-captcha">
+                            <label class="admin-field" for="loginCaptcha">
+                                <span>圖形驗證碼</span>
+                                <div class="admin-captcha__input-row">
+                                    <input id="loginCaptcha" name="captcha" inputmode="text" autocomplete="off" placeholder="請輸入驗證碼" maxlength="5" required />
+                                    <button class="admin-captcha__refresh" type="button" id="refreshCaptcha">重新產生</button>
+                                </div>
+                            </label>
+                            <img id="captchaImage" class="admin-captcha__image" src="/api/admin/captcha" alt="圖形驗證碼，請輸入圖片中的 5 個字元" />
+                        </div>
+                        <p id="loginMessage" class="admin-message" aria-live="polite"></p>
+                        <button class="admin-button admin-button--primary" type="submit">登入</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -62,8 +75,13 @@
                 </div>
             </header>
 
-            <div class="admin-grid">
-                <section class="admin-card admin-card--editor" aria-labelledby="editor-title">
+            <nav class="admin-workspace__nav" aria-label="後台功能選單">
+                <button class="admin-workspace__tab" type="button" data-admin-view="news-list" aria-current="page">消息列表</button>
+                <button class="admin-workspace__tab" type="button" data-admin-view="news-form">新增消息</button>
+                <button class="admin-workspace__tab" type="button" data-admin-view="categories">新增分類</button>
+            </nav>
+
+            <section class="admin-view-panel admin-card" data-admin-view-panel="news-form" aria-labelledby="editor-title" hidden>
                     <div class="admin-card__heading">
                         <h2 id="editor-title">新增／編輯消息</h2>
                     </div>
@@ -132,9 +150,9 @@
                             <button class="admin-button admin-button--secondary" type="button" id="resetButton">清空</button>
                         </div>
                     </form>
-                </section>
+            </section>
 
-                <section class="admin-card" aria-labelledby="category-title">
+            <section class="admin-view-panel admin-card" data-admin-view-panel="categories" aria-labelledby="category-title" hidden>
                     <div class="admin-card__heading">
                         <h2 id="category-title">分類管理</h2>
                     </div>
@@ -145,10 +163,9 @@
                     </form>
                     <p id="categoryMessage" class="admin-message" aria-live="polite"></p>
                     <div id="categoryRows" class="admin-category-list"></div>
-                </section>
-            </div>
+            </section>
 
-            <section class="admin-card" aria-labelledby="news-list-title">
+            <section class="admin-view-panel admin-card" data-admin-view-panel="news-list" aria-labelledby="news-list-title">
                 <div class="admin-card__heading admin-card__heading--row">
                     <div>
                         <h2 id="news-list-title">消息列表</h2>
