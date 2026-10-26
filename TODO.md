@@ -2,6 +2,50 @@
 
 ## 2026-10-26
 
+- 已完成：調整最新消息詳細頁，移除 Hero 圖片與 Hero 標題，保留頁面頂端麵包屑；文章改為淺灰背景上的中央白色圓角卡片，桌機限制文章欄寬、圖片置中，手機改為滿寬內距並保留附件與返回列表互動。
+- 已完成：將詳細頁麵包屑改為 Header 下方的置中橫列，並讓「返回最新消息」按鈕與下方文章標題共用相同內容欄寬及左緣。
+- 已完成：將麵包屑改為與 `news-detail__meta` 共用相同的 `720px` 內容欄寬並左對齊，返回按鈕維持同一內容基準線。
+- 已完成：修正詳細頁返回按鈕沿用 `.button--primary` 的置中排列問題，改為在共用內容欄寬內左對齊，與麵包屑及 `news-detail__meta` 對齊。
+- 已完成：將返回按鈕由 inline flex 改為 block-level flex，讓水平 auto margin 生效，按鈕文字與下方文章標題的左緣一致。
+- 已完成：縮短詳細頁麵包屑容器的最小高度，桌機調整為 `48–64px`、手機調整為 `48px`，減少 Header 下方多餘留白。
+- 已完成：再次縮短詳細頁麵包屑容器高度，桌機調整為 `32–48px`、手機調整為 `40px`。
+- 已完成：將最新消息詳細頁標題 `.news-detail h1` 調整為 `37px`、字重 `500`。
+- 已完成：移除詳細頁分類 meta 的背景色，並將日期與分類的 `gap` 調整為 `3px`。
+- 已完成：將 `.news-detail__header` 的 `padding-bottom` 收窄為 `20px`，讓標題更靠近下方分隔線。
+- 已完成：將 `.news-detail__meta` 的 `margin-bottom` 調整為 `8px`，縮短日期／分類與標題的距離。
+- 已完成：在最新消息詳細頁標題下方加入參考圖樣式的 Facebook、LinkedIn、Twitter 與分享節點四個圖示；分享節點依瀏覽器能力執行原生分享或複製連結，保留鍵盤操作與 ARIA 標籤。
+- 已完成：縮小詳細頁分享列圖示比例。
+- 已完成：依第二張參考圖再縮小分享 icon 與彼此間距，新增全域 `--color-text-subtle: #999999` 淺灰 token，分享列改用該 token。
+- 已完成：補上新聞詳細頁 SSR 的 `og:url`；只有使用者上傳自訂圖片時才輸出 `og:image`、`og:image:alt` 與 `twitter:image`，沒有圖片時不產生預設截圖，並依圖片狀態切換 Twitter card 類型。
+- 已完成：在最新消息詳細頁文章內容與附件下方補上「返回最新消息」按鈕，沿用文章內容欄寬與返回按鈕樣式，改善讀完文章後的回列表操作。
+- 已完成：將文章底部返回按鈕改為水平置中、內容寬度，並沿用全域按鈕的品牌色與白色文字。
+- 已完成：將文章底部返回按鈕改為遵循全域 `.button--primary` 的半透明橘底、品牌橘 hover／focus、白字與 focus outline，保留底部置中布局。
+- 已完成：行動裝置的詳細頁標題 `.news-detail h1` 調整為 `26px`，並更新詳細頁 CSS 快取版本。
+- 已完成：將文章底部返回按鈕與內容的 `margin-top` 調整為 `150px`，並更新詳細頁 CSS 快取版本，確保新間距實際載入。
+- 實際驗證：`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；待部署公開網址後以 Facebook Sharing Debugger 確認預覽快取。
+- 未驗證：正式網域爬蟲可達性、Facebook／LinkedIn／Twitter 實際預覽、跨瀏覽器與社群平台快取更新。
+- 實際驗證：`node --check wwwroot/js/pages/news-detail.js`、`git diff --check`；待瀏覽器確認各分享連結、複製連結與原生分享互動。
+- 未驗證：跨瀏覽器、實體裝置與無障礙人工驗收。
+- 實際驗證：`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`；嘗試以 Playwright 檢查詳細頁桌機／手機幾何，但目前環境沒有 `playwright` 模組而未能執行。
+- 未驗證：詳細頁含／不含圖片與附件的實際桌機／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正後台新增／修改最新消息時的超大 multipart 請求處理；附件前端限制為 10 MB，表單介面補上限制提示，後端在讀取表單前檢查 16 MiB 請求上限並將 Kestrel 的 413 轉為可讀錯誤訊息，避免未處理例外。
+- 已完成：統一後台最新消息表單的儲存中、成功與錯誤訊息，集中在同一個提示區塊顯示，避免錯誤文字分散且補上連線失敗的錯誤狀態。
+- 已完成：補上檔案安全掃描服務不可用時的具體錯誤訊息，並讓前端依 413、503 與其他空回應顯示明確原因，不再顯示「請檢查欄位內容」。
+- 已完成：將檔案安全掃描失敗訊息改為使用者可理解的說法，明確指出不是欄位填寫錯誤，並依情況提示聯絡系統管理員或稍後再試。
+- 已完成：為本機 `Development` 環境加入明確的檔案掃描略過流程，讓 macOS 測試可上傳圖片；正式環境找不到掃描工具仍會阻擋檔案，並保留警告紀錄。
+- 實際驗證：`node --check wwwroot/js/pages/admin.js`、`dotnet build -c Release`（0 warnings、0 errors）、`git diff --check`。
+- 未驗證：後台瀏覽器實際選取超過 10 MB 附件、新增／修改含附件流程、桌機／手機、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+## 2026-10-26
+
+- 已完成：整理 News 詳細頁為 SSR 單一渲染流程，移除未使用的 related-news HTML／CSS、`news-detail.js` 與 `news.css` 載入；將附件檔案資訊、附件連結與重複標題段落判斷移至 `NewsSeoService`，保留圖片狀態的伺服器替換標記與附件安全檔名解碼 fallback；Hero 標題改為非 `h1`，文章標題保留唯一 `h1`。
+- 實際驗證：確認 `PublicPageRenderer` 會對 `/news/{id}` 套用 `NewsSeoService.RenderDetailPage`；`dotnet build -c Release`、`node --check wwwroot/js/pages/news.js`、`git diff --check`。
+- 未驗證：News 詳細頁 SSR 實際輸出、含／不含圖片與附件的桌機／手機畫面、錯誤路由、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：整理 News 列表實際生效的 CSS／SSR／JS 結構，移除被列表版面覆蓋的 Grid／手機重複規則、無作用篩選狀態規則與未使用的 `toArray`、附件／read-more 產生流程；保留 news-detail 相關卡片仍使用的共用 media／附件樣式與資料契約，並同步更新列表 cache key。
 - 實際驗證：全專案搜尋確認 News 列表清理未刪除 news-detail 與 Admin／API 仍使用的圖片、附件與欄位；`node --check wwwroot/js/pages/news.js`、`git diff --check`、`dotnet build -c Release`。
 - 未驗證：News／news-detail 桌機與手機實際畫面、SSR／API 瀏覽器互動、跨瀏覽器、實體裝置與無障礙人工驗收。
@@ -827,3 +871,10 @@
 - 實際驗證：`git diff --check`。
 - 未驗證：瀏覽器畫面、桌機／手機 RWD、跨瀏覽器與無障礙人工驗收。
 - Commit：無，尚未提交。
+- 已完成：修正詳細頁分享功能的 URL 清理、canonical 優先、X 分享網址、複製失敗判斷、iOS 選取 fallback 與狀態計時器疊加問題；分享區在 JS 初始化前保持不可操作。
+- 已完成：系統分享 API 開啟失敗時改以複製詳細頁連結作為 fallback，不再只顯示「無法開啟分享功能」；並更新分享 JS 快取版本。
+- 已完成：將詳細頁分享工具的 Twitter 小鳥圖示替換為 X logo，並同步更新分享資料鍵值、ARIA 標籤與快取版本。
+- 已完成：將詳細頁分享工具的 LinkedIn「in」改為 LINE 字樣圖示，並同步改用 LINE 分享網址、ARIA 標籤與快取版本。
+- 已完成：因沒有合適的 LINE 圖示，恢復詳細頁原本的 LinkedIn「in」圖示與分享功能。
+- 已完成：行動裝置隱藏最新消息詳細頁麵包屑，避免長標題造成上方導覽區換行與版面跑掉；桌機維持顯示。
+- 已完成：行動裝置的最新消息詳細頁卡片與 Header 間增加 `24px` 上方間距，避免卡片貼住 Header。

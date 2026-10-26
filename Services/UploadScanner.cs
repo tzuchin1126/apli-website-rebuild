@@ -6,11 +6,16 @@ public class UploadScanner
 {
     private readonly IConfiguration _config;
     private readonly ILogger<UploadScanner> _logger;
+    private readonly IHostEnvironment _environment;
 
-    public UploadScanner(IConfiguration config, ILogger<UploadScanner> logger)
+    public UploadScanner(
+        IConfiguration config,
+        ILogger<UploadScanner> logger,
+        IHostEnvironment environment)
     {
         _config = config;
         _logger = logger;
+        _environment = environment;
     }
 
     public async Task ScanAsync(string filePath, CancellationToken cancellationToken)
@@ -18,7 +23,13 @@ public class UploadScanner
         string? scannerPath = FindScannerPath();
         if (scannerPath == null)
         {
-            throw new UploadScanException("目前無法執行檔案安全掃描，檔案未公開。", true);
+            if (_environment.IsDevelopment())
+            {
+                _logger.LogWarning("Development 環境找不到檔案安全掃描工具，略過掃描以便本機測試上傳。正式環境仍會阻擋未經掃描的檔案。");
+                return;
+            }
+
+            throw new UploadScanException("目前無法儲存檔案：網站的檔案安全檢查服務尚未啟用，請聯絡系統管理員。", true);
         }
 
         var startInfo = new ProcessStartInfo(scannerPath);
@@ -33,7 +44,7 @@ public class UploadScanner
         Process? process = Process.Start(startInfo);
         if (process == null)
         {
-            throw new UploadScanException("目前無法啟動檔案安全掃描，檔案未公開。", true);
+            throw new UploadScanException("目前無法儲存檔案：檔案安全檢查服務未正常啟動，請聯絡系統管理員。", true);
         }
 
         using (process)
@@ -59,7 +70,7 @@ public class UploadScanner
                     throw;
                 }
 
-                throw new UploadScanException("檔案安全掃描逾時，檔案未公開。", true);
+                throw new UploadScanException("目前無法儲存檔案：檔案安全檢查逾時，請稍後再試。", true);
             }
 
             // Windows Defender：0 = 沒有威脅，2 = 發現威脅
@@ -76,7 +87,7 @@ public class UploadScanner
                 throw new UploadScanException("檔案安全掃描發現威脅，檔案未公開。", false);
             }
 
-            throw new UploadScanException("檔案安全掃描未成功完成，檔案未公開。", true);
+            throw new UploadScanException("目前無法儲存檔案：檔案安全檢查未完成，請稍後再試。", true);
         }
     }
 

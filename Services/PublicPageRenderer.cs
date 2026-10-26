@@ -96,7 +96,7 @@ public class PublicPageRenderer
         // 6. SEO：把新聞內容直接寫進 HTML
         if (newsItem != null)
         {
-            html = NewsSeoService.RenderDetailPage(html, newsItem);
+            html = NewsSeoService.RenderDetailPage(html, newsItem, context.Request);
         }
         else if (pageFile == "index.html")
         {

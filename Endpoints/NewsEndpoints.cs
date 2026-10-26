@@ -210,7 +210,21 @@ public static class NewsEndpoints
                 sizeLimit.MaxRequestBodySize = maxUploadRequestBytes;
             }
 
-            NewsSaveRequest? requestData = await ReadNewsSaveRequestAsync(context);
+            if (context.Request.ContentLength > maxUploadRequestBytes)
+            {
+                return Results.Text("上傳資料過大，請將附件控制在 10 MB 以內。", statusCode: StatusCodes.Status413PayloadTooLarge);
+            }
+
+            NewsSaveRequest? requestData;
+            try
+            {
+                requestData = await ReadNewsSaveRequestAsync(context);
+            }
+            catch (Microsoft.AspNetCore.Http.BadHttpRequestException exception) when (exception.StatusCode == StatusCodes.Status413PayloadTooLarge)
+            {
+                return Results.Text("上傳資料過大，請將附件控制在 10 MB 以內。", statusCode: StatusCodes.Status413PayloadTooLarge);
+            }
+
             if (requestData == null)
             {
                 return Results.BadRequest("無法讀取消息資料。");
@@ -265,7 +279,7 @@ public static class NewsEndpoints
                 {
                     if (exception.ServiceUnavailable)
                     {
-                        return Results.StatusCode(503);
+                        return Results.Text(exception.Message, statusCode: StatusCodes.Status503ServiceUnavailable);
                     }
 
                     return Results.BadRequest(exception.Message);

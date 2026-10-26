@@ -1,217 +1,120 @@
-// ---------------------------------------------------------------------------
-// 消息詳細頁
-// - 從 URL 取得 id 參數
-// - 從公開 API 載入指定的已發布消息
-// - 渲染標題、日期、分類、內容、圖片、附件
-// - 找不到時顯示錯誤訊息
-// ---------------------------------------------------------------------------
+const share = document.querySelector("[data-news-share]");
 
-function initNewsDetail() {
-  const detail = document.querySelector("[data-news-detail]");
-  if (!detail) return;
+if (share) {
+  const status = share.querySelector("[data-share-status]");
+  const shareButton = share.querySelector("[data-share-action]");
+  const pageUrl = getPageUrl();
+  const pageTitle = getPageTitle();
+  let statusTimer = 0;
 
-  // ---------------------------------------------------------------------------
-  // 取得 id 與各個 DOM 元素
-  // ---------------------------------------------------------------------------
-  const routeMatch = window.location.pathname.match(/^\/news\/([^/]+)\/?$/i);
-  let id = null;
-  if (routeMatch) {
-    id = decodeURIComponent(routeMatch[1]);
-  } else {
-    id = new URLSearchParams(window.location.search).get("id");
+  setupNetworkLinks();
+  share.dataset.shareReady = "true";
+
+  if (shareButton) {
+    shareButton.addEventListener("click", handleShareClick);
   }
 
-  const titleEl = detail.querySelector("[data-news-title]");
-  const dateEl = detail.querySelector("[data-news-date]");
-  const tagEl = detail.querySelector("[data-news-tag]");
-  const contentEl = detail.querySelector("[data-news-content]");
-  const imageEl = detail.querySelector("[data-news-image]");
-  const attachmentEl = detail.querySelector("[data-news-attachment]");
-  const attachmentNameEl = detail.querySelector("[data-news-attachment-name]");
-  const attachmentWrapEl = detail.querySelector("[data-news-attachment-wrap]");
-  const errorEl = document.querySelector("[data-news-error]");
-  const descriptionEl = document.querySelector('meta[name="description"]');
-  const ogTitleEl = document.querySelector('meta[property="og:title"]');
-  const ogDescriptionEl = document.querySelector('meta[property="og:description"]');
+  // 優先使用 canonical，沒有的話用目前網址（去掉 ? 和 # 的部分）
+  function getPageUrl() {
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink && canonicalLink.href) {
+      return canonicalLink.href;
+    }
 
-  if (!id) {
-    showError();
-    return;
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.hash = "";
+    return url.href;
   }
 
-  // 正規化消息物件：相容 camelCase 與 PascalCase
-  function normalizeNewsItem(item) {
-    return {
-      id: item.id != null ? item.id : item.Id,
-      date: item.date != null ? item.date : item.Date,
-      tag: item.tag != null ? item.tag : item.Tag,
-      title: item.title != null ? item.title : item.Title,
-      content: item.content || item.Content || "",
-      url: item.url || item.Url || "",
-      attachmentName: item.attachmentName || item.AttachmentName || "",
-      imageUrl: item.imageUrl || item.ImageUrl || "",
-      hasAttachment: item.hasAttachment != null ? item.hasAttachment : (item.HasAttachment || false),
+  function getPageTitle() {
+    const heading = document.querySelector(".news-detail h1");
+    if (heading) {
+      return heading.textContent.trim();
+    }
+    return document.title;
+  }
+
+  // 把各社群平台的分享網址填進連結
+  function setupNetworkLinks() {
+    const encodedUrl = encodeURIComponent(pageUrl);
+    const encodedTitle = encodeURIComponent(pageTitle);
+
+    const networkUrls = {
+      facebook: "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl,
+      linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + encodedUrl,
+      x: "https://x.com/intent/post?url=" + encodedUrl + "&text=" + encodedTitle
     };
-  }
 
-  function formatNewsDate(value) {
-    const match = String(value || "").match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
-    if (!match) return value || "";
-    return match[1] + "." + match[2].padStart(2, "0") + "." + match[3].padStart(2, "0");
-  }
-
-  function createRelatedCard(item) {
-    const article = document.createElement("article");
-    article.className = "news-item";
-    article.innerHTML =
-      '<a class="news-card" href="/news/' + encodeURIComponent(item.id) + '">' +
-      '<span class="news-card__media"></span>' +
-      '<span class="news-card__body">' +
-      '<span class="news-card__meta">' +
-      '<span class="news-card__tag"></span>' +
-      '<time class="news-card__date"></time>' +
-      '<span class="news-card__attachment" aria-label="含附件" hidden>' +
-      '<i class="ph ph-paperclip" aria-hidden="true"></i>' +
-      '<span class="sr-only">含附件</span>' +
-      "</span>" +
-      "</span>" +
-      '<strong class="news-card__title"></strong>' +
-      '<span class="news-card__read-more">查看更多 <span aria-hidden="true">↗</span></span>' +
-      "</span>" +
-      "</a>";
-
-    const card = article.querySelector(".news-card");
-    const media = card.querySelector(".news-card__media");
-    const date = card.querySelector(".news-card__date");
-    const attachment = card.querySelector(".news-card__attachment");
-
-    media.classList.add(item.imageUrl ? "has-image" : "is-default");
-    if (item.imageUrl) {
-      const image = document.createElement("img");
-      image.className = "news-card__image";
-      image.alt = "";
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.src = item.imageUrl;
-      image.addEventListener("error", function () {
-        image.remove();
-        media.classList.remove("has-image");
-        media.classList.add("is-default");
-      }, { once: true });
-      media.append(image);
-    }
-
-    date.dateTime = item.date || "";
-    date.textContent = formatNewsDate(item.date);
-    card.querySelector(".news-card__tag").textContent = item.tag || "最新消息";
-    card.querySelector(".news-card__title").textContent = item.title || "最新消息";
-    attachment.hidden = !item.hasAttachment;
-    return article;
-  }
-
-  // 渲染消息詳細內容
-  function renderNewsDetail(item) {
-    // 更新頁面標題
-    document.title = item.title + " - 亞太國際物流";
-    const description = item.content.trim().replace(/\s+/g, " ").slice(0, 160);
-    const fallbackDescription = item.title + " - 亞太國際物流";
-
-    if (descriptionEl) descriptionEl.content = description || fallbackDescription;
-    if (ogTitleEl) ogTitleEl.content = document.title;
-    if (ogDescriptionEl) ogDescriptionEl.content = description || fallbackDescription;
-
-    // 基本資料
-    titleEl.textContent = item.title;
-    dateEl.textContent = item.date;
-    dateEl.dateTime = item.date;
-    tagEl.textContent = item.tag;
-
-    // 內容：以換行分段
-    contentEl.replaceChildren();
-    const paragraphs = item.content.split("\n");
-    const titleText = String(item.title || "").trim();
-    const contentLines = paragraphs.map((paragraph) => paragraph.trim()).filter(Boolean);
-    const hasAdditionalContent = contentLines.some((line) => line !== titleText);
-    let isFirstContentLine = true;
-    for (let i = 0; i < paragraphs.length; i++) {
-      const trimmed = paragraphs[i].trim();
-      if (!trimmed) continue;
-      if (isFirstContentLine && hasAdditionalContent && trimmed === titleText) {
-        isFirstContentLine = false;
-        continue;
+    const links = share.querySelectorAll("[data-share-network]");
+    for (let i = 0; i < links.length; i++) {
+      const network = links[i].dataset.shareNetwork;
+      if (networkUrls[network]) {
+        links[i].href = networkUrls[network];
       }
-      isFirstContentLine = false;
-      const p = document.createElement("p");
-      p.textContent = trimmed;
-      contentEl.append(p);
     }
-
-    // 圖片：列表頁的系統預設圖不視為新聞自訂圖片。
-    const hasCustomImage = !isDefaultNewsImage(item.imageUrl);
-    detail.classList.toggle("news-detail--with-image", hasCustomImage);
-    detail.classList.toggle("news-detail--without-image", !hasCustomImage);
-
-    if (imageEl && hasCustomImage) {
-      imageEl.src = item.imageUrl;
-      imageEl.alt = item.title;
-      imageEl.hidden = false;
-    } else if (imageEl) {
-      imageEl.removeAttribute("src");
-      imageEl.alt = "";
-      imageEl.hidden = true;
-    }
-
-    // 附件連結
-    if (item.url) {
-      attachmentEl.href = item.url;
-
-      // 優先用 attachmentName，否則從 URL 取檔名
-      let fileName = item.attachmentName;
-      if (!fileName) {
-        const urlParts = item.url.split("/");
-        const lastPart = urlParts[urlParts.length - 1].split("?")[0];
-        fileName = decodeURIComponent(lastPart);
-      }
-      attachmentNameEl.textContent = fileName;
-      attachmentWrapEl.hidden = false;
-    }
-
-    // 顯示詳細區塊
-    detail.hidden = false;
   }
 
-  function isDefaultNewsImage(value) {
-    const imageUrl = String(value || "").trim();
-    if (!imageUrl) return true;
+  function showStatus(message) {
+    if (!status) return;
 
-    const imagePath = imageUrl.split(/[?#]/, 1)[0];
-    return imagePath === "/public/images/index/news.png"
-      || imagePath === "public/images/index/news.png";
+    window.clearTimeout(statusTimer);
+    status.textContent = message;
+    statusTimer = window.setTimeout(function () {
+      status.textContent = "";
+    }, 2400);
   }
 
-  // 顯示錯誤狀態
-  function showError() {
-    detail.hidden = true;
-    if (errorEl) errorEl.hidden = false;
+  // 舊瀏覽器的複製方式，成功回傳 true，失敗回傳 false
+  function fallbackCopy() {
+    const input = document.createElement("textarea");
+    input.value = pageUrl;
+    input.setAttribute("readonly", "");
+    input.className = "news-detail__share-copy-input";
+    document.body.appendChild(input);
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+
+    const copied = document.execCommand("copy");
+    document.body.removeChild(input);
+    return copied;
   }
 
-  // 載入並渲染
-  async function loadNewsDetail() {
+  async function copyPageUrl() {
+    let copied = false;
+
     try {
-      const response = await fetch("/api/public/news/" + encodeURIComponent(id));
-      if (!response.ok) throw new Error("News item not found");
-
-      const rawItem = await response.json();
-      renderNewsDetail(normalizeNewsItem(rawItem));
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(pageUrl);
+        copied = true;
+      } else {
+        copied = fallbackCopy();
+      }
     } catch (error) {
-      showError();
+      copied = false;
+    }
+
+    if (copied) {
+      showStatus("連結已複製");
+    } else {
+      showStatus("無法複製連結，請手動複製網址");
     }
   }
 
-  loadNewsDetail();
-}
+  async function handleShareClick() {
+    // 不支援系統分享選單（多半是桌機），直接複製連結
+    if (!navigator.share) {
+      await copyPageUrl();
+      return;
+    }
 
-// ---------------------------------------------------------------------------
-// 啟動
-// ---------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", initNewsDetail);
+    try {
+      await navigator.share({ title: pageTitle, url: pageUrl });
+    } catch (error) {
+      // 使用者按取消不用處理，其他錯誤才退回複製連結
+      if (error.name !== "AbortError") {
+        await copyPageUrl();
+      }
+    }
+  }
+}

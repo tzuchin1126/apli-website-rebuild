@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 圖片上傳的限制
   const MAX_SOURCE_IMAGE_BYTES = 5 * 1024 * 1024; // 原始圖片最大 5MB
   const MAX_STORED_IMAGE_BYTES = 1 * 1024 * 1024; // 壓縮後最大 1MB
+  const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024; // 附件最大 10MB
   const MAX_IMAGE_EDGE = 1920; // 圖片最長邊不超過 1920px
 
   // ---------------------------------------------------------------------------
@@ -433,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function onNewsSave(event) {
     event.preventDefault();
     const messageEl = document.getElementById("formMessage");
-    messageEl.removeAttribute("data-state");
+    messageEl.dataset.state = "pending";
     messageEl.textContent = "儲存中...";
 
     // 把表單欄位收集起來
@@ -455,6 +456,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const imageFile = document.getElementById("newsImageFile").files[0];
     const attachmentFile = document.getElementById("newsAttachmentFile").files[0];
+
+    if (attachmentFile && (attachmentFile.size <= 0 || attachmentFile.size > MAX_ATTACHMENT_BYTES)) {
+      messageEl.dataset.state = "error";
+      messageEl.textContent = "附件不可超過 10 MB，請先縮小檔案再上傳。";
+      return;
+    }
 
     if (imageFile) {
       try {
@@ -487,11 +494,20 @@ document.addEventListener("DOMContentLoaded", function () {
         messageEl.dataset.state = "success";
         messageEl.textContent = "消息已成功儲存。";
       } else {
-        const errorText = await response.text();
+        const errorText = (await response.text()).trim();
         messageEl.dataset.state = "error";
-        messageEl.textContent = errorText || "儲存失敗，請檢查欄位內容。";
+        if (errorText) {
+          messageEl.textContent = errorText;
+        } else if (response.status === 413) {
+          messageEl.textContent = "上傳資料過大，請將附件控制在 10 MB 以內。";
+        } else if (response.status === 503) {
+          messageEl.textContent = "檔案安全掃描服務目前無法使用，檔案未儲存。";
+        } else {
+          messageEl.textContent = "儲存失敗，伺服器沒有提供詳細原因。";
+        }
       }
     } catch (error) {
+      messageEl.dataset.state = "error";
       messageEl.textContent = "目前無法連線，請稍後再試。";
     }
   }

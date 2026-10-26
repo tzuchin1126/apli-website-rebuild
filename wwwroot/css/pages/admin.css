@@ -185,15 +185,30 @@
 }
 
 .admin-message {
-  min-height: 1.5em;
+  min-height: 0;
   margin: 0;
   color: var(--admin-danger);
   font-size: .9rem;
   font-weight: var(--font-weight-medium);
 }
 
+.admin-message:not(:empty) {
+  min-height: 1.5em;
+  padding: 12px 14px;
+  border: 1px solid rgb(183 43 33 / 28%);
+  background: rgb(183 43 33 / 7%);
+}
+
 .admin-message[data-state="success"] {
   color: var(--admin-success);
+  border-color: rgb(42 122 73 / 28%);
+  background: rgb(42 122 73 / 7%);
+}
+
+.admin-message[data-state="pending"] {
+  color: var(--admin-muted);
+  border-color: var(--admin-line);
+  background: var(--admin-soft);
 }
 
 .admin-workspace {

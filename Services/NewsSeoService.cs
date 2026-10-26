@@ -14,6 +14,7 @@ public static class NewsSeoService
     public const string MediaMarker = "<!-- news-detail-media -->";
     public const string ImageStateMarker = "news-detail-image-state";
     public const string ContentMarker = "<!-- news-detail-content -->";
+    public const string AttachmentMarker = "<!-- news-detail-attachment -->";
     public const string HomeLatestMarker = "<!-- home-latest-items -->";
     public const string NewsListMarker = "<!-- news-list-items -->";
 
@@ -25,11 +26,13 @@ public static class NewsSeoService
 
     // ===== 新聞詳細頁 =====
 
-    public static string RenderDetailPage(string pageMarkup, NewsItem item)
+    public static string RenderDetailPage(string pageMarkup, NewsItem item, HttpRequest request)
     {
         string pageTitle = BuildPageTitle(item);
         string description = BuildDescription(item);
         string title = Encode(item.Title);
+        string pageUrl = BuildAbsoluteUrl(request, request.Path.ToString());
+        string? imageUrl = HasCustomNewsImage(item) ? BuildAbsoluteUrl(request, item.ImageUrl) : null;
 
         string imageState = " news-detail--without-image";
         if (HasCustomNewsImage(item))
@@ -38,14 +41,15 @@ public static class NewsSeoService
         }
 
         string result = pageMarkup;
-        result = result.Replace(MetadataMarker, BuildMetadata(pageTitle, description, item));
+        result = result.Replace(MetadataMarker, BuildMetadata(pageTitle, description, item, pageUrl, imageUrl));
         result = result.Replace(BreadcrumbMarker, title);
         result = result.Replace(DateMarker, Encode(item.Date));
         result = result.Replace(TagMarker, Encode(item.Tag));
         result = result.Replace(TitleMarker, title);
         result = result.Replace(ImageStateMarker, imageState);
         result = result.Replace(MediaMarker, BuildMediaMarkup(item));
-        result = result.Replace(ContentMarker, BuildContentMarkup(item.Content));
+        result = result.Replace(ContentMarker, BuildContentMarkup(item.Content, item.Title));
+        result = result.Replace(AttachmentMarker, BuildAttachmentMarkup(item));
 
         return result;
     }
@@ -90,21 +94,52 @@ public static class NewsSeoService
         return source;
     }
 
-    private static string BuildMetadata(string title, string description, NewsItem item)
+    private static string BuildMetadata(
+        string title,
+        string description,
+        NewsItem item,
+        string pageUrl,
+        string? imageUrl)
     {
         string encodedTitle = Encode(title);
         string encodedDescription = Encode(description);
+        string encodedPageUrl = Encode(pageUrl);
+        string imageMetadata = "";
+        string twitterCard = "summary";
+
+        if (!string.IsNullOrWhiteSpace(imageUrl))
+        {
+            string encodedImageUrl = Encode(imageUrl);
+            imageMetadata = "<meta property='og:image' content='" + encodedImageUrl + "'>\n" +
+                            "<meta property='og:image:alt' content='" + encodedTitle + "'>\n" +
+                            "<meta name='twitter:image' content='" + encodedImageUrl + "'>\n";
+            twitterCard = "summary_large_image";
+        }
 
         return "<meta name='description' content='" + encodedDescription + "'>\n" +
                "<title>" + encodedTitle + "</title>\n" +
+               "<link rel='canonical' href='" + encodedPageUrl + "'>\n" +
                "<meta property='og:type' content='article'>\n" +
                "<meta property='og:site_name' content='亞太國際物流'>\n" +
+               "<meta property='og:url' content='" + encodedPageUrl + "'>\n" +
                "<meta property='og:title' content='" + encodedTitle + "'>\n" +
                "<meta property='og:description' content='" + encodedDescription + "'>\n" +
+               imageMetadata +
                "<meta property='og:locale' content='zh_TW'>\n" +
                "<meta property='article:published_time' content='" + Encode(item.Date) + "'>\n" +
                "<meta property='article:section' content='" + Encode(item.Tag) + "'>\n" +
-               "<meta name='twitter:card' content='summary'>";
+               "<meta name='twitter:card' content='" + twitterCard + "'>";
+    }
+
+    private static string BuildAbsoluteUrl(HttpRequest request, string pathOrUrl)
+    {
+        if (Uri.TryCreate(pathOrUrl, UriKind.Absolute, out Uri? absoluteUrl))
+        {
+            return absoluteUrl.AbsoluteUri;
+        }
+
+        string origin = request.Scheme + "://" + request.Host.Value + request.PathBase;
+        return origin + "/" + pathOrUrl.TrimStart('/');
     }
 
     // 新聞詳細頁的媒體欄位。
@@ -116,12 +151,45 @@ public static class NewsSeoService
             return "";
         }
 
-        string img = "<img class='news-detail__image' data-news-image" +
+        string img = "<img class='news-detail__image'" +
                      " src='" + Encode(item.ImageUrl) + "'" +
                      " alt='" + Encode(item.Title) + "'" +
                      " loading='eager' decoding='sync'>";
 
-        return "<div class='news-detail__media' data-news-media>" + img + "</div>";
+        return "<div class='news-detail__media'>" + img + "</div>";
+    }
+
+    private static string BuildAttachmentMarkup(NewsItem item)
+    {
+        if (string.IsNullOrWhiteSpace(item.Url))
+        {
+            return "";
+        }
+
+        string fileName = item.AttachmentName;
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            string urlPath = item.Url.Split('?', '#')[0].TrimEnd('/');
+            int slashIndex = urlPath.LastIndexOf('/');
+            string encodedName = slashIndex >= 0 ? urlPath[(slashIndex + 1)..] : urlPath;
+
+            try
+            {
+                fileName = Uri.UnescapeDataString(encodedName);
+            }
+            catch (UriFormatException)
+            {
+                fileName = encodedName;
+            }
+        }
+
+        return "<div class='news-detail__attachment'>" +
+               "<p class='news-detail__attachment-heading'>附件：</p>" +
+               "<a class='news-detail__attachment-link' href='" + Encode(item.Url) + "' target='_blank' rel='noopener'>" +
+               "<i class='ph ph-paperclip' aria-hidden='true'></i>" +
+               "<span>" + Encode(fileName) + "</span>" +
+               "</a>" +
+               "</div>";
     }
 
     // 有圖片,而且不是預設圖,才算「自訂圖片」
@@ -152,7 +220,7 @@ public static class NewsSeoService
 
     // 把新聞內文依照換行字元切成一段一段,每一段包成一個 <p> 標籤,
     // 空白行直接跳過,不要產生空的 <p></p>。
-    private static string BuildContentMarkup(string content)
+    private static string BuildContentMarkup(string content, string title)
     {
         var builder = new StringBuilder();
 
@@ -161,7 +229,22 @@ public static class NewsSeoService
             return "";
         }
 
-        foreach (string line in content.Split('\n'))
+        string titleText = (title ?? "").Trim();
+        string[] lines = content.Split('\n');
+        bool hasAdditionalContent = false;
+
+        foreach (string line in lines)
+        {
+            string paragraph = line.Trim();
+            if (paragraph != "" && paragraph != titleText)
+            {
+                hasAdditionalContent = true;
+                break;
+            }
+        }
+
+        bool isFirstContentLine = true;
+        foreach (string line in lines)
         {
             string paragraph = line.Trim();
 
@@ -169,6 +252,14 @@ public static class NewsSeoService
             {
                 continue;
             }
+
+            if (isFirstContentLine && hasAdditionalContent && paragraph == titleText)
+            {
+                isFirstContentLine = false;
+                continue;
+            }
+
+            isFirstContentLine = false;
 
             builder.Append("<p>" + Encode(paragraph) + "</p>");
         }
