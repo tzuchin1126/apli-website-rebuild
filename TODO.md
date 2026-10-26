@@ -1,5 +1,25 @@
 # TODO
 
+- 已完成：依 company-history 最終整理版再簡化 JavaScript，改用直接 content 查找、`readMilestoneData`、`createYearPanel`、`yearButtons` 與 `appendChild`，移除 preview 變數、重複查找、三元運算與事件命名混淆。
+- 已完成：確認 CSS 無 `milestones-motion-ready`／`is-vertical-timeline` 殘留，保留 1973 最後面板 `min-height: 60vh`，並移除 HTML 的 `data-milestones-preview`。
+- 實際驗證：已更新 company-history JavaScript cache key。
+- 未驗證：瀏覽器實際桌機／手機版面、1973 IntersectionObserver active 狀態、網址 hash 導頁、停用 JavaScript fallback、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：補上 company-history 最後一個年份面板 `min-height: 60vh`，讓 1973 在頁面底部仍能進入 IntersectionObserver 偵測區。
+- 已完成：移除 company-history 剩餘無效 wrapper／旗標與多餘 CSS，改用 `milestones-js-ready`，保留無 JavaScript fallback；移除不必要 overflow、寬度、min-width、grid display 與手機首項額外留白。
+- 已完成：合併三個 fallback milestone panel 為單一 timeline，移除舊 panel id、preview content id 與過時結構；JS 移除 IIFE、年份格式檢查、viewport 變數與不必要的 panel DOM 查找。
+- 實際驗證：已更新 company-history CSS／JS cache key。
+- 未驗證：瀏覽器實際確認移除 `overflow-x: clip` 後的手機橫向溢出、1973 active 偵測、桌機／手機版面、停用 JavaScript fallback、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理 company-history 頁面 CSS，保留無 JavaScript 直立 fallback 與目前左側年份導覽／右側內容版型，移除水平卡片、Sticky、中軸交錯與多輪歷史覆寫規則，並統一頁面內重複色彩為既有 token。
+- 已完成：清理 company-history HTML，移除失效的 tabpanel／aria-live／多餘 role、隱藏 controls、過時註解與未使用頁面專屬 Hero class；服務子選單補上 Services hash 深層連結。
+- 已完成：將 company-history 年份控制改為頁內導覽語意，以 `aria-current` 標示目前年份；移除不必要的 `toArray`、分組排序與重複 panelEntries，並共用 reduced-motion media query。
+- 實際驗證：已搜尋 company-history HTML／JS／CSS 與共用 CSS 引用邊界，更新 CSS／JS cache key。
+- 未驗證：瀏覽器實際桌機／手機版面、年份導覽捲動、停用 JavaScript fallback、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：清理營運資源頁面已確認無作用、重複或被覆蓋的 CSS，合併頁面內的 760px 響應式規則，移除無引用 HTML class／單一圖片 picture 包裝／重複註解，保留既有版面、表格、位置網絡與動態效果。
 - 已完成：將營運資源頁服務子選單連結補上 `/services#inland-yard`、`#warehousing`、`#terminal-handling`、`#maintenance` 深層連結。
 - 已完成：將地理優勢進場動畫限制在 `prefers-reduced-motion: no-preference`，避免 reduced-motion 下因 selector 權重不足仍播放動畫；保留 tab、面板與按鈕圖示的 reduced-motion transition 關閉。

@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/tokens.css?v=20261025-body-letter-spacing-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
-  <link rel="stylesheet" href="css/pages/company-history.css?v=20261023-token-cleanup-v9">
+  <link rel="stylesheet" href="css/pages/company-history.css?v=20261026-company-history-cleanup-v2">
   <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 
@@ -70,10 +70,10 @@
           </button>
           <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
             <span class="nav-menu__title">服務項目</span>
-            <a href="/services"><span>內陸貨櫃集散站</span></a>
-            <a href="/services"><span>倉儲物流</span></a>
-            <a href="/services"><span>碼頭裝卸</span></a>
-            <a href="/services"><span>機具銷售與維修</span></a>
+            <a href="/services#inland-yard"><span>內陸貨櫃集散站</span></a>
+            <a href="/services#warehousing"><span>倉儲物流</span></a>
+            <a href="/services#terminal-handling"><span>碼頭裝卸</span></a>
+            <a href="/services#maintenance"><span>機具銷售與維修</span></a>
           </div>
         </div>
 
@@ -110,15 +110,15 @@
   </header>
 
   <!-- 主要內容區 -->
-  <main id="main-content" role="main">
+  <main id="main-content">
     <!-- Hero 主視覺區 -->
-    <section class="milestones-hero page-hero" aria-labelledby="milestones-title">
+    <section class="page-hero" aria-labelledby="milestones-title">
       <picture class="page-hero__media">
         <img class="page-hero__image" src="public/images/about/milestones-hero-container-yard.png" width="1448" height="1086" alt="港區貨櫃作業現場" fetchpriority="high" loading="eager" decoding="async">
       </picture>
-      <div class="milestones-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+      <div class="page-hero__overlay" aria-hidden="true"></div>
       <div class="page-hero__content">
-        <nav class="milestones-breadcrumb page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
+        <nav class="page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
           <div class="site-container">
             <a href="/">首頁</a>
             <span aria-hidden="true">/</span>
@@ -132,11 +132,9 @@
     </section>
 
     <!-- 沿革內容區 -->
-    <section class="milestones-content" aria-label="公司沿革內容" data-milestones-preview>
-      <div class="milestone-content-shell">
-        <div id="milestone-preview-content" class="milestone-preview-content" aria-label="公司沿革里程碑" aria-live="polite" data-milestone-content>
-          <!-- 2013 - 至今：JavaScript 啟用後會轉成與 About 認證區一致的水平年份卡片。 -->
-          <div class="milestone-panel" id="era-current" role="tabpanel" aria-labelledby="milestone-tab-current">
+    <section class="milestones-content" aria-label="公司沿革內容">
+      <div class="milestone-preview-content" data-milestone-content>
+        <!-- JavaScript 啟用後會建立左側年份導覽與右側沿革內容。 -->
         <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-2023">
             <div class="milestone-year-label">
@@ -203,11 +201,7 @@
             </div>
           </section>
         </div>
-          </div>
 
-          <!-- 1993 - 2013 -->
-          <div class="milestone-panel" id="era-middle" role="tabpanel" aria-labelledby="milestone-tab-middle">
-        <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-2011">
             <div class="milestone-year-label"><time id="milestone-year-2011">2011</time></div>
             <div class="milestone-year-events">
@@ -275,12 +269,7 @@
               </article>
             </div>
           </section>
-        </div>
-          </div>
 
-          <!-- 1973 - 1993 -->
-          <div class="milestone-panel" id="era-start" role="tabpanel" aria-labelledby="milestone-tab-start">
-        <div class="milestone-timeline">
           <section class="milestone-year-group" aria-labelledby="milestone-year-1986">
             <div class="milestone-year-label"><time id="milestone-year-1986">1986</time></div>
             <div class="milestone-year-events">
@@ -309,10 +298,7 @@
             </div>
           </section>
         </div>
-          </div>
-        </div>
       </div>
-      <div class="milestones-preview__controls" aria-label="公司沿革內容切換" data-milestone-controls></div>
     </section>
   </main>
 
@@ -320,6 +306,6 @@
 
   <!-- 頁尾 JS 腳本 -->
   <script src="js/site.js?v=20261026-nonblocking-page-loader-v1"></script>
-  <script src="js/pages/company-history.js?v=20260926-company-history-split-layout-v1"></script>
+  <script src="js/pages/company-history.js?v=20261026-company-history-cleanup-v3"></script>
 </body>
 </html>

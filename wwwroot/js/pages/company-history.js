@@ -1,72 +1,108 @@
-(function () {
-  if (window.location.hash) return;
+// ---------------------------------------------------------------------------
+// 公司沿革頁面
+// 1. 進頁面時回到最上方（網址有 # 時除外）
+// 2. 讀取 HTML 裡的沿革資料，改建成「左側年份選單 + 右側內容」
+// ---------------------------------------------------------------------------
 
-  if ("scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
+// 1. 進頁面時回到最上方
+function resetEntryPosition() {
+  if (!window.location.hash) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
-
-  function resetEntryPosition() {
-    if (!window.location.hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }
-  }
-
-  resetEntryPosition();
-  window.addEventListener("pageshow", resetEntryPosition);
-})();
-
-function toArray(nodeList) {
-  const result = [];
-  for (let index = 0; index < nodeList.length; index++) {
-    result.push(nodeList[index]);
-  }
-  return result;
 }
 
-function readMilestoneEvents(content) {
-  const eventsByYear = {};
-  const groups = toArray(content.querySelectorAll(".milestone-year-group"));
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+resetEntryPosition();
+window.addEventListener("pageshow", resetEntryPosition);
 
-  groups.forEach(function (group) {
-    const yearElement = group.querySelector(".milestone-year-label time");
-    if (!yearElement) return;
+// 2. 從 HTML 讀出每一年的事件（HTML 的順序就是顯示順序，請維持由新到舊）
+function readMilestoneData(content) {
+  const years = [];
+  const groups = content.querySelectorAll(".milestone-year-group");
 
-    const year = yearElement.textContent.trim();
-    if (!/^\d{4}$/.test(year)) return;
-    if (!eventsByYear[year]) eventsByYear[year] = [];
+  for (let i = 0; i < groups.length; i++) {
+    const yearElement = groups[i].querySelector(".milestone-year-label time");
+    if (!yearElement) continue;
 
-    toArray(group.querySelectorAll(".milestone-event")).forEach(function (eventElement) {
-      const titleElement = eventElement.querySelector("h2");
-      if (!titleElement) return;
+    const events = [];
+    const eventElements = groups[i].querySelectorAll(".milestone-event");
 
-      const descriptionElement = eventElement.querySelector("p");
-      eventsByYear[year].push({
+    for (let j = 0; j < eventElements.length; j++) {
+      const titleElement = eventElements[j].querySelector("h2");
+      if (!titleElement) continue;
+
+      const descriptionElement = eventElements[j].querySelector("p");
+      let description = "";
+      if (descriptionElement) {
+        description = descriptionElement.textContent.trim();
+      }
+
+      events.push({
         title: titleElement.textContent.trim(),
-        description: descriptionElement ? descriptionElement.textContent.trim() : "",
+        description: description
       });
-    });
-  });
+    }
 
-  return Object.keys(eventsByYear)
-    .map(function (year) {
-      return { year: year, events: eventsByYear[year] };
-    })
-    .sort(function (first, second) {
-      return Number(second.year) - Number(first.year);
+    years.push({
+      year: yearElement.textContent.trim(),
+      events: events
     });
+  }
+
+  return years;
 }
 
-function initMilestonePreview() {
-  const preview = document.querySelector("[data-milestones-preview]");
-  if (!preview) return;
+// 建立右側某一年的內容區塊
+function createYearPanel(yearData) {
+  const panel = document.createElement("section");
+  panel.className = "milestone-vertical__panel";
+  panel.id = "milestone-panel-" + yearData.year;
+  panel.dataset.year = yearData.year;
 
-  const viewport = preview.querySelector(".milestone-content-shell");
-  const content = preview.querySelector("[data-milestone-content]");
-  if (!viewport || !content) return;
+  const heading = document.createElement("h2");
+  heading.className = "milestone-vertical__heading";
+  heading.textContent = yearData.year;
+  panel.appendChild(heading);
 
-  const years = readMilestoneEvents(content);
+  const eventsBox = document.createElement("div");
+
+  for (let i = 0; i < yearData.events.length; i++) {
+    const eventData = yearData.events[i];
+
+    const article = document.createElement("article");
+    article.className = "milestone-vertical__event";
+
+    const title = document.createElement("h3");
+    title.textContent = eventData.title;
+    article.appendChild(title);
+
+    if (eventData.description) {
+      const text = document.createElement("p");
+      text.textContent = eventData.description;
+      article.appendChild(text);
+    }
+
+    eventsBox.appendChild(article);
+  }
+
+  panel.appendChild(eventsBox);
+  return panel;
+}
+
+function initMilestoneTimeline() {
+  const content = document.querySelector("[data-milestone-content]");
+  if (!content) return;
+
+  const years = readMilestoneData(content);
   if (years.length === 0) return;
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const yearButtons = [];
+  const panels = [];
+
+  // 版面外框：左邊年份選單、右邊內容
   const timeline = document.createElement("div");
   timeline.className = "milestone-vertical";
 
@@ -76,99 +112,75 @@ function initMilestonePreview() {
 
   const yearList = document.createElement("div");
   yearList.className = "milestone-vertical__year-list";
-  yearList.setAttribute("role", "tablist");
 
-  const panels = document.createElement("div");
-  panels.className = "milestone-vertical__panels";
+  const panelsBox = document.createElement("div");
 
-  const panelEntries = [];
-
+  // 讓指定年份的按鈕變成「目前所在」
   function setActiveYear(year) {
-    yearList.querySelectorAll(".milestone-vertical__year").forEach(function (button) {
-      const isActive = button.dataset.year === year;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-selected", String(isActive));
-    });
+    for (let i = 0; i < yearButtons.length; i++) {
+      const isActive = yearButtons[i].dataset.year === year;
+      yearButtons[i].classList.toggle("is-active", isActive);
+      if (isActive) {
+        yearButtons[i].setAttribute("aria-current", "true");
+      } else {
+        yearButtons[i].removeAttribute("aria-current");
+      }
+    }
   }
 
-  years.forEach(function (yearEntry, yearIndex) {
-    const panelId = "milestone-panel-" + yearEntry.year;
-    const tabId = "milestone-tab-" + yearEntry.year;
+  // 每一年建立一個內容區塊和一個年份按鈕
+  for (let i = 0; i < years.length; i++) {
+    const yearData = years[i];
+    const panel = createYearPanel(yearData);
 
-    const yearButton = document.createElement("button");
-    yearButton.className = "milestone-vertical__year";
-    yearButton.type = "button";
-    yearButton.id = tabId;
-    yearButton.dataset.year = yearEntry.year;
-    yearButton.setAttribute("role", "tab");
-    yearButton.setAttribute("aria-controls", panelId);
-    yearButton.setAttribute("aria-selected", String(yearIndex === 0));
-    yearButton.textContent = yearEntry.year;
-    yearButton.addEventListener("click", function () {
-      const panel = document.getElementById(panelId);
-      if (!panel) return;
+    const button = document.createElement("button");
+    button.className = "milestone-vertical__year";
+    button.type = "button";
+    button.dataset.year = yearData.year;
+    button.textContent = yearData.year;
+    button.setAttribute("aria-label", "前往 " + yearData.year + " 年沿革");
 
-      setActiveYear(yearEntry.year);
-      panel.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start",
-      });
-    });
-    yearList.append(yearButton);
-
-    const panel = document.createElement("section");
-    panel.className = "milestone-vertical__panel";
-    panel.id = panelId;
-    panel.dataset.year = yearEntry.year;
-    panel.setAttribute("role", "tabpanel");
-    panel.setAttribute("aria-labelledby", tabId);
-
-    const heading = document.createElement("h2");
-    heading.className = "milestone-vertical__heading";
-    heading.textContent = yearEntry.year;
-    panel.append(heading);
-
-    const events = document.createElement("div");
-    events.className = "milestone-vertical__events";
-    yearEntry.events.forEach(function (eventEntry) {
-      const event = document.createElement("article");
-      event.className = "milestone-vertical__event";
-
-      const title = document.createElement("h3");
-      title.textContent = eventEntry.title;
-      event.append(title);
-
-      if (eventEntry.description) {
-        const description = document.createElement("p");
-        description.textContent = eventEntry.description;
-        event.append(description);
+    // 點年份：標示該年份，並捲動到對應內容
+    button.addEventListener("click", function () {
+      let behavior = "smooth";
+      if (reducedMotion.matches) {
+        behavior = "auto";
       }
-      events.append(event);
+      setActiveYear(yearData.year);
+      panel.scrollIntoView({ behavior: behavior, block: "start" });
     });
-    panel.append(events);
-    panels.append(panel);
-    panelEntries.push({ panel: panel, year: yearEntry.year });
-  });
 
-  navigation.append(yearList);
-  timeline.append(navigation, panels);
+    yearList.appendChild(button);
+    panelsBox.appendChild(panel);
+    yearButtons.push(button);
+    panels.push(panel);
+  }
+
+  // 用新版面取代原本的 HTML 內容
+  navigation.appendChild(yearList);
+  timeline.appendChild(navigation);
+  timeline.appendChild(panelsBox);
   content.replaceChildren(timeline);
 
-  preview.querySelectorAll("[data-milestone-controls]").forEach(function (controls) {
-    controls.hidden = true;
-  });
-  viewport.classList.add("is-vertical-timeline");
-  document.body.classList.add("milestones-motion-ready");
+  document.body.classList.add("milestones-js-ready");
 
+  // 預設第一個年份為目前所在
   setActiveYear(years[0].year);
+
+  // 往下捲動時，跟著更新左側選單的目前年份
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) setActiveYear(entry.target.dataset.year);
-      });
+      for (let i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          setActiveYear(entries[i].target.dataset.year);
+        }
+      }
     }, { rootMargin: "-18% 0px -65%", threshold: 0 });
-    panelEntries.forEach(function (entry) { observer.observe(entry.panel); });
+
+    for (let i = 0; i < panels.length; i++) {
+      observer.observe(panels[i]);
+    }
   }
 }
 
-document.addEventListener("DOMContentLoaded", initMilestonePreview);
+document.addEventListener("DOMContentLoaded", initMilestoneTimeline);
