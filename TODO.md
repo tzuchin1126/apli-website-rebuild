@@ -1,5 +1,13 @@
 # TODO
 
+- 已完成：清理營運資源頁面已確認無作用、重複或被覆蓋的 CSS，合併頁面內的 760px 響應式規則，移除無引用 HTML class／單一圖片 picture 包裝／重複註解，保留既有版面、表格、位置網絡與動態效果。
+- 已完成：將營運資源頁服務子選單連結補上 `/services#inland-yard`、`#warehousing`、`#terminal-handling`、`#maintenance` 深層連結。
+- 已完成：將地理優勢進場動畫限制在 `prefers-reduced-motion: no-preference`，避免 reduced-motion 下因 selector 權重不足仍播放動畫；保留 tab、面板與按鈕圖示的 reduced-motion transition 關閉。
+- 已完成：整理營運資源頁 JavaScript，改用明確迴圈建立 tabs／panels，移除不必要的集合轉換與 passive resize listener；分頁切換時重新計算面板高度，並保留 resize／手機 breakpoint 變化重算。
+- 實際驗證：已搜尋 `site.css` 與其他頁面確認候選 selector 無外部引用；已更新 operational-resources CSS／JS cache key。
+- 未驗證：瀏覽器實際桌機／手機版面、三個分頁切換高度、服務子選單 hash 導頁、reduced-motion 實際動畫狀態、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：移除 Services 業務諮詢區塊電話連結的瀏覽器預設下底線；原因是電話文字位於 `<a>` 內，底線由祖先連結產生，已針對該連結設定 `text-decoration: none`，不影響其他連結。
 - 實際驗證：`git diff --check`、確認 Services CSS cache key 已更新。
 - 未驗證：瀏覽器實際桌機／手機畫面、電話連結互動、跨瀏覽器與無障礙人工驗收。

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
         <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20261025-safety-overlay-v8">
+        <link rel="stylesheet" href="css/pages/operational-resources.css?v=20261026-resources-cleanup-v1">
         <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
     </head>
     <body class="operational-resources-page">
@@ -57,10 +57,10 @@
                         </button>
                         <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
                             <span class="nav-menu__title">服務項目</span>
-                            <a href="/services"><span>內陸貨櫃集散站</span></a>
-                            <a href="/services"><span>倉儲物流</span></a>
-                            <a href="/services"><span>碼頭裝卸</span></a>
-                            <a href="/services"><span>機具銷售與維修</span></a>
+                            <a href="/services#inland-yard"><span>內陸貨櫃集散站</span></a>
+                            <a href="/services#warehousing"><span>倉儲物流</span></a>
+                            <a href="/services#terminal-handling"><span>碼頭裝卸</span></a>
+                            <a href="/services#maintenance"><span>機具銷售與維修</span></a>
                         </div>
                     </div>
                     <a href="/news">最新消息</a>
@@ -87,13 +87,13 @@
         </header>
 
         <main id="main-content">
-            <section class="resources-hero page-hero" aria-labelledby="resources-title">
+            <section class="page-hero" aria-labelledby="resources-title">
                 <picture class="page-hero__media">
                     <img class="page-hero__image" src="public/images/index/home-hero-terminal.jpg" width="6961" height="4641" alt="港區營運資源" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
-                <div class="resources-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+                <div class="page-hero__overlay" aria-hidden="true"></div>
                 <div class="page-hero__content">
-                    <nav class="resources-breadcrumb page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
+                    <nav class="page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
                         <div class="site-container">
                             <a href="/">首頁</a>
                             <span aria-hidden="true">/</span>
@@ -109,10 +109,9 @@
             <section class="resource-section" id="facilities" aria-labelledby="resources-data-title">
                 <header class="resources-data-overview site-container">
                     <h2 id="resources-data-title">營運資源</h2>
-                    <!-- <p>亞太以完整的廠區規劃、專業機具配置與穩定作業量能，提供安全、高效且可靠的物流服務。</p> -->
                     <p>亞太以完整的廠區規劃、專業機具配置與穩定作業量能，提供安全、高效且可靠的物流服務。從貨櫃進場、堆置、調度到出場，每一個環節都有明確的流程與設備支援，讓客戶的貨物在我們的場區內順暢流轉。</p>
                 </header>
-                <div class="resource-feature resource-feature--data site-container">
+                <div class="resource-feature--data site-container">
                     <div class="resource-data-switcher">
                         <div class="resource-data-switcher__tabs" role="tablist" aria-label="營運資料切換">
                             <button class="resource-data-switcher__tab" id="facilities-tab" type="button" role="tab" aria-selected="true" aria-controls="facilities-panel" tabindex="0" data-description="廠區面積約 7.69 公頃，場區設置 24 小時 CCTV 監控與出入口管制，保障貨物與人員安全。場區依作業需求規劃貨櫃堆置區域與動線，確保車輛通行順暢、作業安全有序。">廠區資訊</button>
@@ -166,11 +165,9 @@
             </section>
 
             <section class="resource-section" id="occupational-safety" aria-labelledby="occupational-safety-title">
-                <div class="resource-feature resource-feature--safety">
-                    <figure class="resource-media resource-media--safety">
-                        <picture>
-                            <img src="public/images/occupational-safety/safety-equipment-operation.png" width="1536" height="1024" alt="港區作業人員面對貨櫃裝卸設備" loading="lazy" decoding="async">
-                        </picture>
+                <div class="resource-feature--safety">
+                    <figure class="resource-media">
+                        <img src="public/images/occupational-safety/safety-equipment-operation.png" width="1536" height="1024" alt="港區作業人員面對貨櫃裝卸設備" loading="lazy" decoding="async">
                     </figure>
                     <div class="resource-overlay">
                         <header class="resource-heading">
@@ -199,18 +196,18 @@
                     <p class="resources-location__mobile-caption">亞太至各目標地點的距離</p>
                     <div class="resources-location__network" role="group" aria-label="以亞太為中心的周邊交通距離">
                         <ul class="resources-location__side resources-location__side--left resources-location__motion" aria-label="左側周邊交通距離">
-                            <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>小港國際機場</span></li>
-                            <li class="resources-location__node resources-location__node--near"><strong>1.5<small>km</small></strong><span>高速公路終點</span></li>
-                            <li class="resources-location__node resources-location__node--medium"><strong>2.5<small>km</small></strong><span>第二貨櫃中心</span></li>
-                            <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第三貨櫃中心</span></li>
+                            <li class="resources-location__node"><strong>1.5<small>km</small></strong><span>小港國際機場</span></li>
+                            <li class="resources-location__node"><strong>1.5<small>km</small></strong><span>高速公路終點</span></li>
+                            <li class="resources-location__node"><strong>2.5<small>km</small></strong><span>第二貨櫃中心</span></li>
+                            <li class="resources-location__node"><strong>0.5<small>km</small></strong><span>第三貨櫃中心</span></li>
                         </ul>
                         <div class="resources-location__hub resources-location__motion" role="img" aria-label="亞太國際物流所在地">
                             <img src="public/images/logo/white-logo.png" alt="" width="322" height="159" aria-hidden="true" loading="lazy" decoding="async">
                         </div>
                         <ul class="resources-location__side resources-location__side--right resources-location__motion" aria-label="右側周邊交通距離">
-                            <li class="resources-location__node resources-location__node--far"><strong>3<small>km</small></strong><span>第四貨櫃中心</span></li>
-                            <li class="resources-location__node resources-location__node--closest"><strong>0.5<small>km</small></strong><span>第五貨櫃中心</span></li>
-                            <li class="resources-location__node resources-location__node--long"><strong>20<small>min</small></strong><span>市中心及火車站</span></li>
+                            <li class="resources-location__node"><strong>3<small>km</small></strong><span>第四貨櫃中心</span></li>
+                            <li class="resources-location__node"><strong>0.5<small>km</small></strong><span>第五貨櫃中心</span></li>
+                            <li class="resources-location__node"><strong>20<small>min</small></strong><span>市中心及火車站</span></li>
                         </ul>
                     </div>
                 </div>
@@ -220,6 +217,6 @@
         <!-- shared-site-footer -->
 
         <script src="js/site.js?v=20261026-nonblocking-page-loader-v1"></script>
-        <script src="js/pages/operational-resources.js?v=20261018-facility-data-tabs-v6"></script>
+        <script src="js/pages/operational-resources.js?v=20261026-resources-cleanup-v1"></script>
     </body>
 </html>
