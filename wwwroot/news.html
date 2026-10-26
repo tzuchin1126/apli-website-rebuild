@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
         <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-  <link rel="stylesheet" href="css/pages/news.css?v=20261023-token-cleanup-v9">
+  <link rel="stylesheet" href="css/pages/news.css?v=20261026-news-list-cleanup-v1">
         <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
     </head>
     <body class="news-page">
@@ -86,9 +86,9 @@
                 <picture class="page-hero__media">
                     <img class="page-hero__image" src="public/images/index/news-hero.png" width="1672" height="941" alt="最新消息與企業動態" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
-                <div class="news-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+                <div class="page-hero__overlay" aria-hidden="true"></div>
                 <div class="page-hero__content">
-                    <nav class="news-breadcrumb page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
+                    <nav class="page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
                         <div class="site-container">
                             <a href="/">首頁</a>
                             <span aria-hidden="true">/</span>
@@ -99,13 +99,13 @@
                 </div>
             </section>
 
-            <nav class="news-filter" data-news-filter aria-label="新聞類別切換">
+            <div class="news-filter" data-news-filter aria-label="新聞類別切換">
                 <div class="news-filter__inner site-container">
                     <div class="news-filter__list" data-news-categories role="group" aria-label="新聞類別">
                         <button type="button" data-category="" aria-pressed="true">全部</button>
                     </div>
                 </div>
-            </nav>
+            </div>
 
             <section class="news-content site-container" aria-labelledby="news-list-title">
                 <h2 id="news-list-title" class="sr-only">最新消息列表</h2>
@@ -113,7 +113,7 @@
                 <div class="news-list" data-news-list>
                     <!-- news-list-items -->
                     <p class="news-empty" data-news-empty hidden>
-                        <i class="ph ph-newspaper" aria-hidden="true"></i>
+                        <span class="news-empty__icon" aria-hidden="true"></span>
                         <span class="news-empty__message">沒有符合條件的最新消息。</span>
                     </p>
                 </div>
@@ -124,6 +124,6 @@
         <!-- shared-site-footer -->
 
       <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
-        <script src="js/pages/news.js?v=20260924-mobile-news-structure-v1"></script>
+        <script src="js/pages/news.js?v=20261026-news-list-cleanup-v1"></script>
     </body>
 </html>

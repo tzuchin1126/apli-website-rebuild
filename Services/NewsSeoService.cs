@@ -244,7 +244,7 @@ public static class NewsSeoService
     }
 
     // 「最新消息」列表頁,一則新聞長這樣:
-    //   背景圖片 + 分類日期 + 標題 + 附件提示 + 閱讀更多
+    //   日期 + 分類 + 標題 + 導向箭頭
     private static string BuildNewsListItemHtml(NewsItem item)
     {
         string link = "/news/" + Uri.EscapeDataString(item.Id);
@@ -257,33 +257,18 @@ public static class NewsSeoService
             title = item.Title;
         }
 
-        string mediaClass = "is-default";
-        string img = "";
-        if (!string.IsNullOrWhiteSpace(item.ImageUrl))
-        {
-            mediaClass = "has-image";
-            img = "<img class='news-card__image' src='" + Encode(item.ImageUrl) + "' alt='' loading='lazy' decoding='async'>";
-        }
-
-        string attachment = "";
-        if (!string.IsNullOrWhiteSpace(item.Url))
-        {
-            attachment = "<span class='news-card__attachment' aria-label='含附件'>" +
-                         "<i class='ph ph-paperclip' aria-hidden='true'></i>" +
-                         "<span class='sr-only'>含附件</span></span>";
-        }
-
         return "<article class='news-item' data-news-item data-category='" + tag + "'>\n" +
                "  <a class='news-card' href='" + link + "'>\n" +
-               "    <span class='news-card__media " + mediaClass + "'>" + img + "</span>\n" +
                "    <span class='news-card__body'>\n" +
                "      <span class='news-card__meta'>\n" +
-               "        <span class='news-card__tag'>" + tag + "</span>\n" +
                "        <time class='news-card__date' datetime='" + date + "'>" + date + "</time>\n" +
-               "        " + attachment + "\n" +
+               "        <span class='news-card__tag'>" + tag + "</span>\n" +
                "      </span>\n" +
                "      <strong class='news-card__title'>" + Encode(title) + "</strong>\n" +
-               "      <span class='news-card__read-more'>查看更多 <span aria-hidden='true'>↗</span></span>\n" +
+               "    </span>\n" +
+               "    <span class='news-card__arrow-window' aria-hidden='true'>" +
+               "      <svg class='news-card__link-icon' viewBox='0 0 16 16' focusable='false'><path d='M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75'></path></svg>" +
+               "      <svg class='news-card__link-icon' viewBox='0 0 16 16' focusable='false'><path d='M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75'></path></svg>" +
                "    </span>\n" +
                "  </a>\n" +
                "</article>\n";

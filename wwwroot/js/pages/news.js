@@ -1,244 +1,185 @@
 // ---------------------------------------------------------------------------
-// 最新消息列表頁：分類篩選、分頁載入
-// - 從公開 API 載入已發布消息與分類
-// - 渲染分類篩選按鈕
-// - 渲染消息列表（每頁 9 筆，支援數字分頁）
-// - 分類篩選切換、空狀態處理
+// 最新消息列表頁：分類篩選、數字分頁
 // ---------------------------------------------------------------------------
-
-// 把 NodeList 轉成一般陣列，方便用 for 迴圈處理
-function toArray(nodeList) {
-  const result = [];
-  for (let i = 0; i < nodeList.length; i++) {
-    result.push(nodeList[i]);
-  }
-  return result;
-}
 
 function initNewsList() {
   const root = document.querySelector("[data-news-filter]");
   const list = document.querySelector("[data-news-list]");
-  const newsContent = document.querySelector(".news-content");
+  const categoriesContainer = document.querySelector("[data-news-categories]");
   const pagination = document.querySelector("[data-news-pagination]");
   const empty = document.querySelector("[data-news-empty]");
-  const emptyMessage = empty ? empty.querySelector(".news-empty__message") : null;
+  const newsContent = document.querySelector(".news-content");
 
-  if (!root || !list) return;
+  // 缺少必要元素就不執行
+  if (!root || !list || !categoriesContainer || !pagination || !empty) return;
 
-  const categoriesContainer = root.querySelector("[data-news-categories]");
   const pageSize = 9;
   let currentPage = 1;
-  let items = []; // 目前列表裡所有消息的 DOM 元素
+  let items = []; // 列表裡所有消息的 DOM 元素
 
-  // 正規化消息物件：相容 camelCase 與 PascalCase
-  function normalizeNewsItem(item) {
-    return {
-      id: item.id != null ? item.id : item.Id,
-      date: item.date != null ? item.date : item.Date,
-      tag: item.tag != null ? item.tag : item.Tag,
-      title: item.title != null ? item.title : item.Title,
-      content: item.content || item.Content || "",
-      imageUrl: item.imageUrl || item.ImageUrl || "",
-      hasAttachment: item.hasAttachment != null ? item.hasAttachment : (item.HasAttachment || false),
-      published: item.published != null ? item.published : item.Published,
-    };
-  }
+  // ---------------------------------------------------------------------------
+  // 小工具
+  // ---------------------------------------------------------------------------
 
-  function addCategoryButton(label, value) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.category = value;
-    button.setAttribute("aria-pressed", "false");
-    button.textContent = label;
-    if (categoriesContainer) categoriesContainer.append(button);
-  }
-
-  // 把日期字串轉成「2026.01.05」這種格式
+  // 日期轉成「2026.01.05」格式，格式不符就原樣顯示
   function formatNewsDate(value) {
     const match = String(value || "").match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
     if (!match) return value || "";
+
     const year = match[1];
     const month = match[2].padStart(2, "0");
     const day = match[3].padStart(2, "0");
     return year + "." + month + "." + day;
   }
 
+  // 目前選中的分類，空字串代表「全部」
+  function getSelectedCategory() {
+    const selectedButton = root.querySelector("[aria-pressed='true']");
+    if (!selectedButton) return "";
+    return selectedButton.dataset.category;
+  }
 
   // ---------------------------------------------------------------------------
-  // 渲染消息列表
+  // 建立畫面
   // ---------------------------------------------------------------------------
+
+  function addCategoryButton(label) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.category = label;
+    button.setAttribute("aria-pressed", "false");
+    button.textContent = label;
+    categoriesContainer.append(button);
+  }
+
+  // 建立一則消息
+  function createNewsItem(news) {
+    const article = document.createElement("article");
+    article.className = "news-item";
+    article.dataset.newsItem = "";
+    article.dataset.category = news.tag || "";
+
+    const arrowSvg = '<svg class="news-card__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>';
+
+    article.innerHTML =
+      '<a class="news-card" href="/news/' + encodeURIComponent(news.id) + '">' +
+      '<span class="news-card__body">' +
+      '<span class="news-card__meta">' +
+      '<time class="news-card__date"></time>' +
+      '<span class="news-card__tag"></span>' +
+      "</span>" +
+      '<strong class="news-card__title"></strong>' +
+      "</span>" +
+      '<span class="news-card__arrow-window" aria-hidden="true">' + arrowSvg + arrowSvg + "</span>" +
+      "</a>";
+
+    // 文字用 textContent 填入，避免資料裡的特殊字元被當成 HTML
+    const date = article.querySelector(".news-card__date");
+    date.dateTime = news.date || "";
+    date.textContent = formatNewsDate(news.date);
+    article.querySelector(".news-card__tag").textContent = news.tag || "最新消息";
+    article.querySelector(".news-card__title").textContent = news.title || "最新消息";
+
+    return article;
+  }
+
+  // 清掉舊的消息，重新建立整個列表
   function renderItems(newsList) {
-    // 移除現有項目（保留 empty 元素）
-    const oldItems = toArray(list.querySelectorAll("[data-news-item]"));
+    const oldItems = list.querySelectorAll("[data-news-item]");
     for (let i = 0; i < oldItems.length; i++) {
       oldItems[i].remove();
     }
 
-    // 建立每則消息的 DOM
     for (let i = 0; i < newsList.length; i++) {
-      const item = newsList[i];
-
-      const article = document.createElement("article");
-      article.className = "news-item";
-      article.dataset.newsItem = "";
-      article.dataset.category = item.tag || "";
-
-      article.innerHTML =
-        '<a class="news-card" href="/news/' + encodeURIComponent(item.id) + '">' +
-        '<span class="news-card__body">' +
-        '<span class="news-card__meta">' +
-        '<time class="news-card__date"></time>' +
-        '<span class="news-card__tag"></span>' +
-        '<span class="news-card__attachment" aria-label="含附件" hidden>' +
-        '<i class="ph ph-paperclip" aria-hidden="true"></i>' +
-        '<span class="sr-only">含附件</span>' +
-        "</span>" +
-        "</span>" +
-        '<strong class="news-card__title"></strong>' +
-        '<span class="news-card__read-more">查看更多 <span aria-hidden="true">↗</span></span>' +
-        "</span>" +
-        "</a>";
-
-      const row = article.querySelector(".news-card");
-      const date = row.querySelector(".news-card__date");
-      const attachment = row.querySelector(".news-card__attachment");
-      const readMore = row.querySelector(".news-card__read-more");
-
-      if (readMore) readMore.remove();
-
-      const arrowWindow = document.createElement("span");
-      arrowWindow.className = "news-card__arrow-window";
-      arrowWindow.setAttribute("aria-hidden", "true");
-      arrowWindow.innerHTML =
-        '<svg class="news-card__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>' +
-        '<svg class="news-card__link-icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>';
-      row.append(arrowWindow);
-
-      date.dateTime = item.date || "";
-      date.textContent = formatNewsDate(item.date);
-      row.querySelector(".news-card__tag").textContent = item.tag || "最新消息";
-      row.querySelector(".news-card__title").textContent = item.title || "最新消息";
-      attachment.hidden = !item.hasAttachment;
-
-      list.insertBefore(article, empty);
+      list.insertBefore(createNewsItem(newsList[i]), empty);
     }
 
-    // 更新 items 參照
-    items = toArray(list.querySelectorAll("[data-news-item]"));
-
-    // 重置頁碼並渲染
-    currentPage = 1;
+    items = list.querySelectorAll("[data-news-item]");
     render(false);
   }
 
   // ---------------------------------------------------------------------------
-  // 渲染/篩選顯示邏輯
+  // 篩選與分頁
   // ---------------------------------------------------------------------------
 
-  // 根據目前選中的分類與頁碼顯示/隱藏項目；animate 表示是否要觸發篩選動畫
-  function render(animate) {
-    const selectedButton = root.querySelector("[aria-pressed='true']");
-    const selectedCategory = selectedButton ? selectedButton.dataset.category : "";
+  // 挑出符合目前分類的消息
+  function getMatchingItems() {
+    const selectedCategory = getSelectedCategory();
+    const result = [];
 
-    const matchingItems = [];
     for (let i = 0; i < items.length; i++) {
       if (!selectedCategory || items[i].dataset.category === selectedCategory) {
-        matchingItems.push(items[i]);
+        result.push(items[i]);
       }
     }
+    return result;
+  }
 
-    const pageCount = Math.max(1, Math.ceil(matchingItems.length / pageSize));
-    currentPage = Math.min(currentPage, pageCount);
-    const pageStart = (currentPage - 1) * pageSize;
-    const pageEnd = pageStart + pageSize;
+  // 先全部隱藏，再只顯示目前這一頁
+  function showCurrentPage(matchingItems) {
+    for (let i = 0; i < items.length; i++) {
+      items[i].hidden = true;
+    }
 
-    if (empty) empty.hidden = matchingItems.length !== 0;
-    applyPageVisibility(matchingItems, pageStart, pageEnd);
-    renderPagination(pageCount);
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, matchingItems.length);
 
-    // 觸發篩選動畫（CSS 控制）
-    if (animate) {
-      list.classList.remove("news-list--filtering");
-      void list.offsetWidth; // 強制重繪
-      list.classList.add("news-list--filtering");
+    for (let i = start; i < end; i++) {
+      matchingItems[i].hidden = false;
     }
   }
 
-  function applyPageVisibility(matchingItems, pageStart, pageEnd) {
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      const matchingIndex = matchingItems.indexOf(item);
-      item.hidden = matchingIndex < pageStart || matchingIndex >= pageEnd;
+  // 重播篩選動畫（CSS 的 .news-list--filtering 負責動畫）
+  function playFilterAnimation() {
+    list.classList.remove("news-list--filtering");
+    void list.offsetWidth; // 讀取一次寬度，強迫瀏覽器重算，動畫才會重播
+    list.classList.add("news-list--filtering");
+  }
+
+  // 依目前的分類與頁碼更新畫面；animate 為 true 時播放動畫
+  function render(animate) {
+    const matchingItems = getMatchingItems();
+    const pageCount = Math.max(1, Math.ceil(matchingItems.length / pageSize));
+
+    // 切換分類後頁碼可能超過總頁數，要拉回來
+    if (currentPage > pageCount) {
+      currentPage = pageCount;
+    }
+
+    empty.hidden = matchingItems.length !== 0;
+    showCurrentPage(matchingItems);
+    renderPagination(pageCount);
+
+    if (animate) {
+      playFilterAnimation();
     }
   }
 
   function scrollToNewsContent() {
     if (!newsContent) return;
+
     const top = Math.max(0, window.scrollY + newsContent.getBoundingClientRect().top - 16);
-    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
-    window.scrollTo({ top: top, behavior: behavior });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    window.scrollTo({
+      top: top,
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
   }
 
-  function renderPagination(pageCount) {
-    if (!pagination) return;
-    pagination.innerHTML = "";
-    const fragment = document.createDocumentFragment();
+  // ---------------------------------------------------------------------------
+  // 分頁按鈕
+  // ---------------------------------------------------------------------------
 
-    // 建立「上一頁」「下一頁」箭頭按鈕
-    function appendArrowControl(label, page, disabled) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "news-pagination__control news-pagination__arrow";
-      button.dataset.page = String(page);
-      button.disabled = disabled;
-      button.setAttribute("aria-label", label);
-      const direction = page < currentPage ? "left" : "right";
-      const icon = document.createElement("i");
-      icon.className = "ph ph-caret-" + direction;
-      icon.setAttribute("aria-hidden", "true");
-      icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
-      button.append(icon);
-      fragment.append(button);
-    }
-
-    appendArrowControl("上一頁", currentPage - 1, currentPage === 1);
-
-    const pages = getPaginationPages(pageCount);
-    for (let i = 0; i < pages.length; i++) {
-      const page = pages[i];
-
-      if (page === "ellipsis") {
-        const ellipsis = document.createElement("span");
-        ellipsis.className = "news-pagination__ellipsis";
-        ellipsis.setAttribute("aria-hidden", "true");
-        ellipsis.textContent = "…";
-        fragment.append(ellipsis);
-        continue;
-      }
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "news-pagination__page";
-      button.dataset.page = String(page);
-      button.textContent = String(page);
-      button.setAttribute("aria-label", "第 " + page + " 頁");
-      button.setAttribute("aria-current", page === currentPage ? "page" : "false");
-      if (page === currentPage) button.classList.add("is-current");
-      fragment.append(button);
-    }
-
-    appendArrowControl("下一頁", currentPage + 1, currentPage === pageCount);
-    pagination.append(fragment);
-  }
-
-  // 決定分頁按鈕要顯示哪些頁碼（超過 7 頁時用省略號縮短）
+  // 決定要顯示哪些頁碼（超過 7 頁時用 "ellipsis" 代表省略號）
   function getPaginationPages(pageCount) {
+    const pages = [];
+
     if (pageCount <= 7) {
-      const allPages = [];
       for (let page = 1; page <= pageCount; page++) {
-        allPages.push(page);
+        pages.push(page);
       }
-      return allPages;
+      return pages;
     }
 
     if (currentPage <= 4) {
@@ -252,35 +193,93 @@ function initNewsList() {
     return [1, "ellipsis", currentPage - 1, currentPage, currentPage + 1, "ellipsis", pageCount];
   }
 
-  // ---------------------------------------------------------------------------
-  // 事件綁定
-  // ---------------------------------------------------------------------------
+  // 「上一頁」「下一頁」按鈕
+  function createArrowButton(label, targetPage, disabled, direction) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "news-pagination__control news-pagination__arrow";
+    button.dataset.page = String(targetPage);
+    button.disabled = disabled;
+    button.setAttribute("aria-label", label);
 
-  // 分類按鈕點擊
-  if (categoriesContainer) {
-    categoriesContainer.addEventListener("click", function (event) {
-      const button = event.target.closest("[data-category]");
-      if (!button) return;
+    const icon = document.createElement("i");
+    icon.className = "ph ph-caret-" + direction;
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = direction === "left" ? "\uE138" : "\uE13A";
+    button.append(icon);
 
-      const categoryButtons = toArray(categoriesContainer.querySelectorAll("[data-category]"));
-      for (let i = 0; i < categoryButtons.length; i++) {
-        const item = categoryButtons[i];
-        item.setAttribute("aria-pressed", String(item === button));
+    return button;
+  }
+
+  // 數字按鈕
+  function createPageButton(page) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "news-pagination__page";
+    button.dataset.page = String(page);
+    button.textContent = String(page);
+    button.setAttribute("aria-label", "第 " + page + " 頁");
+
+    if (page === currentPage) {
+      button.classList.add("is-current");
+      button.setAttribute("aria-current", "page");
+    }
+    return button;
+  }
+
+  // 省略號
+  function createEllipsis() {
+    const ellipsis = document.createElement("span");
+    ellipsis.className = "news-pagination__ellipsis";
+    ellipsis.setAttribute("aria-hidden", "true");
+    ellipsis.textContent = "…";
+    return ellipsis;
+  }
+
+  function renderPagination(pageCount) {
+    pagination.innerHTML = "";
+
+    pagination.append(createArrowButton("上一頁", currentPage - 1, currentPage === 1, "left"));
+
+    const pages = getPaginationPages(pageCount);
+    for (let i = 0; i < pages.length; i++) {
+      if (pages[i] === "ellipsis") {
+        pagination.append(createEllipsis());
+      } else {
+        pagination.append(createPageButton(pages[i]));
       }
-      render(true);
-    });
+    }
+
+    pagination.append(createArrowButton("下一頁", currentPage + 1, currentPage === pageCount, "right"));
   }
 
-  // 數字分頁
-  if (pagination) {
-    pagination.addEventListener("click", function (event) {
-      const button = event.target.closest("[data-page]");
-      if (!button || button.disabled) return;
-      currentPage = Number(button.dataset.page);
-      render(true);
-      window.requestAnimationFrame(scrollToNewsContent);
-    });
-  }
+  // ---------------------------------------------------------------------------
+  // 事件
+  // ---------------------------------------------------------------------------
+
+  // 點分類按鈕：只讓被點的那顆 aria-pressed 為 true，並回到第 1 頁
+  categoriesContainer.addEventListener("click", function (event) {
+    const clickedButton = event.target.closest("[data-category]");
+    if (!clickedButton) return;
+
+    const buttons = categoriesContainer.querySelectorAll("[data-category]");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-pressed", String(buttons[i] === clickedButton));
+    }
+
+    currentPage = 1;
+    render(true);
+  });
+
+  // 點分頁按鈕
+  pagination.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-page]");
+    if (!button || button.disabled) return;
+
+    currentPage = Number(button.dataset.page);
+    render(true);
+    window.requestAnimationFrame(scrollToNewsContent);
+  });
 
   // ---------------------------------------------------------------------------
   // 載入資料
@@ -292,6 +291,7 @@ function initNewsList() {
     return response.json();
   }
 
+  // 分類載入失敗不影響主流程，回傳空陣列即可
   async function fetchCategories() {
     try {
       const response = await fetch("/api/public/news/categories");
@@ -302,50 +302,50 @@ function initNewsList() {
     }
   }
 
+  // 分類 API 沒資料時，改從消息本身的 tag 整理出不重複的分類
+  function getCategoryLabels(categoryData, newsList) {
+    if (Array.isArray(categoryData) && categoryData.length > 0) {
+      return categoryData;
+    }
+
+    const labels = [];
+    for (let i = 0; i < newsList.length; i++) {
+      const tag = newsList[i].tag;
+      if (tag && labels.indexOf(tag) === -1) {
+        labels.push(tag);
+      }
+    }
+    return labels;
+  }
+
+  function showLoadError() {
+    empty.hidden = false;
+    const message = empty.querySelector(".news-empty__message");
+    if (message) {
+      message.textContent = "目前無法載入最新消息。";
+    }
+  }
+
   async function loadNewsList() {
     try {
-      const news = await fetchNews();
-      const categoryData = await fetchCategories();
+      // 兩個請求先同時送出，再依序等結果
+      const newsRequest = fetchNews();
+      const categoriesRequest = fetchCategories();
+      const newsList = await newsRequest;
+      const categoryData = await categoriesRequest;
 
-      // 正規化消息資料（相容 camelCase/PascalCase）
-      const normalizedNews = [];
-      for (let i = 0; i < news.length; i++) {
-        normalizedNews.push(normalizeNewsItem(news[i]));
-      }
-
-      // 取得分類標籤：優先用 categories.json，否則從消息資料推導（不重複）
-      let labels = [];
-      if (Array.isArray(categoryData) && categoryData.length > 0) {
-        labels = categoryData;
-      } else {
-        for (let i = 0; i < normalizedNews.length; i++) {
-          const tag = normalizedNews[i].tag;
-          if (tag && labels.indexOf(tag) === -1) {
-            labels.push(tag);
-          }
-        }
-      }
-
-      // 建立分類按鈕
+      const labels = getCategoryLabels(categoryData, newsList);
       for (let i = 0; i < labels.length; i++) {
-        addCategoryButton(labels[i], labels[i]);
+        addCategoryButton(labels[i]);
       }
 
-      // 渲染消息列表
-      renderItems(normalizedNews);
+      renderItems(newsList);
     } catch (error) {
-      // 載入失敗：顯示空狀態錯誤訊息
-      if (empty) {
-        empty.hidden = false;
-        if (emptyMessage) emptyMessage.textContent = "目前無法載入最新消息。";
-      }
+      showLoadError();
     }
   }
 
   loadNewsList();
 }
 
-// ---------------------------------------------------------------------------
-// 啟動
-// ---------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", initNewsList);

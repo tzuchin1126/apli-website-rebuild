@@ -2,6 +2,16 @@
 
 ## 2026-10-26
 
+- 已完成：整理 News 列表實際生效的 CSS／SSR／JS 結構，移除被列表版面覆蓋的 Grid／手機重複規則、無作用篩選狀態規則與未使用的 `toArray`、附件／read-more 產生流程；保留 news-detail 相關卡片仍使用的共用 media／附件樣式與資料契約，並同步更新列表 cache key。
+- 實際驗證：全專案搜尋確認 News 列表清理未刪除 news-detail 與 Admin／API 仍使用的圖片、附件與欄位；`node --check wwwroot/js/pages/news.js`、`git diff --check`、`dotnet build -c Release`。
+- 未驗證：News／news-detail 桌機與手機實際畫面、SSR／API 瀏覽器互動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：調整 News 列表資訊層級，將桌機日期與類別的間距收窄並保留標題與 meta 群組的適度間距；手機同步讓日期與類別更接近、標題稍微與群組分開。更新 `news.css` cache key。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/news.js`。
+- 未驗證：News 頁面桌機／手機實際畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：依使用者提供的人力網公司資訊，重新潤飾 careers 頁面「加入亞太」兩段文案，改以公司整體物流背景、流程優化、人才培育與多元職涯方向為主，不針對單一工作崗位；另參考首頁服務區塊行動版的 `56px / 72px` 上下節奏，調整公司福利區塊間距並統一標題下方間距 token；同步清理福利分頁 JS 與無作用 CSS 宣告，改於 load／字型載入完成後重新測量目前面板高度，並在分頁切換時同步更新高度，並移除 careers recruitment 區塊的重複定位與選擇器宣告；福利圖示改用實際尺寸，並補強 tab 鍵盤 focus 外框。
 - 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/careers.js`、`dotnet build -c Release`；建置 0 warnings、0 errors。
 - 未驗證：桌機／手機實際畫面、Hero 圖片裁切與按鈕位置、跨瀏覽器、實體裝置與無障礙人工驗收。
