@@ -1,5 +1,23 @@
 # TODO
 
+- 已完成：移除 Services 業務諮詢區塊電話連結的瀏覽器預設下底線；原因是電話文字位於 `<a>` 內，底線由祖先連結產生，已針對該連結設定 `text-decoration: none`，不影響其他連結。
+- 實際驗證：`git diff --check`、確認 Services CSS cache key 已更新。
+- 未驗證：瀏覽器實際桌機／手機畫面、電話連結互動、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：調整 Services 頁面首次載入遮罩，加入 APLI logo 與等待指示器，保留現有頁面載入等待、10 秒保險解除、ARIA 狀態與 `prefers-reduced-motion` 支援；僅套用於 Services 頁面，未改變圖片載入策略。
+- 已完成：將相同的 logo 與等待指示器套用至其他公開頁面的共用載入遮罩，並修正 About 頁面 preload 指向實際 Hero 圖片，避免預載未使用的 `company-facility.jpg`。
+- 已完成：調整共用 page loader，不再等待可見圖片載入／解碼才顯示整頁；改由 Hero 自身背景色先承接，圖片完成後保留原有進場動畫，字型最多阻塞 1 秒。
+- 已完成：為共用載入遮罩加入 logo 與等待指示器的退場過渡，載入完成時以 `200ms` 淡出並輕微縮小，並在 `prefers-reduced-motion` 下停用過渡。
+- 已完成：清理 Services 頁面已確認無作用或重複的 CSS、HTML 與 JavaScript：移除未使用 modifier／wrapper／圖片 SVG 項目符號、合併重複底線樣式與單欄優勢區塊、修正輪播 ARIA 標籤與單圖維修區控制項，保留分頁、輪播拖曳、自動播放、鍵盤與 inert 行為。
+- 已完成：補上 Services 分頁面板的 `resize` 高度重算，視窗縮放或手機轉向後會依目前 active panel 的 `scrollHeight` 更新 viewport 高度。
+- 實際驗證：`node --check wwwroot/js/pages/services.js`、`git diff --check`；確認 `site.css`／全專案搜尋沒有 Services 專用移除 selector 的其他引用，並更新 Services CSS／JS cache key。
+- 未驗證：Services 桌機／手機實際畫面、分頁與輪播瀏覽器互動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+- 實際驗證：`git diff --check`、確認 logo 資源存在與 HTML／CSS 變更範圍。
+- 未驗證：本機瀏覽器實際白屏時間、桌機／手機畫面、Hero 圖片冷載入、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 ## 2026-10-26
 
 - 已完成：調整最新消息詳細頁，移除 Hero 圖片與 Hero 標題，保留頁面頂端麵包屑；文章改為淺灰背景上的中央白色圓角卡片，桌機限制文章欄寬、圖片置中，手機改為滿寬內距並保留附件與返回列表互動。

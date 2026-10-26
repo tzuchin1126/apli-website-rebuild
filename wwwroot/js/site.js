@@ -15,57 +15,16 @@ function waitForNextFrame() {
   });
 }
 
-// 等圖片的 load 或 error 事件其中一個發生
-function waitForImageEvent(image) {
-  return new Promise(function (resolve) {
-    image.addEventListener("load", resolve, { once: true });
-    image.addEventListener("error", resolve, { once: true });
-  });
-}
-
-// 圖片載入並解碼完成後才繼續；載入失敗或解碼失敗都直接放行，不擋住頁面
-async function waitForImage(image) {
-  if (!image.complete) {
-    await waitForImageEvent(image);
-  }
-
-  try {
-    await image.decode();
-  } catch (error) {
-    // 解碼失敗就放行，圖片仍然可以顯示
-  }
-}
-
-// 圖片目前有沒有出現在畫面內（藏起來的圖片不用等）
-function isImageVisible(image) {
-  if (image.closest("[aria-hidden='true']")) return false;
-
-  const bounds = image.getBoundingClientRect();
-  return bounds.bottom > 0 && bounds.right > 0 &&
-    bounds.top < window.innerHeight && bounds.left < window.innerWidth;
-}
-
-// 等畫面中可見的圖片與字型載入完成；超過 5 秒就不等了，直接顯示頁面
+// 先顯示頁面結構與 Hero 背景色；圖片完成後由各自的 Hero 載入動畫補上。
 async function revealPage() {
   // 等兩個畫面更新週期，確保版面已經排好
   await waitForNextFrame();
   await waitForNextFrame();
 
-  const tasks = [];
-  const images = document.images;
-
-  for (let i = 0; i < images.length; i++) {
-    if (isImageVisible(images[i])) {
-      tasks.push(waitForImage(images[i]));
-    }
-  }
-
+  // 字型最多只阻塞 1 秒；圖片不再阻塞整頁，避免大型 Hero 造成白屏。
   if (document.fonts) {
-    tasks.push(document.fonts.ready);
+    await Promise.race([document.fonts.ready, wait(1000)]);
   }
-
-  // allSettled：就算其中一個失敗，也會等全部結束
-  await Promise.race([Promise.allSettled(tasks), wait(5000)]);
 
   document.documentElement.classList.add("page-ready");
 

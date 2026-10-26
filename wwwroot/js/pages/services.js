@@ -22,13 +22,18 @@ function setupServiceTabs() {
   const tabs = toArray(document.querySelectorAll("[role='tab']"));
   const panels = toArray(document.querySelectorAll("[data-service-panel]"));
 
+  if (tabs.length === 0 || panels.length === 0) return;
+
+  // 記錄每個面板的 id，之後用來檢查 hash 是否有效
   const panelIds = [];
   for (let i = 0; i < panels.length; i++) {
     panelIds.push(panels[i].id);
   }
 
-  if (tabs.length === 0 || panels.length === 0) return;
+  // 目前顯示的是第幾個面板
+  let currentIndex = 0;
 
+  // 建立外層容器，讓面板可以左右滑動切換
   const panelViewport = document.createElement("div");
   const panelTrack = document.createElement("div");
   panelViewport.className = "service-panels-viewport";
@@ -36,48 +41,51 @@ function setupServiceTabs() {
   panelViewport.appendChild(panelTrack);
   panels[0].parentNode.insertBefore(panelViewport, panels[0]);
   for (let i = 0; i < panels.length; i++) {
-    panels[i].hidden = false;
     panelTrack.appendChild(panels[i]);
   }
 
-  function selectPanel(id, updateHash, selectedTab) {
-    let selectedId = id;
-    if (panelIds.indexOf(id) === -1) {
-      selectedId = panels[0] ? panels[0].id : null;
-    }
-    if (!selectedId) return;
-
-    const activeTab = selectedTab || tabs.find((tab) => tab.getAttribute("aria-controls") === selectedId);
-    for (let i = 0; i < tabs.length; i++) {
-      const tab = tabs[i];
-      const isSelected = tab === activeTab;
-      tab.setAttribute("aria-selected", String(isSelected));
-      tab.tabIndex = isSelected ? 0 : -1;
-    }
-
-    // 顯示/隱藏對應面板：同步 hidden、is-active 與 aria-hidden，
-    // 確保未選取面板不可聚焦、不被螢幕閱讀器朗讀
-    for (let i = 0; i < panels.length; i++) {
-      const panel = panels[i];
-      const isActive = panel.id === selectedId;
-      panel.classList.toggle("is-active", isActive);
-      panel.setAttribute("aria-hidden", String(!isActive));
-      panel.hidden = false;
-      panel.inert = !isActive;
-    }
-
-    const selectedIndex = panels.findIndex((panel) => panel.id === selectedId);
-    panelTrack.style.transform = `translateX(-${selectedIndex * 100}%)`;
-    panelViewport.style.height = `${panels[selectedIndex].scrollHeight}px`;
-
-    if (updateHash !== false) history.replaceState(null, "", "#" + selectedId);
+  // 讓外層高度等於目前面板的高度
+  function updatePanelHeight() {
+    panelViewport.style.height = panels[currentIndex].scrollHeight + "px";
   }
 
+  // 切換到指定 id 的面板；updateHash 為 false 時不改網址
+  function selectPanel(id, updateHash) {
+    // 找出 id 對應第幾個面板，找不到就用第一個
+    let selectedIndex = panelIds.indexOf(id);
+    if (selectedIndex === -1) {
+      selectedIndex = 0;
+    }
+    currentIndex = selectedIndex;
+    const selectedId = panelIds[selectedIndex];
+
+    // 更新標籤狀態
+    for (let i = 0; i < tabs.length; i++) {
+      const isSelected = tabs[i].getAttribute("aria-controls") === selectedId;
+      tabs[i].setAttribute("aria-selected", String(isSelected));
+      tabs[i].tabIndex = isSelected ? 0 : -1;
+    }
+
+    // 未選取的面板設成 inert，避免內容被聚焦或被螢幕閱讀器讀到
+    for (let i = 0; i < panels.length; i++) {
+      panels[i].inert = (i !== selectedIndex);
+    }
+
+    // 滑到對應面板，並調整高度
+    panelTrack.style.transform = "translateX(-" + (selectedIndex * 100) + "%)";
+    updatePanelHeight();
+
+    if (updateHash !== false) {
+      history.replaceState(null, "", "#" + selectedId);
+    }
+  }
+
+  // 綁定每個標籤的點擊與鍵盤事件
   for (let index = 0; index < tabs.length; index++) {
     const tab = tabs[index];
 
     tab.addEventListener("click", function () {
-      selectPanel(tab.getAttribute("aria-controls"), true, tab);
+      selectPanel(tab.getAttribute("aria-controls"), true);
     });
 
     tab.addEventListener("keydown", function (event) {
@@ -88,21 +96,25 @@ function setupServiceTabs() {
       const nextIndex = (index + direction + tabs.length) % tabs.length;
       const nextTab = tabs[nextIndex];
       nextTab.focus();
-      selectPanel(nextTab.getAttribute("aria-controls"), true, nextTab);
+      selectPanel(nextTab.getAttribute("aria-controls"), true);
     });
   }
 
+  // 初始化：有 hash 就用 hash，沒有就顯示第一個
   const initialHash = window.location.hash.slice(1);
   selectPanel(initialHash || tabs[0].getAttribute("aria-controls"), false);
 
   window.addEventListener("hashchange", function () {
     selectPanel(window.location.hash.slice(1), false);
   });
+
+  // 視窗大小改變時，重新計算高度
+  window.addEventListener("resize", updatePanelHeight);
 }
 
 // ---------------------------------------------------------------------------
 // 2. 服務輪播（每個服務區塊各有一個）
-// - 自動播放（5 秒），滑鼠/焦點/可見性暫停
+// - 自動播放（5 秒），滑鼠移入/焦點進入時暫停
 // - 上一張/下一張按鈕、圓點指示器
 // - 觸控/滑鼠拖曳切換
 // - 無障礙：aria-hidden、aria-current、aria-label
@@ -125,7 +137,8 @@ function initOneServiceCarousel(carousel, reducedMotion) {
   const next = carousel.querySelector("[data-carousel-next]");
   const dotsContainer = carousel.querySelector("[data-carousel-dots]");
 
-  if (!track || slides.length < 2) return;
+  // 少於 2 張圖不需要輪播
+  if (!track || !viewport || slides.length < 2) return;
 
   // 為每個 slide 設定 aria-label
   for (let i = 0; i < slides.length; i++) {
@@ -134,14 +147,15 @@ function initOneServiceCarousel(carousel, reducedMotion) {
 
   // 建立圓點按鈕
   const dots = [];
-  for (let index = 0; index < slides.length; index++) {
+  for (let i = 0; i < slides.length; i++) {
     const dot = document.createElement("button");
     dot.className = "service-carousel__dot";
     dot.type = "button";
-    dot.dataset.carouselDot = String(index);
-    dot.setAttribute("aria-label", "顯示第 " + (index + 1) + " 張圖片");
+    dot.setAttribute("aria-label", "顯示第 " + (i + 1) + " 張圖片");
     dot.setAttribute("aria-current", "false");
-    if (dotsContainer) dotsContainer.append(dot);
+    if (dotsContainer) {
+      dotsContainer.appendChild(dot);
+    }
     dots.push(dot);
   }
 
@@ -164,10 +178,9 @@ function initOneServiceCarousel(carousel, reducedMotion) {
       slides[i].setAttribute("aria-hidden", String(i !== current));
     }
     for (let i = 0; i < dots.length; i++) {
-      const dot = dots[i];
-      const active = i === current;
-      dot.classList.toggle("is-active", active);
-      dot.setAttribute("aria-current", String(active));
+      const active = (i === current);
+      dots[i].classList.toggle("is-active", active);
+      dots[i].setAttribute("aria-current", String(active));
     }
   }
 
@@ -200,11 +213,10 @@ function initOneServiceCarousel(carousel, reducedMotion) {
     });
   }
 
-  // 圓點點擊
+  // 圓點點擊：第幾個圓點就顯示第幾張
   for (let i = 0; i < dots.length; i++) {
-    const dot = dots[i];
-    dot.addEventListener("click", function () {
-      show(Number(dot.dataset.carouselDot));
+    dots[i].addEventListener("click", function () {
+      show(i);
       start();
     });
   }
@@ -213,81 +225,80 @@ function initOneServiceCarousel(carousel, reducedMotion) {
   // 觸控/滑鼠拖曳
   // ---------------------------------------------------------------------------
 
-  // 完成拖曳，決定是否切換 slide；commit 為 false 時代表要取消拖曳、直接回彈
-  function finishPointer(event, commit) {
+  // 結束拖曳。shouldCommit 為 false 代表取消，直接回彈
+  function finishPointer(event, shouldCommit) {
     if (!pointerActive) return;
     pointerActive = false;
-    if (viewport) viewport.classList.remove("is-dragging");
+    viewport.classList.remove("is-dragging");
 
-    if (viewport && viewport.hasPointerCapture(event.pointerId)) {
-      try {
-        viewport.releasePointerCapture(event.pointerId);
-      } catch (error) {
-        // 有些瀏覽器在指標已經放開時呼叫會丟出錯誤，這裡忽略即可
-      }
+    if (viewport.hasPointerCapture(event.pointerId)) {
+      viewport.releasePointerCapture(event.pointerId);
     }
     track.style.removeProperty("transition");
 
-    // 拖曳距離超過閾值 → 切換
+    // 拖曳距離超過門檻就切換，否則回彈
     const threshold = Math.max(40, viewport.clientWidth * 0.15);
-    if (commit !== false && pointerMoved && Math.abs(pointerDeltaX) >= threshold) {
-      show(current + (pointerDeltaX < 0 ? 1 : -1));
+    if (shouldCommit && pointerMoved && Math.abs(pointerDeltaX) >= threshold) {
+      if (pointerDeltaX < 0) {
+        show(current + 1);
+      } else {
+        show(current - 1);
+      }
     } else {
-      show(current); // 回彈
+      show(current);
     }
     start();
   }
 
-  if (viewport) {
-    viewport.addEventListener("pointerdown", function (event) {
-      if (!event.isPrimary || event.button !== 0) return;
-      pointerActive = true;
-      pointerMoved = false;
-      pointerStartX = event.clientX;
-      pointerStartY = event.clientY;
-      pointerDeltaX = 0;
-      stop();
+  viewport.addEventListener("pointerdown", function (event) {
+    if (!event.isPrimary || event.button !== 0) return;
+    pointerActive = true;
+    pointerMoved = false;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+    pointerDeltaX = 0;
+    stop();
 
-      try {
-        viewport.setPointerCapture(event.pointerId);
-      } catch (error) {
-        // 部分瀏覽器不支援時忽略即可
-      }
-      viewport.classList.add("is-dragging");
-    });
+    viewport.setPointerCapture(event.pointerId);
+    viewport.classList.add("is-dragging");
+  });
 
-    viewport.addEventListener("pointermove", function (event) {
-      if (!pointerActive || !event.isPrimary) return;
-      pointerDeltaX = event.clientX - pointerStartX;
-      const deltaY = event.clientY - pointerStartY;
+  viewport.addEventListener("pointermove", function (event) {
+    if (!pointerActive || !event.isPrimary) return;
+    pointerDeltaX = event.clientX - pointerStartX;
+    const deltaY = event.clientY - pointerStartY;
 
-      // 垂直滑動為主 → 取消拖曳
-      if (!pointerMoved && Math.abs(deltaY) > Math.abs(pointerDeltaX) && Math.abs(deltaY) > 8) {
-        finishPointer(event, false);
-        return;
-      }
-      if (Math.abs(pointerDeltaX) > 6) pointerMoved = true;
-      if (!pointerMoved) return;
-
-      // 即時跟隨拖曳（無 transition）
-      track.style.transition = "none";
-      track.style.transform = "translateX(calc(-" + (current * 100) + "% + " + pointerDeltaX + "px))";
-    });
-
-    viewport.addEventListener("pointerup", function (event) {
-      finishPointer(event, true);
-    });
-    viewport.addEventListener("pointercancel", function (event) {
+    // 垂直滑動為主，代表使用者想捲動頁面，取消拖曳
+    if (!pointerMoved && Math.abs(deltaY) > Math.abs(pointerDeltaX) && Math.abs(deltaY) > 8) {
       finishPointer(event, false);
-    });
-  }
+      return;
+    }
 
-  // 滑鼠/焦點/可見性控制自動播放
+    if (Math.abs(pointerDeltaX) > 6) {
+      pointerMoved = true;
+    }
+    if (!pointerMoved) return;
+
+    // 圖片即時跟著手指移動（暫時關掉動畫）
+    track.style.transition = "none";
+    track.style.transform = "translateX(calc(-" + (current * 100) + "% + " + pointerDeltaX + "px))";
+  });
+
+  viewport.addEventListener("pointerup", function (event) {
+    finishPointer(event, true);
+  });
+  viewport.addEventListener("pointercancel", function (event) {
+    finishPointer(event, false);
+  });
+
+  // 滑鼠移入/焦點進入時暫停，離開後繼續
   carousel.addEventListener("mouseenter", stop);
   carousel.addEventListener("mouseleave", start);
   carousel.addEventListener("focusin", stop);
   carousel.addEventListener("focusout", function (event) {
-    if (!carousel.contains(event.relatedTarget)) start();
+    if (!carousel.contains(event.relatedTarget)) {
+      start();
+    }
   });
   reducedMotion.addEventListener("change", start);
 

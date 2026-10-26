@@ -17,6 +17,37 @@ html.page-loading .page-loader {
   animation: page-loader-failsafe 0s linear 10s forwards;
 }
 
+.page-loader__content {
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+html.page-loading.page-ready .page-loader__content {
+  opacity: 0;
+  transform: scale(.98);
+}
+
+.page-loader__logo {
+  display: block;
+  width: min(180px, 42vw);
+  height: auto;
+}
+
+.page-loader__indicator {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-primary-soft);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: page-loader-spin 0.9s linear infinite;
+}
+
+@keyframes page-loader-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* 載入完成（JS 加上 page-ready）：淡出並讓遮罩不再擋住點擊 */
 html.page-loading.page-ready .page-loader {
   opacity: 0;
@@ -32,4 +63,9 @@ html.page-loading.page-ready .page-loader {
 /* 使用者開啟「減少動態效果」：取消淡出動畫，直接消失 */
 @media (prefers-reduced-motion: reduce) {
   html.page-loading .page-loader { transition: none; }
+  .page-loader__content {
+    transition: none;
+    transform: none;
+  }
+  .page-loader__indicator { animation: none; }
 }

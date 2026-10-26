@@ -27,7 +27,12 @@
 </head>
 
 <body class="join-page">
-  <div class="page-loader" data-page-loader role="status" aria-label="頁面載入中"></div>
+  <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中">
+    <div class="page-loader__content">
+      <img class="page-loader__logo" src="public/images/logo/apli-logo.svg" alt="亞太國際物流" width="180" height="52">
+      <span class="page-loader__indicator" aria-hidden="true"></span>
+    </div>
+  </div>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
   <header class="site-header">
     <div class="site-container site-header__inner">
@@ -208,7 +213,7 @@
   <!-- shared-site-footer -->
 
   <!-- 頁尾 JS 腳本 -->
-  <script src="js/site.js?v=20260902-page-hero-load-motion-v1"></script>
+  <script src="js/site.js?v=20261026-nonblocking-page-loader-v1"></script>
   <script src="js/pages/careers.js?v=20261026-benefits-table-motion-v2"></script>
 </body>
 </html>
