@@ -1,22 +1,20 @@
-(function () {
+//進入頁面or重整頁面時，從最上方開始看，不會停在上次捲動的位置
+function resetEntryPosition() {
   if (window.location.hash) {
     return;
   }
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
 
-  if ("scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
+window.history.scrollRestoration = "manual";
+window.addEventListener("pageshow", resetEntryPosition);
 
-  function resetEntryPosition() {
-    if (!window.location.hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }
-  }
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  resetEntryPosition();
-  window.addEventListener("pageshow", resetEntryPosition);
-})();
-
+// ---------------------------------------------------------------
+// 認證與獎項資料
+// 注意：資料必須維持「由新到舊」排列，下面的分組函式才會正確
+// ---------------------------------------------------------------
 const certificationPreviewEvents = [
   { year: "2025", title: "取得職業安全衛生管理系統通過 ISO 45001:2018 驗證" },
   { year: "2025", title: "獲國立體育大學頒發「113年度捐助興學紀念－嘉惠國體」" },
@@ -57,45 +55,48 @@ const certificationPreviewEvents = [
   { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
 ];
 
+// ---------------------------------------------------------------
+// 關於我們頁：區塊捲動到畫面時淡入
+// ---------------------------------------------------------------
 function setupAboutScrollMotion() {
-  // Reveal each About content section as it enters the viewport.
   const page = document.querySelector(".about-page");
   if (!page) {
     return;
   }
+  if (reduceMotion) {
+    return;
+  }
 
   const profile = page.querySelector(".about-profile");
-  const sections = Array.from(page.querySelectorAll(
-    ".about-certifications-preview"
-  ));
-  const enterpriseCards = Array.from(page.querySelectorAll(
-    ".about-enterprise-values__card"
-  ));
-  const revealTargets = (profile ? [profile] : []).concat(sections, enterpriseCards);
+  const sections = page.querySelectorAll(".about-certifications-preview");
+  const enterpriseCards = page.querySelectorAll(".about-enterprise-values__card");
+
+  // 把所有要淡入的元素放進同一個陣列
+  const revealTargets = [];
+  if (profile) {
+    profile.classList.add("about-profile-reveal");
+    revealTargets.push(profile);
+  }
+  for (let i = 0; i < sections.length; i++) {
+    sections[i].classList.add("about-scroll-reveal");
+    revealTargets.push(sections[i]);
+  }
+  for (let i = 0; i < enterpriseCards.length; i++) {
+    enterpriseCards[i].classList.add("about-scroll-reveal");
+    revealTargets.push(enterpriseCards[i]);
+  }
+
   if (revealTargets.length === 0) {
     return;
   }
 
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (reducedMotion.matches) {
-    return;
-  }
-
   page.classList.add("about-motion-ready");
-  if (profile) {
-    profile.classList.add("about-profile-reveal");
-  }
-  sections.forEach(function (section) {
-    section.classList.add("about-scroll-reveal");
-  });
-  enterpriseCards.forEach(function (card) {
-    card.classList.add("about-scroll-reveal");
-  });
 
+  // 有圖片的區塊，等圖片載入完再淡入，避免畫面跳動
   function revealSection(section) {
-    const reveal = function () {
+    function reveal() {
       section.classList.add("is-visible");
-    };
+    }
 
     const image = section.querySelector(".about-enterprise-values__media img");
     if (!image || image.complete) {
@@ -108,21 +109,58 @@ function setupAboutScrollMotion() {
   }
 
   const observer = new IntersectionObserver(function (entries, currentObserver) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      if (!entry.isIntersecting) {
+        continue;
+      }
       revealSection(entry.target);
       currentObserver.unobserve(entry.target);
-    });
+    }
   }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
 
-  revealTargets.forEach(function (target) {
-    observer.observe(target);
-  });
-
+  for (let i = 0; i < revealTargets.length; i++) {
+    observer.observe(revealTargets[i]);
+  }
 }
 
+// ---------------------------------------------------------------
+// 把資料分成「年代 → 年份 → 獎項」三層
+// 結果長這樣：
+// [ { start: 2020, label: "2020s", years: [ { year: "2025", events: ["...", "..."] } ] } ]
+// ---------------------------------------------------------------
+function groupEvents(events) {
+  const result = [];
+  let currentDecade = null;
+  let currentYear = null;
+
+  for (let i = 0; i < events.length; i++) {
+    const item = events[i];
+    const start = Math.floor(Number(item.year) / 10) * 10;
+
+    // 換到新的年代，就開一個新的年代物件
+    if (currentDecade === null || currentDecade.start !== start) {
+      currentDecade = { start: start, label: start + "s", years: [] };
+      result.push(currentDecade);
+      currentYear = null;
+    }
+
+    // 換到新的年份，就開一個新的年份物件
+    if (currentYear === null || currentYear.year !== item.year) {
+      currentYear = { year: item.year, events: [] };
+      currentDecade.years.push(currentYear);
+    }
+
+    currentYear.events.push(item.title);
+  }
+
+  return result;
+}
+
+// ---------------------------------------------------------------
+// 認證與獎項時間軸
+// ---------------------------------------------------------------
 function initCertificationPreview() {
-  // This function builds the certification timeline and connects its controls.
   const preview = document.querySelector("[data-certification-preview]");
   if (!preview) {
     return;
@@ -135,313 +173,282 @@ function initCertificationPreview() {
     return;
   }
 
-  // 第一步：把獎項依年份分組
-  const eventsByYear = {};
-  certificationPreviewEvents.forEach(function (item) {
-    if (!eventsByYear[item.year]) {
-      eventsByYear[item.year] = [];
-    }
-    eventsByYear[item.year].push(item.title);
-  });
-
-  // 第二步：把年份依「年代」分組，例如 2021、2023、2024 都屬於 2020s
-  const yearsByDecade = {};
-  Object.keys(eventsByYear).forEach(function (year) {
-    const yearNumber = Number(year);
-    if (!Number.isInteger(yearNumber)) {
-      return;
-    }
-    const decadeStart = Math.floor(yearNumber / 10) * 10;
-    if (!yearsByDecade[decadeStart]) {
-      yearsByDecade[decadeStart] = [];
-    }
-    yearsByDecade[decadeStart].push({ year: year, events: eventsByYear[year] });
-  });
-
-  const decadeStarts = Object.keys(yearsByDecade).map(Number);
-  decadeStarts.sort(function (a, b) {
-    return b - a;
-  });
-
-  const decades = decadeStarts.map(function (start) {
-    const years = yearsByDecade[start].slice();
-    years.sort(function (a, b) {
-      return Number(b.year) - Number(a.year);
-    });
-    return { start: start, label: start + "s", years: years };
-  });
-
+  const decades = groupEvents(certificationPreviewEvents);
   if (decades.length === 0) {
     return;
   }
 
   const decadeButtons = [];
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let activeDecadeIndex = -1;
-  let activePageIndex = 0;
+  let paginationButtons = [];
+  let allPages = [];        // 所有頁面：{ decadeIndex, pageInDecade, years }
+  let decadeFirstPage = []; // 每個年代的第一頁，是 allPages 的第幾個
+  let activePage = 0;       // 目前顯示第幾頁
+  let activeDecade = -1;    // 目前是第幾個年代
   let pageSize = getPageSize();
-  let pageSets = [];
-  let pageOffsets = [];
-  let scrollAnimationFrame = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
 
+  // 依螢幕寬度決定一頁放幾個年份
   function getPageSize() {
     if (window.matchMedia("(min-width: 1440px)").matches) {
       return 4;
     }
-
     if (window.matchMedia("(min-width: 1200px)").matches) {
       return 3;
     }
-
     if (window.matchMedia("(min-width: 768px)").matches) {
       return 2;
     }
-
     return 1;
   }
 
-  function getPages(decade) {
-    const entries = decade.years.slice();
-    const pages = [];
+  // 把每個年代的年份，依 pageSize 切成一頁一頁
+  function buildPages() {
+    allPages = [];
+    decadeFirstPage = [];
 
-    for (let index = 0; index < entries.length; index += pageSize) {
-      pages.push(entries.slice(index, index + pageSize));
+    for (let d = 0; d < decades.length; d++) {
+      decadeFirstPage.push(allPages.length);
+      const years = decades[d].years;
+      let pageInDecade = 0;
+
+      for (let i = 0; i < years.length; i += pageSize) {
+        allPages.push({
+          decadeIndex: d,
+          pageInDecade: pageInDecade,
+          years: years.slice(i, i + pageSize)
+        });
+        pageInDecade += 1;
+      }
+    }
+  }
+
+  // 更新年代按鈕與分頁圓點的狀態
+  function updateControls() {
+    const currentDecade = allPages[activePage].decadeIndex;
+
+    for (let i = 0; i < decadeButtons.length; i++) {
+      const active = i === currentDecade;
+      decadeButtons[i].dataset.active = String(active);
+      decadeButtons[i].setAttribute("aria-current", String(active));
+      decadeButtons[i].setAttribute("aria-selected", String(active));
     }
 
-    return pages;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    for (let i = 0; i < paginationButtons.length; i++) {
+      const active = i === activePage;
+      paginationButtons[i].dataset.active = String(active);
+      paginationButtons[i].setAttribute("aria-current", String(active));
+      // 手機版只顯示目前頁附近的圓點
+      paginationButtons[i].hidden = isMobile && Math.abs(i - activePage) > 2;
+    }
   }
 
-  // pageOffsets[i] 記錄第 i 個年代的第一頁，攤平到整條 track 之後排在第幾頁，
-  // 用來把「第幾個年代、第幾頁」換算成 track 裡的單一頁碼
-  function rebuildPageSets() {
-    pageSets = decades.map(getPages);
-    pageOffsets = [];
-    let offset = 0;
-    pageSets.forEach(function (pages) {
-      pageOffsets.push(offset);
-      offset += pages.length;
-    });
-  }
-
-  function markActiveDecadeButton(index) {
-    decadeButtons.forEach(function (button, buttonIndex) {
-      const active = buttonIndex === index;
-      button.dataset.active = active ? "true" : "false";
-      button.setAttribute("aria-current", active ? "true" : "false");
-      button.setAttribute("aria-selected", active ? "true" : "false");
-    });
-  }
-
-  decades.forEach(function (decade) {
-    const tab = document.createElement("button");
-    tab.type = "button";
-    tab.className = "about-certifications-preview__decade";
-    tab.setAttribute("role", "tab");
-    tab.id = "certification-preview-decade-" + decade.start;
-    tab.setAttribute("aria-controls", "certification-preview-content");
-    tab.textContent = decade.label;
-    decadeButtons.push(tab);
-    decadeNavigation.append(tab);
-  });
-  decadeNavigation.style.setProperty("--decade-count", String(decades.length));
-  markActiveDecadeButton(0);
-
-  const pagination = document.createElement("div");
-  pagination.className = "about-certifications-preview__pagination";
-  pagination.setAttribute("role", "group");
-  pagination.setAttribute("aria-label", "認證與獎項內容頁次");
-  controls.replaceChildren(pagination);
-  let paginationButtons = [];
-
-  function setTrackPosition(animate) {
-    if (animate === undefined) {
-      animate = true;
+  // 跳到指定頁（點年代、點圓點、滾輪、鍵盤都走這裡）
+  function goToPage(index, animate) {
+    if (index < 0 || index >= allPages.length) {
+      return;
     }
 
     const track = content.querySelector("[data-certification-preview-track]");
-    if (!track) {
+    if (!track || track.children.length === 0) {
       return;
     }
 
-    const firstPage = track.firstElementChild;
-    if (!firstPage) {
-      return;
-    }
+    const pages = track.children;
+    const left = pages[index].offsetLeft - pages[0].offsetLeft;
 
-    const globalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
-    const targetPage = track.children[globalPageIndex];
-    let pageStep;
-    if (targetPage) {
-      pageStep = targetPage.offsetLeft - firstPage.offsetLeft;
+    activePage = index;
+    viewport.classList.toggle("is-track-advanced", index > 0);
+
+    if (animate && !reduceMotion) {
+      viewport.scrollTo({ left: left, behavior: "smooth" });
     } else {
-      pageStep = firstPage.offsetWidth;
+      viewport.scrollLeft = left;
     }
 
-    viewport.classList.toggle("is-track-advanced", globalPageIndex > 0);
-    if (scrollAnimationFrame) {
-      window.cancelAnimationFrame(scrollAnimationFrame);
-      scrollAnimationFrame = 0;
-      viewport.classList.remove("is-certification-animating");
+    for (let i = 0; i < pages.length; i++) {
+      pages[i].setAttribute("aria-hidden", i === index ? "false" : "true");
     }
 
-    if (!animate || reduceMotion) {
-      viewport.scrollLeft = pageStep;
-    } else {
-      const startLeft = viewport.scrollLeft;
-      const distance = pageStep - startLeft;
-      const startTime = window.performance.now();
-      const duration = 500;
+    updateControls();
 
-      viewport.classList.add("is-certification-animating");
-
-      function animateScroll(currentTime) {
-        const progress = Math.min((currentTime - startTime) / duration, 1);
-        const easedProgress = progress < 0.5
-          ? 2 * progress * progress
-          : 1 - (Math.pow(-2 * progress + 2, 2) / 2);
-        viewport.scrollLeft = startLeft + (distance * easedProgress);
-        if (progress < 1) {
-          scrollAnimationFrame = window.requestAnimationFrame(animateScroll);
-        } else {
-          scrollAnimationFrame = 0;
-          viewport.classList.remove("is-certification-animating");
-        }
+    // 換了年代的話，讓對應的年代按鈕滑進可視範圍
+    const newDecade = allPages[index].decadeIndex;
+    if (newDecade !== activeDecade) {
+      activeDecade = newDecade;
+      if (animate) {
+        decadeButtons[newDecade].scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "nearest",
+          inline: "nearest"
+        });
       }
-
-      scrollAnimationFrame = window.requestAnimationFrame(animateScroll);
-    }
-
-    for (let i = 0; i < track.children.length; i++) {
-      track.children[i].setAttribute("aria-hidden", i === globalPageIndex ? "false" : "true");
     }
   }
 
+  function movePage(offset) {
+    goToPage(activePage + offset, true);
+  }
+
+  // 使用者自己捲動（觸控滑動、拖曳）時，找出最靠近的頁面並同步狀態
   function syncStateFromScroll() {
     if (isDragging) {
       return;
     }
 
     const track = content.querySelector("[data-certification-preview-track]");
-    if (!track) {
+    if (!track || track.children.length === 0) {
       return;
     }
 
-    const firstPage = track.firstElementChild;
-    if (!firstPage || pageSets.length === 0) {
-      return;
-    }
+    const pages = track.children;
+    let nearest = 0;
+    let nearestDistance = Infinity;
 
-    const currentOffset = viewport.scrollLeft;
-    let nearestPageIndex = 0;
-    let nearestDistance = Number.POSITIVE_INFINITY;
-    for (let i = 0; i < track.children.length; i++) {
-      const page = track.children[i];
-      const pageOffset = page.offsetLeft - firstPage.offsetLeft;
-      const distance = Math.abs(pageOffset - currentOffset);
+    for (let i = 0; i < pages.length; i++) {
+      const pageLeft = pages[i].offsetLeft - pages[0].offsetLeft;
+      const distance = Math.abs(pageLeft - viewport.scrollLeft);
       if (distance < nearestDistance) {
         nearestDistance = distance;
-        nearestPageIndex = i;
+        nearest = i;
       }
     }
 
-    let nextDecadeIndex = pageOffsets.length - 1;
-    for (let i = 0; i < pageOffsets.length; i++) {
-      if (nearestPageIndex < pageOffsets[i] + pageSets[i].length) {
-        nextDecadeIndex = i;
-        break;
-      }
+    if (nearest !== activePage) {
+      activePage = nearest;
+      activeDecade = allPages[nearest].decadeIndex;
+      updateControls();
     }
-    const nextPageIndex = nearestPageIndex - pageOffsets[nextDecadeIndex];
-    const stateHasNotChanged = nextDecadeIndex === activeDecadeIndex
-      && nextPageIndex === activePageIndex;
-
-    if (stateHasNotChanged) {
-      return;
-    }
-
-    activeDecadeIndex = nextDecadeIndex;
-    activePageIndex = nextPageIndex;
-    markActiveDecadeButton(activeDecadeIndex);
-    updateControls();
   }
 
-  function updateControls() {
-    const activeGlobalPageIndex = pageOffsets[activeDecadeIndex] + activePageIndex;
-    paginationButtons.forEach(function (button, index) {
-      const isActive = index === activeGlobalPageIndex;
-      button.dataset.active = String(isActive);
-      button.setAttribute("aria-current", isActive ? "true" : "false");
-      button.hidden = window.matchMedia("(max-width: 767px)").matches
-        && Math.abs(index - activeGlobalPageIndex) > 2;
+  // ---------- 建立年代按鈕 ----------
+  function bindDecadeButton(button, index) {
+    button.addEventListener("click", function () {
+      goToPage(decadeFirstPage[index], true);
     });
+
+    button.addEventListener("keydown", function (event) {
+      let nextIndex = index;
+
+      if (event.key === "ArrowRight") {
+        nextIndex = Math.min(index + 1, decadeButtons.length - 1);
+      }
+      if (event.key === "ArrowLeft") {
+        nextIndex = Math.max(index - 1, 0);
+      }
+      if (event.key === "Home") {
+        nextIndex = 0;
+      }
+      if (event.key === "End") {
+        nextIndex = decadeButtons.length - 1;
+      }
+
+      if (nextIndex === index) {
+        return;
+      }
+
+      event.preventDefault();
+      goToPage(decadeFirstPage[nextIndex], true);
+      decadeButtons[nextIndex].focus();
+    });
+  }
+
+  for (let i = 0; i < decades.length; i++) {
+    const tab = document.createElement("button");
+    tab.type = "button";
+    tab.className = "about-certifications-preview__decade";
+    tab.setAttribute("role", "tab");
+    tab.id = "certification-preview-decade-" + decades[i].start;
+    tab.setAttribute("aria-controls", "certification-preview-content");
+    tab.textContent = decades[i].label;
+    decadeButtons.push(tab);
+    decadeNavigation.append(tab);
+    bindDecadeButton(tab, i);
+  }
+  decadeNavigation.style.setProperty("--decade-count", String(decades.length));
+
+  // ---------- 建立分頁圓點 ----------
+  const pagination = document.createElement("div");
+  pagination.className = "about-certifications-preview__pagination";
+  pagination.setAttribute("role", "group");
+  pagination.setAttribute("aria-label", "認證與獎項內容頁次");
+  controls.replaceChildren(pagination);
+
+  function createDot(pageIndex) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "about-certifications-preview__dot";
+    button.setAttribute("aria-label", "顯示第 " + (pageIndex + 1) + " 組認證與獎項");
+    button.setAttribute("aria-current", "false");
+    button.dataset.active = "false";
+    button.addEventListener("click", function () {
+      goToPage(pageIndex, true);
+    });
+    return button;
   }
 
   function renderPagination() {
     paginationButtons = [];
     pagination.replaceChildren();
-    let globalPageIndex = 0;
-    pageSets.forEach(function (pages, decadeIndex) {
-      pages.forEach(function (_, pageIndex) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "about-certifications-preview__dot";
-        button.setAttribute("aria-label", "顯示第 " + (globalPageIndex + 1) + " 組認證與獎項");
-        button.setAttribute("aria-current", "false");
-        button.dataset.active = "false";
-        button.addEventListener("click", function () {
-          activeDecadeIndex = decadeIndex;
-          activePageIndex = pageIndex;
-          markActiveDecadeButton(activeDecadeIndex);
-          setTrackPosition(true);
-          updateControls();
-        });
-        pagination.append(button);
-        paginationButtons.push(button);
-        globalPageIndex += 1;
-      });
-    });
+    for (let i = 0; i < allPages.length; i++) {
+      const dot = createDot(i);
+      pagination.append(dot);
+      paginationButtons.push(dot);
+    }
   }
 
-  function createPage(years, decade, decadeIndex, pageIndex) {
+  // ---------- 建立每一頁的內容 ----------
+  function createPage(pageData) {
+    const years = pageData.years;
+    const decade = decades[pageData.decadeIndex];
+
     const page = document.createElement("section");
     page.className = "about-certifications-preview__page";
     page.dataset.previewYearCount = String(years.length);
-    const pageHeadingId = "certification-preview-" + decade.start + "-" + pageIndex;
+    const pageHeadingId = "certification-preview-" + decade.start + "-" + pageData.pageInDecade;
     page.setAttribute("aria-labelledby", pageHeadingId);
 
+    // 年份標題列
     const yearsHeader = document.createElement("div");
     yearsHeader.className = "about-certifications-preview__years-header";
     yearsHeader.dataset.yearCount = String(years.length);
     yearsHeader.style.setProperty("--preview-year-count", String(years.length));
 
+    // 時間軸圓點
     const timeline = document.createElement("div");
     timeline.className = "about-certifications-preview__timeline";
     timeline.style.setProperty("--preview-year-count", String(years.length));
-    years.forEach(function (yearEntry, yearIndex) {
+    for (let i = 0; i < years.length; i++) {
       const node = document.createElement("span");
       node.className = "about-certifications-preview__timeline-node";
-      node.dataset.active = yearIndex === 0 ? "true" : "false";
+      node.dataset.active = i === 0 ? "true" : "false";
       node.setAttribute("aria-hidden", "true");
       timeline.append(node);
-    });
+    }
     page.append(yearsHeader, timeline);
 
+    // 每個年份一欄
     const yearsElement = document.createElement("div");
     yearsElement.className = "about-certifications-preview__years";
     yearsElement.dataset.yearCount = String(years.length);
     yearsElement.style.setProperty("--preview-year-count", String(years.length));
-    years.forEach(function (yearEntry) {
-      const year = yearEntry.year;
-      const yearEvents = yearEntry.events;
+
+    for (let i = 0; i < years.length; i++) {
+      const year = years[i].year;
+      const yearEvents = years[i].events;
 
       const yearColumn = document.createElement("article");
       yearColumn.className = "about-certifications-preview__year-column";
 
       const yearHeading = document.createElement("h3");
       yearHeading.className = "about-certifications-preview__year";
-      yearHeading.id = year === years[0].year
-        ? pageHeadingId
-        : "certification-preview-year-" + decadeIndex + "-" + pageIndex + "-" + year;
+      if (i === 0) {
+        yearHeading.id = pageHeadingId;
+      } else {
+        yearHeading.id = "certification-preview-year-" + pageData.decadeIndex + "-" + pageData.pageInDecade + "-" + year;
+      }
       yearHeading.textContent = year;
       yearsHeader.append(yearHeading);
 
@@ -449,61 +456,75 @@ function initCertificationPreview() {
 
       const events = document.createElement("div");
       events.className = "about-certifications-preview__events";
-      yearEvents.forEach(function (title) {
+      for (let j = 0; j < yearEvents.length; j++) {
         const event = document.createElement("article");
         event.className = "about-certifications-preview__event";
         const heading = document.createElement("h4");
-        heading.textContent = title;
+        heading.textContent = yearEvents[j];
         event.append(heading);
         events.append(event);
-      });
+      }
+
       yearColumn.append(events);
       yearsElement.append(yearColumn);
-    });
+    }
+
     page.append(yearsElement);
     return page;
   }
 
+  // 讓每一欄的獎項區塊高度一致
   function syncEventHeights() {
     content.style.removeProperty("--preview-events-height");
     const eventGroups = content.querySelectorAll(".about-certifications-preview__events");
-    if (eventGroups.length === 0) return;
+    if (eventGroups.length === 0) {
+      return;
+    }
+
     let maxHeight = 0;
     for (let i = 0; i < eventGroups.length; i++) {
       const height = eventGroups[i].getBoundingClientRect().height;
-      if (height > maxHeight) maxHeight = height;
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
     }
     content.style.setProperty("--preview-events-height", Math.ceil(maxHeight) + "px");
   }
 
+  // 依 viewport 寬度設定每一頁的寬度
   function syncPageWidths() {
     const pageWidth = viewport.clientWidth;
     const pages = content.querySelectorAll(".about-certifications-preview__page");
-    if (pages.length === 0 || pageWidth <= 0) return;
-
-    if (!window.matchMedia("(min-width: 768px)").matches) {
-      pages.forEach(function (page) {
-        page.style.removeProperty("--preview-column-width");
-      page.style.width = pageWidth + "px";
-      page.style.flexBasis = pageWidth + "px";
-      });
+    if (pages.length === 0 || pageWidth <= 0) {
       return;
     }
 
+    // 手機版：一頁就是一個 viewport 寬
+    if (!window.matchMedia("(min-width: 768px)").matches) {
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].style.removeProperty("--preview-column-width");
+        pages[i].style.width = pageWidth + "px";
+        pages[i].style.flexBasis = pageWidth + "px";
+      }
+      return;
+    }
+
+    // 桌機版：每欄寬度固定，最後一頁年份較少就比較窄
     const pageStyles = window.getComputedStyle(pages[0]);
     const columnGap = parseFloat(pageStyles.columnGap) || 0;
     const columnWidth = (pageWidth - ((pageSize - 1) * columnGap)) / pageSize;
-    pages.forEach(function (page) {
-      const yearCount = Number(page.dataset.previewYearCount) || 1;
+
+    for (let i = 0; i < pages.length; i++) {
+      const yearCount = Number(pages[i].dataset.previewYearCount) || 1;
       const pageContentWidth = (yearCount * columnWidth) + ((yearCount - 1) * columnGap);
-      page.style.setProperty("--preview-column-width", columnWidth + "px");
-      page.style.width = pageContentWidth + "px";
-      page.style.flexBasis = pageContentWidth + "px";
-    });
+      pages[i].style.setProperty("--preview-column-width", columnWidth + "px");
+      pages[i].style.width = pageContentWidth + "px";
+      pages[i].style.flexBasis = pageContentWidth + "px";
+    }
   }
 
   function renderTrack() {
-    if (pageSets.length === 0) {
+    if (allPages.length === 0) {
       return;
     }
 
@@ -514,109 +535,22 @@ function initCertificationPreview() {
     const track = document.createElement("div");
     track.className = "about-certifications-preview__track";
     track.setAttribute("data-certification-preview-track", "");
-    pageSets.forEach(function (pages, decadeIndex) {
-      const decade = decades[decadeIndex];
-      pages.forEach(function (years, pageIndex) {
-        track.append(createPage(years, decade, decadeIndex, pageIndex));
-      });
-    });
+    for (let i = 0; i < allPages.length; i++) {
+      track.append(createPage(allPages[i]));
+    }
+
     content.replaceChildren(sharedTimelineTrack, track);
     syncPageWidths();
     renderPagination();
     syncEventHeights();
-    setTrackPosition(false);
-    updateControls();
+    goToPage(activePage, false);
   }
 
-  function activateDecade(index, moveFocus) {
-    const isInvalidIndex = index < 0 || index >= decadeButtons.length;
-    if (isInvalidIndex) {
+  // ---------- 滑鼠拖曳翻頁（觸控裝置保留原生橫向捲動） ----------
+  function finishMouseDrag(event) {
+    if (!isDragging) {
       return;
     }
-
-    activeDecadeIndex = index;
-    activePageIndex = 0;
-    markActiveDecadeButton(index);
-    setTrackPosition(true);
-    updateControls();
-    if (moveFocus) {
-      decadeButtons[index].focus();
-      if (decadeButtons[index].scrollIntoView) {
-        decadeButtons[index].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-      }
-    }
-  }
-
-  function movePage(offset) {
-    const pages = getPages(decades[activeDecadeIndex]);
-    let nextDecadeIndex = activeDecadeIndex;
-    let nextPageIndex = activePageIndex + offset;
-
-    if (nextPageIndex < 0 && activeDecadeIndex > 0) {
-      nextDecadeIndex -= 1;
-      nextPageIndex = getPages(decades[nextDecadeIndex]).length - 1;
-    } else if (nextPageIndex >= pages.length && activeDecadeIndex < decades.length - 1) {
-      nextDecadeIndex += 1;
-      nextPageIndex = 0;
-    }
-
-    if (nextDecadeIndex === activeDecadeIndex) {
-      const boundedPageIndex = Math.max(0, Math.min(nextPageIndex, pages.length - 1));
-      if (boundedPageIndex === activePageIndex) {
-        return;
-      }
-
-      activePageIndex = boundedPageIndex;
-    } else {
-      activeDecadeIndex = nextDecadeIndex;
-      activePageIndex = nextPageIndex;
-      markActiveDecadeButton(activeDecadeIndex);
-      decadeButtons[activeDecadeIndex].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-    }
-    setTrackPosition(true);
-    updateControls();
-  }
-
-  decadeButtons.forEach(function (button, index) {
-    button.addEventListener("click", function () {
-      activateDecade(index);
-    });
-
-    button.addEventListener("keydown", function (event) {
-      let nextIndex = index;
-
-      if (event.key === "ArrowRight") {
-        nextIndex = Math.min(index + 1, decadeButtons.length - 1);
-      }
-
-      if (event.key === "ArrowLeft") {
-        nextIndex = Math.max(index - 1, 0);
-      }
-
-      if (event.key === "Home") {
-        nextIndex = 0;
-      }
-
-      if (event.key === "End") {
-        nextIndex = decadeButtons.length - 1;
-      }
-
-      if (nextIndex === index) {
-        return;
-      }
-
-      event.preventDefault();
-      activateDecade(nextIndex, true);
-    });
-  });
-
-  // 滑鼠拖曳 viewport 也能翻頁；觸控裝置保留原生水平 scroll-snap
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartScrollLeft = 0;
-
-  function finishMouseDrag(event) {
-    if (!isDragging) return;
     isDragging = false;
     viewport.classList.remove("is-dragging");
     if (event && viewport.hasPointerCapture(event.pointerId)) {
@@ -643,7 +577,9 @@ function initCertificationPreview() {
   });
 
   viewport.addEventListener("pointermove", function (event) {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
     const distance = event.clientX - dragStartX;
     if (Math.abs(distance) > 4) {
       viewport.classList.add("is-dragging");
@@ -654,8 +590,9 @@ function initCertificationPreview() {
 
   viewport.addEventListener("pointerup", finishMouseDrag);
   viewport.addEventListener("pointercancel", finishMouseDrag);
-
   viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
+
+  // 觸控板橫向滑動時，一次翻一頁
   viewport.addEventListener("wheel", function (event) {
     const isMostlyVertical = Math.abs(event.deltaX) <= Math.abs(event.deltaY);
     const horizontalMovementIsSmall = Math.abs(event.deltaX) < 16;
@@ -668,25 +605,29 @@ function initCertificationPreview() {
     movePage(event.deltaX > 0 ? 1 : -1);
   }, { passive: false });
 
+  // 視窗大小改變
   window.addEventListener("resize", function () {
     const nextPageSize = getPageSize();
 
+    // 每頁數量沒變，只需要重新量寬度
     if (nextPageSize === pageSize) {
       syncPageWidths();
       syncEventHeights();
-      setTrackPosition(false);
+      goToPage(activePage, false);
       return;
     }
+
+    // 每頁數量變了，要重新分頁並回到第一頁
     pageSize = nextPageSize;
-    activePageIndex = 0;
-    rebuildPageSets();
+    activePage = 0;
+    activeDecade = -1;
+    buildPages();
     renderTrack();
   });
 
-  activeDecadeIndex = 0;
-  rebuildPageSets();
+  // ---------- 開始 ----------
+  buildPages();
   renderTrack();
-  activateDecade(0);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
