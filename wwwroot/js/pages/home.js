@@ -8,14 +8,6 @@ function setActiveState(element, isActive) {
 }
 
 
-// ---------------------------------------------------------------------------
-// 1. Hero 輪播
-//    - 每 6 秒自動切換
-//    - 可點圓點、手機可左右滑動
-//    - 鍵盤聚焦、滑鼠移入、分頁隱藏時暫停
-// ---------------------------------------------------------------------------
-
-// 複製第一張投影片放在最後面,讓「最後一張 → 第一張」可以繼續往左滑
 function createFirstSlideClone(firstSlide) {
   const clone = firstSlide.cloneNode(true);
   clone.classList.add("home-hero__slide--clone");
@@ -25,7 +17,6 @@ function createFirstSlideClone(firstSlide) {
   clone.setAttribute("aria-hidden", "true");
   clone.inert = true;
 
-  // 頁面只能有一個 h1,所以複製出來的標題改成 p
   const heading = clone.querySelector("h1");
   if (heading) {
     const fakeTitle = document.createElement("p");
@@ -39,6 +30,8 @@ function createFirstSlideClone(firstSlide) {
 
   return clone;
 }
+
+
 
 function setupHeroCarousel() {
   const hero = document.querySelector("[data-hero-carousel]");
@@ -245,8 +238,6 @@ function setupHeroCarousel() {
   });
 
   reducedMotion.addEventListener("change", startAutoplay);
-
-  // ----- 開始 -----
 
   render();
   startAutoplay();
