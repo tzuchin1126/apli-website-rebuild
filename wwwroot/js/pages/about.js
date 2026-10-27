@@ -64,25 +64,32 @@ function setupAboutScrollMotion() {
     return;
   }
 
+  const profile = page.querySelector(".about-profile");
   const sections = Array.from(page.querySelectorAll(
-    ".about-profile, .about-certifications-preview"
+    ".about-certifications-preview"
   ));
   const enterpriseCards = Array.from(page.querySelectorAll(
     ".about-enterprise-values__card"
   ));
-  const revealTargets = sections.concat(enterpriseCards);
+  const revealTargets = (profile ? [profile] : []).concat(sections, enterpriseCards);
   if (revealTargets.length === 0) {
     return;
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reducedMotion.matches) {
+    return;
+  }
 
   page.classList.add("about-motion-ready");
+  if (profile) {
+    profile.classList.add("about-profile-reveal");
+  }
   sections.forEach(function (section) {
     section.classList.add("about-scroll-reveal");
   });
   enterpriseCards.forEach(function (card) {
-    card.classList.add("about-enterprise-values__card-reveal");
+    card.classList.add("about-scroll-reveal");
   });
 
   function revealSection(section) {
@@ -90,12 +97,7 @@ function setupAboutScrollMotion() {
       section.classList.add("is-visible");
     };
 
-    if (!section.classList.contains("about-enterprise-values__card-reveal")) {
-      reveal();
-      return;
-    }
-
-    const image = section.querySelector("img");
+    const image = section.querySelector(".about-enterprise-values__media img");
     if (!image || image.complete) {
       reveal();
       return;
@@ -103,40 +105,6 @@ function setupAboutScrollMotion() {
 
     image.addEventListener("load", reveal, { once: true });
     image.addEventListener("error", reveal, { once: true });
-    if (typeof image.decode === "function") {
-      image.decode().then(reveal).catch(function () {
-        // load/error 事件仍會負責解除等待。
-      });
-    }
-  }
-
-  if (reducedMotion.matches) {
-    revealTargets.forEach(function (target) {
-      target.classList.add("is-visible");
-    });
-    return;
-  }
-
-  if (!("IntersectionObserver" in window)) {
-    // 舊瀏覽器沒有 IntersectionObserver，改用 scroll/resize 自己算元素是否進入畫面
-    function revealSectionsWhenVisible() {
-      revealTargets.forEach(function (target) {
-        const rect = target.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.88 && rect.bottom > window.innerHeight * 0.12) {
-          revealSection(target);
-        }
-      });
-
-      if (revealTargets.every(function (target) { return target.classList.contains("is-visible"); })) {
-        window.removeEventListener("scroll", revealSectionsWhenVisible);
-        window.removeEventListener("resize", revealSectionsWhenVisible);
-      }
-    }
-
-    window.addEventListener("scroll", revealSectionsWhenVisible, { passive: true });
-    window.addEventListener("resize", revealSectionsWhenVisible);
-    revealSectionsWhenVisible();
-    return;
   }
 
   const observer = new IntersectionObserver(function (entries, currentObserver) {
@@ -151,11 +119,6 @@ function setupAboutScrollMotion() {
     observer.observe(target);
   });
 
-  reducedMotion.addEventListener("change", function () {
-    if (!reducedMotion.matches) return;
-    observer.disconnect();
-    revealTargets.forEach(revealSection);
-  }, { once: true });
 }
 
 function initCertificationPreview() {
@@ -188,7 +151,6 @@ function initCertificationPreview() {
     if (!Number.isInteger(yearNumber)) {
       return;
     }
-
     const decadeStart = Math.floor(yearNumber / 10) * 10;
     if (!yearsByDecade[decadeStart]) {
       yearsByDecade[decadeStart] = [];
@@ -329,6 +291,7 @@ function initCertificationPreview() {
       const distance = pageStep - startLeft;
       const startTime = window.performance.now();
       const duration = 500;
+
       viewport.classList.add("is-certification-animating");
 
       function animateScroll(currentTime) {
@@ -521,8 +484,8 @@ function initCertificationPreview() {
     if (!window.matchMedia("(min-width: 768px)").matches) {
       pages.forEach(function (page) {
         page.style.removeProperty("--preview-column-width");
-        page.style.width = pageWidth + "px";
-        page.style.flexBasis = pageWidth + "px";
+      page.style.width = pageWidth + "px";
+      page.style.flexBasis = pageWidth + "px";
       });
       return;
     }

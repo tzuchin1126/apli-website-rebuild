@@ -40,7 +40,7 @@
 
 .admin-login__logo {
   display: block;
-  width: min(190px, 58vw);
+  width: min(160px, 50vw);
 }
 
 .admin-login__logo img {
@@ -49,12 +49,16 @@
 
 .admin-login__card {
   width: 100%;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--admin-line);
+  border-radius: var(--radius-md);
+  background: var(--admin-panel);
 }
 
 .admin-login__content {
   width: min(100% - 48px, 608px);
   min-height: calc(100dvh - 80px);
-  margin-left: clamp(24px, 27.3vw, 560px);
+  margin-inline: auto;
   padding-top: clamp(64px, 9vh, 112px);
 }
 
@@ -75,7 +79,7 @@
 
 .admin-login h1 {
   margin: 0 0 42px;
-  font-size: clamp(2.6rem, 4vw, 3.5rem);
+  font-size: var(--font-size-h1);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.1;
@@ -84,8 +88,8 @@
 .admin-login__eyebrow {
   margin: 0 0 16px;
   color: var(--admin-muted);
-  /* font-size: .75rem; */
-  /* font-weight: var(--font-weight-medium); */
+  font-size: .75rem;
+  font-weight: var(--font-weight-medium);
   letter-spacing: .12em;
 }
 
@@ -275,11 +279,11 @@
 
 .admin-login .admin-button--primary {
   width: fit-content;
-  min-width: 92px;
-  min-height: 56px;
+  min-width: 84px;
+  min-height: 44px;
   border-radius: 3px;
-  padding: 8px 19px;
-  font-size: 1.05rem;
+  padding: 6px 14px;
+  font-size: .95rem;
 }
 
 .admin-button--primary:hover,
@@ -615,7 +619,7 @@
   .admin-login__content {
     min-height: calc(100dvh - 64px);
     width: calc(100% - 40px);
-    margin-left: 20px;
+    margin-inline: auto;
     padding-top: 52px;
   }
 

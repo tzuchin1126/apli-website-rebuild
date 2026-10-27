@@ -17,7 +17,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
-        <link rel="preload" as="image" href="public/images/about/about-hero-container-yard.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/tokens.css?v=20261025-body-letter-spacing-v1">
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
@@ -104,14 +103,12 @@
     </div>
   </header>
 
-  <main id="main-content" role="main">
-    <section class="about-hero page-hero" aria-labelledby="about-hero-title">
-      <picture class="page-hero__media">
-        <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" width="1638" height="1335" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" loading="eager" decoding="async">
-      </picture>
-      <div class="about-hero__overlay page-hero__overlay" aria-hidden="true"></div>
+  <main id="main-content">
+    <section class="page-hero" aria-labelledby="about-hero-title">
+      <img class="page-hero__image" src="public/images/about/about-hero-container-yard.jpg" width="1638" height="1335" alt="高雄港貨櫃場物流作業現場" fetchpriority="high" decoding="async">
+      <div class="page-hero__overlay" aria-hidden="true"></div>
       <div class="page-hero__content">
-        <nav class="about-breadcrumb page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
+        <nav class="page-breadcrumb page-hero__breadcrumb" aria-label="麵包屑">
           <div class="site-container">
             <a href="/">首頁</a>
             <span aria-hidden="true">/</span>
@@ -124,7 +121,7 @@
       </div>
     </section>
 
-    <div class="about-content-fold-stage">
+    <div class="about-content-clip-stage">
     <section id="company-profile" class="about-profile" aria-labelledby="about-profile-title">
       <div class="site-container">
         <figure class="about-profile__media">
@@ -151,7 +148,7 @@
           <p>亞太以客戶需求為核心，秉持唯客思維與專業團隊精神，持續創新服務，為客戶創造長遠價值。</p>
         </header>
         <div class="about-enterprise-values__grid">
-          <article class="about-enterprise-values__card about-enterprise-values__card--customer">
+          <article class="about-enterprise-values__card">
             <figure class="about-enterprise-values__media">
               <img src="public/images/about/about-port-aerial-view.jpg" width="3968" height="2976" alt="高雄港貨櫃碼頭空拍景象" loading="lazy" decoding="async">
             </figure>
@@ -160,7 +157,7 @@
               <p>以「唯客思維、智慧分享」的企業文化及創新服務的精神迎向未來，追求永續，更創新局。</p>
             </div>
           </article>
-          <article class="about-enterprise-values__card about-enterprise-values__card--professional">
+          <article class="about-enterprise-values__card">
             <figure class="about-enterprise-values__media">
               <img src="public/images/about/philosophy-values.jpg" width="1920" height="1080" alt="貨櫃場作業環境" loading="lazy" decoding="async">
             </figure>
@@ -169,7 +166,7 @@
               <p>專業團隊精神。</p>
             </div>
           </article>
-          <article class="about-enterprise-values__card about-enterprise-values__card--innovation">
+          <article class="about-enterprise-values__card">
             <figure class="about-enterprise-values__media">
               <img src="public/images/services/warehouse-storage.png" width="5974" height="3983" alt="物流團隊於貨櫃場協作" loading="lazy" decoding="async">
             </figure>

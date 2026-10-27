@@ -1,5 +1,116 @@
 # TODO
 
+- 已完成：保留後台圖形驗證碼 5 字元，並提高視覺干擾程度；加入點狀雜訊、多段曲線、字元大小／位置／顏色／旋轉隨機化、輕微 SVG 扭曲，以及較明顯的前景遮蔽線；保留一次性 Session 驗證與登入限流流程。
+- 實際驗證：`dotnet build -c Release --no-restore` 成功（0 警告、0 錯誤）、`git diff --check` 通過；已確認本次僅調整 CAPTCHA SVG 產生邏輯與輸入長度，登入流程未改動。
+- 未驗證：瀏覽器實際辨識難度、不同裝置顯示、視覺可讀性、錯誤／過期／重複 CAPTCHA 行為。
+- Commit：無，尚未提交。
+
+- 已完成：從共用 Footer 移除「員工專區」連結，保留人才招募與聯絡我們連結。
+- 實際驗證：已完成 Razor／HTML 差異檢查、`git diff --check`。
+- 未驗證：瀏覽器各頁 Footer 桌機／手機版面。
+- Commit：無，尚未提交。
+
+- 已完成：縮小後台登入按鈕，將登入按鈕 padding、最小尺寸與字級調整為較精簡的比例。
+- 實際驗證：已完成 CSS 靜態檢查、`git diff --check`。
+- 未驗證：瀏覽器實際桌機／手機按鈕尺寸與點擊範圍。
+- Commit：無，尚未提交。
+
+- 已完成：縮小後台登入頁左側頁首 Logo，寬度由 190px 調整為 160px。
+- 實際驗證：已完成 CSS 靜態檢查、`git diff --check`。
+- 未驗證：瀏覽器實際桌機／手機 Logo 尺寸。
+- Commit：無，尚未提交。
+
+- 已完成：為後台登入表單外層加入低對比邊框、圓角與內距，讓登入輸入區塊與頁面背景清楚分隔。
+- 實際驗證：已完成 CSS 靜態檢查、`git diff --check`。
+- 未驗證：瀏覽器實際桌機／手機邊框視覺與表單寬度。
+- Commit：無，尚未提交。
+
+- 已完成：調整後台員工登入頁，將登入內容由固定左偏位置改為水平置中，並將登入標題改用共用 `--font-size-h1`、縮小員工專區 eyebrow 字級。
+- 實際驗證：已完成 CSS 靜態檢查、`git diff --check`。
+- 未驗證：瀏覽器實際桌機／手機登入頁面位置與字級視覺驗收。
+- Commit：無，尚未提交。
+
+- 已完成：簡化 About 進場動畫的 `revealSection` 圖片等待邏輯，移除永遠不成立的重複 `!image` 判斷與 `image.decode().then()`，改由 `load`／`error` 事件處理未完成圖片。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check`。
+- 未驗證：瀏覽器實際圖片載入失敗與進場動畫行為。
+- Commit：無，尚未提交。
+
+- 已恢復：About 子公司介紹手機版常駐文字與移除 `aria-label` 的調整，回到原本只在 hover／focus 時顯示說明的行為。
+- 實際驗證：已完成 HTML／CSS 靜態檢查、`git diff --check`。
+- 未驗證：瀏覽器實際手機觸控畫面。
+- Commit：無，尚未提交。
+
+- 已完成：將 About 認證時間軸 `content-shell` 的 `touch-action` 改為 `pan-x pan-y`，保留水平滑動並恢復手機從該區塊開始的垂直捲動。
+- 實際驗證：已完成 CSS 靜態檢查、`git diff --check`。
+- 未驗證：實體手機／觸控裝置上認證區水平滑動與頁面垂直捲動的實際互動。
+- Commit：無，尚未提交。
+
+- 已完成：修正 About 經營理念區塊在行動裝置被後段基礎規則覆蓋的問題，將 `max-width: 980px` 的單欄 grid 規則放到基礎 grid 宣告之後，手機卡片改回一張一列。
+- 實際驗證：已完成 CSS 靜態規則檢查、`git diff --check`。
+- 未驗證：瀏覽器實際手機／平板畫面與桌機版面。
+- Commit：無，尚未提交。
+
+- 已恢復：About「認證與獎項」區塊的 HTML 結構與獎項清單輸出，恢復原本的多層容器、`aria-live`、`div/article/h4` 獎項結構、年代資料屬性與桌機／手機頁面寬度設定；保留其他 About 區塊整理與 Logo 修正。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check`。
+- 未驗證：瀏覽器實際認證切換、獎項內容高度、桌機／平板／手機與跨瀏覽器版面。
+- Commit：無，尚未提交。
+
+- 已恢復：About 認證時間軸改回原本的 `requestAnimationFrame` 手寫捲動動畫，保留動畫期間暫停 `scroll-snap` 的行為。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check`。
+- 未驗證：瀏覽器實際年代／分頁切換、桌機／平板／手機與跨瀏覽器；Computer Use 初始化失敗，且 ASP.NET 重新啟動受既有程序鎖定。
+- Commit：無，尚未提交。
+
+- 已完成：移除 About 舊 fold 效果殘留的 `.about-content-fold-stage > section` `z-index` 規則，保留仍用於裁切進場／水平滑入溢出的 `overflow: hidden`，並將 wrapper 改名為 `.about-content-clip-stage`。
+- 實際驗證：已完成 HTML／CSS 引用檢查與 `git diff --check`。
+- 未驗證：About 頁面瀏覽器實際進場動畫、水平溢出裁切、桌機／平板／手機版面與跨瀏覽器驗收。
+- Commit：無，尚未提交。
+
+- 已完成：統一 About 頁面遺留斷點，將 Hero 的 `761px` 改為共用的 `768px`，並把原本分散在 `840px` 的窄版 Profile、企業價值觀與子公司布局合併到 `980px`。
+- 保留判斷：`640px` 小手機細節、`1024px` 中型桌機字級、`1440px` 大桌機欄數，以及 JS 使用的 `1200px` 認證分頁數仍有不同版面責任。
+- 實際驗證：已完成 CSS 差異格式檢查。
+- 未驗證：About 頁面 640／768／980／1024／1200／1440 寬度的瀏覽器實際 RWD、認證時間軸與子公司欄數視覺驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正 About 認證年代切換的 ARIA，tab 僅保留 `aria-selected`，並為動態認證頁面補上 `role="tabpanel"`、唯一 ID 與 `aria-labelledby` 對應；分頁圓點仍保留 `aria-current`。
+- 實際驗證：已完成 JavaScript 語法與 `git diff --check`。
+- 未驗證：螢幕閱讀器實際朗讀、鍵盤 tab／tabpanel 操作、About 認證區瀏覽器桌機／平板／手機版面與跨瀏覽器驗收。
+- Commit：無，尚未提交。
+
+- 已完成：將 About 認證獎項由 `article`／`h4` 改為語意化的 `ul`／`li` 清單，保留原有圓點、文字排版與高度同步行為。
+- 實際驗證：已完成 JavaScript 語法與 `git diff --check`。
+- 未驗證：螢幕閱讀器實際朗讀、About 認證區瀏覽器桌機／平板／手機版面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：簡化 About 認證區 HTML，將標題直接放入單一 `.site-container`，移除多餘的 `header`／`.about-section-heading` 包裝與多個獨立 `.site-container`；保留認證時間軸、控制項與 noscript 內容結構。
+- 實際驗證：已完成 HTML／CSS class 引用檢查與 `git diff --check`。
+- 未驗證：About 認證區瀏覽器實際桌機／平板／手機版面、時間軸寬度與水平捲動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理 About CSS／JS 重複宣告，合併共用標題樣式、企業價值觀卡片樣式、reveal 動畫 class、認證頁面變數與媒體查詢；移除企業價值觀 modifier class、長駐 will-change、重複頁面寬度設定與事件變數遮蔽。
+- 保留判斷：年份排序暫不移除，因目前資料先經一般物件分組，數字鍵的列舉順序不保證維持原始資料順序；保留排序可避免認證年代順序改變。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check`，並完成關鍵 class／變數殘留檢查。
+- 未驗證：About 頁面瀏覽器實際桌機／平板／手機 reveal、認證時間軸切換／拖曳、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理 About 頁面 HTML，移除冗餘 `role="main"`、沒有 source 的 `picture`、未被使用的 About 專屬 hero class、重複的 Hero image preload／預設 eager loading，以及不需要的認證內容 `aria-live`。
+- 實際驗證：已完成 HTML 引用檢查與 `git diff --check`。
+- 未驗證：About 頁面瀏覽器實際 Hero 圖片、遮罩、麵包屑位置與認證時間軸互動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理 About 認證區塊無效 CSS，移除未使用的 preview inset／側邊控制變數、零值 scroll padding、空媒體查詢、預設值覆寫、重複 track gap 與 mobile events 宣告。
+- 實際驗證：已完成 CSS 文字引用檢查與 `git diff --check`。
+- 未驗證：About 頁面瀏覽器實際桌機／平板／手機版面、認證時間軸水平捲動與 reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已恢復：依需求撤回上一項 About 頁面三個子公司 Logo 對應修改，回到修改前的圖片路徑；其他檔案與變更保留。
+- 實際驗證：`git diff --check`。
+- 未驗證：About 頁面瀏覽器實際圖片顯示、桌機／平板／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+- 已完成：修正 About 頁面三個子公司 Logo 對應：亞柏油品改用 `aplus-energy.png`、亞柏會舘改用 `aplus-club.png`、亞柏羽球隊改用 `aplus-badminton.png`。
+- 實際驗證：核對 `about.html` 圖片路徑、`git diff --check`。
+- 未驗證：About 頁面瀏覽器實際圖片顯示、桌機／平板／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：移除首頁第二張 Hero 標題 `.home-hero__title` 上多餘的 `aria-hidden="true"`，讓父層 `.home-hero__content` 控制 slide 的可讀狀態，輪播切換到第二張時標題可被螢幕閱讀器讀取。
 - 實際驗證：`git diff --check`。
 - 未驗證：螢幕閱讀器實際朗讀、Hero 輪播切換、跨瀏覽器、實體裝置與無障礙人工驗收。
@@ -1136,3 +1247,7 @@
 - 已完成：因沒有合適的 LINE 圖示，恢復詳細頁原本的 LinkedIn「in」圖示與分享功能。
 - 已完成：行動裝置隱藏最新消息詳細頁麵包屑，避免長標題造成上方導覽區換行與版面跑掉；桌機維持顯示。
 - 已完成：行動裝置的最新消息詳細頁卡片與 Header 間增加 `24px` 上方間距，避免卡片貼住 Header。
+- 已完成：整理 About 認證時間軸已確認的死碼，移除隱藏的 shared timeline track、未使用的 track 狀態、無引用的 tab id、未讀取的 yearCount dataset、IntersectionObserver fallback、重複初始化與不必要的年份整數檢查；保留仍用於頁面寬度計算的 previewYearCount。
+- 實際驗證：已完成靜態引用檢查與差異格式檢查。
+- 未驗證：About 頁面瀏覽器實際桌機／平板／手機版面、認證時間軸切換與拖曳、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。

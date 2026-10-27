@@ -745,15 +745,32 @@ public static class NewsEndpoints
             return builder.ToString();
         }
 
-        // 畫一張帶干擾線的驗證碼圖片,純粹是防機器人用的,沒有特別複雜的邏輯
+        // 畫一張帶多層干擾的驗證碼圖片,提高 OCR 辨識難度但保留人工辨識性
         string CreateCaptchaSvg(string code)
         {
             var svg = new StringBuilder();
             svg.Append("<svg xmlns='http://www.w3.org/2000/svg' width='260' height='82' viewBox='0 0 260 82' role='img' aria-label='圖形驗證碼'>");
+            int filterSeed = RandomNumberGenerator.GetInt32(1, 100000);
+            svg.Append("<defs><filter id='captcha-warp' x='-10%' y='-20%' width='120%' height='140%'>" +
+                       "<feTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='2' seed='" + filterSeed + "' result='noise'/>" +
+                       "<feDisplacementMap in='SourceGraphic' in2='noise' scale='2.8' xChannelSelector='R' yChannelSelector='G'/>" +
+                       "</filter></defs>");
             svg.Append("<rect width='260' height='82' rx='8' fill='#f1f4f6'/>");
 
-            // 畫幾條干擾線,增加機器人辨識的難度
-            for (int i = 0; i < 9; i++)
+            // 背景先加入低對比點狀雜訊,避免文字輪廓過於乾淨
+            for (int i = 0; i < 58; i++)
+            {
+                int x = RandomNumberGenerator.GetInt32(8, 252);
+                int y = RandomNumberGenerator.GetInt32(8, 74);
+                int radius = RandomNumberGenerator.GetInt32(1, 3);
+                string color = i % 3 == 0 ? "#c5d0d4" : "#d8c9bb";
+
+                svg.Append("<circle cx='" + x + "' cy='" + y + "' r='" + radius +
+                           "' fill='" + color + "' opacity='.65'/>");
+            }
+
+            // 多段曲線與斜線交錯,讓 OCR 不容易只靠直線切割文字
+            for (int i = 0; i < 15; i++)
             {
                 int x1 = RandomNumberGenerator.GetInt32(0, 260);
                 int y1 = RandomNumberGenerator.GetInt32(8, 74);
@@ -762,26 +779,39 @@ public static class NewsEndpoints
                 int curveY = RandomNumberGenerator.GetInt32(0, 82);
                 int lineWidth = RandomNumberGenerator.GetInt32(1, 3);
 
-                string color = "#d2a36a";
-                if (i % 2 == 0)
-                {
-                    color = "#9eb2bc";
-                }
+                string color = i % 2 == 0 ? "#c49b72" : "#8ea7b1";
 
                 svg.Append("<path d='M" + x1 + " " + y1 + " Q130 " + curveY + " " + x2 + " " + y2 + "'" +
-                           " fill='none' stroke='" + color + "' stroke-width='" + lineWidth + "' opacity='.7'/>");
+                           " fill='none' stroke='" + color + "' stroke-width='" + lineWidth + "' opacity='.72'/>");
             }
 
-            // 每個字元用隨機角度旋轉一下,不要排得整整齊齊
+            // 字元使用不同大小、位置、顏色與較大的旋轉角度,並套用輕微扭曲
+            svg.Append("<g filter='url(#captcha-warp)'>");
             for (int i = 0; i < code.Length; i++)
             {
-                int x = 28 + i * 48;
-                int y = RandomNumberGenerator.GetInt32(49, 62);
-                int rotation = RandomNumberGenerator.GetInt32(-12, 13);
+                int x = 20 + i * 49 + RandomNumberGenerator.GetInt32(-8, 9);
+                int y = RandomNumberGenerator.GetInt32(48, 68);
+                int rotation = RandomNumberGenerator.GetInt32(-31, 32);
+                int fontSize = RandomNumberGenerator.GetInt32(29, 39);
+                string color = i % 3 == 0 ? "#34495e" : i % 3 == 1 ? "#425b62" : "#5d4d43";
 
                 svg.Append("<text x='" + x + "' y='" + y + "' transform='rotate(" + rotation + " " + x + " " + y + ")'" +
-                           " fill='#34495e' font-family='Arial, sans-serif' font-size='31' font-weight='700'>" +
+                           " fill='" + color + "' opacity='.9' stroke='#26343a' stroke-width='.55' paint-order='stroke'" +
+                           " font-family='Arial, sans-serif' font-size='" + fontSize + "' font-weight='700'>" +
                            code[i] + "</text>");
+            }
+            svg.Append("</g>");
+
+            // 最後疊上較明顯的前景干擾,讓字元不能直接從輪廓辨識
+            for (int i = 0; i < 9; i++)
+            {
+                int x1 = RandomNumberGenerator.GetInt32(10, 238);
+                int y1 = RandomNumberGenerator.GetInt32(18, 66);
+                int x2 = Math.Clamp(x1 + RandomNumberGenerator.GetInt32(18, 52), 0, 260);
+                int y2 = Math.Clamp(y1 + RandomNumberGenerator.GetInt32(-18, 19), 8, 74);
+
+                svg.Append("<path d='M" + x1 + " " + y1 + " L" + x2 + " " + y2 + "'" +
+                           " fill='none' stroke='#687d84' stroke-width='" + RandomNumberGenerator.GetInt32(1, 3) + "' opacity='.7'/>");
             }
 
             svg.Append("</svg>");
