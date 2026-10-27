@@ -373,6 +373,11 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
     background-position: center 90%;
   }
 }
+@media (min-width: 1440px) {
+  .home-page .home-contact {
+    background-position: center 60%;
+  }
+}
 @media (max-width: 767px) {
   .home-page .home-contact {
     background-attachment: scroll;
@@ -829,27 +834,6 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   text-decoration: none;
   transition: flex 400ms cubic-bezier(.45, 0, .55, 1);
 }
-.home-page .home-services-compare__card::before {
-  position: absolute;
-  z-index: 4;
-  right: 18px;
-  bottom: 32px;
-  width: 18px;
-  height: 18px;
-  background-color: currentColor;
-  color: var(--color-background);
-  content: "";
-  opacity: .9;
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 25%));
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M216 48v48a8 8 0 0 1-16 0V67.31l-50.34 50.35a8 8 0 0 1-11.32-11.32L188.69 56H160a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8ZM106.34 138.34 56 188.69V160a8 8 0 0 0-16 0v48a8 8 0 0 0 8 8h48a8 8 0 0 0 0-16H67.31l50.35-50.34a8 8 0 0 0-11.32-11.32Z' fill='black'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M216 48v48a8 8 0 0 1-16 0V67.31l-50.34 50.35a8 8 0 0 1-11.32-11.32L188.69 56H160a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8ZM106.34 138.34 56 188.69V160a8 8 0 0 0-16 0v48a8 8 0 0 0 8 8h48a8 8 0 0 0 0-16H67.31l50.35-50.34a8 8 0 0 0-11.32-11.32Z' fill='black'/%3E%3C/svg%3E") center / contain no-repeat;
-  transition: transform 180ms ease, opacity 180ms ease;
-}
-.home-page .home-services-compare__card:hover::before,
-.home-page .home-services-compare__card:focus-visible::before {
-  opacity: 1;
-  transform: scale(1.14);
-}
 .home-page .home-services-compare__card::after {
   position: absolute;
   z-index: 3;
@@ -1069,9 +1053,6 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
     touch-action: pan-x;
   }
   .home-page .home-services-compare__grid::-webkit-scrollbar { display: none; }
-  .home-page .home-services-compare__card::before {
-    display: none;
-  }
   .home-page .home-services-compare__pagination {
     display: flex;
     align-items: center;

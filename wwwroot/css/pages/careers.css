@@ -51,6 +51,27 @@
   outline-offset: 7px;
 }
 
+@media (min-width: 841px) {
+  .join-intro__scroll-cue {
+    gap: 4px;
+    font-size: clamp(0.6875rem, 0.75vw, 0.75rem);
+  }
+
+  .join-intro__scroll-cue svg {
+    width: clamp(22px, 1.8vw, 30px);
+    stroke-width: 4;
+  }
+
+  .join-intro__scroll-cue:hover svg,
+  .join-intro__scroll-cue:focus-visible svg {
+    transform: translateY(3px);
+  }
+
+  .join-intro__scroll-cue:focus-visible {
+    outline-offset: 5px;
+  }
+}
+
 .join-career {
   position: relative;
   isolation: isolate;
