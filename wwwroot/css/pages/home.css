@@ -888,8 +888,7 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   --home-services-image-offset-x: 180px;
 }
 .home-page .home-services-compare__card:nth-child(3) {
-  /* --home-services-image-position: 24% 66%; */
-  --home-services-image-position: 24% 85%;
+  --home-services-image-position: 70% 85%;
   --home-services-image-offset-x: -120px;
 }
 .home-page .home-services-compare__card:nth-child(4) {
@@ -1023,7 +1022,6 @@ body.home-page > .site-header:hover .site-header__nav > a:hover, body.home-page 
   .home-page .home-services-compare__media img {
     width: 100%;
     height: 100%;
-    transform: translate(-50%, -50%);
   }
   .home-page .home-services-compare__card:nth-child(2),
   .home-page .home-services-compare__card:nth-child(3),
