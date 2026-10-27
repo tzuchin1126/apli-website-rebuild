@@ -1,5 +1,178 @@
 # TODO
 
+- 已完成：移除首頁第二張 Hero 標題 `.home-hero__title` 上多餘的 `aria-hidden="true"`，讓父層 `.home-hero__content` 控制 slide 的可讀狀態，輪播切換到第二張時標題可被螢幕閱讀器讀取。
+- 實際驗證：`git diff --check`。
+- 未驗證：螢幕閱讀器實際朗讀、Hero 輪播切換、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：再次調整首頁 Alpha Logo 垂直位置；移除第 6 張卡片媒體容器的上下內距，讓 180px Alpha JPG 以完整卡片高度置中，避免受到內容區高度限制而視覺上偏下；同步更新首頁 CSS 快取版本。
+- 實際驗證：檢視 CSS 置中規則、`git diff --check`。
+- 未驗證：瀏覽器桌機／手機實際 Alpha Logo 垂直置中、hover 放大、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁最後一張 Alpha Logo 跑位；恢復整理前的取景尺寸，桌機限制為 180px、手機限制為 150px，並取消 Alpha JPG 的共用 `max-height: 100%` 裁切，保留其他五張 Logo 的共用規則；同步更新首頁 CSS 快取版本。
+- 實際驗證：檢視 Alpha JPG 原始圖與 CSS 尺寸規則、`git diff --check`。
+- 未驗證：瀏覽器桌機／手機實際 Alpha Logo 位置、hover 放大、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理首頁可由 cascade 確認的 CSS／JS 死碼：移除被後段覆蓋的 Intro 宣告；將 Hero ≥1200px 高度規則移到 Hero 區段；將 Services details 的 `max-width` 放入 Services 區塊；移除 Services 無效的 `media::after`、`filter:none`、重複圖片尺寸與基礎 focus details 規則；移除 News list 無作用的 `transform:none`；合併 Header Logo 重複宣告；清理 JS 重複分隔線與空行。
+- 實際驗證：`git diff --check`。
+- 未驗證：首頁瀏覽器畫面、Services wrapper／Latest wrapper 是否可安全移除、main layering、reduced-motion 合併、section 背景宣告、圖片取景與 Alpha 白底、跨瀏覽器、實體裝置與無障礙人工驗收。
+- 保留：`home-intro`／Services body／Latest carousel wrapper；這些涉及 HTML 結構與定位，待瀏覽器實測後再處理。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁 `.home-affiliates__card` 與 `.home-latest__feature` 沒有實際作用的 `color: var(--color-background)`，保留兩個元件與子元素既有的背景及文字顏色；同步更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：關係企業與最新消息區塊桌機／平板／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：保留首頁 Hero 第二張圖片的 `loading="lazy"` 與 `fetchpriority="low"`，並在頁面 `load` 後由 JavaScript 將第二張圖切換為 `eager`，讓 Safari 等瀏覽器在首屏完成後提前載入，降低第一次輪播切換出現空白的風險；同步更新首頁 JS 快取版本。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：Safari／Chrome 實際網路載入時序、第一次輪播切換、桌機／平板／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：擴大首頁服務卡片觸控裝置的預設展開條件；768px 以上只要不是 hover＋fine pointer，就會顯示服務說明，涵蓋平板與混合輸入裝置，並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：iPad 直向 768px／820px 實際寬度、說明文字是否完整、混合輸入裝置、桌機／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收；若平板卡片過窄，後續需改為手機版橫向滑動。
+- Commit：無，尚未提交。
+
+- 已完成：補齊首頁手機 Header 的 reduced-motion 規則；`.site-header__brand`、`.site-header__tools` 與 `.menu-toggle` 現在會與 `.site-header__inner` 一起停用 `home-header-mobile-entry` 動畫，並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：瀏覽器開啟 reduced-motion 時的手機 Header、桌機／平板畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理首頁最新消息 SSR 結構；`PublicPageRenderer` 現在直接輸出 `a > .home-latest__meta + h3`，不再輸出舊的 `__body`／`__title-row` 包裝，也移除已被隱藏的 `__more`／`__arrow-icon` CSS 規則。
+- 實際驗證：`dotnet build -c Release`、`git diff --check`；確認 `NewsSeoService.cs` 與首頁 CSS 已無上述舊 selector。
+- 未驗證：瀏覽器最新消息桌機／平板／手機畫面、新聞資料實際 SSR 輸出、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁最新消息 section 自身的進場淡入／位移動畫，保留 `data-home-reveal` 與 `.is-visible` 作為內部動畫觸發，避免 section 與 feature／新聞項目兩層動畫疊加；同步更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：瀏覽器最新消息進場動畫、reduced-motion、桌機／平板／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：補上首頁 Hero 輪播的 `pointercancel` 處理；觸控／手寫筆手勢被瀏覽器中斷時會清除 `pointerId`，避免後續手勢狀態殘留；同步更新首頁 JS 快取版本。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：實體觸控裝置的手勢中斷與恢復、桌機／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁服務卡片手機版分頁最後一點不會亮的問題；當橫向捲動到 `scrollWidth - clientWidth` 的最右端時，明確啟用最後一張卡片的分頁按鈕，並保留桌機無橫向捲動時的原本判斷；同步更新首頁 JS 快取版本。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：手機實際橫向滑動與最後一點亮起、桌機無橫向捲動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁服務卡片橫向滑動容器的 `touch-action: pan-x`，保留 `overflow-x: auto` 與原本手機橫向卡片行為，避免從卡片開始滑動時阻擋頁面垂直捲動；並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：手機實體觸控的水平／垂直手勢、桌機／平板畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：統一首頁 Hero 手機版第一張與第二張標題的字距與行高；手機規則現在同時套用 `h1` 與複製 slide 的 `.home-hero__title`，並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`。
+- 未驗證：手機版實際第二張 slide、輪播循環、桌機／平板畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁 Hero 複製 slide 的 heading 語意；複製品中的 `h1` 改為 `.home-hero__title` 段落，保留原本視覺樣式，避免輪播複製後頁面產生第二個 `h1`。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：瀏覽器輪播複製品的視覺樣式、讀屏工具實際朗讀、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁 Hero 循環重置的 `transitionend` 監聽；移除 `{ once: true }`，改為確認事件來自 slide track 的 `transform` 後才手動移除監聽，避免 CTA 等子元素 transition 冒泡提前消耗監聽器。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：瀏覽器 Hero 自動循環、CTA hover 同時發生時的重置、手機／桌機實際畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁手機版 Hero 循環回第一張時的圖片跳位；將 JS 複製出的 `.home-hero__slide--clone` 與真正第一張套用相同的 `object-position: 72% center`，並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/home.js`。
+- 未驗證：手機版實際輪播循環、reduced-motion、桌機／平板畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正桌機服務卡片 hover 展開後敘述不顯示的問題；補回桌機 hover／focus 對 `.home-services-compare__details` 的展開規則，保留卡片 flex 展開、圖片取景與觸控裝置預設展開行為。
+- 實際驗證：`git diff --check`。
+- 未驗證：瀏覽器桌機 hover／鍵盤 focus、平板觸控、手機橫向捲動、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：保留目前首頁最新消息 UI／UX，重新改為 SSR 輸出並移除首頁新聞 fetch。`PublicPageRenderer` 現在輸出與原前端 DOM 相同的主消息、右側 3 筆列表、`home-latest__body`／`home-latest__title-row` 結構與「更多資訊」按鈕；保留既有 CSS 排版、箭頭與進場動畫，JavaScript 不再負責建立新聞區塊。
+- 實際驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/home.js`、`git diff --check`；以 Release 站台請求首頁確認 feature 連結與標題已填入、SSR 輸出 3 筆列表、`home-latest-items` marker 已移除、舊的首頁 fetch 不在 `home.js`。
+- 未驗證：瀏覽器桌機／平板／手機實際畫面、新聞 0／1／4／5 筆情境、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：依需求將首頁最新消息區塊恢復為整理前的前端載入模式：恢復首頁 JavaScript fetch `/api/public/news`、動態建立新聞卡片與「更多資訊」按鈕、SSR 舊列表結構與新聞卡片箭頭，並恢復該區塊原本的內容進場動畫；其他首頁區塊的整理保留不變。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`。
+- 未驗證：首頁新聞 API 實際回應、桌機／平板／手機畫面、新聞載入失敗情境、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正首頁最新消息區塊在新聞卡片結構整理後殘留舊箭頭元素造成的跑版；隱藏舊 SSR／快取 HTML 可能留下的 `.home-latest__more` 與 `.home-latest__arrow-icon`，保留新的新聞標題與列表排版，並更新首頁 CSS 快取版本。
+- 實際驗證：`git diff --check`；已核對目前 SSR 新聞輸出不再產生舊箭頭 markup。
+- 未驗證：使用者瀏覽器重新整理後的桌機／手機實際畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：依首頁 HTML／CSS／JS 清理盤點，修正首頁語意與新聞 SSR 結構：第二張 Hero 文案改為非 `h1`，Intro 移除單一圖片的 `<picture>` 包裝；服務卡片補正圖片替代文字與重複文案；關係企業改用正確 Logo 檔案、以 `h3` 搭配既有 `.sr-only`，移除 ALPHA 的背景圖片動畫；首頁新聞改由 `PublicPageRenderer` 伺服器端輸出主消息與列表，移除前端重複 fetch、排序與動態箭頭建立，並讓「更多資訊」只在超過首頁顯示數量時由 SSR 顯示。服務項目導覽子連結同步改為對應錨點，桌機觸控裝置改為預設展開服務說明；首頁最新消息改為單層區塊進場動畫；eyebrow 與首頁背景改用既有 token；移除首頁不必要的 `role`／`aria-live` 宣告與第二張 Hero 的 eager 載入。
+- 實際驗證：`dotnet build -c Release`、`node --check wwwroot/js/pages/home.js`、`git diff --check`；以 Release 執行站台請求首頁，確認 SSR 輸出 1 筆 feature + 3 筆列表、feature 連結／日期／標題已填入、舊的 `home-latest__body` 與前端 fetch 不再出現；並核對 `NewsSeoService` 的首頁新聞排序與 SSR marker、Logo 檔案存在、所有靜態頁服務子選單錨點。
+- 未驗證：首頁桌機／平板／手機畫面、觸控展開、新聞 0／1／4／5 筆情境、跨瀏覽器、實體裝置與無障礙人工驗收。
+- 保留：`background-attachment: fixed` 依先前明確需求未移除；多層 `overflow` 仍待瀏覽器實測後再處理；Noto Serif TC 的 `--font-special` 仍被 Hero 標題使用。
+- Commit：無，尚未提交。
+
+- 已完成：清理首頁其他死碼與過時註解：移除與共用 `site-footer.css` 完全相同的首頁 Footer 覆寫、重複的 heading `font-family`、`h2::after` 多餘 `content`、手機版最新消息 heading 已被 `display: contents` 取代的 flex 宣告、ALPHA 預設 `background-blend-mode`、聯絡區無作用的根層文字色，以及過時的拖曳／source-faithful／curved backdrop 註解。
+- 實際驗證：`git diff --check`，並核對 `site-footer.css` 與 `reset.css` 的共用 token／字體來源。
+- 未驗證：首頁 Footer、最新消息手機版、Intro／聯絡區文字、背景裁切與 overflow 行為的瀏覽器畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- 保留：`html`／`body`／`main`／fold stage 與卡片的 `overflow` 尚未貿然刪除，待實際瀏覽器驗證其對橫向溢出、背景裁切、陰影與動畫的影響後再處理。
+- Commit：無，尚未提交。
+
+- 已完成：整理首頁 Header 狀態樣式，使用 `--header-fg`、`--header-line` 與 `--header-logo-filter` 收斂滾動、選單、互動、hover／focus-within 的重複顏色與 Logo filter；合併 inner／導覽規則，移除重複手機高度、無作用的 `text-shadow: none`，並將手機 Header keyframes 移出 media query，保留下拉選單、手機選單與底線行為。
+- 實際驗證：`git diff --check`，並確認 `site-header.css` 沒有 `text-shadow` 宣告後移除首頁 Header 的重複清除規則。
+- 未驗證：首頁 Header 桌機／手機 hover、focus、滾動、選單展開、下拉導覽與 Logo 顏色，跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理首頁 Hero CSS／JS，合併兩段 `.home-hero__slide img` 圖片規則，移除不會重疊的 active slide `z-index`，並停止 JS 產生沒有 CSS 用途的 `is-slide-0` class；保留 `is-slide-1` 對第二張投影片的取景規則與既有橫向輪播。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`，並確認 `is-slide-0` 與重複 Hero 圖片 selector 已無殘留。
+- 未驗證：首頁 Hero 桌機／筆電／手機實際輪播、快速切換、循環切換、reduced-motion、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：合併首頁 Intro 標題與描述文字 CSS，將 `h2` 的有效設定集中到 `.home-intro__heading h2`；移除重複的 color 與被覆蓋的舊字級／白色文字規則，將描述段落的有效字級、字重、字距與對齊集中到單一規則；移除已被 `max-width: none` 覆蓋的 `50rem` 段落限制，保留 Services details 的 `50rem` 限制。
+- 實際驗證：`git diff --check`，並確認 Intro 舊的重複 selector 與無效 `max-width` 已移除。
+- 未驗證：首頁 Intro 桌機／筆電／手機實際字級、換行與間距、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：合併首頁 Services 卡片重複 CSS，移除前段被 canonical 規則覆蓋的 media、body、content、details、文字與標題規則；刪除重複的手機版區段、手機圖片多餘的 `top/left/transform`；移除沒有視覺效果的 Services `::after` pseudo-element 與舊 hover 位移／陰影規則，保留桌機 hover 展開、手機橫向捲動、圖片取景與標題內容。
+- 實際驗證：`git diff --check`，並確認 Services 重複 selector 與透明 pseudo-element 已移除。
+- 未驗證：首頁 Services 桌機／筆電／手機實際畫面、hover／focus 展開、手機滑動分頁、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：整理首頁其他 JavaScript，讓最新消息只有在 API 回傳數量超過顯示上限時才顯示「更多資訊」；移除 ASP.NET Core camelCase 不需要的 `Tag`／`ImageUrl` PascalCase 備援；刪除低效益的 `toArray()`，直接使用 NodeList 的 `length` 與索引迴圈。
+- 實際驗證：`node --check wwwroot/js/pages/home.js`、`git diff --check`，並確認相關備援與 `toArray()` 已無殘留。
+- 未驗證：首頁最新消息 API 回傳 0／1／6／7 筆時的瀏覽器畫面、錯誤回應、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁手機版與桌機重複的 CSS 宣告，包含 Hero CTA、Hero 標題共用字級／字重、Hero 對齊、啟用中的圓點尺寸、聯絡區文字字級、Intro body 的既有 `display: block`、最新消息日期預設 grid 值，以及已被媒體查詢覆蓋的聯絡區背景位置；保留手機版真正不同的尺寸、間距、裁切與互動設定。
+- 實際驗證：`git diff --check`，並確認刪除後沒有留下空的 CSS 規則。
+- 未驗證：首頁桌機／筆電／手機實際畫面、Hero 輪播與聯絡背景取景、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：清理首頁進場動畫未使用選項，移除 `data-home-reveal` 的 `left`／`right` 位移規則與未被 HTML 使用的 `120`／`140` 延遲規則；合併連續的 `prefers-reduced-motion` media query，保留目前使用中的 `up` 與 `100–600ms` 延遲。
+- 實際驗證：`git diff --check`，並確認首頁 HTML／CSS 中未再出現上述未使用選項。
+- 未驗證：首頁實際進場動畫、reduced-motion、桌機／筆電／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁 `.home-intro` 在 ≥1200px 會被後段 About 版型規則覆蓋的 `width`、`max-width`、`padding-inline`，以及最前面同樣無效的 `max-width: calc(1360px + 60px)`；保留後段真正生效的 Intro grid 版型。
+- 實際驗證：`git diff --check`，並確認上述無效宣告已移除。
+- 未驗證：首頁 ≥1200px 實際欄寬、桌機／筆電／手機畫面、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁 CSS 中被後段同權重「Keep the homepage sections on one spacing rhythm」規則覆蓋的舊區段間距宣告，包含服務卡片、最新消息、關係企業、Intro 手機版與服務卡片 grid 的舊 margin；保留目前實際生效的 `var(--section-space-lg)` 與 `var(--section-heading-content-gap)`。
+- 實際驗證：`git diff --check`，並確認上述舊數值宣告已無殘留。
+- 未驗證：首頁桌機／筆電／手機實際間距、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除未被 CSS 使用的 `setupServicesCardImageFrame()` 及其 `ResizeObserver`／resize 監聽與版面測量；同步刪除未被 `var()` 讀取的 `--home-services-image-frame-width/height` 與 `--home-services-image-offset-x` 設定，保留服務卡片既有圖片取景與 hover 展開規則。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/home.js`，並確認相關函式、CSS 變數與呼叫已無殘留。
+- 未驗證：首頁桌機／筆電／手機實際畫面、卡片 hover／focus、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除首頁服務卡片永遠隱藏的箭頭 icon 死碼，包含 `setupServicesCards()`、`createArrow()` 的 `chevron` 分支、箭頭 CSS、手機版與 reduced-motion 規則，並移除服務卡片標題為箭頭保留的 flex 對齊設定；保留文字箭頭與其他首頁互動。
+- 實際驗證：`git diff --check`、`node --check wwwroot/js/pages/home.js`。
+- 未驗證：首頁桌機／筆電／手機實際畫面、卡片 hover／focus、跨瀏覽器、實體裝置與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：將首頁「碼頭裝卸」第三張服務卡片的圖片水平取景由 `24%` 調整為 `70%`，保留垂直 `85%` 位置，讓圖片右側的貨櫃裝卸作業露出；同步更新首頁 CSS 快取版本。
 - 實際驗證：`git diff --check`；Chrome headless `930px` 寬首頁畫面確認第三張「碼頭裝卸」圖片已露出右側吊掛貨櫃與裝卸設備。
 - 未驗證：桌機／筆電／手機不同尺寸、hover／focus 展開取景、跨瀏覽器、實體裝置與無障礙人工驗收。

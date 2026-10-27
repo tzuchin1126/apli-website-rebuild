@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="css/layout/site-header.css?v=20261025-header-dropdown-title-v1">
   <link rel="stylesheet" href="css/layout/site-footer.css?v=20261023-token-cleanup-v9">
   <link rel="stylesheet" href="css/components/buttons.css?v=20261023-buttons-cleanup-v1">
-    <link rel="stylesheet" href="css/pages/home.css?v=20261027-home-services-image-position-v1">
+    <link rel="stylesheet" href="css/pages/home.css?v=20261027-alpha-logo-centered-v1">
   <link rel="stylesheet" href="css/site.css?v=20261023-token-cleanup-v9">
 </head>
 <body class="home-page">
-  <div class="page-loader" data-page-loader role="status" aria-live="polite" aria-label="頁面載入中">
+  <div class="page-loader" data-page-loader role="status" aria-label="頁面載入中">
     <div class="page-loader__content">
       <img class="page-loader__logo" src="public/images/logo/apli-logo.svg" alt="亞太國際物流" width="180" height="52">
       <span class="page-loader__indicator" aria-hidden="true"></span>
@@ -65,10 +65,10 @@
           </button>
           <div id="services-menu" class="nav-menu" role="group" aria-label="服務項目子選單">
             <span class="nav-menu__title">服務項目</span>
-            <a href="/services"><span>內陸貨櫃集散站</span></a>
-            <a href="/services"><span>倉儲物流</span></a>
-            <a href="/services"><span>碼頭裝卸</span></a>
-            <a href="/services"><span>機具銷售與維修</span></a>
+            <a href="/services#inland-yard"><span>內陸貨櫃集散站</span></a>
+            <a href="/services#warehousing"><span>倉儲物流</span></a>
+            <a href="/services#terminal-handling"><span>碼頭裝卸</span></a>
+            <a href="/services#maintenance"><span>機具銷售與維修</span></a>
           </div>
         </div>
         <a href="/news">最新消息</a>
@@ -98,7 +98,7 @@
       </button>
     </div>
   </header>
-  <main id="main-content" class="home-page" role="main">
+  <main id="main-content" class="home-page">
     <!-- Hero -->
     <section class="home-hero" aria-labelledby="home-hero-title" data-hero-carousel>
       <div class="home-hero__slides">
@@ -118,11 +118,11 @@
           </div>
         </div>
         <div class="home-hero__slide" data-hero-slide aria-hidden="true" inert>
-          <img src="public/images/index/home-hero-container-operation.png" width="1692" height="929" alt="亞太國際物流作業現場" loading="eager" fetchpriority="low" decoding="async">
+          <img src="public/images/index/home-hero-container-operation.png" width="1692" height="929" alt="亞太國際物流作業現場" loading="lazy" fetchpriority="low" decoding="async">
           <div class="site-container home-hero__content" aria-hidden="true">
             <div class="home-hero__copy">
               <p>您的貨物，由亞太守護</p>
-              <h1>優質服務 唯客思維</h1>
+              <p class="home-hero__title">優質服務 唯客思維</p>
               <a class="home-hero__cta" href="/services" tabindex="-1">
                 查看服務項目
                 <svg class="home-hero__cta-icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
@@ -165,9 +165,7 @@
           </div>
         </div>
         <figure class="home-intro__media">
-          <picture>
-            <img src="public/images/index/container-yard-storage-facility.png" width="1821" height="864" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
-          </picture>
+          <img src="public/images/index/container-yard-storage-facility.png" width="1821" height="864" alt="高雄港後線貨櫃儲運場與倉儲設備" loading="lazy" decoding="async">
         </figure>
       </div>
     </section>
@@ -182,13 +180,13 @@
         <div class="home-services-compare__grid">
           <a class="home-services-compare__card" href="/services#inland-yard" data-compact-title="內陸貨櫃集散站" data-home-reveal="up" data-home-delay="100">
             <div class="home-services-compare__media">
-              <img src="public/images/services/warehousing-yard.png" width="1536" height="1024" alt="倉儲管理服務" loading="lazy" decoding="async">
+              <img src="public/images/services/warehousing-yard.png" width="1536" height="1024" alt="內陸貨櫃集散站服務作業" loading="lazy" decoding="async">
             </div>
             <div class="home-services-compare__body">
               <div class="home-services-compare__content">
                 <h3>內陸貨櫃集散站</h3>
                 <div class="home-services-compare__details">
-                  <p>提供貨櫃儲放、拆裝卸、倉儲及運輸銜接等整合服務。</p>
+                  <p>提供貨櫃進出場、堆儲管理與運輸銜接等整合服務。</p>
                 </div>
               </div>
             </div>
@@ -201,14 +199,14 @@
               <div class="home-services-compare__content">
                 <h3>倉儲物流</h3>
                 <div class="home-services-compare__details">
-                  <p>提供貨櫃儲放、倉儲、拆裝櫃及運輸等物流服務。</p>
+                  <p>提供貨物入庫、保管、拆裝櫃與配送等倉儲物流服務。</p>
                 </div>
               </div>
             </div>
           </a>
           <a class="home-services-compare__card" href="/services#terminal-handling" data-compact-title="碼頭裝卸" data-home-reveal="up" data-home-delay="300">
             <div class="home-services-compare__media">
-              <img src="public/images/services/container-yard-overview-3.png" width="4912" height="3264" alt="貨櫃清潔與維修作業" loading="lazy" decoding="async">
+              <img src="public/images/services/container-yard-overview-3.png" width="4912" height="3264" alt="碼頭裝卸作業" loading="lazy" decoding="async">
             </div>
             <div class="home-services-compare__body">
               <div class="home-services-compare__content">
@@ -250,6 +248,13 @@
             <p class="home-section-eyebrow">NEWS</p>
             <h2 id="home-latest-title">最新消息</h2>
           </div>
+          <a class="button--primary home-latest__more-link" href="/news" hidden>
+            更多資訊
+            <span class="button__arrow-window" aria-hidden="true">
+              <svg class="button__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+              <svg class="button__icon" viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h10.25M8.25 3.25 13 8l-4.75 4.75"></path></svg>
+            </span>
+          </a>
         </div>
         <div class="home-latest__layout">
           <a class="home-latest__feature" data-home-latest-feature href="/news" aria-label="查看最新消息">
@@ -288,48 +293,50 @@
         <div class="home-affiliates__grid">
           <a class="home-affiliates__card" href="/affiliates#affiliate-sexin" data-home-reveal="up" data-home-delay="100">
             <div class="home-affiliates__media">
-              <img src="public/images/logo/transparent/shih-hsin-container.png" width="773" height="323" alt="世新貨櫃 Logo" loading="lazy" decoding="async">
+              <img src="public/images/logo/transparent/shih-hsin-container.png" width="773" height="323" alt="" loading="lazy" decoding="async">
             </div>
-            <div class="home-affiliates__body">
-              <h4>世新貨櫃</h4>
+            <div class="home-affiliates__body sr-only">
+              <h3>世新貨櫃</h3>
             </div>
           </a>
           <a class="home-affiliates__card" href="/affiliates#affiliate-badminton" data-home-reveal="up" data-home-delay="200">
             <div class="home-affiliates__media">
-              <img src="public/images/logo/transparent/aplus-club.png" width="866" height="288" alt="亞柏羽球隊 Logo" loading="lazy" decoding="async">
+              <img src="public/images/logo/transparent/aplus-badminton.png" width="834" height="299" alt="" loading="lazy" decoding="async">
             </div>
-            <div class="home-affiliates__body">
-              <h4>亞柏羽球隊</h4>
+            <div class="home-affiliates__body sr-only">
+              <h3>亞柏羽球隊</h3>
             </div>
           </a>
           <a class="home-affiliates__card" href="/affiliates#affiliate-club" data-home-reveal="up" data-home-delay="300">
             <div class="home-affiliates__media">
-              <img src="public/images/logo/transparent/aplus-energy.png" width="846" height="295" alt="亞柏會舘 Logo" loading="lazy" decoding="async">
+              <img src="public/images/logo/transparent/aplus-club.png" width="866" height="288" alt="" loading="lazy" decoding="async">
             </div>
-            <div class="home-affiliates__body">
-              <h4>亞柏會舘</h4>
+            <div class="home-affiliates__body sr-only">
+              <h3>亞柏會舘</h3>
             </div>
           </a>
           <a class="home-affiliates__card" href="/affiliates#affiliate-oil" data-home-reveal="up" data-home-delay="400">
             <div class="home-affiliates__media">
-              <img src="public/images/logo/transparent/aplus-badminton.png" width="834" height="299" alt="亞柏油品 Logo" loading="lazy" decoding="async">
+              <img src="public/images/logo/transparent/aplus-energy.png" width="846" height="295" alt="" loading="lazy" decoding="async">
             </div>
-            <div class="home-affiliates__body">
-              <h4>亞柏油品</h4>
+            <div class="home-affiliates__body sr-only">
+              <h3>亞柏油品</h3>
             </div>
           </a>
           <a class="home-affiliates__card" href="/affiliates#affiliate-taronews" data-home-reveal="up" data-home-delay="500">
             <div class="home-affiliates__media">
-              <img src="public/images/logo/transparent/taisounds.png" width="839" height="297" alt="太報 TaiSounds Logo" loading="lazy" decoding="async">
+              <img src="public/images/logo/transparent/taisounds.png" width="839" height="297" alt="" loading="lazy" decoding="async">
             </div>
-            <div class="home-affiliates__body">
-              <h4>太報</h4>
+            <div class="home-affiliates__body sr-only">
+              <h3>太報</h3>
             </div>
           </a>
           <a class="home-affiliates__card" href="/affiliates#affiliate-alpha" data-home-reveal="up" data-home-delay="600">
-            <div class="home-affiliates__media home-affiliates__media--alpha" role="img" aria-label="ALPHA TOTAL SOLUTION Logo"></div>
-            <div class="home-affiliates__body">
-              <h4>ALPHA TOTAL SOLUTION PTE LTD</h4>
+            <div class="home-affiliates__media">
+              <img src="public/images/logo/alpha-total-solution-logo.jpg" width="1200" height="800" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="home-affiliates__body sr-only">
+              <h3>ALPHA TOTAL SOLUTION PTE LTD</h3>
             </div>
           </a>
         </div>
@@ -361,6 +368,6 @@
   </main>
   <!-- shared-site-footer -->
   <script src="js/site.js?v=20261026-nonblocking-page-loader-v1"></script>
-    <script src="js/pages/home.js?v=20261025-home-hero-horizontal-v2"></script>
+    <script src="js/pages/home.js?v=20261027-hero-lazy-preload-v1"></script>
 </body>
 </html>

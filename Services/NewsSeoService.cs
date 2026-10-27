@@ -279,19 +279,37 @@ public static class NewsSeoService
         if (items.Count == 0)
         {
             string emptyHtml = "<p class='home-latest__empty'>目前沒有可顯示的最新消息。</p>";
-            return pageMarkup.Replace(HomeLatestMarker, emptyHtml);
+            return pageMarkup
+                .Replace(HomeLatestMarker, emptyHtml)
+                .Replace("<section class=\"home-latest\"", "<section class=\"home-latest is-empty\"");
         }
+
+        NewsItem featuredItem = items[0];
+        string featureLink = "/news/" + Uri.EscapeDataString(featuredItem.Id);
+        string featureImage = string.IsNullOrWhiteSpace(featuredItem.ImageUrl)
+            ? "public/images/index/news-feature.png"
+            : featuredItem.ImageUrl;
+        string result = pageMarkup
+            .Replace("data-home-latest-feature href=\"/news\"", "data-home-latest-feature href=\"" + Encode(featureLink) + "\"")
+            .Replace("aria-label=\"查看最新消息\"", "aria-label=\"" + Encode(featuredItem.Title) + "\"")
+            .Replace("src=\"public/images/index/news-feature.png\"", "src=\"" + Encode(featureImage) + "\"")
+            .Replace("alt=\"最新消息主視覺\"", "alt=\"" + Encode(featuredItem.Title) + "\"")
+            .Replace("data-home-latest-feature-date></span>", "data-home-latest-feature-date>" + Encode(featuredItem.Date) + "</span>")
+            .Replace("<span class=\"home-latest__feature-label\">最新公告</span>", "<span class=\"home-latest__feature-label\">" + Encode(GetTag(featuredItem)) + "</span>")
+            .Replace("data-home-latest-feature-title>查看最新公告</span>", "data-home-latest-feature-title>" + Encode(featuredItem.Title) + "</span>");
 
         var builder = new StringBuilder();
 
         // 只顯示最前面幾則(首頁不會顯示全部)
         int count = Math.Min(items.Count, HomeLatestItemCount);
-        for (int i = 0; i < count; i++)
+        for (int i = 1; i < count; i++)
         {
             builder.Append(BuildHomeLatestItemHtml(items[i]));
         }
 
-        return pageMarkup.Replace(HomeLatestMarker, builder.ToString());
+        result = result.Replace(HomeLatestMarker, builder.ToString());
+        return result.Replace("<a class=\"button--primary home-latest__more-link\" href=\"/news\" hidden>",
+            "<a class=\"button--primary home-latest__more-link\" href=\"/news\">");
     }
 
     // 最新消息列表頁:渲染完整的新聞列表,理由跟 RenderHomeLatest 一樣。
@@ -318,19 +336,11 @@ public static class NewsSeoService
         string tag = Encode(GetTag(item));
         string date = Encode(item.Date);
 
-        string arrow = "<svg class='home-latest__arrow-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' " +
-                       "stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" +
-                       "<path d='M5 12h14M12 5l7 7-7 7'></path></svg>";
-
         return "<a class='home-latest__item' href='" + link + "'>\n" +
-               "  <span class='home-latest__body'>\n" +
-               "    <span class='home-latest__meta'>" +
+               "  <span class='home-latest__meta'>" +
                         "<time class='home-latest__date' datetime='" + date + "'>" + date + "</time>" +
-                        "<span class='home-latest__category'>" + tag + "</span></span>\n" +
-               "    <span class='home-latest__title-row'>" +
-                        "<h3>" + Encode(item.Title) + "</h3>" +
-                        "<span class='home-latest__more' aria-hidden='true'>" + arrow + "</span></span>\n" +
-               "  </span>\n" +
+                        "<span class='home-latest__label'>" + tag + "</span></span>\n" +
+               "  <h3>" + Encode(item.Title) + "</h3>\n" +
                "</a>\n";
     }
 
