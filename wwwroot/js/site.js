@@ -2,6 +2,7 @@
 // 1. 頁面載入：等圖片與字型載入完成後，再顯示頁面
 
 const loader = document.querySelector("[data-page-loader]");
+const imageReadyPromises = new WeakMap();
 
 function wait(ms) {
   return new Promise(function (resolve) {
@@ -15,16 +16,49 @@ function waitForNextFrame() {
   });
 }
 
-// 先顯示頁面結構與 Hero 背景色；圖片完成後由各自的 Hero 載入動畫補上。
+function waitForImageReady(image) {
+  if (imageReadyPromises.has(image)) {
+    return imageReadyPromises.get(image);
+  }
+
+  const readyPromise = new Promise(function (resolve) {
+    function resolveAfterDecode() {
+      if (typeof image.decode !== "function") {
+        resolve();
+        return;
+      }
+
+      image.decode().then(resolve).catch(resolve);
+    }
+
+    if (image.complete) {
+      resolveAfterDecode();
+      return;
+    }
+
+    image.addEventListener("load", resolveAfterDecode, { once: true });
+    image.addEventListener("error", resolve, { once: true });
+  });
+
+  imageReadyPromises.set(image, readyPromise);
+  return readyPromise;
+}
+
+function waitForHeroImages() {
+  const heroImages = document.querySelectorAll(".page-hero .page-hero__image");
+  return Promise.all(Array.prototype.map.call(heroImages, waitForImageReady));
+}
+
+// Hero 圖片與字型準備好後，才顯示頁面內容並移除 Loader。
 async function revealPage() {
   // 等兩個畫面更新週期，確保版面已經排好
   await waitForNextFrame();
   await waitForNextFrame();
 
-  // 字型最多只阻塞 1 秒；圖片不再阻塞整頁，避免大型 Hero 造成白屏。
-  if (document.fonts) {
-    await Promise.race([document.fonts.ready, wait(1000)]);
-  }
+  const fontReady = document.fonts
+    ? Promise.race([document.fonts.ready, wait(1000)])
+    : Promise.resolve();
+  await Promise.all([waitForHeroImages(), fontReady]);
 
   document.documentElement.classList.add("page-ready");
 
@@ -32,10 +66,14 @@ async function revealPage() {
   await wait(240);
   loader.remove();
   document.documentElement.classList.remove("page-loading");
+  startReadyHeroImages();
 }
 
 function setupPageLoader() {
-  if (!loader) return;
+  if (!loader) {
+    setupHeroImages();
+    return;
+  }
   revealPage();
 }
 
@@ -52,7 +90,17 @@ function startZoomOut(image) {
 
 // event.currentTarget 就是載入完成的那張圖片
 function onHeroImageLoad(event) {
-  startZoomOut(event.currentTarget);
+  waitForImageReady(event.currentTarget).then(function () {
+    startZoomOut(event.currentTarget);
+  });
+}
+
+function startReadyHeroImages() {
+  const heroImages = document.querySelectorAll(".page-hero .page-hero__image");
+
+  for (let i = 0; i < heroImages.length; i++) {
+    startZoomOut(heroImages[i]);
+  }
 }
 
 function setupHeroImages() {
@@ -332,7 +380,6 @@ function setupBackToTop() {
 
 function init() {
   setupPageLoader();
-  setupHeroImages();
   setupFooter();
   setupHeader();
   setupBackToTop();

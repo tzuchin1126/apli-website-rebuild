@@ -1,5 +1,50 @@
 # TODO
 
+- 已完成：整理 `about.js` 認證時間軸程式，移除未使用的隱藏 shared timeline track，年代分組直接使用 HTML 的 `data-decade`，保留必要的資料讀取、分組、分頁、拖曳、無障礙與跨輪播頁高度同步方法；同步修正 `scrollend` 不應提前解除 smooth scroll 狀態。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；瀏覽器確認 37 筆資料建立 6 個輪播頁、3 個年代按鈕，並可正常切換至 2010s。
+- 未驗證：手機觸控、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：在認證與獎項 HTML 資料列補上 `data-decade`，`about.js` 改為直接讀取資料標記，不再以年份計算年代；保留既有年份分組、分頁與時間軸互動。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；確認 37 筆資料皆有 `data-decade`／`data-year`，瀏覽器可正常建立年代按鈕並切換至 2010s。
+- 未驗證：資料編輯錯誤時的年代一致性、手機觸控、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：修正認證年代切換時 smooth scroll 觸發中間狀態回寫，避免年代標題顏色與底線閃爍；點擊後立即維持目標年代狀態，只有滑動抵達目標位置後才同步實際頁面。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；瀏覽器確認切換後 active 年代不會在 smooth scroll 中途跳回，標題顏色與底線立即切換。
+- 未驗證：手機觸控滑動、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：補回認證與獎項標題的 `about-certifications-preview__title` class，使既有標題裝飾線樣式正確命中。
+- 實際驗證：`git diff --check` 通過；瀏覽器確認 `::after` 為 block、3px 高、套用橘色漸層裝飾線。
+- 未驗證：手機、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：恢復認證時間軸互動所需的 `reduceMotion` 判斷，修正切換年代／分頁時的 `ReferenceError`；Scroll Reveal 移除維持不變。
+- 實際驗證：待執行 JavaScript 語法、差異格式與瀏覽器認證切換驗證。
+- 未驗證：`prefers-reduced-motion` 實際偏好設定、桌機／手機與跨瀏覽器互動。
+- Commit：無，尚未提交。
+
+- 已完成：將認證與獎項資料移至 `about.html` 的語意化 `ol/li` 清單，`about.js` 改為讀取 HTML 後產生年代分頁、時間軸與互動內容；停用 JavaScript 時仍可直接閱讀完整資料。
+- 實際驗證：待執行 JavaScript 語法、HTML／資料數量檢查、差異格式與瀏覽器認證區互動驗證。
+- 未驗證：停用 JavaScript 的實際畫面、桌機／手機 RWD、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
+- 已完成：移除 About 專用 `resetEntryPosition()` 與手動 `history.scrollRestoration`，恢復瀏覽器原生的頁面進入、返回與錨點捲動行為。
+- 實際驗證：待執行 JavaScript 語法、差異格式與瀏覽器返回／錨點行為驗證。
+- 未驗證：瀏覽器實際返回位置、含 hash 連結、桌機／手機與跨瀏覽器行為。
+- Commit：無，尚未提交。
+
+- 已完成：全站 Loader 與 Hero 動畫共用同一個圖片 ready Promise，等待內頁 Hero 圖片完成載入與解碼後才解除 Loader，Loader 移除後才啟動 Hero 縮放效果；圖片錯誤時解除等待避免頁面永久卡住，並更新共用 `site.js` 快取版本。
+- 實際驗證：已完成 JavaScript 語法與差異格式檢查；瀏覽器連續重整驗證待重新執行。
+- 未驗證：圖片載入錯誤畫面、不同瀏覽器、實體裝置與未快取網路環境。
+- Commit：無，尚未提交。
+
+- 已完成：移除 About 頁面捲動到區塊時的滑入／淡入顯示功能；保留全站 Loading、Hero 進場效果與認證區互動。
+- 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check`。
+- 未驗證：瀏覽器實際捲動行為、桌機／手機 RWD、跨瀏覽器與無障礙人工驗收。
+- Commit：無，尚未提交。
+
 - 已完成：保留後台圖形驗證碼 5 字元，並提高視覺干擾程度；加入點狀雜訊、多段曲線、字元大小／位置／顏色／旋轉隨機化、輕微 SVG 扭曲，以及較明顯的前景遮蔽線；保留一次性 Session 驗證與登入限流流程。
 - 實際驗證：`dotnet build -c Release --no-restore` 成功（0 警告、0 錯誤）、`git diff --check` 通過；已確認本次僅調整 CAPTCHA SVG 產生邏輯與輸入長度，登入流程未改動。
 - 未驗證：瀏覽器實際辨識難度、不同裝置顯示、視覺可讀性、錯誤／過期／重複 CAPTCHA 行為。

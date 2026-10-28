@@ -1,160 +1,63 @@
-//進入頁面or重整頁面時，從最上方開始看，不會停在上次捲動的位置
-function resetEntryPosition() {
-  if (window.location.hash) {
-    return;
-  }
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-}
 
-window.history.scrollRestoration = "manual";
-window.addEventListener("pageshow", resetEntryPosition);
-
+//讀取使用者的系統「減少動態效果」設定
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// ---------------------------------------------------------------
-// 認證與獎項資料
-// 注意：資料必須維持「由新到舊」排列，下面的分組函式才會正確
-// ---------------------------------------------------------------
-const certificationPreviewEvents = [
-  { year: "2025", title: "取得職業安全衛生管理系統通過 ISO 45001:2018 驗證" },
-  { year: "2025", title: "獲國立體育大學頒發「113年度捐助興學紀念－嘉惠國體」" },
-  { year: "2025", title: "獲高雄市旗津區旗津國民小學頒發感謝狀（贊助114學年度推廣品格教育「師恩在心、四維同行」禮義廉恥揭牌典禮）" },
-  { year: "2024", title: "榮獲臺灣港務股份有限公司「113年度裝卸承攬業金舫獎」" },
-  { year: "2024", title: "榮獲教育部體育署「運動好人才・企業動起來」表率群倫獎（推動企業聘用運動指導員）" },
-  { year: "2023", title: "榮獲 1111 人力銀行「幸福企業」銀獎" },
-  { year: "2023", title: "榮獲臺灣港務股份有限公司「112年度裝卸承攬業金舫獎」" },
-  { year: "2021", title: "榮獲臺灣港務股份有限公司「110年度裝卸承攬業金舫獎」" },
-  { year: "2019", title: "榮獲臺灣港務股份有限公司「108年度裝卸承攬業金舫獎」" },
-  { year: "2017", title: "獲屏東市華山社區發展協會頒發「第2屆華山論健‧愛心健走」感謝狀（鼎力協助舉辦活動）" },
-  { year: "2017", title: "獲頒第63屆航海節高雄區慶祝大會籌備會「105年度高雄港貨櫃裝卸作業量績效斐然」獎座" },
-  { year: "2016", title: "榮獲臺灣港務股份有限公司「105年度裝卸承攬業貨櫃類金舫獎」" },
-  { year: "2016", title: "榮獲鴻明船舶貨物裝卸承攬股份有限公司「105年度高雄地區安全衛生優良協力廠商」" },
-  { year: "2016", title: "獲頒第62屆航海節高雄區慶祝大會籌備會「104年度高雄港裝卸貨櫃作業量績效卓越」獎座" },
-  { year: "2015", title: "獲頒第61屆航海節高雄區慶祝大會籌備會「103年度高雄港裝卸貨櫃作業量績效卓越」獎座" },
-  { year: "2015", title: "榮獲陽明海運股份有限公司「104年度高雄地區優良協力廠商」" },
-  { year: "2014", title: "榮獲臺灣港務股份有限公司「103年度貨櫃裝卸承攬業金舫獎」" },
-  { year: "2014", title: "獲頒第61屆航海節高雄區慶祝大會籌備會「102年度高雄港裝卸貨櫃作業量績效斐然」獎座" },
-  { year: "2014", title: "榮獲高雄市後備指揮部辦理年度國防工業緩召業務評比績優單位" },
-  { year: "2014", title: "榮獲第60屆航海節高雄區羽球聯誼賽冠軍" },
-  { year: "2013", title: "榮獲臺灣港務股份有限公司「客戶貢獻獎」(獎證字第1020301026號)" },
-  { year: "2013", title: "獲頒第59屆航海節高雄區慶祝大會籌備會「101年度高雄港裝卸貨櫃作業量績效卓越」獎座" },
-  { year: "2013", title: "榮獲陽明海運股份有限公司「102年度高雄地區優良協力廠商」" },
-  { year: "2013", title: "榮獲臺灣港務股份有限公司「最佳貢獻獎」" },
-  { year: "2012", title: "受頒發第58屆航海節高雄區羽球聯誼賽提供亞柏舘使本活動順利圓滿" },
-  { year: "2011", title: "榮獲交通部高雄港務局「100年度本港裝卸貨櫃作業量績效卓越」獎" },
-  { year: "2010", title: "榮獲交通部高雄港務局「99年度本港裝卸貨櫃作業量業績斐然」獎" },
-  { year: "2009", title: "世新貨櫃獲頒萬海航運股份有限公司「共創年作業量達100萬TEU」紀念獎座" },
-  { year: "2009", title: "獲頒萬海航運股份有限公司「共創年作業量達100萬TEU」紀念獎座" },
-  { year: "2009", title: "榮獲交通部高雄港務局「98年度本港裝卸貨櫃作業量績效卓越」獎" },
-  { year: "2008", title: "世新貨櫃榮獲Textainer Equipment Management「2008年度最佳貨櫃場獎」(Depot of the Year)" },
-  { year: "2008", title: "榮獲交通部高雄港務局「97年度推行勞工安全衛生工安優良」獎" },
-  { year: "2007", title: "榮登「TOP5000經營績效傑出企業」認證" },
-  { year: "2006", title: "世新貨櫃榮獲Textainer Equipment Management「2006年度最佳貨櫃場獎」(Depot of the Year)" },
-  { year: "2006", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「95年度本港貨櫃裝卸作業量名列前茅」獎" },
-  { year: "2005", title: "世新貨櫃榮獲Florens Container Services「2005年度全球卓越貨櫃場獎」(Worldwide Recognition For Depot Excellence)" },
-  { year: "2005", title: "公司前身亞太儲運股份有限公司榮獲交通部高雄港務局「94年度本港貨櫃裝卸量名列前茅、績效卓著」感謝獎" },
-];
 
-// ---------------------------------------------------------------
-// 關於我們頁：區塊捲動到畫面時淡入
-// ---------------------------------------------------------------
-function setupAboutScrollMotion() {
-  const page = document.querySelector(".about-page");
-  if (!page) {
-    return;
-  }
-  if (reduceMotion) {
-    return;
-  }
-
-  const profile = page.querySelector(".about-profile");
-  const sections = page.querySelectorAll(".about-certifications-preview");
-  const enterpriseCards = page.querySelectorAll(".about-enterprise-values__card");
-
-  // 把所有要淡入的元素放進同一個陣列
-  const revealTargets = [];
-  if (profile) {
-    profile.classList.add("about-profile-reveal");
-    revealTargets.push(profile);
-  }
-  for (let i = 0; i < sections.length; i++) {
-    sections[i].classList.add("about-scroll-reveal");
-    revealTargets.push(sections[i]);
-  }
-  for (let i = 0; i < enterpriseCards.length; i++) {
-    enterpriseCards[i].classList.add("about-scroll-reveal");
-    revealTargets.push(enterpriseCards[i]);
-  }
-
-  if (revealTargets.length === 0) {
-    return;
-  }
-
-  page.classList.add("about-motion-ready");
-
-  // 有圖片的區塊，等圖片載入完再淡入，避免畫面跳動
-  function revealSection(section) {
-    function reveal() {
-      section.classList.add("is-visible");
-    }
-
-    const image = section.querySelector(".about-enterprise-values__media img");
-    if (!image || image.complete) {
-      reveal();
-      return;
-    }
-
-    image.addEventListener("load", reveal, { once: true });
-    image.addEventListener("error", reveal, { once: true });
-  }
-
-  const observer = new IntersectionObserver(function (entries, currentObserver) {
-    for (let i = 0; i < entries.length; i++) {
-      const entry = entries[i];
-      if (!entry.isIntersecting) {
-        continue;
-      }
-      revealSection(entry.target);
-      currentObserver.unobserve(entry.target);
-    }
-  }, { rootMargin: "0px 0px -12%", threshold: 0.12 });
-
-  for (let i = 0; i < revealTargets.length; i++) {
-    observer.observe(revealTargets[i]);
-  }
-}
-
-// ---------------------------------------------------------------
-// 把資料分成「年代 → 年份 → 獎項」三層
-// 結果長這樣：
-// [ { start: 2020, label: "2020s", years: [ { year: "2025", events: ["...", "..."] } ] } ]
-// ---------------------------------------------------------------
 function groupEvents(events) {
   const result = [];
-  let currentDecade = null;
-  let currentYear = null;
-
   for (let i = 0; i < events.length; i++) {
     const item = events[i];
-    const start = Math.floor(Number(item.year) / 10) * 10;
-
-    // 換到新的年代，就開一個新的年代物件
-    if (currentDecade === null || currentDecade.start !== start) {
-      currentDecade = { start: start, label: start + "s", years: [] };
-      result.push(currentDecade);
-      currentYear = null;
+    // 第一層：找年代，沒有就新增
+    let decade = null;
+    for (let j = 0; j < result.length; j++) {
+      if (result[j].label === item.decade) {
+        decade = result[j];
+        break;
+      }
+    }
+    if (decade === null) {
+      decade = {
+        start: item.decade,
+        label: item.decade,
+        years: []
+      };
+      result.push(decade);
     }
 
-    // 換到新的年份，就開一個新的年份物件
-    if (currentYear === null || currentYear.year !== item.year) {
-      currentYear = { year: item.year, events: [] };
-      currentDecade.years.push(currentYear);
+    // 第二層：找年份，沒有就新增
+    let yearGroup = null;
+    for (let k = 0; k < decade.years.length; k++) {
+      if (decade.years[k].year === item.year) {
+        yearGroup = decade.years[k];
+        break;
+      }
+    }
+    if (yearGroup == null) {
+      yearGroup = { year: item.year, events: [] };
+      decade.years.push(yearGroup);
     }
 
-    currentYear.events.push(item.title);
+    // 第三層：把標題放進去
+    yearGroup.events.push(item.title);
+  }
+  return result;
+}
+
+
+function readCertificationEvents(source) {
+  const items = source.querySelectorAll("[data-decade][data-year]");
+  const events = [];
+
+  for (let i = 0; i < items.length; i++) {
+    const year = items[i].dataset.year;
+    const decade = items[i].dataset.decade;
+    const title = items[i].textContent.trim();
+    if (year && decade && title) {
+      events.push({ decade: decade, year: year, title: title });
+    }
   }
 
-  return result;
+  return events;
 }
 
 // ---------------------------------------------------------------
@@ -169,14 +72,16 @@ function initCertificationPreview() {
   const decadeNavigation = preview.querySelector("[data-certification-preview-decades]");
   const viewport = preview.querySelector(".about-certifications-preview__content-shell");
   const content = preview.querySelector("[data-certification-preview-content]");
-  if (!controls || !decadeNavigation || !viewport || !content) {
+  const source = preview.querySelector("[data-certification-preview-source]");
+  if (!controls || !decadeNavigation || !viewport || !content || !source) {
     return;
   }
 
-  const decades = groupEvents(certificationPreviewEvents);
+  const decades = groupEvents(readCertificationEvents(source));
   if (decades.length === 0) {
     return;
   }
+  source.hidden = true;
 
   const decadeButtons = [];
   let paginationButtons = [];
@@ -188,6 +93,9 @@ function initCertificationPreview() {
   let isDragging = false;
   let dragStartX = 0;
   let dragStartScrollLeft = 0;
+  let isProgrammaticScroll = false;
+  let programmaticScrollTarget = 0;
+  let programmaticScrollTimer = 0;
 
   // 依螢幕寬度決定一頁放幾個年份
   function getPageSize() {
@@ -263,8 +171,23 @@ function initCertificationPreview() {
     viewport.classList.toggle("is-track-advanced", index > 0);
 
     if (animate && !reduceMotion) {
+      isProgrammaticScroll = true;
+      programmaticScrollTarget = left;
+      window.clearTimeout(programmaticScrollTimer);
+      const settleProgrammaticScroll = function () {
+        if (Math.abs(viewport.scrollLeft - programmaticScrollTarget) > 1) {
+          programmaticScrollTimer = window.setTimeout(settleProgrammaticScroll, 100);
+          return;
+        }
+        isProgrammaticScroll = false;
+        syncStateFromScroll();
+      };
+      programmaticScrollTimer = window.setTimeout(settleProgrammaticScroll, 700);
       viewport.scrollTo({ left: left, behavior: "smooth" });
     } else {
+      isProgrammaticScroll = false;
+      programmaticScrollTarget = left;
+      window.clearTimeout(programmaticScrollTimer);
       viewport.scrollLeft = left;
     }
 
@@ -296,6 +219,14 @@ function initCertificationPreview() {
   function syncStateFromScroll() {
     if (isDragging) {
       return;
+    }
+
+    if (isProgrammaticScroll) {
+      if (Math.abs(viewport.scrollLeft - programmaticScrollTarget) > 1) {
+        return;
+      }
+      isProgrammaticScroll = false;
+      window.clearTimeout(programmaticScrollTimer);
     }
 
     const track = content.querySelector("[data-certification-preview-track]");
@@ -528,10 +459,6 @@ function initCertificationPreview() {
       return;
     }
 
-    const sharedTimelineTrack = document.createElement("div");
-    sharedTimelineTrack.className = "about-certifications-preview__shared-track";
-    sharedTimelineTrack.setAttribute("aria-hidden", "true");
-
     const track = document.createElement("div");
     track.className = "about-certifications-preview__track";
     track.setAttribute("data-certification-preview-track", "");
@@ -539,7 +466,7 @@ function initCertificationPreview() {
       track.append(createPage(allPages[i]));
     }
 
-    content.replaceChildren(sharedTimelineTrack, track);
+    content.replaceChildren(track);
     syncPageWidths();
     renderPagination();
     syncEventHeights();
@@ -591,6 +518,12 @@ function initCertificationPreview() {
   viewport.addEventListener("pointerup", finishMouseDrag);
   viewport.addEventListener("pointercancel", finishMouseDrag);
   viewport.addEventListener("scroll", syncStateFromScroll, { passive: true });
+  viewport.addEventListener("scrollend", function () {
+    if (!isProgrammaticScroll) {
+      return;
+    }
+    syncStateFromScroll();
+  });
 
   // 觸控板橫向滑動時，一次翻一頁
   viewport.addEventListener("wheel", function (event) {
@@ -631,6 +564,5 @@ function initCertificationPreview() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  setupAboutScrollMotion();
   initCertificationPreview();
 });
