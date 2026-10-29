@@ -115,7 +115,7 @@
   grid-area: description;
   width: 100%;
   max-width: none;
-  padding-bottom: clamp(20px, 2.5vw, 32px);
+  /* padding-bottom: clamp(20px, 2.5vw, 32px); */
   color: var(--color-text-body);
 }
 
@@ -123,10 +123,41 @@
   max-width: none;
   margin: 0;
   color: var(--color-text-body);
-  font-size: var(--font-size-body);
+  font-size: 1.0625rem;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   text-align: left;
+}
+
+.services-page #maintenance .service-section__description {
+  display: block;
+}
+
+.services-page #maintenance .service-description-list {
+  display: grid;
+  gap: 20px;
+  list-style: disc;
+  list-style-position: outside;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.services-page #maintenance .service-description-item::marker {
+  color: var(--color-text-primary);
+  font-size: 0.8em;
+}
+
+.services-page #maintenance .service-description-item {
+  display: list-item;
+}
+
+.services-page #maintenance .service-description-item h3 {
+  position: relative;
+  margin: 0 0 2px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body-lg);
+  /* font-weight: var(--font-weight-regular); */
+  line-height: var(--line-height-body);
 }
 
 .services-page .service-section__heading h2 {
@@ -540,7 +571,7 @@
   }
 
   .services-page .service-section__description p {
-    font-size: var(--font-size-body);
+    font-size: 1rem;
   }
 
   .services-page .service-carousel { aspect-ratio: 4 / 3; }

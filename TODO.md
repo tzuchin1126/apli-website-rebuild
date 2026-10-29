@@ -1,5 +1,7 @@
 # TODO
 
+- 2026-10-29 services description text: desktop 17px, mobile 16px; maintenance copy uses visible native disc bullets and tighter heading-to-paragraph spacing; `git diff --check` passed; no browser verification; no commit.
+
 - 已完成：整理 `about.js` 認證時間軸程式，移除未使用的隱藏 shared timeline track，年代分組直接使用 HTML 的 `data-decade`，保留必要的資料讀取、分組、分頁、拖曳、無障礙與跨輪播頁高度同步方法；同步修正 `scrollend` 不應提前解除 smooth scroll 狀態。
 - 實際驗證：`node --check wwwroot/js/pages/about.js`、`git diff --check` 通過；瀏覽器確認 37 筆資料建立 6 個輪播頁、3 個年代按鈕，並可正常切換至 2010s。
 - 未驗證：手機觸控、跨瀏覽器與無障礙人工驗收。
