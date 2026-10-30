@@ -1,5 +1,9 @@
 # TODO
 
+- 2026-10-30 careers 手機版間距調整：移除加入亞太內容底部多餘 padding，收斂 `join-career` 下方與 `join-benefits` 上方留白；桌機版不變；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 news-detail 移除 `news-detail__share` 分享區塊、相關 CSS 與 JavaScript 載入；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
 - 2026-10-30 careers `.join-career` 上下間距統一，使用相同的 `padding-block` 值，讓上方與下方留白一致；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
 
 - 2026-10-30 careers 移除 `.join-benefits` 的 `margin-top`，保留原有福利區塊 padding 與 tab 切換；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。

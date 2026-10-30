@@ -282,15 +282,19 @@
   }
 
   .join-intro__content {
-    padding: 0 0 64px;
+    padding: 0;
   }
 
 }
 
 @media (max-width: 760px) {
+  .join-career {
+    padding-block: 32px 24px;
+  }
+
   .join-benefits {
     margin-top: 0;
-    padding-block: 56px 72px;
+    padding-block: 32px 72px;
   }
 
   .benefits-tabs__list {
