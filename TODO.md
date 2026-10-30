@@ -1,5 +1,9 @@
 # TODO
 
+- 2026-10-30 services 桌機服務細節列表文字調整為約 17px（`1.0625rem`），手機 breakpoint 維持原本 16px；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 services 桌機服務描述文字調整為約 18px（`1.125rem`），手機 breakpoint 維持 16px；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
 - 2026-10-30 careers 手機版間距調整：移除加入亞太內容底部多餘 padding，收斂 `join-career` 下方與 `join-benefits` 上方留白；桌機版不變；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
 
 - 2026-10-30 news-detail 移除 `news-detail__share` 分享區塊、相關 CSS 與 JavaScript 載入；已完成 `git diff --check`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
