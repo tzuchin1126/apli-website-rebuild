@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------
-// 管理後台：登入、消息管理、分類管理
-// ---------------------------------------------------------------------------
-
-// 頁面載入完成後才開始執行
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const loginPanel = document.getElementById("loginPanel");
@@ -27,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const csrfTokenTag = document.querySelector('meta[name="csrf-token"]');
   const csrfToken = csrfTokenTag ? csrfTokenTag.content : "";
 
-  // 目前的消息、分類資料，先放空陣列，等登入後會重新指派
   let news = [];
   let categories = [];
 
@@ -37,9 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024; // 附件最大 10MB
   const MAX_IMAGE_EDGE = 1920; // 圖片最長邊不超過 1920px
 
-  // ---------------------------------------------------------------------------
-  // 綁定事件
-  // ---------------------------------------------------------------------------
   loginForm.addEventListener("submit", onLoginSubmit);
   newsForm.addEventListener("submit", onNewsSave);
   categoryForm.addEventListener("submit", onCategorySave);
@@ -53,16 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (resetButton) resetButton.addEventListener("click", onResetForm);
   if (refreshCaptchaButton) refreshCaptchaButton.addEventListener("click", loadCaptcha);
 
-  // ---------------------------------------------------------------------------
-  // 一開始要做的事
-  // ---------------------------------------------------------------------------
+  // 一開始
   setDefaultDate();
   loadCaptcha();
   restoreSession();
-
-  // ---------------------------------------------------------------------------
-  // 共用小工具
-  // ---------------------------------------------------------------------------
 
   // 幫 fetch 加上 CSRF Header
   function csrfHeaders(extraHeaders) {

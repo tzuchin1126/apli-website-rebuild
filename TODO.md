@@ -1,5 +1,23 @@
 # TODO
 
+- 2026-10-30 careers `.join-career` 上下間距統一，使用相同的 `padding-block` 值，讓上方與下方留白一致；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 移除 `.join-benefits` 的 `margin-top`，保留原有福利區塊 padding 與 tab 切換；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太圖片高度調整：桌機圖片改為 2:1，降低圖片高度；手機仍維持 16:9；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers `join-intro` 桌機左右欄位改為 5:5，保留左圖右文與手機版堆疊；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太區塊：移除淺灰背景色與 `join-intro__scroll-cue` HTML／CSS，保留左圖右文與既有響應式間距；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太間距整理：調整區塊上下留白、圖片與文字欄距、標題與內文距離、內文與 Scroll down 提示距離，並保留手機版堆疊節奏；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太圖片尺寸調整：參考 About「關於亞太」右側圖片，桌機改為 4fr/6fr 欄位與 16:10 比例，手機使用 16:9；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太區塊微調：桌機圖片限制最大寬度 620px，加入亞太標題改為左對齊；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
+- 2026-10-30 careers 加入亞太區塊：新增團隊合作圖片，桌機改為左圖右文，手機改為上下排列；保留現有文字與查看職缺互動；已完成 `git diff --check`、`node --check wwwroot/js/pages/careers.js`；尚未瀏覽器驗證、跨瀏覽器驗證、實體裝置驗證與無障礙人工驗收；未提交。
+
 - 2026-10-29 services description text: desktop 17px, mobile 16px; maintenance copy uses visible native disc bullets and tighter heading-to-paragraph spacing; `git diff --check` passed; no browser verification; no commit.
 
 - 已完成：整理 `about.js` 認證時間軸程式，移除未使用的隱藏 shared timeline track，年代分組直接使用 HTML 的 `data-decade`，保留必要的資料讀取、分組、分頁、拖曳、無障礙與跨輪播頁高度同步方法；同步修正 `scrollend` 不應提前解除 smooth scroll 狀態。
